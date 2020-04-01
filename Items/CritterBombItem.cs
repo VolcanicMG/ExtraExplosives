@@ -1,4 +1,4 @@
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +18,14 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.Items
 {
-	public class BasicExplosiveItem : ModItem
-	{
+    public class CritterBombItem : ModItem
+    {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Basic Explosive");
-            Tooltip.SetDefault("The most basic explosive");
-            
+            DisplayName.SetDefault("CritterBomb");
+            Tooltip.SetDefault("Critters everywhere!! So many....");
+
         }
 
         public override void SetDefaults()
@@ -37,16 +37,17 @@ namespace ExtraExplosives.Items
             item.maxStack = 999;   //This defines the items max stack
             item.consumable = true;  //Tells the game that this should be used up once fired
             item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example
-            item.rare = 0;     //The color the title of your item when hovering over it ingame
+            item.rare = 8;     //The color the title of your item when hovering over it ingame
             item.UseSound = SoundID.Item1; //The sound played when using this item
             item.useAnimation = 20;  //How long the item is used for.
-            item.useTime = 20;     //How fast the item is used.
+            //item.useTime = 20;     //How fast the item is used.
             item.value = Item.buyPrice(0, 0, 3, 0);   //How much the item is worth, in copper coins, when you sell it to a merchant. It costs 1/5th of this to buy it back from them. An easy way to remember the value is platinum, gold, silver, copper or PPGGSSCC (so this item price is 3 silver)
             item.noUseGraphic = true;
             item.noMelee = true;      //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
-            item.shoot = mod.ProjectileType("BasicExplosiveProjectile"); //This defines what type of projectile this item will shoot
+            item.shoot = mod.ProjectileType("CritterBombProjectile"); //This defines what type of projectile this item will shoot
             item.shootSpeed = 5f; //This defines the projectile speed when shot
             //item.createTile = mod.TileType("ExplosiveTile");
+
 
         }
 
@@ -59,17 +60,13 @@ namespace ExtraExplosives.Items
 
         //}
         public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.StoneBlock, 3);
-			recipe.AddIngredient(ItemID.CopperBow, 1);
-			recipe.AddIngredient(ItemID.Wood, 3);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.DirtBlock, 1);
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
 
-		}
-	}
-
-
+        }
+    }
 }

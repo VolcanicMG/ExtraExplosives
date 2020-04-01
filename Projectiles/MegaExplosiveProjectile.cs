@@ -1,4 +1,4 @@
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +18,12 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class BasicExplosiveProjectile : ModProjectile
-	{
+    public class MegaExplosiveProjectile : ModProjectile
+    {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BasicExplosiveProjectile");
+            DisplayName.SetDefault("MegaExplosiveProjectile");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
@@ -45,7 +45,7 @@ namespace ExtraExplosives.Projectiles
 
             Vector2 position = projectile.Center;
             Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-            int radius = 2;     //this is the explosion radius, the highter is the value the bigger is the explosion
+            int radius = 40;     //this is the explosion radius, the highter is the value the bigger is the explosion
 
             for (int x = -radius; x <= radius; x++)
             {
