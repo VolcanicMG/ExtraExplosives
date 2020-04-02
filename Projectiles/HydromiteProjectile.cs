@@ -18,53 +18,55 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.Projectiles
 {
-    class CritterBombProjectile : ModProjectile
+    public class HydromiteProjectile : ModProjectile
     {
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("CritterBomb");
+            DisplayName.SetDefault("HydromiteProjectile");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
             projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 10;   //This defines the hitbox width
-            projectile.height = 32;    //This defines the hitbox height
+            projectile.width = 13;   //This defines the hitbox width
+            projectile.height = 19;    //This defines the hitbox height
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
             projectile.timeLeft = 100; //The amount of time the projectile is alive for
-            projectile.damage = 0;
- 
         }
-
-
 
         public override void Kill(int timeLeft)
         {
-            //Player player = Main.player[Main.myPlayer];
             Vector2 position = projectile.Center;
-
-            int spread = 0;
-            int[] variety = {442, 443, 445, 446, 447, 448, 539, 444}; //442:GoldenBird - 443:GoldenBunny - 445:GoldenFrog - 446:GoldenGrasshopper - 447:GoldenMouse - 539:GoldenSquirrel - 448:GoldenWorm - 444:GoldenButterfly
-            
-
             Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            int radius = 10;     //this is the explosion radius, the highter is the value the bigger is the explosion
 
-            for(int i = 0; i <= 10; i++)
+            for (int x = -radius; x <= radius; x++)
             {
-                spread = Main.rand.Next(1200); //Random spread
+                for (int y = -radius; y <= radius; y++)
+                {
+                    int xPosition = (int)(x + position.X / 16.0f);
+                    int yPosition = (int)(y + position.Y / 16.0f);
 
-                int pick = 0; //What critter do I pick
-                pick = variety[Main.rand.Next(variety.Length)]; //Out of the 8 what one do I pick?
-
-                NPC.NewNPC((int)position.X + (spread - 600), (int)position.Y, pick, 0, 0f, 0f, 0f, 0f, 255); //Spawn 
-                spread = 0;
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
+                    {
+                        Main.tile[xPosition, yPosition].liquid = 1;
+                        //Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+                    }
+                }
             }
-            Main.NewText("Hurry ma, grab the net!", (byte)30, (byte)255, (byte)10, false);
+
+            Liquid.quickSettle = true;
+            //Liquid.QuickWater();
+            Liquid.UpdateLiquid();
 
         }
 
     }
 }
+
+
+// Main.tile[(int)((position.X + i) / 16), (int)((position.Y + j) / 16)].liquid = 1;

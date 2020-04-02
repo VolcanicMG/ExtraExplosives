@@ -1,4 +1,4 @@
-﻿using Terraria.ModLoader;
+using Terraria.ModLoader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +18,11 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.Projectiles
 {
-    class CritterBombProjectile : ModProjectile
+    class BunnyiteProjectile : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("CritterBomb");
+            DisplayName.SetDefault("Bunnyite");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
@@ -34,35 +34,24 @@ namespace ExtraExplosives.Projectiles
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 100; //The amount of time the projectile is alive for
+            projectile.timeLeft = 80; //The amount of time the projectile is alive for
             projectile.damage = 0;
- 
+
         }
-
-
 
         public override void Kill(int timeLeft)
         {
-            //Player player = Main.player[Main.myPlayer];
             Vector2 position = projectile.Center;
-
-            int spread = 0;
-            int[] variety = {442, 443, 445, 446, 447, 448, 539, 444}; //442:GoldenBird - 443:GoldenBunny - 445:GoldenFrog - 446:GoldenGrasshopper - 447:GoldenMouse - 539:GoldenSquirrel - 448:GoldenWorm - 444:GoldenButterfly
-            
-
             Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
 
-            for(int i = 0; i <= 10; i++)
+            int bunnies = 1000;
+            int x = 0;
+
+            for (x = 0; x < bunnies; x++)
             {
-                spread = Main.rand.Next(1200); //Random spread
-
-                int pick = 0; //What critter do I pick
-                pick = variety[Main.rand.Next(variety.Length)]; //Out of the 8 what one do I pick?
-
-                NPC.NewNPC((int)position.X + (spread - 600), (int)position.Y, pick, 0, 0f, 0f, 0f, 0f, 255); //Spawn 
-                spread = 0;
+                NPC.NewNPC((int)position.X + Main.rand.Next(1000)-500, (int)position.Y, NPCID.Bunny, 0, 0f, 0f, 0f, 0f, 255); //Spawn 
             }
-            Main.NewText("Hurry ma, grab the net!", (byte)30, (byte)255, (byte)10, false);
+            Main.NewText("You don't have to do this...", (byte)30, (byte)255, (byte)10, false);
 
         }
 

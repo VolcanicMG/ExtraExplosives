@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Leveler");
-            Tooltip.SetDefault("Levels a 300 x 30 space always to the left");
+            Tooltip.SetDefault("Levels a 100 x 20 space. Blows up immediately");
         }
 
         public override void SetDefaults()
@@ -46,7 +46,6 @@ namespace ExtraExplosives.Items
             item.shoot = mod.ProjectileType("TheLevelerProjectile"); //This defines what type of projectile this item will shoot
             item.shootSpeed = 5f; //This defines the projectile speed when shot
             //item.createTile = mod.TileType("ExplosiveTile");
-
         }
 
         public override void AddRecipes()

@@ -35,7 +35,7 @@ namespace ExtraExplosives.Projectiles
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 60; //The amount of time the projectile is alive for
+            projectile.timeLeft = 45; //The amount of time the projectile is alive for
             projectile.damage = 0;
         }
 
