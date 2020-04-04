@@ -18,44 +18,41 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.Projectiles
 {
-
-    class BunnyiteProjectile : ModProjectile
+    public class BreakenTheBankenChildProjectile : ModProjectile
     {
         internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bunnyite");
+            DisplayName.SetDefault("BreakenTheBankenChild");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
+            projectile.CloneDefaults(ProjectileID.GoldCoin);
             projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 10;   //This defines the hitbox width
-            projectile.height = 32;    //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
+            projectile.width = 13;   //This defines the hitbox width
+            projectile.height = 19;    //This defines the hitbox height
+            projectile.aiStyle = 1; //16  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 80; //The amount of time the projectile is alive for
-            projectile.damage = 0;
-
+            projectile.penetrate = 20; //Tells the game how many enemies it can hit before being destroyed
+            projectile.timeLeft = 200; //The amount of time the projectile is alive for
         }
+
+        public override string Texture => "Terraria/Projectile_" + ProjectileID.GoldCoin;
 
         public override void Kill(int timeLeft)
         {
+
             Vector2 position = projectile.Center;
             Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            int radius = 8;     //this is the explosion radius, the highter is the value the bigger is the explosion
 
-            int bunnies = 1000;
-            int x = 0;
 
-            for (x = 0; x < bunnies; x++)
-            {
-                NPC.NewNPC((int)position.X + Main.rand.Next(1000)-500, (int)position.Y, NPCID.Bunny, 0, 0f, 0f, 0f, 0f, 255); //Spawn 
-            }
-            Main.NewText("You don't have to do projectile...", (byte)30, (byte)255, (byte)10, false);
+            Item.NewItem(position, new Vector2(10, 10), ItemID.GoldCoin);
 
         }
+
 
     }
 }

@@ -1,4 +1,4 @@
-﻿using Terraria.ModLoader;
+using Terraria.ModLoader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +15,15 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
-using ExtraExplosives;
 
 namespace ExtraExplosives.Projectiles
 {
-    public class MediumExplosiveProjectile : ModProjectile
+    public class BreakenTheBankenProjectile : ModProjectile
     {
         internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("MediumExplosiveProjectile");
+            DisplayName.SetDefault("BreakenTheBanken");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
@@ -35,18 +34,20 @@ namespace ExtraExplosives.Projectiles
             projectile.height = 19;    //This defines the hitbox height
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 100; //The amount of time the projectile is alive for
+            projectile.penetrate = 20; //Tells the game how many enemies it can hit before being destroyed
+            projectile.timeLeft = 140; //The amount of time the projectile is alive for
         }
-
-
 
         public override void Kill(int timeLeft)
         {
 
             Vector2 position = projectile.Center;
             Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-            int radius = 10;     //this is the explosion radius, the highter is the value the bigger is the explosion
+            int radius = 20;     //this is the explosion radius, the highter is the value the bigger is the explosion
+
+            Vector2 vel;
+
+            int cntr = 0;
 
             for (int x = -radius; x <= radius; x++)
             {
@@ -57,18 +58,14 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
                     {
-                        if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.DesertFossil || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
-                            || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
-                            Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge)
-                        {
-
+                        if (WorldGen.TileEmpty(xPosition, yPosition)) { 
+                            if (++cntr <= 50) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, mod.ProjectileType("BreakenTheBankenChildProjectile"), 100, 20, Main.myPlayer, 0.0f, 0);
                         }
                         else
                         {
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
-                            Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
-                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
+                            if (++cntr <= 50) Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, mod.ProjectileType("BreakenTheBankenChildProjectile"), 100, 20, Main.myPlayer, 0.0f, 0);
                         }
+                        Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                     }
                 }
             }

@@ -22,7 +22,7 @@ namespace ExtraExplosives.Projectiles
     public class TheLevelerProjectile : ModProjectile
     {
 
-        internal static bool LevelerCanBreakWalls;
+        internal static bool CanBreakWalls;
 
         public override void SetStaticDefaults()
         {
@@ -33,8 +33,8 @@ namespace ExtraExplosives.Projectiles
         public override void SetDefaults()
         {
             projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 10;   //This defines the hitbox width
-            projectile.height = 32;    //This defines the hitbox height
+            projectile.width = 5;   //This defines the hitbox width
+            projectile.height = 5;    //This defines the hitbox height
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
@@ -47,8 +47,8 @@ namespace ExtraExplosives.Projectiles
         {
             projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
             projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-            projectile.width = 20;
-            projectile.height = 64;
+            projectile.width = 5;
+            projectile.height = 5;
             projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
             projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
 
@@ -77,9 +77,19 @@ namespace ExtraExplosives.Projectiles
                     int xPos = (int) (x + position.X / 16.0f); //converts to world space
                     int yPos = (int) (-y + position.Y / 16.0f); //converts to world space
 
-                    WorldGen.KillTile(xPos, yPos, false, false, false);  //this make the explosion destroy tiles  
-                    Dust.NewDust(position, width, height, DustID.Fire, 4.0f, 4.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
-                    if(LevelerCanBreakWalls) WorldGen.KillWall(xPos, yPos, false);
+                    if (Main.tile[xPos, yPos].type == TileID.LihzahrdBrick || Main.tile[xPos, yPos].type == TileID.LihzahrdAltar || Main.tile[xPos, yPos].type == TileID.LihzahrdFurnace || Main.tile[xPos, yPos].type == TileID.DesertFossil || Main.tile[xPos, yPos].type == TileID.BlueDungeonBrick || Main.tile[xPos, yPos].type == TileID.GreenDungeonBrick
+                            || Main.tile[xPos, yPos].type == TileID.PinkDungeonBrick || Main.tile[xPos, yPos].type == TileID.Cobalt || Main.tile[xPos, yPos].type == TileID.Palladium || Main.tile[xPos, yPos].type == TileID.Mythril || Main.tile[xPos, yPos].type == TileID.Orichalcum || Main.tile[xPos, yPos].type == TileID.Adamantite || Main.tile[xPos, yPos].type == TileID.Titanium ||
+                            Main.tile[xPos, yPos].type == TileID.Chlorophyte || Main.tile[xPos, yPos].type == TileID.DefendersForge)
+                    {
+
+                    }
+                    else
+                    {
+                        WorldGen.KillTile(xPos, yPos, false, false, false);  //this make the explosion destroy tiles  
+                        Dust.NewDust(position, width, height, DustID.Fire, 4.0f, 4.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+                        if (CanBreakWalls) WorldGen.KillWall(xPos, yPos, false);
+                    }
+                    
                 }
                 width++; //Increments width to make stairs on each end
             }
