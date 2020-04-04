@@ -15,25 +15,32 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using System.Text;
+using System.Threading.Tasks;
+
+
 namespace ExtraExplosives
 {
-	public class ExtraExplosives : Mod
+	public class ExtraExplosivesPlayer : ModPlayer
 	{
-		internal static ModHotKey TriggerExplosion;
-		internal static bool detonate = false;
 
-		public ExtraExplosives()
+		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
 
+			if (ExtraExplosives.TriggerExplosion.JustReleased)
+			{
+				ExtraExplosives.detonate = true;
+				//Main.NewText("Detonate", (byte)30, (byte)255, (byte)10, false);
+			}
+			else
+			{
+				ExtraExplosives.detonate = false;
+			}
+			
 
 
 		}
 
-		public override void Load()
-		{
 
-			TriggerExplosion = RegisterHotKey("Explode", "Mouse2");
-
-		}
 	}
 }

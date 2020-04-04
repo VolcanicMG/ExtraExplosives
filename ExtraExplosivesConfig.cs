@@ -23,16 +23,32 @@ namespace ExtraExplosives
 	public class ExtraExplosivesConfig : ModConfig
 	{
 
-        public override ConfigScope Mode => ConfigScope.ClientSide;
+        public override ConfigScope Mode => ConfigScope.ServerSide; //Change to client to make it only applicable to the client side
 
-        [Label("Disable leveler wall breaking.")]
-        public bool LevelerCanBreakWalls;
+        [Header("Explosives Wall Settings")]
+
+        [Label("Toggle Wall Breaking.")]
+        public bool CanBreakWalls;
 
         public override void OnChanged()
         {
 
-            TheLevelerProjectile.LevelerCanBreakWalls = LevelerCanBreakWalls;
-  
+            TheLevelerProjectile.CanBreakWalls = CanBreakWalls;
+            SmallExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            ArenaBuilderProjectile.CanBreakWalls = CanBreakWalls;
+            PhaseBombProjectile.CanBreakWalls = CanBreakWalls;
+            NPCSpawnerProjectile.CanBreakWalls = CanBreakWalls;
+            MegaExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            MediumExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            LargeExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            HeavyBombProjectile.CanBreakWalls = CanBreakWalls;
+            GiganticExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            DaBombProjectile.CanBreakWalls = CanBreakWalls;
+            ClusterBombChildProjectile.CanBreakWalls = CanBreakWalls;
+            ClusterBombProjectile.CanBreakWalls = CanBreakWalls;
+            C4Projectile.CanBreakWalls = CanBreakWalls;
+            BigBouncyDynamiteProjectile.CanBreakWalls = CanBreakWalls;
+            BasicExplosiveProjectile.CanBreakWalls = CanBreakWalls;
         }
     }
 }
