@@ -27,8 +27,12 @@ namespace ExtraExplosives
 
         [Header("Explosives Wall Settings")]
 
-        [Label("Toggle Wall Breaking.")]
+        [Label("Toggle Wall Breaking")]
         public bool CanBreakWalls;
+
+        [Header("Explosives Block Settings")]
+        [Label("Toggle Block Breaking for the C4 and Da Bomb")]
+        public bool CanBreakTiles;
 
         public override void OnChanged()
         {
@@ -49,6 +53,8 @@ namespace ExtraExplosives
             C4Projectile.CanBreakWalls = CanBreakWalls;
             BigBouncyDynamiteProjectile.CanBreakWalls = CanBreakWalls;
             BasicExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            C4Projectile.CanBreakTiles = CanBreakTiles;
+            DaBombProjectile.CanBreakTiles = CanBreakTiles;
         }
     }
 }
