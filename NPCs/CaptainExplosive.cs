@@ -15,22 +15,31 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives.NPCs;
 
 namespace ExtraExplosives.NPCs
 {
+    [AutoloadHead]
     public class CaptainExplosive : ModNPC
     {
 
-        //public override bool Autoload(ref string name, ref string texture, ref string[] altTextures)
-        //{
-        //    name = "Custom Town NPC";
-        //    return mod.Properties.Autoload;
-        //}
+        public override bool Autoload(ref string name)
+        {
+            name = "CaptainExplosive";
+            return mod.Properties.Autoload;
+        }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Captain Explosive");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
+            Main.npcFrameCount[npc.type] = 25; //npc defines how many frames the npc sprite sheet has
+            NPCID.Sets.ExtraFramesCount[npc.type] = 9;
+            NPCID.Sets.AttackFrameCount[npc.type] = 4;
+            NPCID.Sets.DangerDetectRange[npc.type] = 1000; //150 //npc defines the npc danger detect range
+            NPCID.Sets.AttackType[npc.type] = 0; //npc is the attack type,  0 (throwing), 1 (shooting), or 2 (magic). 3 (melee)
+            NPCID.Sets.AttackTime[npc.type] = 90; //npc defines the npc attack speed
+            NPCID.Sets.AttackAverageChance[npc.type] = 10;//npc defines the npc atack chance
+            NPCID.Sets.HatOffsetY[npc.type] = 4; //npc defines the party hat position
         }
 
         public override void SetDefaults()
@@ -38,22 +47,14 @@ namespace ExtraExplosives.NPCs
             //npc.name = "Custom Town NPC";   //the name displayed when hovering over the npc ingame.
             npc.townNPC = true; //npc defines if the npc is a town Npc or not
             npc.friendly = true;  //npc defines if the npc can hur you or not()
-            npc.width = 18; //the npc sprite width
-            npc.height = 46;  //the npc sprite height
+            npc.width = 40; //the npc sprite width
+            npc.height = 56;  //the npc sprite height
             npc.aiStyle = 7; //npc is the npc ai style, 7 is Pasive Ai
             npc.defense = 25;  //the npc defense
             npc.lifeMax = 250;// the npc life
             npc.HitSound = SoundID.NPCHit1;  //the npc sound when is hit
             npc.DeathSound = SoundID.NPCDeath1;  //the npc sound when he dies
             npc.knockBackResist = 0.5f;  //the npc knockback resistance
-            Main.npcFrameCount[npc.type] = 25; //npc defines how many frames the npc sprite sheet has
-            NPCID.Sets.ExtraFramesCount[npc.type] = 9;
-            NPCID.Sets.AttackFrameCount[npc.type] = 4;
-            NPCID.Sets.DangerDetectRange[npc.type] = 1000; //150 //npc defines the npc danger detect range
-            NPCID.Sets.AttackType[npc.type] = 1; //npc is the attack type,  0 (throwing), 1 (shooting), or 2 (magic). 3 (melee)
-            NPCID.Sets.AttackTime[npc.type] = 30; //npc defines the npc attack speed
-            NPCID.Sets.AttackAverageChance[npc.type] = 10;//npc defines the npc atack chance
-            NPCID.Sets.HatOffsetY[npc.type] = 4; //npc defines the party hat position
             animationType = NPCID.Guide;  //npc copy the guide animation
         }
         public override bool CanTownNPCSpawn(int numTownNPCs, int money) //Whether or not the conditions have been met for npc town NPC to be able to move into town.
@@ -67,26 +68,6 @@ namespace ExtraExplosives.NPCs
         public override bool CheckConditions(int left, int right, int top, int bottom)    //Allows you to define special conditions required for npc town NPC's house
         {
             return true;  //so when a house is available the npc will  spawn
-        }
-        public override string TownNPCName()     //Allows you to give npc town NPC any name when it spawns
-        {
-            switch (WorldGen.genRand.Next(6))
-            {
-                case 0:
-                    return "Rick";
-                case 1:
-                    return "Denis";
-                case 2:
-                    return "Heisenberg";
-                case 3:
-                    return "Jack";
-                case 4:
-                    return "Blue Magic";
-                case 5:
-                    return "Blue";
-                default:
-                    return "Walter";
-            }
         }
 
         public override void SetChatButtons(ref string button, ref string button2)  //Allows you to set the text for the buttons that appear on npc town NPC's chat window.
@@ -120,7 +101,26 @@ namespace ExtraExplosives.NPCs
             }
             shop.item[nextSlot].SetDefaults(mod.ItemType("BasicExplosiveItem")); 
             nextSlot++;
-           
+            shop.item[nextSlot].SetDefaults(mod.ItemType("SmallExplosiveItem"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(mod.ItemType("MediumExplosiveItem"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(mod.ItemType("LargeExplosiveItem"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(mod.ItemType("TorchBombItem"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(mod.ItemType("DynaglowmiteItem"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(mod.ItemType("DeliquidifierItem"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(mod.ItemType("HydromiteItem"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(mod.ItemType("LavamiteItem"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(mod.ItemType("HouseBombItem"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(mod.ItemType("BunnyiteItem"));
+            nextSlot++;
 
         }
 
@@ -136,18 +136,30 @@ namespace ExtraExplosives.NPCs
             {
                 return "Sure you can ask ";// + Main.npc[guideNPC].displayName + " how to make Ironskin potion or you can buy it from me..hehehe.";
             }
-            switch (Main.rand.Next(4))    //npc are the messages when you talk to the npc
+            switch (Main.rand.Next(9))    //npc are the messages when you talk to the npc
             {
                 case 0:
-                    return "Psst... Wanna buy a watch?";
+                    return "Psst... PSSST... Hows it going?";
                 case 1:
-                    return "Looking for a premium defense system?";
+                    return "I have bombs, TONS OF BOMBS!!!";
                 case 2:
                     return "Get scammed by the tinkerer yet?";
                 case 3:
-                    return "Stuff";
+                    return "My explosives are too powerful for mortal man... why I'd say its impossible for you to even consider... Oh wait... Your a sprite. Nevermind, carry on!";
+                case 4:
+                    return "< Not Responsible For Any Causualties That May Or May Not Result From These Devices >";
+                case 5:
+                    return "Like I, your friend... the one you worked so hard for... would sell you items that could hurt you. *scoffs* Nonsense!";
+                case 6:
+                    return "I really don't see why you think I shouldn't carry matches, I mean come on, fires a good thing right?";
+                case 7:
+                    return "To all the haters, I'm not bald, I just have a short fuse.";
+                case 8:
+                    return "Sometimes I don't feel appreciated, after everything I've destroyed for you... couldn't I at least have a bigger house?";
+                case 9:
+                    return "If I were you, I'd spend your money here, you got enough potions and reforges!";
                 default:
-                    return "Stuff";
+                    return "Let me tell you a secret...";
 
             }
         }

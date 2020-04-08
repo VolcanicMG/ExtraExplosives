@@ -40,7 +40,7 @@ namespace ExtraExplosives.Items
             item.UseSound = SoundID.Item1; //The sound played when using this item
             item.useAnimation = 20;  //How long the item is used for.
             // item.useTime = 20;     //How fast the item is used.
-            item.value = Item.buyPrice(0, 2, 0, 0);   //How much the item is worth, in copper coins, when you sell it to a merchant. It costs 1/5th of this to buy it back from them. An easy way to remember the value is platinum, gold, silver, copper or PPGGSSCC (so this item price is 3 silver)
+            item.value = Item.buyPrice(0, 4, 99, 99);   //How much the item is worth, in copper coins, when you sell it to a merchant. It costs 1/5th of this to buy it back from them. An easy way to remember the value is platinum, gold, silver, copper or PPGGSSCC (so this item price is 3 silver)
             item.noUseGraphic = true;
             item.noMelee = true;      //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
             item.shoot = mod.ProjectileType("ClusterBombProjectile"); //This defines what type of projectile this item will shoot
@@ -52,7 +52,10 @@ namespace ExtraExplosives.Items
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.DirtBlock, 1);
+            recipe.AddIngredient(mod.ItemType("LargeExplosiveItem"), 1);
+            recipe.AddIngredient(mod.ItemType("MediumExplosiveItem"), 5);
+            recipe.AddIngredient(mod.ItemType("SmallExplosiveItem"), 10);
+            recipe.AddIngredient(ItemID.Gel, 25);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();
