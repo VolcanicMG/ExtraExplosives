@@ -23,15 +23,15 @@ namespace ExtraExplosives.Projectiles
         internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BulletBoomProjectile");
+            DisplayName.SetDefault("BulletBoom");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
             projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 13;   //This defines the hitbox width
-            projectile.height = 19;    //This defines the hitbox height
+            projectile.width = 22;   //This defines the hitbox width
+            projectile.height = 22;    //This defines the hitbox height
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = 1; //Tells the game how many enemies it can hit before being destroyed
@@ -75,18 +75,37 @@ namespace ExtraExplosives.Projectiles
                     {
                         if (WorldGen.TileEmpty(xPosition, yPosition))
                         {
-                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(15) - 7, Main.rand.Next(15) - 7, ProjectileID.ExplosiveBullet, 100, 20, Main.myPlayer, 0.0f, 0);
+                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(15) - 7, Main.rand.Next(15) - 7, ProjectileID.ExplosiveBullet, 75, 20, Main.myPlayer, 0.0f, 0);
                         }
                         else
                         {
-                            if (++cntr <= 100) Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(15) - 7, Main.rand.Next(15) - 7, ProjectileID.ExplosiveBullet, 100, 20, Main.myPlayer, 0.0f, 0);
+                            if (++cntr <= 100) Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(15) - 7, Main.rand.Next(15) - 7, ProjectileID.ExplosiveBullet, 75, 20, Main.myPlayer, 0.0f, 0);
                         }
-                        Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+                        //Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+
                     }
                 }
             }
+
+            Dust dust1;
+            Dust dust2;
+            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+            for (int i = 0; i < 100; i++)
+            {
+                Vector2 position1 = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+                dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
+                dust1.noGravity = true;
+                dust1.noLight = true;
+                dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+
+            }
+
+            for (int i = 0; i < 100; i++)
+            {
+                Vector2 position2 = new Vector2(position.X - 80 / 2, position.Y - 80 / 2);
+                dust2 = Main.dust[Terraria.Dust.NewDust(position2, 80, 80, 6/*35*/, 0f, 0f, 0, new Color(240, 240, 240), 4.0f)];
+                dust2.noGravity = true;
+            }
         }
-
-
     }
 }

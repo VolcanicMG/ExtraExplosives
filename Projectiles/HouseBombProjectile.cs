@@ -24,7 +24,7 @@ namespace ExtraExplosives.Projectiles
         internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HouseBombChild");
+            DisplayName.SetDefault("HouseBomb");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
@@ -36,7 +36,7 @@ namespace ExtraExplosives.Projectiles
             projectile.aiStyle = 16; //16  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 100; //The amount of time the projectile is alive for
+            projectile.timeLeft = 1000; //The amount of time the projectile is alive for
         }
 
         public override bool OnTileCollide(Vector2 old)
@@ -67,14 +67,14 @@ namespace ExtraExplosives.Projectiles
 
             for (x = -5; x < 6; x++)
             {
-                for (y = 0; y < height; y++)
+                for (y = height - 1; y >= 0; y--)
                 {
                     int xPosition = (int)(x + position.X / 16.0f);
                     int yPosition = (int)(-y + position.Y / 16.0f);
 
                     if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.DesertFossil || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
                             || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
-                            Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge)
+                            Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge || Main.tile[xPosition, yPosition].type == TileID.DemonAltar)
                     {
 
                     }
@@ -137,6 +137,36 @@ namespace ExtraExplosives.Projectiles
                             WorldGen.PlaceTile(xPosition, yPosition, TileID.Chairs);
                     }
                 }
+            }
+
+            Dust dust1;
+            Dust dust2;
+            Dust dust3;
+
+            for (int i = 0; i < 100; i++)
+            {
+                Vector2 position3 = new Vector2(position.X - 250 / 2, position.Y - 190 + 20);
+                dust3 = Main.dust[Terraria.Dust.NewDust(position3, 250, 190, 263, 0f, 0f, 0, new Color(255, 255, 255), 4.5f)];
+                dust3.noGravity = true;
+                dust3.noLight = true;
+                dust3.fadeIn = 1.618421f;
+            }
+
+            for (int i = 0; i < 100; i++)
+            {
+                Vector2 position1 = new Vector2(position.X - 221 / 2, position.Y - 170 + 10);
+                dust1 = Main.dust[Terraria.Dust.NewDust(position1, 221, 170, 232, 0f, 0f, 214, new Color(255, 150, 0), 4.407895f)];
+                dust1.noGravity = true;
+                dust1.noLight = true;
+
+            }
+
+            for (int i = 0; i < 100; i++)
+            {
+                Vector2 position2 = new Vector2(position.X - 221 / 2, position.Y - 170 + 10);
+                dust2 = Main.dust[Terraria.Dust.NewDust(position2, 221, 170, 1, 0f, 0f, 140, new Color(255, 255, 255), 2.5f)];
+                dust2.noGravity = true;
+                dust2.noLight = true;
             }
         }
     }

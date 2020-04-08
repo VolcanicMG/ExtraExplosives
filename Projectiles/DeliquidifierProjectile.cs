@@ -23,15 +23,15 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("DeliquidifierProjectile");
+            DisplayName.SetDefault("Deliquidifier");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
             projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 13;   //This defines the hitbox width
-            projectile.height = 19;    //This defines the hitbox height
+            projectile.width = 10;   //This defines the hitbox width
+            projectile.height = 32;    //This defines the hitbox height
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
@@ -58,6 +58,19 @@ namespace ExtraExplosives.Projectiles
                         //Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                     }
                 }
+            }
+
+            for (int i = 0; i < 100; i++)
+            {
+
+                Dust dust2;
+                Vector2 position1 = new Vector2(position.X - 226 / 2, position.Y - 226 / 2);
+                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                dust2 = Main.dust[Terraria.Dust.NewDust(position1, 226, 226, 159, 0f, 0f, 0, new Color(255, 255, 255), 4.210526f)];
+                dust2.noGravity = true;
+                dust2.shader = GameShaders.Armor.GetSecondaryShader(39, Main.LocalPlayer);
+                dust2.noLight = false;
+
             }
 
         }

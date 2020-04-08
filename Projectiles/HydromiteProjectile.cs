@@ -23,15 +23,15 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HydromiteProjectile");
+            DisplayName.SetDefault("Hydromite");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
             projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 13;   //This defines the hitbox width
-            projectile.height = 19;    //This defines the hitbox height
+            projectile.width = 10;   //This defines the hitbox width
+            projectile.height = 32;    //This defines the hitbox height
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
@@ -62,6 +62,17 @@ namespace ExtraExplosives.Projectiles
                         }
                     }
                 }
+            }
+
+            for (int i = 0; i < 100; i++)
+            {
+
+                Dust dust;
+                Vector2 position1 = new Vector2(position.X - 168 / 2, position.Y - 168 / 2);
+                dust = Main.dust[Terraria.Dust.NewDust(position1, 168, 168, 188, 0.2631581f, 0f, 0, new Color(0, 42, 255), 3.815789f)];
+                dust.noGravity = true;
+
+
             }
 
         }

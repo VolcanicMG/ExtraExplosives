@@ -70,7 +70,7 @@ namespace ExtraExplosives.Projectiles
             int width = 100; //Explosion Width
             int height = 20; //Explosion Height
 
-            for (y = 0; y < height; y++)
+            for (y = height-1; y >= 0; y--)
             {
                 for(x = -width; x < width; x++)
                 {
@@ -79,22 +79,62 @@ namespace ExtraExplosives.Projectiles
 
                     if (Main.tile[xPos, yPos].type == TileID.LihzahrdBrick || Main.tile[xPos, yPos].type == TileID.LihzahrdAltar || Main.tile[xPos, yPos].type == TileID.LihzahrdFurnace || Main.tile[xPos, yPos].type == TileID.DesertFossil || Main.tile[xPos, yPos].type == TileID.BlueDungeonBrick || Main.tile[xPos, yPos].type == TileID.GreenDungeonBrick
                             || Main.tile[xPos, yPos].type == TileID.PinkDungeonBrick || Main.tile[xPos, yPos].type == TileID.Cobalt || Main.tile[xPos, yPos].type == TileID.Palladium || Main.tile[xPos, yPos].type == TileID.Mythril || Main.tile[xPos, yPos].type == TileID.Orichalcum || Main.tile[xPos, yPos].type == TileID.Adamantite || Main.tile[xPos, yPos].type == TileID.Titanium ||
-                            Main.tile[xPos, yPos].type == TileID.Chlorophyte || Main.tile[xPos, yPos].type == TileID.DefendersForge)
+                            Main.tile[xPos, yPos].type == TileID.Chlorophyte || Main.tile[xPos, yPos].type == TileID.DefendersForge || Main.tile[xPos, xPos].type == TileID.DemonAltar)
                     {
 
                     }
                     else
                     {
                         WorldGen.KillTile(xPos, yPos, false, false, false);  //this make the explosion destroy tiles  
-                        Dust.NewDust(position, width, height, DustID.Fire, 4.0f, 4.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+                        //Dust.NewDust(position, width, height, DustID.Fire, 4.0f, 4.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                         if (CanBreakWalls) WorldGen.KillWall(xPos, yPos, false);
+
+                        if (Main.rand.NextFloat() < 0.4f)
+                        {
+                            Dust dust1;
+                            Dust dust2;
+
+                            Vector2 position1 = new Vector2(position.X - 2000 / 2, position.Y - 320);
+                            dust1 = Main.dust[Terraria.Dust.NewDust(position1, 2000, 320, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
+                            dust1.noGravity = true;
+                            dust1.noLight = true;
+                            dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+
+                            Vector2 position2 = new Vector2(position.X - 2000 / 2, position.Y - 320);
+                            dust2 = Main.dust[Terraria.Dust.NewDust(position2, 2000, 320, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
+                            dust2.noGravity = true;
+                            dust2.noLight = true;
+                            dust2.shader = GameShaders.Armor.GetSecondaryShader(111, Main.LocalPlayer);
+                            dust2.fadeIn = 3f;
+                        }
+
                     }
-                    
+
                 }
                 width++; //Increments width to make stairs on each end
             }
 
-            Main.NewText("Terrain has been leveled! Would now be a good time to say \"action can't be undone...\"", (byte)30, (byte)255, (byte)10, false);
+            //Dust dust1;
+            //Dust dust2;
+
+            //for (int i = 0; i < 100; i++) //Black Smoke
+            //{
+            //    Vector2 position1 = new Vector2(position.X - 400 / 2, position.Y - 200 / 2);
+            //    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 400, 200, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
+            //    dust1.noGravity = true;
+            //    dust1.noLight = true;
+            //    dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+            //}
+
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    Vector2 position2 = new Vector2(position.X - 400 / 2, position.Y - 200 / 2);
+            //    dust2 = Main.dust[Terraria.Dust.NewDust(position2, 400, 200, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
+            //    dust2.noGravity = true;
+            //    dust2.noLight = true;
+            //    dust2.shader = GameShaders.Armor.GetSecondaryShader(111, Main.LocalPlayer);
+            //    dust2.fadeIn = 3f;
+            //}
         }
 
     }

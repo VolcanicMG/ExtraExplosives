@@ -23,7 +23,7 @@ namespace ExtraExplosives.Projectiles
         internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BreakenTheBankenChild");
+            DisplayName.SetDefault("BreakenTheBanken");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
@@ -31,8 +31,8 @@ namespace ExtraExplosives.Projectiles
         {
             projectile.CloneDefaults(ProjectileID.GoldCoin);
             projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 13;   //This defines the hitbox width
-            projectile.height = 19;    //This defines the hitbox height
+            projectile.width = 5;   //This defines the hitbox width
+            projectile.height = 5;    //This defines the hitbox height
             projectile.aiStyle = 1; //16  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = 20; //Tells the game how many enemies it can hit before being destroyed

@@ -65,11 +65,15 @@ namespace ExtraExplosives.Projectiles
             int width = 240;
             int height = 120;
 
-            int platformCntr = 15; //Space between platform layers
+            Dust dust1;
+            Dust dust2;
+            Dust dust3;
+
+            int platformCntr = height - 15; //Space between platform layers
 
             for (x = -(width / 2); x <= width / 2; x++)
             {
-                for (y = 0; y < height; y++)
+                for (y = height - 1; y >= 0; y--)
                 {
                     int xPosition = (int)(x + position.X / 16.0f);
                     int yPosition = (int)(-y + position.Y / 16.0f);
@@ -83,16 +87,34 @@ namespace ExtraExplosives.Projectiles
                     else
                     {
                         WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles   
-                        Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+                        //Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                         if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
+
+
+                        Vector2 position1 = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
+                        dust1 = Main.dust[Terraria.Dust.NewDust(position1, 2000, 2000, 186, 0f, 0f, 0, new Color(159, 0, 255), 5f)];
+                        dust1.noGravity = true;
+                        dust1.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+                        dust1.fadeIn = 3f;
+
+                        Vector2 position2 = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
+                        // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                        dust2 = Main.dust[Terraria.Dust.NewDust(position2, 2000, 2000, 186, 0f, 0f, 0, new Color(0, 17, 255), 5f)];
+                        dust2.noGravity = true;
+                        dust2.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+                        dust2.fadeIn = 3f;
+
+                        Vector2 position3 = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
+                        // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                        dust3 = Main.dust[Terraria.Dust.NewDust(position3, 2000, 2000, 186, 0f, 0f, 0, new Color(255, 0, 150), 5f)];
+                        dust3.noGravity = true;
+                        dust3.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+                        dust3.fadeIn = 3f;
                     }
                     
                     //Breaks Liquid
                     Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
                     WorldGen.SquareTileFrame(xPosition, yPosition, true);
-
-                    //Partical Effects
-                    Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
 
                     //Place Arena Outline
                     if (y == 0 || y == height - 1)
@@ -104,13 +126,11 @@ namespace ExtraExplosives.Projectiles
                     if (y == platformCntr && (x != -(width / 2) || x != (width / 2)))
                     {
                         WorldGen.PlaceTile(xPosition, yPosition, TileID.Platforms);
-                        Main.NewText("Platform Cntr = " + platformCntr);
-                        //if (y == height - 1)
-                        platformCntr += 15;
+                        platformCntr -= 15;
                     }
 
                 }
-                platformCntr = 15; //Reset the platformCntr
+                platformCntr = height - 15; //Reset the platformCntr
             }
 
             platformCntr = 15; //Reset the platformCntr
