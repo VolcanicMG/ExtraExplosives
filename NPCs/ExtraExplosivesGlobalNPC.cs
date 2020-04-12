@@ -28,7 +28,7 @@ namespace ExtraExplosives.NPCs
         {
             if(npc.boss && Main.expertMode)
             {
-                if (Main.rand.NextFloat() < 0.10210526f)
+                if (Main.rand.NextFloat() < 0.10210526f && npc.type != mod.NPCType("CaptainExplosive"))
                 {
                     Item.NewItem(Main.LocalPlayer.getRect(), ItemType<Items.BreakenTheBankenItem>(), 1);
                 }
