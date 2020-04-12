@@ -26,6 +26,7 @@ namespace ExtraExplosives
 
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
+			Player player = Main.clientPlayer;
 
 			if (ExtraExplosives.TriggerExplosion.JustReleased)
 			{
@@ -36,7 +37,7 @@ namespace ExtraExplosives
 			{
 				ExtraExplosives.detonate = false;
 			}
-			
+
 
 
 		}

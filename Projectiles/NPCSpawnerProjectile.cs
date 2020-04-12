@@ -57,15 +57,17 @@ namespace ExtraExplosives.Projectiles
 
             //damage part of the bomb
             ExplosionDamageProjectile.DamageRadius = 2;
-            Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 1, 0, Main.myPlayer, 0.0f, 0);
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 1, 0, Main.myPlayer, 0.0f, 0);
 
-            //NPC.NewNPC((int)player.Center.X, (int)player.Center.Y + 20, mod.NPCType("CaptainExplosive"), 0, 0f, 0f, 0f, 0f, 255);
+                //NPC.NewNPC((int)player.Center.X, (int)player.Center.Y + 20, mod.NPCType("CaptainExplosive"), 0, 0f, 0f, 0f, 0f, 255);
 
-            Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 1, Main.myPlayer, 0.0f, 0);
+                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 1, Main.myPlayer, 0.0f, 0);
 
-            Main.NewText("Let's Get Ready To RUMBLE!!!", (byte)34, (byte)255, (byte)10, false);
+                Main.NewText("Let's Get Ready To RUMBLE!!!", (byte)34, (byte)255, (byte)10, false);
 
-
+            }
         }
 
 

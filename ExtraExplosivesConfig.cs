@@ -16,7 +16,7 @@ using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
 using ExtraExplosives.Projectiles;
-
+using ExtraExplosives.NPCs;
 
 namespace ExtraExplosives
 {
@@ -31,7 +31,7 @@ namespace ExtraExplosives
         public bool CanBreakWalls;
 
         [Header("Explosives Block Settings")]
-        [Label("Toggle Block Breaking for the C4 and Da Bomb")]
+        [Label("Toggle Block Breaking for the C4, Da Bomb, and Captain Explosive")]
         public bool CanBreakTiles;
 
         public override void OnChanged()
@@ -55,6 +55,8 @@ namespace ExtraExplosives
             BasicExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             C4Projectile.CanBreakTiles = CanBreakTiles;
             DaBombProjectile.CanBreakTiles = CanBreakTiles;
+            CaptainExplosive.CanBreakTiles = CanBreakTiles;
+            CaptainExplosive.CanBreakWalls = CanBreakWalls;
         }
     }
 }

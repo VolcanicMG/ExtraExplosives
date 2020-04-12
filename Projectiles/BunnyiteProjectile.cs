@@ -52,7 +52,7 @@ namespace ExtraExplosives.Projectiles
             {
                 NPC.NewNPC((int)position.X + Main.rand.Next(1000)-500, (int)position.Y, NPCID.Bunny, 0, 0f, 0f, 0f, 0f, 255); //Spawn 
             }
-            Main.NewText("You don't have to do this... Resist the urge...", (byte)30, (byte)255, (byte)10, false);
+
 
             for (int ii = 0; ii <= 50; ii++)
             {

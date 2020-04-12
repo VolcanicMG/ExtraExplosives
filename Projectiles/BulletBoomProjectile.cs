@@ -61,7 +61,8 @@ namespace ExtraExplosives.Projectiles
             int radius = 5;     //this is the explosion radius, the highter is the value the bigger is the explosion
 
             Vector2 vel;
-
+            int spedX;
+            int spedY;
             int cntr = 0;
 
             for (int x = -radius; x <= radius; x++)
@@ -73,16 +74,27 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
                     {
-                        if (WorldGen.TileEmpty(xPosition, yPosition))
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(15) - 7, Main.rand.Next(15) - 7, ProjectileID.ExplosiveBullet, 75, 20, Main.myPlayer, 0.0f, 0);
-                        }
-                        else
-                        {
-                            if (++cntr <= 100) Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(15) - 7, Main.rand.Next(15) - 7, ProjectileID.ExplosiveBullet, 75, 20, Main.myPlayer, 0.0f, 0);
-                        }
-                        //Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+                            if (WorldGen.TileEmpty(xPosition, yPosition))
+                            {
 
+                                spedX = Main.rand.Next(15) - 7;
+                                spedY = Main.rand.Next(15) - 7;
+                                if (spedX == 0) spedX = 1;
+                                if (spedY == 0) spedY = 1;
+                                if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, ProjectileID.ExplosiveBullet, 75, 20, Main.myPlayer, 0.0f, 0);
+                            }
+                            else
+                            {
+
+                                spedX = Main.rand.Next(15) - 7;
+                                spedY = Main.rand.Next(15) - 7;
+                                if (spedX == 0) spedX = 1;
+                                if (spedY == 0) spedY = 1;
+                                if (++cntr <= 100) Projectile.NewProjectile(position.X, position.Y, spedX, spedY, ProjectileID.ExplosiveBullet, 75, 20, Main.myPlayer, 0.0f, 0);
+                            }
+                        }
                     }
                 }
             }
