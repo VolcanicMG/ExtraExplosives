@@ -44,6 +44,7 @@ namespace ExtraExplosives.Items
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.Cobweb, 15);
             recipe.AddIngredient(ItemID.Wood, 1);
+            recipe.anyWood = true;
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();

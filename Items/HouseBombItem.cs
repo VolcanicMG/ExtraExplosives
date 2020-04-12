@@ -54,6 +54,7 @@ namespace ExtraExplosives.Items
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("MediumExplosiveItem"), 1);
             recipe.AddIngredient(ItemID.Wood, 25);
+            recipe.anyWood = true;
             recipe.AddIngredient(ItemID.Torch, 2);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);

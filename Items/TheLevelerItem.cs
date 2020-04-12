@@ -54,9 +54,17 @@ namespace ExtraExplosives.Items
             recipe.AddIngredient(mod.ItemType("MegaExplosiveItem"), 3);
             recipe.AddIngredient(ItemID.IronPickaxe, 1);
             recipe.AddIngredient(ItemID.Gel, 30);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
+
+            ModRecipe recipe2 = new ModRecipe(mod);
+            recipe2.AddIngredient(mod.ItemType("MegaExplosiveItem"), 3);
+            recipe2.AddIngredient(ItemID.LeadPickaxe, 1);
+            recipe2.AddIngredient(ItemID.Gel, 30);
+            recipe2.AddTile(TileID.Anvils);
+            recipe2.SetResult(this);
+            recipe2.AddRecipe();
 
         }
     }

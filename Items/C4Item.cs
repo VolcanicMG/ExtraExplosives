@@ -26,7 +26,7 @@ namespace ExtraExplosives.Items
             DisplayName.SetDefault("C4");
             Tooltip.SetDefault("Stay your distance! \n" +
                 "Make sure to set the explosion button in the settings.\n" +
-                "[c/AB40FF:Can destroy dungeon bricks and desert fossil]");
+                "[c/AB40FF:Can destroy desert fossil]");
         }
 
         public override void SetDefaults()

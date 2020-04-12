@@ -24,7 +24,8 @@ namespace ExtraExplosives.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bunnyite");
-            Tooltip.SetDefault("Lot O' Bunnies!!!");
+            Tooltip.SetDefault("Lot O' Bunnies!!!\n" +
+                "You don't have to do this... Resist the urge...");
 
         }
 

@@ -61,7 +61,7 @@ namespace ExtraExplosives.Items
             recipe.AddIngredient(ItemID.HellstoneBar, 14);
             recipe.AddIngredient(ItemID.Gel, 100);
             recipe.AddIngredient(ItemID.IronBar, 14);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
 

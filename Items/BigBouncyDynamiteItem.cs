@@ -55,7 +55,7 @@ namespace ExtraExplosives.Items
             recipe.AddIngredient(ItemID.PinkGel, 20);
             recipe.AddIngredient(ItemID.Dynamite, 20);
             recipe.AddIngredient(mod.ItemType("SmallExplosiveItem"), 1);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
 

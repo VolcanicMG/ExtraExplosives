@@ -60,7 +60,7 @@ namespace ExtraExplosives.Items
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("LargeExplosiveItem"), 1);
             recipe.AddIngredient(ItemID.MeteoriteBar, 2);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
 

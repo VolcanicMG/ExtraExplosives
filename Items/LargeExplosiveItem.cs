@@ -56,7 +56,7 @@ namespace ExtraExplosives.Items
             recipe.AddIngredient(ItemID.Dynamite, 3);
             recipe.AddIngredient(ItemID.Gel, 10);
             recipe.AddIngredient(ItemID.StoneBlock, 10);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
 

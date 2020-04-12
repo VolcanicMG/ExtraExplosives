@@ -48,7 +48,6 @@ namespace ExtraExplosives.Items
             item.shoot = mod.ProjectileType("NPCSpawnerProjectile"); //This defines what type of projectile this item will shoot
             item.shootSpeed = 8f; //This defines the projectile speed when shot
             //item.createTile = mod.TileType("ExplosiveTile");
-
         }
 
         public override void AddRecipes()
@@ -60,11 +59,11 @@ namespace ExtraExplosives.Items
             recipe.AddIngredient(mod.ItemType("LargeExplosiveItem"), 1);
             recipe.AddIngredient(mod.ItemType("MegaExplosiveItem"), 1);
             recipe.AddIngredient(mod.ItemType("GiganticExplosiveItem"), 1);
-            recipe.AddIngredient(mod.ItemType("BigBouncyDynamite"), 1);
+            recipe.AddIngredient(mod.ItemType("BigBouncyDynamiteItem"), 1);
             recipe.AddIngredient(mod.ItemType("DynaglowmiteItem"), 1);
-            recipe.AddIngredient(ItemID.Grenade, 50);
+            recipe.AddIngredient(ItemID.Grenade, 20);
             recipe.AddIngredient(ItemID.TissueSample, 10);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
 
@@ -75,14 +74,13 @@ namespace ExtraExplosives.Items
             recipe2.AddIngredient(mod.ItemType("LargeExplosiveItem"), 1);
             recipe2.AddIngredient(mod.ItemType("MegaExplosiveItem"), 1);
             recipe2.AddIngredient(mod.ItemType("GiganticExplosiveItem"), 1);
-            recipe2.AddIngredient(mod.ItemType("BigBouncyDynamite"), 1);
+            recipe2.AddIngredient(mod.ItemType("BigBouncyDynamiteItem"), 1);
             recipe2.AddIngredient(mod.ItemType("DynaglowmiteItem"), 1);
-            recipe2.AddIngredient(ItemID.Grenade, 50);
+            recipe2.AddIngredient(ItemID.Grenade, 20);
             recipe2.AddIngredient(ItemID.ShadowScale, 10);
-            recipe2.AddTile(TileID.WorkBenches);
+            recipe2.AddTile(TileID.Anvils);
             recipe2.SetResult(this);
             recipe2.AddRecipe();
-
         }
     }
 

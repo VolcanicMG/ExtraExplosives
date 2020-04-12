@@ -54,12 +54,11 @@ namespace ExtraExplosives.Items
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(mod.ItemType("LargeExplosiveItem"), 1);
             recipe.AddIngredient(ItemID.IronAnvil, 1);
-            recipe.AddIngredient(ItemID.LeadBar, 5);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddIngredient(ItemID.IronBar, 5);
+            recipe.anyIronBar = true;
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
-            recipe.AddRecipe();
-
+            recipe.AddRecipe();     
         }
     }
-
 }

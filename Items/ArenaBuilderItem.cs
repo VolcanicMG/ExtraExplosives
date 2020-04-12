@@ -59,7 +59,8 @@ namespace ExtraExplosives.Items
             recipe.AddIngredient(mod.ItemType("TorchBombItem"), 1);
             recipe.AddIngredient(ItemID.Wood, 100);
             recipe.AddIngredient(ItemID.CrystalBlock, 100);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.anyWood = true;
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
 
