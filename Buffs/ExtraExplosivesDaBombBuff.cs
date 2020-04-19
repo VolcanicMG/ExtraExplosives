@@ -40,7 +40,7 @@ namespace ExtraExplosives.Buffs
 				player.statDefense += 100;
 
 				
-		}
+			}
 	}
 
 }

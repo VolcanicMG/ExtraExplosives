@@ -23,7 +23,7 @@ namespace ExtraExplosives.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Big Bouncy Bomb");
+            DisplayName.SetDefault("Big Bouncy Dynamite");
             Tooltip.SetDefault("Lots of fun and its all packed in one.");
         }
 

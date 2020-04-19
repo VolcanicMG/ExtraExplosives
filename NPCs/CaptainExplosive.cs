@@ -56,7 +56,7 @@ namespace ExtraExplosives.NPCs
             npc.height = 56;  //the npc sprite height
             npc.aiStyle = 7; //npc is the npc ai style, 7 is Pasive Ai
             npc.defense = 25;  //the npc defense
-            npc.lifeMax = 1000;// the npc life
+            npc.lifeMax = 400;// the npc life
             npc.HitSound = SoundID.NPCHit1;  //the npc sound when is hit
             npc.DeathSound = SoundID.NPCDeath1;  //the npc sound when he dies
             npc.knockBackResist = 0.5f;  //the npc knockback resistance
@@ -75,6 +75,7 @@ namespace ExtraExplosives.NPCs
         public override bool CheckActive()
         {
             Vector2 position = npc.Center;
+            CaptianIsDed = false;
             Dust dust;
 
             if (Main.rand.NextFloat() < 0.131579f && npc.direction == -1)
@@ -112,6 +113,7 @@ namespace ExtraExplosives.NPCs
 
         public override bool CheckDead()
         {
+
             CaptianIsDed = true;
 
             Vector2 position = npc.Center;
@@ -201,57 +203,54 @@ namespace ExtraExplosives.NPCs
             }
         }
 
-        //public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        //{
-        //    switch (Main.rand.Next(1)) 
-        //    {
-        //        case 0:
-        //            Main.NewText("Oi! Who do you think you are wacken me like that?");
-        //            return;
-        //        case 1:
-        //            Main.NewText("You know what I'm capable of right?");
-        //            return;
-        //        default:
-        //            Main.NewText("Why you smack me like that?");
-        //            return;
-
-        //    }
-        //}
-
-        //public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        //{
-        //    switch (Main.rand.Next(1)) 
-        //    {
-        //        case 0:
-        //            Main.NewText("Ouch! Just because you can't damage me doesn't mean it doesn't hurt :(");
-        //            return;
-        //        case 1:
-        //            Main.NewText("Quit shooting me! I'm highly flamable!");
-        //            return;
-        //        default:
-        //            Main.NewText("So that's how its gonna be...");
-        //            return;
-
-        //    }
-        //}
-
         public override void SetupShop(Chest shop, ref int nextSlot)       //Allows you to add items to npc town NPC's shop. Add an item by setting the defaults of shop.item[nextSlot] then incrementing nextSlot.
         {
-            if (NPC.downedSlimeKing)   //npc make so when the king slime is killed the town npc will sell npc
+
+            if (NPC.downedMechBoss1)
             {
-                //shop.item[nextSlot].SetDefaults(ItemID.RecallPotion);  //an example of how to add a vanilla terraria item
-                //nextSlot++;
-                //shop.item[nextSlot].SetDefaults(ItemID.WormholePotion);
-                //nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("ArenaBuilderItem"));
+                nextSlot++;
             }
-            if (NPC.downedBoss3)   //npc make so when Skeletron is killed the town npc will sell npc
+
+            if (NPC.downedPirates)
             {
-                //shop.item[nextSlot].SetDefaults(ItemID.BookofSkulls);
-                //nextSlot++;
-                //shop.item[nextSlot].SetDefaults(ItemID.ClothierVoodooDoll);
-                //nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("CritterBombItem"));
+                nextSlot++;
             }
-            shop.item[nextSlot].SetDefaults(mod.ItemType("BasicExplosiveItem")); 
+
+            if (NPC.downedClown)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("DaBombItem"));
+                nextSlot++;
+            }
+
+            if (NPC.downedBoss3)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("HeavyBombItem"));
+                nextSlot++;
+            }
+
+            if (NPC.downedPlantBoss)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("C4Item"));
+                nextSlot++;
+            }
+
+            if (NPC.downedPirates && Main.hardMode)
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("BulletBoomItem"));
+                nextSlot++;
+            }
+
+            if (Main.hardMode)   
+            {
+                shop.item[nextSlot].SetDefaults(mod.ItemType("MegaExplosiveItem"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("GiganticExplosiveItem"));
+                nextSlot++;
+            }
+
+            shop.item[nextSlot].SetDefaults(mod.ItemType("BasicExplosiveItem"));
             nextSlot++;
             shop.item[nextSlot].SetDefaults(mod.ItemType("SmallExplosiveItem"));
             nextSlot++;
