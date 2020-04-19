@@ -15,12 +15,15 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives.Projectiles;
+
 namespace ExtraExplosives
 {
 	public class ExtraExplosives : Mod
 	{
 		internal static ModHotKey TriggerExplosion;
 		internal static bool detonate = false;
+		internal static Player playerProjectileOwner;
 
 		public ExtraExplosives()
 		{
