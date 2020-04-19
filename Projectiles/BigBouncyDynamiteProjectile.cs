@@ -80,9 +80,7 @@ namespace ExtraExplosives.Projectiles
 
             //damage part of the bomb
             ExplosionDamageProjectile.DamageRadius = (float)(radius * 2.0f);
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 300, 30, Main.myPlayer, 0.0f, 0);
+                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 300, 30, projectile.owner, 0.0f, 0);
                 for (int x = -radius; x <= radius; x++)
                 {
                     for (int y = -radius; y <= radius; y++)
@@ -100,7 +98,7 @@ namespace ExtraExplosives.Projectiles
                             }
                             else
                             {
-                                Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(100) - 50, Main.rand.Next(100) - 50, ProjectileID.BouncyDynamite, 0, 0, Main.myPlayer, 0.0f, 0);
+                                Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(100) - 50, Main.rand.Next(100) - 50, ProjectileID.BouncyDynamite, 0, 0, projectile.owner, 0.0f, 0);
                                 WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
                                 if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
                             }
@@ -109,7 +107,6 @@ namespace ExtraExplosives.Projectiles
                         }
                     }
                 }
-            }
 
             Dust dust;
             Vector2 glowPosition2 = new Vector2(position.X - 121/2, position.Y - 121/2);

@@ -74,8 +74,6 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
-                        {
                             if (WorldGen.TileEmpty(xPosition, yPosition))
                             {
 
@@ -83,7 +81,7 @@ namespace ExtraExplosives.Projectiles
                                 spedY = Main.rand.Next(15) - 7;
                                 if (spedX == 0) spedX = 1;
                                 if (spedY == 0) spedY = 1;
-                                if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, ProjectileID.ExplosiveBullet, 75, 20, Main.myPlayer, 0.0f, 0);
+                                if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, ProjectileID.ExplosiveBullet, 75, 20, projectile.owner, 0.0f, 0);
                             }
                             else
                             {
@@ -92,9 +90,9 @@ namespace ExtraExplosives.Projectiles
                                 spedY = Main.rand.Next(15) - 7;
                                 if (spedX == 0) spedX = 1;
                                 if (spedY == 0) spedY = 1;
-                                if (++cntr <= 100) Projectile.NewProjectile(position.X, position.Y, spedX, spedY, ProjectileID.ExplosiveBullet, 75, 20, Main.myPlayer, 0.0f, 0);
+                                if (++cntr <= 100) Projectile.NewProjectile(position.X, position.Y, spedX, spedY, ProjectileID.ExplosiveBullet, 75, 20, projectile.owner, 0.0f, 0);
                             }
-                        }
+                        
                     }
                 }
             }

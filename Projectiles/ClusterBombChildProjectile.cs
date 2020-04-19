@@ -50,9 +50,7 @@ namespace ExtraExplosives.Projectiles
 
             //damage part of the bomb
             ExplosionDamageProjectile.DamageRadius = (float)(radius * 2.0f);
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 200, 40, Main.myPlayer, 0.0f, 0);
+                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 200, 40, projectile.owner, 0.0f, 0);
 
                 for (int x = -radius; x <= radius; x++)
                 {
@@ -73,7 +71,7 @@ namespace ExtraExplosives.Projectiles
                             else
                             {
                                 WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles
-                                if (Main.rand.Next(40) == 1) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(20) - 10, Main.rand.Next(20) - 10, mod.ProjectileType("SmallExplosiveProjectile"), 0, 0, Main.myPlayer, 0.0f, 0);
+                                if (Main.rand.Next(60) == 1) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(20) - 10, Main.rand.Next(20) - 10, mod.ProjectileType("SmallExplosiveProjectile"), 0, 0, projectile.owner, 0.0f, 0);
                                 //Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                                 if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
                             }
@@ -116,7 +114,7 @@ namespace ExtraExplosives.Projectiles
 
                     }
                 }
-            }
+            
         }
 
 

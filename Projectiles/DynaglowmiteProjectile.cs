@@ -77,20 +77,19 @@ namespace ExtraExplosives.Projectiles
 
                     if (speedX > 0f)
                         speedX += z[Main.rand.Next(7)];
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
+ 
 
                         if (yCntr == 1 || yCntr == 7)
                         {
-                            Projectile.NewProjectile(x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, Main.myPlayer, 0.0f, 0); //Spawns in the glowsticks in square
+                            Projectile.NewProjectile(x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
 
                         }
                         if ((xCntr == 1 || xCntr == 7) && (yCntr != 1 || yCntr != 7))
                         {
-                            Projectile.NewProjectile(x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, Main.myPlayer, 0.0f, 0); //Spawns in the glowsticks in square
+                            Projectile.NewProjectile(x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
 
                         }
-                    }
+                    
                     x = x + 20;
                     xCntr++;
                 }

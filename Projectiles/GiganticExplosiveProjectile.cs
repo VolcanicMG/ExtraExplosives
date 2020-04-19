@@ -51,9 +51,7 @@ namespace ExtraExplosives.Projectiles
 
             //damage part of the bomb
             ExplosionDamageProjectile.DamageRadius = (float)(radius * 1.5f);
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 1000, 100, Main.myPlayer, 0.0f, 0);
+                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 1000, 100, projectile.owner, 0.0f, 0);
 
                 for (int x = -radius; x <= radius; x++)
                 {
@@ -99,7 +97,7 @@ namespace ExtraExplosives.Projectiles
                         }
                     }
                 }
-            }
+            
         }
 
 
