@@ -8,4 +8,6 @@ We are hoping to have 10+ explosives by the next update.
 
 
 Discord: https://discord.gg/UvwEDJ
+
+
 https://forums.terraria.org/index.php?threads/extra-explosives.87772/
