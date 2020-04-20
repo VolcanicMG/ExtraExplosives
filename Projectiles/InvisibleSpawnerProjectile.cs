@@ -49,6 +49,13 @@ namespace ExtraExplosives.Projectiles
 
         }
 
+        public override void PostAI()
+        {
+            ExtraExplosives.playerProjectileOwnerInvis = Main.player[projectile.owner]; ;
+        }
+
+
+
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[Main.myPlayer];
@@ -109,7 +116,10 @@ namespace ExtraExplosives.Projectiles
                     Dust.NewDust(position1, 100, 100, DustID.Vortex, 0.0f, 0.0f, 120, new Color(), 2f);  //this is the dust that will spawn after the explosion
                     Dust.NewDust(position1, 100, 100, DustID.Fireworks, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 2, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 2, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 2)
             {
@@ -127,7 +137,10 @@ namespace ExtraExplosives.Projectiles
                     Vector2 position1 = new Vector2(position.X - 30 / 2, position.Y - 30 / 2);
                     dust1 = Main.dust[Terraria.Dust.NewDust(position1, 30, 30, 91, 0f, -6.052631f, 0, new Color(255, 255, 255), 1.842105f)];
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 3, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 3, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 3)
             {
@@ -154,9 +167,12 @@ namespace ExtraExplosives.Projectiles
                     dust1.noLight = true;
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("MegaExplosiveProjectile"), 0, 0, projectile.owner, 0.0f, 0);
-                Main.NewText("[c/FF0000: Stand Back!]");
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 4, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("MegaExplosiveProjectile"), 0, 0, projectile.owner, 0.0f, 0);
+                    Main.NewText("[c/FF0000: Stand Back!]");
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 4, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 4)
             {
@@ -184,7 +200,10 @@ namespace ExtraExplosives.Projectiles
 
                         if (yCntr == 7) //Or 7
                         {
-                            Projectile.NewProjectile(x, y, speedX, speedY, mod.ProjectileType("SmallExplosiveProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                            if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                            {
+                                Projectile.NewProjectile(x, y, speedX, speedY, mod.ProjectileType("SmallExplosiveProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                            }
 
                         }
                         x = x + 20;
@@ -241,7 +260,10 @@ namespace ExtraExplosives.Projectiles
 
                 //}
 
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 5)
             {
@@ -255,7 +277,10 @@ namespace ExtraExplosives.Projectiles
                     dust.noLight = true;
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 6, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 6, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 6)
             {
@@ -270,7 +295,10 @@ namespace ExtraExplosives.Projectiles
                     dust.shader = GameShaders.Armor.GetSecondaryShader(103, Main.LocalPlayer);
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 7, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 7, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 7)
             {
@@ -297,7 +325,10 @@ namespace ExtraExplosives.Projectiles
 
                         if (yCntr == 7) //Or 7
                         {
-                            Projectile.NewProjectile(x, y, speedX, speedY, mod.ProjectileType("BulletBoomProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                            if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                            {
+                                Projectile.NewProjectile(x, y, speedX, speedY, mod.ProjectileType("BulletBoomProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                            }
                         }
                         x = x + 20;
                         xCntr++;
@@ -320,7 +351,10 @@ namespace ExtraExplosives.Projectiles
 
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 8, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 8, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 8)
             {
@@ -330,7 +364,10 @@ namespace ExtraExplosives.Projectiles
                     dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 156, -0.2631581f, -3.157895f, 0, new Color(0, 255, 142), 3.618421f)];
                     dust.shader = GameShaders.Armor.GetSecondaryShader(24, Main.LocalPlayer);
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 9, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 9, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 9)
             {
@@ -342,7 +379,10 @@ namespace ExtraExplosives.Projectiles
                     dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 10, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 10, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 10)
             {
@@ -356,7 +396,10 @@ namespace ExtraExplosives.Projectiles
 
                         if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
                         {
-                            Projectile.NewProjectile(position.X, position.Y, 0, Main.rand.Next(20) - 10, mod.ProjectileType("DynaglowmiteProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                            if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                            {
+                                Projectile.NewProjectile(position.X, position.Y, 0, Main.rand.Next(20) - 10, mod.ProjectileType("DynaglowmiteProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                            }
                             Vector2 position1 = new Vector2(position.X - 400 / 2, position.Y - 163 / 2);
                             dust = Main.dust[Terraria.Dust.NewDust(position1, 400, 163, 226, 0f, -10f, 0, new Color(8, 0, 255), 0.5263158f)];
                             dust.shader = GameShaders.Armor.GetSecondaryShader(62, Main.LocalPlayer);
@@ -377,8 +420,11 @@ namespace ExtraExplosives.Projectiles
 
                 }
                 Main.NewText("[c/FF0000: BOOM BOOM MUAHHAAHAHAH!]");
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("BigBouncyDynamiteProjectile"), 0, 5, projectile.owner, 0.0f, 0);
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 11, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("BigBouncyDynamiteProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 11, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 11)
             {
@@ -390,7 +436,10 @@ namespace ExtraExplosives.Projectiles
                     dust.fadeIn = 3f;
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 12, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 12, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 12)
             {
@@ -402,13 +451,18 @@ namespace ExtraExplosives.Projectiles
                     dust.fadeIn = 3f;
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 13, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 13, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 13)
             {
-
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("BunnyiteProjectile"), 0, 5, projectile.owner, 0.0f, 0);
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("HydromiteProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("BunnyiteProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("HydromiteProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                }
                 for (int i = 0; i < 70; i++)
                 {
                     Vector2 position1 = new Vector2(position.X - 400 / 2, position.Y - 163 / 2);
@@ -416,7 +470,10 @@ namespace ExtraExplosives.Projectiles
                     dust.shader = GameShaders.Armor.GetSecondaryShader(54, Main.LocalPlayer);
                     dust.fadeIn = 3f;
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 14, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 14, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 14)
             {
@@ -429,7 +486,10 @@ namespace ExtraExplosives.Projectiles
                     dust.fadeIn = 0.7105263f;
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 15, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 15, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 15)
             {
@@ -441,7 +501,10 @@ namespace ExtraExplosives.Projectiles
                     dust.shader = GameShaders.Armor.GetSecondaryShader(27, Main.LocalPlayer);
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 16, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 16, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 16)
             {
@@ -475,7 +538,10 @@ namespace ExtraExplosives.Projectiles
 
                         if (yCntr == 7) //Or 7
                         {
-                            Projectile.NewProjectile(x, y, speedX, speedY, mod.ProjectileType("BulletBoomProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                            if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                            {
+                                Projectile.NewProjectile(x, y, speedX, speedY, mod.ProjectileType("BulletBoomProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                            }
                         }
                         x = x + 20;
                         xCntr++;
@@ -486,8 +552,11 @@ namespace ExtraExplosives.Projectiles
                     xCntr = 1;
                     yCntr++;
                 }
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("DeliquidifierProjectile"), 0, 5, projectile.owner, 0.0f, 0);
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 17, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("DeliquidifierProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 17, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 17)
             {
@@ -499,7 +568,10 @@ namespace ExtraExplosives.Projectiles
                     dust.shader = GameShaders.Armor.GetSecondaryShader(18, Main.LocalPlayer);
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 18, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 18, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 18)
             {
@@ -511,7 +583,10 @@ namespace ExtraExplosives.Projectiles
                     dust.shader = GameShaders.Armor.GetSecondaryShader(67, Main.LocalPlayer);
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 19, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 19, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 19)
             {
@@ -523,10 +598,13 @@ namespace ExtraExplosives.Projectiles
 
                 }
                 Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-                Projectile.NewProjectile(position.X - 16, position.Y - 32, 0, -7, mod.ProjectileType("ClusterBombProjectile"), 0, 5, projectile.owner, 0.0f, 0);
-                Projectile.NewProjectile(position.X + 16, position.Y - 32, 0, -7, mod.ProjectileType("ClusterBombProjectile"), 0, 5, projectile.owner, 0.0f, 0);
-                Main.NewText("[c/FF0000: Watch out, HAHAHAHAH]");
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 20, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X - 16, position.Y - 32, 0, -7, mod.ProjectileType("ClusterBombProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                    Projectile.NewProjectile(position.X + 16, position.Y - 32, 0, -7, mod.ProjectileType("ClusterBombProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                    Main.NewText("[c/FF0000: Watch out, HAHAHAHAH]");
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 20, projectile.owner, 0.0f, 0);
+                }
                 if (CaptainExplosive.CaptianIsDed == true)
                 {
                     Main.NewText("[c/FF0000: He's coming...]");
@@ -542,7 +620,10 @@ namespace ExtraExplosives.Projectiles
                     dust.shader = GameShaders.Armor.GetSecondaryShader(91, Main.LocalPlayer);
 
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 21, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 21, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 21)
             {
@@ -559,7 +640,10 @@ namespace ExtraExplosives.Projectiles
                     dust.shader = GameShaders.Armor.GetSecondaryShader(85, Main.LocalPlayer);
                     dust.fadeIn = 3f;
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 22, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 22, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 22)
             {
@@ -575,9 +659,12 @@ namespace ExtraExplosives.Projectiles
                     dust = Terraria.Dust.NewDustDirect(position1, 205, 205, 132, 0f, 10f, 0, new Color(255, 176, 0), 3.355263f);
 
                 }
-                Projectile.NewProjectile(position.X, position.Y, 0, -5, mod.ProjectileType("GiganticExplosiveProjectile"), 0, 5, projectile.owner, 0.0f, 0);
-                Main.NewText("[c/FF0000: RUN!!!]");
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 23, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y, 0, -5, mod.ProjectileType("GiganticExplosiveProjectile"), 0, 5, projectile.owner, 0.0f, 0);
+                    Main.NewText("[c/FF0000: RUN!!!]");
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 23, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 23)
             {
@@ -592,7 +679,10 @@ namespace ExtraExplosives.Projectiles
                     dust.noGravity = true;
                     dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 24, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 24, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 24)
             {
@@ -606,7 +696,10 @@ namespace ExtraExplosives.Projectiles
                     dust.noGravity = true;
                     dust.shader = GameShaders.Armor.GetSecondaryShader(114, Main.LocalPlayer);
                 }
-                Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 25, projectile.owner, 0.0f, 0);
+                if (ExtraExplosives.playerProjectileOwnerInvis == player)
+                {
+                    Projectile.NewProjectile(position.X, position.Y - 16, 0, 0, mod.ProjectileType("InvisibleSpawnerProjectile"), 0, 25, projectile.owner, 0.0f, 0);
+                }
             }
             else if (projectile.knockBack == 25)
             {

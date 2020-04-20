@@ -24,6 +24,7 @@ namespace ExtraExplosives
 		internal static ModHotKey TriggerExplosion;
 		internal static bool detonate = false;
 		internal static Player playerProjectileOwner;
+		internal static Player playerProjectileOwnerInvis;
 
 		public ExtraExplosives()
 		{
