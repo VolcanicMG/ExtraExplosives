@@ -28,11 +28,21 @@ namespace ExtraExplosives
         [Header("Explosives Wall Settings")]
 
         [Label("Toggle Wall Breaking")]
+        [DefaultValue(true)]
         public bool CanBreakWalls;
 
         [Header("Explosives Block Settings")]
         [Label("Toggle Block Breaking for the C4, Da Bomb, and Captain Explosive")]
+        [DefaultValue(true)]
         public bool CanBreakTiles;
+
+        [Header("Explosives Dust/Particle Settings")]
+        [Label("Set Dust/Particle amount 1 = Max, 0 = None")]
+        [Increment(0.1f)]
+        [Range(0f, 1f)]
+        [DefaultValue(1f)]
+        [Slider]
+        public float dustAmount;
 
         public override void OnChanged()
         {
@@ -57,6 +67,7 @@ namespace ExtraExplosives
             DaBombProjectile.CanBreakTiles = CanBreakTiles;
             CaptainExplosive.CanBreakTiles = CanBreakTiles;
             CaptainExplosive.CanBreakWalls = CanBreakWalls;
+            ExtraExplosives.dustAmount = dustAmount;
         }
     }
 }

@@ -3,7 +3,7 @@ We have decided that terraria doesn’t have enough fun explosives, so we came u
 
 Whats to come:
 Nuke, Bomb Buddy, Meteorite Buster and more!!!
-We are hoping to have 10+ explosives by the next update.
+We are hoping to have 10+ explosives by V2.0
 
 Discord: https://discord.gg/UvwEDJ
 
@@ -12,7 +12,3 @@ Discord: https://discord.gg/UvwEDJ
 [i/s0:168]: 26 Items Total
 [i/s1:267]: 1 NPC
 [i/s1:487]: 1 Buff
-
-CHANGELOG:
-v1.0
-Initial release
