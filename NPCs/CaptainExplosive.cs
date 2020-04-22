@@ -17,6 +17,8 @@ using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 using ExtraExplosives.NPCs;
 using ExtraExplosives.Projectiles;
+using ExtraExplosives.Items;
+using ExtraExplosives;
 
 namespace ExtraExplosives.NPCs
 {
@@ -149,39 +151,42 @@ namespace ExtraExplosives.NPCs
                                 //Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                                 if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
                             }
+
+
+                            if (Main.rand.NextFloat() < ExtraExplosives.dustAmount )
+                            {
+                                if (Main.rand.NextFloat() < 0.2f)
+                                {
+
+                                    int Hw = 550;
+                                    float scale = 10f;
+
+                                    Dust dust;
+                                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                                    Vector2 vev = new Vector2(position.X - (Hw / 2), position.Y - (Hw / 2));
+                                    dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), scale)];
+                                    dust.noGravity = true;
+                                    dust.fadeIn = 2.486842f;
+
+
+                                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                                    dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 203, 0f, 0f, 0, new Color(255, 255, 255), scale)];
+                                    dust.noGravity = true;
+                                    dust.noLight = true;
+
+
+                                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                                    dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 31, 0f, 0f, 0, new Color(255, 255, 255), scale)];
+                                    dust.noGravity = true;
+                                    dust.noLight = true;
+                                }
+                            }
                         }
                     }
                 }
             }
 
-            for (int i = 0; i <= 50; i++)
-            {
-                int Hw = 550;
-                float scale = 10f;
-
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 vev = new Vector2(position.X - (Hw / 2), position.Y - (Hw / 2));
-                dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), scale)];
-                dust.noGravity = true;
-                dust.fadeIn = 2.486842f;
-
-
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 203, 0f, 0f, 0, new Color(255, 255, 255), scale)];
-                dust.noGravity = true;
-                dust.noLight = true;
-
-
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 31, 0f, 0f, 0, new Color(255, 255, 255), scale)];
-                dust.noGravity = true;
-                dust.noLight = true;
-
-
-
-            }
-
+           
             return base.CheckDead();
         }
 
@@ -193,6 +198,7 @@ namespace ExtraExplosives.NPCs
         public override void SetChatButtons(ref string button, ref string button2)  //Allows you to set the text for the buttons that appear on npc town NPC's chat window.
         {
             button = "Buy Explosioves";   //npc defines the buy button name
+            button2 = "Combine";
         }
         public override void OnChatButtonClicked(bool firstButton, ref bool openShop) //Allows you to make something happen whenever a button is clicked on npc town NPC's chat window. The firstButton parameter tells whether the first button or second button (button and button2 from SetChatButtons) was clicked. Set the shop parameter to true to open npc NPC's shop.
         {
@@ -200,6 +206,13 @@ namespace ExtraExplosives.NPCs
             if (firstButton)
             {
                 openShop = true;   //so when you click on buy button opens the shop
+            }
+            else
+            {
+                Main.playerInventory = true;
+                Main.npcChatText = "";
+
+                GetInstance<ExtraExplosives>().ExtraExplosivesUserInterface.SetState(new UI.ExtraExplosivesUI());
             }
         }
 

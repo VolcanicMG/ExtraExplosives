@@ -15,6 +15,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives.UI;
 
 namespace ExtraExplosives.Items
 {
@@ -31,7 +32,7 @@ namespace ExtraExplosives.Items
         public override void SetDefaults()
         {
 
-            item.damage = 75;     //The damage stat for the Weapon.                
+            item.damage = 75;     //The damage stat for the Weapon.   
             item.width = 20;    //sprite width
             item.height = 20;   //sprite height
             item.maxStack = 999;   //This defines the items max stack
@@ -47,7 +48,11 @@ namespace ExtraExplosives.Items
             item.shoot = mod.ProjectileType("BulletBoomProjectile"); //This defines what type of projectile this item will shoot
             item.shootSpeed = 15f; //This defines the projectile speed when shot
             //item.createTile = mod.TileType("ExplosiveTile");
+        }
 
+        public override bool AllowPrefix(int pre)
+        {
+            return true;
         }
 
         public override void AddRecipes()

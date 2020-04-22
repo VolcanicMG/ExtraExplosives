@@ -15,6 +15,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives.Items;
 
 namespace ExtraExplosives.Items
 {
@@ -52,7 +53,7 @@ namespace ExtraExplosives.Items
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("GiganticExplosiveItem"), 1);
+            recipe.AddIngredient(ModContent.ItemType<GiganticExplosiveItem>(), 1);
             recipe.AddIngredient(mod.ItemType("TheLevelerItem"), 1);
             recipe.AddIngredient(mod.ItemType("HouseBombItem"), 1);
             recipe.AddIngredient(mod.ItemType("DeliquidifierItem"), 1);

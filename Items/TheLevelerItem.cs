@@ -24,7 +24,8 @@ namespace ExtraExplosives.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The Leveler");
-            Tooltip.SetDefault("Levels a 100 x 20 space. Blows up immediately");
+            Tooltip.SetDefault("Levels a 100 x 20 space. Blows up immediately\n" +
+                "[c/AB40FF:Can destroy desert fossil]");
         }
 
         public override void SetDefaults()
@@ -40,7 +41,7 @@ namespace ExtraExplosives.Items
             item.UseSound = SoundID.Item1; //The sound played when using this item
             item.useAnimation = 20;  //How long the item is used for.
             item.useTime = 100;     //How fast the item is used.
-            item.value = Item.buyPrice(0, 17, 60, 50);   //How much the item is worth, in copper coins, when you sell it to a merchant. It costs 1/5th of this to buy it back from them. An easy way to remember the value is platinum, gold, silver, copper or PPGGSSCC (so this item price is 3 silver)
+            item.value = Item.buyPrice(0, 10, 60, 50);   //How much the item is worth, in copper coins, when you sell it to a merchant. It costs 1/5th of this to buy it back from them. An easy way to remember the value is platinum, gold, silver, copper or PPGGSSCC (so this item price is 3 silver)
             item.noUseGraphic = true;
             item.noMelee = true;      //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
             item.shoot = mod.ProjectileType("TheLevelerProjectile"); //This defines what type of projectile this item will shoot
@@ -51,7 +52,7 @@ namespace ExtraExplosives.Items
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("MegaExplosiveItem"), 3);
+            recipe.AddIngredient(mod.ItemType("LargeExplosiveItem"), 5);
             recipe.AddIngredient(ItemID.IronPickaxe, 1);
             recipe.AddIngredient(ItemID.Gel, 30);
             recipe.AddTile(TileID.Anvils);
@@ -59,7 +60,7 @@ namespace ExtraExplosives.Items
             recipe.AddRecipe();
 
             ModRecipe recipe2 = new ModRecipe(mod);
-            recipe2.AddIngredient(mod.ItemType("MegaExplosiveItem"), 3);
+            recipe2.AddIngredient(mod.ItemType("LargeExplosiveItem"), 5);
             recipe2.AddIngredient(ItemID.LeadPickaxe, 1);
             recipe2.AddIngredient(ItemID.Gel, 30);
             recipe2.AddTile(TileID.Anvils);
