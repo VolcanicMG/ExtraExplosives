@@ -145,28 +145,37 @@ namespace ExtraExplosives.Projectiles
 
             for (int i = 0; i < 100; i++)
             {
-                Vector2 position3 = new Vector2(position.X - 250 / 2, position.Y - 190 + 20);
-                dust3 = Main.dust[Terraria.Dust.NewDust(position3, 250, 190, 263, 0f, 0f, 0, new Color(255, 255, 255), 4.5f)];
-                dust3.noGravity = true;
-                dust3.noLight = true;
-                dust3.fadeIn = 1.618421f;
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    Vector2 position3 = new Vector2(position.X - 250 / 2, position.Y - 190 + 20);
+                    dust3 = Main.dust[Terraria.Dust.NewDust(position3, 250, 190, 263, 0f, 0f, 0, new Color(255, 255, 255), 4.5f)];
+                    dust3.noGravity = true;
+                    dust3.noLight = true;
+                    dust3.fadeIn = 1.618421f;
+                }
             }
 
             for (int i = 0; i < 100; i++)
             {
-                Vector2 position1 = new Vector2(position.X - 221 / 2, position.Y - 170 + 10);
-                dust1 = Main.dust[Terraria.Dust.NewDust(position1, 221, 170, 232, 0f, 0f, 214, new Color(255, 150, 0), 4.407895f)];
-                dust1.noGravity = true;
-                dust1.noLight = true;
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    Vector2 position1 = new Vector2(position.X - 221 / 2, position.Y - 170 + 10);
+                    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 221, 170, 232, 0f, 0f, 214, new Color(255, 150, 0), 4.407895f)];
+                    dust1.noGravity = true;
+                    dust1.noLight = true;
+                }
 
             }
 
             for (int i = 0; i < 100; i++)
             {
-                Vector2 position2 = new Vector2(position.X - 221 / 2, position.Y - 170 + 10);
-                dust2 = Main.dust[Terraria.Dust.NewDust(position2, 221, 170, 1, 0f, 0f, 140, new Color(255, 255, 255), 2.5f)];
-                dust2.noGravity = true;
-                dust2.noLight = true;
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    Vector2 position2 = new Vector2(position.X - 221 / 2, position.Y - 170 + 10);
+                    dust2 = Main.dust[Terraria.Dust.NewDust(position2, 221, 170, 1, 0f, 0f, 140, new Color(255, 255, 255), 2.5f)];
+                    dust2.noGravity = true;
+                    dust2.noLight = true;
+                }
             }
         }
     }

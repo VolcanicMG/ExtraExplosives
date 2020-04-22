@@ -96,10 +96,13 @@ namespace ExtraExplosives.Projectiles
 
                         //- - - - - - - -
                         //Spawn Dust Here
-                        Vector2 position2 = new Vector2(position.X - 47 / 2, position.Y - 47 / 2);
-                        dust = Main.dust[Terraria.Dust.NewDust(position2, 47, 47, 28, xVel, yVel, 0, new Color(255, 0, 0), 1.842105f)];
-                        dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
-                        dust.noLight = false;
+                        if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                        {
+                            Vector2 position2 = new Vector2(position.X - 47 / 2, position.Y - 47 / 2);
+                            dust = Main.dust[Terraria.Dust.NewDust(position2, 47, 47, 28, xVel, yVel, 0, new Color(255, 0, 0), 1.842105f)];
+                            dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+                            dust.noLight = false;
+                        }
                         //- - - - - - - -
 
                     }
@@ -109,12 +112,15 @@ namespace ExtraExplosives.Projectiles
                 Main.NewText("3!");
                 for (int i = 0; i < 100; i++)
                 {
-                    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
-                    dust1.noGravity = true;
-                    dust1.noLight = true;
-                    dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
-                    Dust.NewDust(position1, 100, 100, DustID.Vortex, 0.0f, 0.0f, 120, new Color(), 2f);  //this is the dust that will spawn after the explosion
-                    Dust.NewDust(position1, 100, 100, DustID.Fireworks, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
+                        dust1.noGravity = true;
+                        dust1.noLight = true;
+                        dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                        Dust.NewDust(position1, 100, 100, DustID.Vortex, 0.0f, 0.0f, 120, new Color(), 2f);  //this is the dust that will spawn after the explosion
+                        Dust.NewDust(position1, 100, 100, DustID.Fireworks, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+                    }
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
                 {
@@ -126,16 +132,22 @@ namespace ExtraExplosives.Projectiles
                 Main.NewText("2!");
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-                    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
-                    dust1.noGravity = true;
-                    dust1.noLight = true;
-                    dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+                        dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
+                        dust1.noGravity = true;
+                        dust1.noLight = true;
+                        dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                    }
                 }
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 30 / 2, position.Y - 30 / 2);
-                    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 30, 30, 91, 0f, -6.052631f, 0, new Color(255, 255, 255), 1.842105f)];
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 30 / 2, position.Y - 30 / 2);
+                        dust1 = Main.dust[Terraria.Dust.NewDust(position1, 30, 30, 91, 0f, -6.052631f, 0, new Color(255, 255, 255), 1.842105f)];
+                    }
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
                 {
@@ -147,24 +159,33 @@ namespace ExtraExplosives.Projectiles
                 Main.NewText("1!");
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-                    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
-                    dust1.noGravity = true;
-                    dust1.noLight = true;
-                    dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+                        dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
+                        dust1.noGravity = true;
+                        dust1.noLight = true;
+                        dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                    }
                 }
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 30 / 2, position.Y - 30 / 2);
-                    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 30, 30, 91, 0f, -6.052631f, 0, new Color(255, 255, 255), 1.842105f)];
-                    dust1.noLight = true;
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 30 / 2, position.Y - 30 / 2);
+                        dust1 = Main.dust[Terraria.Dust.NewDust(position1, 30, 30, 91, 0f, -6.052631f, 0, new Color(255, 255, 255), 1.842105f)];
+                        dust1.noLight = true;
+                    }
                 }
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 121 / 2, position.Y - 121 / 2);
-                    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 121, 121, 274, 0f, 0.7894742f, 0, new Color(255, 0, 226), 3.815789f)];
-                    dust1.shader = GameShaders.Armor.GetSecondaryShader(77, Main.LocalPlayer);
-                    dust1.noLight = true;
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 121 / 2, position.Y - 121 / 2);
+                        dust1 = Main.dust[Terraria.Dust.NewDust(position1, 121, 121, 274, 0f, 0.7894742f, 0, new Color(255, 0, 226), 3.815789f)];
+                        dust1.shader = GameShaders.Armor.GetSecondaryShader(77, Main.LocalPlayer);
+                        dust1.noLight = true;
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -241,10 +262,13 @@ namespace ExtraExplosives.Projectiles
 
                         //- - - - - - - -
                         //Spawn Dust Here
-                        Vector2 position1 = new Vector2(position.X - 47 / 2, position.Y - 47 / 2);
-                        dust = Main.dust[Terraria.Dust.NewDust(position1, 47, 47, 28, xVel, yVel, 0, new Color(0, 242, 255), 1.842105f)];
-                        dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
-                        dust.noLight = false;
+                        if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                        {
+                            Vector2 position1 = new Vector2(position.X - 47 / 2, position.Y - 47 / 2);
+                            dust = Main.dust[Terraria.Dust.NewDust(position1, 47, 47, 28, xVel, yVel, 0, new Color(0, 242, 255), 1.842105f)];
+                            dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+                            dust.noLight = false;
+                        }
                         //- - - - - - - -
 
                     }
@@ -269,12 +293,15 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 168 / 2, position.Y - 152 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 168, 152, 176, 0f, -10f, 0, new Color(0, 255, 242), 3.421053f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 168 / 2, position.Y - 152 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 168, 152, 176, 0f, -10f, 0, new Color(0, 255, 242), 3.421053f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
 
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 205, 132, 0f, 10f, 0, new Color(0, 142, 255), 3.355263f)];
-                    dust.noLight = true;
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 205, 132, 0f, 10f, 0, new Color(0, 142, 255), 3.355263f)];
+                        dust.noLight = true;
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -286,14 +313,16 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 168 / 2, position.Y - 152 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 176, 0f, -1.315789f, 73, new Color(255, 201, 0), 5f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(76, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 168 / 2, position.Y - 152 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 176, 0f, -1.315789f, 73, new Color(255, 201, 0), 5f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(76, Main.LocalPlayer);
 
 
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 29, 0f, 0f, 0, new Color(84, 0, 255), 4.144737f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(103, Main.LocalPlayer);
-
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 29, 0f, 0f, 0, new Color(84, 0, 255), 4.144737f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(103, Main.LocalPlayer);
+                    }
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
                 {
@@ -341,14 +370,16 @@ namespace ExtraExplosives.Projectiles
                 }
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 263 / 2, position.Y - 263 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 155, 0f, -10f, 90, new Color(0, 255, 142), 3.618421f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(50, Main.LocalPlayer);
-                    dust.fadeIn = 2.092105f;
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 263 / 2, position.Y - 263 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 155, 0f, -10f, 90, new Color(0, 255, 142), 3.618421f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(50, Main.LocalPlayer);
+                        dust.fadeIn = 2.092105f;
 
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 15, 0f, 0f, 0, new Color(109, 255, 0), 4.144737f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(44, Main.LocalPlayer);
-
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 15, 0f, 0f, 0, new Color(109, 255, 0), 4.144737f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(44, Main.LocalPlayer);
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -360,9 +391,12 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 263 / 2, position.Y - 263 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 156, -0.2631581f, -3.157895f, 0, new Color(0, 255, 142), 3.618421f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(24, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 263 / 2, position.Y - 263 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 156, -0.2631581f, -3.157895f, 0, new Color(0, 255, 142), 3.618421f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(24, Main.LocalPlayer);
+                    }
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
                 {
@@ -373,10 +407,13 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 331 / 2, position.Y - 331 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 331, 331, 275, -0.2631581f, -1.052632f, 0, new Color(134, 255, 0), 5f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 331 / 2, position.Y - 331 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 331, 331, 275, -0.2631581f, -1.052632f, 0, new Color(134, 255, 0), 5f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -400,10 +437,13 @@ namespace ExtraExplosives.Projectiles
                             {
                                 Projectile.NewProjectile(position.X, position.Y, 0, Main.rand.Next(20) - 10, mod.ProjectileType("DynaglowmiteProjectile"), 0, 5, projectile.owner, 0.0f, 0);
                             }
-                            Vector2 position1 = new Vector2(position.X - 400 / 2, position.Y - 163 / 2);
-                            dust = Main.dust[Terraria.Dust.NewDust(position1, 400, 163, 226, 0f, -10f, 0, new Color(8, 0, 255), 0.5263158f)];
-                            dust.shader = GameShaders.Armor.GetSecondaryShader(62, Main.LocalPlayer);
-                            dust.fadeIn = 3f;
+                            if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                            {
+                                Vector2 position1 = new Vector2(position.X - 400 / 2, position.Y - 163 / 2);
+                                dust = Main.dust[Terraria.Dust.NewDust(position1, 400, 163, 226, 0f, -10f, 0, new Color(8, 0, 255), 0.5263158f)];
+                                dust.shader = GameShaders.Armor.GetSecondaryShader(62, Main.LocalPlayer);
+                                dust.fadeIn = 3f;
+                            }
 
                         }
                     }
@@ -411,12 +451,15 @@ namespace ExtraExplosives.Projectiles
 
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 326 / 2, position.Y - 326 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 326, 326, 63, -6.31579f, -7.631579f, 0, new Color(0, 192, 255), 5f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 326 / 2, position.Y - 326 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 326, 326, 63, -6.31579f, -7.631579f, 0, new Color(0, 192, 255), 5f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
 
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 326, 326, 231, 0f, 0.2631581f, 0, new Color(255, 255, 0), 3.157895f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(106, Main.LocalPlayer);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 326, 326, 231, 0f, 0.2631581f, 0, new Color(255, 255, 0), 3.157895f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(106, Main.LocalPlayer);
+                    }
 
                 }
                 Main.NewText("[c/FF0000: BOOM BOOM MUAHHAAHAHAH!]");
@@ -430,10 +473,13 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 163 / 2, position.Y - 218 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 157, 163, 218, 0f, -10f, 0, new Color(255, 255, 255), 3.618421f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(54, Main.LocalPlayer);
-                    dust.fadeIn = 3f;
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 163 / 2, position.Y - 218 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 157, 163, 218, 0f, -10f, 0, new Color(255, 255, 255), 3.618421f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(54, Main.LocalPlayer);
+                        dust.fadeIn = 3f;
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -445,10 +491,13 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 70; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 157 / 2, position.Y - 163 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 157, 163, 219, 0f, -10f, 0, new Color(255, 0, 0), 0.5263158f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(54, Main.LocalPlayer);
-                    dust.fadeIn = 3f;
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 157 / 2, position.Y - 163 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 157, 163, 219, 0f, -10f, 0, new Color(255, 0, 0), 0.5263158f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(54, Main.LocalPlayer);
+                        dust.fadeIn = 3f;
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -465,10 +514,13 @@ namespace ExtraExplosives.Projectiles
                 }
                 for (int i = 0; i < 70; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 400 / 2, position.Y - 163 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 400, 163, 220, 0f, -10f, 0, new Color(33, 0, 255), 0.5263158f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(54, Main.LocalPlayer);
-                    dust.fadeIn = 3f;
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 400 / 2, position.Y - 163 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 400, 163, 220, 0f, -10f, 0, new Color(33, 0, 255), 0.5263158f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(54, Main.LocalPlayer);
+                        dust.fadeIn = 3f;
+                    }
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
                 {
@@ -479,11 +531,14 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 400 / 2, position.Y - 247 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 400, 247, 226, 0f, 0.2631581f, 0, new Color(0, 217, 255), 5f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(94, Main.LocalPlayer);
-                    dust.fadeIn = 0.7105263f;
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 400 / 2, position.Y - 247 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 400, 247, 226, 0f, 0.2631581f, 0, new Color(0, 217, 255), 5f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(94, Main.LocalPlayer);
+                        dust.fadeIn = 0.7105263f;
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -495,10 +550,13 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 205 / 2, position.Y - 173 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 173, 61, 0f, 0.2631581f, 0, new Color(255, 125, 0), 4.276316f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(27, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 205 / 2, position.Y - 173 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 173, 61, 0f, 0.2631581f, 0, new Color(255, 125, 0), 4.276316f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(27, Main.LocalPlayer);
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -510,9 +568,12 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 231 / 2, position.Y - 247 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 231, 247, 230, 0f, 0.2631581f, 0, new Color(209, 0, 255), 5f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(106, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 231 / 2, position.Y - 247 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 231, 247, 230, 0f, 0.2631581f, 0, new Color(209, 0, 255), 5f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(106, Main.LocalPlayer);
+                    }
 
                 }
                 Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
@@ -562,10 +623,13 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 336 / 2, position.Y - 336 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 336, 336, 49, 0f, 0.2631581f, 174, new Color(0, 217, 255), 3.157895f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(18, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 336 / 2, position.Y - 336 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 336, 336, 49, 0f, 0.2631581f, 174, new Color(0, 217, 255), 3.157895f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(18, Main.LocalPlayer);
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -577,10 +641,13 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 263 / 2, position.Y - 263 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 56, 0f, 10f, 174, new Color(255, 0, 0), 3.157895f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(67, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 263 / 2, position.Y - 263 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 56, 0f, 10f, 174, new Color(255, 0, 0), 3.157895f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(67, Main.LocalPlayer);
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -592,10 +659,12 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 336 / 2, position.Y - 326 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 336, 326, 234, 0f, -5.263158f, 0, new Color(209, 255, 0), 3.157895f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(108, Main.LocalPlayer);
-
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 336 / 2, position.Y - 326 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 336, 326, 234, 0f, -5.263158f, 0, new Color(209, 255, 0), 3.157895f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(108, Main.LocalPlayer);
+                    }
                 }
                 Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -614,10 +683,13 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 205 / 2, position.Y - 173 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 173, 65, 6.842105f, 0.2631581f, 0, new Color(255, 176, 0), 4.276316f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(91, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 205 / 2, position.Y - 173 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 173, 65, 6.842105f, 0.2631581f, 0, new Color(255, 176, 0), 4.276316f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(91, Main.LocalPlayer);
+                    }
 
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
@@ -629,16 +701,19 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 205 / 2, position.Y - 173 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 173, 68, -0.2631581f, 0.2631581f, 140, new Color(255, 0, 0), 4.276316f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(21, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 205 / 2, position.Y - 173 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 173, 68, -0.2631581f, 0.2631581f, 140, new Color(255, 0, 0), 4.276316f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(21, Main.LocalPlayer);
 
-                    Vector2 position2 = new Vector2(position.X - 400 / 2, position.Y - 400 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position2, 400, 400, 77, -0.2631581f, -10f, 0, new Color(84, 0, 255), 5f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(85, Main.LocalPlayer);
-                    dust.fadeIn = 3f;
+                        Vector2 position2 = new Vector2(position.X - 400 / 2, position.Y - 400 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position2, 400, 400, 77, -0.2631581f, -10f, 0, new Color(84, 0, 255), 5f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(85, Main.LocalPlayer);
+                        dust.fadeIn = 3f;
+                    }
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
                 {
@@ -649,15 +724,17 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 205 / 2, position.Y - 205 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 205, 75, -0.2631581f, 0.2631581f, 140, new Color(255, 251, 0), 5f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(50, Main.LocalPlayer);
-                    dust.fadeIn = 2.289474f;
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 205 / 2, position.Y - 205 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 205, 75, -0.2631581f, 0.2631581f, 140, new Color(255, 251, 0), 5f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(50, Main.LocalPlayer);
+                        dust.fadeIn = 2.289474f;
 
-                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                    dust = Terraria.Dust.NewDustDirect(position1, 205, 205, 132, 0f, 10f, 0, new Color(255, 176, 0), 3.355263f);
-
+                        // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                        dust = Terraria.Dust.NewDustDirect(position1, 205, 205, 132, 0f, 10f, 0, new Color(255, 176, 0), 3.355263f);
+                    }
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
                 {
@@ -670,14 +747,17 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 300 / 2, position.Y - 300 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 300, 300, 76, -0.2631581f, 0.2631581f, 0, new Color(209, 255, 0), 4.539474f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(76, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 300 / 2, position.Y - 300 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 300, 300, 76, -0.2631581f, 0.2631581f, 0, new Color(209, 255, 0), 4.539474f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(76, Main.LocalPlayer);
 
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 300, 300, 217, 0f, 0f, 0, new Color(84, 0, 255), 5f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 300, 300, 217, 0f, 0f, 0, new Color(84, 0, 255), 5f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                    }
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
                 {
@@ -688,13 +768,16 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 205 / 205, position.Y - 263 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position, 205, 205, 77, -0.2631581f, -0.2631581f, 0, new Color(234, 255, 0), 4.539474f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(82, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 205 / 205, position.Y - 263 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position, 205, 205, 77, -0.2631581f, -0.2631581f, 0, new Color(234, 255, 0), 4.539474f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(82, Main.LocalPlayer);
 
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 205, 176, 0f, 0f, 0, new Color(0, 255, 117), 5f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(114, Main.LocalPlayer);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 205, 205, 176, 0f, 0f, 0, new Color(0, 255, 117), 5f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(114, Main.LocalPlayer);
+                    }
                 }
                 if (ExtraExplosives.playerProjectileOwnerInvis == player)
                 {
@@ -705,15 +788,18 @@ namespace ExtraExplosives.Projectiles
             {
                 for (int i = 0; i < 100; i++)
                 {
-                    Vector2 position1 = new Vector2(position.X - 263 / 2, position.Y - 263 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position, 263, 263, 80, -0.2631581f, -7.631579f, 0, new Color(234, 255, 0), 4.539474f)];
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(112, Main.LocalPlayer);
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
+                        Vector2 position1 = new Vector2(position.X - 263 / 2, position.Y - 263 / 2);
+                        dust = Main.dust[Terraria.Dust.NewDust(position, 263, 263, 80, -0.2631581f, -7.631579f, 0, new Color(234, 255, 0), 4.539474f)];
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(112, Main.LocalPlayer);
 
-                    Dust.NewDust(position1, 263, 263, DustID.Confetti, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+                        Dust.NewDust(position1, 263, 263, DustID.Confetti, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
 
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 148, 0f, 0f, 0, new Color(0, 255, 117), 5f)];
-                    dust.noGravity = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(114, Main.LocalPlayer);
+                        dust = Main.dust[Terraria.Dust.NewDust(position1, 263, 263, 148, 0f, 0f, 0, new Color(0, 255, 117), 5f)];
+                        dust.noGravity = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(114, Main.LocalPlayer);
+                    }
                 }
 
                 if (CaptainExplosive.CaptianIsDed == true)

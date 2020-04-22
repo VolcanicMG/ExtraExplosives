@@ -81,24 +81,26 @@ namespace ExtraExplosives.Projectiles
                             WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
                         }
-
-                        if (Main.rand.NextFloat() < 0.3f)
+                        if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
                         {
-                            Dust dust;
-                            Vector2 position1 = new Vector2(position.X - 600 / 2, position.Y - 600 / 2);
-                            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                            dust = Main.dust[Terraria.Dust.NewDust(position1, 600, 600, 155, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                            dust.noGravity = true;
-                            dust.shader = GameShaders.Armor.GetSecondaryShader(105, Main.LocalPlayer);
+                            if (Main.rand.NextFloat() < 0.2f)
+                            {
+                                Dust dust;
+                                Vector2 position1 = new Vector2(position.X - 600 / 2, position.Y - 600 / 2);
+                                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                                dust = Main.dust[Terraria.Dust.NewDust(position1, 600, 600, 155, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
+                                dust.noGravity = true;
+                                dust.shader = GameShaders.Armor.GetSecondaryShader(105, Main.LocalPlayer);
 
 
 
-                            Dust dust2;
-                            Vector2 position2 = new Vector2(position.X - 650 / 2, position.Y - 650 / 2);
-                            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                            dust2 = Main.dust[Terraria.Dust.NewDust(position2, 600, 600, 49, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                            dust2.noGravity = true;
-                            dust2.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                                Dust dust2;
+                                Vector2 position2 = new Vector2(position.X - 650 / 2, position.Y - 650 / 2);
+                                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                                dust2 = Main.dust[Terraria.Dust.NewDust(position2, 600, 600, 49, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
+                                dust2.noGravity = true;
+                                dust2.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                            }
                         }
                     }
                 }

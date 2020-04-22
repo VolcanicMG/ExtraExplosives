@@ -52,11 +52,13 @@ namespace ExtraExplosives.Projectiles
             ExplosionDamageProjectile.DamageRadius = (float)(radius * 2f);
                 Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 250, 40, projectile.owner, 0.0f, 0);
 
-                for (int i = 0; i <= 50; i++)
-                {
-                    int Hw = 100;
-                    float scale = 5f;
+            for (int i = 0; i <= 50; i++)
+            {
+                int Hw = 100;
+                float scale = 5f;
 
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
                     Dust dust;
                     // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                     Vector2 vev = new Vector2(position.X - (Hw / 2), position.Y - (Hw / 2));
@@ -76,6 +78,7 @@ namespace ExtraExplosives.Projectiles
                     dust.noLight = true;
 
                 }
+            }
             
         }
 

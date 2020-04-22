@@ -83,29 +83,32 @@ namespace ExtraExplosives.Projectiles
             {
                 int Hw = 120;
 
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 vev = new Vector2(position.X - (Hw / 2), position.Y - (Hw / 2));
-                dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
-                dust.noGravity = true;
-                dust.fadeIn = 2.486842f;
-
-                if (Main.rand.NextFloat() < 0.4763158f)
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
                 {
-
+                    Dust dust;
                     // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                    dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
+                    Vector2 vev = new Vector2(position.X - (Hw / 2), position.Y - (Hw / 2));
+                    dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
                     dust.noGravity = true;
-                    dust.noLight = true;
-                }
+                    dust.fadeIn = 2.486842f;
 
-                if (Main.rand.NextFloat() < 0.7921053f)
-                {
-                    Dust dust3;
-                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                    dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                    dust.noGravity = true;
-                    dust.noLight = true;
+                    if (Main.rand.NextFloat() < 0.4763158f)
+                    {
+
+                        // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                        dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                    }
+
+                    if (Main.rand.NextFloat() < 0.7921053f)
+                    {
+                        Dust dust3;
+                        // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                        dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                    }
                 }
 
 

@@ -57,10 +57,14 @@ namespace ExtraExplosives.Projectiles
                         else
                         {
                             WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
+                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
+                        }
 
-                            int Hw = 550;
-                            float scale = 10f;
+                        int Hw = 550;
+                        float scale = 10f;
 
+                        if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                        {
                             if (Main.rand.NextFloat() < 0.2f)
                             {
                                 Dust dust;
@@ -80,8 +84,6 @@ namespace ExtraExplosives.Projectiles
                                 dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 31, 0f, 0f, 0, new Color(255, 255, 255), scale)];
                                 dust.noGravity = true;
                                 dust.noLight = true;
-
-                                if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
 
                             }
                         }

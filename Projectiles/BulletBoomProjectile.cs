@@ -102,19 +102,25 @@ namespace ExtraExplosives.Projectiles
             // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
             for (int i = 0; i < 100; i++)
             {
-                Vector2 position1 = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-                dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
-                dust1.noGravity = true;
-                dust1.noLight = true;
-                dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    Vector2 position1 = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+                    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
+                    dust1.noGravity = true;
+                    dust1.noLight = true;
+                    dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                }
 
             }
 
             for (int i = 0; i < 100; i++)
             {
-                Vector2 position2 = new Vector2(position.X - 80 / 2, position.Y - 80 / 2);
-                dust2 = Main.dust[Terraria.Dust.NewDust(position2, 80, 80, 6/*35*/, 0f, 0f, 0, new Color(240, 240, 240), 4.0f)];
-                dust2.noGravity = true;
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    Vector2 position2 = new Vector2(position.X - 80 / 2, position.Y - 80 / 2);
+                    dust2 = Main.dust[Terraria.Dust.NewDust(position2, 80, 80, 6/*35*/, 0f, 0f, 0, new Color(240, 240, 240), 4.0f)];
+                    dust2.noGravity = true;
+                }
             }
         }
     }

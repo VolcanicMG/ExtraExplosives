@@ -1,21 +1,8 @@
-﻿using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using ExtraExplosives;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -50,27 +37,30 @@ namespace ExtraExplosives.Projectiles
 
             //damage part of the bomb
             ExplosionDamageProjectile.DamageRadius = (float)(radius * 1.5f);
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 600, 70, projectile.owner, 0.0f, 0);
+            Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 600, 70, projectile.owner, 0.0f, 0);
 
-                for (int x = -radius; x <= radius; x++)
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
                 {
-                    for (int y = -radius; y <= radius; y++)
+                    int xPosition = (int)(x + position.X / 16.0f);
+                    int yPosition = (int)(y + position.Y / 16.0f);
+
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
                     {
-                        int xPosition = (int)(x + position.X / 16.0f);
-                        int yPosition = (int)(y + position.Y / 16.0f);
-
-                        if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
+                        if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
+                            || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
+                            Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge || Main.tile[xPosition, yPosition].type == TileID.DemonAltar)
                         {
-                            if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
-                                || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
-                                Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge || Main.tile[xPosition, yPosition].type == TileID.DemonAltar)
-                            {
 
-                            }
-                            else
+                        }
+                        else
+                        {
+                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
+                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
+
+                            if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
                             {
-                                WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
-                                if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
                                 int Hw = 900;
                                 float scale = 15f;
 
@@ -97,7 +87,8 @@ namespace ExtraExplosives.Projectiles
                         }
                     }
                 }
-            
+            }
+
 
         }
 

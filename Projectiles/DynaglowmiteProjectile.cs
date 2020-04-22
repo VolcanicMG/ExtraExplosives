@@ -102,19 +102,25 @@ namespace ExtraExplosives.Projectiles
 
             for (int i = 0; i < 100; i++)
             {
-                Vector2 glowPosition = new Vector2(position.X - 200, position.Y - 200);
-                dust = Terraria.Dust.NewDustDirect(glowPosition, 400, 400, 91, 0f, 0f, 157, new Color(0, 142, 255), 2.565789f);
-                dust.noGravity = true;
-                dust.fadeIn = 1.460526f;
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    Vector2 glowPosition = new Vector2(position.X - 200, position.Y - 200);
+                    dust = Terraria.Dust.NewDustDirect(glowPosition, 400, 400, 91, 0f, 0f, 157, new Color(0, 142, 255), 2.565789f);
+                    dust.noGravity = true;
+                    dust.fadeIn = 1.460526f;
+                }
             }
 
             for (int i = 0; i < 50; i++)
             {
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 glowPosition2 = new Vector2(position.X - 40, position.Y - 40);
-                dust = Terraria.Dust.NewDustDirect(glowPosition2, 80, 80, 197, 0f, 0f, 157, new Color(0, 67, 255), 2.565789f);
-                dust.noGravity = true;
-                dust.fadeIn = 2.486842f;
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                    Vector2 glowPosition2 = new Vector2(position.X - 40, position.Y - 40);
+                    dust = Terraria.Dust.NewDustDirect(glowPosition2, 80, 80, 197, 0f, 0f, 157, new Color(0, 67, 255), 2.565789f);
+                    dust.noGravity = true;
+                    dust.fadeIn = 2.486842f;
+                }
             }
 
         }

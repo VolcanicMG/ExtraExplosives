@@ -66,12 +66,13 @@ namespace ExtraExplosives.Projectiles
 
             for (int i = 0; i < 100; i++)
             {
-
-                Dust dust;
-                Vector2 position1 = new Vector2(position.X - 168 / 2, position.Y - 168 / 2);
-                dust = Main.dust[Terraria.Dust.NewDust(position1, 168, 168, 188, 0.2631581f, 0f, 0, new Color(0, 42, 255), 3.815789f)];
-                dust.noGravity = true;
-
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    Dust dust;
+                    Vector2 position1 = new Vector2(position.X - 168 / 2, position.Y - 168 / 2);
+                    dust = Main.dust[Terraria.Dust.NewDust(position1, 168, 168, 188, 0.2631581f, 0f, 0, new Color(0, 42, 255), 3.815789f)];
+                    dust.noGravity = true;
+                }
 
             }
 

@@ -57,22 +57,25 @@ namespace ExtraExplosives.Projectiles
                 spread = Main.rand.Next(1200); //Random spread
 
                 int pick = 0; 
-                pick = variety[Main.rand.Next(variety.Length)]; 
+                pick = variety[Main.rand.Next(variety.Length)];
 
                 NPC.NewNPC((int)position.X + (spread - 600), (int)position.Y, pick, 0, 0f, 0f, 0f, 0f, 255); //Spawn 
                 spread = 0;
 
             }
 
-            for (int ii = 0; ii <= 50; ii++)
+            for (int ii = 0; ii <= 50; ii++) //dust
             {
-                Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                Vector2 position1 = new Vector2(position.X - 600 / 2, position.Y - 100 / 2);
-                dust = Main.dust[Terraria.Dust.NewDust(position1, 600, 100, 1, 0f, 0f, 0, new Color(159, 255, 0), 1.776316f)];
-                dust.noLight = true;
-                dust.shader = GameShaders.Armor.GetSecondaryShader(112, Main.LocalPlayer);
-                dust.fadeIn = 1.697368f;
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    Dust dust;
+                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                    Vector2 position1 = new Vector2(position.X - 600 / 2, position.Y - 100 / 2);
+                    dust = Main.dust[Terraria.Dust.NewDust(position1, 600, 100, 1, 0f, 0f, 0, new Color(159, 255, 0), 1.776316f)];
+                    dust.noLight = true;
+                    dust.shader = GameShaders.Armor.GetSecondaryShader(112, Main.LocalPlayer);
+                    dust.fadeIn = 1.697368f;
+                }
             }
 
         }

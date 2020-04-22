@@ -121,31 +121,34 @@ namespace ExtraExplosives.Projectiles
 
                             }
 
-                            if (Main.rand.NextFloat() < 0.3f)
+                            if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
                             {
-                                Vector2 position3 = new Vector2(position.X - 360 / 2, position.Y - 360 / 2);
-                                dust3 = Main.dust[Terraria.Dust.NewDust(position3, 360, 360, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
-                                dust3.noGravity = true;
-                                dust3.noLight = true;
-                                dust3.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                                if (Main.rand.NextFloat() < 0.3f)
+                                {
+                                    Vector2 position3 = new Vector2(position.X - 360 / 2, position.Y - 360 / 2);
+                                    dust3 = Main.dust[Terraria.Dust.NewDust(position3, 360, 360, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
+                                    dust3.noGravity = true;
+                                    dust3.noLight = true;
+                                    dust3.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
 
-                                Vector2 position1 = new Vector2(position.X - 642 / 2, position.Y - 642 / 2);
-                                dust1 = Main.dust[Terraria.Dust.NewDust(position1, 642, 642, 56, 0f, 0f, 0, new Color(255, 255, 255), 3f)];
-                                dust1.noGravity = true;
-                                dust1.noLight = true;
-                                dust1.shader = GameShaders.Armor.GetSecondaryShader(91, Main.LocalPlayer);
+                                    Vector2 position1 = new Vector2(position.X - 642 / 2, position.Y - 642 / 2);
+                                    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 642, 642, 56, 0f, 0f, 0, new Color(255, 255, 255), 3f)];
+                                    dust1.noGravity = true;
+                                    dust1.noLight = true;
+                                    dust1.shader = GameShaders.Armor.GetSecondaryShader(91, Main.LocalPlayer);
 
-                                Vector2 position2 = new Vector2(position.X - 560 / 2, position.Y - 560 / 2);
-                                dust2 = Main.dust[Terraria.Dust.NewDust(position2, 560, 560, 6, 0f, 0.5263162f, 0, new Color(255, 150, 0), 5f)];
-                                dust2.noGravity = true;
-                                dust2.noLight = true;
-                                dust2.fadeIn = 3f;
+                                    Vector2 position2 = new Vector2(position.X - 560 / 2, position.Y - 560 / 2);
+                                    dust2 = Main.dust[Terraria.Dust.NewDust(position2, 560, 560, 6, 0f, 0.5263162f, 0, new Color(255, 150, 0), 5f)];
+                                    dust2.noGravity = true;
+                                    dust2.noLight = true;
+                                    dust2.fadeIn = 3f;
 
-                                Vector2 position4 = new Vector2(position.X - 157 / 2, position.Y - 157 / 2);
-                                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                                dust4 = Main.dust[Terraria.Dust.NewDust(position4, 157, 157, 55, 0f, 0f, 0, new Color(255, 100, 0), 3.552631f)];
-                                dust4.noGravity = true;
-                                dust4.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                                    Vector2 position4 = new Vector2(position.X - 157 / 2, position.Y - 157 / 2);
+                                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                                    dust4 = Main.dust[Terraria.Dust.NewDust(position4, 157, 157, 55, 0f, 0f, 0, new Color(255, 100, 0), 3.552631f)];
+                                    dust4.noGravity = true;
+                                    dust4.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                                }
                             }
 
                         }

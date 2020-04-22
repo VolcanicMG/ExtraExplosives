@@ -80,28 +80,31 @@ namespace ExtraExplosives.Projectiles
                         WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
                         //Dust.NewDust(position, width, height, DustID.Fire, 4.0f, 4.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                         if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
-                        if(CanBreakWalls)
+                        if(CanBreakWalls) //break the last bit
                         {
                             WorldGen.KillWall(xPosition + 1, yPosition + 1, false);
                         }
 
-                        if (Main.rand.NextFloat() < 0.4f)
+                        if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
                         {
-                            Dust dust1;
-                            Dust dust2;
+                            if (Main.rand.NextFloat() < 0.3f)
+                            {
+                                Dust dust1;
+                                Dust dust2;
 
-                            Vector2 position1 = new Vector2(position.X - 2000 / 2, position.Y - 320);
-                            dust1 = Main.dust[Terraria.Dust.NewDust(position1, 2000, 320, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
-                            dust1.noGravity = true;
-                            dust1.noLight = true;
-                            dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+                                Vector2 position1 = new Vector2(position.X - 2000 / 2, position.Y - 320);
+                                dust1 = Main.dust[Terraria.Dust.NewDust(position1, 2000, 320, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
+                                dust1.noGravity = true;
+                                dust1.noLight = true;
+                                dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
 
-                            Vector2 position2 = new Vector2(position.X - 2000 / 2, position.Y - 320);
-                            dust2 = Main.dust[Terraria.Dust.NewDust(position2, 2000, 320, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
-                            dust2.noGravity = true;
-                            dust2.noLight = true;
-                            dust2.shader = GameShaders.Armor.GetSecondaryShader(111, Main.LocalPlayer);
-                            dust2.fadeIn = 3f;
+                                Vector2 position2 = new Vector2(position.X - 2000 / 2, position.Y - 320);
+                                dust2 = Main.dust[Terraria.Dust.NewDust(position2, 2000, 320, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
+                                dust2.noGravity = true;
+                                dust2.noLight = true;
+                                dust2.shader = GameShaders.Armor.GetSecondaryShader(111, Main.LocalPlayer);
+                                dust2.fadeIn = 3f;
+                            }
                         }
 
                     }

@@ -112,9 +112,12 @@ namespace ExtraExplosives.Projectiles
             Vector2 glowPosition2 = new Vector2(position.X - 121/2, position.Y - 121/2);
             for (int i = 0; i < 100; i++)
             {
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                dust = Main.dust[Terraria.Dust.NewDust(glowPosition2, 121, 121, 216, 0f, 0f, 0, new Color(255, 105, 180), 3.092105f)];
-                dust.noGravity = true;
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                    dust = Main.dust[Terraria.Dust.NewDust(glowPosition2, 121, 121, 216, 0f, 0f, 0, new Color(255, 105, 180), 3.092105f)];
+                    dust.noGravity = true;
+                }
 
             }
 

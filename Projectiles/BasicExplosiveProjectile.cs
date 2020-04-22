@@ -1,26 +1,12 @@
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using ExtraExplosives;
-using ExtraExplosives.Projectiles;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class BasicExplosiveProjectile : ModProjectile
+    public class BasicExplosiveProjectile : ModProjectile
 	{
 
         internal static bool CanBreakWalls;
@@ -86,29 +72,36 @@ namespace ExtraExplosives.Projectiles
             for (int i = 0; i <= 10; i++)
             {
                 Dust dust;
-                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 vev = new Vector2(position.X - (78 / 2), position.Y - (78 / 2));
-                dust = Main.dust[Terraria.Dust.NewDust(vev, 78, 78, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
-                dust.noGravity = true;
-                dust.fadeIn = 2.486842f;
-
-                if (Main.rand.NextFloat() < 0.2763158f)
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
                 {
-    
-                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                    dust = Main.dust[Terraria.Dust.NewDust(vev, 78, 78, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
-                    dust.noGravity = true;
-                    dust.noLight = true;
-                }
+                    if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                    {
 
-                if (Main.rand.NextFloat() < 0.5921053f)
-                {
-                    Dust dust3;
-                    Vector2 vev2 = new Vector2(position.X - (100 / 2), position.Y - (100 / 2));
-                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                    dust = Main.dust[Terraria.Dust.NewDust(vev2, 100, 100, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                    dust.noGravity = true;
-                    dust.noLight = true;
+
+                        // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                        dust = Main.dust[Terraria.Dust.NewDust(vev, 78, 78, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
+                        dust.noGravity = true;
+                        dust.fadeIn = 2.486842f;
+                    }
+
+                    if (Main.rand.NextFloat() < 0.5921053f)
+                    {
+
+                        // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                        dust = Main.dust[Terraria.Dust.NewDust(vev, 78, 78, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                    }
+
+                    if (Main.rand.NextFloat() < 0.2763158f)
+                    {
+                        Vector2 vev2 = new Vector2(position.X - (100 / 2), position.Y - (100 / 2));
+                        // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+                        dust = Main.dust[Terraria.Dust.NewDust(vev2, 100, 100, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                    }
                 }
 
 
