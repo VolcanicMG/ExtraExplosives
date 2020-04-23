@@ -9,6 +9,7 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using static Terraria.ModLoader.ModContent;
 using ExtraExplosives.Items;
+using ExtraExplosives.Projectiles;
 
 
 namespace ExtraExplosives.UI
@@ -80,6 +81,7 @@ namespace ExtraExplosives.UI
         }
 
         private bool tickPlayed;
+
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             base.DrawSelf(spriteBatch);
@@ -100,7 +102,7 @@ namespace ExtraExplosives.UI
             bool Craftable = false;
             if (!_vanillaItemSlot.Item.IsAir) //check to see if the slot is air or not
             {
-                if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomItem>()) message2 = "Ammo";
+                if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomItem>()) message2 = "Bullet";
 
                 if(_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomItem>() && _vanillaItemSlot2.Item.ammo == AmmoID.Bullet) //Check to see if the slot has a bulletboom here and ammo in the ammo slot
                 {
@@ -115,6 +117,11 @@ namespace ExtraExplosives.UI
                 }
                 else
                 {
+                    if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomItem>() && _vanillaItemSlot2.Item.ammo != AmmoID.Bullet && !_vanillaItemSlot2.Item.IsAir) //check to see if the item is a bullet boom and the second slot is not ammo and not air
+                    {
+                        ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, message2, new Vector2(slotX + 150, slotY + 50), new Color(255, 0, 0), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+                        
+                    }
                     Craftable = false;
                 }
 
@@ -145,22 +152,91 @@ namespace ExtraExplosives.UI
                         {
                             if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomItem>())
                             {
-                                ItemAmmo = _vanillaItemSlot2.Item.type;
-                                //int t = new ItemType<>
+                                ItemAmmo = _vanillaItemSlot2.Item.type; //get the id for the ammo
+                                
 
+                                
                                 //Main.NewText(ItemAmmo);
 
                                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                                 if (_vanillaItemSlot.Item.stack >= 1 && _vanillaItemSlot2.Item.stack >= 10)
                                 {
                                     //Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItem>(), 1);
+                                    //ItemProjectile = 15;
 
-                                    Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItem>(), 1);
+                                    //Item ItemBulletBoom = new Item();
+                                    //ItemBulletBoom.netDefaults(ModContent.ItemType<BulletBoomItem>());
+                                    ////ItemBulletBoom = ItemBulletBoom.CloneWithModdedDataFrom(_vanillaItemSlot.Item);
+                                    //ItemBulletBoom.CloneDefaults(ModContent.ItemType<BulletBoomItem>());
+                                    //ItemBulletBoom.damage = 25;
+                                    //ItemBulletBoom.SetNameOverride("Bullet Boom Using AmmoID: " + ItemAmmo);
+                                    //ItemBulletBoom.netID = 1;
+
+                                    //This manually checks what ammo type item is provided and then gets it's ProjectileID
+                                    if(ItemAmmo == 97) //Musket Ball
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemMusket>(), 1);
+                                    } 
+                                    else if (ItemAmmo == 234) //Meteor Shot Ball
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemMeteor>(), 1);
+                                    }
+                                    else if (ItemAmmo == 278) //Silver Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemSilver>(), 1);
+                                    }
+                                    else if (ItemAmmo == 515) //Crystal Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemCrystal>(), 1);
+                                    }
+                                    else if (ItemAmmo == 546) //Cursed Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemCursed>(), 1);
+                                    }
+                                    else if (ItemAmmo == 1179) //Chlorophyte Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemChlorophyte>(), 1);
+                                    }
+                                    else if (ItemAmmo == 1302) //High Velocity Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemHigh>(), 1);
+                                    }
+                                    else if (ItemAmmo == 1335) //Ichor Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemIchor>(), 1);
+                                    }
+                                    else if (ItemAmmo == 1342) //Venom Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemVenom>(), 1);
+                                    }
+                                    else if (ItemAmmo == 1349) //Party Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemParty>(), 1);
+                                    }
+                                    else if (ItemAmmo == 1350) //Nano Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemNano>(), 1);
+                                    }
+                                    else if (ItemAmmo == 1352) //Golden Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemGolden>(), 1);
+                                    }
+                                    else if (ItemAmmo == 3567) //Luminite Bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemLuminite>(), 1);
+                                    }
+                                    else
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(_vanillaItemSlot.Item, 1);
+                                        Main.LocalPlayer.QuickSpawnItem(_vanillaItemSlot2.Item, 10);
+                                    }
+
+                                    //Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItem>(), 1);
 
                                     _vanillaItemSlot.Item.stack = _vanillaItemSlot.Item.stack - 1;
-
+                                    
                                     _vanillaItemSlot2.Item.stack = _vanillaItemSlot2.Item.stack - 10;
-
+                                   
                                 }
                                 else
                                 {
@@ -172,6 +248,7 @@ namespace ExtraExplosives.UI
                                 //ItemLoader.PostReforge(_vanillaItemSlot2.Item);
                                 Main.PlaySound(SoundID.Item37, -1, -1);
                             }
+                            
                         }
                     }
                 }

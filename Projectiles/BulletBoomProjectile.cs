@@ -1,20 +1,10 @@
-﻿using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
 using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
+using Terraria.ModLoader;
+using ExtraExplosives.UI;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -74,25 +64,150 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
                     {
-                            if (WorldGen.TileEmpty(xPosition, yPosition))
-                            {
+                        if (WorldGen.TileEmpty(xPosition, yPosition))
+                        {
 
-                                spedX = Main.rand.Next(15) - 7;
-                                spedY = Main.rand.Next(15) - 7;
-                                if (spedX == 0) spedX = 1;
-                                if (spedY == 0) spedY = 1;
-                                if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, ProjectileID.ExplosiveBullet, 75, 20, projectile.owner, 0.0f, 0);
-                            }
-                            else
+                            spedX = Main.rand.Next(15) - 7;
+                            spedY = Main.rand.Next(15) - 7;
+                            if (spedX == 0) spedX = 1;
+                            if (spedY == 0) spedY = 1;
+                            //if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, pid, 75, 20, projectile.owner, 0.0f, 0);
+                            if (++cntr <= 100)
                             {
-
-                                spedX = Main.rand.Next(15) - 7;
-                                spedY = Main.rand.Next(15) - 7;
-                                if (spedX == 0) spedX = 1;
-                                if (spedY == 0) spedY = 1;
-                                if (++cntr <= 100) Projectile.NewProjectile(position.X, position.Y, spedX, spedY, ProjectileID.ExplosiveBullet, 75, 20, projectile.owner, 0.0f, 0);
+                                if (projectile.knockBack == 1) //Musket Ball
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 14, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 2) //Meteor Shot
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 36, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 3) //Silver Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 14, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 4) //Crystal Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 89, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 5) //Cursed Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 104, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 6) //Chlorophyte Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 207, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 7) //High Velocity Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 242, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 8) //Ichor Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 279, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 9) //Venom Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 283, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 10) //Party Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 284, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 11) //Nano Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 285, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 12) //Exploding Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 286, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 13) //Golden Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 287, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 14) //Luminite Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 638, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else  //Defaults To Musket Ball
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 14, 75, 20, projectile.owner, 0.0f, 0);
+                                }
                             }
-                        
+                        }
+                        else
+                        {
+
+                            spedX = Main.rand.Next(15) - 7;
+                            spedY = Main.rand.Next(15) - 7;
+                            if (spedX == 0) spedX = 1;
+                            if (spedY == 0) spedY = 1;
+                            if (++cntr <= 100)
+                            {
+                                if (projectile.knockBack == 1) //Musket Ball
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 14, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 2) //Meteor Shot
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 36, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 3) //Silver Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 14, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 4) //Crystal Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 89, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 5) //Cursed Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 104, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 6) //Chlorophyte Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 207, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 7) //High Velocity Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 242, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 8) //Ichor Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 279, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 9) //Venom Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 283, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 10) //Party Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 284, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 11) //Nano Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 285, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 12) //Exploding Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 286, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 13) //Golden Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 287, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else if (projectile.knockBack == 14) //Luminite Bullet
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 638, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                                else  //Defaults To Musket Ball
+                                {
+                                    Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 14, 75, 20, projectile.owner, 0.0f, 0);
+                                }
+                            }
+                        }
+
                     }
                 }
             }
