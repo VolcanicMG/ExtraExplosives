@@ -30,6 +30,7 @@ namespace ExtraExplosives
 		internal static Player playerProjectileOwnerInvis;
 		internal static float dustAmount;
 		internal UserInterface ExtraExplosivesUserInterface;
+		
 
 		public ExtraExplosives()
 		{

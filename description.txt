@@ -9,6 +9,6 @@ Discord: https://discord.gg/UvwEDJ
 
 [i/s0:166]: 6 Base Explosives
 [i/s0:167]: 19 Special Explosives
-[i/s0:168]: 26 Items Total
+[i/s0:168]: 39 Items Total
 [i/s1:267]: 1 NPC
 [i/s1:487]: 1 Buff
