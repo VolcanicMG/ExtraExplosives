@@ -99,6 +99,8 @@ namespace ExtraExplosives.UI
 
             string message2 = "Element/Ammo"; //Will be check depending on whats the first slot, for insance, if the first slot has a bullet boom then it will select ammo
 
+            ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, "Currently Working Explosives: Bullet Boom", new Vector2(slotX, slotY + 80), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+
             bool Craftable = false;
             if (!_vanillaItemSlot.Item.IsAir) //check to see if the slot is air or not
             {
@@ -111,10 +113,14 @@ namespace ExtraExplosives.UI
                         
                         Craftable = true;
                     }
-                   
+                    if (_vanillaItemSlot.Item.stack >= 1 && _vanillaItemSlot2.Item.stack < 10 && !_vanillaItemSlot2.Item.IsAir)
+                    {
+                        ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, "Need 10!", new Vector2(slotX + 150, slotY + 50), new Color(255, 0, 0), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+                    }
 
 
                 }
+                
                 else
                 {
                     if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomItem>() && _vanillaItemSlot2.Item.ammo != AmmoID.Bullet && !_vanillaItemSlot2.Item.IsAir) //check to see if the item is a bullet boom and the second slot is not ammo and not air
@@ -229,6 +235,7 @@ namespace ExtraExplosives.UI
                                     {
                                         Main.LocalPlayer.QuickSpawnItem(_vanillaItemSlot.Item, 1);
                                         Main.LocalPlayer.QuickSpawnItem(_vanillaItemSlot2.Item, 10);
+                                        Main.NewText("Items are not compatable - returned items");
                                     }
 
                                     //Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItem>(), 1);
