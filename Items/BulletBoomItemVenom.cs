@@ -36,7 +36,7 @@ namespace ExtraExplosives.Items
         {
             item.CloneDefaults(ModContent.ItemType<BulletBoomItem>());
             item.damage = 65;     //The damage stat for the Weapon.   
-            item.shoot = mod.ProjectileType("BulletBoomProjectile"); //This defines what type of projectile this item will shoot
+            item.shoot = ModContent.ProjectileType<BulletBoomProjectileVenom>(); //This defines what type of projectile this item will shoot
         }
     }
 
