@@ -25,7 +25,7 @@ namespace ExtraExplosives.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BulletBoom [c/AC90FF:[High Velocity Bullet]]");
+            DisplayName.SetDefault("BulletBoom [c/AC90FF:(High Velocity Bullet)]");
             Tooltip.SetDefault("Who said a gun is the only thing that can shoot a bullet. \n" +
                 "Blows up upon touching a block.");
         }

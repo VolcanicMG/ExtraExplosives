@@ -20,6 +20,9 @@ namespace ExtraExplosives.UI
         internal static int ItemAmmo; //projectile 
         internal static int ItemProjectile;
 
+        Mod CalamityMod = ModLoader.GetMod("CalamityMod");
+        Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+
 
         private VanillaItemSlotWrapper _vanillaItemSlot;
         private VanillaItemSlotWrapper _vanillaItemSlot2;
@@ -230,6 +233,62 @@ namespace ExtraExplosives.UI
                                     else if (ItemAmmo == 3567) //Luminite Bullet
                                     {
                                         Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemLuminite>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("AccelerationBullet")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemAcceleration>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("AcidBullet")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemAcid>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("EnhancedNanoRound")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemEnhanced>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("FlashBullet")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemFlash>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("FrostsparkBullet")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemFrostspark>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("HolyFireBullet")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemHolyFire>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("IcyBullet")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemIcy>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("MortarRound")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemMortar>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("RubberMortarRound")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemRubberMortar>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("HyperiusBullet")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemHyperius>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("SuperballBullet")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemSuperball>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("VeriumBullet")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemVerium>(), 1);
+                                    }
+                                    else if ((ItemAmmo == CalamityMod.ItemType("TerraBullet")) && CalamityMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemTerra>(), 1);
+                                    }
+                                    else if ((ItemAmmo == ThoriumMod.ItemType("TerrariumShotPro")) && ThoriumMod != null)
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemTerrarium>(), 1);
                                     }
                                     else
                                     {
