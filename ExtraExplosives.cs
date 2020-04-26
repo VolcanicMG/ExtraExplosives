@@ -30,7 +30,9 @@ namespace ExtraExplosives
 		internal static Player playerProjectileOwnerInvis;
 		internal static float dustAmount;
 		internal UserInterface ExtraExplosivesUserInterface;
-		
+
+		public static string GithubUserName => "VolcanicMG";
+		public static string GithubProjectName => "ExtraExplosives";
 
 		public ExtraExplosives()
 		{
@@ -38,6 +40,21 @@ namespace ExtraExplosives
 
 
 		}
+
+		public override void PostSetupContent()
+		{
+			Mod censusMod = ModLoader.GetMod("Census");
+			if (censusMod != null)
+			{
+				// Here I am using Chat Tags to make my condition even more interesting.
+				// If you localize your mod, pass in a localized string instead of just English.
+				// Additional lines for additional town npc that your mod adds
+				// Simpler example:
+				censusMod.Call("TownNPCCondition", NPCType("CaptainExplosive"), "Throw a 'chaos...' explosive");
+			}
+			base.PostSetupContent();
+		}
+
 
 		public override void UpdateUI(GameTime gameTime)
 		{

@@ -5,10 +5,34 @@ Whats to come:
 Nuke, Bomb Buddy, Meteorite Buster and more!!!
 We are hoping to have 10+ explosives by V2.0
 
+Found an issue or a bug, let us know on discord, our homepage, or through Mod Helper!
 Discord: https://discord.gg/UvwEDJ
 
 [i/s0:166]: 6 Base Explosives
 [i/s0:167]: 19 Special Explosives
-[i/s0:168]: 39 Items Total
+[i/s0:168]: 53 Items Total
 [i/s1:267]: 1 NPC
 [i/s1:487]: 1 Buff
+
+CHANGELOG:
+V1.4.4
+Added Census support
+Added Mod Helper support
+V1.4.3
+Added Calamity and Thorium bullet compatibility for the bullet boom
+V1.4.2
+Added the changelog back into the description
+V1.4.1
+Added Calamity & Thorium Compatibility
+Fixed a few bugs
+V1.4
+Added recipes for vanilla bombs
+Introduced bomb/ammo combining with Captain Explosive.
+V1.3.2
+Updated the defaults for the config
+V1.3
+Added Dust/Particle control - New config option to change Dust/Particle amount
+V1.2
+Added an icon
+V1.0
+Initial release

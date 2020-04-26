@@ -1,26 +1,17 @@
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using ExtraExplosives;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
     public class BigBouncyDynamiteProjectile : ModProjectile
     {
+
+        Mod CalamityMod = ModLoader.GetMod("CalamityMod");
+        Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+
         internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
@@ -44,9 +35,9 @@ namespace ExtraExplosives.Projectiles
             // This code makes the projectile very bouncy.
             if (projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
             {
-                if (projectile.velocity.X >= 10 || projectile.velocity.X < -10) 
-                { 
-                    projectile.velocity.X = 10; 
+                if (projectile.velocity.X >= 10 || projectile.velocity.X < -10)
+                {
+                    projectile.velocity.X = 10;
                 }
                 else
                 {
@@ -55,7 +46,7 @@ namespace ExtraExplosives.Projectiles
             }
             if (projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
             {
-                if(projectile.velocity.Y >= 10 || projectile.velocity.Y < -10) 
+                if (projectile.velocity.Y >= 10 || projectile.velocity.Y < -10)
                 {
                     projectile.velocity.Y = 10;
                 }
@@ -80,36 +71,57 @@ namespace ExtraExplosives.Projectiles
 
             //damage part of the bomb
             ExplosionDamageProjectile.DamageRadius = (float)(radius * 2.0f);
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 300, 30, projectile.owner, 0.0f, 0);
-                for (int x = -radius; x <= radius; x++)
+            Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 300, 30, projectile.owner, 0.0f, 0);
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
                 {
-                    for (int y = -radius; y <= radius; y++)
+                    int xPosition = (int)(x + position.X / 16.0f);
+                    int yPosition = (int)(y + position.Y / 16.0f);
+
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
                     {
-                        int xPosition = (int)(x + position.X / 16.0f);
-                        int yPosition = (int)(y + position.Y / 16.0f);
-
-                        if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
+                        if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.DesertFossil || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
+                            || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
+                            Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge || Main.tile[xPosition, yPosition].type == TileID.DemonAltar)
                         {
-                            if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.DesertFossil || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
-                                || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
-                                Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge || Main.tile[xPosition, yPosition].type == TileID.DemonAltar)
-                            {
-
-                            }
-                            else
-                            {
-                                Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(100) - 50, Main.rand.Next(100) - 50, ProjectileID.BouncyDynamite, 0, 0, projectile.owner, 0.0f, 0);
-                                WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
-                                if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
-                            }
-
 
                         }
+                        else if (CalamityMod != null && (Main.tile[xPosition, yPosition].type == CalamityMod.TileType("SeaPrism") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AerialiteOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("CryonicOre")
+                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("CharredOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("PerennialOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ScoriaOre")
+                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AstralOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ExodiumOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("UelibloomOre")
+                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AuricOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AbyssGravel") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Voidstone") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("PlantyMush")
+                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Tenebris") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ArenaBlock") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Cinderplate") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ExodiumClusterOre")))
+                        {
+                            if (Main.tile[xPosition, yPosition].type == TileID.Dirt)
+                            {
+                                WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
+                                if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
+                            }
+                        }
+                        else if (ThoriumMod != null && (Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("Aquaite") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("LodeStone") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("ValadiumChunk") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("IllumiteChunk")
+                            || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("PearlStone") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("DepthChestPlatform")))
+                        {
+                            if (Main.tile[xPosition, yPosition].type == TileID.Dirt)
+                            {
+                                WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
+                                if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
+                            }
+                        }
+                        else
+                        {
+                            Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(100) - 50, Main.rand.Next(100) - 50, ProjectileID.BouncyDynamite, 0, 0, projectile.owner, 0.0f, 0);
+                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
+                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
+                        }
+
+
                     }
                 }
+            }
 
             Dust dust;
-            Vector2 glowPosition2 = new Vector2(position.X - 121/2, position.Y - 121/2);
+            Vector2 glowPosition2 = new Vector2(position.X - 121 / 2, position.Y - 121 / 2);
             for (int i = 0; i < 100; i++)
             {
                 if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
@@ -121,7 +133,7 @@ namespace ExtraExplosives.Projectiles
 
             }
 
-            
+
         }
 
 
