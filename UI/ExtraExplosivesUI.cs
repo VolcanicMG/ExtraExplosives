@@ -296,7 +296,7 @@ namespace ExtraExplosives.UI
                                         Main.LocalPlayer.QuickSpawnItem(_vanillaItemSlot2.Item, 10);
                                         Main.NewText("Items are not compatable - returned items");
                                     }
-
+                                    
                                     //Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItem>(), 1);
 
                                     _vanillaItemSlot.Item.stack = _vanillaItemSlot.Item.stack - 1;

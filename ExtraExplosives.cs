@@ -25,11 +25,13 @@ namespace ExtraExplosives
 	{
 		//move the first 4 over to player????
 		internal static ModHotKey TriggerExplosion;
-		internal static bool detonate = false;
-		internal static Player playerProjectileOwner;
+		internal static ModHotKey TriggerUIReforge;
+
 		internal static Player playerProjectileOwnerInvis;
+
 		internal static float dustAmount;
 		internal UserInterface ExtraExplosivesUserInterface;
+		internal UserInterface ExtraExplosivesReforgeBombInterface;
 
 		public static string GithubUserName => "VolcanicMG";
 		public static string GithubProjectName => "ExtraExplosives";
@@ -38,7 +40,7 @@ namespace ExtraExplosives
 		{
 
 
-
+			
 		}
 
 		public override void PostSetupContent()
@@ -60,6 +62,7 @@ namespace ExtraExplosives
 		{
 
 			ExtraExplosivesUserInterface?.Update(gameTime);
+			//ExtraExplosivesReforgeBombInterface?.Update(gameTime);
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -78,6 +81,16 @@ namespace ExtraExplosives
 					},
 					InterfaceScaleType.UI)
 				);
+				layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
+					"ExtraExplosives: ReforgeBombUI",
+					delegate
+					{
+						// If the current UIState of the UserInterface is null, nothing will draw. We don't need to track a separate .visible value.
+						ExtraExplosivesReforgeBombInterface.Draw(Main.spriteBatch, new GameTime());
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
 			}
 		}
 		public override void Load()
@@ -85,7 +98,10 @@ namespace ExtraExplosives
 			Logger.InfoFormat("{0} Extra Explosives logger", Name);
 
 			ExtraExplosivesUserInterface = new UserInterface();
+			ExtraExplosivesReforgeBombInterface = new UserInterface();
+
 			TriggerExplosion = RegisterHotKey("Explode", "Mouse2");
+			TriggerUIReforge = RegisterHotKey("Open Reforge Bomb UI", "P");
 
 		}
 	}

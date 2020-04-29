@@ -1,47 +1,57 @@
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
-using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using System.Text;
-using System.Threading.Tasks;
-using ExtraExplosives.Projectiles;
 
 namespace ExtraExplosives
 {
 	public class ExtraExplosivesPlayer : ModPlayer
 	{
-		
+		public int reforgeUIActive = 0;
+		public bool detonate;
+
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
-			Player player = Main.player[Main.myPlayer];
+			//Player player = Main.player[Main.myPlayer];
 
-			if (ExtraExplosives.TriggerExplosion.JustReleased && ExtraExplosives.playerProjectileOwner == player)
+			if (ExtraExplosives.TriggerExplosion.JustReleased)
 			{
-				ExtraExplosives.detonate = true;
+				//ExtraExplosives.detonate = true;
+				detonate = true;
 				//Main.NewText("Detonate", (byte)30, (byte)255, (byte)10, false);
 			}
 			else
 			{
-				ExtraExplosives.detonate = false;
+				//ExtraExplosives.detonate = false;
+				detonate = false;
 			}
 
+			if (ExtraExplosives.TriggerUIReforge.JustPressed) //check to see if the button was just pressed
+			{
 
-		
+				reforgeUIActive++;
+				
+				if(reforgeUIActive == 5)
+				{
+					reforgeUIActive = 1;
+				}
+			}
+			
+
+			if (reforgeUIActive == 1) //check to see if the reforge bomb key was pressed
+			{
+				GetInstance<ExtraExplosives>().ExtraExplosivesReforgeBombInterface.SetState(new UI.ExtraExplosivesReforgeBombUI());
+				reforgeUIActive++;
+
+			}
+			if (reforgeUIActive == 3)
+			{
+				GetInstance<ExtraExplosives>().ExtraExplosivesReforgeBombInterface.SetState(null);
+				reforgeUIActive = 4;
+			}
+
 		}
-		
+
 
 	}
 }

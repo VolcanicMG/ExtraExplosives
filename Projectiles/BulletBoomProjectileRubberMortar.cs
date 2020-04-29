@@ -97,7 +97,6 @@ namespace ExtraExplosives.Projectiles
                     dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
                     dust1.noGravity = true;
                     dust1.noLight = true;
-
                 }
 
             }
