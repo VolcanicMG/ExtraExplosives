@@ -1,0 +1,4 @@
+C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.csprojAssemblyReference.cache
+C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.csproj.CoreCompileInputs.cache
+C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.AssemblyInfoInputs.cache
+C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.AssemblyInfo.cs

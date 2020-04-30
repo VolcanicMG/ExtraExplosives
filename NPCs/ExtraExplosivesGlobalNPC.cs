@@ -54,7 +54,6 @@ namespace ExtraExplosives.NPCs
                 shop.item[nextSlot].SetDefaults(mod.ItemType("SpongeItem"));
                 nextSlot++;
             }
-			
 		}
 
 	}  

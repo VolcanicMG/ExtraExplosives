@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ExtraExplosives.Dusts;
 
 namespace ExtraExplosives.Projectiles
 {

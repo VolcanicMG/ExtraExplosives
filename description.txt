@@ -10,11 +10,15 @@ Discord: https://discord.gg/UvwEDJ
 
 [i/s0:166]: 6 Base Explosives
 [i/s0:167]: 19 Special Explosives
-[i/s0:168]: 53 Items Total
+[i/s0:168]: 54 Items Total
 [i/s1:267]: 1 NPC
 [i/s1:487]: 1 Buff
 
 CHANGELOG:
+V1.5
+Fixed the heavy bomb
+Worked out a bug for the C4
+Added the reforge bomb
 V1.4.4
 Added Census support
 Added Mod Helper support

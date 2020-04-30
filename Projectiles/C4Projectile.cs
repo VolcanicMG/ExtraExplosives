@@ -61,11 +61,14 @@ namespace ExtraExplosives.Projectiles
         public override void PostAI()
         {
 
-            var player = Main.LocalPlayer.GetModPlayer<ExtraExplosivesPlayer>();
-
-            if (player.detonate == true)
+            if (projectile.owner == Main.myPlayer)
             {
-                projectile.timeLeft = 0;
+                var player = Main.player[projectile.owner].GetModPlayer<ExtraExplosivesPlayer>();
+
+                if (player.detonate == true)
+                {
+                    projectile.Kill();
+                }
             }
 
             if (freeze == true)

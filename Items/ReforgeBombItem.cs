@@ -53,8 +53,19 @@ namespace ExtraExplosives.Items
 
         public override void AddRecipes()
         {
-            
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ModContent.ItemType<HeavyBombItem>(), 1);
+            recipe.AddIngredient(ItemID.GoldHammer, 1);
+            recipe.AddTile(TileID.TinkerersWorkbench);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
 
+            ModRecipe recipe2 = new ModRecipe(mod);
+            recipe2.AddIngredient(ModContent.ItemType<HeavyBombItem>(), 1);
+            recipe2.AddIngredient(ItemID.PlatinumHammer, 1);
+            recipe2.AddTile(TileID.TinkerersWorkbench);
+            recipe2.SetResult(this);
+            recipe2.AddRecipe();
         }
     }
 

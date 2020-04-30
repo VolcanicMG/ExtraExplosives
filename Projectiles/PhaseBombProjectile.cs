@@ -51,6 +51,15 @@ namespace ExtraExplosives.Projectiles
                 }
             }
 
+            Dust dust;
+            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+            Vector2 position = projectile.Center;
+            Vector2 pos = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
+            dust = Main.dust[Terraria.Dust.NewDust(pos, 10, 10, 150, 0f, 0f, 0, new Color(0, 92, 255), 2f)];
+            dust.noGravity = true;
+            dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+
+
         }
 
         public override void Kill(int timeLeft)

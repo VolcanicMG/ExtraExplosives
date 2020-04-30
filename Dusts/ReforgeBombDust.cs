@@ -22,19 +22,19 @@ namespace ExtraExplosives.Dusts
     public class ReforgeBombDust : ModDust
     {
 
-		public override void OnSpawn(Dust dust)
+		public override void OnSpawn(Dust dustReforge)
 		{
-			dust.noGravity = true;
-			dust.frame = new Rectangle(0, 0, 26, 24);
+			dustReforge.noGravity = true;
+			dustReforge.frame = new Rectangle(0, 0, 26, 24);
 		}
 
-		public override bool Update(Dust dust)
+		public override bool Update(Dust dustReforge)
 		{
-			dust.position += dust.velocity;
-			dust.scale -= 0.01f;
-			if (dust.scale < 0.75f)
+			dustReforge.position += dustReforge.velocity;
+			dustReforge.scale -= 0.01f;
+			if (dustReforge.scale < 0.75f)
 			{
-				dust.active = false;
+				dustReforge.active = false;
 			}
 			return false;
 		}

@@ -3,8 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using Terraria.UI.Chat;
+using ExtraExplosives;
+using ExtraExplosives.UI;
+using ExtraExplosives.Projectiles;
+using ExtraExplosives.Items;
 
 namespace ExtraExplosives.UI
 {
@@ -18,16 +23,71 @@ namespace ExtraExplosives.UI
 		private VanillaItemSlotWrapper _vanillaItemSlot2;
 		private VanillaItemSlotWrapper _vanillaItemSlot3;
 
-		private int screenX = Main.screenWidth / 2;
-		private int screenY = (Main.screenHeight / 5) - 40;
+		internal UIPanel Box;
 
-		internal static bool reforge = false;
+		internal UITextPanel<string> ReforgeText;
+
+		internal UIImage Image;
+		internal UIImage Image2;
+		internal UIImage Image3;
+
+		private int screenX = Main.screenWidth / 2;
+		private int screenY = (Main.screenHeight / 5);
+
+		//internal static bool reforge = false;
+		private static bool reforgeCheck = false;
+		private static bool reforgeCheck2 = false;
+		private static bool reforgeCheck3 = false;
 
 		internal static bool IsVisible;
 		public override void OnInitialize()
 		{
+			//panel box
+			Box = new UIPanel();
+			int width = 200;
+			int height = 80;
+			Box.SetPadding(0);
+			Box.Left.Set(screenX - width / 2 - (width / 27), 0f);
+			Box.Top.Set(screenY - height / 2 + (height / 8), 0f);
+			Box.Width.Set(width, 0f);
+			Box.Height.Set(height, 0f);
+			Box.BackgroundColor = new Color(47, 83, 136, 200);
+			Append(Box);
 
+			//images
+			int ImageWidth = 24;
+			int ImageHeight = 24;
+			Image = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+			Image.Width.Set(ImageWidth, 0f);
+			Image.Height.Set(ImageHeight, 0f);
+			Image.Left.Set(width / 5 - ImageWidth / 2, 0f);
+			Image.Top.Set(height / 2 - ImageHeight * 1.5f, 0f);
+			//Image.ImageScale = 2.5f;
+			Box.Append(Image);
 
+			Image2 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+			Image2.Width.Set(ImageWidth, 0f);
+			Image2.Height.Set(ImageHeight, 0f);
+			Image2.Left.Set(width / 2 - ImageWidth / 2, 0f);
+			Image2.Top.Set(height / 2 - ImageHeight * 1.5f, 0f);
+			//Image.ImageScale = 2.5f;
+			Box.Append(Image2);
+
+			Image3 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+			Image3.Width.Set(ImageWidth, 0f);
+			Image3.Height.Set(ImageHeight, 0f);
+			Image3.Left.Set(width / 1.5f + ImageWidth / 1.7f, 0f);
+			Image3.Top.Set(height / 2 - ImageHeight * 1.5f, 0f);
+			//Image.ImageScale = 2.5f;
+			Box.Append(Image3);
+
+			ReforgeText = new UITextPanel<string>("Place an item in one(or all) of the slots to reforge");
+			//float widthText = ReforgeText.GetDimensions().Width;
+			ReforgeText.Left.Set(screenX - 215, 0f);
+			ReforgeText.Top.Set(screenY - 80, 0f);
+			Append(ReforgeText);
+
+			//slots
 			_vanillaItemSlot = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f)
 			{
 				Left = { Pixels = screenX - 90 },
@@ -117,7 +177,73 @@ namespace ExtraExplosives.UI
 			const int slotY = 270;
 			ItemSlot.DrawSavings(Main.spriteBatch, slotX + 130, Main.instance.invBottom, true);
 
-			if (reforge)
+			//image 1
+			if(!_vanillaItemSlot.Item.IsAir && reforgeCheck == false)
+			{
+				Image.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckEmpty"));
+
+			}
+			else if (_vanillaItemSlot.Item.IsAir && reforgeCheck == false)
+			{
+				Image.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+
+			}
+			else if(!_vanillaItemSlot.Item.IsAir && reforgeCheck == true)
+			{
+				Image.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckGreen"));
+				
+			}
+
+			//image 2
+			if (!_vanillaItemSlot2.Item.IsAir && reforgeCheck2 == false)
+			{
+				Image2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckEmpty"));
+
+			}
+			else if (_vanillaItemSlot2.Item.IsAir && reforgeCheck2 == false)
+			{
+				Image2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+
+			}
+			else if (!_vanillaItemSlot2.Item.IsAir && reforgeCheck2 == true)
+			{
+				Image2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckGreen"));
+
+			}
+
+			//image 3
+			if (!_vanillaItemSlot3.Item.IsAir && reforgeCheck3 == false)
+			{
+				Image3.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckEmpty"));
+
+			}
+			else if (_vanillaItemSlot3.Item.IsAir && reforgeCheck3 == false)
+			{
+				Image3.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+
+			}
+			else if (!_vanillaItemSlot3.Item.IsAir && reforgeCheck3 == true)
+			{
+				Image3.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckGreen"));
+
+			}
+
+			if (_vanillaItemSlot.Item.IsAir && reforgeCheck == true)
+			{
+				reforgeCheck = false;
+			}
+
+			if (_vanillaItemSlot2.Item.IsAir && reforgeCheck2 == true)
+			{
+				reforgeCheck2 = false;
+			}
+
+			if (_vanillaItemSlot3.Item.IsAir && reforgeCheck3 == true)
+			{
+				reforgeCheck3 = false;
+			}
+
+			if (ExtraExplosivesPlayer.reforgePub)
 			{
 
 				Main.LocalPlayer.mouseInterface = true;
@@ -170,7 +296,7 @@ namespace ExtraExplosives.UI
 
 				if (!_vanillaItemSlot3.Item.IsAir)
 				{
-					if (reforge && ItemLoader.PreReforge(_vanillaItemSlot3.Item))
+					if (ItemLoader.PreReforge(_vanillaItemSlot3.Item))
 					{
 						bool favorited = _vanillaItemSlot3.Item.favorited;
 						int stack = _vanillaItemSlot3.Item.stack;
@@ -191,9 +317,12 @@ namespace ExtraExplosives.UI
 					}
 				}
 
-				reforge = false; //only reforge once
+				ExtraExplosivesPlayer.reforgePub = false; //Only reforge once
+				reforgeCheck = true; //Check to see if the reforge went off
+				reforgeCheck2 = true;
+				reforgeCheck3 = true;
 
-				if(_vanillaItemSlot.Item.IsAir && _vanillaItemSlot2.Item.IsAir && _vanillaItemSlot3.Item.IsAir)
+				if (_vanillaItemSlot.Item.IsAir && _vanillaItemSlot2.Item.IsAir && _vanillaItemSlot3.Item.IsAir)
 				{
 					Main.NewText("Nothing to reforge...");
 				}
@@ -201,8 +330,8 @@ namespace ExtraExplosives.UI
 			else
 			{
 
-				string message = "Place an item in one(or all) of the slots to reforge";
-				ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, message, new Vector2(screenX - 200, screenY - 40), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+				//string message = "Place an item in one(or all) of the slots to reforge";
+				//ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, message, new Vector2(screenX - 200, screenY - 55), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 
 			}
 

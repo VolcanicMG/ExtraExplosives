@@ -10,9 +10,18 @@ namespace ExtraExplosives
 		public int reforgeUIActive = 0;
 		public bool detonate;
 
+		public bool reforge = false;
+		public static bool reforgePub;
+
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
+			reforgePub = reforge;
 			//Player player = Main.player[Main.myPlayer];
+
+			if(reforge == true)
+			{
+				reforge = false;
+			}
 
 			if (ExtraExplosives.TriggerExplosion.JustReleased)
 			{

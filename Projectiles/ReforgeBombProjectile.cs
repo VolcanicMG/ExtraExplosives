@@ -28,6 +28,7 @@ namespace ExtraExplosives.Projectiles
 
         internal static bool CanBreakWalls;
 
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("ReforgeBomb");
@@ -47,14 +48,24 @@ namespace ExtraExplosives.Projectiles
 
         public override void Kill(int timeLeft)
         {
+            var player = Main.player[projectile.owner].GetModPlayer<ExtraExplosivesPlayer>();
             Vector2 position = projectile.Center;
 
-            ExtraExplosivesReforgeBombUI.reforge = true;
+
+            if (projectile.owner == Main.myPlayer)
+            {
+                player.reforge = true;
+            }
+                
 
             if(ExtraExplosivesReforgeBombUI.IsVisible == false)
             {
-                Main.NewText("Nothing to reforge, press 'P' to toggle reforge UI");
-                ExtraExplosivesReforgeBombUI.reforge = false;
+
+                if (player.reforge == true)
+                {
+                    Main.NewText("Nothing to reforge, press 'P' to toggle reforge UI");
+                }
+                player.reforge = false;
             }
             //Item.NewItem(position, new Vector2(20, 20), ItemID.GoldAxe, 1, false, -2);
 
