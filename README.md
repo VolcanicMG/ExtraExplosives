@@ -5,6 +5,7 @@ Whats to come:
 Nuke, Bomb Buddy, Meteorite Buster and more!!!
 We are hoping to have 10+ explosives by the next update.
 
+Any copying of code will be a direct violation of property and will punished accordingly. 
 
 
 Discord: https://discord.gg/UvwEDJ
