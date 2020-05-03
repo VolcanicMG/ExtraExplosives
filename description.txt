@@ -10,11 +10,9 @@ We are hoping to have 10+ explosives by V2.0
 Found an issue or a bug, let us know on discord, our homepage, or through Mod Helper!
 [c/1cac78:Discord: https://discord.gg/UvwEDJ]
 
-[i/s0:166]: 6 Base Explosives
-[i/s0:167]: 19 Special Explosives
-[i/s0:168]: 54 Items Total
-[i/s1:267]: 1 NPC
-[i/s1:487]: 1 Buff
+[c/FF4500:56 TOTAL ITEMS WITH UNIQUE ABILITIES]
+Check our homepage for a full list!
+
 [c/1cac78:CHANGELOG:]
 V1.5
 Fixed the heavy bomb

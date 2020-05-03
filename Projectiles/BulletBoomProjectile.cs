@@ -45,8 +45,6 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
 
-
-
             Player player = Main.player[projectile.owner];
 
 
