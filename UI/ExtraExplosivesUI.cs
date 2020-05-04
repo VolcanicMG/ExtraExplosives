@@ -9,6 +9,7 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using static Terraria.ModLoader.ModContent;
 using ExtraExplosives.Items;
+using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Projectiles;
 
 
