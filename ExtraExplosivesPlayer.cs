@@ -1,7 +1,11 @@
+using Terraria.Graphics.Shaders;
+using Terraria.Graphics.Effects;
 using Terraria;
 using Terraria.GameInput;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives.Buffs;
 
 namespace ExtraExplosives
 {
@@ -59,6 +63,15 @@ namespace ExtraExplosives
 				reforgeUIActive = 4;
 			}
 
+		}
+
+		public override void PostUpdate()
+		{
+			Player player = Main.player[Main.myPlayer];
+			if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>()))
+			{
+				Filters.Scene["Bang"].Deactivate();
+			}
 		}
 
 

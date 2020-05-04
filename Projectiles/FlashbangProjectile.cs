@@ -44,8 +44,11 @@ namespace ExtraExplosives.Projectiles
             //Player player = Main.player[Main.myPlayer];
             Vector2 position = projectile.Center;
 
-            Projectile.NewProjectile(position.X - 225, position.Y, 0, 0, ModContent.ProjectileType<InvisFlashbangProjectile>(), 1, 0, projectile.owner, 0.0f, 0); //left
-            Projectile.NewProjectile(position.X + 225, position.Y, 0, 0, ModContent.ProjectileType<InvisFlashbangProjectile>(), 1, 1, projectile.owner, 0.0f, 0); //right
+            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Flashbang"), (int)position.X, (int)position.Y);
+
+            Projectile.NewProjectile(position.X - 450, position.Y, 0, 0, ModContent.ProjectileType<InvisFlashbangProjectile>(), 1, 0, projectile.owner, 0.0f, 0); //left
+            Projectile.NewProjectile(position.X + 450, position.Y, 0, 0, ModContent.ProjectileType<InvisFlashbangProjectile>(), 1, 1, projectile.owner, 0.0f, 0); //right
         }
 
     }

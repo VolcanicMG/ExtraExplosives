@@ -19,6 +19,7 @@ using ExtraExplosives.Projectiles;
 using ExtraExplosives.NPCs;
 using ExtraExplosives.UI;
 
+
 namespace ExtraExplosives
 {
 	public class ExtraExplosives : Mod
@@ -103,6 +104,12 @@ namespace ExtraExplosives
 			TriggerExplosion = RegisterHotKey("Explode", "Mouse2");
 			TriggerUIReforge = RegisterHotKey("Open Reforge Bomb UI", "P");
 
+			if (Main.netMode != NetmodeID.Server)
+			{
+				Ref<Effect> screenRef = new Ref<Effect>(GetEffect("Effects/Shader")); // The path to the compiled shader file.
+				Filters.Scene["Bang"] = new Filter(new ScreenShaderData(screenRef, "Bang"), EffectPriority.VeryHigh); //float4 name
+				Filters.Scene["Bang"].Load();
+			}
 		}
 	}
 }

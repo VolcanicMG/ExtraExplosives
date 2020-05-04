@@ -26,7 +26,9 @@ namespace ExtraExplosives.Buffs
 		public override void SetDefaults()
 		{
 			DisplayName.SetDefault("Stunned");
-			Description.SetDefault("You can't move");
+			Description.SetDefault("You can't move\n" +
+				"You can't attack\n" +
+				"You can't place blocks\n");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = false;
@@ -61,6 +63,15 @@ namespace ExtraExplosives.Buffs
 		{
 
 			Vector2 PlayerPos = player.Center; //player pos
+
+			if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
+			{
+
+				Filters.Scene.Activate("Bang", player.Center).GetShader().UseColor(255, 255, 255).UseOpacity(0.1f);
+				//float progress = 0f;
+				//Filters.Scene["Bang"].GetShader().UseProgress(progress).UseOpacity(0);
+
+			}
 
 			//spawn dust
 			Dust dust1;

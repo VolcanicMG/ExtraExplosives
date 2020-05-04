@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-
+using Terraria.Graphics.Effects;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -67,6 +67,7 @@ namespace ExtraExplosives.Projectiles
 
                 if (player.detonate == true)
                 {
+
                     projectile.Kill();
                 }
             }

@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 
+
 namespace ExtraExplosives.Items
 {
     public class C4Item : ModItem
