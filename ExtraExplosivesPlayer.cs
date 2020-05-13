@@ -1,11 +1,12 @@
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
+using ExtraExplosives.Buffs;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameInput;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using ExtraExplosives.Buffs;
 
 namespace ExtraExplosives
 {
@@ -13,6 +14,12 @@ namespace ExtraExplosives
 	{
 		public int reforgeUIActive = 0;
 		public bool detonate;
+
+		public static bool NukeActive;
+		public static Vector2 NukePos;
+		public static bool NukeHit;
+
+		public List<Terraria.ModLoader.PlayerLayer> playerLayers = new List<Terraria.ModLoader.PlayerLayer>();
 
 		public bool reforge = false;
 		public static bool reforgePub;
@@ -22,7 +29,7 @@ namespace ExtraExplosives
 			reforgePub = reforge;
 			//Player player = Main.player[Main.myPlayer];
 
-			if(reforge == true)
+			if (reforge == true)
 			{
 				reforge = false;
 			}
@@ -43,13 +50,13 @@ namespace ExtraExplosives
 			{
 
 				reforgeUIActive++;
-				
-				if(reforgeUIActive == 5)
+
+				if (reforgeUIActive == 5)
 				{
 					reforgeUIActive = 1;
 				}
 			}
-			
+
 
 			if (reforgeUIActive == 1) //check to see if the reforge bomb key was pressed
 			{
@@ -68,9 +75,65 @@ namespace ExtraExplosives
 		public override void PostUpdate()
 		{
 			Player player = Main.player[Main.myPlayer];
-			if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>()))
+			if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["Bang"].Deactivate();
+
+			}
+
+			if (Main.netMode != NetmodeID.Server && Filters.Scene["BigBang"].IsActive() && NukeHit == false) //destroy the filter once the buff has ended
+			{
+				Filters.Scene["BigBang"].Deactivate();
+			}
+		}
+
+
+		public override void ModifyDrawLayers(List<Terraria.ModLoader.PlayerLayer> layers) //Make the players invisable
+		{
+			//if (NukeActive == true)
+			//{
+			//	foreach (var layer in layers)
+			//	{
+			//		layer.visible = false;
+			//	}
+			//}
+		}
+
+		public override void ModifyScreenPosition()
+		{
+			if (NukeActive == true)
+			{
+				//follow the projectiles
+				Main.screenPosition = new Vector2(NukePos.X - (Main.screenWidth / 2), NukePos.Y - (Main.screenHeight / 2));
+
+			}
+			if (NukeHit == true)
+			{
+				//shake
+				Main.screenPosition += Utils.RandomVector2(Main.rand, Main.rand.Next(-100, 100), Main.rand.Next(-100, 100));
+
+				//NukeHit = false;
+			}
+		}
+
+		public override void OnEnterWorld(Player player) //might need to set to new netmode in case it dosnt work in MP
+		{
+			NukeActive = false;
+			ExtraExplosives.NukeActivated = false;
+			//player.ResetEffects();
+		}
+
+		public override void SetControls() //when the nuke is active set the player to not build or use items
+		{
+			if (NukeActive == true)
+			{
+				player.controlUseItem = false;
+				player.noBuilding = true;
+				player.controlUseTile = false;
+				if (Main.playerInventory)
+				{
+					player.ToggleInv();
+				}
 			}
 		}
 

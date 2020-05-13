@@ -26,8 +26,8 @@ namespace ExtraExplosives.Items.Explosives
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Flashbang");
-            Tooltip.SetDefault("Don't look at it!!\n" +
-                "Stuns enemies and confuses them");
+            Tooltip.SetDefault("[c/AC5023:Don't look at it!!]\n" +
+                "[c/AB40FF:Stuns enemies and confuses them]");
 
         }
 

@@ -25,14 +25,14 @@ namespace ExtraExplosives.Tiles
         {
             Main.tileSolid[Type] = true;
             Main.tileSolidTop[Type] = true;
-            //Main.tileMergeDirt[Type] = true;
-            Main.tileBlockLight[Type] = false;
-            //Main.tileLighted[Type] = true;
-            Main.tileWaterDeath[Type] = true;
-            Main.tileLavaDeath[Type] = true;
+            Main.tileMergeDirt[Type] = true;
+            Main.tileBlockLight[Type] = true;
+            Main.tileLighted[Type] = true;
+            Main.tileWaterDeath[Type] = false;
+            Main.tileLavaDeath[Type] = false;
             Main.tileNoAttach[Type] = true;
 
-            drop = mod.ItemType("BasicExplosiveItem");
+            //drop = mod.ItemType("BasicExplosiveItem");
             //AddMapEntry(new Color(444, 222, 435));
 
         }
