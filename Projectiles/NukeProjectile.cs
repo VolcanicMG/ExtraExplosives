@@ -29,6 +29,7 @@ namespace ExtraExplosives.Projectiles
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
             projectile.timeLeft = 10000; //The amount of time the projectile is alive for
+            projectile.netUpdate = true;
             //projectile.scale = 1.5f;
         }
 
@@ -140,7 +141,7 @@ namespace ExtraExplosives.Projectiles
                 }
             }
 
-            for (int x = 0; x < 20; x++)
+            for (int x = 0; x < 1; x++)
             {
                 Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(40) + 10, Main.rand.Next(40) + 10, ModContent.ProjectileType<InvisibleNukeProjectile>(), 0, 0, projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square            
             }

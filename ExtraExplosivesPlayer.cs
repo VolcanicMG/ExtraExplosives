@@ -7,6 +7,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives.Projectiles;
 
 namespace ExtraExplosives
 {
@@ -120,6 +121,7 @@ namespace ExtraExplosives
 		{
 			NukeActive = false;
 			ExtraExplosives.NukeActivated = false;
+			NukeHit = false;
 			//player.ResetEffects();
 		}
 
@@ -137,6 +139,20 @@ namespace ExtraExplosives
 			}
 		}
 
+		public override void clientClone(ModPlayer clientClone)
+		{
+			ExtraExplosivesPlayer clone = clientClone as ExtraExplosivesPlayer;
 
+		}
+
+		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+		{
+			
+		}
+
+		public override void SendClientChanges(ModPlayer clientPlayer)
+		{
+			
+		}
 	}
 }

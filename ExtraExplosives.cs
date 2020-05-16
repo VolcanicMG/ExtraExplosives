@@ -46,6 +46,11 @@ namespace ExtraExplosives
 			
 		}
 
+		public override void HandlePacket(BinaryReader reader, int whoAmI)
+		{
+			
+		}
+
 		public override void PostSetupContent()
 		{
 			Mod censusMod = ModLoader.GetMod("Census");

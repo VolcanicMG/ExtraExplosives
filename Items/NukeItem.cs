@@ -61,7 +61,7 @@ namespace ExtraExplosives.Items
 
             if (ExtraExplosivesPlayer.NukeActive == false && ExtraExplosives.NukeActivated == false)
             {
-                Projectile.NewProjectile(Main.maxTilesX, 1000, 30, 0, type, damage, knockBack, Main.myPlayer, 0.0f);
+                Projectile.NewProjectile(Main.maxTilesX, 1000, 30, 0, type, damage, knockBack);
 
                 ExtraExplosives.NukeActivated = true;
                 item.consumable = true;
