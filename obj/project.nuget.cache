@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dDUPpSAUhktrNbeJwraC/+g5DJvM7AFiKM8cQcHzX/l1b1YFVesXGG2f0sz02Q6Epvupf8eS8yVn1+GB0+4Rbg==",
+  "dgSpecHash": "MzxgmZk94OyRnPVWDxrQS9/Sn3ZL5bbkz1tZD1hvxGOKxxPhqQtFm9NdmSAiLnPI1cupDAJxFHieFS/cpv/tTw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ethan\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\ExtraExplosives.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Ethan\\.nuget\\packages\\tmodloader.codeassist\\0.1.1\\tmodloader.codeassist.0.1.1.nupkg.sha512"
+  ],
   "logs": []
 }

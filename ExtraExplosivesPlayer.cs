@@ -16,6 +16,9 @@ namespace ExtraExplosives
 		public int reforgeUIActive = 0;
 		public bool detonate;
 
+		public bool BombBuddy;
+		public Vector2 BuddyPos;
+
 		public static bool NukeActive;
 		public static Vector2 NukePos;
 		public static bool NukeHit;
