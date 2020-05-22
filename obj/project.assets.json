@@ -31,23 +31,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ethan\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\wolfie\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ethan\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\ExtraExplosives.csproj",
+      "projectUniqueName": "C:\\Users\\wolfie\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\ExtraExplosives.csproj",
       "projectName": "ExtraExplosives",
-      "projectPath": "C:\\Users\\Ethan\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\ExtraExplosives.csproj",
-      "packagesPath": "C:\\Users\\Ethan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ethan\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\obj\\",
+      "projectPath": "C:\\Users\\wolfie\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\ExtraExplosives.csproj",
+      "packagesPath": "C:\\Users\\wolfie\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\wolfie\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Ethan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\wolfie\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
