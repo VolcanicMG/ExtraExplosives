@@ -17,6 +17,7 @@ using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 using System.Text;
 using System.Threading.Tasks;
+using ExtraExplosives.Items.Explosives;
 
 
 namespace ExtraExplosives.NPCs
@@ -30,7 +31,7 @@ namespace ExtraExplosives.NPCs
             {
                 if (Main.rand.NextFloat() < 0.10210526f && npc.type != mod.NPCType("CaptainExplosive"))
                 {
-                    Item.NewItem(Main.LocalPlayer.getRect(), ItemType<Items.BreakenTheBankenItem>(), 1);
+                    Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BreakenTheBankenItem>(), 1);
                 }
 
             }

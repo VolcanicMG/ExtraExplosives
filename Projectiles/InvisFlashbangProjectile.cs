@@ -1,5 +1,5 @@
 ﻿using ExtraExplosives.Buffs;
-using ExtraExplosives.Items;
+using ExtraExplosives.Items.Explosives;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

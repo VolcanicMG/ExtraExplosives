@@ -30,6 +30,8 @@ namespace ExtraExplosives
 
 		internal static Player playerProjectileOwnerInvis;
 
+		internal static bool NukeActivated;
+
 		internal static float dustAmount;
 		internal UserInterface ExtraExplosivesUserInterface;
 		internal UserInterface ExtraExplosivesReforgeBombInterface;
@@ -41,6 +43,11 @@ namespace ExtraExplosives
 		{
 
 
+			
+		}
+
+		public override void HandlePacket(BinaryReader reader, int whoAmI)
+		{
 			
 		}
 
@@ -94,8 +101,11 @@ namespace ExtraExplosives
 				);
 			}
 		}
+
+
 		public override void Load()
 		{
+
 			Logger.InfoFormat("{0} Extra Explosives logger", Name);
 
 			ExtraExplosivesUserInterface = new UserInterface();
@@ -106,10 +116,16 @@ namespace ExtraExplosives
 
 			if (Main.netMode != NetmodeID.Server)
 			{
+				//load in the shaders
 				Ref<Effect> screenRef = new Ref<Effect>(GetEffect("Effects/Shader")); // The path to the compiled shader file.
 				Filters.Scene["Bang"] = new Filter(new ScreenShaderData(screenRef, "Bang"), EffectPriority.VeryHigh); //float4 name
 				Filters.Scene["Bang"].Load();
+
+				Ref<Effect> screenRef2 = new Ref<Effect>(GetEffect("Effects/NukeShader")); // The path to the compiled shader file.
+				Filters.Scene["BigBang"] = new Filter(new ScreenShaderData(screenRef2, "BigBang"), EffectPriority.VeryHigh); //float4 name
+				Filters.Scene["BigBang"].Load();
 			}
+
 		}
 	}
 }

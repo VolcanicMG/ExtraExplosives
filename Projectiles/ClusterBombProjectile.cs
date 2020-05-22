@@ -67,8 +67,8 @@ namespace ExtraExplosives.Projectiles
                         pos = new Vector2(xPosition, yPosition);
                         vel = new Vector2(Main.rand.Next(20) - 10, Main.rand.Next(20) - 10);
 
-                        if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
-                        {
+                        if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (xPosition > 0 && yPosition > 0 && xPosition < Main.maxTilesX && yPosition < Main.maxTilesY))    //this make so the explosion radius is a circle
+                    {
 
                             if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.DesertFossil || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
                                 || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
