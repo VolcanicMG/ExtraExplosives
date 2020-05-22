@@ -6,4 +6,4 @@ Any copying of code will be a direct violation of property and will punished acc
 
 Discord: https://discord.gg/UvwEDJ
 
-https://forums.terraria.org/index.php?threads/extra-explosives.87772/
+Terraria Forums: https://forums.terraria.org/index.php?threads/extra-explosives.87772/
