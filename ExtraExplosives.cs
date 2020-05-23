@@ -18,6 +18,7 @@ using static Terraria.ModLoader.ModContent;
 using ExtraExplosives.Projectiles;
 using ExtraExplosives.NPCs;
 using ExtraExplosives.UI;
+using static ExtraExplosives.GlobalMethods;
 
 
 namespace ExtraExplosives
@@ -41,9 +42,7 @@ namespace ExtraExplosives
 
 		public ExtraExplosives()
 		{
-
-
-			
+			SetupListsOfUnbreakableTiles();
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
