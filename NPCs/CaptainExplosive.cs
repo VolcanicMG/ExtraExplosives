@@ -19,6 +19,7 @@ using ExtraExplosives.NPCs;
 using ExtraExplosives.Projectiles;
 using ExtraExplosives.Items;
 using ExtraExplosives;
+using ExtraExplosives.Items.Pets;
 
 namespace ExtraExplosives.NPCs
 {
@@ -281,6 +282,8 @@ namespace ExtraExplosives.NPCs
 
             if (Main.hardMode)   
             {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<BombBuddyItem>());
+                nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("MegaExplosiveItem"));
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("GiganticExplosiveItem"));
