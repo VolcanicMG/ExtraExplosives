@@ -52,7 +52,7 @@ namespace ExtraExplosives
 
 			if (ExtraExplosives.TriggerUIReforge.JustPressed) //check to see if the button was just pressed
 			{
-
+				
 				reforgeUIActive++;
 
 				if (reforgeUIActive == 5)

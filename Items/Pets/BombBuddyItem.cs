@@ -37,17 +37,6 @@ namespace ExtraExplosives.Items.Pets
             item.buffType = ModContent.BuffType<BombBuddyBuff>();
         }
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Cobweb, 15);
-            recipe.AddIngredient(ItemID.Wood, 1);
-            recipe.anyWood = true;
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-
-        }
 
         public override void UseStyle(Player player)
         {

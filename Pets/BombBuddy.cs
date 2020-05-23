@@ -28,14 +28,14 @@ namespace ExtraExplosives.Pets
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bomb Buddy");
-            Main.projFrames[projectile.type] = 4;
+            Main.projFrames[projectile.type] = 10;
             Main.projPet[projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.BabyFaceMonster);
-            aiType = ProjectileID.BabyFaceMonster;
+            projectile.CloneDefaults(ProjectileID.CursedSapling);
+            aiType = ProjectileID.CursedSapling;
             projectile.netImportant = true;
             projectile.width = 38;
             projectile.height = 40;

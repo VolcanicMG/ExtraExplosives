@@ -61,7 +61,7 @@ namespace ExtraExplosives.Items.Explosives
             recipe.AddIngredient(ItemID.ExplosivePowder, 1);
             recipe.AddIngredient(ItemID.Gel, 10);
             recipe.AddIngredient(ItemID.ClayBlock, 10);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
 
