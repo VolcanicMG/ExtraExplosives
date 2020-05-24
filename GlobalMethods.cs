@@ -83,7 +83,7 @@ namespace ExtraExplosives
         {
             //Setup Vanilla UnbreakableTiles
 
-            Vanilla_UnbreakableTiles = new ushort[16];
+            Vanilla_UnbreakableTiles = new ushort[20];
             Vanilla_UnbreakableTiles[0] = TileID.LihzahrdBrick;
             Vanilla_UnbreakableTiles[1] = TileID.LihzahrdAltar;
             Vanilla_UnbreakableTiles[2] = TileID.LihzahrdFurnace;
@@ -100,6 +100,10 @@ namespace ExtraExplosives
             Vanilla_UnbreakableTiles[13] = TileID.Chlorophyte;
             Vanilla_UnbreakableTiles[14] = TileID.DefendersForge;
             Vanilla_UnbreakableTiles[15] = TileID.DemonAltar;
+            Vanilla_UnbreakableTiles[16] = TileID.Containers;
+            Vanilla_UnbreakableTiles[17] = TileID.Containers2;
+            Vanilla_UnbreakableTiles[18] = TileID.FakeContainers;
+            Vanilla_UnbreakableTiles[19] = TileID.FakeContainers2;
 
 
             //Setup Calamity Unbreakable Tiles
