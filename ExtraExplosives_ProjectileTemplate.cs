@@ -22,6 +22,8 @@ namespace ExtraExplosives.Projectiles
 {
     public class ExtraExplosives_ProjectileTemplate : ModProjectile
     {
+        public override string Texture => "ExtraExplosives/Projectiles/BulletBoomProjectile"; //DELETE ME********************************
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("ExtraExplosives_ProjectileTemplate");

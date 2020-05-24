@@ -60,7 +60,7 @@ namespace ExtraExplosives
         /// <summary>
         /// Holds the Unbreakable Tiles in Vanilla Terraria
         /// </summary>
-        public static ushort[] Vanilla_UnbreakableTiles = new ushort[16];
+        public static ushort[] Vanilla_UnbreakableTiles = new ushort[21];
 
         /// <summary>
         /// Holds the Unbreakable Tiles in Calamity Mod
@@ -83,7 +83,7 @@ namespace ExtraExplosives
         {
             //Setup Vanilla UnbreakableTiles
 
-            Vanilla_UnbreakableTiles = new ushort[20];
+            Vanilla_UnbreakableTiles = new ushort[21];
             Vanilla_UnbreakableTiles[0] = TileID.LihzahrdBrick;
             Vanilla_UnbreakableTiles[1] = TileID.LihzahrdAltar;
             Vanilla_UnbreakableTiles[2] = TileID.LihzahrdFurnace;
@@ -103,7 +103,9 @@ namespace ExtraExplosives
             Vanilla_UnbreakableTiles[16] = TileID.Containers;
             Vanilla_UnbreakableTiles[17] = TileID.Containers2;
             Vanilla_UnbreakableTiles[18] = TileID.FakeContainers;
-            Vanilla_UnbreakableTiles[19] = TileID.FakeContainers2;
+            Vanilla_UnbreakableTiles[19] = TileID.TrashCan;
+            Vanilla_UnbreakableTiles[20] = TileID.Dressers;
+
 
 
             //Setup Calamity Unbreakable Tiles
@@ -133,7 +135,7 @@ namespace ExtraExplosives
             if (ThoriumMod != null)
             {
                 ThoriumMod_UnbreakableTiles = new int[6];
-                ThoriumMod_UnbreakableTiles[0] = ThoriumMod.TileType("Aquaite");
+                ThoriumMod_UnbreakableTiles[0] = ThoriumMod.TileType("AquaiteBare");
                 ThoriumMod_UnbreakableTiles[1] = ThoriumMod.TileType("LodeStone");
                 ThoriumMod_UnbreakableTiles[2] = ThoriumMod.TileType("ValadiumChunk");
                 ThoriumMod_UnbreakableTiles[3] = ThoriumMod.TileType("IllumiteChunk");
@@ -174,7 +176,7 @@ namespace ExtraExplosives
         public static Boolean CheckForUnbreakableTiles(int Tile)
         {
             Boolean flag = false; //Used to check if a tile is unbreakable - If true, then the tile is unbreakable
-            int LargestListNumber = 20; //Used to limit the UnbreakableTileLoop, number must be larger then the largest list of unbreakable tiles
+            int LargestListNumber = 50; //Used to limit the UnbreakableTileLoop, number must be larger then the largest list of unbreakable tiles
 
             for (int i = 0; i < LargestListNumber; i++) //Loop runs through all lists of unbrakable tiles and throws a flag if an unbreakable tile is found
             {

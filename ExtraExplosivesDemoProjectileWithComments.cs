@@ -23,6 +23,7 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
 {
     public class ExtraExplosives_DemoProjectileWithComments : ModProjectile //Class implements Mod Projectile
     {
+        public override string Texture => "ExtraExplosives/Projectiles/BulletBoomProjectile"; //This is the texture. You can have the same name as the class be the png in place of the texture override
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("ExtraExplosives_DemoProjectileWithComments"); //Projectile's Name, same as class name
