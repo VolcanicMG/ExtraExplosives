@@ -22,12 +22,12 @@ namespace ExtraExplosives.Items.Weapons
 
 			item.useStyle = 5;
 			item.autoReuse = true;
-			item.useAnimation = 70;
-			item.useTime = 70;
+			item.useAnimation = 140;
+			item.useTime = 140;
 			item.useAmmo = AmmoID.Rocket;
 			item.width = 66;
 			item.height = 36;
-			item.shoot = 134;
+			item.shoot = ProjectileID.RocketI;
 			item.UseSound = SoundID.Item11;
 			//item.channel = true;
 			item.damage = 200;
@@ -43,7 +43,7 @@ namespace ExtraExplosives.Items.Weapons
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 
-			int numberProjectiles = 10; // shoots 6 projectiles
+			int numberProjectiles = 15; // shoots 6 projectiles
 			for (int index = 0; index < numberProjectiles; ++index)
 			{
 				Vector2 vector2_1 = new Vector2((float)((double)player.position.X + (double)player.width * 0.5 + (double)(Main.rand.Next(201) * -player.direction) + ((double)Main.mouseX + (double)Main.screenPosition.X - (double)player.position.X)), (float)((double)player.position.Y + (double)player.height * 0.5 - 600.0));   //this defines the projectile width, direction and position
@@ -93,8 +93,7 @@ namespace ExtraExplosives.Items.Weapons
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.RocketLauncher, 1);
-			recipe.AddIngredient(ItemID.ChainGun, 1);
-			recipe.anyWood = true;
+			recipe.AddIngredient(ItemID.DaedalusStormbow, 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

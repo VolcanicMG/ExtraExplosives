@@ -16,15 +16,16 @@ using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 using ExtraExplosives;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
     public class MediumExplosiveProjectile : ModProjectile
     {
-        Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+        //Mod CalamityMod = ModLoader.GetMod("CalamityMod");
+        //Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
-        internal static bool CanBreakWalls;
+        //internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("MediumExplosive");
@@ -50,7 +51,7 @@ namespace ExtraExplosives.Projectiles
             Vector2 position = projectile.Center;
             Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
             int radius = 10;     //this is the explosion radius, the highter is the value the bigger is the explosion
-
+            
             //damage part of the bomb
             ExplosionDamageProjectile.DamageRadius = (float)(radius * 2f);
                 Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 300, 30, projectile.owner, 0.0f, 0);

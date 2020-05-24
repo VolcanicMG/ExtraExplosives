@@ -47,13 +47,17 @@ namespace ExtraExplosives
         public override void OnChanged()
         {
 
+            GlobalMethods.CanBreakWalls = CanBreakWalls;
+            GlobalMethods.CanBreakTiles = CanBreakTiles;
+            GlobalMethods.DustAmount = dustAmount;
+
             TheLevelerProjectile.CanBreakWalls = CanBreakWalls;
             SmallExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             ArenaBuilderProjectile.CanBreakWalls = CanBreakWalls;
             PhaseBombProjectile.CanBreakWalls = CanBreakWalls;
             NPCSpawnerProjectile.CanBreakWalls = CanBreakWalls;
             MegaExplosiveProjectile.CanBreakWalls = CanBreakWalls;
-            MediumExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            //MediumExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             LargeExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             HeavyBombProjectile.CanBreakWalls = CanBreakWalls;
             GiganticExplosiveProjectile.CanBreakWalls = CanBreakWalls;
@@ -62,7 +66,7 @@ namespace ExtraExplosives
             ClusterBombProjectile.CanBreakWalls = CanBreakWalls;
             C4Projectile.CanBreakWalls = CanBreakWalls;
             BigBouncyDynamiteProjectile.CanBreakWalls = CanBreakWalls;
-            BasicExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            //BasicExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             C4Projectile.CanBreakTiles = CanBreakTiles;
             DaBombProjectile.CanBreakTiles = CanBreakTiles;
             CaptainExplosive.CanBreakTiles = CanBreakTiles;
