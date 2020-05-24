@@ -61,6 +61,9 @@ namespace ExtraExplosives
 				// Simpler example:
 				censusMod.Call("TownNPCCondition", NPCType("CaptainExplosive"), "Throw a 'chaos...' explosive");
 			}
+
+			SetupListsOfUnbreakableTiles();
+
 			base.PostSetupContent();
 		}
 
@@ -81,7 +84,8 @@ namespace ExtraExplosives
 			{
 				layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
 					"ExtraExplosives: UI",
-					delegate {
+					delegate
+					{
 						// If the current UIState of the UserInterface is null, nothing will draw. We don't need to track a separate .visible value.
 						ExtraExplosivesUserInterface.Draw(Main.spriteBatch, new GameTime());
 						return true;
@@ -100,11 +104,10 @@ namespace ExtraExplosives
 				);
 			}
 		}
-
+		
 
 		public override void Load()
 		{
-			SetupListsOfUnbreakableTiles();
 
 			Logger.InfoFormat("{0} Extra Explosives logger", Name);
 

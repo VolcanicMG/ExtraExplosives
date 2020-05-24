@@ -70,7 +70,7 @@ namespace ExtraExplosives
         /// <summary>
         /// Holds the Unbreakable Tiles in Thorium Mod
         /// </summary>
-        public static int[] ThoriumMod_UnbreakableTiles = new int[6];
+        public static int[] ThoriumMod_UnbreakableTiles = new int[5];
 
         /// <summary>
         /// This initializes the lists of unbreakable tiles
@@ -134,13 +134,12 @@ namespace ExtraExplosives
             //Setup Thorium Unbreakable Tiles
             if (ThoriumMod != null)
             {
-                ThoriumMod_UnbreakableTiles = new int[6];
+                ThoriumMod_UnbreakableTiles = new int[5];
                 ThoriumMod_UnbreakableTiles[0] = ThoriumMod.TileType("AquaiteBare");
                 ThoriumMod_UnbreakableTiles[1] = ThoriumMod.TileType("LodeStone");
                 ThoriumMod_UnbreakableTiles[2] = ThoriumMod.TileType("ValadiumChunk");
                 ThoriumMod_UnbreakableTiles[3] = ThoriumMod.TileType("IllumiteChunk");
                 ThoriumMod_UnbreakableTiles[4] = ThoriumMod.TileType("PearlStone");
-                ThoriumMod_UnbreakableTiles[5] = ThoriumMod.TileType("DepthChestPlatform");
             }
 
         }
