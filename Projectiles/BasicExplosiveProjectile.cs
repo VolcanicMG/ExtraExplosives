@@ -24,18 +24,18 @@ namespace ExtraExplosives.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BasicExplosive"); //Projectiles Name
+            DisplayName.SetDefault("BasicExplosive");
         }
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; //Checks to see if the projectile can go through tiles
-            projectile.width = 13;   //This defines the hitbox width
-            projectile.height = 13;    //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 150; //The amount of time the projectile is alive for
+            projectile.tileCollide = true;
+            projectile.width = 13;
+            projectile.height = 13;
+            projectile.aiStyle = 16;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.timeLeft = 150;
         }
 
         public override void Kill(int timeLeft)
@@ -53,7 +53,6 @@ namespace ExtraExplosives.Projectiles
             CreateDust(projectile.Center, 10);
         }
 
-
         private void CreateExplosion(Vector2 position, int radius)
         {
             for (int x = -radius; x <= radius; x++)
@@ -65,7 +64,7 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
                         {
 
                         }
@@ -78,7 +77,6 @@ namespace ExtraExplosives.Projectiles
                 }
             }
         }
-
 
         private void CreateDust(Vector2 position, int amount)
         {

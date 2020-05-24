@@ -23,6 +23,7 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
 {
     public class ExtraExplosives_DemoProjectileWithComments : ModProjectile //Class implements Mod Projectile
     {
+        public override string Texture => "ExtraExplosives/Projectiles/BulletBoomProjectile"; //This is the texture. You can have the same name as the class be the png in place of the texture override
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("ExtraExplosives_DemoProjectileWithComments"); //Projectile's Name, same as class name
@@ -91,7 +92,7 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5)
                     {
                         //Make sure to check for unbreakable tiles
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
                         {
                             //Code for [if block is unbreakable] goes here
                         }
