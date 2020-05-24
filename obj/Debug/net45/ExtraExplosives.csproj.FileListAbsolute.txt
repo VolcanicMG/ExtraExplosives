@@ -12,6 +12,7 @@ C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\MonoMod.RuntimeDetour.dll
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\MonoMod.Utils.dll
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\MP3Sharp.dll
+C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\Newtonsoft.Json.dll
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\NVorbis.dll
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\ReLogic.dll
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\Steamworks.NET.dll
@@ -22,11 +23,10 @@ C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\tModLoader.xml
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\MonoMod.RuntimeDetour.xml
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\MonoMod.Utils.xml
+C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.csprojAssemblyReference.cache
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.csproj.CoreCompileInputs.cache
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.AssemblyInfoInputs.cache
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.AssemblyInfo.cs
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.csproj.CopyComplete
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.dll
 C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.pdb
-C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\obj\Debug\net45\ExtraExplosives.csprojAssemblyReference.cache
-C:\Users\Ethan\Documents\My Games\Terraria\ModLoader\Mod Sources\ExtraExplosives\bin\Debug\net45\Newtonsoft.Json.dll

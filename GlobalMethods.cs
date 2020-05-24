@@ -1,25 +1,10 @@
-﻿using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using ExtraExplosives.Projectiles;
-using ExtraExplosives.NPCs;
-using ExtraExplosives.UI;
-using System.Xml.Schema;
-using System.Diagnostics;
 
 namespace ExtraExplosives
 {
@@ -80,7 +65,7 @@ namespace ExtraExplosives
         /// <summary>
         /// Holds the Unbreakable Tiles in Calamity Mod
         /// </summary>
-        public static int[] CalamityMod_UnbreakableTiles = new int[17];
+        public static int[] CalamityMod_UnbreakableTiles = new int[17]; //5, 14, 16 not working
 
         /// <summary>
         /// Holds the Unbreakable Tiles in Thorium Mod
@@ -94,30 +79,29 @@ namespace ExtraExplosives
         /// Currently checking the following:
         /// Vanilla - Calamity - Thorium
         /// </remarks>
-        public static void SetupListsOfUnbreakableTiles() 
+        public static void SetupListsOfUnbreakableTiles()
         {
             //Setup Vanilla UnbreakableTiles
-            if (true)
-            {
-                Vanilla_UnbreakableTiles = new ushort[16];
-                Vanilla_UnbreakableTiles[0] = TileID.LihzahrdBrick;
-                Vanilla_UnbreakableTiles[1] = TileID.LihzahrdAltar;
-                Vanilla_UnbreakableTiles[2] = TileID.LihzahrdFurnace;
-                Vanilla_UnbreakableTiles[3] = TileID.DesertFossil;
-                Vanilla_UnbreakableTiles[4] = TileID.BlueDungeonBrick;
-                Vanilla_UnbreakableTiles[5] = TileID.GreenDungeonBrick;
-                Vanilla_UnbreakableTiles[6] = TileID.PinkDungeonBrick;
-                Vanilla_UnbreakableTiles[7] = TileID.Cobalt;
-                Vanilla_UnbreakableTiles[8] = TileID.Palladium;
-                Vanilla_UnbreakableTiles[9] = TileID.Mythril;
-                Vanilla_UnbreakableTiles[10] = TileID.Orichalcum;
-                Vanilla_UnbreakableTiles[11] = TileID.Adamantite;
-                Vanilla_UnbreakableTiles[12] = TileID.Titanium;
-                Vanilla_UnbreakableTiles[13] = TileID.Chlorophyte;
-                Vanilla_UnbreakableTiles[14] = TileID.DefendersForge;
-                Vanilla_UnbreakableTiles[15] = TileID.DemonAltar;
-            }
-            
+
+            Vanilla_UnbreakableTiles = new ushort[16];
+            Vanilla_UnbreakableTiles[0] = TileID.LihzahrdBrick;
+            Vanilla_UnbreakableTiles[1] = TileID.LihzahrdAltar;
+            Vanilla_UnbreakableTiles[2] = TileID.LihzahrdFurnace;
+            Vanilla_UnbreakableTiles[3] = TileID.DesertFossil;
+            Vanilla_UnbreakableTiles[4] = TileID.BlueDungeonBrick;
+            Vanilla_UnbreakableTiles[5] = TileID.GreenDungeonBrick;
+            Vanilla_UnbreakableTiles[6] = TileID.PinkDungeonBrick;
+            Vanilla_UnbreakableTiles[7] = TileID.Cobalt;
+            Vanilla_UnbreakableTiles[8] = TileID.Palladium;
+            Vanilla_UnbreakableTiles[9] = TileID.Mythril;
+            Vanilla_UnbreakableTiles[10] = TileID.Orichalcum;
+            Vanilla_UnbreakableTiles[11] = TileID.Adamantite;
+            Vanilla_UnbreakableTiles[12] = TileID.Titanium;
+            Vanilla_UnbreakableTiles[13] = TileID.Chlorophyte;
+            Vanilla_UnbreakableTiles[14] = TileID.DefendersForge;
+            Vanilla_UnbreakableTiles[15] = TileID.DemonAltar;
+
+
             //Setup Calamity Unbreakable Tiles
             if (CalamityMod != null)
             {
@@ -127,7 +111,7 @@ namespace ExtraExplosives
                 CalamityMod_UnbreakableTiles[2] = CalamityMod.TileType("CryonicOre");
                 CalamityMod_UnbreakableTiles[3] = CalamityMod.TileType("CharredOre");
                 CalamityMod_UnbreakableTiles[4] = CalamityMod.TileType("PerennialOre");
-                CalamityMod_UnbreakableTiles[5] = CalamityMod.TileType("ScoriaOre");
+                CalamityMod_UnbreakableTiles[5] = CalamityMod.TileType("ChaoticOre");
                 CalamityMod_UnbreakableTiles[6] = CalamityMod.TileType("AstralOre");
                 CalamityMod_UnbreakableTiles[7] = CalamityMod.TileType("ExodiumOre");
                 CalamityMod_UnbreakableTiles[8] = CalamityMod.TileType("UelibloomOre");
@@ -136,13 +120,13 @@ namespace ExtraExplosives
                 CalamityMod_UnbreakableTiles[11] = CalamityMod.TileType("Voidstone");
                 CalamityMod_UnbreakableTiles[12] = CalamityMod.TileType("PlantyMush");
                 CalamityMod_UnbreakableTiles[13] = CalamityMod.TileType("Tenebris");
-                CalamityMod_UnbreakableTiles[14] = CalamityMod.TileType("ArenaBlock");
+                CalamityMod_UnbreakableTiles[14] = CalamityMod.TileType("ArenaTile");
                 CalamityMod_UnbreakableTiles[15] = CalamityMod.TileType("Cinderplate");
-                CalamityMod_UnbreakableTiles[16] = CalamityMod.TileType("ExodiumClusterOre");
+                CalamityMod_UnbreakableTiles[16] = CalamityMod.TileType("ExodiumOre");
             }
 
             //Setup Thorium Unbreakable Tiles
-            if(ThoriumMod != null)
+            if (ThoriumMod != null)
             {
                 ThoriumMod_UnbreakableTiles = new int[6];
                 ThoriumMod_UnbreakableTiles[0] = ThoriumMod.TileType("Aquaite");
@@ -188,7 +172,7 @@ namespace ExtraExplosives
             Boolean flag = false; //Used to check if a tile is unbreakable - If true, then the tile is unbreakable
             int LargestListNumber = 20; //Used to limit the UnbreakableTileLoop, number must be larger then the largest list of unbreakable tiles
 
-            for(int i = 0; i < LargestListNumber; i++) //Loop runs through all lists of unbrakable tiles and throws a flag if an unbreakable tile is found
+            for (int i = 0; i < LargestListNumber; i++) //Loop runs through all lists of unbrakable tiles and throws a flag if an unbreakable tile is found
             {
                 //Checks For Vanilla Unbreakable Tiles
                 if ((true) && (i < Vanilla_UnbreakableTiles.Length))
@@ -220,8 +204,8 @@ namespace ExtraExplosives
 
         //========================| Code Snippets Ready For Copy/Paste |========================\\
 
-            //Here you will find one commented copy of a function that explains code functionality,
-            //and then a second function below it that can be used for copy/paste
+        //Here you will find one commented copy of a function that explains code functionality,
+        //and then a second function below it that can be used for copy/paste
 
         /// <summary>
         /// This is a demo function commented to explain functionality. For copy/paste, please see the function below this one
@@ -252,7 +236,7 @@ namespace ExtraExplosives
 
                             //Demo for Tile Breaking
                             WorldGen.KillTile(xPosition, yPosition, false, false, false); //This makes the explosion destroy tiles
-                            
+
                             //Demo for Wall Breaking
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This makes the explosion destroy walls if user has set it to true
 
@@ -284,7 +268,7 @@ namespace ExtraExplosives
                     {
                         if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
                         {
-                            
+
                         }
                         else //Breakable
                         {
@@ -318,7 +302,7 @@ namespace ExtraExplosives
                     if (Main.rand.NextFloat() < 1f) //This number determines how much of this dust type is allowed to spawn, 1 = 100%, 0 = 0%
                     {
                         //The top-left corner of the dust will automatically spawn at the updatedPosition. To center it, subtract the dust's width/2 from position.X and height/2 from position.Y
-                        updatedPosition = new Vector2(position.X - 100/2, position.Y - 100/2);
+                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
 
                         //This is the current dust being spawned in
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 6, 0f, 0.5f, 0, new Color(255, 0, 0), 4.5f)];

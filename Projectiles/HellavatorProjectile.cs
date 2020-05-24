@@ -48,7 +48,7 @@ namespace ExtraExplosives.Projectiles
         public override bool OnTileCollide(Vector2 old)
         {
 
-            projectile.timeLeft = 0;
+            projectile.Kill();
             return true;
         }
 
@@ -73,6 +73,9 @@ namespace ExtraExplosives.Projectiles
 
                     if (xPosition < Main.maxTilesX && yPosition < Main.maxTilesY)
                     {
+                        Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
+                        WorldGen.SquareTileFrame(xPosition, yPosition, true);
+
                         if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
                                     || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
                                     Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge || Main.tile[xPosition, yPosition].type == TileID.DemonAltar)
@@ -104,8 +107,6 @@ namespace ExtraExplosives.Projectiles
                         {
 
                             WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles 
-                            Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water; //this makes the explosion destroy liquids
-                            WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
                             if (CanBreakWalls) //break the last bit

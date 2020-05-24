@@ -42,7 +42,7 @@ namespace ExtraExplosives
 
 		public ExtraExplosives()
 		{
-			SetupListsOfUnbreakableTiles();
+			
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -104,6 +104,7 @@ namespace ExtraExplosives
 
 		public override void Load()
 		{
+			SetupListsOfUnbreakableTiles();
 
 			Logger.InfoFormat("{0} Extra Explosives logger", Name);
 

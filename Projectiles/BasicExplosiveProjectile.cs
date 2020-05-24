@@ -53,12 +53,7 @@ namespace ExtraExplosives.Projectiles
             CreateDust(projectile.Center, 10);
         }
 
-        /// <summary>
-        /// This function will create an explosion - All explosion related things happen in here
-        /// </summary>
-        /// /// <seealso cref="GlobalMethods.Demo_CreateExplosion(Vector2, int)"></seealso>
-        /// <param name="position"> Stores the center point of the explosion - Try: projectile.Center </param>
-        /// <param name="radius"> Stores the radius of the explosion </param>
+
         private void CreateExplosion(Vector2 position, int radius)
         {
             for (int x = -radius; x <= radius; x++)
@@ -84,12 +79,7 @@ namespace ExtraExplosives.Projectiles
             }
         }
 
-        /// <summary>
-        /// This function will create dust at a set point
-        /// </summary>
-        /// <seealso cref="GlobalMethods.Demo_CreateDust(Vector2, int)"></seealso>
-        /// <param name="position"> Stores the center point of the explosion - Try: projectile.Center </param>
-        /// <param name="amount"> Stores max intended amount of dust, this will be overridden by user preferences </param>
+
         private void CreateDust(Vector2 position, int amount)
         {
             Dust dust;
