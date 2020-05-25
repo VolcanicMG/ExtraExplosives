@@ -20,23 +20,22 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-    public class GiganticExplosiveProjectile : ModProjectile
+    public class AtomBombProjectile : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("GiganticExplosive");
+            DisplayName.SetDefault("Atom Bomb");
         }
 
         public override void SetDefaults()
         {
             projectile.tileCollide = true;
-            projectile.width = 44;
-            projectile.height = 44;
+            projectile.width = 5;
+            projectile.height = 8;
             projectile.aiStyle = 16;
             projectile.friendly = true;
             projectile.penetrate = -1;
-            projectile.timeLeft = 800;
-            projectile.scale = 1.5f;
+            projectile.timeLeft = 600;
         }
 
         public override void Kill(int timeLeft)
@@ -45,38 +44,20 @@ namespace ExtraExplosives.Projectiles
             Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
             //Create Bomb Damage
-            ExplosionDamage(80f * 1.5f, projectile.Center, 1000, 100, projectile.owner);
+            ExplosionDamage(1, projectile.Center, 5000, 1.0f, projectile.owner);
 
             //Create Bomb Explosion
-            CreateExplosion(projectile.Center, 80);
+            CreateExplosion(projectile.Center, 40);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 600);
+            CreateDust(projectile.Center, 400);
         }
 
         private void CreateExplosion(Vector2 position, int radius)
         {
-            for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left 
-            {
-                for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
-                {
-                    int xPosition = (int)(x + position.X / 16.0f);
-                    int yPosition = (int)(y + position.Y / 16.0f);
-
-                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
-                    {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
-                        {
-
-                        }
-                        else //Breakable
-                        {
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
-                        }
-                    }
-                }
-            }
+            int xPosition = (int)(position.X / 16.0f);
+            int yPosition = (int)(position.Y / 16.0f);
+            WorldGen.KillTile(xPosition, yPosition + 1, false, false, true);  //this make the explosion destroy tiles  
         }
 
         private void CreateDust(Vector2 position, int amount)
@@ -91,9 +72,9 @@ namespace ExtraExplosives.Projectiles
                     //---Dust 1---
                     if (Main.rand.NextFloat() < 1f)
                     {
-                        updatedPosition = new Vector2(position.X - 1500 / 2, position.Y - 1500 / 2);
+                        updatedPosition = new Vector2(position.X - 1 / 2, position.Y - 1 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 1500, 1500, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 15f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 1, 1, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 15f)];
                         dust.noGravity = true;
                         dust.fadeIn = 2.486842f;
                     }
@@ -102,9 +83,9 @@ namespace ExtraExplosives.Projectiles
                     //---Dust 2---
                     if (Main.rand.NextFloat() < 1f)
                     {
-                        updatedPosition = new Vector2(position.X - 1500 / 2, position.Y - 1500 / 2);
+                        updatedPosition = new Vector2(position.X - 1 / 2, position.Y - 1 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 1500, 1500, 203, 0f, 0f, 0, new Color(255, 255, 255), 15f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 1, 1, 203, 0f, 0f, 0, new Color(255, 255, 255), 15f)];
                         dust.noGravity = true;
                         dust.noLight = true;
                     }
@@ -113,9 +94,9 @@ namespace ExtraExplosives.Projectiles
                     //---Dust 3---
                     if (Main.rand.NextFloat() < 1f)
                     {
-                        updatedPosition = new Vector2(position.X - 1500 / 2, position.Y - 1500 / 2);
+                        updatedPosition = new Vector2(position.X - 1 / 2, position.Y - 1 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 1500, 1500, 31, 0f, 0f, 0, new Color(255, 255, 255), 15f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 1, 1, 31, 0f, 0f, 0, new Color(255, 255, 255), 15f)];
                         dust.noGravity = true;
                         dust.noLight = true;
                     }

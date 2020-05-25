@@ -92,7 +92,7 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5)
                     {
                         //Make sure to check for unbreakable tiles
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
                         {
                             //Code for [if block is unbreakable] goes here
                         }

@@ -22,7 +22,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class ExtraExplosives_ProjectileTemplate : ModProjectile
     {
-        public override string Texture => "ExtraExplosives/Projectiles/BulletBoomProjectile"; //DELETE ME********************************
+        public override string Texture => "ExtraExplosives/Projectiles/BulletBoomProjectile"; //DELETE THIS LINE AFTER YOU COPY/PASTE ###################################
 
         public override void SetStaticDefaults()
         {
@@ -53,14 +53,8 @@ namespace ExtraExplosives.Projectiles
 
             //Create Bomb Dust
             CreateDust(projectile.Center, 10);
-
         }
 
-        /// <summary>
-        /// This function will create an explosion - All explosion related things happen in here
-        /// </summary>
-        /// <param name="position"> Stores the center point of the explosion - Try: projectile.Center </param>
-        /// <param name="radius"> Stores the radius of the explosion </param>
         private void CreateExplosion(Vector2 position, int radius)
         {
             for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left 
@@ -72,7 +66,7 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
                         {
                             
                         }
@@ -87,11 +81,6 @@ namespace ExtraExplosives.Projectiles
             }
         }
 
-        /// <summary>
-        /// This function will create dust at a set point
-        /// </summary>
-        /// <param name="position"> Stores the center point of the explosion - Try: projectile.Center </param>
-        /// <param name="amount"> Stores max intended amount of dust, this will be overridden by user preferences </param>
         private void CreateDust(Vector2 position, int amount)
         {
             Dust dust;

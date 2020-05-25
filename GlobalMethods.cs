@@ -171,11 +171,17 @@ namespace ExtraExplosives
         /// This function is used to check for unbreakable tiles - Returns [true] if tile is unbreakable
         /// </summary>
         /// <param name="Tile"> This is the tile currently being checked - Try: Main.tile[xPosition, yPosition].type </param>
+        /// <param name="posX"> This is the tiles X Position - Try: xPosition </param>
+        /// <param name="posY"> This is the tiles Y Position - Try: yPosition </param>
         /// <returns> Returns [true] if the tile is unbreakable </returns>
-        public static Boolean CheckForUnbreakableTiles(int Tile)
+        public static Boolean CheckForUnbreakableTiles(int Tile, int posX, int posY)
         {
             Boolean flag = false; //Used to check if a tile is unbreakable - If true, then the tile is unbreakable
             int LargestListNumber = 50; //Used to limit the UnbreakableTileLoop, number must be larger then the largest list of unbreakable tiles
+
+            //Tests If Tile Is OutOfBounds
+            if (posX < 0 || posY < 0 || posX > Main.maxTilesX || posY > Main.maxTilesY)
+                return true;
 
             for (int i = 0; i < LargestListNumber; i++) //Loop runs through all lists of unbrakable tiles and throws a flag if an unbreakable tile is found
             {
@@ -209,168 +215,8 @@ namespace ExtraExplosives
 
         //========================| Code Snippets Ready For Copy/Paste |========================\\
 
-        //Here you will find one commented copy of a function that explains code functionality,
-        //and then a second function below it that can be used for copy/paste
-
-        /// <summary>
-        /// This is a demo function commented to explain functionality. For copy/paste, please see the function below this one
-        /// </summary>
-        /// <param name="position"> Stores the center point of the explosion - Try: projectile.Center </param>
-        /// <param name="radius"> Stores the radius of the explosion </param>
-        private void Demo_CreateExplosion(Vector2 position, int radius)
-        {
-            //These two for-statements create a rectangle
-            for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left 
-            {
-                for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
-                {
-                    int xPosition = (int)(x + position.X / 16.0f); //This converts the X to worldSpace
-                    int yPosition = (int)(y + position.Y / 16.0f); //This converts the Y to worldSpace
-
-                    //Uses this if-statement if you want your bomb to have a circular shape
-                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5)
-                    {
-                        //Make sure to check for unbreakable tiles
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
-                        {
-                            //Code for [if block is unbreakable] goes here
-                        }
-                        else //Breakable
-                        {
-                            //Code for [if block is breakable] goes here
-
-                            //Demo for Tile Breaking
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false); //This makes the explosion destroy tiles
-
-                            //Demo for Wall Breaking
-                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This makes the explosion destroy walls if user has set it to true
-
-                            //Demo for Liquid Breaking
-                            Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water; //This makes the explosion destroy liquids of any kind
-                            WorldGen.SquareTileFrame(xPosition, yPosition, true); //Used to update the liquid
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// This function will create an explosion - All explosion related things happen in here
-        /// </summary>
-        /// /// <seealso cref="GlobalMethods.Demo_CreateExplosion(Vector2, int)"></seealso>
-        /// <param name="position"> Stores the center point of the explosion - Try: projectile.Center </param>
-        /// <param name="radius"> Stores the radius of the explosion </param>
-        private void CreateExplosion(Vector2 position, int radius)
-        {
-            for (int x = -radius; x <= radius; x++)
-            {
-                for (int y = -radius; y <= radius; y++)
-                {
-                    int xPosition = (int)(x + position.X / 16.0f);
-                    int yPosition = (int)(y + position.Y / 16.0f);
-
-                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5)
-                    {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
-                        {
-
-                        }
-                        else //Breakable
-                        {
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-
-                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
-
-                            Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water; //This destroys liquids of any kind
-                            WorldGen.SquareTileFrame(xPosition, yPosition, true); //This updates liquids of any kind
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// This is a demo function commented to explain functionality. For copy/paste, please see the function below this one
-        /// </summary>
-        /// <param name="position"> Stores the center point of the explosion - Try: projectile.Center </param>
-        /// <param name="amount"> Stores max intended amount of dust, this will be overridden by user preferences </param>
-        private void Demo_CreateDust(Vector2 position, int amount)
-        {
-            Dust dust; //Stores the current dust being spawned
-            Vector2 updatedPosition; //Stores the new center point for dust being spawned
-
-            for (int i = 0; i <= amount; i++) //This loop spawns dust according to the amount set by its creator
-            {
-                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount) //Limits dust to user preferences
-                {
-                    //Use this if-statement repeatedly for as many dusts as you need
-                    if (Main.rand.NextFloat() < 1f) //This number determines how much of this dust type is allowed to spawn, 1 = 100%, 0 = 0%
-                    {
-                        //The top-left corner of the dust will automatically spawn at the updatedPosition. To center it, subtract the dust's width/2 from position.X and height/2 from position.Y
-                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-
-                        //This is the current dust being spawned in
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 6, 0f, 0.5f, 0, new Color(255, 0, 0), 4.5f)];
-                        dust.noGravity = true; //Not affected by gravity
-                        dust.fadeIn = 2.5f; //Fades in to screen
-                        dust.noLight = true; //Doesn't emit light
-                    }
-
-                    //Here is a second dust type, note how it is wrapped in its own if-statement
-                    if (Main.rand.NextFloat() < 1f) //This number determines how much of this dust type is allowed to spawn, 1 = 100%, 0 = 0%
-                    {
-                        //The top-left corner of the dust will automatically spawn at the updatedPosition. To center it, subtract the dust's width/2 from position.X and height/2 from position.Y
-                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-
-                        //This is the current dust being spawned in
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 18, 0f, 0f, 0, new Color(200, 100, 50), 3f)];
-                        dust.noGravity = false; //Is affected by gravity
-                        dust.fadeIn = 0f; //Doesn't fade in to screen
-                        dust.noLight = false; //Does emit light
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// This function will create dust at a set point
-        /// </summary>
-        /// <seealso cref="GlobalMethods.Demo_CreateDust(Vector2, int)"></seealso>
-        /// <param name="position"> Stores the center point of the explosion - Try: projectile.Center </param>
-        /// <param name="amount"> Stores max intended amount of dust, this will be overridden by user preferences </param>
-        private void CreateDust(Vector2 position, int amount)
-        {
-            Dust dust;
-            Vector2 updatedPosition;
-
-            for (int i = 0; i <= amount; i++)
-            {
-                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
-                {
-                    //Dust 1
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 6, 0f, 0.5f, 0, new Color(255, 0, 0), 4.5f)];
-                        dust.noGravity = true;
-                        dust.fadeIn = 2.5f;
-                        dust.noLight = true;
-                    }
-
-                    //Dust 2
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 18, 0f, 0f, 0, new Color(200, 100, 50), 3f)];
-                        dust.noGravity = true;
-                        dust.fadeIn = 0f;
-                        dust.noLight = false;
-                    }
-                }
-            }
-        }
+            //Here you will find one commented copy of a function that explains code functionality,
+            //and then a second function below it that can be used for copy/paste
 
         //======================================================================================\\
 

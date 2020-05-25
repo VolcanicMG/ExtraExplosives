@@ -15,47 +15,62 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
     public class BreakenTheBankenProjectile : ModProjectile
     {
-        internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("BreakenTheBanken");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 22;   //This defines the hitbox width
-            projectile.height = 22;    //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = 20; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 140; //The amount of time the projectile is alive for
+            projectile.tileCollide = true;
+            projectile.width = 22;
+            projectile.height = 22;
+            projectile.aiStyle = 16;
+            projectile.friendly = true;
+            projectile.penetrate = 20;
+            projectile.timeLeft = 140;
         }
 
         public override void Kill(int timeLeft)
         {
+            //Create Bomb Sound
+            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
-            Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-            int radius = 20;     //this is the explosion radius, the highter is the value the bigger is the explosion
+            //Create Bomb Damage
+            //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
-            Vector2 vel;
+            //Create Bomb Explosion
+            CreateExplosion(projectile.Center, 20);
 
-            int cntr = 0;
+            //Create Bomb Dust
+            //CreateDust(projectile.Center, 10);
+        }
 
-            for (int x = -radius; x <= radius; x++)
+        private void CreateExplosion(Vector2 position, int radius)
+        {
+            int cntr = 0; //Tracks how many coins have spawned in
+
+            for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left 
             {
-                for (int y = -radius; y <= radius; y++)
+                for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
                 {
                     int xPosition = (int)(x + position.X / 16.0f);
                     int yPosition = (int)(y + position.Y / 16.0f);
-                        if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
+
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
+                    {
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
+                        {
+
+                        }
+                        else //Breakable
                         {
                             if (WorldGen.TileEmpty(xPosition, yPosition))
                             {
@@ -65,13 +80,10 @@ namespace ExtraExplosives.Projectiles
                             {
                                 if (++cntr <= 50) Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, mod.ProjectileType("BreakenTheBankenChildProjectile"), 100, 20, projectile.owner, 0.0f, 0);
                             }
-                            //Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                         }
                     }
                 }
             }
-        
-
-
+        }
     }
 }

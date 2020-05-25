@@ -52,20 +52,20 @@ namespace ExtraExplosives
             GlobalMethods.DustAmount = dustAmount;
 
             TheLevelerProjectile.CanBreakWalls = CanBreakWalls;
-            SmallExplosiveProjectile.CanBreakWalls = CanBreakWalls;
-            ArenaBuilderProjectile.CanBreakWalls = CanBreakWalls;
+            //SmallExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            //ArenaBuilderProjectile.CanBreakWalls = CanBreakWalls;
             PhaseBombProjectile.CanBreakWalls = CanBreakWalls;
             NPCSpawnerProjectile.CanBreakWalls = CanBreakWalls;
-            MegaExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            //MegaExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             //MediumExplosiveProjectile.CanBreakWalls = CanBreakWalls;
-            LargeExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            //LargeExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             HeavyBombProjectile.CanBreakWalls = CanBreakWalls;
-            GiganticExplosiveProjectile.CanBreakWalls = CanBreakWalls;
+            //GiganticExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             DaBombProjectile.CanBreakWalls = CanBreakWalls;
             ClusterBombChildProjectile.CanBreakWalls = CanBreakWalls;
             ClusterBombProjectile.CanBreakWalls = CanBreakWalls;
             C4Projectile.CanBreakWalls = CanBreakWalls;
-            BigBouncyDynamiteProjectile.CanBreakWalls = CanBreakWalls;
+            //BigBouncyDynamiteProjectile.CanBreakWalls = CanBreakWalls;
             //BasicExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             C4Projectile.CanBreakTiles = CanBreakTiles;
             DaBombProjectile.CanBreakTiles = CanBreakTiles;
