@@ -56,16 +56,17 @@ namespace ExtraExplosives.Items
 
         }
 
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
 
-            if (ExtraExplosivesPlayer.NukeActive == false && ExtraExplosives.NukeActivated == false)
+            if (ExtraExplosives.NukeActive == false && ExtraExplosives.NukeActivated == false)
             {
-                Projectile.NewProjectile(Main.maxTilesX, 1000, 30, 0, type, damage, knockBack);
+                Projectile.NewProjectile(Main.maxTilesX, 1000, 30, 0, type, damage, knockBack, Main.myPlayer);
 
                 ExtraExplosives.NukeActivated = true;
                 item.consumable = true;
-
+                
             }
             else
             {
