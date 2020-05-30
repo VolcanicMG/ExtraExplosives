@@ -63,7 +63,7 @@ namespace ExtraExplosives.Projectiles
 
                 if (player.reforge == true)
                 {
-                    Main.NewText("Nothing to reforge, press 'P' to toggle reforge UI");
+                    Main.NewText("Nothing to reforge, press " + "'" +ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard)[0].ToString() + "'" + " to toggle reforge UI, or set it in settings");
                 }
                 player.reforge = false;
             }

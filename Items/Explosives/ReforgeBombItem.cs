@@ -21,12 +21,12 @@ namespace ExtraExplosives.Items.Explosives
 {
     public class ReforgeBombItem : ModItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Reforge Bomb");
             Tooltip.SetDefault("Reforge up to 3 items! \n" +
-                "[c/32CD32:Press 'P' to toggle reforge UI]");
+                //"[c/32CD32:Press " + ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard)[0].ToString() + " to toggle reforge UI]\n" +
+                "Change/Set the hotkey within settings");
         }
 
         public override void SetDefaults()
@@ -59,7 +59,7 @@ namespace ExtraExplosives.Items.Explosives
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
+         
             ModRecipe recipe2 = new ModRecipe(mod);
             recipe2.AddIngredient(ModContent.ItemType<HeavyBombItem>(), 1);
             recipe2.AddIngredient(ItemID.PlatinumHammer, 1);

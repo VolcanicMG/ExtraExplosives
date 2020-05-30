@@ -82,7 +82,7 @@ namespace ExtraExplosives.Projectiles
                         else
                         {
                             WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles
-                            if (Main.rand.Next(60) == 1) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(20) - 10, Main.rand.Next(20) - 10, mod.ProjectileType("SmallExplosiveProjectile"), 0, 0, projectile.owner, 0.0f, 0);
+                            //if (Main.rand.Next(60) == 1) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(20) - 10, Main.rand.Next(20) - 10, mod.ProjectileType("SmallExplosiveProjectile"), 0, 0, projectile.owner, 0.0f, 0);
                             //Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
                         }

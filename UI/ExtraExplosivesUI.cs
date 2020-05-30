@@ -108,9 +108,9 @@ namespace ExtraExplosives.UI
             bool Craftable = false;
             if (!_vanillaItemSlot.Item.IsAir) //check to see if the slot is air or not
             {
-                if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomItem>()) message2 = "Bullet";
+                if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomEmptyItem>()) message2 = "Bullet";
 
-                if(_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomItem>() && _vanillaItemSlot2.Item.ammo == AmmoID.Bullet) //Check to see if the slot has a bulletboom here and ammo in the ammo slot
+                if(_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomEmptyItem>() && _vanillaItemSlot2.Item.ammo == AmmoID.Bullet) //Check to see if the slot has a bulletboom here and ammo in the ammo slot
                 {
                     if(_vanillaItemSlot.Item.stack >= 1 && _vanillaItemSlot2.Item.stack >= 10)
                     {
@@ -127,7 +127,7 @@ namespace ExtraExplosives.UI
                 
                 else
                 {
-                    if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomItem>() && _vanillaItemSlot2.Item.ammo != AmmoID.Bullet && !_vanillaItemSlot2.Item.IsAir) //check to see if the item is a bullet boom and the second slot is not ammo and not air
+                    if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomEmptyItem>() && _vanillaItemSlot2.Item.ammo != AmmoID.Bullet && !_vanillaItemSlot2.Item.IsAir) //check to see if the item is a bullet boom and the second slot is not ammo and not air
                     {
                         ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, message2, new Vector2(slotX + 150, slotY + 50), new Color(255, 0, 0), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
                         
@@ -160,7 +160,7 @@ namespace ExtraExplosives.UI
                         
                         if (Main.mouseLeftRelease && Main.mouseLeft && Craftable == true) //add a check here to see if its an item that can be combined and if it can produce it here
                         {
-                            if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomItem>())
+                            if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomEmptyItem>())
                             {
                                 ItemAmmo = _vanillaItemSlot2.Item.type; //get the id for the ammo
                                 
@@ -234,6 +234,10 @@ namespace ExtraExplosives.UI
                                     else if (ItemAmmo == 3567) //Luminite Bullet
                                     {
                                         Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItemLuminite>(), 1);
+                                    }
+                                    else if (ItemAmmo == 1351) //Exploding bullet
+                                    {
+                                        Main.LocalPlayer.QuickSpawnItem(ModContent.ItemType<BulletBoomItem>(), 1);
                                     }
                                     else if ((ItemAmmo == CalamityMod.ItemType("AccelerationBullet")) && CalamityMod != null)
                                     {

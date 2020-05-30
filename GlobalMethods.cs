@@ -203,6 +203,7 @@ namespace ExtraExplosives
                 //Breaks if flag is triggered
                 if (flag)
                     break;
+
             }
             return flag; //Returns flag
         }

@@ -18,7 +18,7 @@ namespace ExtraExplosives.Projectiles
         public override void SetDefaults()
         {
             projectile.CloneDefaults(ProjectileID.EnchantedBoomerang);
-            projectile.damage = 50;
+            projectile.damage = 46;
             projectile.friendly = true;
             aiType = ProjectileID.EnchantedBoomerang;
         }
@@ -42,7 +42,7 @@ namespace ExtraExplosives.Projectiles
             Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
             //Create Bomb Damage
-            ExplosionDamage(3f, projectile.Center, 50, 20, projectile.owner);
+            ExplosionDamage(3f, projectile.Center, 46, 20, projectile.owner);
 
             //Create Bomb Dust
             CreateDust(projectile.Center, 10);

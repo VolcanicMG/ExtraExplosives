@@ -33,6 +33,7 @@ namespace ExtraExplosives.Projectiles
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
             //projectile.timeLeft = 100000; //The amount of time the projectile is alive for
             projectile.scale = 1.5f;
+            projectile.Opacity = 0;
         }
 
         public override void AI()

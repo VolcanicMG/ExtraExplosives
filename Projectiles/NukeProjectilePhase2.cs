@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
@@ -29,13 +30,14 @@ namespace ExtraExplosives.Projectiles
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
             projectile.timeLeft = 10000; //The amount of time the projectile is alive for
-            projectile.netUpdate = true;
+            projectile.netImportant = true;
             //projectile.scale = 1.5f;
         }
 
+
         public override void AI()
         {
-            Player player = Main.player[Main.myPlayer];
+            Player player = Main.player[projectile.owner];
             //Main.NewText(projectile.timeLeft);
 
             if (!firstTick)
@@ -48,25 +50,38 @@ namespace ExtraExplosives.Projectiles
             {
                 //send the projectiles postion to the player's camera and set NukeActive to true
 
-                ExtraExplosivesPlayer.NukePos = projectile.Center;
-                ExtraExplosivesPlayer.NukeActive = true; //since the projectile is active set it active in the player class
+                ExtraExplosives.NukePos = projectile.Center;
+                ExtraExplosives.NukeActive = true; //since the projectile is active set it active in the player class
+
+                //if (Main.netMode == NetmodeID.MultiplayerClient)
+                //{
+                //    ModPacket myPacket = mod.GetPacket(); //clean up later
+                //    myPacket.Write("boom");
+                //    myPacket.Send();
+
+                //    ModPacket myPacket2 = mod.GetPacket();
+                //    myPacket2.WriteVector2(projectile.Center);
+                //    myPacket2.Send();
+                //}
             }
             else if (projectile.timeLeft > 9700)
             {
                 projectile.position = new Vector2(Main.maxTilesX, 1000);
-               
+
             }
 
             if ((projectile.position.X <= player.position.X + 40 && projectile.position.X >= player.position.X - 40) && done == false)
             {
                 //Main.NewText("Drop the load");
+
                 done = true;
-                Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, Main.myPlayer, 0.0f);
+                Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
                 //Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/wizz"));
+
             }
 
             //reset the plane
-            if (done == true && ExtraExplosivesPlayer.NukeActive == false && reset == false)
+            if (done == true && ExtraExplosives.NukeActive == false && reset == false)
             {
                 reset = true;
 
@@ -76,10 +91,10 @@ namespace ExtraExplosives.Projectiles
             }
 
             //The nuke has hit reset the effect of the shake
-            if (projectile.timeLeft < 9900 && ExtraExplosivesPlayer.NukeHit == true)
+            if (projectile.timeLeft < 9900 && ExtraExplosives.NukeHit == true)
             {
                 projectile.timeLeft = 100;
-                ExtraExplosivesPlayer.NukeHit = false;
+                ExtraExplosives.NukeHit = false;
             }
 
             Dust dust;

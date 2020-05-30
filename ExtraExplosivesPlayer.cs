@@ -19,9 +19,9 @@ namespace ExtraExplosives
 		public bool BombBuddy;
 		public Vector2 BuddyPos;
 
-		public static bool NukeActive;
-		public static Vector2 NukePos;
-		public static bool NukeHit;
+		//public static bool NukeActive;
+		//public static Vector2 NukePos;
+		//public static bool NukeHit;
 
 		public List<Terraria.ModLoader.PlayerLayer> playerLayers = new List<Terraria.ModLoader.PlayerLayer>();
 
@@ -32,6 +32,8 @@ namespace ExtraExplosives
 		{
 			reforgePub = reforge;
 			//Player player = Main.player[Main.myPlayer];
+
+			//Main.NewText(ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard)[0].ToString());
 
 			if (reforge == true)
 			{
@@ -52,7 +54,6 @@ namespace ExtraExplosives
 
 			if (ExtraExplosives.TriggerUIReforge.JustPressed) //check to see if the button was just pressed
 			{
-				
 				reforgeUIActive++;
 
 				if (reforgeUIActive == 5)
@@ -78,14 +79,14 @@ namespace ExtraExplosives
 
 		public override void PostUpdate()
 		{
-			Player player = Main.player[Main.myPlayer];
+			//Player player = Main.player[Main.myPlayer];
 			if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["Bang"].Deactivate();
 
 			}
 		
-			if (Main.netMode != NetmodeID.Server && Filters.Scene["BigBang"].IsActive() && NukeHit == false) //destroy the filter once the buff has ended
+			if (Main.netMode != NetmodeID.Server && Filters.Scene["BigBang"].IsActive() && ExtraExplosives.NukeHit == false) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["BigBang"].Deactivate();
 			}
@@ -105,32 +106,36 @@ namespace ExtraExplosives
 
 		public override void ModifyScreenPosition()
 		{
-			if (NukeActive == true)
+			if (ExtraExplosives.NukeActive == true)
 			{
 				//follow the projectiles
-				Main.screenPosition = new Vector2(NukePos.X - (Main.screenWidth / 2), NukePos.Y - (Main.screenHeight / 2));
+				Main.screenPosition = new Vector2(ExtraExplosives.NukePos.X - (Main.screenWidth / 2), ExtraExplosives.NukePos.Y - (Main.screenHeight / 2));
 
 			}
-			if (NukeHit == true)
+			if (ExtraExplosives.NukeHit == true)
 			{
 				//shake
 				Main.screenPosition += Utils.RandomVector2(Main.rand, Main.rand.Next(-100, 100), Main.rand.Next(-100, 100));
 
+				//add lighting
+				Lighting.AddLight(ExtraExplosives.NukePos, new Vector3(255f, 255f, 255f));
+				Lighting.maxX = 400;
+				Lighting.maxY = 400;
 				//NukeHit = false;
 			}
 		}
 
 		public override void OnEnterWorld(Player player) //might need to set to new netmode in case it dosnt work in MP
 		{
-			NukeActive = false;
-			ExtraExplosives.NukeActivated = false;
-			NukeHit = false;
+			//NukeActive = false;
+			//ExtraExplosives.NukeActivated = false;
+			ExtraExplosives.NukeHit = false;
 			//player.ResetEffects();
 		}
 
 		public override void SetControls() //when the nuke is active set the player to not build or use items
 		{
-			if (NukeActive == true)
+			if (ExtraExplosives.NukeActive == true)
 			{
 				player.controlUseItem = false;
 				player.noBuilding = true;

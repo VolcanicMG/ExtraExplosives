@@ -46,38 +46,40 @@ namespace ExtraExplosives.Projectiles
             //Main.NewText("Knockback " + projectile.knockBack);
             //Main.NewText("Direction " + FlashbangItem.Direction);
             //Main.NewText("PlayerDirection " + target.direction);
-            if (target.direction == 1 && FlashbangItem.Direction == 1 && projectile.knockBack == 0) //left side
+            if (target.whoAmI == projectile.owner)
             {
-                target.AddBuff(BuffID.Confused, 300);
-                target.AddBuff(BuffID.Dazed, 300);
-                target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
-                //Main.NewText("Hit on the left");
-            }
+                if (target.direction == 1 && FlashbangItem.Direction == 1 && projectile.knockBack == 0) //left side
+                {
+                    target.AddBuff(BuffID.Confused, 300);
+                    target.AddBuff(BuffID.Dazed, 300);
+                    target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
+                    //Main.NewText("Hit on the left");
+                }
 
-            if (target.direction == 1 && FlashbangItem.Direction == -1 && projectile.knockBack == 0) //left side
-            {
-                target.AddBuff(BuffID.Confused, 300);
-                target.AddBuff(BuffID.Dazed, 300);
-                target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
-                //Main.NewText("Hit on the left");
-            }
+                if (target.direction == 1 && FlashbangItem.Direction == -1 && projectile.knockBack == 0) //left side
+                {
+                    target.AddBuff(BuffID.Confused, 300);
+                    target.AddBuff(BuffID.Dazed, 300);
+                    target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
+                    //Main.NewText("Hit on the left");
+                }
 
-            if (target.direction == -1 && FlashbangItem.Direction == -1 && projectile.knockBack >= 1) //right side
-            {
-                target.AddBuff(BuffID.Confused, 300);
-                target.AddBuff(BuffID.Dazed, 300);
-                target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
-               //Main.NewText("Hit on the right");
-            }
+                if (target.direction == -1 && FlashbangItem.Direction == -1 && projectile.knockBack >= 1) //right side
+                {
+                    target.AddBuff(BuffID.Confused, 300);
+                    target.AddBuff(BuffID.Dazed, 300);
+                    target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
+                    //Main.NewText("Hit on the right");
+                }
 
-            if (target.direction == -1 && FlashbangItem.Direction == 1 && projectile.knockBack >= 1) //right side
-            {
-                target.AddBuff(BuffID.Confused, 300);
-                target.AddBuff(BuffID.Dazed, 300);
-                target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
-                //Main.NewText("Hit on the right");
+                if (target.direction == -1 && FlashbangItem.Direction == 1 && projectile.knockBack >= 1) //right side
+                {
+                    target.AddBuff(BuffID.Confused, 300);
+                    target.AddBuff(BuffID.Dazed, 300);
+                    target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
+                    //Main.NewText("Hit on the right");
+                }
             }
-
 
             base.OnHitPlayer(target, damage, crit);
         }

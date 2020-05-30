@@ -1,23 +1,13 @@
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
-using Terraria.ID;
-using Terraria.Localization;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using System.IO;
-using Microsoft.Xna.Framework.Input;
+using Terraria;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using ExtraExplosives.Projectiles;
-using ExtraExplosives.NPCs;
-using ExtraExplosives.UI;
 using static ExtraExplosives.GlobalMethods;
 
 
@@ -31,7 +21,10 @@ namespace ExtraExplosives
 
 		internal static Player playerProjectileOwnerInvis;
 
-		internal static bool NukeActivated;
+		public static bool NukeActivated;
+		public static bool NukeActive;
+		public static Vector2 NukePos;
+		public static bool NukeHit;
 
 		internal static float dustAmount;
 		internal UserInterface ExtraExplosivesUserInterface;
@@ -47,7 +40,38 @@ namespace ExtraExplosives
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
-			
+			//Don't use as of right now
+			if (reader.ReadString() == "boom") //set to a byte, 
+			{
+				if (Main.netMode == NetmodeID.Server)//set the other players to have the same properties besides the client
+				{
+					ModPacket myPacket = GetPacket();
+					myPacket.Write("boom");
+					myPacket.Send(ignoreClient: whoAmI);
+				}
+				else//set what you want to happen
+				{
+
+					NukeActive = true;
+				}
+			}
+
+			if (reader.ReadString() == "Set")
+			{
+				if (Main.netMode == NetmodeID.Server)
+				{
+					ModPacket myPacket = GetPacket();
+					myPacket.Write("Set");
+					myPacket.Send(ignoreClient: whoAmI);
+				}
+				else
+				{
+					NukeActivated = true;
+				}
+			}
+
+			Vector2 pos = reader.ReadPackedVector2();
+			NukePos = pos;
 		}
 
 		public override void PostSetupContent()
@@ -104,7 +128,7 @@ namespace ExtraExplosives
 				);
 			}
 		}
-		
+
 
 		public override void Load()
 		{
