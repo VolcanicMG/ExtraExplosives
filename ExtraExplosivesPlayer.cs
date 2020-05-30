@@ -84,7 +84,7 @@ namespace ExtraExplosives
 				Filters.Scene["Bang"].Deactivate();
 
 			}
-
+		
 			if (Main.netMode != NetmodeID.Server && Filters.Scene["BigBang"].IsActive() && NukeHit == false) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["BigBang"].Deactivate();
