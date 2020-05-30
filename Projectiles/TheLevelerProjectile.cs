@@ -1,21 +1,8 @@
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
 using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using ExtraExplosives;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -64,12 +51,12 @@ namespace ExtraExplosives.Projectiles
             int width = 100; //Explosion Width
             int height = 20; //Explosion Height
 
-            for (y = height-1; y >= 0; y--)
+            for (y = height - 1; y >= 0; y--)
             {
-                for(x = -width; x < width; x++)
+                for (x = -width; x < width; x++)
                 {
-                    int xPosition = (int) (x + position.X / 16.0f); //converts to world space
-                    int yPosition = (int) (-y + position.Y / 16.0f); //converts to world space
+                    int xPosition = (int)(x + position.X / 16.0f); //converts to world space
+                    int yPosition = (int)(-y + position.Y / 16.0f); //converts to world space
 
                     if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
                                 || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
@@ -101,9 +88,9 @@ namespace ExtraExplosives.Projectiles
                     else
                     {
                         WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
-                        //Dust.NewDust(position, width, height, DustID.Fire, 4.0f, 4.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
+                                                                                       //Dust.NewDust(position, width, height, DustID.Fire, 4.0f, 4.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                         if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
-                        if(CanBreakWalls) //break the last bit
+                        if (CanBreakWalls) //break the last bit
                         {
                             WorldGen.KillWall(xPosition + 1, yPosition + 1, false);
                         }
@@ -129,8 +116,9 @@ namespace ExtraExplosives.Projectiles
                                 dust2.fadeIn = 3f;
                             }
                         }
-
                     }
+
+
 
                 }
                 width++; //Increments width to make stairs on each end
