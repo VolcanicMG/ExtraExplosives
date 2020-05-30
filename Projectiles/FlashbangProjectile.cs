@@ -15,6 +15,8 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -22,34 +24,34 @@ namespace ExtraExplosives.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("flashbang");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
+            DisplayName.SetDefault("Flashbang");
         }
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 12;   //This defines the hitbox width
-            projectile.height = 32;    //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 100; //The amount of time the projectile is alive for
+            projectile.tileCollide = true;
+            projectile.width = 12;
+            projectile.height = 32;
+            projectile.aiStyle = 16;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.timeLeft = 100;
             projectile.damage = 0;
- 
         }
 
         public override void Kill(int timeLeft)
         {
-            //Player player = Main.player[Main.myPlayer];
-            Vector2 position = projectile.Center;
+            //add lighting
+            Lighting.AddLight(projectile.position, new Vector3(255f, 255f, 255f));
+            Lighting.maxX = 100;
+            Lighting.maxY = 100;
 
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flashbang"), (int)position.X, (int)position.Y);
+            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y); //Sound Effect
+            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flashbang"), (int)projectile.Center.X, (int)projectile.Center.Y); //Custom Sound Effect
 
-            Projectile.NewProjectile(position.X - 450, position.Y, 0, 0, ModContent.ProjectileType<InvisFlashbangProjectile>(), 1, 0, projectile.owner, 0.0f, 0); //left
-            Projectile.NewProjectile(position.X + 450, position.Y, 0, 0, ModContent.ProjectileType<InvisFlashbangProjectile>(), 1, 1, projectile.owner, 0.0f, 0); //right
+            Projectile.NewProjectile(projectile.Center.X - 450, projectile.Center.Y, 0, 0, ModContent.ProjectileType<InvisFlashbangProjectile>(), 1, 0, projectile.owner, 0.0f, 0); //Left
+            Projectile.NewProjectile(projectile.Center.X + 450, projectile.Center.Y, 0, 0, ModContent.ProjectileType<InvisFlashbangProjectile>(), 1, 1, projectile.owner, 0.0f, 0); //Right
+
         }
-
     }
 }

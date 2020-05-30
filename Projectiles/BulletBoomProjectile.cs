@@ -13,7 +13,6 @@ namespace ExtraExplosives.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("BulletBoom");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()

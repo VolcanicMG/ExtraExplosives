@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ethan\\Documents\\GitHub\\ExtraExplosives\\ExtraExplosives.csproj": {}
+    "C:\\Users\\Ethan\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\ExtraExplosives.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ethan\\Documents\\GitHub\\ExtraExplosives\\ExtraExplosives.csproj": {
+    "C:\\Users\\Ethan\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\ExtraExplosives.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ethan\\Documents\\GitHub\\ExtraExplosives\\ExtraExplosives.csproj",
+        "projectUniqueName": "C:\\Users\\Ethan\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\ExtraExplosives.csproj",
         "projectName": "ExtraExplosives",
-        "projectPath": "C:\\Users\\Ethan\\Documents\\GitHub\\ExtraExplosives\\ExtraExplosives.csproj",
+        "projectPath": "C:\\Users\\Ethan\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\ExtraExplosives.csproj",
         "packagesPath": "C:\\Users\\Ethan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ethan\\Documents\\GitHub\\ExtraExplosives\\obj\\",
+        "outputPath": "C:\\Users\\Ethan\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ExtraExplosives\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

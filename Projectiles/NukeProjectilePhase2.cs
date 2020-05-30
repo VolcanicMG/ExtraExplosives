@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
@@ -36,7 +37,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void AI()
         {
-            Player player = Main.player[Main.myPlayer];
+            Player player = Main.player[projectile.owner];
             //Main.NewText(projectile.timeLeft);
 
             if (!firstTick)
@@ -51,19 +52,32 @@ namespace ExtraExplosives.Projectiles
 
                 ExtraExplosives.NukePos = projectile.Center;
                 ExtraExplosives.NukeActive = true; //since the projectile is active set it active in the player class
+
+                //if (Main.netMode == NetmodeID.MultiplayerClient)
+                //{
+                //    ModPacket myPacket = mod.GetPacket(); //clean up later
+                //    myPacket.Write("boom");
+                //    myPacket.Send();
+
+                //    ModPacket myPacket2 = mod.GetPacket();
+                //    myPacket2.WriteVector2(projectile.Center);
+                //    myPacket2.Send();
+                //}
             }
             else if (projectile.timeLeft > 9700)
             {
                 projectile.position = new Vector2(Main.maxTilesX, 1000);
-               
+
             }
 
             if ((projectile.position.X <= player.position.X + 40 && projectile.position.X >= player.position.X - 40) && done == false)
             {
                 //Main.NewText("Drop the load");
+
                 done = true;
                 Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
                 //Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/wizz"));
+
             }
 
             //reset the plane

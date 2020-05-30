@@ -62,11 +62,17 @@ namespace ExtraExplosives.Items
 
             if (ExtraExplosives.NukeActive == false && ExtraExplosives.NukeActivated == false)
             {
-                Projectile.NewProjectile(Main.maxTilesX, 1000, 30, 0, type, damage, knockBack, Main.myPlayer);
+                Projectile.NewProjectile(Main.maxTilesX, 1000, 30, 0, type, damage, knockBack, player.whoAmI);
 
                 ExtraExplosives.NukeActivated = true;
                 item.consumable = true;
-                
+
+                //if (Main.netMode == NetmodeID.MultiplayerClient)
+                //{
+                //    ModPacket myPacket = mod.GetPacket();
+                //    myPacket.Write("Set");
+                //    myPacket.Send();
+                //}
             }
             else
             {

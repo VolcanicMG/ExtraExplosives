@@ -30,6 +30,7 @@ namespace ExtraExplosives.UI
 		internal UIImage Image;
 		internal UIImage Image2;
 		internal UIImage Image3;
+		internal UIImage Image4;
 
 		private int screenX = Main.screenWidth / 2;
 		private int screenY = (Main.screenHeight / 5);
@@ -80,6 +81,14 @@ namespace ExtraExplosives.UI
 			Image3.Top.Set(height / 2 - ImageHeight * 1.5f, 0f);
 			//Image.ImageScale = 2.5f;
 			Box.Append(Image3);
+
+			Image4 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/Reforge"));
+			Image4.Width.Set(ImageWidth, 0f);
+			Image4.Height.Set(ImageHeight, 0f);
+			Image4.Left.Set(width / 2 - ImageWidth / 2 - 3, 0f);
+			Image4.Top.Set(height / 2 + ImageHeight + 20, 0f);
+			//Image.ImageScale = 2.5f;
+			Box.Append(Image4);
 
 			ReforgeText = new UITextPanel<string>("Place an item in one(or all) of the slots to reforge");
 			//float widthText = ReforgeText.GetDimensions().Width;
