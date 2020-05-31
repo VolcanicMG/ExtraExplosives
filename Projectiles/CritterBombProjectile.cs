@@ -15,6 +15,8 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -23,62 +25,74 @@ namespace ExtraExplosives.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("CritterBomb");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 10;   //This defines the hitbox width
-            projectile.height = 32;    //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 100; //The amount of time the projectile is alive for
+            projectile.tileCollide = true;
+            projectile.width = 10;
+            projectile.height = 32;
+            projectile.aiStyle = 16;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.timeLeft = 100;
             projectile.damage = 0;
- 
         }
-
-
 
         public override void Kill(int timeLeft)
         {
-            //Player player = Main.player[Main.myPlayer];
-            Vector2 position = projectile.Center;
+            //Create Bomb Sound
+            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
+            //Create Bomb Damage
+            ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
+
+            //Create Bomb Explosion
+            CreateExplosion(projectile.Center, 10);
+
+            //Create Bomb Dust
+            CreateDust(projectile.Center, 50);
+        }
+
+        private void CreateExplosion(Vector2 position, int radius)
+        {
             int spread = 0;
-            int[] variety = {442, 443, 445, 446, 447, 448, 539, 444}; //442:GoldenBird - 443:GoldenBunny - 445:GoldenFrog - 446:GoldenGrasshopper - 447:GoldenMouse - 539:GoldenSquirrel - 448:GoldenWorm - 444:GoldenButterfly
-            
+            int pick = 0;
+            int[] variety = { 442, 443, 445, 446, 447, 448, 539, 444 }; //442:GoldenBird - 443:GoldenBunny - 445:GoldenFrog - 446:GoldenGrasshopper - 447:GoldenMouse - 539:GoldenSquirrel - 448:GoldenWorm - 444:GoldenButterfly
 
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-
-            for(int i = 0; i <= 10; i++)
+            for (int i = 0; i <= radius; i++)
             {
                 spread = Main.rand.Next(1200); //Random spread
 
-                int pick = 0; 
                 pick = variety[Main.rand.Next(variety.Length)];
 
                 NPC.NewNPC((int)position.X + (spread - 600), (int)position.Y, pick, 0, 0f, 0f, 0f, 0f, 255); //Spawn 
                 spread = 0;
-
             }
-
-            for (int ii = 0; ii <= 50; ii++) //dust
-            {
-                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
-                {
-                    Dust dust;
-                    // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                    Vector2 position1 = new Vector2(position.X - 600 / 2, position.Y - 100 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 600, 100, 1, 0f, 0f, 0, new Color(159, 255, 0), 1.776316f)];
-                    dust.noLight = true;
-                    dust.shader = GameShaders.Armor.GetSecondaryShader(112, Main.LocalPlayer);
-                    dust.fadeIn = 1.697368f;
-                }
-            }
-
         }
 
+        private void CreateDust(Vector2 position, int amount)
+        {
+            Dust dust;
+            Vector2 updatedPosition;
+
+            for (int i = 0; i <= amount; i++)
+            {
+                if (Main.rand.NextFloat() < DustAmount)
+                {
+                    //---Dust 1---
+                    if (Main.rand.NextFloat() < 1f)
+                    {
+                        updatedPosition = new Vector2(position.X - 600 / 2, position.Y - 600 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 600, 100, 1, 0f, 0f, 0, new Color(159, 255, 0), 1.776316f)];
+                        dust.noLight = true;
+                        dust.shader = GameShaders.Armor.GetSecondaryShader(112, Main.LocalPlayer);
+                        dust.fadeIn = 1.697368f;
+                    }
+                    //------------
+                }
+            }
+        }
     }
 }

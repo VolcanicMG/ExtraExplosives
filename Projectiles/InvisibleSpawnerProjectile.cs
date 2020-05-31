@@ -18,7 +18,6 @@ namespace ExtraExplosives.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("InvisibleSpawner");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         //public override void PostAI()
