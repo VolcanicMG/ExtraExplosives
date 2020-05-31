@@ -16,10 +16,7 @@ using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 using ExtraExplosives;
-<<<<<<< Updated upstream
-=======
 using static ExtraExplosives.GlobalMethods;
->>>>>>> Stashed changes
 
 namespace ExtraExplosives.Projectiles
 {
@@ -43,15 +40,12 @@ namespace ExtraExplosives.Projectiles
 
         public override void Kill(int timeLeft)
         {
-<<<<<<< Updated upstream
-
             Vector2 position = projectile.Center;
             Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
             int radius = 14;     //this is the explosion radius, the highter is the value the bigger is the explosion
-=======
+
             //Create Bomb Sound
             Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
->>>>>>> Stashed changes
 
             //damage part of the bomb
             ExplosionDamageProjectile.DamageRadius = (float)(radius * 1.5f);
@@ -60,7 +54,6 @@ namespace ExtraExplosives.Projectiles
                 Vector2 vel;
                 Vector2 pos;
 
-<<<<<<< Updated upstream
                 for (int x = -radius; x <= radius; x++)
                 {
                     for (int y = -radius; y <= radius; y++)
@@ -141,7 +134,6 @@ namespace ExtraExplosives.Projectiles
             }
         }
 
-=======
             //Create Bomb Dust
             CreateDust(projectile.Center, 50);
         }
@@ -213,6 +205,6 @@ namespace ExtraExplosives.Projectiles
                 }
             }
         }
->>>>>>> Stashed changes
+    
     }
 }
