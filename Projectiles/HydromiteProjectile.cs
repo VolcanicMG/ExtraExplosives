@@ -15,69 +15,96 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
     public class HydromiteProjectile : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hydromite");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 10;   //This defines the hitbox width
-            projectile.height = 32;    //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 100; //The amount of time the projectile is alive for
+            projectile.tileCollide = true;
+            projectile.width = 10;
+            projectile.height = 32;
+            projectile.aiStyle = 16;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.timeLeft = 100;
         }
 
         public override void Kill(int timeLeft)
         {
-            Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-            int radius = 10;     //this is the explosion radius, the highter is the value the bigger is the explosion
+            //Create Bomb Sound
+            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
-            for (int x = -radius; x <= radius; x++)
+            //Create Bomb Damage
+            //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
+
+            //Create Bomb Explosion
+            CreateExplosion(projectile.Center, 10);
+
+            //Create Bomb Dust
+            CreateDust(projectile.Center, 100);
+        }
+
+        private void CreateExplosion(Vector2 position, int radius)
+        {
+            for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left 
             {
-                for (int y = -radius; y <= radius; y++)
+                for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
                 {
                     int xPosition = (int)(x + position.X / 16.0f);
                     int yPosition = (int)(y + position.Y / 16.0f);
 
-                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
                     {
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
+                        {
+
+                        }
+                        else //Breakable
+                        {
+                            
+                        }
+
                         if (WorldGen.TileEmpty((int)(x + position.X / 16.0f), (int)(y + position.Y / 16.0f)))
                         {
                             Main.tile[xPosition, yPosition].liquidType(0);
-                            Main.tile[xPosition, yPosition].liquid = 128; 
+                            Main.tile[xPosition, yPosition].liquid = 128;
                             WorldGen.SquareTileFrame(xPosition, yPosition, true);
-                            //Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
                         }
                     }
                 }
             }
-
-            for (int i = 0; i < 100; i++)
-            {
-                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
-                {
-                    Dust dust;
-                    Vector2 position1 = new Vector2(position.X - 168 / 2, position.Y - 168 / 2);
-                    dust = Main.dust[Terraria.Dust.NewDust(position1, 168, 168, 188, 0.2631581f, 0f, 0, new Color(0, 42, 255), 3.815789f)];
-                    dust.noGravity = true;
-                }
-
-            }
-
         }
 
+        private void CreateDust(Vector2 position, int amount)
+        {
+            Dust dust;
+            Vector2 updatedPosition;
+
+            for (int i = 0; i <= amount; i++)
+            {
+                if (Main.rand.NextFloat() < DustAmount)
+                {
+                    //---Dust 1---
+                    if (Main.rand.NextFloat() < 1f)
+                    {
+                        updatedPosition = new Vector2(position.X - 168 / 2, position.Y - 168 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 168, 168, 188, 0.2631581f, 0f, 0, new Color(0, 42, 255), 3.815789f)];
+                        dust.noGravity = true;
+                    }
+                    //------------
+                }
+            }
+        }
     }
 }
 

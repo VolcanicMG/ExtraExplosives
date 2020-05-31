@@ -1,39 +1,52 @@
-﻿using ExtraExplosives.Buffs;
-using ExtraExplosives.Items.Explosives;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
+using Terraria.GameInput;
+using Terraria.Graphics.Shaders;
+using Terraria.Graphics.Effects;
+using Terraria.Localization;
+using Microsoft.Xna.Framework.Graphics;
+using System.IO;
+using Microsoft.Xna.Framework.Input;
+using Terraria.UI;
+using static Terraria.ModLoader.ModContent;
+using ExtraExplosives;
+using ExtraExplosives.Buffs;
+using ExtraExplosives.Items.Explosives;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
     class InvisFlashbangProjectile : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("InvisFlashbangProjectile");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
             projectile.tileCollide = false;
-            projectile.width = 10;   //This defines the hitbox width
-            projectile.height = 20;    //This defines the hitbox height
-            projectile.aiStyle = 0;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
+            projectile.width = 10;
+            projectile.height = 20;
+            projectile.aiStyle = 0;
+            projectile.friendly = true;
             projectile.hostile = true;
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 10; //The amount of time the projectile is alive for
+            projectile.penetrate = -1;
+            projectile.timeLeft = 10;
             projectile.Opacity = 0f;
-            projectile.scale = 45 * 2; //DamageRadiu
+            projectile.scale = 45 * 2; //DamageRadius
         }
 
         public override string Texture => "ExtraExplosives/Projectiles/ExplosionDamageProjectile";
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-
             target.AddBuff(BuffID.Confused, 300);
             target.AddBuff(BuffID.Confused, 300);
             target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
@@ -81,14 +94,5 @@ namespace ExtraExplosives.Projectiles
 
             base.OnHitPlayer(target, damage, crit);
         }
-
-        public override void Kill(int timeLeft)
-        {
-
-            
-
-        }
-
-
     }
 }

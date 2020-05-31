@@ -41,6 +41,14 @@ namespace ExtraExplosives.Projectiles
 
         public override void Kill(int timeLeft)
         {
+<<<<<<< Updated upstream
+=======
+            //Add lighting
+            Lighting.AddLight(projectile.position, new Vector3(255f, 255f, 255f));
+            Lighting.maxX = 100;
+            Lighting.maxY = 100;
+
+>>>>>>> Stashed changes
             Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y); //Sound Effect
             Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Flashbang"), (int)projectile.Center.X, (int)projectile.Center.Y); //Custom Sound Effect
 

@@ -16,40 +16,42 @@ using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 using ExtraExplosives;
+<<<<<<< Updated upstream
+=======
+using static ExtraExplosives.GlobalMethods;
+>>>>>>> Stashed changes
 
 namespace ExtraExplosives.Projectiles
 {
     public class ClusterBombProjectile : ModProjectile
     {
-        Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
-
-        internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("ClusterBomb");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 22;   //This defines the hitbox width
-            projectile.height = 22;    //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 150; //The amount of time the projectile is alive for
+            projectile.tileCollide = true;
+            projectile.width = 22;
+            projectile.height = 22;
+            projectile.aiStyle = 16;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.timeLeft = 150;
         }
-
-
 
         public override void Kill(int timeLeft)
         {
+<<<<<<< Updated upstream
 
             Vector2 position = projectile.Center;
             Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
             int radius = 14;     //this is the explosion radius, the highter is the value the bigger is the explosion
+=======
+            //Create Bomb Sound
+            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+>>>>>>> Stashed changes
 
             //damage part of the bomb
             ExplosionDamageProjectile.DamageRadius = (float)(radius * 1.5f);
@@ -58,6 +60,7 @@ namespace ExtraExplosives.Projectiles
                 Vector2 vel;
                 Vector2 pos;
 
+<<<<<<< Updated upstream
                 for (int x = -radius; x <= radius; x++)
                 {
                     for (int y = -radius; y <= radius; y++)
@@ -138,5 +141,78 @@ namespace ExtraExplosives.Projectiles
             }
         }
 
+=======
+            //Create Bomb Dust
+            CreateDust(projectile.Center, 50);
+        }
+
+        private void CreateExplosion(Vector2 position, int radius)
+        {
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
+                {
+                    int xPosition = (int)(x + position.X / 16.0f);
+                    int yPosition = (int)(y + position.Y / 16.0f);
+
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
+                    {
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
+                        {
+
+                        }
+                        else //Breakable
+                        {
+                            WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
+                            if (Main.rand.Next(50) == 1) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(20) - 10, Main.rand.Next(20) - 10, ModContent.ProjectileType<ClusterBombChildProjectile>(), 120, 20, projectile.owner);
+                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CreateDust(Vector2 position, int amount)
+        {
+            Dust dust;
+            Vector2 updatedPosition;
+
+            for (int i = 0; i <= amount; i++)
+            {
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    //Dust 1
+                    if (Main.rand.NextFloat() < 0.9f)
+                    {
+                        updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
+                        dust.noGravity = true;
+                        dust.fadeIn = 2.5f;
+                    }
+
+                    //Dust 2
+                    if (Main.rand.NextFloat() < 0.6f)
+                    {
+                        updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                    }
+
+                    //Dust 3
+                    if (Main.rand.NextFloat() < 0.3f)
+                    {
+                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                    }
+                }
+            }
+        }
+>>>>>>> Stashed changes
     }
 }
