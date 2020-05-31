@@ -22,11 +22,8 @@ namespace ExtraExplosives.Projectiles
 {
     public class WhoInvitedYouProjectile : ModProjectile
     {
-<<<<<<< Updated upstream
         //Used to cycle text
-=======
         //Variables:
->>>>>>> Stashed changes
         private String[] GalleryOfPeanuts = {"Hey! Who are you!", "Why are you here?", "Oh well, I guess this means...", "I have company!", "What's your favorite ice cream?", "Grenade Grape or Explosive Mint perhaps?",
             "I'm not a picky eater...", "I'll eat anything!", "Hey is that a... Goblin 0.0", "Pfft, I shouldn't but yet...", "Ah whatever, cool place you got here.", "Are these blocks imported?", "Super fancy...",
             "You don't talk much do you?", "It's alright, I get shy too.", "I feel like I say so little.", "I hate when other people do all the talking.", "Please allow me to contribute to this conversation.",
@@ -51,19 +48,12 @@ namespace ExtraExplosives.Projectiles
             projectile.aiStyle = 16;
             projectile.friendly = true;
             projectile.penetrate = -1;
-<<<<<<< Updated upstream
-=======
             projectile.timeLeft = 1200;
->>>>>>> Stashed changes
             projectile.timeLeft = 1000000;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-<<<<<<< Updated upstream
-            
-=======
->>>>>>> Stashed changes
             projectile.velocity.X = 0;// oldVelocity.X * -1;
 
             if (PeanutGalleryCntr == GalleryOfPeanuts.Length-1)
