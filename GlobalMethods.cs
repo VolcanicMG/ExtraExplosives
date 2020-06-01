@@ -174,14 +174,14 @@ namespace ExtraExplosives
         /// <param name="posX"> This is the tiles X Position - Try: xPosition </param>
         /// <param name="posY"> This is the tiles Y Position - Try: yPosition </param>
         /// <returns> Returns [true] if the tile is unbreakable </returns>
-        public static Boolean CheckForUnbreakableTiles(int Tile, int posX, int posY)
+        public static Boolean CheckForUnbreakableTiles(int Tile)
         {
             Boolean flag = false; //Used to check if a tile is unbreakable - If true, then the tile is unbreakable
             int LargestListNumber = 50; //Used to limit the UnbreakableTileLoop, number must be larger then the largest list of unbreakable tiles
 
             //Tests If Tile Is OutOfBounds
-            if (posX < 0 || posY < 0 || posX > Main.maxTilesX || posY > Main.maxTilesY)
-                return true;
+            //if (posX < 0 || posY < 0 || posX > Main.maxTilesX || posY > Main.maxTilesY)
+            //    return true;
 
             for (int i = 0; i < LargestListNumber; i++) //Loop runs through all lists of unbrakable tiles and throws a flag if an unbreakable tile is found
             {

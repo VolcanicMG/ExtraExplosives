@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -35,16 +37,29 @@ namespace ExtraExplosives.Projectiles
         public override bool OnTileCollide(Vector2 old)
         {
 
-            projectile.timeLeft = 0;
+            projectile.Kill();
             return true;
         }
 
-
         public override void Kill(int timeLeft)
         {
-            Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            //Create Bomb Sound
+            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
+            //Create Bomb Dust
+            CreateDust(projectile.Center, 700);
+
+            //Create Bomb Damage
+            //ExplosionDamage(20f * 2f, projectile.Center, 450, 40, projectile.owner);
+
+            //Create Bomb Explosion
+            CreateExplosion(projectile.Center, 20);
+
+
+        }
+
+        private void CreateExplosion(Vector2 position, int radius)
+        {
             int x = 0;
             int y = 0;
 
@@ -55,73 +70,60 @@ namespace ExtraExplosives.Projectiles
             {
                 for (x = -width; x < width; x++)
                 {
-                    int xPosition = (int)(x + position.X / 16.0f); //converts to world space
-                    int yPosition = (int)(-y + position.Y / 16.0f); //converts to world space
+                    int xPosition = (int)(x + position.X / 16.0f);
+                    int yPosition = (int)(-y + position.Y / 16.0f);
 
-                    if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
-                                || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
-                                Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge || Main.tile[xPosition, yPosition].type == TileID.DemonAltar)
+                    if (WorldGen.InWorld(xPosition, yPosition)) //Circle
                     {
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        {
 
-                    }
-                    else if (CalamityMod != null && (Main.tile[xPosition, yPosition].type == CalamityMod.TileType("SeaPrism") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AerialiteOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("CryonicOre")
-                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("CharredOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("PerennialOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ScoriaOre")
-                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AstralOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ExodiumOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("UelibloomOre")
-                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AuricOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AbyssGravel") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Voidstone") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("PlantyMush")
-                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Tenebris") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ArenaBlock") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Cinderplate") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ExodiumClusterOre")))
-                    {
-                        if (Main.tile[xPosition, yPosition].type == TileID.Dirt)
-                        {
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
-                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
                         }
-                    }
-                    else if (ThoriumMod != null && (Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("Aquaite") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("LodeStone") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("ValadiumChunk") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("IllumiteChunk")
-                        || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("PearlStone") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("DepthChestPlatform")))
-                    {
-                        if (Main.tile[xPosition, yPosition].type == TileID.Dirt)
+                        else //Breakable
                         {
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
-                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
-                        }
-                    }
-                    else
-                    {
-                        WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
-                                                                                       //Dust.NewDust(position, width, height, DustID.Fire, 4.0f, 4.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
-                        if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
-                        if (CanBreakWalls) //break the last bit
-                        {
-                            WorldGen.KillWall(xPosition + 1, yPosition + 1, false);
-                        }
-
-                        if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
-                        {
-                            if (Main.rand.NextFloat() < 0.3f)
+                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles
+                            if (CanBreakWalls)
                             {
-                                Dust dust1;
-                                Dust dust2;
-
-                                Vector2 position1 = new Vector2(position.X - 2000 / 2, position.Y - 320);
-                                dust1 = Main.dust[Terraria.Dust.NewDust(position1, 2000, 320, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
-                                dust1.noGravity = true;
-                                dust1.noLight = true;
-                                dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
-
-                                Vector2 position2 = new Vector2(position.X - 2000 / 2, position.Y - 320);
-                                dust2 = Main.dust[Terraria.Dust.NewDust(position2, 2000, 320, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
-                                dust2.noGravity = true;
-                                dust2.noLight = true;
-                                dust2.shader = GameShaders.Armor.GetSecondaryShader(111, Main.LocalPlayer);
-                                dust2.fadeIn = 3f;
+                                WorldGen.KillWall(xPosition, yPosition, false);
+                                WorldGen.KillWall(xPosition + 1, yPosition + 1, false); //get the last bit
                             }
+                          
                         }
                     }
-
-
-
                 }
                 width++; //Increments width to make stairs on each end
+            }
+        }
+
+        private void CreateDust(Vector2 position, int amount)
+        {
+            //Vector2 updatedPosition;
+
+            for (int i = 0; i <= amount; i++)
+            {
+                if (Main.rand.NextFloat() < DustAmount)
+                {
+                    //---Dust 1---
+                    if (Main.rand.NextFloat() < 0.3f)
+                    {
+                        Dust dust1;
+                        Dust dust2;
+
+                        Vector2 position1 = new Vector2(position.X - 2000 / 2, position.Y - 320);
+                        dust1 = Main.dust[Terraria.Dust.NewDust(position1, 2000, 320, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
+                        dust1.noGravity = true;
+                        dust1.noLight = true;
+                        dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
+
+                        Vector2 position2 = new Vector2(position.X - 2000 / 2, position.Y - 320);
+                        dust2 = Main.dust[Terraria.Dust.NewDust(position2, 2000, 320, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
+                        dust2.noGravity = true;
+                        dust2.noLight = true;
+                        dust2.shader = GameShaders.Armor.GetSecondaryShader(111, Main.LocalPlayer);
+                        dust2.fadeIn = 3f;
+                    }
+                    //------------
+                }
             }
         }
 

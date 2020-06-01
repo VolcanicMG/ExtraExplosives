@@ -6,6 +6,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ExtraExplosives.Dusts;
+using Terraria.Localization;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -17,7 +18,6 @@ namespace ExtraExplosives.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("InvisibleSpawner");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         //public override void PostAI()
@@ -110,7 +110,15 @@ namespace ExtraExplosives.Projectiles
                 }
 
                 Vector2 position1 = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-                Main.NewText("3!");
+                
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("3!"), Color.White);
+                }
+                else
+                {
+                    Main.NewText("3!");
+                }
                 for (int i = 0; i < 100; i++)
                 {
                     if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
@@ -130,7 +138,14 @@ namespace ExtraExplosives.Projectiles
             }
             else if (projectile.knockBack == 2)
             {
-                Main.NewText("2!");
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("2!"), Color.White);
+                }
+                else
+                {
+                    Main.NewText("2!");
+                }
                 for (int i = 0; i < 50; i++)
                 {
                     if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
@@ -157,7 +172,14 @@ namespace ExtraExplosives.Projectiles
             }
             else if (projectile.knockBack == 3)
             {
-                Main.NewText("1!");
+                if (Main.netMode == NetmodeID.Server)
+                {
+                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("1!"), Color.White);
+                }
+                else
+                {
+                    Main.NewText("1!");
+                }
                 for (int i = 0; i < 50; i++)
                 {
                     if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)

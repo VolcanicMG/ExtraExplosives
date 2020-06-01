@@ -37,15 +37,17 @@ namespace ExtraExplosives.Projectiles
 
             //Create Bomb Sound
             Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
-
+            
+            //Create Bomb Dust
+            CreateDust(projectile.Center, 10);
+            
             //Create Bomb Damage
             ExplosionDamage(14f * 1.5f, projectile.Center, 450, 20, projectile.owner);
 
             //Create Bomb Explosion
             CreateExplosion(projectile.Center, 14);
 
-            //Create Bomb Dust
-            CreateDust(projectile.Center, 10);
+            
 
             Vector2 vel;
             Vector2 pos;
@@ -89,9 +91,9 @@ namespace ExtraExplosives.Projectiles
                     int xPosition = (int)(x + position.X / 16.0f);
                     int yPosition = (int)(y + position.Y / 16.0f);
 
-                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
                         {
 
                         }

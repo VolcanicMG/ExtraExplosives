@@ -89,10 +89,10 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
                     int yPosition = (int)(y + position.Y / 16.0f); //This converts the Y to worldSpace
 
                     //Uses this if-statement for a circular shape, remove it for a square or rectangular shape
-                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5)
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition)))
                     {
                         //Make sure to check for unbreakable tiles
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
                         {
                             //Code for [if block is unbreakable] goes here
                         }

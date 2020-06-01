@@ -1,95 +1,130 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Terraria.ModLoader;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameInput;
+using Terraria.Graphics.Shaders;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
-using Terraria.ModLoader;
+using Terraria.Localization;
+using Microsoft.Xna.Framework.Graphics;
+using System.IO;
+using Microsoft.Xna.Framework.Input;
+using Terraria.UI;
+using static Terraria.ModLoader.ModContent;
+using ExtraExplosives;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
     public class MeteoriteBusterProjectile : ModProjectile
     {
-        Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
-
-        internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("MeteoriteBuster");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 28;   //This defines the hitbox width
-            projectile.height = 30;    //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 400; //The amount of time the projectile is alive for
+            projectile.tileCollide = true;
+            projectile.width = 28;
+            projectile.height = 30;
+            projectile.aiStyle = 16;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.timeLeft = 400;
         }
-
-
 
         public override void Kill(int timeLeft)
         {
+            //Create Bomb Sound
+            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            
+            //Create Bomb Dust
+            CreateDust(projectile.Center, 600);
+            
+            //Create Bomb Damage
+            ExplosionDamage(30f * 20f, projectile.Center, 450, 40, projectile.owner);
 
-            Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-            int radius = 30;     //this is the explosion radius, the highter is the value the bigger is the explosion
+            //Create Bomb Explosion
+            CreateExplosion(projectile.Center, 30);
 
-            //damage part of the bomb
-            ExplosionDamageProjectile.DamageRadius = (float)(radius * 2f);
-            Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 450, 40, projectile.owner, 0.0f, 0);
+            
+        }
 
-            for (int x = -radius; x <= radius; x++)
+        private void CreateExplosion(Vector2 position, int radius)
+        {
+            for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left 
             {
-                for (int y = -radius; y <= radius; y++)
+                for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
                 {
                     int xPosition = (int)(x + position.X / 16.0f);
                     int yPosition = (int)(y + position.Y / 16.0f);
 
-                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (xPosition > 0 && yPosition > 0 && xPosition < Main.maxTilesX && yPosition < Main.maxTilesY))    //this make so the explosion radius is a circle
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        
-                        if(Main.tile[xPosition, yPosition].type == TileID.Meteorite)
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
                         {
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles  
+
                         }
-
-                        int Hw = 550;
-                        float scale = 10f;
-
-                        if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                        else //Breakable
                         {
-                            if (Main.rand.NextFloat() < 0.2f)
+                            if (Main.tile[xPosition, yPosition].type == TileID.Meteorite)
                             {
-                                Dust dust;
-                                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                                Vector2 vev = new Vector2(position.X - (Hw / 2), position.Y - (Hw / 2));
-                                dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), scale)];
-                                dust.noGravity = true;
-                                dust.fadeIn = 2.486842f;
-
-
-                                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                                dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 203, 0f, 0f, 0, new Color(255, 255, 255), scale)];
-                                dust.noGravity = true;
-                                dust.noLight = true;
-
-                                // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-                                dust = Main.dust[Terraria.Dust.NewDust(vev, Hw, Hw, 31, 0f, 0f, 0, new Color(255, 255, 255), scale)];
-                                dust.noGravity = true;
-                                dust.noLight = true;
-
+                                WorldGen.KillTile(xPosition, yPosition, false, false, false);  //This make the explosion destroy tiles  
                             }
                         }
                     }
                 }
             }
-
         }
 
+        private void CreateDust(Vector2 position, int amount)
+        {
+            Dust dust;
+            Vector2 updatedPosition;
 
+            for (int i = 0; i <= amount; i++)
+            {
+                if (Main.rand.NextFloat() < DustAmount)
+                {
+                    //---Dust 1---
+                    if (Main.rand.NextFloat() < 0.2f)
+                    {
+                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 550, 550, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 10f)];
+                        dust.noGravity = true;
+                        dust.fadeIn = 2.486842f;
+                    }
+                    //------------
+
+                    //---Dust 2---
+                    if (Main.rand.NextFloat() < 0.2f)
+                    {
+                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 550, 550, 203, 0f, 0f, 0, new Color(255, 255, 255), 10f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                    }
+                    //------------
+
+                    //---Dust 3---
+                    if (Main.rand.NextFloat() < 0.2f)
+                    {
+                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 550, 550, 31, 0f, 0f, 0, new Color(255, 255, 255), 10f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                    }
+                    //------------
+                }
+            }
+        }
     }
 }

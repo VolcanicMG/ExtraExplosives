@@ -26,7 +26,7 @@ namespace ExtraExplosives.Items.Pets
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomb Buddy");
+            DisplayName.SetDefault("Cherry Bomb");
             Tooltip.SetDefault("A likly companian?");
         }
 

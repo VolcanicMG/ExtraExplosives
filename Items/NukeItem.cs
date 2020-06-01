@@ -62,7 +62,14 @@ namespace ExtraExplosives.Items
 
             if (ExtraExplosives.NukeActive == false && ExtraExplosives.NukeActivated == false)
             {
-                Projectile.NewProjectile(Main.maxTilesX, 1000, 30, 0, type, damage, knockBack, player.whoAmI);
+                int xPosition = (int)(Main.maxTilesX / 16.0f);
+                //int yPosition = (int)(y + position.Y / 16.0f);
+
+                Projectile.NewProjectile(xPosition, 1500, 30, 0, type, damage, knockBack, player.whoAmI);
+
+                //Main.NewText(xPosition);
+
+                //Main.NewText(player.position);
 
                 ExtraExplosives.NukeActivated = true;
                 item.consumable = true;

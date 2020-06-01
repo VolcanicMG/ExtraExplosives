@@ -87,7 +87,7 @@ namespace ExtraExplosives.Projectiles
 
                     if (!OutOfBounds(xPosition, yPosition))
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type, xPosition, yPosition)) //Unbreakable
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
                         {
 
                         }

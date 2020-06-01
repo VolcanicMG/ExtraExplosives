@@ -16,30 +16,26 @@ using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 using ExtraExplosives;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
     public class HouseBombProjectile : ModProjectile
     {
-        Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
-
-        internal static bool CanBreakWalls;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("HouseBomb");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 5;   //This defines the hitbox width
-            projectile.height = 5;    //This defines the hitbox height
-            projectile.aiStyle = 16; //16  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 1000; //The amount of time the projectile is alive for
+            projectile.tileCollide = true;
+            projectile.width = 5;
+            projectile.height = 5;
+            projectile.aiStyle = 16;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.timeLeft = 1000;
         }
 
         public override bool OnTileCollide(Vector2 old)
@@ -59,9 +55,21 @@ namespace ExtraExplosives.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            //Create Bomb Sound
+            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
+            //Create Bomb Damage
+            //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
+
+            //Create Bomb Explosion
+            CreateExplosion(projectile.Center, 0);
+
+            //Create Bomb Dust
+            CreateDust(projectile.Center, 250);
+        }
+
+        private void CreateExplosion(Vector2 position, int radius)
+        {
             int x = 0;
             int y = 0;
 
@@ -75,71 +83,49 @@ namespace ExtraExplosives.Projectiles
                     int xPosition = (int)(x + position.X / 16.0f);
                     int yPosition = (int)(-y + position.Y / 16.0f);
 
-                    if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.DesertFossil || Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
-                            || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
-                            Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge || Main.tile[xPosition, yPosition].type == TileID.DemonAltar)
+                    if (WorldGen.InWorld(xPosition, yPosition))
                     {
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        {
 
-                    }
-                    else if (CalamityMod != null && (Main.tile[xPosition, yPosition].type == CalamityMod.TileType("SeaPrism") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AerialiteOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("CryonicOre")
-                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("CharredOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("PerennialOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ScoriaOre")
-                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AstralOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ExodiumOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("UelibloomOre")
-                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AuricOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AbyssGravel") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Voidstone") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("PlantyMush")
-                        || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Tenebris") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ArenaBlock") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Cinderplate") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ExodiumClusterOre")))
-                    {
-                        if (Main.tile[xPosition, yPosition].type == TileID.Dirt)
-                        {
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
-                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
                         }
-                    }
-                    else if (ThoriumMod != null && (Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("Aquaite") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("LodeStone") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("ValadiumChunk") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("IllumiteChunk")
-                        || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("PearlStone") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("DepthChestPlatform")))
-                    {
-                        if (Main.tile[xPosition, yPosition].type == TileID.Dirt)
+                        else //Breakable
                         {
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
-                            if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
+                            WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
+                            WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+
+                            Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);
                         }
-                    }
-                    else
-                    {
-                        WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this make the explosion destroy tiles
+
+                        //Destroy water
+                        Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
+                        WorldGen.SquareTileFrame(xPosition, yPosition, true);
+
+                        //Partical Effects
                         Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
-                                                                                                         //Break Walls
-                        WorldGen.KillWall(xPosition, yPosition);
-                    }
 
-                    //destroy water
-                    Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
-                    WorldGen.SquareTileFrame(xPosition, yPosition, true);
+                        //Place House Outline
+                        if (y == 0 || y == 6)
+                            WorldGen.PlaceTile(xPosition, yPosition, TileID.WoodBlock);
+                        if ((x == -5 || x == 5) && (y == 4 || y == 5))
+                            WorldGen.PlaceTile(xPosition, yPosition, TileID.WoodBlock);
 
-
-                    //Partical Effects
-                    Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
-
-                    //Place House Outline
-                    if (y == 0 || y == 6)
-                        WorldGen.PlaceTile(xPosition, yPosition, TileID.WoodBlock);
-                    if ((x == -5 || x == 5) && (y == 4 || y == 5))
-                        WorldGen.PlaceTile(xPosition, yPosition, TileID.WoodBlock);
-
-                    //Place House Walls
-                    if ((y == 5 || y == 2 || y ==1) && x != -5 && x != 5)
-                        WorldGen.PlaceWall(xPosition, yPosition, WallID.Wood);
-                    if (y == 3 || y == 4)
-                    {
-                        if (x == -4 || x == -3 || x == -2 || x == 2 || x == 3 || x == 4)
+                        //Place House Walls
+                        if ((y == 5 || y == 2 || y == 1) && x != -5 && x != 5)
                             WorldGen.PlaceWall(xPosition, yPosition, WallID.Wood);
-                        if (x == -1 || x == 0 || x == 1)
-                            WorldGen.PlaceWall(xPosition, yPosition, WallID.Glass);
+                        if (y == 3 || y == 4)
+                        {
+                            if (x == -4 || x == -3 || x == -2 || x == 2 || x == 3 || x == 4)
+                                WorldGen.PlaceWall(xPosition, yPosition, WallID.Wood);
+                            if (x == -1 || x == 0 || x == 1)
+                                WorldGen.PlaceWall(xPosition, yPosition, WallID.Glass);
+                        }
+
+                        //Places House Lights
+                        if (y == 5)
+                            if (x == -4 || x == 4)
+                                WorldGen.PlaceTile(xPosition, yPosition, TileID.Torches);
                     }
-
-                    //Places House Lights
-                    if (y == 5)
-                        if (x == -4 || x == 4)
-                            WorldGen.PlaceTile(xPosition, yPosition, TileID.Torches);
-
                 }
             }
 
@@ -162,43 +148,50 @@ namespace ExtraExplosives.Projectiles
                     }
                 }
             }
+        }
 
-            Dust dust1;
-            Dust dust2;
-            Dust dust3;
+        private void CreateDust(Vector2 position, int amount)
+        {
+            Dust dust;
+            Vector2 updatedPosition;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i <= amount; i++)
             {
-                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                if (Main.rand.NextFloat() < DustAmount)
                 {
-                    Vector2 position3 = new Vector2(position.X - 250 / 2, position.Y - 190 + 20);
-                    dust3 = Main.dust[Terraria.Dust.NewDust(position3, 250, 190, 263, 0f, 0f, 0, new Color(255, 255, 255), 4.5f)];
-                    dust3.noGravity = true;
-                    dust3.noLight = true;
-                    dust3.fadeIn = 1.618421f;
-                }
-            }
+                    //---Dust 1---
+                    if (Main.rand.NextFloat() < 1f)
+                    {
+                        updatedPosition = new Vector2(position.X - 250 / 2, position.Y - 190 / 2);
 
-            for (int i = 0; i < 100; i++)
-            {
-                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
-                {
-                    Vector2 position1 = new Vector2(position.X - 221 / 2, position.Y - 170 + 10);
-                    dust1 = Main.dust[Terraria.Dust.NewDust(position1, 221, 170, 232, 0f, 0f, 214, new Color(255, 150, 0), 4.407895f)];
-                    dust1.noGravity = true;
-                    dust1.noLight = true;
-                }
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 250, 190, 263, 0f, 0f, 0, new Color(255, 255, 255), 4.5f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                        dust.fadeIn = 1.618421f;
+                    }
+                    //------------
 
-            }
+                    //---Dust 2---
+                    if (Main.rand.NextFloat() < 1f)
+                    {
+                        updatedPosition = new Vector2(position.X - 221 / 2, position.Y - 170 / 2);
 
-            for (int i = 0; i < 100; i++)
-            {
-                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
-                {
-                    Vector2 position2 = new Vector2(position.X - 221 / 2, position.Y - 170 + 10);
-                    dust2 = Main.dust[Terraria.Dust.NewDust(position2, 221, 170, 1, 0f, 0f, 140, new Color(255, 255, 255), 2.5f)];
-                    dust2.noGravity = true;
-                    dust2.noLight = true;
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 221, 170, 232, 0f, 0f, 214, new Color(255, 150, 0), 4.407895f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                    }
+                    //----------------------
+
+                    //---Dust 3-------------
+                    if (Main.rand.NextFloat() < 1f)
+                    {
+                        updatedPosition = new Vector2(position.X - 221 / 2, position.Y - 170 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 221, 170, 1, 0f, 0f, 140, new Color(255, 255, 255), 2.5f)];
+                        dust.noGravity = true;
+                        dust.noLight = true;
+                    }
+                    //------------
                 }
             }
         }

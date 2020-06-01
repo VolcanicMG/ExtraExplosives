@@ -50,7 +50,7 @@ namespace ExtraExplosives.Projectiles
             CreateExplosion(projectile.Center, 40);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 400);
+            CreateDust(projectile.Center, 200);
         }
 
         private void CreateExplosion(Vector2 position, int radius)
