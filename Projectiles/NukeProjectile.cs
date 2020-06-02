@@ -60,7 +60,7 @@ namespace ExtraExplosives.Projectiles
 
             if ((projectile.position.Y / 16) > Main.worldSurface * 0.35)
             {
-                Main.NewText("Set");
+                //Main.NewText("Set");
                 projectile.tileCollide = true;
             }
 

@@ -50,7 +50,7 @@ namespace ExtraExplosives.Buffs
 				dust1 = Main.dust[Terraria.Dust.NewDust(position1, 10, 10, 106, 0f, 0f, 171, new Color(33, 0, 255), 2.0f)];
 				dust1.noGravity = true;
 				dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
-				dust1.noLight = true;
+				dust1.noLight = false;
 
 				//stop the npc if not a boss
 				npc.velocity.X = 0;
@@ -79,7 +79,7 @@ namespace ExtraExplosives.Buffs
 			dust1 = Main.dust[Terraria.Dust.NewDust(position1, 10, 10, 106, 0f, 0f, 171, new Color(33, 0, 255), 2.0f)];
 			dust1.noGravity = true;
 			dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
-			dust1.noLight = true;
+			dust1.noLight = false;
 
 			//stop the player
 			player.controlUseItem = false;

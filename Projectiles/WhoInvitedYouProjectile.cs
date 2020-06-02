@@ -17,11 +17,23 @@ using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 using ExtraExplosives;
 using static ExtraExplosives.GlobalMethods;
+using IL.Terraria.Chat;
 
 namespace ExtraExplosives.Projectiles
 {
     public class WhoInvitedYouProjectile : ModProjectile
     {
+        //Variables:
+        private String[] PeanutGallery = {"","","","","","", "Ahhh! Who are you!?", "Why are you here?", "Oh well, I guess this means...", "I have company!", "What's your favorite ice cream?", "Grenade Grape or Explosive Mint perhaps?",
+            "I'm not a picky eater...", "I'll eat anything!", "Hey! is that a... Goblin...", "Pfft, I shouldn't, but yet...", "Ah whatever, cool place you got here.", "Are these blocks imported?", "Super fancy...",
+            "You don't talk much do you?", "It's alright, I get shy too.", "I feel like I say so little.", "I hate when other people do all the talking.", "Please allow me to contribute to this conversation.",
+            "Did know there's a name for an old snowman?", "Yeah! It's true!",  "Someone actually came up with one...", "Its called water! :P", "Syke!", "Say, you mind if I bunk with you?",
+            "The last guy I met tried to shoot me.", "No manners that man...", "Besides, I'm sure you'd appreciate the company.", "I'm fairly quiet and make a mad frozen bagel.", "I know its forward of me...",
+            "But I tell ya, the zombies scare me man!", "It's like they have no manners at all.", "Not even a chuckle?", "Your really good at that quiet bit.", "Fine, you wanna dance, lets dance!",
+            "Bet I can be quiet longer than you!", "Ready, Go!","","","","","","","","","","","AHH!! I can't take it anymore.", "Silence is my worst nightmare.", "Welp, I'm bored with this.", "Have safe travels my friend!", "I must return...",
+            "To that glorious gallery of peanuts in the sky!", "My people need me!"};
+        private int PeanutCntr = 0;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("WhoInvitedYouProjectile");
@@ -35,26 +47,31 @@ namespace ExtraExplosives.Projectiles
             projectile.aiStyle = 16;
             projectile.friendly = true;
             projectile.penetrate = -1;
-            projectile.timeLeft = 1200;
+            projectile.timeLeft = 12000000;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            // This code makes the projectile bounce vertically
-            //if (projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f)
-            //{
-            //    projectile.velocity.X = 0;
-            //}
             projectile.velocity.X = 0;
-            //if (projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f)
-            //{
-            //    //if (projectile.velocity.Y >= 2 || projectile.velocity.Y < -2)
-            //    //    projectile.velocity.Y = 2;
-            //    //else
-            //    projectile.velocity.Y = -10;//oldVelocity.Y * -1.2f;
-            //}
-            projectile.velocity.Y = -10;
+            projectile.rotation = 0f;
+            projectile.velocity.Y = -8;
+
+            if (!PeanutGallery[PeanutCntr].Equals("null"))
+                Main.NewText(PeanutGallery[PeanutCntr], (byte)35, (byte)255, (byte)100, false);
+            PeanutCntr++;
+
             return false;
+        }
+
+        public override void PostAI()
+        {
+            projectile.velocity.X = 0;
+            projectile.rotation = 0f;
+
+            if (PeanutCntr == PeanutGallery.Length)
+                projectile.Kill();
+
+            base.PostAI();
         }
 
         public override void Kill(int timeLeft)
@@ -81,7 +98,7 @@ namespace ExtraExplosives.Projectiles
                     int xPosition = (int)(x + position.X / 16.0f);
                     int yPosition = (int)(y + position.Y / 16.0f);
 
-                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
                     {
                         if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
                         {
@@ -89,9 +106,7 @@ namespace ExtraExplosives.Projectiles
                         }
                         else //Breakable
                         {
-                            //-----===THIS IS WHERE THE BOMBS UNIQUE CODE GOES===-----\\
 
-                            //-----===########################################===-----\\
                         }
                     }
                 }
@@ -122,5 +137,4 @@ namespace ExtraExplosives.Projectiles
         }
     }
 }
-
 
