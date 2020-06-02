@@ -24,14 +24,21 @@ namespace ExtraExplosives.Projectiles
         public override void SetDefaults()
         {
             projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 5;   //This defines the hitbox width
-            projectile.height = 5;    //This defines the hitbox height
+            projectile.width = 10;   //This defines the hitbox width
+            projectile.height = 10;    //This defines the hitbox height
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
             projectile.timeLeft = 120; //The amount of time the projectile is alive for
             projectile.damage = 0;
 
+            drawOffsetX = -15;
+            drawOriginOffsetY = -15;
+        }
+
+        public override void AI()
+        {
+            projectile.rotation = 0;
         }
 
         public override bool OnTileCollide(Vector2 old)
@@ -77,7 +84,10 @@ namespace ExtraExplosives.Projectiles
                     {
                         if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
                         {
-
+                            if (Main.tile[xPosition, yPosition].type == TileID.DesertFossil)
+                            {
+                                WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
+                            }
                         }
                         else //Breakable
                         {

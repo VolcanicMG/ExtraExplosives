@@ -67,7 +67,7 @@ namespace ExtraExplosives.Projectiles
             CreateDust(projectile.Center, 100);
             
             //Create Bomb Damage
-            ExplosionDamage(5f * 2f, projectile.Center, 300, 30, projectile.owner);
+            ExplosionDamage(3f, projectile.Center, 300, 30, projectile.owner);
 
             //Create Bomb Explosion
             CreateExplosion(projectile.Center, 5);

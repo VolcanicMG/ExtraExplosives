@@ -26,7 +26,7 @@ namespace ExtraExplosives.Items.Explosives
             DisplayName.SetDefault("PhaseBomb");
             Tooltip.SetDefault("It just goes right through the ground!! \n" +
                 "Hold left click to phase, upon release, the bomb will blow up. \n" +
-                "WARNING: Make sure your not throwing it while your inventory is open.");
+                "WARNING: Make sure your not throwing it while your inventory is open(If you have one left).");
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 10));
             //ItemID.Sets.AnimatesAsSoul[item.type] = true;

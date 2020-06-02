@@ -111,7 +111,10 @@ namespace ExtraExplosives.Projectiles
                     {
                         if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
                         {
-
+                            if (Main.tile[xPosition, yPosition].type == TileID.DesertFossil)
+                            {
+                                WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
+                            }
                         }
                         else //Breakable
                         {

@@ -58,11 +58,12 @@ namespace ExtraExplosives.Projectiles
                 projectile.Kill();
             }
 
-            if ((projectile.position.Y / 16) > Main.worldSurface * 0.25)
+            if ((projectile.position.Y / 16) > Main.worldSurface * 0.35)
             {
-                //Main.NewText("Set");
+                Main.NewText("Set");
                 projectile.tileCollide = true;
             }
+
             //Main.NewText("World: " + Main.worldSurface * 0.35);
             //Main.NewText("Projectile: " + projectile.position.Y / 16);
 
@@ -129,7 +130,7 @@ namespace ExtraExplosives.Projectiles
                         {
                             if (Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
                                 || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
-                                Main.tile[xPosition, yPosition].type == TileID.Chlorophyte)
+                                Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DesertFossil)
                             {
                                 WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
                             }

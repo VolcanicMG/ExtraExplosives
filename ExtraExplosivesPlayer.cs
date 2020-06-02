@@ -34,7 +34,6 @@ namespace ExtraExplosives
 			//Player player = Main.player[Main.myPlayer];
 
 			//Main.NewText(ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard)[0].ToString());
-
 			if (reforge == true)
 			{
 				reforge = false;
