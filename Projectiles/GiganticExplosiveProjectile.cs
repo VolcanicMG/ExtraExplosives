@@ -36,8 +36,14 @@ namespace ExtraExplosives.Projectiles
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.timeLeft = 800;
-            projectile.scale = 1.5f;
+            //projectile.scale = 1.5f;
         }
+
+        public override void AI()
+        {
+            projectile.rotation = 0;
+        }
+
 
         public override void Kill(int timeLeft)
         {
@@ -69,7 +75,12 @@ namespace ExtraExplosives.Projectiles
                     {
                         if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
                         {
-
+                            if (Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
+                                || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick||
+                                Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DesertFossil)
+                            {
+                                WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
+                            }
                         }
                         else //Breakable
                         {

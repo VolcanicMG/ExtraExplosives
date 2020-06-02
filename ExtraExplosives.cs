@@ -19,8 +19,6 @@ namespace ExtraExplosives
 		internal static ModHotKey TriggerExplosion;
 		internal static ModHotKey TriggerUIReforge;
 
-		internal static Player playerProjectileOwnerInvis;
-
 		public static bool NukeActivated;
 		public static bool NukeActive;
 		public static Vector2 NukePos;

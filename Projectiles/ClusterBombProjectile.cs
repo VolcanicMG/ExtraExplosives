@@ -100,7 +100,7 @@ namespace ExtraExplosives.Projectiles
                         else //Breakable
                         {
                             WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-                            if (Main.rand.Next(50) == 1) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(20) - 10, Main.rand.Next(20) - 10, ModContent.ProjectileType<ClusterBombChildProjectile>(), 120, 20, projectile.owner);
+                            if (Main.rand.Next(55) == 1) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(20) - 10, Main.rand.Next(20) - 10, ModContent.ProjectileType<ClusterBombChildProjectile>(), 120, 20, projectile.owner);
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
                         }
                     }

@@ -57,17 +57,19 @@ namespace ExtraExplosives.Projectiles
 
         public override void Kill(int timeLeft)
         {
+            Player player = Main.player[projectile.owner];
+
             //Create Bomb Sound
             Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
             
             //Create Bomb Dust
-            CreateDust(projectile.Center, 400);
+            CreateDust(player.Center, 400);
             
             //Create Bomb Damage
-            ExplosionDamage(20f * 1.5f, projectile.Center, 400, 200, projectile.owner);
+            ExplosionDamage(20f * 1.5f, player.Center, 400, 200, projectile.owner);
 
             //Create Bomb Explosion
-            CreateExplosion(projectile.Center, 20);
+            CreateExplosion(player.Center, 20);
 
             //Disables the debuff
             buffActive = false;
