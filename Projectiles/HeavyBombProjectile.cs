@@ -96,7 +96,7 @@ namespace ExtraExplosives.Projectiles
             ExplosionDamage(20f * 1.5f, projectile.Center, 500, 40, projectile.owner);
 
             //Create Bomb Explosion
-            CreateExplosion(projectile.Center, 2);
+            CreateExplosion(projectile.Center, 20);
 
             
         }

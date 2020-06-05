@@ -171,10 +171,10 @@ namespace ExtraExplosives
 				player.controlUseItem = false;
 				player.noBuilding = true;
 				player.controlUseTile = false;
-				//if (Main.playerInventory)
-				//{
-				//	player.ToggleInv();
-				//}
+				if (Main.playerInventory)
+				{
+					player.ToggleInv();
+				}
 				player.controlInv = false;
 				player.controlMap = false;
 			}

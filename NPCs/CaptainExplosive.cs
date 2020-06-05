@@ -20,6 +20,7 @@ using ExtraExplosives.Projectiles;
 using ExtraExplosives.Items;
 using ExtraExplosives;
 using ExtraExplosives.Items.Pets;
+using ExtraExplosives.Items.Explosives;
 
 namespace ExtraExplosives.NPCs
 {
@@ -69,14 +70,18 @@ namespace ExtraExplosives.NPCs
             animationType = NPCID.Guide;  //npc copy the guide animation
         }
 
-        //public override bool CanTownNPCSpawn(int numTownNPCs, int money) //Whether or not the conditions have been met for npc town NPC to be able to move into town.
-        //{
-        //    if (NPC.downedBoss1)  //so after the EoC is killed
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
+        public override bool CanTownNPCSpawn(int numTownNPCs, int money) //Whether or not the conditions have been met for npc town NPC to be able to move into town.
+        {
+            if (NPC.downedSlimeKing)  //so after the king is killed
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
 
         public override bool CheckActive()
         {
@@ -254,6 +259,8 @@ namespace ExtraExplosives.NPCs
             {
                 shop.item[nextSlot].SetDefaults(mod.ItemType("CritterBombItem"));
                 nextSlot++;
+                shop.item[nextSlot].SetDefaults(mod.ItemType("BulletBoomItem"));
+                nextSlot++;
             }
 
             if (NPC.downedClown)
@@ -274,11 +281,18 @@ namespace ExtraExplosives.NPCs
                 nextSlot++;
             }
 
-            if (NPC.downedPirates && Main.hardMode)
+            if(NPC.downedMoonlord)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("BulletBoomItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<AtomBombItem>());
                 nextSlot++;
             }
+
+            if (NPC.downedGoblins)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<ReforgeBombItem>());
+                nextSlot++;
+            }
+
 
             if (Main.hardMode)   
             {
@@ -287,6 +301,8 @@ namespace ExtraExplosives.NPCs
                 shop.item[nextSlot].SetDefaults(mod.ItemType("MegaExplosiveItem"));
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("GiganticExplosiveItem"));
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<FlashbangItem>());
                 nextSlot++;
             }
 
@@ -311,6 +327,10 @@ namespace ExtraExplosives.NPCs
             shop.item[nextSlot].SetDefaults(mod.ItemType("HouseBombItem"));
             nextSlot++;
             shop.item[nextSlot].SetDefaults(mod.ItemType("BunnyiteItem"));
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<MeteoriteBusterItem>());
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<HellavatorItem>());
             nextSlot++;
 
         }

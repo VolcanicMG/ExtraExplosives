@@ -81,7 +81,7 @@ namespace ExtraExplosives
 				// If you localize your mod, pass in a localized string instead of just English.
 				// Additional lines for additional town npc that your mod adds
 				// Simpler example:
-				censusMod.Call("TownNPCCondition", NPCType("CaptainExplosive"), "Throw a 'chaos...' explosive");
+				censusMod.Call("TownNPCCondition", NPCType("CaptainExplosive"), "Kill King Slime"); //Change later for the boss
 			}
 
 			SetupListsOfUnbreakableTiles();

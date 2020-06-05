@@ -55,7 +55,6 @@ namespace ExtraExplosives
             //SmallExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             //ArenaBuilderProjectile.CanBreakWalls = CanBreakWalls;
             PhaseBombProjectile.CanBreakWalls = CanBreakWalls;
-            NPCSpawnerProjectile.CanBreakWalls = CanBreakWalls;
             //MegaExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             //MediumExplosiveProjectile.CanBreakWalls = CanBreakWalls;
             //LargeExplosiveProjectile.CanBreakWalls = CanBreakWalls;

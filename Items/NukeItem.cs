@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Items
 {
@@ -65,6 +66,8 @@ namespace ExtraExplosives.Items
                 int xPosition = (int)(Main.maxTilesX / 16.0f);
                 //int yPosition = (int)(y + position.Y / 16.0f);
 
+
+                //SpawnProjectileSynced(new Vector2(xPosition, 1500), new Vector2(30, 0), type, 0, 0, player.whoAmI);
                 Projectile.NewProjectile(xPosition, 1500, 30, 0, type, damage, knockBack, player.whoAmI);
 
                 //Main.NewText(xPosition);

@@ -57,7 +57,7 @@ namespace ExtraExplosives.Projectiles
         {
             int xPosition = (int)(position.X / 16.0f);
             int yPosition = (int)(position.Y / 16.0f);
-            WorldGen.KillTile(xPosition, yPosition + 1, false, false, true);  //this make the explosion destroy tiles  
+            WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this make the explosion destroy tiles  
         }
 
         private void CreateDust(Vector2 position, int amount)
