@@ -34,8 +34,8 @@ namespace ExtraExplosives.Projectiles
         public override void SetDefaults()
         {
             projectile.tileCollide = true; 
-            projectile.width = 16;
-            projectile.height = 10;
+            projectile.width = 32;
+            projectile.height = 40;
             projectile.aiStyle = 16;
             projectile.friendly = true;
             projectile.penetrate = -1;

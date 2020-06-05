@@ -17,6 +17,7 @@ using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
 using ExtraExplosives;
 using static ExtraExplosives.GlobalMethods;
+using ExtraExplosives.Buffs;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -42,6 +43,15 @@ namespace ExtraExplosives.Projectiles
             projectile.Opacity = 0f;
             projectile.scale = DamageRadius; //DamageRadius
             //projectile.scale = 5;
+        }
+
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (ExtraExplosives.NukeHit == true)
+            {
+                target.AddBuff(ModContent.BuffType<RadiatedDebuff>(), 5000);
+            }
+            return true;
         }
     }
 }

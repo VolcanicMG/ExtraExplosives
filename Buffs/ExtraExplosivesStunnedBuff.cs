@@ -73,6 +73,11 @@ namespace ExtraExplosives.Buffs
 
 			}
 
+			//add lighting
+			Lighting.AddLight(player.position, new Vector3(255f, 255f, 255f));
+			Lighting.maxX = 5;
+			Lighting.maxY = 5;
+
 			//spawn dust
 			Dust dust1;
 			Vector2 position1 = new Vector2(PlayerPos.X, PlayerPos.Y - player.height + 10);

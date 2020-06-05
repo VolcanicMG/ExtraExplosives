@@ -1,22 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
-using System.Collections.Generic;
-using System.Linq;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using ExtraExplosives;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -24,6 +14,9 @@ namespace ExtraExplosives.Projectiles
     {
         Mod CalamityMod = ModLoader.GetMod("CalamityMod");
         Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+
+        bool firstTick;
+        SoundEffectInstance sound;
 
         public override void SetStaticDefaults()
         {
@@ -50,6 +43,15 @@ namespace ExtraExplosives.Projectiles
             ExtraExplosives.NukePos = projectile.Center;
             ExtraExplosives.NukeActive = true; //since the projectile is active set it active in the player class
 
+            if (!firstTick)
+            {
+                if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
+                {
+                    sound = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/wizz"));
+                }
+
+                firstTick = true;
+            }
 
             //Main.NewText(projectile.timeLeft);
 
@@ -81,6 +83,14 @@ namespace ExtraExplosives.Projectiles
 
             Vector2 position = projectile.Center;
 
+            //stop the sound
+            if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
+            {
+                sound.Stop();
+            }
+
+            player.KillMe(PlayerDeathReason.ByCustomReason(player.name + " was killed by a nuclear explosion"), 5000, 1);
+
             //set the shader
             ExtraExplosives.NukeHit = true;
             if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
@@ -92,6 +102,11 @@ namespace ExtraExplosives.Projectiles
 
             }
 
+            Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Explosion"));
+            ExtraExplosives.NukeActive = false;
+            ExtraExplosives.NukeActivated = false;
+            Main.screenPosition = player.Center;
+
             //Create Bomb Damage
             ExplosionDamage(150f * 1.5f, projectile.Center, 3000, 1.0f, projectile.owner);
 
@@ -100,15 +115,12 @@ namespace ExtraExplosives.Projectiles
 
             for (int x = 0; x < 1; x++)
             {
-                Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(40) + 10, Main.rand.Next(40) + 10, ModContent.ProjectileType<InvisibleNukeProjectile>(), 0, 0, projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square            
+                Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(40) + 10, Main.rand.Next(40) + 10, ModContent.ProjectileType<InvisibleNukeProjectile>(), 0, 0, projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square 
+
             }
 
             //Ending part that sets effects back to normal and sets the nuke active back to false.
             //player.ResetEffects();
-            Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Explosion"));
-            ExtraExplosives.NukeActive = false;
-            ExtraExplosives.NukeActivated = false;
-            Main.screenPosition = player.Center;
 
         }
 

@@ -31,6 +31,7 @@ namespace ExtraExplosives.UI
 		internal UIImage Image2;
 		internal UIImage Image3;
 		internal UIImage Image4;
+		internal UIImage Image5;
 
 		private int screenX = Main.screenWidth / 2;
 		private int screenY = (Main.screenHeight / 5);
@@ -44,78 +45,93 @@ namespace ExtraExplosives.UI
 		public override void OnInitialize()
 		{
 			//panel box
-			Box = new UIPanel();
+			//Box = new UIPanel();
 			int width = 200;
 			int height = 80;
-			Box.SetPadding(0);
-			Box.Left.Set(screenX - width / 2 - (width / 27), 0f);
-			Box.Top.Set(screenY - height / 2 + (height / 8), 0f);
-			Box.Width.Set(width, 0f);
-			Box.Height.Set(height, 0f);
-			Box.BackgroundColor = new Color(47, 83, 136, 200);
-			Append(Box);
+			//Box.SetPadding(0);
+			//Box.Left.Set(screenX - width / 2 - (width / 27), 0f);
+			//Box.Top.Set(screenY - height / 2 + (height / 8), 0f);
+			//Box.Width.Set(width, 0f);
+			//Box.Height.Set(height, 0f);
+			//Box.BackgroundColor = new Color(47, 83, 136, 200);
+			//Append(Box);
 
 			//images
 			int ImageWidth = 24;
 			int ImageHeight = 24;
+			Image5 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/ReforgeUI"));
+			//Image5.Width.Set(ImageWidth, 0f);
+			//Image5.Height.Set(ImageHeight, 0f);
+			Image5.HAlign = .503f;
+			//Image5.Left.Set(screenX - (Image5.Width.Pixels / 2), 0f);
+			Image5.Top.Set(screenY - (Image5.Height.Pixels / 2), 0f);
+			Image5.ImageScale = 1.2f;
+			Append(Image5);
+
 			Image = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
-			Image.Width.Set(ImageWidth, 0f);
-			Image.Height.Set(ImageHeight, 0f);
-			Image.Left.Set(width / 5 - ImageWidth / 2, 0f);
-			Image.Top.Set(height / 2 - ImageHeight * 1.5f, 0f);
-			//Image.ImageScale = 2.5f;
-			Box.Append(Image);
+			//Image.Width.Set(ImageWidth, 0f);
+			//Image.Height.Set(ImageHeight, 0f);
+			Image.HAlign = .5f;
+			//Image.Left.Set(screenX - (Image5.Width.Pixels / 2), 0f);
+			Image.Top.Set(screenY - (Image5.Height.Pixels / 2 / 2), 0f);
+			Image.ImageScale = 1.5f;
+			Append(Image);
 
 			Image2 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
-			Image2.Width.Set(ImageWidth, 0f);
-			Image2.Height.Set(ImageHeight, 0f);
-			Image2.Left.Set(width / 2 - ImageWidth / 2, 0f);
-			Image2.Top.Set(height / 2 - ImageHeight * 1.5f, 0f);
-			//Image.ImageScale = 2.5f;
-			Box.Append(Image2);
+			//Image2.Width.Set(ImageWidth, 0f);
+			//Image2.Height.Set(ImageHeight, 0f);
+			Image2.HAlign = .47f;
+			//Image2.Left.Set(screenX - (Image5.Width.Pixels / 2), 0f);
+			Image2.Top.Set(screenY - (Image5.Height.Pixels / 2 / 2), 0f);
+			Image2.ImageScale = 1.5f;
+			Append(Image2);
 
 			Image3 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
-			Image3.Width.Set(ImageWidth, 0f);
-			Image3.Height.Set(ImageHeight, 0f);
-			Image3.Left.Set(width / 1.5f + ImageWidth / 1.7f, 0f);
-			Image3.Top.Set(height / 2 - ImageHeight * 1.5f, 0f);
-			//Image.ImageScale = 2.5f;
-			Box.Append(Image3);
+			//Image3.Width.Set(ImageWidth, 0f);
+			//Image3.Height.Set(ImageHeight, 0f);
+			Image3.HAlign = .53f;
+			//Image3.Left.Set(screenX - (Image5.Width.Pixels / 2), 0f);
+			Image3.Top.Set(screenY - (Image5.Height.Pixels / 2 / 2), 0f);
+			Image3.ImageScale = 1.5f;
+			Append(Image3);
 
 			Image4 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/Reforge"));
-			Image4.Width.Set(ImageWidth, 0f);
-			Image4.Height.Set(ImageHeight, 0f);
-			Image4.Left.Set(width / 2 - ImageWidth / 2 - 3, 0f);
-			Image4.Top.Set(height / 2 + ImageHeight + 20, 0f);
-			//Image.ImageScale = 2.5f;
-			Box.Append(Image4);
+			Image4.HAlign = .5f;
+			//Image4.Left.Set(screenX - (Image5.Width.Pixels / 2), 0f);
+			Image4.Top.Set(screenY - (Image5.Height.Pixels / 1.6f), 0f);
+			Image4.ImageScale = 1.4f;
+			Append(Image4);
 
 			ReforgeText = new UITextPanel<string>("Place an item in one(or all) of the slots to reforge");
 			//float widthText = ReforgeText.GetDimensions().Width;
-			ReforgeText.Left.Set(screenX - 215, 0f);
-			ReforgeText.Top.Set(screenY - 80, 0f);
+			ReforgeText.HAlign = .5f;
+			//ReforgeText.Left.Set(screenX - ReforgeText.Width.Pixels, 0f);
+			ReforgeText.Top.Set(screenY - (Image5.Height.Pixels * 1.2f), 0f);
 			Append(ReforgeText);
 
 			//slots
 			_vanillaItemSlot = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f)
 			{
-				Left = { Pixels = screenX - 90 },
+				//Left = { Precent = .5f },
 				Top = { Pixels = screenY },
+				HAlign = .5f,
 				ValidItemFunc = item => item.IsAir || !item.IsAir && item.Prefix(-3),
 
 			};
 
 			_vanillaItemSlot2 = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f)
 			{
-				Left = { Pixels = screenX - 30 },
+				//Left = { Pixels = screenX - 30 },
 				Top = { Pixels = screenY },
+				HAlign = .47f,
 				ValidItemFunc = item => item.IsAir || !item.IsAir && item.Prefix(-3)
 			};
 
 			_vanillaItemSlot3 = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f)
 			{
-				Left = { Pixels = screenX + 30 },
+				//Left = { Pixels = screenX + 30 },
 				Top = { Pixels = screenY },
+				HAlign = .53f,
 				ValidItemFunc = item => item.IsAir || !item.IsAir && item.Prefix(-3)
 			};
 			// Here we limit the items that can be placed in the slot. We are fine with placing an empty item in or a non-empty item that can be prefixed. Calling Prefix(-3) is the way to know if the item in question can take a prefix or not.

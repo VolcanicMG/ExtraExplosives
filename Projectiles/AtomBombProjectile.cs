@@ -30,8 +30,8 @@ namespace ExtraExplosives.Projectiles
         public override void SetDefaults()
         {
             projectile.tileCollide = true;
-            projectile.width = 5;
-            projectile.height = 8;
+            projectile.width = 40;
+            projectile.height = 40;
             projectile.aiStyle = 16;
             projectile.friendly = true;
             projectile.penetrate = -1;
@@ -47,10 +47,10 @@ namespace ExtraExplosives.Projectiles
             ExplosionDamage(1, projectile.Center, 5000, 1.0f, projectile.owner);
 
             //Create Bomb Explosion
-            CreateExplosion(projectile.Center, 40);
+            CreateExplosion(projectile.Bottom, 40);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 200);
+            CreateDust(projectile.Center, 100);
         }
 
         private void CreateExplosion(Vector2 position, int radius)

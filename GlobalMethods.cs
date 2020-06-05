@@ -208,6 +208,20 @@ namespace ExtraExplosives
             return flag; //Returns flag
         }
 
+        //from CosmivengeonMod:
+        public static void SpawnProjectileSynced(Vector2 position, Vector2 velocity, int type, int damage, float knockback, float ai0 = 0f, float ai1 = 0f, int owner = 255)
+        {
+            if (owner == 255)
+                owner = Main.myPlayer;
+
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                int proj = Projectile.NewProjectile(position, velocity, type, damage, knockback, owner, ai0, ai1);
+
+                NetMessage.SendData(MessageID.SyncProjectile, number: proj);
+            }
+        }
+
         //============================================================================\\
 
 
@@ -216,8 +230,8 @@ namespace ExtraExplosives
 
         //========================| Code Snippets Ready For Copy/Paste |========================\\
 
-            //Here you will find one commented copy of a function that explains code functionality,
-            //and then a second function below it that can be used for copy/paste
+        //Here you will find one commented copy of a function that explains code functionality,
+        //and then a second function below it that can be used for copy/paste
 
         //======================================================================================\\
 

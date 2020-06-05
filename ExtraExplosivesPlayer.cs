@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using ExtraExplosives.Projectiles;
+using IL.Terraria.DataStructures;
 
 namespace ExtraExplosives
 {
@@ -16,8 +17,11 @@ namespace ExtraExplosives
 		public int reforgeUIActive = 0;
 		public bool detonate;
 
+		//buffs
 		public bool BombBuddy;
 		public Vector2 BuddyPos;
+
+		public bool RadiatedDebuff;
 
 		//public static bool NukeActive;
 		//public static Vector2 NukePos;
@@ -27,6 +31,31 @@ namespace ExtraExplosives
 
 		public bool reforge = false;
 		public static bool reforgePub;
+
+		public override void ResetEffects()
+		{
+			RadiatedDebuff = false;
+			BombBuddy = false;
+		}
+
+		public override void UpdateDead()
+		{
+			RadiatedDebuff = false;
+		}
+
+		public override void UpdateBadLifeRegen()
+		{
+			if(RadiatedDebuff)
+			{
+				if (player.lifeRegen > 0)
+				{
+					player.lifeRegen = 0;
+				}
+				player.lifeRegenTime = 0;
+				// lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
+				player.lifeRegen -= 30;
+			}
+		}
 
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
@@ -89,6 +118,7 @@ namespace ExtraExplosives
 			{
 				Filters.Scene["BigBang"].Deactivate();
 			}
+
 		}
 
 
@@ -128,8 +158,10 @@ namespace ExtraExplosives
 		{
 			//NukeActive = false;
 			//ExtraExplosives.NukeActivated = false;
-			ExtraExplosives.NukeHit = false;
+			//ExtraExplosives.NukeHit = false;
 			//player.ResetEffects();
+			player.ResetEffects();
+			Main.screenPosition = player.Center;
 		}
 
 		public override void SetControls() //when the nuke is active set the player to not build or use items
@@ -139,10 +171,12 @@ namespace ExtraExplosives
 				player.controlUseItem = false;
 				player.noBuilding = true;
 				player.controlUseTile = false;
-				if (Main.playerInventory)
-				{
-					player.ToggleInv();
-				}
+				//if (Main.playerInventory)
+				//{
+				//	player.ToggleInv();
+				//}
+				player.controlInv = false;
+				player.controlMap = false;
 			}
 		}
 

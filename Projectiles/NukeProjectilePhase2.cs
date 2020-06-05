@@ -1,7 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.Graphics.Effects;
+using Terraria.ID;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -15,6 +19,7 @@ namespace ExtraExplosives.Projectiles
         bool reset = false;
         bool firstTick;
 
+        SoundEffectInstance soundPlane;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Plane");
@@ -24,13 +29,13 @@ namespace ExtraExplosives.Projectiles
         public override void SetDefaults()
         {
             projectile.tileCollide = false; //checks to see if the projectile can go through tiles
-            projectile.width = 52;   //This defines the hitbox width
-            projectile.height = 20;    //This defines the hitbox height
+            projectile.width = 312;   //This defines the hitbox width
+            projectile.height = 144;    //This defines the hitbox height
             projectile.aiStyle = 0;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
             projectile.timeLeft = 10000; //The amount of time the projectile is alive for
-            projectile.scale = 6f;
+            //projectile.scale = 6f;
             projectile.netImportant = true;
             //projectile.scale = 1.5f;
         }
@@ -45,6 +50,9 @@ namespace ExtraExplosives.Projectiles
             if (!firstTick)
             {
                 Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/air-raid"));
+
+                //soundPlane = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Plane"));
+
                 firstTick = true;
             }
 
@@ -74,18 +82,33 @@ namespace ExtraExplosives.Projectiles
 
             }
 
-            if(projectile.position.X <= player.position.X + 40 && projectile.position.X >= player.position.X - 40)
+            if ((projectile.position.X / 16) <= ((player.position.X + 2000) / 16) && (projectile.position.X / 16) >= ((player.position.X - 2000) / 16)) //when in range, change sprite
             {
                 //Main.NewText("Set");
                 projectile.frame = 2;
             }
 
-            if ((projectile.position.X <= player.position.X + 40 && projectile.position.X >= player.position.X - 40) && done == false)
+            if ((projectile.position.X / 16) > (player.position.X / 16) && done == false) //the player is behind the plane
+            {
+                Main.NewText("Thought you could get away?\n" +
+                    "Droping Load!!");
+                done = true;
+
+                SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
+
+                //Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
+
+            }
+
+            if ((projectile.position.X <= player.position.X + 40 && projectile.position.X >= player.position.X - 40) && done == false) //searching for the player
             {
                 //Main.NewText("Drop the load");
+                projectile.frame = 3;
                 done = true;
-                Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
-                //Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/wizz"));
+
+                SpawnProjectileSynced(projectile.position, new Vector2(0,0), ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
+
+                //Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
 
             }
 
@@ -117,7 +140,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void PostAI()
         {
-            
+
         }
 
 

@@ -22,8 +22,8 @@ namespace ExtraExplosives.Projectiles
         public override void SetDefaults()
         {
             projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 22;   //This defines the hitbox width
-            projectile.height = 22;    //This defines the hitbox height
+            projectile.width = 40;   //This defines the hitbox width
+            projectile.height = 40;    //This defines the hitbox height
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed

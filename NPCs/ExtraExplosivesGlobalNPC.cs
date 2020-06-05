@@ -24,6 +24,30 @@ namespace ExtraExplosives.NPCs
 {
     public class ExtraExplosivesGlobalNPC : GlobalNPC
     {
+        public override bool InstancePerEntity => true;
+
+        public bool Radiated;
+
+        public override void ResetEffects(NPC npc)
+        {
+            Radiated = false;
+        }
+
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+            if (Radiated)
+            {
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
+                npc.lifeRegen -= 30;
+                if (damage < 2)
+                {
+                    damage = 2;
+                }
+            }
+        }
 
         public override void NPCLoot(NPC npc)
         {

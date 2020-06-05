@@ -30,13 +30,16 @@ namespace ExtraExplosives.Projectiles
         public override void SetDefaults()
         {
             projectile.tileCollide = true;
-            projectile.width = 5;
-            projectile.height = 5;
+            projectile.width = 10;
+            projectile.height = 10;
             projectile.aiStyle = 16;
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.timeLeft = 120;
             projectile.damage = 0;
+
+            drawOffsetX = -15;
+            drawOriginOffsetY = -15;
         }
 
         public override bool OnTileCollide(Vector2 old)
