@@ -177,7 +177,7 @@ namespace ExtraExplosives
         public static Boolean CheckForUnbreakableTiles(int Tile)
         {
             Boolean flag = false; //Used to check if a tile is unbreakable - If true, then the tile is unbreakable
-            int LargestListNumber = 50; //Used to limit the UnbreakableTileLoop, number must be larger then the largest list of unbreakable tiles
+            int LargestListNumber = 70; //Used to limit the UnbreakableTileLoop, number must be larger then the largest list of unbreakable tiles
 
             //Tests If Tile Is OutOfBounds
             //if (posX < 0 || posY < 0 || posX > Main.maxTilesX || posY > Main.maxTilesY)

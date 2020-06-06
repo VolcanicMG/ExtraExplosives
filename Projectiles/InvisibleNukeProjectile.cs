@@ -1,44 +1,52 @@
-using Microsoft.Xna.Framework;
-using System;
-using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameInput;
+using Terraria.Graphics.Shaders;
+using Terraria.Graphics.Effects;
+using Terraria.ID;
+using Terraria.Localization;
+using Microsoft.Xna.Framework.Graphics;
+using System.IO;
+using Microsoft.Xna.Framework.Input;
+using Terraria.UI;
+using static Terraria.ModLoader.ModContent;
+using ExtraExplosives;
+using static ExtraExplosives.GlobalMethods;
 using ExtraExplosives.Tiles;
 
 namespace ExtraExplosives.Projectiles
 {
     public class InvisibleNukeProjectile : ModProjectile
     {
-        Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
-
-        internal static bool CanBreakWalls;
-
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("InvisibleNukeExplosive");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 
         public override string Texture => "ExtraExplosives/Projectiles/BulletBoomProjectile";
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 44;   //This defines the hitbox width
-            projectile.height = 44;    //This defines the hitbox height
-            projectile.aiStyle = 1;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            //projectile.timeLeft = 100000; //The amount of time the projectile is alive for
+            projectile.tileCollide = true;
+            projectile.width = 44;
+            projectile.height = 44;
+            projectile.aiStyle = 0;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
+            projectile.timeLeft = 100000;
             projectile.scale = 1.5f;
-            projectile.Opacity = 0;
+            projectile.netImportant = true;
+            projectile.extraUpdates = 3;
         }
 
         public override void AI()
         {
-            
+
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -49,79 +57,165 @@ namespace ExtraExplosives.Projectiles
 
         public override void Kill(int timeLeft)
         {
+            //Create Bomb Sound
+            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
-            Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-            int radius = 8;     //this is the explosion radius, the highter is the value the bigger is the explosion
+            //Create Bomb Damage
+            ExplosionDamage(8f * 1.5f, projectile.Center, 3000, 100, projectile.owner);
 
-            bool placeTile = false;
-            int placeTileAmount = Main.rand.Next(5);
+            //Create Bomb Explosion
+            CreateExplosion(projectile.Center, Main.rand.Next(5) + 5);
 
-            //damage part of the bomb
-            ExplosionDamageProjectile.DamageRadius = (float)(radius * 1.5f);
-            Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 3000, 100, projectile.owner, 0.0f, 0);
+            //Create Bomb Dust
+            //CreateDust(projectile.Center, 10);
+        }
 
-            for (int x = -radius; x <= radius; x++)
+        private void CreateExplosion(Vector2 position, int radius)
+        {
+            for (int y = -radius / 2; y <= 0; y++)
             {
-                for (int y = -radius; y <= radius; y++)
+                for (int x = -radius; x <= radius; x++)
                 {
                     int xPosition = (int)(x + position.X / 16.0f);
                     int yPosition = (int)(y + position.Y / 16.0f);
 
-                    Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
-                    WorldGen.SquareTileFrame(xPosition, yPosition, true);
-
-                    if (Main.tile[xPosition, yPosition].type == TileID.LihzahrdBrick || Main.tile[xPosition, yPosition].type == TileID.LihzahrdAltar || Main.tile[xPosition, yPosition].type == TileID.LihzahrdFurnace || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
-                        Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DefendersForge || Main.tile[xPosition, yPosition].type == TileID.DemonAltar)
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
                     {
-
-                    }
-                    else if (CalamityMod != null && (Main.tile[xPosition, yPosition].type == CalamityMod.TileType("SeaPrism") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AerialiteOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("CryonicOre")
-                    || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("CharredOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("PerennialOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ScoriaOre")
-                    || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AstralOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ExodiumOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("UelibloomOre")
-                    || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AuricOre") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("AbyssGravel") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Voidstone") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("PlantyMush")
-                    || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Tenebris") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ArenaBlock") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("Cinderplate") || Main.tile[xPosition, yPosition].type == CalamityMod.TileType("ExodiumClusterOre")))
-                    {
-                        if (Main.tile[xPosition, yPosition].type == TileID.Dirt)
-                        {
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
-                            //if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
-                        }
-                    }
-                    else if (ThoriumMod != null && (Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("Aquaite") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("LodeStone") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("ValadiumChunk") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("IllumiteChunk")
-                        || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("PearlStone") || Main.tile[xPosition, yPosition].type == ThoriumMod.TileType("DepthChestPlatform")))
-                    {
-                        if (Main.tile[xPosition, yPosition].type == TileID.Dirt)
-                        {
-                            WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
-                            //if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false);
-                        }
-                    }
-                    else //WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
-                    {
-                        if (Main.tile[xPosition, yPosition].type != null)
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
                         {
 
                         }
-                        else
+                        else //Breakable
                         {
-                            placeTile = true;
-
-                            if(placeTileAmount-- > 0)
+                            if (Main.rand.Next(3) < 2)
                             {
                                 WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
                                 WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSurfaceTile>());
                             }
+                            else
+                            {
+                                WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
+                                WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSubSurfaceTile>());
+                            }
                         }
                     }
-                    
                 }
-                placeTile = false;
-                placeTileAmount = Main.rand.Next(5);
             }
 
+            for (int y = 0; y < radius / 2; y++)
+            {
+                for (int x = -radius; x < radius; x++)
+                {
+                    int xPosition = (int)(x + position.X / 16.0f);
+                    int yPosition = (int)(y + position.Y / 16.0f);
+
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
+                    {
+                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        {
+
+                        }
+                        else //Breakable
+                        {
+                            if (WorldGen.TileEmpty(xPosition, yPosition))
+                            {
+                                WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSubSurfaceTile>());
+                            }
+                            else
+                            {
+                                if (y == 1)
+                                {
+                                    if (Main.rand.Next(10) < 8)
+                                    {
+                                        WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
+                                        WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSubSurfaceTile>());
+                                    }
+                                }
+                                else if (y == 2)
+                                {
+                                    if (Main.rand.Next(10) < 7)
+                                    {
+                                        WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
+                                        WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSubSurfaceTile>());
+                                    }
+                                }
+                                else if (y == 3)
+                                {
+                                    if (Main.rand.Next(10) < 6)
+                                    {
+                                        WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
+                                        WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSubSurfaceTile>());
+                                    }
+                                }
+                                else if (y == 4)
+                                {
+                                    if (Main.rand.Next(10) < 5)
+                                    {
+                                        WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
+                                        WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSubSurfaceTile>());
+                                    }
+                                }
+                                else if (y == 5)
+                                {
+                                    if (Main.rand.Next(10) < 4)
+                                    {
+                                        WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
+                                        WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSubSurfaceTile>());
+                                    }
+                                }
+                                else if (y == 6)
+                                {
+                                    if (Main.rand.Next(10) < 3)
+                                    {
+                                        WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
+                                        WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSubSurfaceTile>());
+                                    }
+                                }
+                                else if (y == 7)
+                                {
+                                    if (Main.rand.Next(10) < 2)
+                                    {
+                                        WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
+                                        WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSubSurfaceTile>());
+                                    }
+                                }
+                                else if (y <= 8)
+                                {
+                                    if (Main.rand.Next(10) < 1)
+                                    {
+                                        WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this makes the explosion destroy tiles
+                                        WorldGen.PlaceTile(xPosition, yPosition, ModContent.TileType<NuclearWasteSubSurfaceTile>());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
+        private void CreateDust(Vector2 position, int amount)
+        {
+            Dust dust;
+            Vector2 updatedPosition;
 
+            for (int i = 0; i <= amount; i++)
+            {
+                if (Main.rand.NextFloat() < DustAmount)
+                {
+                    //---Dust 1---
+                    if (Main.rand.NextFloat() < 1f)
+                    {
+                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 6, 0f, 0.5f, 0, new Color(255, 0, 0), 4f)];
+                        dust.noGravity = true;
+                        dust.fadeIn = 0f;
+                        dust.noLight = true;
+                    }
+                    //------------
+                }
+            }
+        }
     }
 }

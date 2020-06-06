@@ -20,14 +20,14 @@ namespace ExtraExplosives.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Plane");
-            Main.projFrames[projectile.type] = 3;
+            Main.projFrames[projectile.type] = 4;
         }
 
         public override void SetDefaults()
         {
             projectile.tileCollide = false; //checks to see if the projectile can go through tiles
             projectile.width = 360;   //This defines the hitbox width
-            projectile.height = 198;    //This defines the hitbox height
+            projectile.height = 132;    //This defines the hitbox height
             projectile.aiStyle = 0;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
@@ -43,6 +43,15 @@ namespace ExtraExplosives.Projectiles
             Player player = Main.player[projectile.owner];
             //Main.NewText(projectile.timeLeft);
 
+            if (++projectile.frameCounter >= 5)
+            {
+                projectile.frameCounter = 0;
+                //projectile.frame = ++projectile.frame % Main.projFrames[projectile.type];
+                if (++projectile.frame >= 2)
+                {
+                    projectile.frame = 0;
+                }
+            }
 
             if (!firstTick)
             {
@@ -82,7 +91,7 @@ namespace ExtraExplosives.Projectiles
             if ((projectile.position.X / 16) <= ((player.position.X + 2000) / 16) && (projectile.position.X / 16) >= ((player.position.X - 2000) / 16)) //when in range, change sprite
             {
                 //Main.NewText("Set");
-                projectile.frame = 2;
+                projectile.frame = 3;
             }
 
             if ((projectile.position.X / 16) > (player.position.X / 16) && done == false) //the player is behind the plane
@@ -99,7 +108,7 @@ namespace ExtraExplosives.Projectiles
             if ((projectile.position.X <= player.position.X + 40 && projectile.position.X >= player.position.X - 40) && done == false) //searching for the player
             {
                 //Main.NewText("Drop the load");
-                projectile.frame = 3;
+                projectile.frame = 4;
                 done = true;
 
                 SpawnProjectileSynced(projectile.position, new Vector2(0,0), ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);

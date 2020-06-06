@@ -24,14 +24,16 @@ namespace ExtraExplosives.Tiles
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
-            Main.tileSolidTop[Type] = true;
+            //Main.tileSolidTop[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
             Main.tileWaterDeath[Type] = false;
             Main.tileLavaDeath[Type] = false;
             Main.tileNoAttach[Type] = true;
-
+            Main.tileShine[Type] = 1;
+            dustType = DustID.GreenBlood;
+            AddMapEntry(new Color(200, 200, 200));
             //drop = mod.ItemType("BasicExplosiveItem");
             //AddMapEntry(new Color(444, 222, 435));
 
@@ -40,11 +42,6 @@ namespace ExtraExplosives.Tiles
         public override void WalkDust(ref int dustType, ref bool makeDust, ref Color color)
         {
             base.WalkDust(ref dustType, ref makeDust, ref color);
-        }
-
-        public override void FloorVisuals(Player player)
-        {
-            base.FloorVisuals(player);
         }
     }
 

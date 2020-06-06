@@ -12,8 +12,6 @@ namespace ExtraExplosives.Projectiles
 {
     public class NukeProjectile : ModProjectile
     {
-        Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
         bool firstTick;
         SoundEffectInstance sound;
@@ -113,14 +111,12 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Explosion
             CreateExplosion(projectile.Center, 150);
 
-            for (int x = 0; x < 1; x++)
-            {
-                Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(40) + 10, Main.rand.Next(40) + 10, ModContent.ProjectileType<InvisibleNukeProjectile>(), 0, 0, projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square 
+            //for (int x = 0; x < 50; x++)
+            //{
+            //    SpawnProjectileSynced(new Vector2(projectile.position.X, projectile.position.Y), new Vector2(Main.rand.Next(15) - 7, Main.rand.Next(15) - 7), ModContent.ProjectileType<InvisibleNukeProjectile>(), 0, 0, 0, 0, projectile.owner);
+            //    //Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(40) + 10, Main.rand.Next(40) + 10, ModContent.ProjectileType<InvisibleNukeProjectile>(), 0, 0, projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square 
 
-            }
-
-            //Ending part that sets effects back to normal and sets the nuke active back to false.
-            //player.ResetEffects();
+            //}
 
         }
 

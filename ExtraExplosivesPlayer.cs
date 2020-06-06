@@ -118,7 +118,6 @@ namespace ExtraExplosives
 			{
 				Filters.Scene["BigBang"].Deactivate();
 			}
-
 		}
 
 
