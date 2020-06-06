@@ -56,7 +56,7 @@ namespace ExtraExplosives.Pets
             if (!firstTick)
             {
                 //Main.NewText(firstTick);
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 100, 0, projectile.owner);
+                Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, projectile.owner);
                 firstTick = true;
             } 
 

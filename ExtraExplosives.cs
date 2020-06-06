@@ -7,6 +7,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.UI;
 using static ExtraExplosives.GlobalMethods;
 
@@ -33,33 +34,50 @@ namespace ExtraExplosives
 
 		public ExtraExplosives()
 		{
-			
+
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
-			//Don't use as of right now
-			if (reader.ReadString() == "boom") //set to a byte, 
-			{
-				if (Main.netMode == NetmodeID.Server)//set the other players to have the same properties besides the client
-				{
-					ModPacket myPacket = GetPacket();
-					myPacket.Write("boom");
-					myPacket.Send(ignoreClient: whoAmI);
-				}
-				else//set what you want to happen
-				{
+			////Don't use as of right now
+			//if (reader.ReadString() == "boom") //set to a byte, 
+			//{
+			//	if (Main.netMode == NetmodeID.Server)//set the other players to have the same properties besides the client
+			//	{
+			//		ModPacket myPacket = GetPacket();
+			//		myPacket.Write("boom");
+			//		myPacket.Send(ignoreClient: whoAmI);
+			//	}
+			//	else//set what you want to happen
+			//	{
 
-					NukeActive = true;
-				}
-			}
+			//		NukeActive = true;
+			//	}
+			//}
 
-			if (reader.ReadString() == "Set")
+			//if (reader.ReadString() == "Set")
+			//{
+			//	if (Main.netMode == NetmodeID.Server)
+			//	{
+			//		ModPacket myPacket = GetPacket();
+			//		myPacket.Write("Set");
+			//		myPacket.Send(ignoreClient: whoAmI);
+			//	}
+			//	else
+			//	{
+			//		NukeActivated = true;
+			//	}
+			//}
+
+			//Vector2 pos = reader.ReadPackedVector2();
+			//NukePos = pos;
+
+			if (reader.ReadVarInt() == 1)
 			{
 				if (Main.netMode == NetmodeID.Server)
 				{
 					ModPacket myPacket = GetPacket();
-					myPacket.Write("Set");
+					myPacket.WriteVarInt(1);
 					myPacket.Send(ignoreClient: whoAmI);
 				}
 				else
@@ -68,8 +86,6 @@ namespace ExtraExplosives
 				}
 			}
 
-			Vector2 pos = reader.ReadPackedVector2();
-			NukePos = pos;
 		}
 
 		public override void PostSetupContent()

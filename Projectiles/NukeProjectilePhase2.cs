@@ -11,15 +11,12 @@ namespace ExtraExplosives.Projectiles
 {
     public class NukeProjectilePhase2 : ModProjectile
     {
-        Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
-
         internal static bool CanBreakWalls;
         bool done = false;
         bool reset = false;
         bool firstTick;
 
-        SoundEffectInstance soundPlane;
+        //SoundEffectInstance soundPlane;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Plane");
@@ -29,8 +26,8 @@ namespace ExtraExplosives.Projectiles
         public override void SetDefaults()
         {
             projectile.tileCollide = false; //checks to see if the projectile can go through tiles
-            projectile.width = 312;   //This defines the hitbox width
-            projectile.height = 144;    //This defines the hitbox height
+            projectile.width = 360;   //This defines the hitbox width
+            projectile.height = 198;    //This defines the hitbox height
             projectile.aiStyle = 0;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed

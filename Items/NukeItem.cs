@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Items
@@ -12,7 +13,7 @@ namespace ExtraExplosives.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("First Strike Controler");
+            DisplayName.SetDefault("First Strike Controller");
             Tooltip.SetDefault("Ok buddy, now you've gone too far...\n" +
                 "First strike capabilites \n" +
                 "[c/AB40FF:Can destroy dungeon bricks, desert fossil, and Lihzahrd blocks]");
@@ -66,6 +67,14 @@ namespace ExtraExplosives.Items
                 int xPosition = (int)(Main.maxTilesX / 16.0f);
                 //int yPosition = (int)(y + position.Y / 16.0f);
 
+                ExtraExplosives.NukeActivated = true;
+
+                if (Main.netMode == NetmodeID.MultiplayerClient)
+                {
+                    ModPacket myPacket = mod.GetPacket();
+                    myPacket.WriteVarInt(1);
+                    myPacket.Send();
+                }
 
                 //SpawnProjectileSynced(new Vector2(xPosition, 1500), new Vector2(30, 0), type, 0, 0, player.whoAmI);
                 Projectile.NewProjectile(xPosition, 1500, 30, 0, type, damage, knockBack, player.whoAmI);
@@ -74,15 +83,8 @@ namespace ExtraExplosives.Items
 
                 //Main.NewText(player.position);
 
-                ExtraExplosives.NukeActivated = true;
                 item.consumable = true;
 
-                //if (Main.netMode == NetmodeID.MultiplayerClient)
-                //{
-                //    ModPacket myPacket = mod.GetPacket();
-                //    myPacket.Write("Set");
-                //    myPacket.Send();
-                //}
             }
             else
             {

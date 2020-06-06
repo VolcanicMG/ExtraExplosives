@@ -1,21 +1,9 @@
-﻿using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
 using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using ExtraExplosives;
+using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
@@ -23,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class C4Projectile : ModProjectile
     {
         //Variables:
-        private bool freeze = false;
+        private bool freeze;
         private Vector2 positionToFreeze;
 
         public override void SetStaticDefaults()
@@ -33,7 +21,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; 
+            projectile.tileCollide = true;
             projectile.width = 32;
             projectile.height = 40;
             projectile.aiStyle = 16;
@@ -55,6 +43,7 @@ namespace ExtraExplosives.Projectiles
                 projectile.position.Y = positionToFreeze.Y;
                 projectile.velocity.X = 0;
                 projectile.velocity.Y = 0;
+                //projectile.rotation = 0;
             }
 
             return true;
@@ -80,7 +69,9 @@ namespace ExtraExplosives.Projectiles
                 projectile.velocity.Y = 0;
             }
 
-            base.PostAI();
+            
+
+
         }
 
         public override void Kill(int timeLeft)
