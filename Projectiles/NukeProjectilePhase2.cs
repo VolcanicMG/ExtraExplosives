@@ -26,15 +26,15 @@ namespace ExtraExplosives.Projectiles
         public override void SetDefaults()
         {
             projectile.tileCollide = false; //checks to see if the projectile can go through tiles
-            projectile.width = 360;   //This defines the hitbox width
-            projectile.height = 132;    //This defines the hitbox height
+            projectile.width = 536;   //This defines the hitbox width
+            projectile.height = 168;    //This defines the hitbox height
             projectile.aiStyle = 0;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
             projectile.timeLeft = 10000; //The amount of time the projectile is alive for
             //projectile.scale = 6f;
             projectile.netImportant = true;
-            //projectile.scale = 1.5f;
+            projectile.scale = .9f;
         }
 
 
@@ -134,11 +134,17 @@ namespace ExtraExplosives.Projectiles
                 ExtraExplosives.NukeHit = false;
             }
 
-            //Dust dust;
-            //Vector2 pos = new Vector2(projectile.position.X + projectile.height - 300 / 2, projectile.position.Y + 80);
-            //// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            //dust = Terraria.Dust.NewDustPerfect(pos, 35, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 3.289474f);
-            //dust.noGravity = true;
+            Dust dust;
+            Dust dust2;
+            Vector2 pos = new Vector2(projectile.position.X + projectile.width / 2 - 110, projectile.position.Y + projectile.height / 2 + 25);
+            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+            dust = Terraria.Dust.NewDustPerfect(pos, 35, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 3.289474f);
+            if (Main.rand.NextFloat() < 0.6578947f)
+            {
+                 dust2 = Terraria.Dust.NewDustPerfect(pos, 31, new Vector2(0f, 0f), 0, new Color(255, 255, 255), 4.605263f);
+                dust2.noGravity = true;
+            }
+            dust.noGravity = true;
 
 
         }

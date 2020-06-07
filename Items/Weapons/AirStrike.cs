@@ -33,7 +33,7 @@ namespace ExtraExplosives.Items.Weapons
 			item.damage = 200;
 			item.shootSpeed = 10f;
 			item.noMelee = true;
-			item.value = Item.buyPrice(0, 5, 0, 50);
+			item.value = Item.buyPrice(0, 30, 0, 50);
 			item.knockBack = 4f;
 			item.rare = 9;
 			item.ranged = true;

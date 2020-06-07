@@ -33,9 +33,9 @@ namespace ExtraExplosives.Items.Weapons
 			item.damage = 200;
 			item.shootSpeed = 10f;
 			item.noMelee = true;
-			item.value = Item.buyPrice(0, 5, 0, 50);
+			item.value = Item.buyPrice(0, 15, 0, 50);
 			item.knockBack = 4f;
-			item.rare = 9;
+			item.rare = 10;
 			item.ranged = true;
 
 		}
@@ -95,7 +95,6 @@ namespace ExtraExplosives.Items.Weapons
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.RocketLauncher, 1);
 			recipe.AddIngredient(ItemID.ChainGun, 1);
-			recipe.anyWood = true;
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

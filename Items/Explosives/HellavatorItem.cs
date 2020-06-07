@@ -35,7 +35,7 @@ namespace ExtraExplosives.Items.Explosives
             item.damage = 0;     //The damage stat for the Weapon.                
             item.width = 20;    //sprite width
             item.height = 20;   //sprite height
-            item.maxStack = 10;   //This defines the items max stack
+            item.maxStack = 1;   //This defines the items max stack
             item.consumable = true;  //Tells the game that this should be used up once fired
             item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example
             item.rare = 7;     //The color the title of your item when hovering over it ingame
@@ -53,10 +53,8 @@ namespace ExtraExplosives.Items.Explosives
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("MediumExplosiveItem"), 5);
-            recipe.AddIngredient(ItemID.StoneBlock, 200);
-            recipe.AddIngredient(ItemID.WoodPlatform, 50);
-            recipe.AddIngredient(ItemID.Torch, 30);
+            recipe.AddIngredient(ModContent.ItemType<HeavyBombItem>(), 5);
+            recipe.AddIngredient(ModContent.ItemType<DeliquidifierItem>(), 5);
             recipe.AddIngredient(ItemID.IronPickaxe, 2);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);

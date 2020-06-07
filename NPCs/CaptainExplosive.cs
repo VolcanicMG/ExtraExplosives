@@ -302,8 +302,7 @@ namespace ExtraExplosives.NPCs
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(mod.ItemType("GiganticExplosiveItem"));
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<FlashbangItem>());
-                nextSlot++;
+  
             }
 
             shop.item[nextSlot].SetDefaults(mod.ItemType("BasicExplosiveItem"));
@@ -331,6 +330,8 @@ namespace ExtraExplosives.NPCs
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<MeteoriteBusterItem>());
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<HellavatorItem>());
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<FlashbangItem>());
             nextSlot++;
 
         }

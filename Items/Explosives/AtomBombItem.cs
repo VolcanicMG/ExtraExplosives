@@ -39,7 +39,7 @@ namespace ExtraExplosives.Items.Explosives
             item.maxStack = 999;   //This defines the items max stack
             item.consumable = true;  //Tells the game that this should be used up once fired
             item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example
-            item.rare = 7;     //The color the title of your item when hovering over it ingame
+            item.rare = 11;     //The color the title of your item when hovering over it ingame
             item.UseSound = SoundID.Item1; //The sound played when using this item
             item.useAnimation = 20;  //How long the item is used for.
             // item.useTime = 20;     //How fast the item is used.
@@ -55,11 +55,12 @@ namespace ExtraExplosives.Items.Explosives
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("LargeExplosiveItem"), 2);
-            recipe.AddIngredient(ItemID.Dynamite, 2);
-            recipe.AddIngredient(ItemID.Gel, 20);
-            recipe.AddIngredient(ItemID.StoneBlock, 10);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.FragmentNebula, 1);
+            recipe.AddIngredient(ItemID.FragmentSolar, 1);
+            recipe.AddIngredient(ItemID.FragmentStardust, 1);
+            recipe.AddIngredient(ItemID.FragmentVortex, 1);
+            recipe.AddIngredient(ItemID.LunarBar, 1);
+            recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
 

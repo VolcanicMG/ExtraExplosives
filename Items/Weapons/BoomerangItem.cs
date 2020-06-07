@@ -38,7 +38,6 @@ namespace ExtraExplosives.Items.Weapons
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Flamarang, 1);
 			recipe.AddIngredient(ItemID.Dynamite, 2);
-			recipe.anyWood = true;
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

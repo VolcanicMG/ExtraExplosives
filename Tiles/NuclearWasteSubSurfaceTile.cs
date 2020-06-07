@@ -15,6 +15,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives.Buffs;
 
 namespace ExtraExplosives.Tiles
 {
@@ -24,14 +25,18 @@ namespace ExtraExplosives.Tiles
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
-            Main.tileSolidTop[Type] = true;
+            //Main.tileSolidTop[Type] = true;
             Main.tileMergeDirt[Type] = true;
-            Main.tileBlockLight[Type] = false;
+            //Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
-            Main.tileWaterDeath[Type] = true;
-            Main.tileLavaDeath[Type] = true;
+            Main.tileWaterDeath[Type] = false;
+            Main.tileLavaDeath[Type] = false;
             Main.tileNoAttach[Type] = true;
-
+            //Main.tileShine[Type] = 2;
+            //Main.shine(new Color(124f, 252f, 0f), 100);
+            dustType = DustID.GreenBlood;
+            AddMapEntry(new Color(124, 252, 0));
+            Main.tileBlendAll[Type] = true;
             //drop = mod.ItemType("BasicExplosiveItem");
             //AddMapEntry(new Color(444, 222, 435));
 
@@ -42,9 +47,18 @@ namespace ExtraExplosives.Tiles
             base.WalkDust(ref dustType, ref makeDust, ref color);
         }
 
+        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            //add lighting
+            Lighting.AddLight(new Vector2(i, j) * 16, new Vector3(124f / 255f, 252f / 255f, 0f / 255f));
+            Lighting.maxX = 50;
+            Lighting.maxY = 50;
+            return base.PreDraw(i, j, spriteBatch);
+        }
+
         public override void FloorVisuals(Player player)
         {
-            base.FloorVisuals(player);
+            player.AddBuff(ModContent.BuffType<RadiatedDebuff>(), 1500);
         }
     }
 
