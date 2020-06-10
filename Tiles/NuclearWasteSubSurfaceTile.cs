@@ -60,6 +60,7 @@ namespace ExtraExplosives.Tiles
         {
             player.AddBuff(ModContent.BuffType<RadiatedDebuff>(), 1500);
         }
+
     }
 
 }

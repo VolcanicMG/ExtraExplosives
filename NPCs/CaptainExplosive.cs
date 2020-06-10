@@ -43,10 +43,10 @@ namespace ExtraExplosives.NPCs
             Main.npcFrameCount[npc.type] = 25; //npc defines how many frames the npc sprite sheet has
             NPCID.Sets.ExtraFramesCount[npc.type] = 9;
             NPCID.Sets.AttackFrameCount[npc.type] = 4;
-            NPCID.Sets.DangerDetectRange[npc.type] = 1000; //150 //npc defines the npc danger detect range
+            NPCID.Sets.DangerDetectRange[npc.type] = 750; //150 //npc defines the npc danger detect range
             NPCID.Sets.AttackType[npc.type] = 0; //npc is the attack type,  0 (throwing), 1 (shooting), or 2 (magic). 3 (melee)
             NPCID.Sets.AttackTime[npc.type] = 50; //npc defines the npc attack speed
-            NPCID.Sets.AttackAverageChance[npc.type] = 5;//npc defines the npc atack chance
+            NPCID.Sets.AttackAverageChance[npc.type] = 20;//npc defines the npc atack chance
             NPCID.Sets.HatOffsetY[npc.type] = 4; //npc defines the party hat position
 
         }
@@ -60,7 +60,7 @@ namespace ExtraExplosives.NPCs
             npc.height = 56;  //the npc sprite height
             npc.aiStyle = 7; //npc is the npc ai style, 7 is Pasive Ai
             npc.defense = 25;  //the npc defense
-            npc.lifeMax = 400;// the npc life
+            npc.lifeMax = 600;// the npc life
             npc.HitSound = SoundID.NPCHit1;  //the npc sound when is hit
             npc.DeathSound = SoundID.NPCDeath1;  //the npc sound when he dies
             npc.knockBackResist = 0.5f;  //the npc knockback resistance
@@ -353,7 +353,7 @@ namespace ExtraExplosives.NPCs
         }
         public override void TownNPCAttackStrength(ref int damage, ref float knockback)//  Allows you to determine the damage and knockback of npc town NPC attack
         {
-            damage = 40;  //npc damage
+            damage = 150;  //npc damage
             knockback = 2f;   //npc knockback
         }
 

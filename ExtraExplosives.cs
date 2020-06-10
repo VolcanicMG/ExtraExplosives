@@ -39,6 +39,7 @@ namespace ExtraExplosives
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
+			int check = reader.ReadVarInt();
 			////Don't use as of right now
 			//if (reader.ReadString() == "boom") //set to a byte, 
 			//{
@@ -72,7 +73,7 @@ namespace ExtraExplosives
 			//Vector2 pos = reader.ReadPackedVector2();
 			//NukePos = pos;
 
-			if (reader.ReadVarInt() == 1) //to make sure only one player can spawn in a nuke at a time in MP
+			if (check == 1) //to make sure only one player can spawn in a nuke at a time in MP
 			{
 				if (Main.netMode == NetmodeID.Server)
 				{
@@ -83,6 +84,20 @@ namespace ExtraExplosives
 				else
 				{
 					NukeActivated = true;
+				}
+			}
+
+			if (check == 2) //sets NukeHit to false for all players
+			{
+				if (Main.netMode == NetmodeID.Server)
+				{
+					ModPacket myPacket = GetPacket();
+					myPacket.WriteVarInt(2);
+					myPacket.Send(ignoreClient: whoAmI);
+				}
+				else
+				{
+					NukeHit = false;
 				}
 			}
 

@@ -9,6 +9,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class BoomerangProjectile : ModProjectile
     {
+        bool HitSomeThing;
 
         public override void SetStaticDefaults()
         {
@@ -31,21 +32,38 @@ namespace ExtraExplosives.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            projectile.Kill();
-        }
-
-
-        public override void Kill(int timeLeft)
-        {
+            HitSomeThing = true;
 
             //Create Bomb Sound
             Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
             //Create Bomb Damage
-            ExplosionDamage(3f, projectile.Center, 46, 20, projectile.owner);
+            ExplosionDamage(3f, projectile.Center, 50, 20, projectile.owner);
 
             //Create Bomb Dust
             CreateDust(projectile.Center, 10);
+
+
+            //projectile.Kill();
+        }
+
+
+        public override void Kill(int timeLeft)
+        {
+            if (Main.rand.NextFloat() < .2f && HitSomeThing == false)
+            {
+                //Create Bomb Sound
+                Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+
+                //Create Bomb Damage
+                ExplosionDamage(3f, projectile.Center, 50, 20, projectile.owner);
+
+                //Create Bomb Dust
+                CreateDust(projectile.Center, 10);
+
+
+                projectile.Kill();
+            }
 
         }
 

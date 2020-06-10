@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader.IO;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -132,6 +133,13 @@ namespace ExtraExplosives.Projectiles
             {
                 projectile.timeLeft = 100;
                 ExtraExplosives.NukeHit = false;
+
+                if (Main.netMode == NetmodeID.MultiplayerClient) //set NukeHit to false for all players
+                {
+                    ModPacket myPacket = mod.GetPacket();
+                    myPacket.WriteVarInt(2);
+                    myPacket.Send();
+                }
             }
 
             Dust dust;
