@@ -15,6 +15,13 @@ Found an issue or a bug, let us know on discord, our homepage, or through Mod He
 Check our wiki for a full list
 
 [c/1cac78:CHANGELOG:]
+V2.1.1
+Changed the BOOMerang to be more user friendly
+Changed the small bomb buy amount to 18 silver
+Changed a few things with Captain Explosive to make him more balanced
+Change the NPC projectile so that it won't harm captain explosive or the player
+Added the rainboom
+Added more net coding for the nuke to minimize errors in MP
 V2.1
 Removed Captain Explosives Spawner Item
 Completed The Extra Explosives Github Wiki

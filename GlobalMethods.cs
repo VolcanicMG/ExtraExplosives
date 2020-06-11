@@ -209,6 +209,7 @@ namespace ExtraExplosives
         }
 
         //from CosmivengeonMod:
+        //spawns in a Projectile that is synced with the server
         public static void SpawnProjectileSynced(Vector2 position, Vector2 velocity, int type, int damage, float knockback, float ai0 = 0f, float ai1 = 0f, int owner = 255)
         {
             if (owner == 255)
