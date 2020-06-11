@@ -216,9 +216,6 @@ namespace ExtraExplosives
 		{
 
 			Logger.InfoFormat("{0} Extra Explosives logger", Name);
-			//REMOVE NEXT LINE BEFORE MERGE
-			Logger.Info("This is an unstable version of ExtraExplosive and should only be used for development\n" +
-			            "DO NOT TRY TO LOAD THIS, IT WILL BREAK");
 			
 			ExtraExplosivesUserInterface = new UserInterface();
 			ExtraExplosivesReforgeBombInterface = new UserInterface();
