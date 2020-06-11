@@ -23,6 +23,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class ExplosionDamageProjectile : ModProjectile
     {
+        
         //Variables:
         internal static float DamageRadius;
 

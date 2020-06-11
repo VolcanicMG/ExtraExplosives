@@ -20,7 +20,6 @@ namespace ExtraExplosives.Projectiles
 {
     public class TorchBombProjectile : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Torch Bomb");

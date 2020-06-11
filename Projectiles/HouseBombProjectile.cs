@@ -22,6 +22,10 @@ namespace ExtraExplosives.Projectiles
 {
     public class HouseBombProjectile : ModProjectile
     {
+        
+        // Variables
+        private const int PickPower = 0;
+        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("HouseBomb");
@@ -88,7 +92,8 @@ namespace ExtraExplosives.Projectiles
 
                     if (WorldGen.InWorld(xPosition, yPosition))
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (CheckForUnbreakableTiles(tile) || !CanBreakTile(tile, PickPower)) //Unbreakable
                         {
 
                         }

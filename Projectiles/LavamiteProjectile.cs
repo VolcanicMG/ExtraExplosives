@@ -22,6 +22,10 @@ namespace ExtraExplosives.Projectiles
 {
     public class LavamiteProjectile : ModProjectile
     {
+        
+        // Variables
+        private const int PickPower = 0;
+        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lavamite");
@@ -71,13 +75,14 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (CheckForUnbreakableTiles(tile) || !CanBreakTile(tile, PickPower)) //Unbreakable
                         {
 
                         }
                         else //Breakable
                         {
-                            
+                            // Seems unnecessary but left in just in case
                         }
 
                         if (WorldGen.TileEmpty((int)(x + position.X / 16.0f), (int)(y + position.Y / 16.0f)))

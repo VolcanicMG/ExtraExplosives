@@ -27,6 +27,7 @@ namespace ExtraExplosives.Projectiles
         //Variables
         bool firstTick;
         SoundEffectInstance sound;
+        private const int PickPower = 0;
 
         public override void SetStaticDefaults()
         {
@@ -133,7 +134,8 @@ namespace ExtraExplosives.Projectiles
                         Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (CheckForUnbreakableTiles(tile) || !CanBreakTile(tile, PickPower)) //Unbreakable
                         {
                             if (Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
                                 || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||

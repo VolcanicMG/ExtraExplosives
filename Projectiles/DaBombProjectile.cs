@@ -24,6 +24,7 @@ namespace ExtraExplosives.Projectiles
     {
         //Variables:
         public bool buffActive;
+        private const int PickPower = 0;
 
         public override void SetStaticDefaults()
         {
@@ -86,7 +87,8 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (CheckForUnbreakableTiles(tile) || !CanBreakTile(tile, PickPower)) //Unbreakable
                         {
 
                         }
