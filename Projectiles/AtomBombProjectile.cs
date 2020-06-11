@@ -22,6 +22,10 @@ namespace ExtraExplosives.Projectiles
 {
     public class AtomBombProjectile : ModProjectile
     {
+        
+        //Variables
+        private const int PickPower = -1;
+        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Atom Bomb");
@@ -58,10 +62,14 @@ namespace ExtraExplosives.Projectiles
 
         private void CreateExplosion(Vector2 position, int radius)
         {
-            int xPosition = (int)(position.X / 16.0f);
-            int yPosition = (int)(position.Y / 16.0f);
-            WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this make the explosion destroy tiles  
-        }
+            int xPosition = (int) (position.X / 16.0f);
+            int yPosition = (int) (position.Y / 16.0f);
+            ushort tile = Main.tile[xPosition, yPosition].type;
+            if (CanBreakTile(tile, PickPower)) // Add this to allow for some level of control of what it can break
+            {                                  // Pickaxe Power is currently set to -1, so the method is set to default to true
+                WorldGen.KillTile(xPosition, yPosition, false, false, true); //this make the explosion destroy tiles  
+            }
+    }
 
         private void CreateDust(Vector2 position, int amount)
         {

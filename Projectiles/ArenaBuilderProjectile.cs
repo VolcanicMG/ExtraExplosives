@@ -22,6 +22,10 @@ namespace ExtraExplosives.Projectiles
 {
     public class ArenaBuilderProjectile : ModProjectile
     {
+        
+        // Variables
+        private const int PickPower = 0;
+        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("ArenaBuilder");
@@ -87,7 +91,8 @@ namespace ExtraExplosives.Projectiles
 
                     if (!OutOfBounds(xPosition, yPosition))
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (CheckForUnbreakableTiles(tile) || !CanBreakTile(tile, PickPower)) //Unbreakable
                         {
                             if (Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
                                 || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.DesertFossil)

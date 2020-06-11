@@ -9,7 +9,6 @@ namespace ExtraExplosives.Projectiles
 {
     public class BoomerangProjectile : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("BOOMerang");

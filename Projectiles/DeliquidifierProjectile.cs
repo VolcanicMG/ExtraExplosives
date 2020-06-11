@@ -22,6 +22,10 @@ namespace ExtraExplosives.Projectiles
 {
     public class DeliquidifierProjectile : ModProjectile
     {
+        
+        // Variables
+        private const int PickPower = 0;
+        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Deliquidifier");
@@ -64,13 +68,14 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (CheckForUnbreakableTiles(tile) || !CanBreakTile(tile, PickPower)) //Unbreakable
                         {
 
                         }
                         else //Breakable
                         {
-                            
+                            // Fairly sure this doesnt need to be here (if and else) left in just in case im missing something
                         }
 
                         Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water; //Removes Liquid

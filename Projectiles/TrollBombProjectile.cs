@@ -23,6 +23,10 @@ namespace ExtraExplosives.Projectiles
 {
     public class TrollBombProjectile : ModProjectile
     {
+        
+        // Variables
+        private const int PickPower = 0;
+        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("TrollBomb");
@@ -84,7 +88,8 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (CheckForUnbreakableTiles(tile) || !CanBreakTile(tile, PickPower)) //Unbreakable
                         {
 
                         }

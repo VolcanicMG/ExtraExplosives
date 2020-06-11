@@ -23,11 +23,12 @@ namespace ExtraExplosives.Projectiles
 {
     public class ReforgeBombProjectile : ModProjectile
     {
+        
+        // Variables
         //Mod CalamityMod = ModLoader.GetMod("CalamityMod");
         //Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
         internal static bool CanBreakWalls;
-
 
         public override void SetStaticDefaults()
         {
