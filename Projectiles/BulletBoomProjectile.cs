@@ -1,19 +1,37 @@
 ﻿using IL.Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ExtraExplosives.Projectiles
 {
     public class BulletBoomProjectile : ModProjectile
     {
-        internal static bool CanBreakWalls;
+        public override bool CloneNewInstances => true;    // DONT CHANGE
+        public override string Texture => "ExtraExplosives/Items/Explosives/BulletBoomItem";    // texture, change if needed
+        
+        // Variables
+        private int proj;
+        private string projName;
+        internal static bool CanBreakWalls;    // doesnt seem necessary but left alone just in case
+
+        // Constructor for the projectiles
+        public BulletBoomProjectile(int proj, string projName)
+        {
+            this.proj = proj;
+            this.projName = projName;
+        }
+        
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BulletBoom");
+            DisplayName.SetDefault(projName + " Bullet Boom Projectile");    // internal name only, will not have a space for the projName piece
         }
+        
+        
 
         public override void SetDefaults()
         {
@@ -23,9 +41,8 @@ namespace ExtraExplosives.Projectiles
             projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
             projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             projectile.penetrate = 1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 40; //The amsadount of time the projectile is alive for
+            projectile.timeLeft = 40; //The amount of time the projectile is alive for
         }
-
         public override bool OnTileCollide(Vector2 old)
         {
             projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
@@ -72,7 +89,7 @@ namespace ExtraExplosives.Projectiles
                             spedY = Main.rand.Next(15) - 7;
                             if (spedX == 0) spedX = 1;
                             if (spedY == 0) spedY = 1;
-                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 286, 75, 20, projectile.owner, 0.0f, 0);
+                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, 75, 20, projectile.owner, 0.0f, 0);
                         }
                         else
                         {
@@ -80,7 +97,7 @@ namespace ExtraExplosives.Projectiles
                             spedY = Main.rand.Next(15) - 7;
                             if (spedX == 0) spedX = 1;
                             if (spedY == 0) spedY = 1;
-                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, 286, 75, 20, projectile.owner, 0.0f, 0);
+                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, 75, 20, projectile.owner, 0.0f, 0);
                         }
 
                     }
@@ -113,5 +130,8 @@ namespace ExtraExplosives.Projectiles
                 }
             }
         }
+        
+        
+
     }
 }
