@@ -39,7 +39,8 @@ namespace ExtraExplosives
         [Header("Explosives Dust/Particle Settings")]
         [Label("Set Dust/Particle amount" +
             "\n1 = Max" +
-            "\n0 = None")]
+            "\n0 = None" +
+            "\nCurrent amount")]
         [Increment(0.1f)]
         [Range(0f, 1f)]
         [DefaultValue(1f)]

@@ -330,15 +330,15 @@ namespace ExtraExplosives.NPCs
             switch (Main.rand.Next(10))    //npc are the messages when you talk to the npc
             {
                 case 0:
-                    return "Psst... PSSST... Hows it going?";
+                    return "Psst... PSSST... how's it going?";
                 case 1:
-                    return "I have bombs, TONS OF BOMBS!!!";
+                    return "I have bombs. TONS OF BOMBS!!!";
                 case 2:
-                    return "Get scammed by the tinkerer yet?";
+                    return "Get scammed by the Tinkerer yet?";
                 case 3:
-                    return "My explosives are too powerful for mortal man... why I'd say its impossible for you to even consider... Oh wait... Your a sprite. Nevermind, carry on!";
+                    return "My explosives are too powerful for a mortal man... why, I'd say it's impossible for you to even consider... oh, wait... you're a sprite. Nevermind, carry on!";
                 case 4:
-                    return "< Not Responsible For Any Causualties That May Or May Not Result From These Devices >";
+                    return "< Not Responsible for Any Causualties that May or May Not Result from these Devices >";
                 case 5:
                     return "Like I, your friend... the one you worked so hard for... would sell you items that could hurt you. *scoffs* Nonsense!";
                 case 6:
