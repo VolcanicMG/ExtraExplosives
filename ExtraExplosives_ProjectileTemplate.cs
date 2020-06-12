@@ -22,6 +22,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class ExtraExplosives_ProjectileTemplate : ModProjectile
     {
+        private const int PickPower = 0;
         public override string Texture => "ExtraExplosives/Projectiles/BulletBoomProjectile"; //DELETE THIS LINE AFTER YOU COPY/PASTE ###################################
 
         public override void SetStaticDefaults()
@@ -66,9 +67,10 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) || 
                         {
-                            
+
                         }
                         else //Breakable
                         {

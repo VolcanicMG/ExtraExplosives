@@ -8,17 +8,6 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
-using System.Collections.Generic;
-using System.Linq;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using ExtraExplosives;
-using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -26,6 +15,7 @@ namespace ExtraExplosives.Projectiles
     {
         //Variables
         bool firstTick;
+        private const int PickPower = 250;
         SoundEffectInstance sound;
 
         public override void SetStaticDefaults()
@@ -133,14 +123,10 @@ namespace ExtraExplosives.Projectiles
                         Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) || 
                         {
-                            if (Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
-                                || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium ||
-                                Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DesertFossil)
-                            {
-                                WorldGen.KillTile(xPosition, yPosition, false, false, true);
-                            }
+
                         }
                         else //Breakable
                         {
@@ -179,28 +165,26 @@ namespace ExtraExplosives.Projectiles
                         Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) || 
                         {
-                            if (Main.tile[xPosition, yPosition].type == TileID.BlueDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.GreenDungeonBrick
-                                || Main.tile[xPosition, yPosition].type == TileID.PinkDungeonBrick || Main.tile[xPosition, yPosition].type == TileID.Cobalt || Main.tile[xPosition, yPosition].type == TileID.Palladium || Main.tile[xPosition, yPosition].type == TileID.Mythril || Main.tile[xPosition, yPosition].type == TileID.Orichalcum
-                                || Main.tile[xPosition, yPosition].type == TileID.Adamantite || Main.tile[xPosition, yPosition].type == TileID.Titanium || Main.tile[xPosition, yPosition].type == TileID.Chlorophyte || Main.tile[xPosition, yPosition].type == TileID.DesertFossil)
+
+                            if (!WorldGen.TileEmpty(xPosition, yPosition)) //Runs when a tile is not equal empty
                             {
-                                if (!WorldGen.TileEmpty(xPosition, yPosition)) //Runs when a tile is not equal empty
+                                if (Main.rand.Next(10) < spawnChance)
                                 {
-                                    if (Main.rand.Next(10) < spawnChance)
+                                    WorldGen.KillTile(xPosition, yPosition, false, false, true);
+                                    if (WorldGen.TileEmpty(xPosition + 1, yPosition) || WorldGen.TileEmpty(xPosition - 1, yPosition) || WorldGen.TileEmpty(xPosition, yPosition + 1) || WorldGen.TileEmpty(xPosition, yPosition - 1))
                                     {
-                                        WorldGen.KillTile(xPosition, yPosition, false, false, true);
-                                        if (WorldGen.TileEmpty(xPosition + 1, yPosition) || WorldGen.TileEmpty(xPosition - 1, yPosition) || WorldGen.TileEmpty(xPosition, yPosition + 1) || WorldGen.TileEmpty(xPosition, yPosition - 1))
-                                        {
-                                            WorldGen.PlaceTile(xPosition, yPosition, surfaceTile);
-                                        }
-                                        else
-                                        {
-                                            WorldGen.PlaceTile(xPosition, yPosition, subSurfaceTile);
-                                        }
+                                        WorldGen.PlaceTile(xPosition, yPosition, surfaceTile);
+                                    }
+                                    else
+                                    {
+                                        WorldGen.PlaceTile(xPosition, yPosition, subSurfaceTile);
                                     }
                                 }
                             }
+
                         }
                         else //Breakable
                         {

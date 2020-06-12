@@ -25,7 +25,7 @@ namespace ExtraExplosives.Items.Explosives
         {
             DisplayName.SetDefault("The Leveler");
             Tooltip.SetDefault("Levels a 100 x 20 space. Blows up immediately\n" +
-                "[c/AB40FF:Can destroy desert fossil]");
+                "[c/AB40FF:Can destroy dungeon bricks and desert fossil]");
         }
 
         public override void SetDefaults()

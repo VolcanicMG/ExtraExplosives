@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles
         //Variables:
         private bool freeze;
         private Vector2 positionToFreeze;
-
+        private const int PickPower = 70;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("C4");
@@ -100,12 +100,10 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) || 
                         {
-                            if (Main.tile[xPosition, yPosition].type == TileID.DesertFossil)
-                            {
-                                WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
-                            }
+                            
                         }
                         else //Breakable
                         {

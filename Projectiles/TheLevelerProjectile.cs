@@ -14,6 +14,7 @@ namespace ExtraExplosives.Projectiles
         Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
         internal static bool CanBreakWalls;
+        private const int PickPower = 65;
 
         public override void SetStaticDefaults()
         {
@@ -82,12 +83,10 @@ namespace ExtraExplosives.Projectiles
 
                     if (WorldGen.InWorld(xPosition, yPosition)) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) || 
                         {
-                            if (Main.tile[xPosition, yPosition].type == TileID.DesertFossil)
-                            {
-                                WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles  
-                            }
+
                         }
                         else //Breakable
                         {

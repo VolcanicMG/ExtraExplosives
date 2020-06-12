@@ -22,6 +22,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class SmallExplosiveProjectile : ModProjectile
     {
+        private const int PickPower = 35;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("SmallExplosive");
@@ -64,7 +65,8 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) || 
                         {
 
                         }

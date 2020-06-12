@@ -22,6 +22,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class ClusterBombChildProjectile : ModProjectile
     {
+        private const int PickPower = 50;
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("ClusterBomb");
@@ -51,8 +52,7 @@ namespace ExtraExplosives.Projectiles
 
             //Create Bomb Explosion
             CreateExplosion(projectile.Center, 9);
-
-            
+ 
         }
 
         private void CreateExplosion(Vector2 position, int radius)
@@ -66,7 +66,8 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) || 
                         {
 
                         }

@@ -30,6 +30,7 @@ namespace ExtraExplosives.NPCs
     {
         //Variables:
         public static bool CaptianIsDed = true;
+        private const int PickPower = 50;
 
         public override bool Autoload(ref string name)
         {
@@ -64,6 +65,7 @@ namespace ExtraExplosives.NPCs
             npc.HitSound = SoundID.NPCHit1;  //the npc sound when is hit
             npc.DeathSound = SoundID.NPCDeath1;  //the npc sound when he dies
             npc.knockBackResist = 0.5f;  //the npc knockback resistance
+            npc.boss = false;
             animationType = NPCID.Guide;  //npc copy the guide animation
         }
 
@@ -122,15 +124,17 @@ namespace ExtraExplosives.NPCs
 
             //Create Bomb Sound
             Main.PlaySound(SoundID.Item14, (int)npc.Center.X, (int)npc.Center.Y);
-
+            
+            //Create Bomb Dust
+            CreateDust(npc.Center, 100);
+            
             //Create Bomb Damage
             ExplosionDamage(12f * 1.5f, npc.Center, 1000, 40, Main.myPlayer);
 
             //Create Bomb Explosion
             CreateExplosion(npc.Center, 12);
 
-            //Create Bomb Dust
-            CreateDust(npc.Center, 100);
+            
 
             return base.CheckDead();
         }
@@ -146,7 +150,8 @@ namespace ExtraExplosives.NPCs
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        if (CheckForUnbreakableTiles(Main.tile[xPosition, yPosition].type)) //Unbreakable
+                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) || 
                         {
 
                         }

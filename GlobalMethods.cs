@@ -174,39 +174,39 @@ namespace ExtraExplosives
         /// <param name="posX"> This is the tiles X Position - Try: xPosition </param>
         /// <param name="posY"> This is the tiles Y Position - Try: yPosition </param>
         /// <returns> Returns [true] if the tile is unbreakable </returns>
-        public static Boolean CheckForUnbreakableTiles(int Tile)
-        {
-            Boolean flag = false; //Used to check if a tile is unbreakable - If true, then the tile is unbreakable
-            int LargestListNumber = 70; //Used to limit the UnbreakableTileLoop, number must be larger then the largest list of unbreakable tiles
+        //public static Boolean CheckForUnbreakableTiles(int Tile)
+        //{
+        //    Boolean flag = false; //Used to check if a tile is unbreakable - If true, then the tile is unbreakable
+        //    int LargestListNumber = 70; //Used to limit the UnbreakableTileLoop, number must be larger then the largest list of unbreakable tiles
 
-            //Tests If Tile Is OutOfBounds
-            //if (posX < 0 || posY < 0 || posX > Main.maxTilesX || posY > Main.maxTilesY)
-            //    return true;
+        //    //Tests If Tile Is OutOfBounds
+        //    //if (posX < 0 || posY < 0 || posX > Main.maxTilesX || posY > Main.maxTilesY)
+        //    //    return true;
 
-            for (int i = 0; i < LargestListNumber; i++) //Loop runs through all lists of unbrakable tiles and throws a flag if an unbreakable tile is found
-            {
-                //Checks For Vanilla Unbreakable Tiles
-                if ((true) && (i < Vanilla_UnbreakableTiles.Length))
-                    if (Tile == Vanilla_UnbreakableTiles[i])
-                        flag = true;
+        //    for (int i = 0; i < LargestListNumber; i++) //Loop runs through all lists of unbrakable tiles and throws a flag if an unbreakable tile is found
+        //    {
+        //        //Checks For Vanilla Unbreakable Tiles
+        //        if ((true) && (i < Vanilla_UnbreakableTiles.Length))
+        //            if (Tile == Vanilla_UnbreakableTiles[i])
+        //                flag = true;
 
-                //Checks For Calamity Unbreakable Tiles
-                if ((CalamityMod != null) && (i < CalamityMod_UnbreakableTiles.Length))
-                    if (Tile == CalamityMod_UnbreakableTiles[i])
-                        flag = true;
+        //        //Checks For Calamity Unbreakable Tiles
+        //        if ((CalamityMod != null) && (i < CalamityMod_UnbreakableTiles.Length))
+        //            if (Tile == CalamityMod_UnbreakableTiles[i])
+        //                flag = true;
 
-                //Checks For Thorium Unbreakable Tiles
-                if ((ThoriumMod != null) && (i < ThoriumMod_UnbreakableTiles.Length))
-                    if (Tile == ThoriumMod_UnbreakableTiles[i])
-                        flag = true;
+        //        //Checks For Thorium Unbreakable Tiles
+        //        if ((ThoriumMod != null) && (i < ThoriumMod_UnbreakableTiles.Length))
+        //            if (Tile == ThoriumMod_UnbreakableTiles[i])
+        //                flag = true;
 
-                //Breaks if flag is triggered
-                if (flag)
-                    break;
+        //        //Breaks if flag is triggered
+        //        if (flag)
+        //            break;
 
-            }
-            return flag; //Returns flag
-        }
+        //    }
+        //    return flag; //Returns flag
+        //}
 
         //from CosmivengeonMod:
         //spawns in a Projectile that is synced with the server
@@ -225,7 +225,97 @@ namespace ExtraExplosives
 
         //============================================================================\\
 
+        //check if the tile can be broken or not
+        public static bool CanBreakTile(int tileId, int pickPower)
+        {
+            if (tileId < 470)
+            {
+                // Dynamic mod tile functionality at the bottom
+                if (pickPower == -1)
+                    return true; // Override so an item can be set to ignore pickaxe power and destory everything
+                if (pickPower <= -2)
+                    return false; // Override so an item can be set to not damage anything ever also catches invalid garbage
+                // this is for all blocks which can be destroyed by any pickaxe
+                if (Main.tileNoFail[tileId])
+                {
+                    return true;
+                }
 
+                if (tileId == (TileID.DefendersForge | TileID.Containers | TileID.Containers2 | TileID.DemonAltar | TileID.FakeContainers | TileID.TrashCan | TileID.Dressers))
+                {
+                    return false;
+                }
+
+                if(tileId == TileID.DesertFossil && pickPower < 65)
+                {
+                    return false;
+                }
+
+                // Meteorite (Power 50)
+                if (tileId == 37 && pickPower < 50)
+                {
+                    return false;
+                }
+
+                // Demonite & Crimtane Ores (Power 55)
+                if ((tileId == 22 || tileId == 204) && pickPower < 55)
+                {
+                    return false;
+                }
+
+                // Obsidian & Ebonstone Hellstone Pearlstone and Crimstone Blocks (Power 65)
+                if ((tileId == 56 || tileId == 25 || tileId == 58 || tileId == 117 || tileId == 203) &&
+                    pickPower < 65)
+                {
+                    return false;
+                }
+
+                // Dungeon Bricks (Power 65)
+                // Seperate from Obsidian block to allow for future functionality to better reflect base game mechanics
+                if ((tileId == 41 || tileId == 43 || tileId == 44) && pickPower < 65)
+                {
+                    return false;
+                }
+
+                // Cobalt & Palladium (Power 100)
+                if ((tileId == 107 || tileId == 221) && pickPower < 100)
+                {
+                    return false;
+                }
+
+                // Mythril & Orichalcum (Power 110)
+                if ((tileId == 108 || tileId == 222) && pickPower < 110)
+                {
+                    return false;
+                }
+
+                // Adamantite & Titanium (Power 150)
+                if ((tileId == 111 || tileId == 223) && pickPower < 150)
+                {
+                    return false;
+                }
+
+                // Chlorophyte Ore (Power 200)
+                if (tileId == 211 && pickPower < 200)
+                {
+                    return false;
+                }
+
+                // Lihzahrd Brick (Power 210) todo add additional checks for Lihzahrd traps and the locked temple door
+                if ((tileId == 226 || tileId == 237 || tileId == 1137) && pickPower < 210)
+                {
+                    return false;
+                }
+            }
+            // If the tile is modded, will need updating when tml is updated
+            if (tileId > 469)
+            {
+                int tileResistance = GetModTile(tileId).minPick;
+                if (tileResistance <= pickPower) return true;
+                return false;
+            }
+            return true;
+        }
 
 
 
