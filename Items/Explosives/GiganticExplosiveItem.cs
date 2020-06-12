@@ -53,11 +53,11 @@ namespace ExtraExplosives.Items.Explosives
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("MegaExplosiveItem"), 1);
-            recipe.AddIngredient(mod.ItemType("LargeExplosiveItem"), 1);
-            recipe.AddIngredient(mod.ItemType("MediumExplosiveItem"), 1);
-            recipe.AddIngredient(mod.ItemType("SmallExplosiveItem"), 1);
-            recipe.AddIngredient(mod.ItemType("BasicExplosiveItem"), 1);
+            recipe.AddIngredient(ModContent.ItemType<MegaExplosiveItem>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<LargeExplosiveItem>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<MediumExplosiveItem>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<SmallExplosiveItem>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 1);
             recipe.AddIngredient(ItemID.HellstoneBar, 14);
             recipe.AddIngredient(ItemID.Gel, 100);
             recipe.AddIngredient(ItemID.IronBar, 14);

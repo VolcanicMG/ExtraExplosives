@@ -53,10 +53,10 @@ namespace ExtraExplosives.Items.Explosives
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ModContent.ItemType<GiganticExplosiveItem>(), 1);
-            recipe.AddIngredient(mod.ItemType("TheLevelerItem"), 1);
-            recipe.AddIngredient(mod.ItemType("HouseBombItem"), 1);
-            recipe.AddIngredient(mod.ItemType("DeliquidifierItem"), 1);
-            recipe.AddIngredient(mod.ItemType("TorchBombItem"), 1);
+            recipe.AddIngredient(ModContent.ItemType<TheLevelerItem>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<HouseBombItem>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<DeliquidifierItem>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<TorchBombItem>(), 1);
             recipe.AddIngredient(ItemID.Wood, 100);
             recipe.AddIngredient(ItemID.CrystalBlock, 100);
             recipe.anyWood = true;

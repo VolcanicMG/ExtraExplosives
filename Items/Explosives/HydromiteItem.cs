@@ -52,7 +52,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("BasicExplosiveItem"), 1);
+            recipe.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 1);
             recipe.AddIngredient(ItemID.WaterBucket, 1);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);

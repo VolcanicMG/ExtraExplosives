@@ -56,7 +56,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("LargeExplosiveItem"), 1);
+            recipe.AddIngredient(ModContent.ItemType<LargeExplosiveItem>(), 1);
             recipe.AddIngredient(ItemID.LandMine, 1);
             recipe.AddIngredient(ItemID.ExplosivePowder, 1);
             recipe.AddIngredient(ItemID.Gel, 10);

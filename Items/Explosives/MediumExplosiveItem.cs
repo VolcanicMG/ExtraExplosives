@@ -52,7 +52,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("SmallExplosiveItem"), 1);
+            recipe.AddIngredient(ModContent.ItemType<SmallExplosiveItem>(), 1);
             recipe.AddIngredient(ItemID.Dynamite, 1);
             recipe.AddIngredient(ItemID.Gel, 5);
             recipe.AddIngredient(ItemID.StoneBlock, 5);
