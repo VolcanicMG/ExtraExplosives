@@ -40,7 +40,7 @@ namespace ExtraExplosives
         [Label("Set Dust/Particle amount" +
             "\n1 = Max" +
             "\n0 = None" +
-            "Current amount:")]
+            "\nCurrent amount")]
         [Increment(0.1f)]
         [Range(0f, 1f)]
         [DefaultValue(1f)]

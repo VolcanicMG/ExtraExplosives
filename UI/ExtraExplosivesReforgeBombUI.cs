@@ -102,7 +102,7 @@ namespace ExtraExplosives.UI
 			Image4.ImageScale = 1.4f;
 			Append(Image4);
 
-			ReforgeText = new UITextPanel<string>("Place an item in one(or all) of the slots to reforge");
+			ReforgeText = new UITextPanel<string>("Place an item in one (or all) of the slots to reforge");
 			//float widthText = ReforgeText.GetDimensions().Width;
 			ReforgeText.HAlign = .5f;
 			//ReforgeText.Left.Set(screenX - ReforgeText.Width.Pixels, 0f);
