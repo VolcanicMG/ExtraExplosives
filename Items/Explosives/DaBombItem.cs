@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Da Bomb");
-            Tooltip.SetDefault("Wait what?!?!?!");
+            Tooltip.SetDefault("Wait, what?!?!?!");
         }
 
         public override void SetDefaults()

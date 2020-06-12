@@ -30,13 +30,13 @@ namespace ExtraExplosives.Items.Explosives
             if (ThoriumMod != null)
             { 
                 DisplayName.SetDefault("BulletBoom [c/AC90FF:(Terrarium Pulser Shot)]");
-                Tooltip.SetDefault("Who said a gun is the only thing that can shoot a bullet. \n" +
+                Tooltip.SetDefault("Who said a gun is the only thing that can shoot a bullet? \n" +
                     "Blows up upon touching a block.");
             }
             else
             {
                 DisplayName.SetDefault("ModdedItem");
-                Tooltip.SetDefault("Turn on the ThoriumMod Mod For this item");
+                Tooltip.SetDefault("Enable Thorium to use this item.");
             }
         }
 

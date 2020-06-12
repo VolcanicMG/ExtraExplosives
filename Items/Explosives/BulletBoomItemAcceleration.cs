@@ -30,13 +30,13 @@ namespace ExtraExplosives.Items.Explosives
             if (CalamityMod != null)
             { 
                 DisplayName.SetDefault("BulletBoom [c/AC90FF:(Acceleration Bullet)]");
-                Tooltip.SetDefault("Who said a gun is the only thing that can shoot a bullet. \n" +
+                Tooltip.SetDefault("Who said a gun is the only thing that can shoot a bullet? \n" +
                     "Blows up upon touching a block.");
             }
             else
             {
                 DisplayName.SetDefault("ModdedItem");
-                Tooltip.SetDefault("Turn on the Calamity Mod For this item");
+                Tooltip.SetDefault("Enable Calamity to use this item.");
             }
         }
 

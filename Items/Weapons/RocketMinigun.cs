@@ -13,7 +13,7 @@ namespace ExtraExplosives.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rocket Minigun");
-			Tooltip.SetDefault("Uses up a lot of rockets...");
+			Tooltip.SetDefault("Uses up a lot of rockets");
 
 		}
 

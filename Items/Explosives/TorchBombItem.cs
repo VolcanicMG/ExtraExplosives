@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Torch Bomb");
-            Tooltip.SetDefault("Spawns in a bunch of torches, light it up! \n" +
+            Tooltip.SetDefault("Spawns in a bunch of torches. \n" +
                 "Make sure you have walls to attach too!");
         }
 

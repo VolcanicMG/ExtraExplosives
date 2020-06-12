@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Medium Explosive");
-            Tooltip.SetDefault("That did some damage");
+            Tooltip.SetDefault("That did some damage.");
         }
 
         public override void SetDefaults()

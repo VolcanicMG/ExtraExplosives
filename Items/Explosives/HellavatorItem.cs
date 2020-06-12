@@ -26,7 +26,7 @@ namespace ExtraExplosives.Items.Explosives
         {
             DisplayName.SetDefault("Hellavator");
             Tooltip.SetDefault("Tunnels down from your current position to the bottom of the world.\n" +
-                "[c/AB40FF:Can destroy desert fossil]");
+                "[c/AB40FF:Can destroy desert fossils]");
         }
 
         public override void SetDefaults()

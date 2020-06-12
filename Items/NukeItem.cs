@@ -15,9 +15,9 @@ namespace ExtraExplosives.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("First Strike Controller");
-            Tooltip.SetDefault("Ok buddy, now you've gone too far...\n" +
-                "First strike capabilites \n" +
-                "[c/AB40FF:Can destroy dungeon bricks, desert fossil, and Lihzahrd blocks]");
+            Tooltip.SetDefault("OK, buddy, now you've gone too far...\n" +
+                "First strike capabilites\n" +
+                "[c/AB40FF:Can destroy dungeon bricks, desert fossil, and lihzahrd temple blocks]");
         }
 
         public override void SetDefaults()

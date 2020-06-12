@@ -26,7 +26,7 @@ namespace ExtraExplosives.Items.Explosives
         {
             DisplayName.SetDefault("Tornado Bomb");
             Tooltip.SetDefault("Here comes the twister!\n" +
-                "Grab on to something, its going to be a wild ride.");
+                "Grab onto something, it's going to be a wild ride.");
 
             Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 5));
         }

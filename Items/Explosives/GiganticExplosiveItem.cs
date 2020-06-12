@@ -24,8 +24,8 @@ namespace ExtraExplosives.Items.Explosives
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gigantic Explosive");
-            Tooltip.SetDefault("NO STOP... You don't want to do this! \n" +
-                "[c/AB40FF:Can destroy dungeon bricks and desert fossil]");
+            Tooltip.SetDefault("You don't want to do this! \n" +
+                "[c/AB40FF:Can destroy dungeon bricks and desert fossils]");
         }
 
         public override void SetDefaults()

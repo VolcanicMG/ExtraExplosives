@@ -338,19 +338,19 @@ namespace ExtraExplosives.NPCs
                 case 3:
                     return "My explosives are too powerful for a mortal man... why, I'd say it's impossible for you to even consider... oh, wait... you're a sprite. Nevermind, carry on!";
                 case 4:
-                    return "< Not Responsible for Any Causualties that May or May Not Result from these Devices >";
+                    return "< Not Responsible for Any Casualties That May or May Not Result From These Devices >";
                 case 5:
                     return "Like I, your friend... the one you worked so hard for... would sell you items that could hurt you. *scoffs* Nonsense!";
                 case 6:
-                    return "I really don't see why you think I shouldn't carry matches, I mean come on, fires a good thing right?";
+                    return "I really don't see why you think I shouldn't carry matches. I mean, come on, fire's a good thing, right?";
                 case 7:
-                    return "To all the haters, I'm not bald, I just have a short fuse.";
+                    return "To all the haters: I'm not bald. I just have a short fuse.";
                 case 8:
-                    return "Sometimes I don't feel appreciated, after everything I've destroyed for you... couldn't I at least have a bigger house?";
+                    return "Sometimes I don't feel appreciated. After everything I've destroyed for you... couldn't I at least have a bigger house?";
                 case 9:
-                    return "If I were you, I'd spend your money here, you got enough potions and reforges!";
+                    return "If I were you, I'd spend your money here. You've got enough potions and and have reforged enough tools!";
                 case 10:
-                    return "Don't let me die, you will regret it...";
+                    return "Don't let me die... you'll regret it.";
                 default:
                     return "Let me tell you a secret...";
 

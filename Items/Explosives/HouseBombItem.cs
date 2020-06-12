@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("HouseBomb");
-            Tooltip.SetDefault("Out of the Way! NPC house coming through!");
+            Tooltip.SetDefault("Out of the Way! NPC housing coming through!");
         }
 
         public override void SetDefaults()

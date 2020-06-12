@@ -25,7 +25,7 @@ namespace ExtraExplosives.Items.Explosives
         {
             DisplayName.SetDefault("Bunnyite");
             Tooltip.SetDefault("Lot O' Bunnies!!!\n" +
-                "You don't have to do this... Resist the urge...");
+                "Resist the urge. You don't have to do this.");
 
         }
 
