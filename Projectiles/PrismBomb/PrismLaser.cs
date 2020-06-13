@@ -20,7 +20,7 @@ namespace ExtraExplosives.Projectiles.PrismBomb
         // MAx possible laser 
         private const float MAX_LENGTH = 2200f; 
         // rotation
-        private const float ROTATION_SPEED = 0.1f;
+        private const float ROTATION_SPEED = 0.02f;
 
         // The actual distance is stored in the ai1 field
         // By making a property to handle this it makes our life easier, and the accessibility more readable
@@ -80,18 +80,18 @@ namespace ExtraExplosives.Projectiles.PrismBomb
                 Color c = Color.White;
                 var origin = start + i * unit;
                 spriteBatch.Draw(texture, origin - Main.screenPosition,
-                  new Rectangle(0, 26, 28, 26), i < transDist ? Color.Transparent : c, r,
-                    new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
+                  new Rectangle(0, 26, 44, 28), i < transDist ? Color.Transparent : c, r,
+                    new Vector2(44 * .5f, 28 * .5f), scale, 0, 0);
               
             }
 
             // Draws the laser 'tail'
             spriteBatch.Draw(texture, start + unit * (transDist - step) - Main.screenPosition,
-                new Rectangle(0, 0, 28, 26), Color.White, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
+                new Rectangle(0, 0, 44, 22), Color.White, r, new Vector2(44 * .5f, 22 * .5f), scale, 0, 0);
 
             // Draws the laser 'head'
             spriteBatch.Draw(texture, start + (maxDist + step) * unit - Main.screenPosition,
-                new Rectangle(0, 52, 28, 26), Color.White, r, new Vector2(28 * .5f, 26 * .5f), scale, 0, 0);
+                new Rectangle(0, 56, 44, 22), Color.White, r, new Vector2(44 * .5f, 22 * .5f), scale, 0, 0);
         }
 
         // Change the way of collision check of the projectile
@@ -103,14 +103,14 @@ namespace ExtraExplosives.Projectiles.PrismBomb
              //Run an AABB versus Line check to look for collisions, look up AABB collision first to see how it works
              //It will look for collisions on the given line using AABB
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center,
-             projectile.Center + unit * laserLength, 22, ref point);
+             projectile.Center + unit * laserLength, 44, ref point);
             
         }
 
         // Set custom immunity time on hitting an NPC
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.immune[projectile.owner] = 0;
+            target.immune[projectile.owner] = 5;
         }
 
 

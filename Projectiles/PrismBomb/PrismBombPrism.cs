@@ -46,7 +46,7 @@ namespace ExtraExplosives.Projectiles.PrismBomb //Namespace is set this way as p
             
             projectile.ai[1] += 1;
             if (projectile.ai[0] <= 80) { projectile.velocity.Y = -3f;projectile.velocity.X = 0;projectile.ai[0] += 1; }
-            else if (projectile.ai[0] > 80) { projectile.velocity.Y = 0; projectile.velocity.X = 0; projectile.rotation += 0.1f; }
+            else if (projectile.ai[0] > 80) { projectile.velocity.Y = 0; projectile.velocity.X = 0; projectile.rotation += 0.02f; }
             if( laser1 == -1 && projectile.ai[0] > 80)
             { 
             
