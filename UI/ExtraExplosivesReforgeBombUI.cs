@@ -1,21 +1,15 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using Terraria.UI.Chat;
-using ExtraExplosives;
-using ExtraExplosives.UI;
-using ExtraExplosives.Projectiles;
-using ExtraExplosives.Items;
 
 namespace ExtraExplosives.UI
 {
 	internal class ExtraExplosivesReforgeBombUI : UIState
 	{
-
 		//Mod CalamityMod = ModLoader.GetMod("CalamityMod");
 		//Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
@@ -38,10 +32,12 @@ namespace ExtraExplosives.UI
 
 		//internal static bool reforge = false;
 		private static bool reforgeCheck = false;
+
 		private static bool reforgeCheck2 = false;
 		private static bool reforgeCheck3 = false;
 
 		internal static bool IsVisible;
+
 		public override void OnInitialize()
 		{
 			//panel box
@@ -116,7 +112,6 @@ namespace ExtraExplosives.UI
 				Top = { Pixels = screenY },
 				HAlign = .5f,
 				ValidItemFunc = item => item.IsAir || !item.IsAir && item.Prefix(-3),
-
 			};
 
 			_vanillaItemSlot2 = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f)
@@ -140,7 +135,6 @@ namespace ExtraExplosives.UI
 			Append(_vanillaItemSlot3);
 
 			IsVisible = true;
-
 		}
 
 		public override void OnDeactivate()
@@ -170,7 +164,7 @@ namespace ExtraExplosives.UI
 				// Now that we've spawned the item back onto the player, we reset the item by turning it into air.
 				_vanillaItemSlot3.Item.TurnToAir();
 			}
-			// Note that in ExamplePerson we call .SetState(new UI.ExamplePersonUI());, thereby creating a new instance of this UIState each time. 
+			// Note that in ExamplePerson we call .SetState(new UI.ExamplePersonUI());, thereby creating a new instance of this UIState each time.
 			// You could go with a different design, keeping around the same UIState instance if you wanted. This would preserve the UIState between opening and closing. Up to you.
 			IsVisible = false;
 		}
@@ -184,7 +178,6 @@ namespace ExtraExplosives.UI
 
 			// talkNPC is the index of the NPC the player is currently talking to. By checking talkNPC, we can tell when the player switches to another NPC or closes the NPC chat dialog.
 		}
-
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
@@ -203,54 +196,45 @@ namespace ExtraExplosives.UI
 			ItemSlot.DrawSavings(Main.spriteBatch, slotX + 130, Main.instance.invBottom, true);
 
 			//image 1
-			if(!_vanillaItemSlot.Item.IsAir && reforgeCheck == false)
+			if (!_vanillaItemSlot.Item.IsAir && reforgeCheck == false)
 			{
 				Image.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckEmpty"));
-
 			}
 			else if (_vanillaItemSlot.Item.IsAir && reforgeCheck == false)
 			{
 				Image.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
-
 			}
-			else if(!_vanillaItemSlot.Item.IsAir && reforgeCheck == true)
+			else if (!_vanillaItemSlot.Item.IsAir && reforgeCheck == true)
 			{
 				Image.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckGreen"));
-				
 			}
 
 			//image 2
 			if (!_vanillaItemSlot2.Item.IsAir && reforgeCheck2 == false)
 			{
 				Image2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckEmpty"));
-
 			}
 			else if (_vanillaItemSlot2.Item.IsAir && reforgeCheck2 == false)
 			{
 				Image2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
-
 			}
 			else if (!_vanillaItemSlot2.Item.IsAir && reforgeCheck2 == true)
 			{
 				Image2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckGreen"));
-
 			}
 
 			//image 3
 			if (!_vanillaItemSlot3.Item.IsAir && reforgeCheck3 == false)
 			{
 				Image3.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckEmpty"));
-
 			}
 			else if (_vanillaItemSlot3.Item.IsAir && reforgeCheck3 == false)
 			{
 				Image3.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
-
 			}
 			else if (!_vanillaItemSlot3.Item.IsAir && reforgeCheck3 == true)
 			{
 				Image3.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckGreen"));
-
 			}
 
 			if (_vanillaItemSlot.Item.IsAir && reforgeCheck == true)
@@ -270,7 +254,6 @@ namespace ExtraExplosives.UI
 
 			if (ExtraExplosivesPlayer.reforgePub)
 			{
-
 				Main.LocalPlayer.mouseInterface = true;
 
 				if (!_vanillaItemSlot.Item.IsAir)
@@ -292,7 +275,6 @@ namespace ExtraExplosives.UI
 						ItemLoader.PostReforge(_vanillaItemSlot.Item);
 						ItemText.NewText(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack, true, false);
 						Main.PlaySound(SoundID.Item37, -1, -1);
-
 					}
 				}
 
@@ -315,7 +297,6 @@ namespace ExtraExplosives.UI
 						ItemLoader.PostReforge(_vanillaItemSlot2.Item);
 						ItemText.NewText(_vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack, true, false);
 						Main.PlaySound(SoundID.Item37, -1, -1);
-
 					}
 				}
 
@@ -338,7 +319,6 @@ namespace ExtraExplosives.UI
 						ItemLoader.PostReforge(_vanillaItemSlot3.Item);
 						ItemText.NewText(_vanillaItemSlot3.Item, _vanillaItemSlot3.Item.stack, true, false);
 						Main.PlaySound(SoundID.Item37, -1, -1);
-
 					}
 				}
 
@@ -354,13 +334,9 @@ namespace ExtraExplosives.UI
 			}
 			else
 			{
-
 				//string message = "Place an item in one(or all) of the slots to reforge";
 				//ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, message, new Vector2(screenX - 200, screenY - 55), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
-
 			}
-
-
 		}
 	}
 }
