@@ -39,7 +39,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void AI()
 		{
-			//send the projectiles postion to the player's camera and set NukeActive to true
+			//send the projectiles position to the player's camera and set NukeActive to true
 			ExtraExplosives.NukePos = projectile.Center;
 			ExtraExplosives.NukeActive = true; //since the projectile is active set it active in the player class
 

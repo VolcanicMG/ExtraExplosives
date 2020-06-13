@@ -54,7 +54,8 @@ namespace ExtraExplosives.Projectiles
 						int num328 = Projectile.NewProjectile(projectile.Center.X - 49, projectile.Center.Y - 4f, (0f - (float)projectile.direction) * 0.01f, 0f, ModContent.ProjectileType<TornadoBombProjectileTornado>(), 30, 0f, Main.myPlayer, 16f, 15f); //384 //376
 						NetMessage.SendData(MessageID.SyncProjectile, number: num328);
 						Main.projectile[num328].netUpdate = true;
-						
+
+						Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Tornado"));
 					}
 				//}
 				done = true;
