@@ -1,7 +1,0 @@
-displayName = Extra Explosives
-author = Volcanic & Codeloquence
-version = 2.1.1
-homepage = https://forums.terraria.org/index.php?threads/extra-explosives.87772/
-hideCode = true
-hideResources = true
-includePDB = true
