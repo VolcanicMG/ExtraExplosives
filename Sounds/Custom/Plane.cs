@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework.Audio;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace ExtraExplosives.Sounds.Custom
 {
@@ -11,7 +10,6 @@ namespace ExtraExplosives.Sounds.Custom
 			// By checking if the input soundInstance is playing, we can prevent the sound from firing while the sound is still playing, allowing the sound to play out completely. Non-ModSound behavior is to restart the sound, only permitting 1 instance.
 			//if (soundInstance.State == SoundState.Stopped)
 			//{
-				
 			//}
 
 			soundInstance.Volume = volume * .4f;

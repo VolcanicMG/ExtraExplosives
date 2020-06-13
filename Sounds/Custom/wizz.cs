@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework.Audio;
 using Terraria.ModLoader;
-using Terraria;
 
 namespace ExtraExplosives.Sounds.Custom
 {

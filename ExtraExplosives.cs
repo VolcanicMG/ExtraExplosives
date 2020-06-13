@@ -11,13 +11,13 @@ using Terraria.ModLoader.IO;
 using Terraria.UI;
 using static ExtraExplosives.GlobalMethods;
 
-
 namespace ExtraExplosives
 {
 	public class ExtraExplosives : Mod
 	{
 		//move the first 4 over to player????
 		internal static ModHotKey TriggerExplosion;
+
 		internal static ModHotKey TriggerUIReforge;
 
 		public static bool NukeActivated;
@@ -34,14 +34,13 @@ namespace ExtraExplosives
 
 		public ExtraExplosives()
 		{
-
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
 			int check = reader.ReadVarInt();
 			////Don't use as of right now
-			//if (reader.ReadString() == "boom") //set to a byte, 
+			//if (reader.ReadString() == "boom") //set to a byte,
 			//{
 			//	if (Main.netMode == NetmodeID.Server)//set the other players to have the same properties besides the client
 			//	{
@@ -51,7 +50,6 @@ namespace ExtraExplosives
 			//	}
 			//	else//set what you want to happen
 			//	{
-
 			//		NukeActive = true;
 			//	}
 			//}
@@ -100,7 +98,6 @@ namespace ExtraExplosives
 					NukeHit = false;
 				}
 			}
-
 		}
 
 		public override void PostSetupContent()
@@ -120,10 +117,8 @@ namespace ExtraExplosives
 			base.PostSetupContent();
 		}
 
-
 		public override void UpdateUI(GameTime gameTime)
 		{
-
 			ExtraExplosivesUserInterface?.Update(gameTime);
 			//ExtraExplosivesReforgeBombInterface?.Update(gameTime);
 		}
@@ -158,10 +153,8 @@ namespace ExtraExplosives
 			}
 		}
 
-
 		public override void Load()
 		{
-
 			Logger.InfoFormat("{0} Extra Explosives logger", Name);
 
 			ExtraExplosivesUserInterface = new UserInterface();
@@ -181,7 +174,6 @@ namespace ExtraExplosives
 				Filters.Scene["BigBang"] = new Filter(new ScreenShaderData(screenRef2, "BigBang"), EffectPriority.VeryHigh); //float4 name
 				Filters.Scene["BigBang"].Load();
 			}
-
 		}
 	}
 }

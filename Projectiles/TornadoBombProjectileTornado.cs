@@ -1,5 +1,4 @@
-﻿using IL.Terraria.ID;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -8,7 +7,6 @@ namespace ExtraExplosives.Projectiles
 {
 	public class TornadoBombProjectileTornado : ModProjectile
 	{
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tornado");
@@ -29,10 +27,8 @@ namespace ExtraExplosives.Projectiles
 			projectile.timeLeft = 560;
 		}
 
-
 		public override void AI()
 		{
-
 			int num612 = 10;
 			int num613 = 15;
 			float num614 = 1f;
@@ -150,41 +146,35 @@ namespace ExtraExplosives.Projectiles
 			Player player = Main.player[Main.myPlayer];
 
 			//Player
-			if((projectile.position.X / 16) <= ((player.position.X + 700) / 16) && (projectile.position.X / 16) >= ((player.position.X - 700) / 16))
+			if ((projectile.position.X / 16) <= ((player.position.X + 700) / 16) && (projectile.position.X / 16) >= ((player.position.X - 700) / 16))
 			{
 				//X
-				if(player.position.X <= (projectile.position.X + 30))
+				if (player.position.X <= (projectile.position.X + 30))
 				{
-					
 					//player.velocity.X = 2;
 					player.velocity.X = player.velocity.X + 0.3f;
-				
 				}
 				else
 				{
-					
 					//player.velocity.X = -2;
 					player.velocity.X = player.velocity.X - 0.3f;
-					
 				}
 
 				//Y
 				if (player.position.Y <= (projectile.position.Y - 200))
 				{
-
 					//player.velocity.Y = 2;
 					player.velocity.Y = player.velocity.Y + .5f;
 				}
 				else
 				{
-
 					//player.velocity.Y = -2;
 					player.velocity.Y = player.velocity.Y - .5f;
 				}
 			}
 
 			//NPCS
-			for(int i = 0; i < Main.npc.Length; i++)
+			for (int i = 0; i < Main.npc.Length; i++)
 			{
 				if ((projectile.position.X / 16) <= ((Main.npc[i].position.X + 700) / 16) && (projectile.position.X / 16) >= ((Main.npc[i].position.X - 700) / 16) && !Main.npc[i].boss)
 				{
@@ -193,13 +183,11 @@ namespace ExtraExplosives.Projectiles
 					//X
 					if (Main.npc[i].position.X <= (projectile.position.X + 37))
 					{
-
 						//Main.npc[i].velocity.X = 2;
 						Main.npc[i].velocity.X = Main.npc[i].velocity.X + 0.3f;
 					}
 					else
 					{
-
 						//Main.npc[i].velocity.X = -2;
 						Main.npc[i].velocity.X = Main.npc[i].velocity.X - 0.3f;
 					}
@@ -207,13 +195,11 @@ namespace ExtraExplosives.Projectiles
 					//Y
 					if (Main.npc[i].position.Y <= (projectile.position.Y - 250))
 					{
-
 						//Main.npc[i].velocity.Y = 2;
 						Main.npc[i].velocity.Y = Main.npc[i].velocity.Y + .5f;
 					}
 					else
 					{
-
 						//Main.npc[i].velocity.Y = -2;
 						Main.npc[i].velocity.Y = Main.npc[i].velocity.Y - .5f;
 					}
@@ -225,21 +211,18 @@ namespace ExtraExplosives.Projectiles
 			}
 
 			//Items
-			for(int v = 0; v < Main.item.Length; v++)
+			for (int v = 0; v < Main.item.Length; v++)
 			{
 				if ((projectile.position.X / 16) <= ((Main.item[v].position.X + 700) / 16) && (projectile.position.X / 16) >= ((Main.item[v].position.X - 700) / 16))
 				{
-
 					//X
 					if (Main.item[v].position.X <= (projectile.position.X + 37))
 					{
-
 						//Main.npc[i].velocity.X = 2;
 						Main.item[v].velocity.X = Main.item[v].velocity.X + 0.3f;
 					}
 					else
 					{
-
 						//Main.npc[i].velocity.X = -2;
 						Main.item[v].velocity.X = Main.item[v].velocity.X - 0.3f;
 					}
@@ -247,19 +230,16 @@ namespace ExtraExplosives.Projectiles
 					//Y
 					if (Main.item[v].position.Y <= (projectile.position.Y - 200))
 					{
-
 						//Main.npc[i].velocity.Y = 2;
 						Main.item[v].velocity.Y = Main.item[v].velocity.Y + .5f;
 					}
 					else
 					{
-
 						//Main.npc[i].velocity.Y = -2;
 						Main.item[v].velocity.Y = Main.item[v].velocity.Y - .5f;
 					}
 				}
 			}
-			
 		}
 
 		public override void Kill(int timeLeft)

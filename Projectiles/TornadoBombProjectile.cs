@@ -1,49 +1,34 @@
-﻿using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using ExtraExplosives;
-using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-    public class TornadoBombProjectile : ModProjectile
-    {
+	public class TornadoBombProjectile : ModProjectile
+	{
 		private Vector2 vector;
 		private bool done;
 
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Tornado");
+		{
+			DisplayName.SetDefault("Tornado");
 			Main.projFrames[projectile.type] = 5;
 		}
 
-        public override void SetDefaults()
-        {
-            projectile.tileCollide = true;
-            projectile.width = 40;
-            projectile.height = 40;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 860;
-        }
+		public override void SetDefaults()
+		{
+			projectile.tileCollide = true;
+			projectile.width = 40;
+			projectile.height = 40;
+			projectile.aiStyle = 16;
+			projectile.friendly = true;
+			projectile.penetrate = -1;
+			projectile.timeLeft = 860;
+		}
 
-        public override void AI()
-        {
+		public override void AI()
+		{
 			projectile.rotation = 0;
 
 			if (++projectile.frameCounter >= 2)
@@ -58,7 +43,7 @@ namespace ExtraExplosives.Projectiles
 
 			//Main.NewText(projectile.ai[1]);
 
-			if(projectile.ai[1] >= 300f && !done)
+			if (projectile.ai[1] >= 300f && !done)
 			{
 				Main.PlaySound(16, (int)projectile.Center.X, (int)projectile.Center.Y, 19, 1f, 0f);
 
@@ -74,11 +59,10 @@ namespace ExtraExplosives.Projectiles
 			}
 
 			projectile.ai[1]++;
-			
 		}
 
-        public override void Kill(int timeLeft)
-        {
+		public override void Kill(int timeLeft)
+		{
 			//Create Bomb Sound
 			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 			int num324 = 36;
@@ -96,5 +80,5 @@ namespace ExtraExplosives.Projectiles
 				Main.dust[num326].velocity = vector18;
 			}
 		}
-    }
+	}
 }
