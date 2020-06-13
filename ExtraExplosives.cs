@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.IO;
+using ExtraExplosives.Items;
 using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Pets;
 using ExtraExplosives.Projectiles;
+using ExtraExplosives.UI;
+using log4net.Repository.Hierarchy;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
@@ -14,43 +18,71 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 using static ExtraExplosives.GlobalMethods;
+using Item = IL.Terraria.Item;
 using Lang = On.Terraria.Lang;
+using Projectile = IL.Terraria.Projectile;
 
 
 namespace ExtraExplosives
 {
+		public class NewBulletBoomItem
+		{								// These are for
+			public int itemID;			// crafting recipe
+			public string projName;		// display name, tooltip, and registering with tml
+			public string displayName;
 
-	class NewBulletBoomItem
-	{								// These are for
-		public int itemID;			// crafting recipe
-		public string projName;		// display name, tooltip, and registering with tml
-		public string displayName;
-
-		public NewBulletBoomItem(int itemID, string projName, string displayName)
-		{
-			this.itemID = itemID;
-			this.projName = projName;
-			this.displayName = displayName;
+			public NewBulletBoomItem(int itemID, string projName, string displayName)
+			{
+				this.itemID = itemID;
+				this.projName = projName;
+				this.displayName = displayName;
+			}
 		}
-	}
 
-	class NewBulletBoomProjectile
-	{
-		public int projectileID;		// so the projectile can be shot
-		public string projName;			// registering with terraria and display name
-
-		public NewBulletBoomProjectile(int projectileID, string projName)
+		public class NewBulletBoomProjectile
 		{
-			this.projectileID = projectileID;
-			this.projName = projName;
+			public int projectileID;		// so the projectile can be shot
+			public string projName;			// registering with terraria and display name
+
+			public NewBulletBoomProjectile(int projectileID, string projName)
+			{
+				this.projectileID = projectileID;
+				this.projName = projName;
+			}
 		}
-	}
-	
 	public class ExtraExplosives : Mod
 	{
+		public static IDictionary<int, int> mapItemToItemID;
+		public static bool generateForeignBulletBooms;
+		public static void AddPair(int item, int id)
+		{
+			try
+			{
+				mapItemToItemID.Add(item, id);
+			}
+			catch (InvalidOperationException err)
+			{
+				Console.WriteLine(err.ToString());
+			}
+		}
+		public static void NewRegister(NewBulletBoomItem item, NewBulletBoomProjectile proj)
+		{
+			AddNewBulletItem(item);
+			AddNewBulletProj(proj);
+		}
+		private static void AddNewBulletItem(NewBulletBoomItem item)
+		{
+			_bulletBoomItems.Add(item);
+		}
+
+		private static void AddNewBulletProj(NewBulletBoomProjectile proj)
+		{
+			_bulletBoomProjectiles.Add(proj);
+		}
+		
 		// This is where the info for the bulletboom generation is stored, not quite (fully) dynamic sadly
 		// TODO make the generation of this array dynamic, it should be possible
-		private NewBulletBoomItem[] _bulletBoomItems = new NewBulletBoomItem[]
+		static List<NewBulletBoomItem> _bulletBoomItems = new List<NewBulletBoomItem>() 
 		{
 			new NewBulletBoomItem(ItemID.MusketBall, "MusketBall", "Musket Ball"), 
 			new NewBulletBoomItem(ItemID.MeteorShot, "MeteorShot", "Meteor Shot"),
@@ -66,7 +98,8 @@ namespace ExtraExplosives
 			new NewBulletBoomItem(ItemID.GoldenBullet, "GoldenBullet","Golden Bullet"), 
 			new NewBulletBoomItem(ItemID.MoonlordBullet, "LuminiteBullet","Luminite Bullet")
 		};
-		private NewBulletBoomProjectile[] _bulletBoomProjectiles = new NewBulletBoomProjectile[]
+
+		static List<NewBulletBoomProjectile> _bulletBoomProjectiles = new List<NewBulletBoomProjectile>()
 		{
 			new NewBulletBoomProjectile(ProjectileID.Bullet, "MusketBall"), 
 			new NewBulletBoomProjectile(ProjectileID.MeteorShot, "MeteorShot"),
@@ -82,7 +115,7 @@ namespace ExtraExplosives
 			new NewBulletBoomProjectile(ProjectileID.GoldenBullet, "GoldenBullet"), 
 			new NewBulletBoomProjectile(ProjectileID.MoonlordBullet, "LuminiteBullet")
 		};
-		
+
 		//move the first 4 over to player????
 		internal static ModHotKey TriggerExplosion;
 		internal static ModHotKey TriggerUIReforge;
@@ -99,13 +132,27 @@ namespace ExtraExplosives
 		public static string GithubUserName => "VolcanicMG";
 		public static string GithubProjectName => "ExtraExplosives";
 
-		public static IDictionary<int, int> mapItemToItemID;	// dictionary used to find the ammo item id for each bulletboom
+		public void RunRegistry()
+		{
+			for (int i = 0; i < _bulletBoomItems.Count; i++)	// loop through array
+			{
+				// creates projectile and registers it with tml
+				BulletBoomProjectile projectile = new BulletBoomProjectile(_bulletBoomProjectiles[i].projectileID, _bulletBoomProjectiles[i].projName);
+				AddProjectile(_bulletBoomProjectiles[i].projName, projectile);
+				//Creates items and register it
+				BulletBoomItem item = new BulletBoomItem(_bulletBoomItems[i].displayName, projectile);
+				AddItem(_bulletBoomItems[i].projName, item);
+				// map the item to its new id and ammo to the item 
+				ExtraExplosives.AddPair(_bulletBoomItems[i].itemID, item.item.type);
+			}
+		}
 		
 		public ExtraExplosives()
 		{
-
+			mapItemToItemID = new Dictionary<int,int>();
 		}
-
+		
+		
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
 			////Don't use as of right now
@@ -216,7 +263,7 @@ namespace ExtraExplosives
 		{
 
 			Logger.InfoFormat("{0} Extra Explosives logger", Name);
-			
+
 			ExtraExplosivesUserInterface = new UserInterface();
 			ExtraExplosivesReforgeBombInterface = new UserInterface();
 
@@ -234,22 +281,17 @@ namespace ExtraExplosives
 				Filters.Scene["BigBang"] = new Filter(new ScreenShaderData(screenRef2, "BigBang"), EffectPriority.VeryHigh); //float4 name
 				Filters.Scene["BigBang"].Load();
 			}
-			
-			// Code which adds Bullet Boom stuff
-			// Note, this is the most dynamic i am currently able to make it
-			// Adding modded ammo should be as easy as adding entries to the above arraylists tho
-			mapItemToItemID = new Dictionary<int,int>();	// create the dictionary to map ids
-			for (int i = 0; i < _bulletBoomItems.Length; i++)	// loop through array
+
+			if (generateForeignBulletBooms)
 			{
-				// creates projectile and registers it with tml
-				BulletBoomProjectile projectile = new BulletBoomProjectile(_bulletBoomProjectiles[i].projectileID, _bulletBoomProjectiles[i].projName);
-				AddProjectile(_bulletBoomProjectiles[i].projName, projectile);
-				//Creates items and register it
-				BulletBoomItem item = new BulletBoomItem(_bulletBoomItems[i].displayName, projectile);
-				AddItem(_bulletBoomItems[i].projName, item);
-				// map the item to its new id and ammo to the item 
-				mapItemToItemID.Add(_bulletBoomItems[i].itemID, item.item.type);
+				// Logger info because this feature is janky as can be
+				// Use warn on first so its stands out since it will eventually cause problems
+				Logger.Warn("You are using the dynamic bullet boom generation feature, this may result in insability while loading");
+				Logger.Info("This feature, while stable, can be problematic with both lots of mods and mods with strange naming conventions for their items\n" +
+				                  "If you see this, you are probably having problems loading, disabling Extra Explosives may solve them");
+				ForeignModParsing.PostLoad();	// Run if config setting is set
 			}
+			RunRegistry();		// Always run to load standard bullet booms
 		}
 	}
 }
