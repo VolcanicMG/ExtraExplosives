@@ -52,8 +52,8 @@ namespace ExtraExplosives.Items.Explosives
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("BasicExplosiveItem"), 1);
-            recipe.AddIngredient(mod.ItemType("SpongeItem"), 2);
+            recipe.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<SpongeItem>(), 2);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();

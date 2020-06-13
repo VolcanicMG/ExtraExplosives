@@ -59,7 +59,7 @@ namespace ExtraExplosives.Items.Explosives
             recipe.AddRecipe();
 
             ModRecipe recipe2 = new ModRecipe(mod);
-            recipe2.AddIngredient(mod.ItemType("BasicExplosiveItem"), 1);
+            recipe2.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 1);
             recipe2.AddIngredient(ItemID.StickyGlowstick, 10);
             recipe2.AddTile(TileID.WorkBenches);
             recipe2.SetResult(this);

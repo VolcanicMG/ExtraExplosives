@@ -54,7 +54,7 @@ namespace ExtraExplosives.Items.Explosives
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.PinkGel, 20);
             recipe.AddIngredient(ItemID.Dynamite, 20);
-            recipe.AddIngredient(mod.ItemType("SmallExplosiveItem"), 1);
+            recipe.AddIngredient(ModContent.ItemType<SmallExplosiveItem>(), 1);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

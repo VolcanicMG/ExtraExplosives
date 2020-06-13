@@ -18,7 +18,7 @@ using static Terraria.ModLoader.ModContent;
 using System.Text;
 using System.Threading.Tasks;
 using ExtraExplosives.Items.Explosives;
-
+using ExtraExplosives.Items;
 
 namespace ExtraExplosives.NPCs
 {
@@ -66,17 +66,17 @@ namespace ExtraExplosives.NPCs
 		{
 			if (type == NPCID.Demolitionist)
 			{
-                shop.item[nextSlot].SetDefaults(mod.ItemType("BasicExplosiveItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<BasicExplosiveItem>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("SmallExplosiveItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<SmallExplosiveItem>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("MediumExplosiveItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<MediumExplosiveItem>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("LargeExplosiveItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<LargeExplosiveItem>());
             }
             else if(type == NPCID.TravellingMerchant)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("SpongeItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpongeItem>());
                 nextSlot++;
             }
 		}

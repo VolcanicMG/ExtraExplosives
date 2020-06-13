@@ -15,6 +15,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Input;
 using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
+using ExtraExplosives.Items.Explosives;
 
 namespace ExtraExplosives.Tiles
 {
@@ -38,7 +39,7 @@ namespace ExtraExplosives.Tiles
             Main.tileLavaDeath[Type] = true;
             Main.tileNoAttach[Type] = true;
 
-            drop = mod.ItemType("BasicExplosiveItem");
+            drop = ModContent.ItemType<BasicExplosiveItem>();
             //AddMapEntry(new Color(444, 222, 435));
 
         }

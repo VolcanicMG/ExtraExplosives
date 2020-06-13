@@ -60,7 +60,7 @@ namespace ExtraExplosives.Items.Explosives
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.ExplodingBullet, 20);
             recipe.AddIngredient(ItemID.Gel, 10);
-            recipe.AddIngredient(mod.ItemType("SmallExplosiveItem"), 1);
+            recipe.AddIngredient(ModContent.ItemType<SmallExplosiveItem>(), 1);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -52,7 +52,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("LargeExplosiveItem"), 1);
+            recipe.AddIngredient(ModContent.ItemType<LargeExplosiveItem>(), 1);
             recipe.AddIngredient(ItemID.IronAnvil, 1);
             recipe.AddIngredient(ItemID.IronBar, 5);
             recipe.anyIronBar = true;

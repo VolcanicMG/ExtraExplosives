@@ -52,7 +52,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("MediumExplosiveItem"), 1);
+            recipe.AddIngredient(ModContent.ItemType<MediumExplosiveItem>(), 1);
             recipe.AddIngredient(ItemID.Wood, 25);
             recipe.anyWood = true;
             recipe.AddIngredient(ItemID.Torch, 2);

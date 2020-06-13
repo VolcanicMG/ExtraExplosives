@@ -241,33 +241,33 @@ namespace ExtraExplosives.NPCs
 
             if (NPC.downedMechBoss1)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("ArenaBuilderItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<ArenaBuilderItem>());
                 nextSlot++;
             }
 
             if (NPC.downedPirates)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("CritterBombItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<CritterBombItem>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("BulletBoomItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<BulletBoomItem>());
                 nextSlot++;
             }
 
             if (NPC.downedClown)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("DaBombItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<DaBombItem>());
                 nextSlot++;
             }
 
             if (NPC.downedBoss3)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("HeavyBombItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<HeavyBombItem>());
                 nextSlot++;
             }
 
             if (NPC.downedPlantBoss)
             {
-                shop.item[nextSlot].SetDefaults(mod.ItemType("C4Item"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<C4Item>());
                 nextSlot++;
             }
 
@@ -288,35 +288,35 @@ namespace ExtraExplosives.NPCs
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<BombBuddyItem>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("MegaExplosiveItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<MegaExplosiveItem>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(mod.ItemType("GiganticExplosiveItem"));
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<GiganticExplosiveItem>());
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<FlashbangItem>());
                 nextSlot++;
             }
 
-            shop.item[nextSlot].SetDefaults(mod.ItemType("BasicExplosiveItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BasicExplosiveItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("SmallExplosiveItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<SmallExplosiveItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("MediumExplosiveItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<MediumExplosiveItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("LargeExplosiveItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<LargeExplosiveItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("TorchBombItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<TorchBombItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("DynaglowmiteItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<DynaglowmiteItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("DeliquidifierItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<DeliquidifierItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("HydromiteItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<HydromiteItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("LavamiteItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<LavamiteItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("HouseBombItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<HouseBombItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(mod.ItemType("BunnyiteItem"));
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BunnyiteItem>());
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<MeteoriteBusterItem>());
             nextSlot++;

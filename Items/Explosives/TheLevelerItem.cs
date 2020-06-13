@@ -52,7 +52,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("LargeExplosiveItem"), 5);
+            recipe.AddIngredient(ModContent.ItemType<LargeExplosiveItem>(), 5);
             recipe.AddIngredient(ItemID.IronPickaxe, 1);
             recipe.AddIngredient(ItemID.Gel, 30);
             recipe.AddTile(TileID.Anvils);
@@ -60,7 +60,7 @@ namespace ExtraExplosives.Items.Explosives
             recipe.AddRecipe();
 
             ModRecipe recipe2 = new ModRecipe(mod);
-            recipe2.AddIngredient(mod.ItemType("LargeExplosiveItem"), 5);
+            recipe2.AddIngredient(ModContent.ItemType<LargeExplosiveItem>(), 5);
             recipe2.AddIngredient(ItemID.LeadPickaxe, 1);
             recipe2.AddIngredient(ItemID.Gel, 30);
             recipe2.AddTile(TileID.Anvils);
