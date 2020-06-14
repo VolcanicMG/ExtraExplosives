@@ -15,7 +15,7 @@ namespace ExtraExplosives.UI
 {
 	internal class ExtraExplosivesUI : UIState
 	{
-		public IDictionary<int, int> AmmoItemIDToItem = ExtraExplosives.mapItemToItemID;
+		public IDictionary<int, int> AmmoItemIDToItem = ExtraExplosives.mapItemToItemID;		// Needed for crafting bullet booms
 		
 		internal static int ItemAmmo; //projectile
 		internal static int ItemProjectile;

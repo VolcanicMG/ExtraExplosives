@@ -67,7 +67,7 @@ namespace ExtraExplosives
 		}
 		// This is where the info for the bulletboom generation is stored, not quite (fully) dynamic sadly
 		// Item List (Note lists are 1-1 and ordered, changing order will break loading)
-		static List<NewBulletBoomItem> _bulletBoomItems = new List<NewBulletBoomItem>() 
+		static List<NewBulletBoomItem> _bulletBoomItems = new List<NewBulletBoomItem>() 	// Names should just be type so it doesnt go bullet bullet
 		{
 			new NewBulletBoomItem(ItemID.MusketBall, "MusketBall", "Musket Ball"), 
 			new NewBulletBoomItem(ItemID.MeteorShot, "MeteorShot", "Meteor Shot"),

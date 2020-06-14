@@ -12,7 +12,7 @@ namespace ExtraExplosives
     public class ForeignModParsing
     {
         
-        //private string version = Main.versionNumber;
+        //private string version = Main.versionNumber; // removed for now
         // Uses layered ternary operations to get the current final item id of vanilla then supplements it with the additional tml ids
         private static int finalVanillaID = 3965;//((version.Contains("1.3.5")) ? 3929 : (version != "1.4.0.5") ? 5042 : 5044) + 36;
         private static int finalVanillaProj = 713;//((version.Contains("1.3.5")) ? 713 : (version != "1.4.0.5") ? 948 : 949);
