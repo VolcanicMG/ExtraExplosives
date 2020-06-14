@@ -69,19 +69,19 @@ namespace ExtraExplosives
 		// Item List (Note lists are 1-1 and ordered, changing order will break loading)
 		static List<NewBulletBoomItem> _bulletBoomItems = new List<NewBulletBoomItem>() 
 		{
-			new NewBulletBoomItem(ItemID.MusketBall, "MusketBall", "Musket Ball"), 
-			new NewBulletBoomItem(ItemID.MeteorShot, "MeteorShot", "Meteor Shot"),
-			new NewBulletBoomItem(ItemID.CrystalBullet, "CrystalBullet","Crystal Bullet"), 
-			new NewBulletBoomItem(ItemID.CursedBullet, "CursedBullet","Cursed Bullet"), 
-			new NewBulletBoomItem(ItemID.ChlorophyteBullet, "ChlorophyteBullet","Chlorophyte Bullet"), 
-			new NewBulletBoomItem(ItemID.HighVelocityBullet, "HighVelocityBullet","High Velocity Bullet"), 
-			new NewBulletBoomItem(ItemID.IchorBullet, "IchorBullet","Ichor Bullet"), 
-			new NewBulletBoomItem(ItemID.VenomBullet, "VenomBullet","Venom Bullet"), 
-			new NewBulletBoomItem(ItemID.PartyBullet, "PartyBullet","Party Bullet"), 
-			new NewBulletBoomItem(ItemID.NanoBullet, "NanoBullet","Nano Bullet"), 
-			new NewBulletBoomItem(ItemID.ExplodingBullet, "ExplodingBullet","Exploding Bullet"), 
-			new NewBulletBoomItem(ItemID.GoldenBullet, "GoldenBullet","Golden Bullet"), 
-			new NewBulletBoomItem(ItemID.MoonlordBullet, "LuminiteBullet","Luminite Bullet")
+			new NewBulletBoomItem(ItemID.MusketBall, "MusketBall", "Musket"), 
+			new NewBulletBoomItem(ItemID.MeteorShot, "MeteorShot", "Meteor"),
+			new NewBulletBoomItem(ItemID.CrystalBullet, "CrystalBullet","Crystal"), 
+			new NewBulletBoomItem(ItemID.CursedBullet, "CursedBullet","Cursed"), 
+			new NewBulletBoomItem(ItemID.ChlorophyteBullet, "ChlorophyteBullet","Chlorophyte"), 
+			new NewBulletBoomItem(ItemID.HighVelocityBullet, "HighVelocityBullet","High Velocity"), 
+			new NewBulletBoomItem(ItemID.IchorBullet, "IchorBullet","Ichor"), 
+			new NewBulletBoomItem(ItemID.VenomBullet, "VenomBullet","Venom"), 
+			new NewBulletBoomItem(ItemID.PartyBullet, "PartyBullet","Party"), 
+			new NewBulletBoomItem(ItemID.NanoBullet, "NanoBullet","Nano"), 
+			new NewBulletBoomItem(ItemID.ExplodingBullet, "ExplodingBullet","Exploding"), 
+			new NewBulletBoomItem(ItemID.GoldenBullet, "GoldenBullet","Golden"), 
+			new NewBulletBoomItem(ItemID.MoonlordBullet, "LuminiteBullet","Luminite")
 		};
 		// Projectile List
 		static List<NewBulletBoomProjectile> _bulletBoomProjectiles = new List<NewBulletBoomProjectile>()
