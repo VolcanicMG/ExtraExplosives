@@ -7,8 +7,6 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using ExtraExplosives.Projectiles;
-using IL.Terraria.DataStructures;
 
 namespace ExtraExplosives
 {
@@ -19,6 +17,7 @@ namespace ExtraExplosives
 
 		//buffs
 		public bool BombBuddy;
+
 		public Vector2 BuddyPos;
 
 		public bool RadiatedDebuff;
@@ -45,7 +44,7 @@ namespace ExtraExplosives
 
 		public override void UpdateBadLifeRegen()
 		{
-			if(RadiatedDebuff)
+			if (RadiatedDebuff)
 			{
 				if (player.lifeRegen > 0)
 				{
@@ -90,19 +89,16 @@ namespace ExtraExplosives
 				}
 			}
 
-
 			if (reforgeUIActive == 1) //check to see if the reforge bomb key was pressed
 			{
 				GetInstance<ExtraExplosives>().ExtraExplosivesReforgeBombInterface.SetState(new UI.ExtraExplosivesReforgeBombUI());
 				reforgeUIActive++;
-
 			}
 			if (reforgeUIActive == 3)
 			{
 				GetInstance<ExtraExplosives>().ExtraExplosivesReforgeBombInterface.SetState(null);
 				reforgeUIActive = 4;
 			}
-
 		}
 
 		public override void PostUpdate()
@@ -111,15 +107,13 @@ namespace ExtraExplosives
 			if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["Bang"].Deactivate();
-
 			}
-		
+
 			if (Main.netMode != NetmodeID.Server && Filters.Scene["BigBang"].IsActive() && ExtraExplosives.NukeHit == false) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["BigBang"].Deactivate();
 			}
 		}
-
 
 		public override void ModifyDrawLayers(List<Terraria.ModLoader.PlayerLayer> layers) //Make the players invisable
 		{
@@ -138,7 +132,6 @@ namespace ExtraExplosives
 			{
 				//follow the projectiles
 				Main.screenPosition = new Vector2(ExtraExplosives.NukePos.X - (Main.screenWidth / 2), ExtraExplosives.NukePos.Y - (Main.screenHeight / 2));
-
 			}
 			if (ExtraExplosives.NukeHit == true)
 			{
@@ -182,17 +175,14 @@ namespace ExtraExplosives
 		public override void clientClone(ModPlayer clientClone)
 		{
 			ExtraExplosivesPlayer clone = clientClone as ExtraExplosivesPlayer;
-
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
-			
 		}
 
 		public override void SendClientChanges(ModPlayer clientPlayer)
 		{
-			
 		}
 	}
 }

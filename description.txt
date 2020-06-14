@@ -1,20 +1,27 @@
 [c/FF4500:EXTRA EXPLOSIVES]
-We have decided that terraria doesn’t have enough fun explosives, so we came up with a solution! We introduce to you Extra Explosives! Extra Explosives takes old boring bombs and makes them useful again(Even in late game). You can even us the new combine feature (WIP) to make entirely new bombs from other materials and ammo. There is also a new way to reforge, we use bombs to reforge 3 items at one time! More info on the wiki. We are continuously updating and working on this mod, more explosives to come with some unique properties and explosions. Check us out on discord to voice your opinion and thoughts on bugs, balancing, and what other explosives you might like to see.
-[c/00FF00:MULTIPLAYER COMPATIBLE] (May lag a bit sometimes if you use the big explosives)
+We've decided that Terraria doesn’t have enough fun explosives, so we came up with a solution! We introduce to you Extra Explosives! Extra Explosives takes old, boring bombs and makes them useful again (even late-game). You can even use the new combine feature (W.I.P) to make entirely new bombs from other materials and ammo. There's also a new reforge mechanic using bombs, which allows you to reforge 3 items at a time (more info on the wiki)! We are continuously updating and working on this mod, more explosives to come with some unique properties and explosions. Check us out on Discord to voice your opinion and thoughts on bugs, balancing, and what other explosives you might like to see.
+[c/00FF00:MULTIPLAYER COMPATIBLE] (May lag when using bombs with large explosions)
 
-[c/1cac78:Whats to come:]
+[c/1cac78:What's to come:]
 V3.0:
 New bosses!
 More content!
 More explosions!
 
-Found an issue or a bug, let us know on discord, our homepage, or through Mod Helper!
+Found an issue or a bug? Let us know on discord, our homepage, or through Mod Helper!
 [c/1cac78:Discord: https://discord.gg/UvwEDJ]
 
 [c/FF4500:65 TOTAL ITEMS WITH UNIQUE ABILITIES]
 Check our wiki for a full list
 
 [c/1cac78:CHANGELOG:]
+V2.1.1
+Changed the BOOMerang to be more user friendly
+Changed the small bomb buy amount to 18 silver
+Changed a few things with Captain Explosive to make him more balanced
+Change the NPC projectile so that it won't harm captain explosive or the player
+Added the rainboom
+Added more net coding for the nuke to minimize errors in MP
 V2.1
 Removed Captain Explosives Spawner Item
 Completed The Extra Explosives Github Wiki

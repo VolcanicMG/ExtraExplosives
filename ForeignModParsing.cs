@@ -6,8 +6,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ExtraExplosives;
-using Item = IL.Terraria.Item;
-using Projectile = IL.Terraria.Projectile;
 
 namespace ExtraExplosives
 {
@@ -34,7 +32,8 @@ namespace ExtraExplosives
             // DONT HOLD UP UNNEEDED MEMORY
             // c# will probably already do this but its good to be careful
             int skipped = 0;
-            ModLoader.GetMod("ExtraExplosives").Logger.Info("Parsing modded items, may be a moment");
+            // Info on what the mod is currently doing, disabled because my references got messed up and it threw errors
+            //ModLoader.GetMod("ExtraExplosives").Logger.Info("Parsing modded items, may be a moment");
             for (int i = finalVanillaID;
                 i + skipped <= ItemLoader.ItemCount;
                 i++) // Dont worry this wont run for every int possible (promise)
@@ -85,12 +84,12 @@ namespace ExtraExplosives
 
                 res = (ammo.mod.GetProjectile(sb.ToString()) != null) ? sb.ToString() : "";
                 ModProjectile proj = ammo.mod.GetProjectile(res);
-                if (res != "")
+                /*if (res != "")
                 {
                     ModLoader.GetMod("ExtraExplosives").Logger.InfoFormat(
                         "Item {0} detected as linked to projectile {1}",
                         ammo.DisplayName.GetDefault(), proj.DisplayName.GetDefault());
-                }
+                }*/ // Disabled because of reference error while loading (not an issue with the code just my pc)
 
                 if (proj != null)
                 {
