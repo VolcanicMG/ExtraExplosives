@@ -4,7 +4,7 @@ EXTRA EXPLOSIVES We have decided that terraria doesn’t have enough fun explosi
 
 Whats to come: New Bosses and more Explosives!
 
-Discord: https://discord.gg/UvwEDJ
+Discord: https://discord.com/invite/gTQjQz4
 
 Wiki: https://github.com/VolcanicMG/ExtraExplosives/wiki
 

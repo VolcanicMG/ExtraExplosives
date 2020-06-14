@@ -1,23 +1,9 @@
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
 using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using System.Text;
-using System.Threading.Tasks;
-using ExtraExplosives.Projectiles;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Buffs
 {
@@ -26,9 +12,7 @@ namespace ExtraExplosives.Buffs
 		public override void SetDefaults()
 		{
 			DisplayName.SetDefault("Stunned");
-			Description.SetDefault("You can't move\n" +
-				"You can't attack\n" +
-				"You can't place blocks\n");
+			Description.SetDefault("You can't move, attack, or place blocks");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = false;
@@ -40,7 +24,6 @@ namespace ExtraExplosives.Buffs
 			Vector2 NPCPos = npc.Center; //npc pos
 			if (npc.boss)
 			{
-				
 			}
 			else
 			{
@@ -56,21 +39,17 @@ namespace ExtraExplosives.Buffs
 				npc.velocity.X = 0;
 				npc.velocity.Y = npc.velocity.Y + 0.3f;
 			}
-			
 		}
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-
 			Vector2 PlayerPos = player.Center; //player pos
 
 			if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
 			{
-
 				Filters.Scene.Activate("Bang", player.Center).GetShader().UseColor(255, 255, 255).UseOpacity(0.1f);
 				//float progress = 0f;
 				//Filters.Scene["Bang"].GetShader().UseProgress(progress).UseOpacity(0);
-
 			}
 
 			//add lighting
@@ -92,7 +71,5 @@ namespace ExtraExplosives.Buffs
 			player.velocity.X = 0;
 			player.velocity.Y = player.velocity.Y + 0.3f;
 		}
-
 	}
-
 }

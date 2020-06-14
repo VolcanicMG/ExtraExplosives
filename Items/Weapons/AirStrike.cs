@@ -1,25 +1,21 @@
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using System;
 
 namespace ExtraExplosives.Items.Weapons
 {
 	public class AirStrike : ModItem
 	{
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Air Strike");
 			Tooltip.SetDefault("Send them down!");
-
 		}
 
 		public override void SetDefaults()
 		{
-
 			item.useStyle = 5;
 			item.autoReuse = true;
 			item.useAnimation = 140;
@@ -37,12 +33,10 @@ namespace ExtraExplosives.Items.Weapons
 			item.knockBack = 4f;
 			item.rare = 9;
 			item.ranged = true;
-
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-
 			int numberProjectiles = 15; // shoots 6 projectiles
 			for (int index = 0; index < numberProjectiles; ++index)
 			{
@@ -62,22 +56,15 @@ namespace ExtraExplosives.Items.Weapons
 				Projectile.NewProjectile(vector2_1.X, vector2_1.Y, SpeedX, SpeedY, type, damage, knockBack, Main.myPlayer, 0.0f, (float)Main.rand.Next(5));
 			}
 			return false;
-			
 		}
 
 		public override void HoldItem(Player player)
 		{
-
-			if(player.channel == true)
+			if (player.channel == true)
 			{
-
-				
-
 			}
-			else if(player.channel == false)
+			else if (player.channel == false)
 			{
-				
-				
 			}
 
 			base.HoldItem(player);
@@ -88,7 +75,6 @@ namespace ExtraExplosives.Items.Weapons
 			return new Vector2(0, 0);
 		}
 
-
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
@@ -98,7 +84,5 @@ namespace ExtraExplosives.Items.Weapons
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-
 	}
-
 }

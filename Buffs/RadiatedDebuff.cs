@@ -1,24 +1,7 @@
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using ExtraExplosives.NPCs;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
-using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using System.Text;
-using System.Threading.Tasks;
-using ExtraExplosives.Projectiles;
-using ExtraExplosives.NPCs;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Buffs
 {
@@ -40,18 +23,13 @@ namespace ExtraExplosives.Buffs
 			Vector2 NPCPos = npc.Center; //npc pos
 
 			npc.GetGlobalNPC<ExtraExplosivesGlobalNPC>().Radiated = true;
-
 		}
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-
 			Vector2 PlayerPos = player.Center; //player pos
 
 			player.GetModPlayer<ExtraExplosivesPlayer>().RadiatedDebuff = true;
-
 		}
-
 	}
-
 }
