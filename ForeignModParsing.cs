@@ -12,17 +12,18 @@ namespace ExtraExplosives
     public class ForeignModParsing
     {
         
-        private string version = Main.versionNumber;
+        //private string version = Main.versionNumber;
         // Uses layered ternary operations to get the current final item id of vanilla then supplements it with the additional tml ids
         private static int finalVanillaID = 3965;//((version.Contains("1.3.5")) ? 3929 : (version != "1.4.0.5") ? 5042 : 5044) + 36;
         private static int finalVanillaProj = 713;//((version.Contains("1.3.5")) ? 713 : (version != "1.4.0.5") ? 948 : 949);
-        static ArrayList modAmmo = new ArrayList();
-        static ArrayList modProj = new ArrayList();
+        private static ArrayList modAmmo = new ArrayList();
+        private static ArrayList modProj = new ArrayList();
 
         public static void PostLoad()
         {
             parseModdedItems();
             reactToModdedItems();
+            Unload();
         }
 
         private static void parseModdedItems()
@@ -100,9 +101,13 @@ namespace ExtraExplosives
                     
                 }
             }
+            sb.Clear();    // Clears the stringbuilder, just in case c# misses it
+        }
 
-            
-            // Will hold code to register ammo with bullet boom generation code
+        private static void Unload()    // Unloads everything to avoid any accidental memory leaking
+        {                        // This should be done by c# and tml, but always be cautious
+            modProj.Clear();
+            modAmmo.Clear();
         }
         
 

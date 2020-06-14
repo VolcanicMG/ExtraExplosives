@@ -118,7 +118,7 @@ namespace ExtraExplosives
 		public static string GithubUserName => "VolcanicMG";
 		public static string GithubProjectName => "ExtraExplosives";
 		
-		// Create the item to item id reference (used with cpt explosive)
+		// Create the item to item id reference (used with cpt explosive) Needs to stay loaded
 		public ExtraExplosives()
 		{
 			mapItemToItemID = new Dictionary<int,int>();
