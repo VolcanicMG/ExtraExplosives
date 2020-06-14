@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Explosives
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Large Explosive");
-			Tooltip.SetDefault("That did a lot of damage");
+			Tooltip.SetDefault("");
 		}
 
 		public override void SetDefaults()

@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Explosives
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Cluster Bomb");
-			Tooltip.SetDefault("What's better than an explosion? Explosions coming from explosions of course!");
+			Tooltip.SetDefault("Spawns in multiple bombs");
 		}
 
 		public override void SetDefaults()

@@ -350,6 +350,7 @@ healthchecksdb
 MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
+<<<<<<< HEAD
 .ionide/
 .idea/.idea.ExtraExplosives.dir/.idea/.idea.ExtraExplosives.dir.iml
 .idea/.idea.ExtraExplosives.dir/.idea/encodings.xml
@@ -397,3 +398,6 @@ obj/ExtraExplosives.csproj.nuget.dgspec.json
 obj/ExtraExplosives.csproj.nuget.g.props
 obj/project.assets.json
 obj/project.nuget.cache
+=======
+.ionide/
+>>>>>>> Volcanic's_Uploads

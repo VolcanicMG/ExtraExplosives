@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Explosives
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Big Bouncy Dynamite");
-			Tooltip.SetDefault("Lots of fun and it’s all packed in one.");
+			Tooltip.SetDefault("Spawns in multiple bouncy dynamite.");
 		}
 
 		public override void SetDefaults()

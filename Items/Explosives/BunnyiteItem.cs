@@ -9,8 +9,7 @@ namespace ExtraExplosives.Items.Explosives
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bunnyite");
-			Tooltip.SetDefault("Lot O' Bunnies!!!\n" +
-				"Resist the urge. You don't have to do this.");
+			Tooltip.SetDefault("Spawns in bunnies");
 		}
 
 		public override void SetDefaults()

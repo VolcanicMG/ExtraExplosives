@@ -18,13 +18,21 @@ namespace ExtraExplosives.Items
 			item.height = 20;   //sprite height
 			item.maxStack = 1;   //This defines the items max stack
 			item.consumable = false;  //Tells the game that this should be used up once fired
+<<<<<<< HEAD
 			item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example
+=======
+			item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example	
+>>>>>>> Volcanic's_Uploads
 			item.rare = 11;	 //The color the title of your item when hovering over it ingame
 			item.UseSound = SoundID.Item1; //The sound played when using this item
 			item.useAnimation = 20;  //How long the item is used for.
 			item.useTime = 20;
 			item.noUseGraphic = true;
+<<<<<<< HEAD
 			item.noMelee = true;	  //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
+=======
+			item.noMelee = true;	  //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damage
+>>>>>>> Volcanic's_Uploads
 			item.shoot = 386; //This defines what type of projectile this item will shoot
 			item.shootSpeed = 15f; //This defines the projectile speed when shot
 			//item.createTile = mod.TileType("ExplosiveTile");
