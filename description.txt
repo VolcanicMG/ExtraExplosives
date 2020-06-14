@@ -1,0 +1,104 @@
+[c/FF4500:EXTRA EXPLOSIVES]
+We've decided that Terraria doesn’t have enough fun explosives, so we came up with a solution! We introduce to you Extra Explosives! Extra Explosives takes old, boring bombs and makes them useful again (even late-game). You can even use the new combine feature (W.I.P) to make entirely new bombs from other materials and ammo. There's also a new reforge mechanic using bombs, which allows you to reforge 3 items at a time (more info on the wiki)! We are continuously updating and working on this mod, more explosives to come with some unique properties and explosions. Check us out on Discord to voice your opinion and thoughts on bugs, balancing, and what other explosives you might like to see.
+[c/00FF00:MULTIPLAYER COMPATIBLE] (May lag when using bombs with large explosions)
+
+[c/1cac78:What's to come:]
+V3.0:
+New bosses!
+More content!
+More explosions!
+
+Found an issue or a bug? Let us know on discord, our homepage, or through Mod Helper!
+[c/1cac78:Discord: https://discord.gg/UvwEDJ]
+
+[c/FF4500:65 TOTAL ITEMS WITH UNIQUE ABILITIES]
+Check our wiki for a full list
+
+[c/1cac78:CHANGELOG:]
+V2.2
+C4 can break dungeon tiles
+Updated all the explosive code so that the bombs will have a set pickaxe amount
+Updated the names captain explosive can have.
+Fixed grammer here and there
+Added the tornado bomb
+Added dynamic bullet boom generation (Vanilla and Calamity support)
+V2.1.1
+Changed the BOOMerang to be more user friendly
+Changed the small bomb buy amount to 18 silver
+Changed a few things with Captain Explosive to make him more balanced
+Change the NPC projectile so that it won't harm captain explosive or the player
+Added the rainboom
+Added more net coding for the nuke to minimize errors in MP
+V2.1
+Removed Captain Explosives Spawner Item
+Completed The Extra Explosives Github Wiki
+Updated Recipe List On Github Wiki
+Fixed Hellavator bug
+Fixed grammatical errors in tooltips
+Changed Hydromite Recipe
+Nerfed Captain Explosive's death
+V2.0
+Fixed Mod Integration
+Fixed the C4 craft item to Myth anvil
+Fixed the Flashbang sound
+Fixed dust config bugs
+Fixed multiplayer sync issues
+Fixed issues with the offset for most bombs
+Fixed some dust issues
+Fixed chests breaking in MP
+Fixed bombs not being able to break blocks along the edge of the world
+Updated some bombs to be more user friendly
+Updated Discord Server
+Updated the reforge UI
+Updated most sprites
+Updated some of the tooltips for the explosives
+Updated Forums Page
+New Discord Rules
+Optimized all current projectiles
+Made large explosives lag friendly
+Added the nuke
+Added the rocket minigun
+Added the flashbang
+Added Hellavator
+Added Troll bomb
+Added the Air Strike
+Added the bomb buddy
+Added the Atom bomb
+Added the BOOMerang
+Added the meteorite buster
+Added more config options for block/wall breaking
+Added 2 new block types
+Added a new debuff
+Added new dust types
+Plane?
+New Boss Info?
+Implemented Wiki - WIP
+Implemented XML scripts
+Change bullet boom item to Empty shell for "Combining"
+Created a projectile template
+And many more fixes		
+V1.5
+Fixed the heavy bomb
+Worked out a bug for the C4
+Added the reforge bomb
+V1.4.4
+Added Census support
+Added Mod Helper support
+V1.4.3
+Added Calamity and Thorium bullet compatibility for the bullet boom
+V1.4.2
+Added the changelog back into the description
+V1.4.1
+Added Calamity & Thorium Compatibility
+Fixed a few bugs
+V1.4
+Added recipes for vanilla bombs
+Introduced bomb/ammo combining with Captain Explosive.
+V1.3.2
+Updated the defaults for the config
+V1.3
+Added Dust/Particle control - New config option to change Dust/Particle amount
+V1.2
+Added an icon
+V1.0
+Initial release
