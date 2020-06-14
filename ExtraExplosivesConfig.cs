@@ -19,20 +19,19 @@ namespace ExtraExplosives
 		public bool CanBreakTiles;
 
 		[Header("Explosives Dust/Particle Settings")]
-		[Label("Set Dust/Particle amount" +
-			"\n1 = Max" +
-			"\n0 = None" +
-			"\nCurrent amount")]
+		[Label("Set Dust/Particle amount; Current Amount")]
+		[Tooltip("0 = No Dust; 1 = Lots of Dust")]
 		[Increment(0.1f)]
 		[Range(0f, 1f)]
 		[DefaultValue(1f)]
 		[Slider]
 		public float dustAmount;
-		
+
 		[Header("Dynamic Bullet Boom Integration")]
 		[Label("Use ammo from other mods in bullet booms? (Reload Required)")]
 		[Tooltip("Developmental Feature")]
-		[DefaultValue(true)]
+		[DefaultValue(false)]
+		[ReloadRequired]
 		public bool generateForeignBulletBooms;
 
 		public override void OnChanged()
