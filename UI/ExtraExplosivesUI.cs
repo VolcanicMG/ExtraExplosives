@@ -15,7 +15,7 @@ namespace ExtraExplosives.UI
 {
 	internal class ExtraExplosivesUI : UIState
 	{
-		public IDictionary<int, int> AmmoItemIDToItem;
+		public IDictionary<int, int> AmmoItemIDToItem = ExtraExplosives.mapItemToItemID;
 		
 		internal static int ItemAmmo; //projectile
 		internal static int ItemProjectile;
