@@ -70,6 +70,7 @@ namespace ExtraExplosives
 		static List<NewBulletBoomItem> _bulletBoomItems = new List<NewBulletBoomItem>() 
 		{
 			new NewBulletBoomItem(ItemID.MusketBall, "MusketBall", "Musket"), 
+			new NewBulletBoomItem(ItemID.SilverBullet, "SilverBullet", "Silver"),
 			new NewBulletBoomItem(ItemID.MeteorShot, "MeteorShot", "Meteor"),
 			new NewBulletBoomItem(ItemID.CrystalBullet, "CrystalBullet","Crystal"), 
 			new NewBulletBoomItem(ItemID.CursedBullet, "CursedBullet","Cursed"), 
@@ -87,6 +88,7 @@ namespace ExtraExplosives
 		static List<NewBulletBoomProjectile> _bulletBoomProjectiles = new List<NewBulletBoomProjectile>()
 		{
 			new NewBulletBoomProjectile(ProjectileID.Bullet, "MusketBall"), 
+			new NewBulletBoomProjectile(ProjectileID.Bullet, "SilverBullet"), 
 			new NewBulletBoomProjectile(ProjectileID.MeteorShot, "MeteorShot"),
 			new NewBulletBoomProjectile(ProjectileID.CrystalBullet, "CrystalBullet"), 
 			new NewBulletBoomProjectile(ProjectileID.CursedBullet, "CursedBullet"), 
