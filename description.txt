@@ -19,7 +19,7 @@ V2.2
 C4 can break dungeon tiles
 Updated all the explosive code so that the bombs will have a set pickaxe amount
 Updated the names captain explosive can have.
-Fixed grammer here and there
+Fixed grammar here and there
 Added the tornado bomb
 Added dynamic bullet boom generation (Vanilla and Calamity support)
 V2.1.1
