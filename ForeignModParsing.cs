@@ -94,7 +94,7 @@ namespace ExtraExplosives
 
                 if (proj != null)
                 {
-                    NewBulletBoomItem tempItem = new NewBulletBoomItem(ammo.item.type, ammo.DisplayName.GetDefault(), ammo.Name.Replace("Bullet", ""));
+                    NewBulletBoomItem tempItem = new NewBulletBoomItem(ammo.item.type, ammo.DisplayName.GetDefault(), ammo.Name);
                     NewBulletBoomProjectile tempProj = new NewBulletBoomProjectile(proj.projectile.type, proj.Name);
                     ExtraExplosives.NewRegister(tempItem, tempProj);
                     

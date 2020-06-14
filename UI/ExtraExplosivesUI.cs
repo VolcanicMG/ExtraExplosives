@@ -15,7 +15,7 @@ namespace ExtraExplosives.UI
 {
 	internal class ExtraExplosivesUI : UIState
 	{
-		public IDictionary<int, int> AmmoItemIDToItem = ExtraExplosives.mapItemToItemID;
+		public IDictionary<int, int> AmmoItemIDToItem;
 		
 		internal static int ItemAmmo; //projectile
 		internal static int ItemProjectile;
@@ -154,7 +154,6 @@ namespace ExtraExplosives.UI
                             if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomEmptyItem>() && AmmoItemIDToItem.ContainsKey(_vanillaItemSlot2.Item.type))
                             {
                                 ItemAmmo = _vanillaItemSlot2.Item.type; //get the id for the ammo
-                                
                                 
                                 
                                 //Main.NewText(ItemAmmo);

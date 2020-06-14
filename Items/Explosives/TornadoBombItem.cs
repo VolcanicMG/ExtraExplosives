@@ -11,12 +11,7 @@ namespace ExtraExplosives.Items.Explosives
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tornado Bomb");
-<<<<<<< HEAD
-			Tooltip.SetDefault("Here comes the twister!\n" +
-				"Grab onto something, it's going to be a wild ride.");
-=======
 			Tooltip.SetDefault("Spawns in a tornado that sucks up players, enemies, and items");
->>>>>>> Volcanic's_Uploads
 
 			Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 5));
 		}
