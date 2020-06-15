@@ -14,7 +14,7 @@ namespace ExtraExplosives.Projectiles
 		// Variables
 		private int proj;
 		private string projName;
-		internal static bool CanBreakWalls;    // doesnt seem necessary but left alone just in case
+		//internal static bool CanBreakWalls;    // doesn't seem necessary but left alone just in case
 
 		// Constructor for the projectiles
 		public BulletBoomProjectile(int proj, string projName)

@@ -13,6 +13,7 @@ using Terraria.ModLoader.IO;
 using Terraria.UI;
 
 using static ExtraExplosives.GlobalMethods;
+using System;
 
 namespace ExtraExplosives
 {
@@ -67,6 +68,15 @@ namespace ExtraExplosives
 		}
 		// This is where the info for the bulletboom generation is stored, not quite (fully) dynamic sadly
 		// Item List (Note lists are 1-1 and ordered, changing order will break loading)
+		static List<NewBulletBoomItem> _bulletBoomItemsClone = new List<NewBulletBoomItem>()
+		{
+		};
+
+		static List<NewBulletBoomProjectile> _bulletBoomProjectilesClone = new List<NewBulletBoomProjectile>()
+		{
+		};
+
+
 		static List<NewBulletBoomItem> _bulletBoomItems = new List<NewBulletBoomItem>() 
 		{
 			new NewBulletBoomItem(ItemID.MusketBall, "MusketBall", "Musket"), 
@@ -84,22 +94,23 @@ namespace ExtraExplosives
 			new NewBulletBoomItem(ItemID.GoldenBullet, "GoldenBullet","Golden"), 
 			new NewBulletBoomItem(ItemID.MoonlordBullet, "LuminiteBullet","Luminite")
 		};
+
 		// Projectile List
 		static List<NewBulletBoomProjectile> _bulletBoomProjectiles = new List<NewBulletBoomProjectile>()
 		{
-			new NewBulletBoomProjectile(ProjectileID.Bullet, "MusketBall"), 
-			new NewBulletBoomProjectile(ProjectileID.Bullet, "SilverBullet"), 
+			new NewBulletBoomProjectile(ProjectileID.Bullet, "MusketBall"),
+			new NewBulletBoomProjectile(ProjectileID.Bullet, "SilverBullet"),
 			new NewBulletBoomProjectile(ProjectileID.MeteorShot, "MeteorShot"),
-			new NewBulletBoomProjectile(ProjectileID.CrystalBullet, "CrystalBullet"), 
-			new NewBulletBoomProjectile(ProjectileID.CursedBullet, "CursedBullet"), 
-			new NewBulletBoomProjectile(ProjectileID.ChlorophyteBullet, "ChlorophyteBullet"), 
-			new NewBulletBoomProjectile(ProjectileID.BulletHighVelocity, "HighVelocityBullet"), 
-			new NewBulletBoomProjectile(ProjectileID.IchorBullet, "IchorBullet"), 
-			new NewBulletBoomProjectile(ProjectileID.VenomBullet, "VenomBullet"), 
-			new NewBulletBoomProjectile(ProjectileID.PartyBullet, "PartyBullet"), 
-			new NewBulletBoomProjectile(ProjectileID.NanoBullet, "NanoBullet"), 
-			new NewBulletBoomProjectile(ProjectileID.ExplosiveBullet, "ExplodingBullet"), 
-			new NewBulletBoomProjectile(ProjectileID.GoldenBullet, "GoldenBullet"), 
+			new NewBulletBoomProjectile(ProjectileID.CrystalBullet, "CrystalBullet"),
+			new NewBulletBoomProjectile(ProjectileID.CursedBullet, "CursedBullet"),
+			new NewBulletBoomProjectile(ProjectileID.ChlorophyteBullet, "ChlorophyteBullet"),
+			new NewBulletBoomProjectile(ProjectileID.BulletHighVelocity, "HighVelocityBullet"),
+			new NewBulletBoomProjectile(ProjectileID.IchorBullet, "IchorBullet"),
+			new NewBulletBoomProjectile(ProjectileID.VenomBullet, "VenomBullet"),
+			new NewBulletBoomProjectile(ProjectileID.PartyBullet, "PartyBullet"),
+			new NewBulletBoomProjectile(ProjectileID.NanoBullet, "NanoBullet"),
+			new NewBulletBoomProjectile(ProjectileID.ExplosiveBullet, "ExplodingBullet"),
+			new NewBulletBoomProjectile(ProjectileID.GoldenBullet, "GoldenBullet"),
 			new NewBulletBoomProjectile(ProjectileID.MoonlordBullet, "LuminiteBullet")
 		};
 		
@@ -126,7 +137,7 @@ namespace ExtraExplosives
 			mapItemToItemID = new Dictionary<int,int>();
 		}
 		
-		// Registers modded projectiles 
+		// Registers modded projectiles and items for the bullet boom
 		public void RunRegistry()
 		{
 			for (int i = 0; i < _bulletBoomItems.Count; i++)	// loop through array
@@ -140,6 +151,16 @@ namespace ExtraExplosives
 				// map the item to its new id and ammo to the item 
 				ExtraExplosives.AddPair(_bulletBoomItems[i].itemID, item.item.type);
 			}
+		}
+
+		public override void Unload()
+		{
+			//wipe everything out
+			mapItemToItemID.Clear();
+			_bulletBoomProjectiles.Clear();
+			_bulletBoomItems.Clear();
+
+			base.Unload();
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -259,7 +280,7 @@ namespace ExtraExplosives
 
 		public override void Load()
 		{
-			Logger.InfoFormat("{0} Extra Explosives logger", Name);
+			Logger.InfoFormat($"{0} Extra Explosives logger", Name);
 
 			ExtraExplosivesUserInterface = new UserInterface();
 			ExtraExplosivesReforgeBombInterface = new UserInterface();
@@ -278,7 +299,35 @@ namespace ExtraExplosives
 				Filters.Scene["BigBang"] = new Filter(new ScreenShaderData(screenRef2, "BigBang"), EffectPriority.VeryHigh); //float4 name
 				Filters.Scene["BigBang"].Load();
 			}
+
+			//set the clone instances to the original on the first go
+			if(_bulletBoomItems.Count > 0)
+			{
+				foreach(NewBulletBoomItem newBulletBoomItem in _bulletBoomItems)
+				{
+					_bulletBoomItemsClone.Add(newBulletBoomItem);
+				}
+
+				foreach (NewBulletBoomProjectile newBulletBoomProjectile in _bulletBoomProjectiles)
+				{
+					_bulletBoomProjectilesClone.Add(newBulletBoomProjectile);
+				}
+			}
+			else
+			{
+				foreach (NewBulletBoomItem newBulletBoomItem in _bulletBoomItemsClone)
+				{
+					_bulletBoomItems.Add(newBulletBoomItem);
+				}
+
+				foreach (NewBulletBoomProjectile newBulletBoomProjectile in _bulletBoomProjectilesClone)
+				{
+					_bulletBoomProjectiles.Add(newBulletBoomProjectile);
+				}
+			}
 			
+
+
 			// Check config setting, then run registry
 			// If config setting is enabled, warns the user since it might cause problems when handling poorly written mods
 			if (generateForeignBulletBooms)
@@ -287,11 +336,11 @@ namespace ExtraExplosives
 				// Use warn on first so its stands out since it will eventually cause problems
 				Logger.Warn("You are using the dynamic bullet boom generation feature, this may result in insability while loading");
 				Logger.Info("This feature, while stable, can be problematic with both lots of mods and mods with strange naming conventions for their items\n" +
-				            "If you see this, you are probably having problems loading, disabling Extra Explosives may solve them");
-				ForeignModParsing.PostLoad();	// Run if config setting is set
+							"If you see this, you are probably having problems loading, disabling Extra Explosives may solve them");
+				ForeignModParsing.PostLoad();   // Run if config setting is set
 			}
-			RunRegistry();		// Always run to load standard bullet booms
-
+			RunRegistry();      // Always run to load standard bullet booms
+			
 		}
 	}
 }
