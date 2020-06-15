@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using IL.Terraria.ID;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -176,7 +177,7 @@ namespace ExtraExplosives.Projectiles
 			//NPCS
 			for (int i = 0; i < Main.npc.Length; i++)
 			{
-				if ((projectile.position.X / 16) <= ((Main.npc[i].position.X + 700) / 16) && (projectile.position.X / 16) >= ((Main.npc[i].position.X - 700) / 16) && !Main.npc[i].boss)
+				if ((projectile.position.X / 16) <= ((Main.npc[i].position.X + 700) / 16) && (projectile.position.X / 16) >= ((Main.npc[i].position.X - 700) / 16) && !Main.npc[i].boss && Main.npc[i].type != 488)
 				{
 					Main.npc[i].netUpdate = true;
 
