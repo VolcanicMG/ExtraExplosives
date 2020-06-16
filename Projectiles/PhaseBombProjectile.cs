@@ -34,13 +34,17 @@ namespace ExtraExplosives.Projectiles
 			projectile.timeLeft = 1000; //The amount of time the projectile is alive for
 		}
 
-		public override void PostAI()
+
+
+		public override void AI()
 		{
 			Player player = Main.player[projectile.owner];
-			if (player.releaseUseItem)
+			if ((player.releaseLeft && Main.mouseLeft) == false)
 			{
-				projectile.timeLeft = 0;
+				projectile.Kill();
 			}
+
+
 			if (++projectile.frameCounter >= 5)
 			{
 				projectile.frameCounter = 0;

@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 using System;
 using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.Graphics.Effects;
+=======
+using Terraria;
+>>>>>>> master
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,7 +14,10 @@ namespace ExtraExplosives.Items.Explosives
     public class HotPotatoItem : ModItem
     {
         private int _pickPower = 0;
+<<<<<<< HEAD
         private int firespeed = 345;
+=======
+>>>>>>> master
         
         public override void SetStaticDefaults()
         {
@@ -28,6 +35,7 @@ namespace ExtraExplosives.Items.Explosives
             item.useStyle = 4;  
             item.rare = ItemRarityID.Orange;	 
             item.UseSound = SoundID.Item1; 
+<<<<<<< HEAD
             item.useAnimation = 345;
             item.autoReuse = false;
             item.useTime = 345;	 
@@ -63,6 +71,18 @@ namespace ExtraExplosives.Items.Explosives
         }
         public override string Texture => "ExtraExplosives/Projectiles/HotPotatoProjectile";
 
+=======
+            item.useAnimation = 20;
+            item.autoReuse = false;
+            //item.useTime = 20;	 
+            item.value = Item.buyPrice(0, 1, 17, 0);  
+            item.noUseGraphic = true;
+            item.noMelee = true;	  
+            item.shoot = mod.ProjectileType("HotPotatoProjectile"); 
+            item.shootSpeed = 0f; 
+        }
+
+>>>>>>> master
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
