@@ -17,7 +17,8 @@ namespace ExtraExplosives.Items.Explosives
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hot Potato");
-            Tooltip.SetDefault("We don't get it either");
+            Tooltip.SetDefault("We don't get it either\n" +
+                "Hold the left mouse button to charge");
         }
 
         public override void SetDefaults()

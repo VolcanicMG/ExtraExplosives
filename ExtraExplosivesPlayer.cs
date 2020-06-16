@@ -1,6 +1,8 @@
 using ExtraExplosives.Buffs;
 using Microsoft.Xna.Framework;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Net;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.Graphics.Effects;
@@ -155,8 +157,17 @@ namespace ExtraExplosives
 			player.ResetEffects();
 			Main.screenPosition = player.Center;
 
-			Main.NewText($"Version: {ExtraExplosives.ModVersion}");
-			Main.NewText($"Current Version: {ExtraExplosives.CurrentVersion}");
+
+			if(!ExtraExplosives.ModVersion.Equals(ExtraExplosives.CurrentVersion))
+			{
+				Main.NewText($"[c/AB40FF:The Extra Explosives Mod needs updated.]");
+				Main.NewText($"[c/AB40FF:Current Version Installed: {ExtraExplosives.ModVersion}]");
+				Main.NewText($"[c/AB40FF:Mod Browser Version: {ExtraExplosives.CurrentVersion}]");
+				Main.NewText($"[c/AB40FF:You can find the latests version in the TML mod browser]");
+			}
+
+			//Main.NewText($"Version: {ExtraExplosives.ModVersion}");
+			//Main.NewText($"Current Version: |{currentVersion}|");
 		}
 
 		public override void SetControls() //when the nuke is active set the player to not build or use items

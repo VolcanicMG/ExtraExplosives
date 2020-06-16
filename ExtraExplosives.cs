@@ -15,6 +15,7 @@ using Terraria.UI;
 using static ExtraExplosives.GlobalMethods;
 using System;
 using Terraria.ModLoader.UI.ModBrowser;
+using System.Net;
 
 namespace ExtraExplosives
 {
@@ -342,9 +343,16 @@ namespace ExtraExplosives
 			}
 			RunRegistry();      // Always run to load standard bullet booms
 
-			ModVersion = Version.ToString();
+			ModVersion = "v" + Version.ToString().Trim();
 
-			CurrentVersion = "";
+			using (WebClient client = new WebClient())
+			{
+				//Parsing the data we need from the api
+				var json = client.DownloadString("http://javid.ddns.net/tModLoader/tools/latestmodversionsimple.php?modname=extraexplosives");
+				json.ToString().Trim();
+				//JObject o = JObject.Parse(json);
+				CurrentVersion = json; //(string)o["Version"];
+			}
 		}
 	}
 }
