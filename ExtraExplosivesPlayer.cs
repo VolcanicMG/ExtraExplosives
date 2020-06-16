@@ -154,6 +154,9 @@ namespace ExtraExplosives
 			//player.ResetEffects();
 			player.ResetEffects();
 			Main.screenPosition = player.Center;
+
+			Main.NewText($"Version: {ExtraExplosives.ModVersion}");
+			Main.NewText($"Current Version: {ExtraExplosives.CurrentVersion}");
 		}
 
 		public override void SetControls() //when the nuke is active set the player to not build or use items

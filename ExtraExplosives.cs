@@ -14,6 +14,7 @@ using Terraria.UI;
 
 using static ExtraExplosives.GlobalMethods;
 using System;
+using Terraria.ModLoader.UI.ModBrowser;
 
 namespace ExtraExplosives
 {
@@ -124,7 +125,10 @@ namespace ExtraExplosives
 
 		public static string GithubUserName => "VolcanicMG";
 		public static string GithubProjectName => "ExtraExplosives";
-		
+
+		public static string ModVersion;
+		public static string CurrentVersion;
+
 		// Create the item to item id reference (used with cpt explosive) Needs to stay loaded
 		public ExtraExplosives()
 		{
@@ -153,7 +157,7 @@ namespace ExtraExplosives
 			mapItemToItemID.Clear();
 			_bulletBoomProjectiles.Clear();
 			_bulletBoomItems.Clear();
-
+			
 			base.Unload();
 		}
 
@@ -337,7 +341,10 @@ namespace ExtraExplosives
 				ForeignModParsing.PostLoad();   // Run if config setting is set
 			}
 			RunRegistry();      // Always run to load standard bullet booms
-			
+
+			ModVersion = Version.ToString();
+
+			CurrentVersion = "";
 		}
 	}
 }

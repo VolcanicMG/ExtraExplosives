@@ -15,6 +15,14 @@ Found an issue or a bug? Let us know on discord, our homepage, or through Mod He
 Check our wiki for a full list
 
 [c/1cac78:CHANGELOG:]
+V2.2.1
+Added the prism bomb
+Fixed the test dummy from being sucked up
+Added the hot potato
+Made the phase bomb more user friendly
+Updated the Rocket mini gun's sprite
+Fixed an issue with the bullet boom
+Added the potato
 V2.2
 C4 can break dungeon tiles
 Updated all the explosive code so that the bombs will have a set pickaxe amount

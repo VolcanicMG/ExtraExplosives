@@ -61,6 +61,11 @@ namespace ExtraExplosives.NPCs
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpongeItem>());
 				nextSlot++;
 			}
+			else if(type == NPCID.Merchant)
+			{
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<PotatoItem>());
+				nextSlot++;
+			}
 		}
 	}
 }
