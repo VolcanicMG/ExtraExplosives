@@ -5,3 +5,4 @@ homepage = https://forums.terraria.org/index.php?threads/extra-explosives.87772/
 hideCode = true
 hideResources = true
 includePDB = true
+sortAfter = AmmoboxPlus
