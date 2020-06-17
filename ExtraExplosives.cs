@@ -345,13 +345,13 @@ namespace ExtraExplosives
 
 			ModVersion = "v" + Version.ToString().Trim();
 
+			//Goes out and grabs the version that the mod browser has
 			using (WebClient client = new WebClient())
 			{
 				//Parsing the data we need from the api
 				var json = client.DownloadString("http://javid.ddns.net/tModLoader/tools/latestmodversionsimple.php?modname=extraexplosives");
 				json.ToString().Trim();
-				//JObject o = JObject.Parse(json);
-				CurrentVersion = json; //(string)o["Version"];
+				CurrentVersion = json; 
 			}
 		}
 	}

@@ -58,12 +58,19 @@ namespace ExtraExplosives.NPCs
 			}
 			else if (type == NPCID.TravellingMerchant)
 			{
-				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpongeItem>());
+				if(Main.hardMode)
+				{
+					shop.item[nextSlot].SetDefaults(ModContent.ItemType<TornadoBombItem>());
+					nextSlot++;
+				}
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<RainboomItem>());
 				nextSlot++;
 			}
 			else if(type == NPCID.Merchant)
 			{
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<PotatoItem>());
+				nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpongeItem>());
 				nextSlot++;
 			}
 		}
