@@ -11,7 +11,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         private int _pickPower = 0;
         private int firespeed = 345;
-        
+        private bool beingUsed = false;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hot Potato");
@@ -20,17 +21,18 @@ namespace ExtraExplosives.Items.Explosives
 
         public override void SetDefaults()
         {
+            item.useTurn = true;
             item.damage = 0;	 
             item.width = 40;	
             item.height = 40;   
             item.maxStack = 99;  
             item.consumable = true;  
-            item.useStyle = 4;  
+            item.useStyle = 4;
             item.rare = ItemRarityID.Orange;	 
             item.UseSound = SoundID.Item1; 
-            item.useAnimation = 345;
-            item.autoReuse = false;
-            item.useTime = 345;	 
+            item.useAnimation = 5;
+            item.autoReuse = true;
+            item.useTime = 5;	 
             item.value = Item.buyPrice(0, 1, 17, 0);
             item.noUseGraphic = false;
             item.noMelee = true;	  
@@ -43,24 +45,32 @@ namespace ExtraExplosives.Items.Explosives
         {
             if (Main.netMode != NetmodeID.Server && !Filters.Scene["BurningScreen"].IsActive())
             {
+                item.shoot = mod.ProjectileType("HotPotatoProjectile");
                 return true;
             }
-
-            return false;
+            item.shoot = 0;
+            return true;
         }
 
-        public override void HoldItem(Player player)
+        /*public override bool UseItemFrame(Player player)
         {
-            if (Main.mouseLeftRelease)
+            player.releaseUseItem = true;
+            return base.UseItemFrame(player);
+        }*/
+
+        /*public override void HoldItem(Player player)
+        {
+            if (!Main.mouseLeftRelease)
             {
-                item.useAnimation = firespeed;
+                //item.useAnimation = firespeed;
             }
-            else if (!Main.mouseLeftRelease)
+            else if (Main.mouseLeftRelease && beingUsed)
             {
-                //item.useAnimation = 2;
-                player.itemAnimation = 2;
+                beingUsed = false;
+                player.itemAnimation = 0;
             }
-        }
+        }*/
+
         public override string Texture => "ExtraExplosives/Projectiles/HotPotatoProjectile";
 
         public override void AddRecipes()

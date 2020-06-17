@@ -127,7 +127,7 @@ namespace ExtraExplosives.Projectiles
             {
                 projectile.position = player.position;
                 int type = Main.rand.Next(2) + 270;
-                if(Main.rand.NextBool()){Dust dust = Main.dust[Terraria.Dust.NewDust(projectile.position, 70, 70, type, 0f, 0f, 154, new Color(255, 255, 255), 1.55f)];}
+                if(Main.rand.Next(100) < 10){Dust dust = Main.dust[Terraria.Dust.NewDust(projectile.position, 70, 70, type, 0f, 0f, 154, new Color(255, 255, 255), 1.55f)];}
                 
             }
             return _thrown;
@@ -208,7 +208,7 @@ namespace ExtraExplosives.Projectiles
             CreateExplosion(projectile.Center, (int) projectile.localAI[0]/12);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, (int) projectile.localAI[0]);
+            CreateDust(projectile.Center, (int) projectile.localAI[0]/50);
         }
         
         private void CreateDust(Vector2 position, int amount)    // TODO UPDATE DUST CODE THIS BIT ACTS STRANGE
