@@ -43,7 +43,7 @@ namespace ExtraExplosives.Items.Weapons
 				fireSpeed -= 1;
 			}
 
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 55f;
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 56f;
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
 			{
 				position += muzzleOffset;
@@ -75,7 +75,7 @@ namespace ExtraExplosives.Items.Weapons
 
 		public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(-10, 0);
+			return new Vector2(-20, -10);
 		}
 
 		public override void AddRecipes()

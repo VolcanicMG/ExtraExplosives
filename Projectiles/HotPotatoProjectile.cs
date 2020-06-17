@@ -1,6 +1,9 @@
 using System;
 using Microsoft.Xna.Framework;
+<<<<<<< HEAD
 using Microsoft.Xna.Framework.Graphics;
+=======
+>>>>>>> master
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
@@ -38,7 +41,11 @@ namespace ExtraExplosives.Projectiles
             projectile.friendly = true;
             projectile.penetrate = -1;
             projectile.timeLeft = _lifeTime + 5; // set higher than _lifeTime
+<<<<<<< HEAD
             projectile.alpha = 0;    // Make it invisible
+=======
+            projectile.alpha = 255;    // Make it invisible
+>>>>>>> master
             projectile.velocity = Vector2.Zero;
             Lighting.AddLight(projectile.Center, 0.5f, 0.5f, 0.3f);
         }
@@ -80,6 +87,7 @@ namespace ExtraExplosives.Projectiles
             projectile.velocity.X *= 0.99f;
         }*/
 
+<<<<<<< HEAD
         //public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
        // {
        //     spriteBatch.End();
@@ -87,12 +95,18 @@ namespace ExtraExplosives.Projectiles
        //     return true;
        // }
 
+=======
+>>>>>>> master
         public override bool PreAI()
         {
             Player player = Main.player[projectile.owner];
             if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive() && !_thrown)
             {
+<<<<<<< HEAD
                 //mod.Logger.Debug("_lifeTime - projectile.localAI[0]/60f(start at 0 raise till release)" + ((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f));
+=======
+                mod.Logger.Debug("_lifeTime - projectile.localAI[0]/60f(start at 0 raise till release)" + ((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f));
+>>>>>>> master
                 //float progress = _lifeTime - (_lifeTime - projectile.timeLeft) / _lifeTime; // Will range from -3 to 3, 0 being the point where the bomb explodes.
                 float progress = (projectile.timeLeft) / 60f; 
                 Filters.Scene["BurningScreen"].GetShader().UseProgress((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f);
@@ -106,6 +120,10 @@ namespace ExtraExplosives.Projectiles
                 _thrown = true;
                 change = ((_lifeTime - projectile.localAI[0])/60f)/(_lifeTime - projectile.localAI[0]);
                 changeTotal = 0;
+<<<<<<< HEAD
+=======
+                projectile.alpha = 0;
+>>>>>>> master
                 projectile.localAI[1] = projectile.localAI[0];
                 if (projectile.localAI[0] < _lifeTime - _fuze)
                 {
@@ -120,15 +138,22 @@ namespace ExtraExplosives.Projectiles
                 }
                 else
                 {
+<<<<<<< HEAD
                     projectile.velocity.Y = 1;
+=======
+                    projectile.velocity.Y = 3;
+>>>>>>> master
                 }
             }
             else
             {
                 projectile.position = player.position;
+<<<<<<< HEAD
                 int type = Main.rand.Next(2) + 270;
                 if(Main.rand.Next(100) < 10){Dust dust = Main.dust[Terraria.Dust.NewDust(projectile.position, 70, 70, type, 0f, 0f, 154, new Color(255, 255, 255), 1.55f)];}
                 
+=======
+>>>>>>> master
             }
             return _thrown;
         }
@@ -138,10 +163,16 @@ namespace ExtraExplosives.Projectiles
             if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive())
             {
                 changeTotal += change;
+<<<<<<< HEAD
                 float tmp = (5 - (_lifeTime - projectile.localAI[0]) / 60f - (changeTotal * (projectile.localAI[1] - projectile.localAI[0])));
                 if (tmp < 0) tmp = 0;
                 Filters.Scene["BurningScreen"].GetShader().UseProgress((tmp > 0) ? tmp : 0);
                // mod.Logger.DebugFormat("Overall progress made is {0} and decrease every tick is {1}",(_lifeTime - projectile.localAI[0]), tmp);
+=======
+                float tmp = 5 - (_lifeTime - projectile.localAI[0]) / 60f - changeTotal;
+                Filters.Scene["BurningScreen"].GetShader().UseProgress((tmp > 0) ? tmp : 0);
+                mod.Logger.Debug((5 - ((_lifeTime - projectile.localAI[0])/60f) - changeTotal));
+>>>>>>> master
             }
             projectile.localAI[1]++;
             if (projectile.localAI[1] >= _lifeTime)
@@ -149,7 +180,11 @@ namespace ExtraExplosives.Projectiles
                 Kill(projectile.timeLeft);    // since this value will vary, just use localAI[0]
             }
             projectile.velocity.X *= 0.995f;
+<<<<<<< HEAD
             if (projectile.velocity.Y < 20f) projectile.velocity.Y += 0.08f;
+=======
+            if (projectile.velocity.Y < 20f) projectile.velocity.Y += 0.1f;
+>>>>>>> master
         }
 
         public override void PostAI()

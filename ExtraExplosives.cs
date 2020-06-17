@@ -48,24 +48,18 @@ namespace ExtraExplosives
 		// Modded Bullet Boom Support (Not in use but necessary)
 		public static IDictionary<int, int> mapItemToItemID;
 		public static bool generateForeignBulletBooms;
-		public static void AddPair(int item, int id)
-		{
-				mapItemToItemID.Add(item, id);
-		}
+		public static void AddPair(int item, int id) => mapItemToItemID.Add(item, id);
+
 		public static void NewRegister(NewBulletBoomItem item, NewBulletBoomProjectile proj)
 		{
 			AddNewBulletItem(item);
 			AddNewBulletProj(proj);
 		}
-		private static void AddNewBulletItem(NewBulletBoomItem item)
-		{
-			_bulletBoomItems.Add(item);
-		}
+		private static void AddNewBulletItem(NewBulletBoomItem item) => _bulletBoomItems.Add(item);
 
-		private static void AddNewBulletProj(NewBulletBoomProjectile proj)
-		{
-			_bulletBoomProjectiles.Add(proj);
-		}
+		private static void AddNewBulletProj(NewBulletBoomProjectile proj) => _bulletBoomProjectiles.Add(proj);
+
+
 		// This is where the info for the bulletboom generation is stored, not quite (fully) dynamic sadly
 		// Item List (Note lists are 1-1 and ordered, changing order will break loading)
 		static List<NewBulletBoomItem> _bulletBoomItemsClone = new List<NewBulletBoomItem>()
