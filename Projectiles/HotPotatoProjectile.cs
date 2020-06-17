@@ -97,7 +97,7 @@ namespace ExtraExplosives.Projectiles
 
                 //mod.Logger.Debug("_lifeTime - projectile.localAI[0]/60f(start at 0 raise till release)" + ((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f));
 
-                mod.Logger.Debug("_lifeTime - projectile.localAI[0]/60f(start at 0 raise till release)" + ((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f));
+                //mod.Logger.Debug("_lifeTime - projectile.localAI[0]/60f(start at 0 raise till release)" + ((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f));
                 //float progress = _lifeTime - (_lifeTime - projectile.timeLeft) / _lifeTime; // Will range from -3 to 3, 0 being the point where the bomb explodes.
                 float progress = (projectile.timeLeft) / 60f; 
                 Filters.Scene["BurningScreen"].GetShader().UseProgress((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f);
