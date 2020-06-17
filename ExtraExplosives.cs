@@ -128,7 +128,7 @@ namespace ExtraExplosives
 		public static string GithubProjectName => "ExtraExplosives";
 
 		public static string ModVersion;
-		public static string CurrentVersion;
+		public static string CurrentVersion = "";
 
 		// Create the item to item id reference (used with cpt explosive) Needs to stay loaded
 		public ExtraExplosives()
@@ -348,10 +348,29 @@ namespace ExtraExplosives
 			//Goes out and grabs the version that the mod browser has
 			using (WebClient client = new WebClient())
 			{
-				//Parsing the data we need from the api
-				var json = client.DownloadString("http://javid.ddns.net/tModLoader/tools/latestmodversionsimple.php?modname=extraexplosives");
-				json.ToString().Trim();
-				CurrentVersion = json; 
+				if (CheckForInternetConnection())
+				{
+					//Parsing the data we need from the api
+					var json = client.DownloadString("http://javid.ddns.net/tModLoader/tools/latestmodversionsimple.php?modname=extraexplosives");
+					json.ToString().Trim();
+					CurrentVersion = json;
+				}
+				
+			}
+		}
+
+		//so if the Internet is out the client won't crash on loading
+		public static bool CheckForInternetConnection()
+		{
+			try
+			{
+				using (var client = new WebClient())
+				using (client.OpenRead("http://google.com/generate_204"))
+					return true;
+			}
+			catch
+			{
+				return false;
 			}
 		}
 	}

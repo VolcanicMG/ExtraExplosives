@@ -157,13 +157,16 @@ namespace ExtraExplosives
 			player.ResetEffects();
 			Main.screenPosition = player.Center;
 
-
-			if(!ExtraExplosives.ModVersion.Equals(ExtraExplosives.CurrentVersion))
+			if(ExtraExplosives.CurrentVersion.Equals(""))
+			{
+				Main.NewText($"[c/FF0000:Mod browser is offline or there is no Internet connection.]");
+			}
+			else if(!ExtraExplosives.ModVersion.Equals(ExtraExplosives.CurrentVersion))
 			{
 				Main.NewText($"[c/AB40FF:The Extra Explosives Mod needs updated.]");
 				Main.NewText($"[c/AB40FF:Current Version Installed: {ExtraExplosives.ModVersion}]");
 				Main.NewText($"[c/AB40FF:Mod Browser Version: {ExtraExplosives.CurrentVersion}]");
-				Main.NewText($"[c/AB40FF:You can find the latests version in the TML mod browser]");
+				Main.NewText($"[c/AB40FF:You can find the latests version in the TML mod browser.]");
 			}
 
 			//Main.NewText($"Version: {ExtraExplosives.ModVersion}");
