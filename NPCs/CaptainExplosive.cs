@@ -239,8 +239,6 @@ namespace ExtraExplosives.NPCs
 			{
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<CritterBombItem>());
 				nextSlot++;
-				shop.item[nextSlot].SetDefaults(ModContent.ItemType<BulletBoomItem>());
-				nextSlot++;
 			}
 
 			if (NPC.downedClown)

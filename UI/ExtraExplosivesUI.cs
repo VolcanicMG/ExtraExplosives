@@ -1,21 +1,27 @@
+using System;
 using System.Collections.Generic;
+using System.Text;
+using ExtraExplosives.Items;
 using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.NPCs;
+using ExtraExplosives.Projectiles;
+using log4net.Repository.Hierarchy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using static Terraria.ModLoader.ModContent;
+using Item = Terraria.Item;
 
 namespace ExtraExplosives.UI
 {
 	internal class ExtraExplosivesUI : UIState
 	{
-		public IDictionary<int, int> AmmoItemIDToItem = ExtraExplosives.mapItemToItemID;
 		
 		internal static int ItemAmmo; //projectile
 		internal static int ItemProjectile;
@@ -82,9 +88,10 @@ namespace ExtraExplosives.UI
 		}
 
 		private bool tickPlayed;
-
+		
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
+			
 			base.DrawSelf(spriteBatch);
 
 			// This will hide the crafting menu similar to the reforge menu. For best results this UI is placed before "Vanilla: Inventory" to prevent 1 frame of the craft menu showing.
@@ -147,26 +154,53 @@ namespace ExtraExplosives.UI
 						}
 						tickPlayed = true;
 						Main.LocalPlayer.mouseInterface = true;
-
-						AmmoItemIDToItem = ExtraExplosives.mapItemToItemID;
-                        if (Main.mouseLeftRelease && Main.mouseLeft && Craftable == true) //add a check here to see if its an item that can be combined and if it can produce it here
+						if (Main.mouseLeftRelease && Main.mouseLeft && Craftable == true) //add a check here to see if its an item that can be combined and if it can produce it here
                         {
-                            if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomEmptyItem>() && AmmoItemIDToItem.ContainsKey(_vanillaItemSlot2.Item.type))
+                            if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomEmptyItem>() && _vanillaItemSlot2.Item.ammo == AmmoID.Bullet)
                             {
                                 ItemAmmo = _vanillaItemSlot2.Item.type; //get the id for the ammo
                                 
-                                
-                                //Main.NewText(ItemAmmo);
-
                                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                                 if (_vanillaItemSlot.Item.stack >= 1 && _vanillaItemSlot2.Item.stack >= 10)
                                 {
-                                    // Gets the correct Bullet Boom item id from the ammo item id being used
-                                    // Since the type of ammo has already been confirmed to be registered, no checking is needed
-                                    Main.LocalPlayer.QuickSpawnItem(AmmoItemIDToItem[ItemAmmo], 1);
-                                    
-                                    
-                                    // Removes the correct amount of each item
+	                                Player player = Main.player[Main.myPlayer];
+	                                spriteBatch.End();
+	                                bool flag = false;
+	                                foreach (Item checkItem in Main.player[Main.myPlayer].inventory)
+	                                {
+		                                if (checkItem.type == ModContent.ItemType<BulletBoomItem>())
+		                                {
+			                                BulletBoomItem modCheckItem = (BulletBoomItem) checkItem.modItem;
+			                                if (modCheckItem.item.shoot == _vanillaItemSlot2.Item.shoot)
+			                                {
+				                                modCheckItem.overStack++;
+				                                flag = true;
+			                                }
+		                                }
+	                                }
+
+	                                if (!flag)
+	                                {
+		                                string bulletType = "";
+		                                StringBuilder sb = new StringBuilder(_vanillaItemSlot2.Item.Name);
+		                                sb.Replace(" bullet", "");
+		                                sb.Replace(" Bullet", "");
+		                                int itemInt = Item.NewItem(player.position, ModContent.ItemType<BulletBoomItem>(),
+			                                1);
+		                                //Main.player[Main.myPlayer].QuickSpawnItem(ModContent.ItemType<TestItem>());
+		                                Main.item[itemInt].instanced = true;
+		                                Main.item[itemInt].shoot = _vanillaItemSlot2.Item.shoot;
+		                                //Main.item[itemInt].modItem.DisplayName.SetDefault(Main.item[itemInt].Name + " " + _vanillaItemSlot2.Item.Name);
+		                                Main.item[itemInt]
+			                                .SetNameOverride(sb.ToString() + " Bullet Boom");
+		                                Main.item[itemInt].damage = _vanillaItemSlot2.Item.damage;
+		                                BulletBoomItem tmp = (BulletBoomItem) Main.item[itemInt].modItem;
+		                                tmp.bulletType = _vanillaItemSlot2.Item.Name;
+		                                tmp.overStack++;
+	                                }
+
+	                                spriteBatch.Begin();
+	                                // Removes the correct amount of each item
                                     _vanillaItemSlot.Item.stack = _vanillaItemSlot.Item.stack - 1;
                                     _vanillaItemSlot2.Item.stack = _vanillaItemSlot2.Item.stack - 10;
                                 }
@@ -180,7 +214,6 @@ namespace ExtraExplosives.UI
                                 //ItemLoader.PostReforge(_vanillaItemSlot2.Item);
                                 Main.PlaySound(SoundID.Item37, -1, -1);
                             }
-                            
                         }
 					}
 				}
