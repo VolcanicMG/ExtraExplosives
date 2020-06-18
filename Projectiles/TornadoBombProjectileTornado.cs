@@ -132,10 +132,10 @@ namespace ExtraExplosives.Projectiles
 			{
 				float num621 = 0.104719758f;
 				float num622 = (float)projectile.width / 5f;
-				if (projectile.type == 386)
-				{
-					num622 *= 2f;
-				}
+				//if (projectile.type == 386)
+				//{
+				//	num622 *= 2f;
+				//}
 				float num623 = (float)(Math.Cos((double)num621 * (0.0 - (double)projectile.ai[0])) - 0.5) * num622;
 				projectile.position.X = projectile.position.X - num623 * (0f - (float)projectile.direction);
 				projectile.ai[0] -= 1f;

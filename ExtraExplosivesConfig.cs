@@ -27,13 +27,6 @@ namespace ExtraExplosives
 		[Slider]
 		public float dustAmount;
 
-		[Header("Dynamic Bullet Boom Integration")]
-		[Label("Use ammo from other mods in bullet booms? (Reload Required)")]
-		[Tooltip("Developmental Feature")]
-		[DefaultValue(false)]
-		[ReloadRequired]
-		public bool generateForeignBulletBooms;
-
 		public override void OnChanged()
 		{
 			GlobalMethods.CanBreakWalls = CanBreakWalls;
@@ -58,7 +51,6 @@ namespace ExtraExplosives
 			//C4Projectile.CanBreakTiles = CanBreakTiles;
 			//DaBombProjectile.CanBreakTiles = CanBreakTiles;
 			ExtraExplosives.dustAmount = dustAmount;
-			ExtraExplosives.generateForeignBulletBooms = generateForeignBulletBooms;
 		}
 	}
 }
