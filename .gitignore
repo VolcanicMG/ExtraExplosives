@@ -404,3 +404,4 @@ obj/project.nuget.cache
 .idea/.idea.ExtraExplosives.dir/.idea/workspace.xml
 .idea/.idea.ExtraExplosives.dir/.idea/contentModel.xml
 *.kra
+*.xml

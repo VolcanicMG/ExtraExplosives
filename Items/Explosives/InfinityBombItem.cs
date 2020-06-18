@@ -45,7 +45,7 @@ namespace ExtraExplosives.Items.Explosives
             ref float knockBack)
         {
             Projectile.NewProjectile(position.X, position.Y, speedX, speedY,
-                ModContent.ProjectileType<InfinityBombProjectile>(), 0, 0, 255, (float) multiplier);
+                ModContent.ProjectileType<InfinityBombProjectile>(), 0, (float)multiplier);
             return false;
         }
 
@@ -64,7 +64,7 @@ namespace ExtraExplosives.Items.Explosives
                 multiplier += 0.001f;
                 multiplier = Math.Round(multiplier, 4);
             }
-        return base.CanUseItem(player);
+            return base.CanUseItem(player);
         }
 
         public override void AddRecipes()

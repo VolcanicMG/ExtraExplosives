@@ -18,11 +18,13 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(29);
+	        projectile.friendly = true;
+	        projectile.penetrate = -1;
             projectile.timeLeft = 120;
             projectile.width = 20;
             projectile.height = 20;
             projectile.tileCollide = true;
+            projectile.aiStyle = 16;
         }
         public override void Kill(int timeLeft)
         {
@@ -38,7 +40,7 @@ namespace ExtraExplosives.Projectiles
             ExplosionDamage(5f, projectile.Center, (int)Math.Ceiling(100 * projectile.ai[0]), (int)Math.Ceiling(20 * projectile.ai[0]), projectile.owner);
 
             //Create Bomb Explosion
-            CreateExplosion(projectile.Center, (int)Math.Ceiling(2 * projectile.ai[0]));
+            CreateExplosion(projectile.Center, (int)Math.Ceiling(5 * projectile.knockBack));
         }
         
         private void CreateExplosion(Vector2 position, int radius)
