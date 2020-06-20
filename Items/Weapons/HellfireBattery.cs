@@ -35,7 +35,7 @@ namespace ExtraExplosives.Items.Weapons
 			item.crit = 35;
 			item.height = 42;
 			item.shoot = 134;
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Hellfire");
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Hellfire");
 			item.channel = true;
 			item.damage = 250;
 			item.shootSpeed = 10f;
