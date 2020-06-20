@@ -17,6 +17,7 @@ using System;
 using Terraria.ModLoader.UI.ModBrowser;
 using System.Net;
 using System.Data;
+using ExtraExplosives.NPCs.CaptainExplosiveBoss;
 
 namespace ExtraExplosives
 {
@@ -202,6 +203,20 @@ namespace ExtraExplosives
 					CurrentVersion = json;
 					client.Dispose();
 				}
+			}
+
+			Mod yabhb = ModLoader.GetMod("FKBossHealthBar");
+			if (yabhb != null)
+			{
+				yabhb.Call("hbStart");
+				yabhb.Call("hbSetTexture",
+				 GetTexture("NPCs/CaptainExplosiveBoss/healtbar_left"),
+				 GetTexture("NPCs/CaptainExplosiveBoss/healtbar_frame"),
+				 GetTexture("NPCs/CaptainExplosiveBoss/healtbar_right"),
+				 GetTexture("NPCs/CaptainExplosiveBoss/healtbar_fill"));
+				//yabhb.Call("hbSetMidBarOffset", 20, 12);
+				//yabhb.Call("hbSetBossHeadCentre", 22, 34);
+				yabhb.Call("hbFinishSingle", ModContent.NPCType<CaptainExplosiveBoss>());
 			}
 		}
 
