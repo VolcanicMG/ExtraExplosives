@@ -76,7 +76,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Dust
-			CreateDust(projectile.Center, 10);
+			CreateDust(projectile.Center, 500);
 
 			projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
 			projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
@@ -100,9 +100,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 					//Dust 1
 					if (Main.rand.NextFloat() < 0.9f)
 					{
-						updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
+						updatedPosition = new Vector2(position.X - 500 / 2, position.Y - 500 / 2);
 
-						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 500, 500, 1, 0f, 0.5263162f, 0, new Color(255, 255, 255), 4.539474f)];
 						dust.noGravity = true;
 						dust.fadeIn = 2.5f;
 					}
@@ -110,9 +110,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 					//Dust 2
 					if (Main.rand.NextFloat() < 0.6f)
 					{
-						updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
+						updatedPosition = new Vector2(position.X - 500 / 2, position.Y - 500 / 2);
 
-						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 500, 500, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
 						dust.noGravity = true;
 						dust.noLight = true;
 					}
@@ -120,9 +120,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 					//Dust 3
 					if (Main.rand.NextFloat() < 0.3f)
 					{
-						updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+						updatedPosition = new Vector2(position.X - 500 / 2, position.Y - 500 / 2);
 
-						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 500, 500, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
 						dust.noGravity = true;
 						dust.noLight = true;
 					}

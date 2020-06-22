@@ -28,6 +28,7 @@ namespace ExtraExplosives.Projectiles
 			projectile.penetrate = 1;
 			projectile.timeLeft = 20000;
 			projectile.ranged = true;
+			projectile.scale = 0.9f;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

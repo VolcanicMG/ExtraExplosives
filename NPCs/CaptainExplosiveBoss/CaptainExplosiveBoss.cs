@@ -1,9 +1,18 @@
+using ExtraExplosives.Items.Explosives;
+using ExtraExplosives.Items.Pets;
 using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Steamworks;
 using System;
+using ExtraExplosives.Items;
+using ExtraExplosives.Items.Accessories;
+using ExtraExplosives.Items.Accessories.AnarchistCookbook;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Audio;
+using static ExtraExplosives.GlobalMethods;
 using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
@@ -34,15 +43,18 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			set => npc.ai[2] = value;
 		}
 
-		//private float captiveRotation
-		//{
-		//	get => npc.ai[3];
-		//	set => npc.ai[3] = value;
-		//}
+		private float captiveRotation
+		{
+			get => npc.ai[3];
+			set => npc.ai[3] = value;
+		}
 
 		private int moveTime = 200;
 		private int moveTimer = 60;
 		private bool dontDamage;
+		
+		private int _droneTimer = 300;
+		private int _dronesLeft = Main.rand.Next(1, 3) + 2;
 
 		private bool go;
 		private int amount = 3;
@@ -72,6 +84,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.buffImmune[24] = true;
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
+
+			bossBag = ItemType<CaptainExplosiveTreasureBag>();
 
 			drawOffsetY = 50f;
 		}
@@ -104,24 +118,33 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			//	npc.netUpdate = true;
 			//	npc.localAI[0] = 1f;
 			//}
-
-
-			//Phases 1, 2, and 3
-			//##################################################################
-			if (((float)npc.life / (float)npc.lifeMax) > .66f) //above 66%, Phase 1
+			
+			//Phases
+			if(((float)npc.life / (float)npc.lifeMax) > .66f) //above 66%, Phase 1
 			{
-
+				if (_droneTimer-- <= 0)	// if drones can be spawned
+				{
+					if (_dronesLeft > 0 && _droneTimer % 30 == 0)	// is there another drone ready to spawn, and has enough time passed since the last spawn
+					{
+						_dronesLeft--;	// use one available drone
+						_spawnMinions();// spawns a drone
+					}
+					else if(_dronesLeft <= 0)	// if no drones are left to spawn
+					{
+						_droneTimer = 240 + (Main.rand.Next(240) - 120);	// reset the timer (simplifies to between 2-6 seconds)
+						_dronesLeft = Main.rand.Next(1, 3) + 2;		// how many drones to spawn the in the next round (between 3-5)
+					}
+				}
 			}
-			else if (((float)npc.life / (float)npc.lifeMax) <= .66f && ((float)npc.life / (float)npc.lifeMax) > .33f) //Between 66% and 33%, Phase 2
+			else if(((float)npc.life / (float)npc.lifeMax) <= .66f && ((float)npc.life / (float)npc.lifeMax) > .33f) //Between 66% and 33%, Phase 2
 			{
-
+				
 			}
-			else if (((float)npc.life / (float)npc.lifeMax) <= .33f) //Below 33%, Phase 3
+			else if(((float)npc.life / (float)npc.lifeMax) <= .33f) //Below 33%, Phase 3
 			{
-
+				
 			}
-			//#################################################################
-
+			
 			//check for the players death
 			Player player = Main.player[npc.target];
 			if (!player.active || player.dead)
@@ -130,7 +153,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				player = Main.player[npc.target];
 				if (!player.active || player.dead)
 				{
-					npc.velocity = new Vector2(0f, -15f);
+					npc.velocity = new Vector2(0f, 10f);
 					if (npc.timeLeft > 120)
 					{
 						npc.timeLeft = 120;
@@ -155,11 +178,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				//get a head of the player
 				if (player.direction == 1 && player.velocity.X > 5f)
 				{
-					playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(300, 600), player.Center.Y - 320);
+					playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(400, 600), player.Center.Y - 320);
 				}
-				else if(player.direction == -1 && player.velocity.X < -5f)
+				else if (player.direction == -1 && player.velocity.X < -5f)
 				{
-					playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(-300, -600), player.Center.Y - 320);
+					playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(-400, -600), player.Center.Y - 320);
 				}
 				//move to the player position
 				Vector2 moveTo = playerPlus;
@@ -174,10 +197,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				{
 					rotationSpeed *= -1;
 				}
+
 				//dust debug to check where the npc is going
-				Dust dust = Main.dust[Terraria.Dust.NewDust(moveTo, 10, 10, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 15f)];
-				dust.noGravity = true;
-				dust.fadeIn = 10f;
+				//Dust dust = Main.dust[Terraria.Dust.NewDust(moveTo, 10, 10, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 15f)];
+				//dust.noGravity = true;
+				//dust.fadeIn = 10f;
 
 				if (npc.velocity.X >= 0)
 				{
@@ -228,23 +252,23 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				moveTime += 3;
 				npc.netUpdate = true;
 			}
-			////sets the speed of captiveRotation for the npc to travel by
-			//captiveRotation += rotationSpeed;
+			//sets the speed of captiveRotation for the npc to travel by
+			captiveRotation += rotationSpeed;
 
-			////checks the speed of captiveRotation to see how fast the npc should move
-			//if (captiveRotation < 0f)
-			//{
-			//	captiveRotation += 2f * (float)Math.PI;
-			//}
-			//if (captiveRotation >= 2f * (float)Math.PI)
-			//{
-			//	captiveRotation -= 2f * (float)Math.PI;
-			//}
+			//checks the speed of captiveRotation to see how fast the npc should move
+			if (captiveRotation < 0f)
+			{
+				captiveRotation += 2f * (float)Math.PI;
+			}
+			if (captiveRotation >= 2f * (float)Math.PI)
+			{
+				captiveRotation -= 2f * (float)Math.PI;
+			}
 
 			//attack cool down
 			attackCool -= 1f;
 
-			//The boss will spawn in projectiles depending on the life and a random chance
+			// The boss will spawn in projectiles depending on the life and a random chance
 			if (Main.netMode != NetmodeID.MultiplayerClient && attackCool <= 0f)
 			{
 				attackCool = 200f + 200f * (float)npc.life / (float)npc.lifeMax - (float)Main.rand.Next(200);
@@ -273,36 +297,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				//npc.netUpdate = true;
 			}
 
-			//shoot-------------------------------------------
-			//if(npc.ai[3] >= 30f && go && amount > 0)
-			//{
-			//	Vector2 delta = player.Center - npc.Center;
-			//	float magnitude = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
-			//	if (magnitude > 0)
-			//	{
-			//		delta *= 10f / magnitude;
-			//	}
-			//	else
-			//	{
-			//		delta = new Vector2(0f, 5f);
-			//	}
-
-			//	chooseBomb(delta);
-			//	npc.ai[3] = 0;
-			//	amount--;
-			//}
-
-			//if(amount <= 0)
-			//{
-			//	amount = 3;
-			//	go = false;
-			//}
-			//end of shoot---------------------------------
-
 			//check if the mode is expert
 			if (Main.expertMode)
 			{
-
+				
 			}
 
 			//Random chance for this to happen
@@ -313,7 +311,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				//Dust.NewDust(new Vector2(npc.Center.X + radius * (float)Math.Cos(angle), npc.Center.Y + radius * (float)Math.Sin(angle)), 0, 0, DustType<Sparkle>(), 0f, 0f, 0, default(Color), 1.5f);
 			}
 
-			//set the direction
 			if (npc.direction == 1)
 			{
 				npc.spriteDirection = 1;
@@ -323,7 +320,18 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				npc.spriteDirection = -1;
 			}
 
-			//npc.ai[3]++;
+		}
+
+		public override void NPCLoot()	// What will drop when the npc is killed?
+		{
+			if (Main.expertMode) 	// Expert mode only loot
+			{
+				npc.DropBossBags();	// Boss bag
+			}
+			int drop = Main.rand.NextBool() ? ItemType<BombardEmblem>() : ItemType<RandomFuel>();	// which item will 100% drop
+			int dropChance = drop == ItemType<BombardEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardEmblem>();	// find the other item
+			npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), drop);	// drop the confirmed item
+			if(Main.rand.Next(7) == 0) npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), dropChance);	// if the roll is sucessful drop the other
 		}
 
 
@@ -332,6 +340,14 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.frameCounter += 2.0; //change the frame speed
 			npc.frameCounter %= 100.0; //How many frames are in the animation
 			npc.frame.Y = frameHeight * ((int)npc.frameCounter % 16 / 4); //set the npc's frames here
+		}
+		
+		private void _spawnMinions()
+		{
+			int spawnCase = Main.rand.Next(3);	// gets the side the drone will spawn from
+			Vector2 spawnCord = new Vector2(npc.position.X + (spawnCase * 100), npc.position.Y + (spawnCase == 1 ? 60 : 0) + 180);	// calculates the cords of the spawn loc
+			NPC.NewNPC((int)spawnCord.X, (int)spawnCord.Y, NPCType<CEDroneNPC>(), 0, spawnCase, 0, 0, 0, this.npc.type);	// spawns the drone at those cords
+			Dust.NewDust(spawnCord, 8, 8, Main.rand.Next(250));	// spawns dust
 		}
 
 		public void chooseBomb(Vector2 delta, int x, int y)
