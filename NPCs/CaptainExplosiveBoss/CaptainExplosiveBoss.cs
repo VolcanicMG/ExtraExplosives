@@ -172,10 +172,22 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				player = Main.player[npc.target];
 				//double angle = Main.rand.NextDouble() * 2.0 * Math.PI;
 				int distance = sphereRadius + Main.rand.Next(300);
-				Vector2 playerPlus = new Vector2(player.Center.X, player.Center.Y - 320);
+
+				//set the movement
+				Vector2 playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(-200, 200), player.Center.Y - 320);
+				//get a head of the player
+				if (player.direction == 1 && player.velocity.X > 5f)
+				{
+					playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(400, 600), player.Center.Y - 320);
+				}
+				else if (player.direction == -1 && player.velocity.X < -5f)
+				{
+					playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(-400, -600), player.Center.Y - 320);
+				}
+				//move to the player position
 				Vector2 moveTo = playerPlus;
 				moveCool = (float)moveTime - 20 - (float)Main.rand.Next(20);
-				npc.velocity = ((moveTo - npc.Center) / moveCool); //depending on how far the player is increase speed
+				npc.velocity = ((moveTo - npc.Center) / moveCool * 1.5f); //depending on how far the player is increase speed
 				rotationSpeed = (float)(Main.rand.NextDouble() + Main.rand.NextDouble());
 				if (rotationSpeed > 1f)
 				{
@@ -185,12 +197,13 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				{
 					rotationSpeed *= -1;
 				}
-				//dust debug to check where the npc is going
-				Dust dust = Main.dust[Terraria.Dust.NewDust(moveTo, 10, 10, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 15f)];
-				dust.noGravity = true;
-				dust.fadeIn = 10f;
 
-				if(npc.velocity.X >= 0)
+				//dust debug to check where the npc is going
+				//Dust dust = Main.dust[Terraria.Dust.NewDust(moveTo, 10, 10, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 15f)];
+				//dust.noGravity = true;
+				//dust.fadeIn = 10f;
+
+				if (npc.velocity.X >= 0)
 				{
 					npc.direction = 1;
 				}
@@ -199,8 +212,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					npc.direction = -1;
 				}
 
-				Main.NewText(moveCool);
-				Main.NewText($"Velocity {npc.velocity}");
+				//Main.NewText(moveCool);
+				//Main.NewText($"Velocity {npc.velocity}");
 				//Main.NewText($"Direction {npc.direction}");
 
 				rotationSpeed *= 0.01f;
@@ -255,30 +268,33 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			//attack cool down
 			attackCool -= 1f;
 
-			//The boss will spawn in projectiles depending on the life and a random chance
+			// The boss will spawn in projectiles depending on the life and a random chance
 			if (Main.netMode != NetmodeID.MultiplayerClient && attackCool <= 0f)
 			{
 				attackCool = 200f + 200f * (float)npc.life / (float)npc.lifeMax - (float)Main.rand.Next(200);
-				Vector2 delta = player.Center - npc.Center;
-				float magnitude = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
-				if (magnitude > 0)
-				{
-					delta *= 10f / magnitude;
-				}
-				else
-				{
-					delta = new Vector2(0f, 5f);
-				}
+				//Vector2 delta = npc.Center;
+				//float magnitude = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
+				//if (magnitude > 0)
+				//{
+				//	delta *= 10f / magnitude;
+				//}
+				//else
+				//{
+				//	delta = new Vector2(0f, 5f);
+				//}
 				int damage = (npc.damage - 30) / 2;
 				if (Main.expertMode)
 				{
 					damage = (int)(damage / Main.expertDamage);
 				}
 
+				chooseBomb(new Vector2(-3, -2), 0, 180); //Left
+				chooseBomb(new Vector2(0, 0), 100, 240); //Center
+				chooseBomb(new Vector2(3, -2), 200, 180); //Right
 
-				//spawn  the projectile
-				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, delta.X, delta.Y, ProjectileType<BossGooBombProjectile>(), 0, 3f, Main.myPlayer);
-				npc.netUpdate = true;
+				//npc.ai[3] = 0;
+				//go = true;
+				//npc.netUpdate = true;
 			}
 
 			//check if the mode is expert
@@ -303,7 +319,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			{
 				npc.spriteDirection = -1;
 			}
-			Main.NewText($"Direction {npc.direction}");
 
 		}
 
