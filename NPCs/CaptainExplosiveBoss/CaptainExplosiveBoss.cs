@@ -1,15 +1,9 @@
-using ExtraExplosives.Items.Explosives;
-using ExtraExplosives.Items.Pets;
 using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Steamworks;
 using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Audio;
-using static ExtraExplosives.GlobalMethods;
 using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
@@ -40,15 +34,18 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			set => npc.ai[2] = value;
 		}
 
-		private float captiveRotation
-		{
-			get => npc.ai[3];
-			set => npc.ai[3] = value;
-		}
+		//private float captiveRotation
+		//{
+		//	get => npc.ai[3];
+		//	set => npc.ai[3] = value;
+		//}
 
 		private int moveTime = 200;
 		private int moveTimer = 60;
 		private bool dontDamage;
+
+		private bool go;
+		private int amount = 3;
 
 		public override void SetStaticDefaults()
 		{
@@ -107,21 +104,24 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			//	npc.netUpdate = true;
 			//	npc.localAI[0] = 1f;
 			//}
-			
-			//Phases
-			if(((float)npc.life / (float)npc.lifeMax) > .66f) //above 66%, Phase 1
+
+
+			//Phases 1, 2, and 3
+			//##################################################################
+			if (((float)npc.life / (float)npc.lifeMax) > .66f) //above 66%, Phase 1
 			{
-				
+
 			}
-			else if(((float)npc.life / (float)npc.lifeMax) <= .66f && ((float)npc.life / (float)npc.lifeMax) > .33f) //Between 66% and 33%, Phase 2
+			else if (((float)npc.life / (float)npc.lifeMax) <= .66f && ((float)npc.life / (float)npc.lifeMax) > .33f) //Between 66% and 33%, Phase 2
 			{
-				
+
 			}
-			else if(((float)npc.life / (float)npc.lifeMax) <= .33f) //Below 33%, Phase 3
+			else if (((float)npc.life / (float)npc.lifeMax) <= .33f) //Below 33%, Phase 3
 			{
-				
+
 			}
-			
+			//#################################################################
+
 			//check for the players death
 			Player player = Main.player[npc.target];
 			if (!player.active || player.dead)
@@ -130,7 +130,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				player = Main.player[npc.target];
 				if (!player.active || player.dead)
 				{
-					npc.velocity = new Vector2(0f, 10f);
+					npc.velocity = new Vector2(0f, -15f);
 					if (npc.timeLeft > 120)
 					{
 						npc.timeLeft = 120;
@@ -149,10 +149,22 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				player = Main.player[npc.target];
 				//double angle = Main.rand.NextDouble() * 2.0 * Math.PI;
 				int distance = sphereRadius + Main.rand.Next(300);
-				Vector2 playerPlus = new Vector2(player.Center.X, player.Center.Y - 320);
+
+				//set the movement
+				Vector2 playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(-200, 200), player.Center.Y - 320);
+				//get a head of the player
+				if (player.direction == 1 && player.velocity.X > 5f)
+				{
+					playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(300, 600), player.Center.Y - 320);
+				}
+				else if(player.direction == -1 && player.velocity.X < -5f)
+				{
+					playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(-300, -600), player.Center.Y - 320);
+				}
+				//move to the player position
 				Vector2 moveTo = playerPlus;
 				moveCool = (float)moveTime - 20 - (float)Main.rand.Next(20);
-				npc.velocity = ((moveTo - npc.Center) / moveCool); //depending on how far the player is increase speed
+				npc.velocity = ((moveTo - npc.Center) / moveCool * 1.5f); //depending on how far the player is increase speed
 				rotationSpeed = (float)(Main.rand.NextDouble() + Main.rand.NextDouble());
 				if (rotationSpeed > 1f)
 				{
@@ -167,7 +179,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				dust.noGravity = true;
 				dust.fadeIn = 10f;
 
-				if(npc.velocity.X >= 0)
+				if (npc.velocity.X >= 0)
 				{
 					npc.direction = 1;
 				}
@@ -176,8 +188,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					npc.direction = -1;
 				}
 
-				Main.NewText(moveCool);
-				Main.NewText($"Velocity {npc.velocity}");
+				//Main.NewText(moveCool);
+				//Main.NewText($"Velocity {npc.velocity}");
 				//Main.NewText($"Direction {npc.direction}");
 
 				rotationSpeed *= 0.01f;
@@ -216,18 +228,18 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				moveTime += 3;
 				npc.netUpdate = true;
 			}
-			//sets the speed of captiveRotation for the npc to travel by
-			captiveRotation += rotationSpeed;
+			////sets the speed of captiveRotation for the npc to travel by
+			//captiveRotation += rotationSpeed;
 
-			//checks the speed of captiveRotation to see how fast the npc should move
-			if (captiveRotation < 0f)
-			{
-				captiveRotation += 2f * (float)Math.PI;
-			}
-			if (captiveRotation >= 2f * (float)Math.PI)
-			{
-				captiveRotation -= 2f * (float)Math.PI;
-			}
+			////checks the speed of captiveRotation to see how fast the npc should move
+			//if (captiveRotation < 0f)
+			//{
+			//	captiveRotation += 2f * (float)Math.PI;
+			//}
+			//if (captiveRotation >= 2f * (float)Math.PI)
+			//{
+			//	captiveRotation -= 2f * (float)Math.PI;
+			//}
 
 			//attack cool down
 			attackCool -= 1f;
@@ -236,32 +248,61 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			if (Main.netMode != NetmodeID.MultiplayerClient && attackCool <= 0f)
 			{
 				attackCool = 200f + 200f * (float)npc.life / (float)npc.lifeMax - (float)Main.rand.Next(200);
-				Vector2 delta = player.Center - npc.Center;
-				float magnitude = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
-				if (magnitude > 0)
-				{
-					delta *= 10f / magnitude;
-				}
-				else
-				{
-					delta = new Vector2(0f, 5f);
-				}
+				//Vector2 delta = npc.Center;
+				//float magnitude = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
+				//if (magnitude > 0)
+				//{
+				//	delta *= 10f / magnitude;
+				//}
+				//else
+				//{
+				//	delta = new Vector2(0f, 5f);
+				//}
 				int damage = (npc.damage - 30) / 2;
 				if (Main.expertMode)
 				{
 					damage = (int)(damage / Main.expertDamage);
 				}
 
+				chooseBomb(new Vector2(-3, -2), 0, 180); //Left
+				chooseBomb(new Vector2(0, 0), 100, 240); //Center
+				chooseBomb(new Vector2(3, -2), 200, 180); //Right
 
-				//spawn  the projectile
-				Projectile.NewProjectile(npc.Center.X, npc.Center.Y, delta.X, delta.Y, ProjectileType<BossGooBombProjectile>(), 0, 3f, Main.myPlayer);
-				npc.netUpdate = true;
+				//npc.ai[3] = 0;
+				//go = true;
+				//npc.netUpdate = true;
 			}
+
+			//shoot-------------------------------------------
+			//if(npc.ai[3] >= 30f && go && amount > 0)
+			//{
+			//	Vector2 delta = player.Center - npc.Center;
+			//	float magnitude = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
+			//	if (magnitude > 0)
+			//	{
+			//		delta *= 10f / magnitude;
+			//	}
+			//	else
+			//	{
+			//		delta = new Vector2(0f, 5f);
+			//	}
+
+			//	chooseBomb(delta);
+			//	npc.ai[3] = 0;
+			//	amount--;
+			//}
+
+			//if(amount <= 0)
+			//{
+			//	amount = 3;
+			//	go = false;
+			//}
+			//end of shoot---------------------------------
 
 			//check if the mode is expert
 			if (Main.expertMode)
 			{
-				
+
 			}
 
 			//Random chance for this to happen
@@ -272,6 +313,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				//Dust.NewDust(new Vector2(npc.Center.X + radius * (float)Math.Cos(angle), npc.Center.Y + radius * (float)Math.Sin(angle)), 0, 0, DustType<Sparkle>(), 0f, 0f, 0, default(Color), 1.5f);
 			}
 
+			//set the direction
 			if (npc.direction == 1)
 			{
 				npc.spriteDirection = 1;
@@ -280,8 +322,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			{
 				npc.spriteDirection = -1;
 			}
-			Main.NewText($"Direction {npc.direction}");
 
+			//npc.ai[3]++;
 		}
 
 
@@ -290,6 +332,36 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.frameCounter += 2.0; //change the frame speed
 			npc.frameCounter %= 100.0; //How many frames are in the animation
 			npc.frame.Y = frameHeight * ((int)npc.frameCounter % 16 / 4); //set the npc's frames here
+		}
+
+		public void chooseBomb(Vector2 delta, int x, int y)
+		{
+
+			//spawn the projectile
+			int choose = Main.rand.Next(0, 5);
+
+			switch (choose)
+			{
+				case 0:
+					Projectile.NewProjectile(npc.position.X + x, npc.position.Y + y, delta.X, delta.Y, ProjectileType<BossGooBombProjectile>(), 0, 3f, Main.myPlayer);
+					break;
+				case 1:
+					Projectile.NewProjectile(npc.position.X + x, npc.position.Y + y, delta.X, delta.Y, ProjectileType<BossArmorBreakBombProjectile>(), 0, 3f, Main.myPlayer);
+					break;
+				case 2:
+					Projectile.NewProjectile(npc.position.X + x, npc.position.Y + y, delta.X, delta.Y, ProjectileType<BossChillBombProjectile>(), 0, 3f, Main.myPlayer);
+					break;
+				case 3:
+					Projectile.NewProjectile(npc.position.X + x, npc.position.Y + y, delta.X, delta.Y, ProjectileType<BossFireBombProjectile>(), 0, 3f, Main.myPlayer);
+					break;
+				case 4:
+					Projectile.NewProjectile(npc.position.X + x, npc.position.Y + y, delta.X, delta.Y, ProjectileType<BossDazedBombProjectile>(), 0, 3f, Main.myPlayer);
+					break;
+				default:
+					Projectile.NewProjectile(npc.position.X + x, npc.position.Y + y, delta.X, delta.Y, ProjectileType<BossFireBombProjectile>(), 0, 3f, Main.myPlayer);
+					break;
+			}
+
 		}
 	}
 }
