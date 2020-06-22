@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
+using NPC = IL.Terraria.NPC;
 
 namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 {
@@ -15,8 +16,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         private Vector2 endTarget;
         private int _targetingFrames = 240 + Main.rand.Next(120) - 60;
         private bool _targetAquired = false;
+
+        private int spawnTimer = 30;
         // Speed vars, are more of a multiple than a strict value
-        private float speedX = 3f; // Used to control the x speed during phase 1
+        private float speedX = 7.5f; // Used to control the x speed during phase 1
 
         //Testing stuff
         private float[] _velocityStorage = new float[2];
@@ -48,7 +51,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             npc.noTileCollide = true;
             npc.frame.Height = 22;
             npc.frame.Width = 22;
-            npc.noGravity = true;
+            npc.noGravity = false;
             npc.aiStyle = -1;
             npc.Center = new Vector2(11,11);
 
@@ -148,16 +151,31 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override bool PreAI()
         {
-
-           // if (Keyboard.GetState().PressingShift() && testTimer <= 0)
+            // if (Keyboard.GetState().PressingShift() && testTimer <= 0)
             //{
-                
-              //  Main.NewText($"Vectors {npc.position.X},{npc.position.Y} & {_target.position.X},{_target.position.Y} with single of 0 resulted in {ans}");    // debug info
+
+            //  Main.NewText($"Vectors {npc.position.X},{npc.position.Y} & {_target.position.X},{_target.position.Y} with single of 0 resulted in {ans}");    // debug info
             //}
-            
+            if (spawnTimer-- == 30)
+            {
+                //npc.velocity = Main.npc[npc.target].velocity;
+                return false;
+            }
+            else if (spawnTimer-- > 0)
+            {
+                //npc.velocity.X += (npc.ai[0] - 1) * 3;
+                return false;
+            }
+            else if (spawnTimer-- == 0)
+            {
+                Main.NewText("Gravity", Color.Cyan);
+                npc.noGravity = true;
+                npc.velocity.Y = 0;
+            }
             if (_target == null)
             {
                 npc.TargetClosest();
+                Main.NewText($"The target is {npc.HasPlayerTarget}");
                 _target = Main.player[npc.target];
                 npc.velocity.Y -= 16 / Vector2.Distance(npc.position, _target.position) / 16f;
             }
@@ -168,32 +186,35 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
             if (_targetingFrames > 0)    // Targeting frames, the drone just hovers and locks in on the player
             {
+                float dist = Vector2.Distance(npc.position, _target.position) / 16f;
                 _targetingFrames--;
-                if (npc.position.Y > _target.position.Y)        // catch in case the drone is below the player, somehow
+                if (npc.position.Y > _target.position.Y - 256)        // catch in case the drone is below the player, somehow
                 {
-                    npc.velocity.Y -= 0.3f;   
+                    npc.velocity.Y -= 0.5f;   
                 }
-                else if (Vector2.Distance(npc.position, _target.position) / 16f < 16 && _target.velocity.Y < 0)    // Raises / Lowers the drone so it is comfortably above the player
+
+                
+                //else if (dist < 32)    // Raises / Lowers the drone so it is comfortably above the player
+                //{
+                //    npc.velocity.Y -= Math.Abs(_target.velocity.Y)/8f;    // changes the y value so it stays near the player
+                //}
+                else if (dist > 60)
                 {
-                    npc.velocity.Y += _target.velocity.Y / 16f;    // changes the y value so it stays near the player
-                }
-                else if (Vector2.Distance(npc.position, _target.position) / 16f > 24)
-                {
-                    npc.velocity.Y += 0.2f; // changes the y value so it stays near the player
+                    npc.velocity.Y += 0.09f; // changes the y value so it stays near the player
                 }
                 else
                 {
                     npc.velocity.Y *= 0.75f;    // if its above the player by the set amount slowly lower the y velocity
                 }
-                Vector2 direction = (_target.Center - npc.Center).SafeNormalize(Vector2.UnitX);
-                if (npc.position.X > _target.position.X)
-                {
-                    npc.position.X += direction.X * speedX;
-                }
-                else
-                {
-                    npc.position.X += direction.X * speedX;
-                }
+                //Vector2 direction = (_target.Center - npc.Center).SafeNormalize(Vector2.UnitX);
+                //if (npc.position.X > _target.position.X)
+               // {
+                    npc.position.X += (_target.Center - npc.Center).SafeNormalize(Vector2.UnitX).X * speedX;
+                //}
+                //else
+               // {
+                   // npc.position.X -= direction.X * speedX;
+               // }
             }
 
             if (_targetingFrames <= 0)
@@ -212,8 +233,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             if (_targetingFrames > 0)    // first step, will only really do anything if its high is up
             {
                 _targetingFrames--;
-                npc.velocity.X += direction.X/20f;       
-                npc.velocity.Y += direction.Y/12f;
+                npc.velocity.X += direction.X/3f; 
+                if (_target.position.Y < npc.position.Y)
+                {
+                    npc.velocity.Y += direction.Y/20f;
+                }
+                else
+                {
+                    npc.velocity.Y += Vector2.Subtract(Vector2.Zero, direction).Y/20f;
+                }
             }
 
             if (_targetingFrames == 0)
@@ -225,7 +253,14 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             if (_targetingFrames < 0)    // Accelerate the first step for a more 'energetic' attack
             {
                 npc.velocity.X += direction.X/3f;        
-                npc.velocity.Y += direction.Y/3f;
+                if (_target.position.Y < npc.position.Y)
+                {
+                    npc.velocity.Y += direction.Y/3f;
+                }
+                else
+                {
+                    npc.velocity.Y -= Vector2.Subtract(Vector2.Zero, direction).Y/3f;
+                }
             }
         }
 
@@ -236,6 +271,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
+            if (spawnTimer > 0) return;
             Kill();    // on collide kill it (here so it wont deal damage)
         }
 
