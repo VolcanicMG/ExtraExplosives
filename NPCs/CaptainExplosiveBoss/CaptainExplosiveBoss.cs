@@ -43,6 +43,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			set => npc.ai[3] = value;
 		}
 
+		//public virtual string[] AltTexturesCap => new string[0];
+
 		private int moveTime = 200;
 		private int moveTimer = 60;
 		private bool dontDamage;
@@ -57,7 +59,14 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		{
 			DisplayName.SetDefault("Captain Explosive");
 			Main.npcFrameCount[npc.type] = 4;
+
 		}
+
+		//public override void AutoStaticDefaults()
+		//{
+		//	//AltTextures[0] = "NPCs/CaptainExplosiveBoss/CaptainExplosiveBoss";
+		//	//AltTextures[1] = "NPCs/CaptainExplosiveBoss/CaptainExplosiveBossDamaged";
+		//}
 
 		public override void SetDefaults()
 		{
@@ -116,27 +125,21 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			//Phases
 			if (((float)npc.life / (float)npc.lifeMax) > .66f) //above 66%, Phase 1
 			{
-				if (_droneTimer-- <= 0) // if drones can be spawned
-				{
-					if (_dronesLeft > 0 && _droneTimer % 30 == 0)   // is there another drone ready to spawn, and has enough time passed since the last spawn
-					{
-						_dronesLeft--;  // use one available drone
-						_spawnMinions();// spawns a drone
-					}
-					else if (_dronesLeft <= 0)  // if no drones are left to spawn
-					{
-						_droneTimer = 240 + (Main.rand.Next(240) - 120);    // reset the timer (simplifies to between 2-6 seconds)
-						_dronesLeft = Main.rand.Next(1, 3) + 2;     // how many drones to spawn the in the next round (between 3-5)
-					}
-				}
+				callDrones(1);
+				callBombAtk(200);
+
+				Main.NewText(npc.altTexture);
 			}
 			else if (((float)npc.life / (float)npc.lifeMax) <= .66f && ((float)npc.life / (float)npc.lifeMax) > .33f) //Between 66% and 33%, Phase 2
 			{
-
+				callDrones(2);
+				callBombAtk(300);
+				npc.altTexture = 1;
 			}
 			else if (((float)npc.life / (float)npc.lifeMax) <= .33f) //Below 33%, Phase 3
 			{
-
+				callDrones(3);
+				callBombAtk(350);
 			}
 
 			//check for the players death
@@ -216,12 +219,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				//Main.NewText($"Rotation: {npc.rotation}");
 			}
 
-			Main.NewText($"Rotation: {npc.rotation}");
+			//Main.NewText($"Rotation: {npc.rotation}");
 			//rotation code
 			if (npc.velocity.X > 17f && npc.rotation <= .5f) //right
 			{
 				npc.rotation += .05f;
-				if(npc.rotation >= .5f)
+				if (npc.rotation >= .5f)
 				{
 					npc.rotation = .5f;
 				}
@@ -295,41 +298,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			//attack cool down
 			attackCool -= 1f;
 
-			// The boss will spawn in projectiles depending on the life and a random chance
-			if (Main.netMode != NetmodeID.MultiplayerClient && attackCool <= 0f)
-			{
-				attackCool = 200f + 200f * (float)npc.life / (float)npc.lifeMax - (float)Main.rand.Next(200);
-				//Vector2 delta = npc.Center;
-				//float magnitude = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
-				//if (magnitude > 0)
-				//{
-				//	delta *= 10f / magnitude;
-				//}
-				//else
-				//{
-				//	delta = new Vector2(0f, 5f);
-				//}
-				int damage = (npc.damage - 30) / 2;
-				if (Main.expertMode)
-				{
-					damage = (int)(damage / Main.expertDamage);
-				}
 
-				for (int i = 0; i < 25; i++)
-				{
-					Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(npc.position.X + 0, npc.position.Y + 180), 30, 30, 6, -3f, -2f, 0, new Color(255, 0, 0), 5f)];
-					Dust dust2 = Main.dust[Terraria.Dust.NewDust(new Vector2(npc.position.X + 100, npc.position.Y + 240), 30, 30, 6, 0f, 0f, 0, new Color(255, 0, 0), 5f)];
-					Dust dust3 = Main.dust[Terraria.Dust.NewDust(new Vector2(npc.position.X + 200, npc.position.Y + 180), 30, 30, 6, 3f, -22f, 0, new Color(255, 0, 0), 5f)];
-				}
-
-				chooseBomb(new Vector2(-3, -2), 0, 180); //Left
-				chooseBomb(new Vector2(0, 0), 100, 240); //Center
-				chooseBomb(new Vector2(3, -2), 200, 180); //Right
-
-				//npc.ai[3] = 0;
-				//go = true;
-				//npc.netUpdate = true;
-			}
 
 			//check if the mode is expert
 			if (Main.expertMode)
@@ -371,9 +340,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 		public override void FindFrame(int frameHeight)
 		{
+
 			npc.frameCounter += 2.0; //change the frame speed
 			npc.frameCounter %= 100.0; //How many frames are in the animation
 			npc.frame.Y = frameHeight * ((int)npc.frameCounter % 16 / 4); //set the npc's frames here
+
 		}
 
 		private void _spawnMinions()
@@ -384,8 +355,31 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			Dust.NewDust(spawnCord, 8, 8, Main.rand.Next(250)); // spawns dust
 		}
 
-		public void chooseBomb(Vector2 delta, int x, int y)
+		public void chooseBomb(int direction)
 		{
+			int x = 0;
+			int y = 0;
+
+			Vector2 delta = new Vector2();
+
+			if (direction == 1) //left
+			{
+				delta = new Vector2(-3, -2);
+				x = 0;
+				y = 180;
+			}
+			else if (direction == 2) //center
+			{
+				delta = new Vector2(0, 0);
+				x = 100;
+				y = 240;
+			}
+			else if (direction == 3) //right
+			{
+				delta = new Vector2(3, -2);
+				x = 200;
+				y = 180;
+			}
 
 			//spawn the projectile
 			int choose = Main.rand.Next(0, 5);
@@ -412,6 +406,54 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					break;
 			}
 
+		}
+
+		public void callDrones(int multi)
+		{
+			if (_droneTimer-- <= 0) // if drones can be spawned
+			{
+				if (_dronesLeft > 0 && _droneTimer % 30 == 0)   // is there another drone ready to spawn, and has enough time passed since the last spawn
+				{
+					_dronesLeft--;  // use one available drone
+					_spawnMinions();// spawns a drone
+				}
+				else if (_dronesLeft <= 0)  // if no drones are left to spawn
+				{
+					_droneTimer = 240 + (Main.rand.Next(240) - 120);    // reset the timer (simplifies to between 2-6 seconds)
+					_dronesLeft = (Main.rand.Next(1, 3) + 2) * multi;     // how many drones to spawn the in the next round (between 3-5)
+				}
+			}
+		}
+
+		public void callBombAtk(int cooldown)
+		{
+			// The boss will spawn in projectiles depending on the life and a random chance
+			if (Main.netMode != NetmodeID.MultiplayerClient && attackCool <= 0f)
+			{
+				attackCool = 200f + 200f * (float)npc.life / (float)npc.lifeMax - (float)Main.rand.Next(cooldown);
+
+				for (int i = 0; i < 25; i++)
+				{
+					Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(npc.position.X + 0, npc.position.Y + 180), 30, 30, 6, -3f, -2f, 0, new Color(255, 0, 0), 5f)];
+					Dust dust2 = Main.dust[Terraria.Dust.NewDust(new Vector2(npc.position.X + 100, npc.position.Y + 240), 30, 30, 6, 0f, 0f, 0, new Color(255, 0, 0), 5f)];
+					Dust dust3 = Main.dust[Terraria.Dust.NewDust(new Vector2(npc.position.X + 200, npc.position.Y + 180), 30, 30, 6, 3f, -22f, 0, new Color(255, 0, 0), 5f)];
+				}
+
+				//direction 1 = left, 2 = center, 3 = right
+				//chooseBomb(1); //Left
+				//chooseBomb(2); //Center
+				//chooseBomb(3); //Right
+
+				//create all the bombs
+				for (int i = 0; i < 3; i++)
+				{
+					chooseBomb(i + 1);
+				}
+
+				//npc.ai[3] = 0;
+				//go = true;
+				//npc.netUpdate = true;
+			}
 		}
 	}
 }
