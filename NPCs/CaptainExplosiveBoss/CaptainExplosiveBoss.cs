@@ -64,7 +64,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.aiStyle = -1;
 			npc.lifeMax = 9800;
 			npc.damage = 100;
-			npc.defense = 15;
+			npc.defense = 10;
 			npc.knockBackResist = 0f;
 			npc.width = 200;
 			npc.height = 200;
@@ -212,32 +212,40 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 				rotationSpeed *= 0.01f;
 				npc.netUpdate = true;
+
+				//Main.NewText($"Rotation: {npc.rotation}");
 			}
 
+			Main.NewText($"Rotation: {npc.rotation}");
 			//rotation code
-			Main.NewText(npc.rotation);
-			Main.NewText(npc.velocity);
-
-			if(npc.direction == 1 && npc.velocity.X > 15f && npc.rotation < .5f)
+			if (npc.velocity.X > 17f && npc.rotation <= .5f) //right
 			{
-				npc.rotation += .01f;
-			}
-			else if (npc.direction == -1 && npc.velocity.X < -15f && npc.rotation > -.5f)
-			{
-				npc.rotation -= .01f;
-			}
-			else
-			{
-				if (npc.direction == 1 && npc.rotation >= 0f)
+				npc.rotation += .05f;
+				if(npc.rotation >= .5f)
 				{
-					npc.rotation -= .02f;
+					npc.rotation = .5f;
 				}
-				else if (npc.direction == -1 && npc.rotation <= 0f)
-				{
-					npc.rotation += .02f;
-				}
-
 			}
+			else if (npc.rotation >= 0f)
+			{
+				npc.rotation -= .05f;
+			}
+
+
+			if (npc.velocity.X < -17f && npc.rotation >= -.5f) //left
+			{
+				npc.rotation -= .05f;
+				if (npc.rotation <= -.5f)
+				{
+					npc.rotation = -.5f;
+				}
+			}
+			else if (npc.rotation <= 0f)
+			{
+				npc.rotation += .05f;
+			}
+
+
 
 			//the farther the player gets, make the movements happen more often
 			if (Vector2.Distance(Main.player[npc.target].position, npc.position) > sphereRadius)
@@ -307,9 +315,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					damage = (int)(damage / Main.expertDamage);
 				}
 
-				for(int i = 0; i < 25; i++)
+				for (int i = 0; i < 25; i++)
 				{
-					Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(npc.position.X + 0, npc.position.Y + 180), 30, 30, 6, -3f,-2f, 0, new Color(255, 0, 0), 5f)];
+					Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(npc.position.X + 0, npc.position.Y + 180), 30, 30, 6, -3f, -2f, 0, new Color(255, 0, 0), 5f)];
 					Dust dust2 = Main.dust[Terraria.Dust.NewDust(new Vector2(npc.position.X + 100, npc.position.Y + 240), 30, 30, 6, 0f, 0f, 0, new Color(255, 0, 0), 5f)];
 					Dust dust3 = Main.dust[Terraria.Dust.NewDust(new Vector2(npc.position.X + 200, npc.position.Y + 180), 30, 30, 6, 3f, -22f, 0, new Color(255, 0, 0), 5f)];
 				}
