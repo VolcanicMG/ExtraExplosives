@@ -88,7 +88,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.buffImmune[24] = true;
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
 
-			bossBag = ItemType<CaptainExplosiveTreasureBag>();
+			//bossBag = ItemType<CaptainExplosiveTreasureBag>();
 
 			drawOffsetY = 50f;
 		}
@@ -99,36 +99,23 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.damage = (int)(npc.damage * 0.6f);
 		}
 
+		public override bool CheckDead()
+		{
+			Player player = Main.player[npc.target];
+			NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y + 30, NPCType<CaptainExplosiveBossAt0>(), 0, 0, 0, 0, 0, player.whoAmI);
+			return false;
+		}
 
 		public override void AI()
 		{
-			//spawn npcs
-			//if (Main.netMode != NetmodeID.MultiplayerClient && npc.localAI[0] == 0f)
-			//{
-			//	for (int k = 0; k < 5; k++)
-			//	{
-			//		//int captive = NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCType<CaptainExplosive>());
-			//		//Main.npc[captive].ai[0] = npc.whoAmI;
-			//		//Main.npc[captive].ai[1] = k;
-			//		//Main.npc[captive].ai[2] = 50 * (k + 1);
-			//		//if (k == 2)
-			//		//{
-			//		//	Main.npc[captive].damage += 20;
-			//		//}
-			//		//CaptainExplosive.SetPosition(Main.npc[captive]);
-			//		//Main.npc[captive].netUpdate = true;
-			//	}
-			//	npc.netUpdate = true;
-			//	npc.localAI[0] = 1f;
-			//}
+
 
 			//Phases
+			//##############################################
 			if (((float)npc.life / (float)npc.lifeMax) > .66f) //above 66%, Phase 1
 			{
 				callDrones(1);
 				callBombAtk(200);
-
-				Main.NewText(npc.altTexture);
 			}
 			else if (((float)npc.life / (float)npc.lifeMax) <= .66f && ((float)npc.life / (float)npc.lifeMax) > .33f) //Between 66% and 33%, Phase 2
 			{
@@ -141,6 +128,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				callDrones(3);
 				callBombAtk(350);
 			}
+			//##############################################
 
 			//check for the players death
 			Player player = Main.player[npc.target];
@@ -150,7 +138,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				player = Main.player[npc.target];
 				if (!player.active || player.dead)
 				{
-					npc.velocity = new Vector2(0f, 10f);
+					npc.velocity = new Vector2(0f, -15f);
 					if (npc.timeLeft > 120)
 					{
 						npc.timeLeft = 120;
@@ -165,6 +153,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			//set the movement and move to the position
 			if (Main.netMode != NetmodeID.MultiplayerClient && moveCool <= 0f)
 			{
+
 				npc.TargetClosest(false);
 				player = Main.player[npc.target];
 				//double angle = Main.rand.NextDouble() * 2.0 * Math.PI;
@@ -325,18 +314,18 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 		}
 
-		public override void NPCLoot()  // What will drop when the npc is killed?
+		public override bool PreNPCLoot()
 		{
-			if (Main.expertMode)    // Expert mode only loot
-			{
-				npc.DropBossBags(); // Boss bag
-			}
-			int drop = Main.rand.NextBool() ? ItemType<BombardEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
-			int dropChance = drop == ItemType<BombardEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardEmblem>();    // find the other item
-			npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), drop);  // drop the confirmed item
-			if (Main.rand.Next(7) == 0) npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), dropChance);    // if the roll is sucessful drop the other
+			return false;
 		}
 
+		public override void OnHitPlayer(Player player, int damage, bool crit)
+		{
+			if (Main.expertMode || Main.rand.NextBool())
+			{
+				player.AddBuff(BuffID.OnFire, 600, true);
+			}
+		}
 
 		public override void FindFrame(int frameHeight)
 		{
@@ -454,6 +443,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				//go = true;
 				//npc.netUpdate = true;
 			}
+		}
+
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		{
+			scale = 1.5f;
+			return null;
 		}
 	}
 }

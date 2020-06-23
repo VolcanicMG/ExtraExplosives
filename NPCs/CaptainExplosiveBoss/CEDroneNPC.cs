@@ -176,7 +176,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             }
             else if (spawnTimer-- == 0)
             {
-                Main.NewText("Gravity", Color.Cyan);
+                //Main.NewText("Gravity", Color.Cyan);
                 npc.noGravity = true;
                 npc.velocity.Y = 0;
                 npc.rotation = 0;
