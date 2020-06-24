@@ -18,7 +18,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		//private static int hellLayer => Main.maxTilesY - 200;
 
 		private const int sphereRadius = 300;
-
+		
 		private float attackCool
 		{
 			get => npc.ai[0];
@@ -57,6 +57,13 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		private bool go;
 		private int amount = 3;
 
+<<<<<<< Updated upstream
+=======
+		private bool _dropDynamite = false;
+		private bool _carpetBombing = false;	// When true, will hijack CE's movement and fully control him to avoid any conflicts with other movement methods
+		private int _carpetBombingCooldown = 360;
+		
+>>>>>>> Stashed changes
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Captain Explosive");
@@ -116,11 +123,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			//##############################################
 			if (((float)npc.life / (float)npc.lifeMax) > .66f) //above 66%, Phase 1
 			{
-				callDrones(1);
-				callBombAtk(200);
+				//callDrones(1);
+				//callBombAtk(200);
 			}
 			else if (((float)npc.life / (float)npc.lifeMax) <= .66f && ((float)npc.life / (float)npc.lifeMax) > .33f) //Between 66% and 33%, Phase 2
 			{
+<<<<<<< Updated upstream
 				callDrones(2);
 				callBombAtk(300);
 				if (_dropDynamite)
@@ -129,9 +137,27 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					dropDynamite();
 				}
 				npc.altTexture = 1;
+=======
+				//callDrones(2);
+				//callBombAtk(300);
+				//if (_dropDynamite && attackCool >= 200)
+				//{
+				//	npc.velocity = Vector2.Multiply(npc.velocity, 0.75f);
+				//	dropDynamite();
+				//}
+>>>>>>> Stashed changes
 			}
 			else if (((float)npc.life / (float)npc.lifeMax) <= .33f) //Below 33%, Phase 3
 			{
+				if (_carpetBombingCooldown-- <= 0)
+				{
+					_carpetBombing = true;
+				}
+				if (_carpetBombing)
+				{
+					CarpetBombing();
+					return;
+				}
 				callDrones(3);
 				callBombAtk(350);
 			}
@@ -452,6 +478,165 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				//go = true;
 				//npc.netUpdate = true;
 			}
+		}
+		
+		
+		// Holds the current direction of travel
+		private int _dir = 0;
+		
+		private float[] _carpetBombingValues = new float[]
+		{
+			0,	// Starting position, DO NOT CHANGE WHILE HANDLING ATTACK
+			0,	// Rockets remaining, remove 1 for each rocket fired
+			0,	// Cooldown before next rocket is fired
+			0	// Reset time, time to wait after attacking before attacking again (NOT A SECOND CB RUN BUT ANY ATTACK)
+		};
+		/// <summary>
+		/// THis is a wrapper method which just choosed which method should be used and then holds that until the next attack
+		/// DO NOT CALL EITHER OF THE OTHER METHODS, THEY ONLY RUN ONCE
+		/// </summary>
+		public void CarpetBombing()
+		{
+			if (_carpetBombingValues[3] == 1)	// Reset
+			{
+				_carpetBombingValues[0] = 0;
+				_carpetBombingValues[1] = 0;
+				_carpetBombingValues[2] = 0;
+				_carpetBombingValues[3] = 0;
+				_dir = 0;
+				_carpetBombing = false;
+				_carpetBombingCooldown = 720;	// Time before next run
+				return;	// stop the rest of the method running
+			}
+			if(_dir == 1) CarpetBombingLeftToRight();	// type 1
+			else if(_dir == -1) CarpetBombingRightToLeft();	// type 2
+			else if(_dir == 0) ChooseDirection();	// if no direction has been chosen yet
+			else Main.NewText("Something went wrong will setting up a carpet bombing run");
+		}
+
+		private void ChooseDirection()	// sets up the needed values prior to carrying out the run
+		{
+			_dir = Main.rand.NextBool() ? 1 : -1;	// Get the direction to run in
+			_carpetBombingValues[0] = npc.position.X;	// get the starting position
+		}
+		/// <summary>
+		/// DO NOT CALL THIS METHOD, CALL THE WRAPPER (CarpetBombing)
+		/// </summary>
+		private void CarpetBombingLeftToRight()
+		{
+			// 1-Move to left of screen (1000),
+			// 2-Move from left to right dropping bombs in choosen pattern TODO make patterns
+			// 3-Reset TODO figure out exact reset pattern
+			if (_carpetBombingValues[3] != 0)	// if CE is resetting
+			{
+				// TODO basic movement code, should be slow and floaty to allow the player some time to get attacks in
+				//Main.NewText("Resetting");//debug
+				_carpetBombingValues[3]--;	// each tick
+				npc.velocity.X += (Main.player[npc.target].position.X - npc.position.X)/16f;	// change the x velocity so its more randomized
+				if (npc.velocity.X > 10) npc.velocity.X = 10;	// if the velocity is too high, lower it
+				else if (npc.velocity.X < -10) npc.velocity.X = -10;	// if the velocity is to low, raise it
+				if (npc.position.Y - 100 < Main.player[npc.target].position.Y) npc.velocity.Y += 0.8f;	// if the y pos is too high, lower it
+			}
+			else if (_carpetBombingValues[1] != 0)	// if currently dropping bombs
+			{
+				if (_carpetBombingValues[2]-- <= 0)	// if rocket cooldown is done
+				{
+					Projectile.NewProjectileDirect(new Vector2(npc.position.X + 100, npc.position.Y + 240), new Vector2(0, 2), ProjectileID.RocketI, 100, 20);
+					_carpetBombingValues[1]--;	// one less rocket
+					_carpetBombingValues[2] = 4;	// time between rocket drop
+					//Main.NewText(_carpetBombingValues[1]);	//debug
+					if (_carpetBombingValues[1] <= 0)	// if no rockets left
+					{
+						_carpetBombingValues[3] = 30;	//reset time
+					}
+				}
+			}
+			else
+			{
+				if (npc.position.Y - 80 < Main.player[npc.target].position.Y)	// deal with y position
+				{
+					npc.velocity.Y -= 0.7f;	// to low
+				}
+				else
+				{
+					npc.velocity.Y *= 0.75f;	// high enough, just hover
+				}
+				if (npc.position.X > _carpetBombingValues[0] - 1000)	// not far enough left
+				{
+					npc.velocity.X -= 1.1f;	// move further right
+				}
+				else if (npc.velocity.X > 0.25f)	// if still moving right after moving 1000 tiles	
+				{
+					npc.velocity.X *= 0.75f;	//slow down
+				}
+				else  // if x and y are set
+				{
+					npc.velocity.X = 12;	// set x velocity
+					npc.velocity.Y = 0;		// stop y movement
+					_carpetBombingValues[1] = 40;	// rockets left
+				}
+			}
+			
+		}
+
+		/// <summary>
+		/// DO NOT CALL THIS METHOD, CALL THE WRAPPER (CarpetBombing)
+		/// </summary>
+		private void CarpetBombingRightToLeft()		// Methods are identical but values revered, just reference other one for comments
+		{
+			// 1-Move to left of screen (1000),
+			// 2-Move from left to right dropping bombs in choosen pattern TODO make patterns
+			// 3-Reset TODO figure out exact reset pattern
+			if (_carpetBombingValues[3] != 0)
+			{
+				// TODO basic movement code, should be slow and floaty to allow the player some time to get attacks in
+				//Main.NewText("Resetting");
+				_carpetBombingValues[3]--;
+				npc.velocity.X += Main.player[npc.target].position.X - npc.position.X;
+				if (npc.velocity.X > 10) npc.velocity.X = 10;
+				else if (npc.velocity.X < -10) npc.velocity.X = -10;
+				if (npc.position.Y - 100 < Main.player[npc.target].position.Y) npc.velocity.Y += 0.8f;
+			}
+			else if (_carpetBombingValues[1] != 0)
+			{
+				if (_carpetBombingValues[2]-- <= 0)
+				{
+					Projectile.NewProjectileDirect(new Vector2(npc.position.X + 100, npc.position.Y + 240), new Vector2(0, 2), ProjectileID.RocketI, 100, 20);
+					_carpetBombingValues[1]--;
+					_carpetBombingValues[2] = 4;
+					//Main.NewText(_carpetBombingValues[1]);
+					if (_carpetBombingValues[1] <= 0)
+					{
+						_carpetBombingValues[3] = 30;
+					}
+				}
+			}
+			else
+			{
+				if (npc.position.Y - 80 < Main.player[npc.target].position.Y)
+				{
+					npc.velocity.Y -= 0.7f;
+				}
+				else
+				{
+					npc.velocity.Y *= 0.75f;
+				}
+				if (npc.position.X < _carpetBombingValues[0] + 1000)
+				{
+					npc.velocity.X += 1.1f;
+				}
+				else if (npc.velocity.X > 0.25f)
+				{
+					npc.velocity.X *= 0.75f;
+				}
+				else
+				{
+					npc.velocity.X = -12;
+					npc.velocity.Y = 0;
+					_carpetBombingValues[1] = 40;
+				}
+			}
+			
 		}
 
 		public void dropDynamite()
