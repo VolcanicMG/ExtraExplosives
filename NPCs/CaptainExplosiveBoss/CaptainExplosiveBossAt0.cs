@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 {
@@ -18,18 +19,13 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		//private static int hellLayer => Main.maxTilesY - 200;
 
 		private const int sphereRadius = 300;
+		private const int PickPower = 45;
 
 		private float moveCool
 		{
 			get => npc.ai[1];
 			set => npc.ai[1] = value;
 		}
-
-
-		//public virtual string[] AltTexturesCap => new string[0];
-
-		private int moveTime = 200;
-		private int moveTimer = 60;
 
 		public override void SetStaticDefaults()
 		{
@@ -78,37 +74,65 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 		public override bool CheckDead()
 		{
-			for (int k = 0; k < 8; k++)
+			for (int i = 1; i < 12; i++)
 			{
-				Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-				Gore.NewGore(pos, npc.velocity, mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore2"), 1f);
-			}
-			for (int k = 0; k < 8; k++)
-			{
-				Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-				Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore1"), 1f);
+				for (int k = 0; k < 4; k++)
+				{
+					Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
+					Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore" + i), 1.5f);
+				}
 			}
 
-			for (int g = 0; g < 20; g++)
+			for (int g = 0; g < 50; g++)
 			{
 				int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 1.5f;
+				Main.gore[goreIndex].scale = 2.5f;
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
 				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 1.5f;
+				Main.gore[goreIndex].scale = 2.5f;
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
 				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 1.5f;
+				Main.gore[goreIndex].scale = 2.5f;
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
 				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 1.5f;
+				Main.gore[goreIndex].scale = 2.5f;
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
 			}
+
+			CreateExplosion(npc.Center, 25);
+
+			ExplosionDamage(10f * 2f, npc.Center, 1000, 30, Main.myPlayer);
+
 			return true;
+		}
+
+		private void CreateExplosion(Vector2 position, int radius)
+		{
+			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
+			{
+				for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
+				{
+					int xPosition = (int)(x + position.X / 16.0f);
+					int yPosition = (int)(y + position.Y / 16.0f);
+
+					if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
+					{
+						ushort tile = Main.tile[xPosition, yPosition].type;
+						if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+						{
+						}
+						else //Breakable
+						{
+							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
+							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+						}
+					}
+				}
+			}
 		}
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -143,12 +167,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			float num716 = Main.player[npc.target].Center.X - vector89.X;
 			float num717 = Main.player[npc.target].Center.Y - vector89.Y;
 			float num718 = (float)Math.Sqrt((double)(num716 * num716 + num717 * num717));
-			float num719 = 12f;
+			float num719 = 24f;
 			num718 = num719 / num718;
 			num716 *= num718;
 			num717 *= num718;
-			npc.velocity.X = ((npc.velocity.X * 100f + num716) / 101f) * 1 + .2f;
-			npc.velocity.Y = ((npc.velocity.Y * 100f + num717) / 101f) * 1 + .2f;
+			npc.velocity.X = ((npc.velocity.X * 100f + num716) / 101f);
+			npc.velocity.Y = ((npc.velocity.Y * 100f + num717) / 101f);
 
 			if (npc.ai[3] == 500)
 			{

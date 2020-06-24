@@ -14,7 +14,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
     {
         private int _pickPower = 0;
         private bool collide = false;
-        private int fuzeTimer = 240;
+        private int fuzeTimer = 300;
 
         public override void SetStaticDefaults()
         {
@@ -27,19 +27,20 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             npc.width = 28;
             npc.height = 72;
             npc.Hitbox = new Rectangle(0,0,28, 52);
-            npc.lifeMax = 200;
-            npc.defense = 10;
+            npc.lifeMax = 60;
+            npc.defense = 0;
             npc.frame.Height = 72;
             npc.frame.Width = 28;
             npc.hide = true;
             drawOffsetY = 20;
             npc.noGravity = false;
+            npc.knockBackResist = 0f;
         }
         
         public override void FindFrame(int frameHeight)
         {
             npc.frameCounter++;
-            if (npc.frameCounter > 3)    //<--- updates per frame
+            if (npc.frameCounter > 5)    //<--- updates per frame
             {
                 npc.frameCounter = 0;
                 npc.frame.Y += frameHeight;

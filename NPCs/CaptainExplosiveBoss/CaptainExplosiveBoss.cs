@@ -55,6 +55,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		private bool go;
 		private int amount = 3;
 
+		private bool _dropDynamite = false;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Captain Explosive");
@@ -73,7 +75,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.aiStyle = -1;
 			npc.lifeMax = 9800;
 			npc.damage = 100;
-			npc.defense = 10;
+			npc.defense = 5;
 			npc.knockBackResist = 0f;
 			npc.width = 200;
 			npc.height = 200;
@@ -102,7 +104,19 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		public override bool CheckDead()
 		{
 			Player player = Main.player[npc.target];
-			NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y + 30, NPCType<CaptainExplosiveBossAt0>(), 0, 0, 0, 0, 0, player.whoAmI);
+
+			for (int k = 0; k < 12; k++)
+			{
+				Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
+				Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore2"), 1.2f);
+			}
+			for (int k = 0; k < 12; k++)
+			{
+				Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
+				Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore1"), 1.2f);
+			}
+
+			NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y + 50, NPCType<CaptainExplosiveBossAt0>(), 0, 0, 0, 0, 0, player.whoAmI);
 			return false;
 		}
 
@@ -121,7 +135,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			{
 				callDrones(2);
 				callBombAtk(300);
-				npc.altTexture = 1;
+				if (_dropDynamite && attackCool >= 200)
+				{
+					npc.velocity = Vector2.Multiply(npc.velocity, 0.75f);
+					dropDynamite();
+				}
 			}
 			else if (((float)npc.life / (float)npc.lifeMax) <= .33f) //Below 33%, Phase 3
 			{
@@ -414,6 +432,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			}
 		}
 
+		public void dropDynamite()
+		{
+			if (Main.rand.Next(5) == 0 && Vector2.Distance(npc.velocity, Vector2.Zero) < 0.1f && attackCool >= 200)
+			{
+				NPC.NewNPC((int)(npc.position.X + 100), (int)(npc.position.Y + 240), ModContent.NPCType<BossDynamiteNPC>());
+				_dropDynamite = false;
+			}
+		}
+
 		public void callBombAtk(int cooldown)
 		{
 			// The boss will spawn in projectiles depending on the life and a random chance
@@ -432,6 +459,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				//chooseBomb(1); //Left
 				//chooseBomb(2); //Center
 				//chooseBomb(3); //Right
+
+				_dropDynamite = true;
 
 				//create all the bombs
 				for (int i = 0; i < 3; i++)
