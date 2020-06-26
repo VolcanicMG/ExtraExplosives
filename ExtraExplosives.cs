@@ -24,10 +24,12 @@ namespace ExtraExplosives
 		public static bool NukeActive;
 		public static Vector2 NukePos;
 		public static bool NukeHit;
+		
 
 		internal static float dustAmount;
 		internal UserInterface ExtraExplosivesUserInterface;
 		internal UserInterface ExtraExplosivesReforgeBombInterface;
+		internal UserInterface ExtraExplosivesCombineUI;
 
 		public static string GithubUserName => "VolcanicMG";
 		public static string GithubProjectName => "ExtraExplosives";
@@ -151,10 +153,12 @@ namespace ExtraExplosives
 					{
 						// If the current UIState of the UserInterface is null, nothing will draw. We don't need to track a separate .visible value.
 						ExtraExplosivesReforgeBombInterface.Draw(Main.spriteBatch, new GameTime());
+						
 						return true;
 					},
 					InterfaceScaleType.UI)
 				);
+				
 			}
 		}
 
@@ -166,6 +170,7 @@ namespace ExtraExplosives
 
 			ExtraExplosivesUserInterface = new UserInterface();
 			ExtraExplosivesReforgeBombInterface = new UserInterface();
+			
 
 			TriggerExplosion = RegisterHotKey("Explode", "Mouse2");
 			TriggerUIReforge = RegisterHotKey("Open Reforge Bomb UI", "P");
