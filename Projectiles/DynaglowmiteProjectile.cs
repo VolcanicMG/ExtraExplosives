@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using System;
+using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +10,8 @@ namespace ExtraExplosives.Projectiles
 {
 	public class DynaglowmiteProjectile : ModProjectile
 	{
+		private const string gore = "Gores/Explosives/dynaglowmite_gore";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dynaglowmite");
@@ -47,6 +51,19 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 100);
+
+			//Create Bomb Gore
+			int goreType = Main.rand.Next(2);
+			Vector2 gVel = Vector2.One.RotatedByRandom(Math.PI * 2) * 2;
+			if (goreType == 0)
+				for (int num = 0; num < 2; num++)
+				{
+					Gore.NewGore(projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
+					gVel = gVel.RotatedByRandom(Math.PI * 2);
+				}
+			else
+				Gore.NewGore(projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+
 		}
 
 		private void CreateExplosion(Vector2 position, int radius)

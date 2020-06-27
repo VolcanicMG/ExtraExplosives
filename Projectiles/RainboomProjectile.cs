@@ -9,6 +9,8 @@ namespace ExtraExplosives.Projectiles
 {
 	public class RainboomProjectile : ModProjectile
 	{
+		private const string gore = "Gores/Explosives/rainboom_gore";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rainboom");
@@ -38,6 +40,12 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Dust
 			//CreateDust(projectile.Center, 10);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(2.0f, -2.0f);
+			Vector2 gVel2 = new Vector2(0.0f, 2.0f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 
 			//Buff
 			Player player = Main.player[projectile.owner];

@@ -14,6 +14,7 @@ namespace ExtraExplosives.Projectiles
 
 		internal static bool CanBreakWalls;
 		private const int PickPower = 65;
+		private const string gore = "Gores/Explosives/the-leveler_gore";
 
 		public override void SetStaticDefaults()
 		{
@@ -60,6 +61,14 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Explosion
 			CreateExplosion(projectile.Center, 20);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(4.0f, 4.0f);
+			Vector2 gVel2 = new Vector2(0.0f, -4.0f);
+			Vector2 gVel3 = new Vector2(-4.0f, 0.0f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel3), gVel3.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 		}
 
 		private void CreateExplosion(Vector2 position, int radius)

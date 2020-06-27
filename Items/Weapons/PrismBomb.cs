@@ -42,7 +42,7 @@ namespace ExtraExplosives.Items.Weapons
 			recipe.AddIngredient(ItemID.LargeAmethyst, 1);
 			recipe.AddIngredient(ItemID.LargeEmerald, 1);
 			recipe.AddIngredient(ItemID.LargeRuby, 1);
-			recipe.AddIngredient(ItemID.Star, 10);
+			recipe.AddIngredient(ItemID.FallenStar, 10);
 			recipe.AddIngredient(ModContent.ItemType<MediumExplosiveItem>(), 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);

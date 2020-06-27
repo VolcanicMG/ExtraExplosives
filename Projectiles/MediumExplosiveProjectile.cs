@@ -10,6 +10,7 @@ namespace ExtraExplosives.Projectiles
 	public class MediumExplosiveProjectile : ModProjectile
 	{
 		private const int PickPower = 45;
+		private const string gore = "Gores/Explosives/basic-explosive_gore";
 
 		public override void SetStaticDefaults()
 		{
@@ -40,6 +41,12 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Explosion
 			CreateExplosion(projectile.Center, 10);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(-1.5f, 0f);
+			Vector2 gVel2 = new Vector2(0f, -1.5f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale * 1.25f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale * 1.25f);
 		}
 
 		private void CreateExplosion(Vector2 position, int radius)

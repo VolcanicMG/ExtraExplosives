@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +9,8 @@ namespace ExtraExplosives.Projectiles
 {
 	public class AtomBombProjectile : ModProjectile
 	{
+		private const string gore = "Gores/Explosives/atom_gore";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Atom Bomb");
@@ -40,6 +43,17 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 30);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = Vector2.One.RotatedBy(projectile.rotation);
+			int gore1ID = mod.GetGoreSlot(gore + "1");
+			for (int num = 0; num < 4; num++)
+            {
+				Gore.NewGore(projectile.position + gVel1, gVel1, gore1ID, projectile.scale);
+				gVel1 = gVel1.RotatedBy(Math.PI / 2.0);
+			}
+			Vector2 gVel2 = Vector2.One.RotatedBy(Math.PI / 4.0);
+			Gore.NewGore(projectile.position + gVel2, gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 		}
 
 		private void CreateExplosion(Vector2 position, int radius)

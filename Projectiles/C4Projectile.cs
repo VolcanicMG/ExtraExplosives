@@ -15,6 +15,7 @@ namespace ExtraExplosives.Projectiles
 
 		private Vector2 positionToFreeze;
 		private const int PickPower = 70;
+		private const string gore = "Gores/Explosives/c4_gore";
 
 		public override void SetStaticDefaults()
 		{
@@ -85,6 +86,12 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Explosion
 			CreateExplosion(projectile.Center, 20);
+
+			//Creating Bomb Gore
+			Vector2 gVel1 = new Vector2(-4f, -4f);
+			Vector2 gVel2 = new Vector2(4f, -4f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 		}
 
 		private void CreateExplosion(Vector2 position, int radius)

@@ -9,6 +9,8 @@ namespace ExtraExplosives.Projectiles
 {
 	internal class BunnyiteProjectile : ModProjectile
 	{
+		private const string gore = "Gores/Explosives/bunnyite_gore";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bunnyite");
@@ -38,6 +40,12 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 50);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(-3f, -3f);
+			Vector2 gVel2 = new Vector2(3f, 3f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 		}
 
 		private void CreateExplosion(Vector2 position, int radius)
