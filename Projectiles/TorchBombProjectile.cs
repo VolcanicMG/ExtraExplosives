@@ -7,6 +7,8 @@ namespace ExtraExplosives.Projectiles
 {
 	public class TorchBombProjectile : ModProjectile
 	{
+		private const string gore = "Gores/Explosives/torch_gore";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Torch Bomb");
@@ -29,6 +31,12 @@ namespace ExtraExplosives.Projectiles
 		{
 			Vector2 position = projectile.Center;
 			Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(0.0f, -2.0f);
+			Vector2 gVel2 = new Vector2(-1.0f, 2.0f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 
 			float x = 0;
 			float y = 0;

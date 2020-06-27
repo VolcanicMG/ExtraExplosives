@@ -10,6 +10,7 @@ namespace ExtraExplosives.Projectiles
 	public class HellavatorProjectile : ModProjectile
 	{
 		private const int PickPower = 40;
+		private const string gore = "Gores/Explosives/hellevator_gore";
 
 		public override void SetStaticDefaults()
 		{
@@ -51,6 +52,12 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 400);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(-2f, 2f);
+			Vector2 gVel2 = new Vector2(2f, -2f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 		}
 
 		private void CreateExplosion(Vector2 position, int radius)

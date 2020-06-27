@@ -11,6 +11,7 @@ namespace ExtraExplosives.Projectiles
 	{
 		private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
 		private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+		private const string gore = "Gores/Explosives/cluster_gore";
 
 		internal static bool CanBreakWalls;
 		private const int PickPower = 50;
@@ -45,6 +46,12 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Explosion
 			CreateExplosion(projectile.Center, 14);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(-3f, 0f);
+			Vector2 gVel2 = new Vector2(1f, -3f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 
 			Vector2 vel;
 			Vector2 pos;
