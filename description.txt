@@ -5,17 +5,9 @@ We've decided that Terraria doesn’t have enough fun explosives, so we came up 
 
 ------------------
 [c/00FF00:MULTIPLAYER COMPATIBLE] (May lag when using bombs with large explosions)
-[c/FF4500:44 TOTAL ITEMS WITH UNIQUE ABILITIES] (Infinite possibilities with the bullet boom)
+[c/FF4500:44 EXPLOSIVES WITH UNIQUE ABILITIES] (Infinite possibilities with the bullet boom)
 Check our wiki for a full list of items an content (Wiki on the homepage)
 ------------------
-
-==================
-[c/1cac78:What's to come:]
-V3.0:
-New bosses!
-More content!
-More explosions!
-==================
 
 ==================
 Found an issue or a bug? Let us know on discord, our homepage, or through Mod Helper!

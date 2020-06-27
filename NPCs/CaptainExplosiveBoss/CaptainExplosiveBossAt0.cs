@@ -181,7 +181,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			}
 
 			npc.ai[3]++;
-			Main.NewText(npc.velocity);
+			//Main.NewText(npc.velocity);
 		}
 
 		public override void NPCLoot()  // What will drop when the npc is killed?
