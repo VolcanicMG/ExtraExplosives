@@ -119,7 +119,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore1"), 1.2f);
 			}
 
-			NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y + 50, NPCType<CaptainExplosiveBossAt0>(), 0, 0, 0, 0, 0, player.whoAmI);
+			int Boss0 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y + 50, NPCType<CaptainExplosiveBossAt0>(), 0, 0, 0, 0, 0, player.whoAmI);
+			Main.npc[Boss0].netUpdate = true;
+			NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, Boss0);
+
 			return false;
 		}
 
@@ -147,7 +150,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			{
 				if (_carpetBombingCooldown-- <= 0)
 				{
-					//ChooseDirection();
 					_carpetBombing = true;
 				}
 				if (_carpetBombing)
@@ -371,7 +373,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			int spawnCase = Main.rand.Next(3);  // gets the side the drone will spawn from
 			Vector2 spawnCord = new Vector2(npc.position.X + (spawnCase * 100), npc.position.Y + (spawnCase == 1 ? 60 : 0) + 180);  // calculates the cords of the spawn loc
 			int drone = NPC.NewNPC((int)spawnCord.X, (int)spawnCord.Y, NPCType<CEDroneNPC>(), 0, spawnCase, 0, 0, 0, this.npc.type);    // spawns the drone at those cords
-			Dust.NewDust(spawnCord, 8, 8, Main.rand.Next(250)); // spawns dust
+			Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/DronePlop")); //sound
+			//Dust.NewDust(spawnCord, 8, 8, Main.rand.Next(250)); // spawns dust
 			Main.npc[drone].netUpdate = true;
 			NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, drone);
 		}
@@ -508,13 +511,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				return;	// stop the rest of the method running
 			}
 			if(_dir == 1) CarpetBombingLeftToRight();	// type 1
-			else if(_dir == -1) CarpetBombingRightToLeft();	// type 2
+			else if(_dir == -1) CarpetBombingRightToLeft(); // type 2
+			else if (_dir == 0) ChooseDirection();
 			//Main.NewText("Something went wrong will setting up a carpet bombing run");
 		}
 
 		private void ChooseDirection()	// sets up the needed values prior to carrying out the run
 		{
-			_dir = Main.rand.NextBool() ? 1 : -1;	// Get the direction to run in
+			_dir = Main.rand.NextBool() ? 1 : -1;   // Get the direction to run in
+			npc.netUpdate = true;
 			_carpetBombingValues[0] = npc.position.X;	// get the starting position
 		}
 		/// <summary>
@@ -545,47 +550,48 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					//Main.NewText(_carpetBombingValues[1]);	//debug
 					if (_carpetBombingValues[1] <= 0)	// if no rockets left
 					{
-						_carpetBombingValues[3] = 30;	//reset time
+						_carpetBombingValues[3] = 1;	//reset time
 					}
 				}
 			}
 			else
 			{
-				if (npc.position.Y - 80 < Main.player[npc.target].position.Y)	// deal with y position
+				if (npc.position.Y - 60 < Main.player[npc.target].position.Y)   // deal with y position
 				{
-					npc.velocity.Y -= 0.7f;	// to low
+					npc.position.Y -= 5f;   // to low
 				}
 				else
 				{
-					npc.velocity.Y *= 0.75f;	// high enough, just hover
+					npc.velocity.Y *= 0.75f;    // high enough, just hover
 				}
-				if (npc.position.X > _carpetBombingValues[0] - 1000)	// not far enough left
+				if (npc.position.X > _carpetBombingValues[0] - 1000)    // not far enough left
 				{
-					npc.velocity.X -= 1.1f;	// move further right
+					npc.velocity.X -= 1.1f; // move further right
 				}
-				else if (npc.velocity.X > 0.25f)	// if still moving right after moving 1000 tiles	
+				else if (npc.velocity.X > 0.25f)    // if still moving right after moving 1000 tiles	
 				{
-					npc.velocity.X *= 0.75f;	//slow down
+					npc.velocity.X *= 0.75f;    //slow down
 				}
 				else  // if x and y are set
 				{
-					npc.velocity.X = 12;	// set x velocity
-					npc.velocity.Y = 0;		// stop y movement
-					_carpetBombingValues[1] = 40;	// rockets left
+					npc.velocity.X = 12;    // set x velocity
+					npc.velocity.Y = 0;     // stop y movement
+					_carpetBombingValues[1] = 40;   // rockets left
 				}
 			}
-			
+			NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+
 		}
 
 		/// <summary>
 		/// DO NOT CALL THIS METHOD, CALL THE WRAPPER (CarpetBombing)
 		/// </summary>
-		private void CarpetBombingRightToLeft()		// Methods are identical but values revered, just reference other one for comments
+		private void CarpetBombingRightToLeft()     // Methods are identical but values revered, just reference other one for comments
 		{
 			// 1-Move to left of screen (1000),
-			// 2-Move from left to right dropping bombs in choosen pattern TODO make patterns
+			// 2-Move from left to right dropping bombs in chosen pattern TODO make patterns
 			// 3-Reset TODO figure out exact reset pattern
-			if (_carpetBombingValues[3] != 0)
+			/*if (_carpetBombingValues[3] != 0)
 			{
 				// TODO basic movement code, should be slow and floaty to allow the player some time to get attacks in
 				//Main.NewText("Resetting");
@@ -594,8 +600,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				if (npc.velocity.X > 10) npc.velocity.X = 10;
 				else if (npc.velocity.X < -10) npc.velocity.X = -10;
 				if (npc.position.Y - 100 < Main.player[npc.target].position.Y) npc.velocity.Y += 0.8f;
-			}
-			else if (_carpetBombingValues[1] != 0)
+			}*/
+			if (_carpetBombingValues[1] != 0)
 			{
 				if (_carpetBombingValues[2]-- <= 0)
 				{
@@ -605,15 +611,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					//Main.NewText(_carpetBombingValues[1]);
 					if (_carpetBombingValues[1] <= 0)
 					{
-						_carpetBombingValues[3] = 30;
+						_carpetBombingValues[3] = 1;
 					}
 				}
 			}
 			else
 			{
-				if (npc.position.Y - 80 < Main.player[npc.target].position.Y)
+				if (npc.position.Y - 60 < Main.player[npc.target].position.Y)
 				{
-					npc.velocity.Y -= 0.7f;
+					npc.position.Y -= 5f;   // to low	
 				}
 				else
 				{
@@ -668,10 +674,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			writer.Write((bool)_carpetBombing);
 			writer.Write((short)_dir);
 
-			//for(int i = 0; i < _carpetBombingValues.Length; i++)
-			//{
-			//	writer.Write((float)_carpetBombingValues[i]);
-			//}
+			for (int i = 0; i < _carpetBombingValues.Length; i++)
+			{
+				writer.Write((float)_carpetBombingValues[i]);
+			}
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -685,10 +691,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			_carpetBombing = reader.ReadBoolean();
 			_dir = reader.ReadInt16();
 
-			//for (int i = 0; i < _carpetBombingValues.Length; i++)
-			//{
-			//	_carpetBombingValues[i] = reader.ReadSingle();
-			//}
+			for (int i = 0; i < _carpetBombingValues.Length; i++)
+			{
+				_carpetBombingValues[i] = reader.ReadSingle();
+			}
 		}
 	}
 }

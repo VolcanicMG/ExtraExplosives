@@ -105,6 +105,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             if (!WorldGen.TileEmpty((int) (npc.position.X / 16f), (int) (npc.position.Y / 16f) + 4) && !collide)
             {
                 collide = true;
+                Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BombLanding")); //sound
                 for (int i = 3; i > 0; i--)
                 {
                     WorldGen.KillTile((int) (npc.position.X / 16f) + 1, (int) (npc.position.Y / 16f) + 4, true, true);
