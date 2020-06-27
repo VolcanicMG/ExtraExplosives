@@ -10,7 +10,7 @@ namespace ExtraExplosives.Projectiles
 {
 	public class DynaglowmiteProjectile : ModProjectile
 	{
-		private const string gore = "Gores/Explosives/dynaglowmite_gore";
+		private const string gore = "Gores/Explosives/Dynaglowmite_Gore";
 
 		public override void SetStaticDefaults()
 		{

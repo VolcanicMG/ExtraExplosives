@@ -14,7 +14,6 @@ namespace ExtraExplosives.Projectiles
 		//Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
 		internal static bool CanBreakWalls;
-		private const string gore = "Gores/Explosives/reforge_gore";
 
 		public override void SetStaticDefaults()
 		{
@@ -54,12 +53,6 @@ namespace ExtraExplosives.Projectiles
 			//Item.NewItem(position, new Vector2(20, 20), ItemID.GoldAxe, 1, false, -2);
 
 			Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-
-			//Create Bomb Gore
-			Vector2 gVel1 = new Vector2(0.0f, 1.0f);
-			Vector2 gVel2 = new Vector2(-1.0f, -1.0f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 
 			for (int i = 0; i < 100; i++) //spawn dust
 			{
