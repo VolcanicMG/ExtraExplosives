@@ -1,9 +1,10 @@
+using ExtraExplosives.NPCs.CaptainExplosiveBoss;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using ExtraExplosives.Items.Explosives;
-using ExtraExplosives.Projectiles;
+using System.Net;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
@@ -11,13 +12,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
-
-using static ExtraExplosives.GlobalMethods;
-using System;
-using Terraria.ModLoader.UI.ModBrowser;
-using System.Net;
-using System.Data;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss;
 
 namespace ExtraExplosives
 {
@@ -110,6 +104,7 @@ namespace ExtraExplosives
 					NukeHit = false;
 				}
 			}
+
 		}
 
 		public override void PostSetupContent()
@@ -183,10 +178,10 @@ namespace ExtraExplosives
 				Ref<Effect> screenRef2 = new Ref<Effect>(GetEffect("Effects/NukeShader")); // The path to the compiled shader file.
 				Filters.Scene["BigBang"] = new Filter(new ScreenShaderData(screenRef2, "BigBang"), EffectPriority.VeryHigh); //float4 name
 				Filters.Scene["BigBang"].Load();
-				
+
 				// Shader stuff sent in this pull cuz i didnt want to delete it, ignore for now
 				Ref<Effect> burningScreenFilter = new Ref<Effect>(GetEffect("Effects/HPScreenFilter"));
-				Filters.Scene["BurningScreen"] = new Filter(new ScreenShaderData(burningScreenFilter, "BurningScreen"), EffectPriority.Medium);	// Shouldnt override more important shaders
+				Filters.Scene["BurningScreen"] = new Filter(new ScreenShaderData(burningScreenFilter, "BurningScreen"), EffectPriority.Medium); // Shouldnt override more important shaders
 				Filters.Scene["BurningScreen"].Load();
 			}
 
