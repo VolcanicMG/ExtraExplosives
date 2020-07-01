@@ -1,4 +1,3 @@
-<{(V2.3.0.1)}>
 
 [![discord](https://img.shields.io/discord/701561867876696166?style=flat-square&logo=discord "Discord")](https://discord.com/invite/gTQjQz4)
 
