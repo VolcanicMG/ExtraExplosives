@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent.UI.Elements;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,11 +14,25 @@ namespace ExtraExplosives.Projectiles
 	public class C4Projectile : ModProjectile
 	{
 		//Variables:
-		private bool freeze;
+		private enum C4State
+        {
+			Airborne,
+			Frozen,
+			Primed,
+			Exploding
+        };
+		private C4State projState = C4State.Airborne;
+		// private bool freeze;
 
 		private Vector2 positionToFreeze;
 		private const int PickPower = 70;
 		private const string gore = "Gores/Explosives/c4_gore";
+		private const string sounds = "Sounds/Custom/Explosives/C4_";
+		private LegacySoundStyle[] explodeSounds;
+		private LegacySoundStyle indicatorSound;
+		private SoundEffectInstance indicatorSoundInstance = null;
+		private LegacySoundStyle primedSound;
+		private ExtraExplosivesPlayer c4Owner = null;
 
 		public override void SetStaticDefaults()
 		{
@@ -32,13 +49,23 @@ namespace ExtraExplosives.Projectiles
 			projectile.penetrate = -1;
 			projectile.timeLeft = 4000000;
 			//projectile.extraUpdates = 1;
+			Terraria.ModLoader.SoundType customType = Terraria.ModLoader.SoundType.Custom;
+			indicatorSound = mod.GetLegacySoundSlot(customType, sounds + "timer").WithPitchVariance(0f).WithVolume(0.5f);
+			primedSound = mod.GetLegacySoundSlot(customType, sounds + "time_to_explode").WithPitchVariance(0f).WithVolume(0.5f);
+			explodeSounds = new LegacySoundStyle[4];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+			{
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(customType, sounds + "Bomb_" + num);
+			}
 		}
 
 		public override bool OnTileCollide(Vector2 old)
 		{
-			if (!freeze)
+			// if (!freeze)
+			if (projState == C4State.Airborne)
 			{
-				freeze = true;
+				// freeze = true;
+				projState = C4State.Frozen;
 				positionToFreeze = new Vector2(projectile.position.X, projectile.position.Y);
 				projectile.width = 64;
 				projectile.height = 40;
@@ -54,6 +81,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void PostAI()
 		{
+			/*
 			if (projectile.owner == Main.myPlayer)
 			{
 				var player = Main.player[projectile.owner].GetModPlayer<ExtraExplosivesPlayer>();
@@ -70,13 +98,55 @@ namespace ExtraExplosives.Projectiles
 				projectile.position.Y = positionToFreeze.Y;
 				projectile.velocity.X = 0;
 				projectile.velocity.Y = 0;
+				if (projectile.ai[1] < 1)
+                {
+					Main.PlaySound(indicatorSound, (int)projectile.position.X, (int)projectile.position.Y);
+					projectile.ai[1] = 55;
+                }
+				else
+                {
+					projectile.ai[1]--;
+                }
 			}
+			*/
+
+			switch (projState)
+            {
+				case C4State.Airborne:
+					if (projectile.owner == Main.myPlayer && c4Owner == null)
+                    {
+						c4Owner = Main.player[projectile.owner].GetModPlayer<ExtraExplosivesPlayer>();
+					}
+					break;
+				case C4State.Frozen:
+					if (indicatorSoundInstance == null)
+						indicatorSoundInstance = Main.PlaySound(indicatorSound, (int)projectile.Center.X, (int)projectile.Center.Y);
+					if (indicatorSoundInstance.State != SoundState.Playing)
+						indicatorSoundInstance.Play();
+					if (c4Owner != null && c4Owner.detonate)
+                    {
+						projState = C4State.Primed;
+						projectile.ai[1] = 55;
+						Main.PlaySound(primedSound, (int)projectile.position.X, (int)projectile.position.Y);
+                    }
+					break;
+				case C4State.Primed:
+					projectile.ai[1]--;
+					if (projectile.ai[1] < 1)
+					{
+						projState = C4State.Exploding;
+					}
+					break;
+				case C4State.Exploding:
+					projectile.Kill();
+					break;
+            }
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 550);

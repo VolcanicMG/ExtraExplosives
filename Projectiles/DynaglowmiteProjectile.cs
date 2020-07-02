@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Runtime.InteropServices;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -11,6 +12,7 @@ namespace ExtraExplosives.Projectiles
 	public class DynaglowmiteProjectile : ModProjectile
 	{
 		private const string gore = "Gores/Explosives/Dynaglowmite_Gore";
+		private LegacySoundStyle[] explodeSounds;
 
 		public override void SetStaticDefaults()
 		{
@@ -29,6 +31,11 @@ namespace ExtraExplosives.Projectiles
 			projectile.damage = 0;
 			//projectile.light = .9f;
 			//projectile.glowMask = 2;
+			explodeSounds = new LegacySoundStyle[4];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+            {
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Dynaglowmite_" + num);
+            }
 		}
 
 		public override void PostAI()
@@ -41,7 +48,7 @@ namespace ExtraExplosives.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

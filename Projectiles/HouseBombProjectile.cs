@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -10,6 +11,7 @@ namespace ExtraExplosives.Projectiles
 	{
 		private const int PickPower = 40;
 		private const string gore = "Gores/Explosives/house_gore";
+		private LegacySoundStyle[] explodeSounds;
 
 		public override void SetStaticDefaults()
 		{
@@ -28,6 +30,11 @@ namespace ExtraExplosives.Projectiles
 
 			drawOffsetX = -15;
 			drawOriginOffsetY = -15;
+			explodeSounds = new LegacySoundStyle[4];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+            {
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/House_Bomb_" + num);
+            }
 		}
 
 		public override bool OnTileCollide(Vector2 old)
@@ -48,7 +55,7 @@ namespace ExtraExplosives.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

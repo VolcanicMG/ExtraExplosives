@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -11,6 +12,9 @@ namespace ExtraExplosives.Projectiles
 	{
 		private const int PickPower = 70;
 		private const string gore = "Gores/Explosives/gigantic-explosive_gore";
+		private LegacySoundStyle fuseSound;
+		private LegacySoundStyle[] explodeSounds;
+		private bool fusePlayed = false;
 
 		public override void SetStaticDefaults()
 		{
@@ -27,17 +31,43 @@ namespace ExtraExplosives.Projectiles
 			projectile.penetrate = -1;
 			projectile.timeLeft = 800;
 			//projectile.scale = 1.5f;
+			fuseSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Gigantic_Explosion_Wick");
+			fuseSound = fuseSound.WithVolume(0.5f);
+			explodeSounds = new LegacySoundStyle[2];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+            {
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Gigantic_Explosion_" + num);
+            }
 		}
 
 		public override void AI()
 		{
+			if (!fusePlayed)
+			{
+				Main.PlaySound(fuseSound, (int) projectile.Center.X, (int) projectile.Center.Y);
+				fusePlayed = true;
+			}
 			projectile.rotation = 0;
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+			
+			/* ===== ABOUT THE BOMB SOUND =====
+			 * 
+			 * Because the KillTile() and KillWall() methods used in CreateExplosion()
+			 * produce a lot of sounds, the bomb's own explosion sound is difficult to
+			 * hear. The solution to eliminate those unnecessary sounds is to alter
+			 * the fields of each Tile that the explosion affects, but this creates
+			 * additional problems (no dropped Tile items, adjacent Tiles not updating
+			 * their sprites, etc). I've decided to ignore doing the changes because
+			 * it would entail making the same changes to multiple projectiles and the
+			 * projectile template.
+			 * 
+			 * -- V8_Ninja
+			 */
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 600);
@@ -72,6 +102,8 @@ namespace ExtraExplosives.Projectiles
 						}
 						else //Breakable
 						{
+							// Main.tile[xPosition, yPosition].active(false);
+							// if (CanBreakWalls) Main.tile[xPosition, yPosition].wall = 0;
 							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
 							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
 						}

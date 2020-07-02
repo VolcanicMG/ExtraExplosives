@@ -2,6 +2,7 @@
 using ExtraExplosives.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,6 +15,7 @@ namespace ExtraExplosives.Projectiles
 		//Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
 		internal static bool CanBreakWalls;
+		private LegacySoundStyle[] explodeSounds;
 
 		public override void SetStaticDefaults()
 		{
@@ -30,6 +32,11 @@ namespace ExtraExplosives.Projectiles
 			projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
 			projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
 			projectile.timeLeft = 100; //The amount of time the projectile is alive for
+			explodeSounds = new LegacySoundStyle[2];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+            {
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Reforge_Bomb_" + num);
+            }
 		}
 
 		public override void Kill(int timeLeft)
@@ -52,7 +59,7 @@ namespace ExtraExplosives.Projectiles
 			}
 			//Item.NewItem(position, new Vector2(20, 20), ItemID.GoldAxe, 1, false, -2);
 
-			Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)position.X, (int)position.Y);
 
 			for (int i = 0; i < 100; i++) //spawn dust
 			{
