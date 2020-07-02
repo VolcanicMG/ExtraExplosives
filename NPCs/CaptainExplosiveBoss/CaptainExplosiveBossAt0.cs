@@ -1,14 +1,14 @@
 using ExtraExplosives.Items;
 using ExtraExplosives.Items.Accessories;
 using ExtraExplosives.Items.Accessories.AnarchistCookbook;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
 using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using static ExtraExplosives.GlobalMethods;
+using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 {
@@ -40,11 +40,16 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		//	//AltTextures[1] = "NPCs/CaptainExplosiveBoss/CaptainExplosiveBossDamaged";
 		//}
 
+		private bool firstTick;
+		private bool flag;
+		private bool flag2;
+
+
 		public override void SetDefaults()
 		{
 			npc.aiStyle = -1;
 			npc.lifeMax = 9800;
-			npc.damage = 1000;
+			npc.damage = 80;
 			npc.defense = 999999;
 			npc.knockBackResist = 0f;
 			npc.width = 200;
@@ -72,43 +77,51 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.damage = (int)(npc.damage * 0.6f);
 		}
 
-		public override bool CheckDead()
-		{
-			for (int i = 1; i < 12; i++)
-			{
-				for (int k = 0; k < 4; k++)
-				{
-					Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-					Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore" + i), 1.5f);
-				}
-			}
+		//public override bool CheckDead()
+		//{
+		//	if (!flag)
+		//	{
+		//		for (int i = 1; i < 12; i++)
+		//		{
+		//			for (int k = 0; k < 4; k++)
+		//			{
+		//				Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
+		//				Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore" + i), 1.5f);
+		//			}
+		//		}
 
-			for (int g = 0; g < 50; g++)
-			{
-				int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 2.5f;
-				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
-				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 2.5f;
-				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
-				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 2.5f;
-				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
-				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
-				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 2.5f;
-				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
-				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
-			}
+		//		for (int g = 0; g < 50; g++)
+		//		{
+		//			int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+		//			Main.gore[goreIndex].scale = 2.5f;
+		//			Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+		//			Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+		//			goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+		//			Main.gore[goreIndex].scale = 2.5f;
+		//			Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+		//			Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+		//			goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+		//			Main.gore[goreIndex].scale = 2.5f;
+		//			Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+		//			Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+		//			goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+		//			Main.gore[goreIndex].scale = 2.5f;
+		//			Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+		//			Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
 
-			CreateExplosion(npc.Center, 25);
+		//		}
 
-			ExplosionDamage(10f * 2f, npc.Center, 1000, 30, Main.myPlayer);
+		//		CreateExplosion(npc.Center, 25);
 
-			return true;
-		}
+		//		ExplosionDamage(10f * 2f, npc.Center, 1000, 30, Main.myPlayer);
+
+		//		Main.NewText("I only run once");
+
+		//		flag = true;
+
+		//	}
+		//	return true;
+		//}
 
 		private void CreateExplosion(Vector2 position, int radius)
 		{
@@ -128,25 +141,32 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 						else //Breakable
 						{
 							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+							NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
 						}
 					}
 				}
 			}
 		}
 
-		public override void OnHitPlayer(Player target, int damage, bool crit)
-		{
-			npc.immortal = false;
-			npc.StrikeNPCNoInteraction(100, 0, -npc.direction);
-		}
+		//public override void OnHitPlayer(Player target, int damage, bool crit)
+		//{
+		//	//target.immuneTime = 1;
+		//}
+
 
 		public override void AI()
 		{
-			npc.life = 1;
+			Player player = Main.player[npc.target];
+
+			//Main.NewText(npc.active);
+
+			if (!firstTick)
+			{
+				npc.life = 1;
+				firstTick = true;
+			}
 
 			//check for the players death
-			Player player = Main.player[npc.target];
 			if (!player.active || player.dead)
 			{
 				npc.TargetClosest(false);
@@ -174,26 +194,93 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.velocity.X = ((npc.velocity.X * 100f + num716) / 101f);
 			npc.velocity.Y = ((npc.velocity.Y * 100f + num717) / 101f);
 
-			if (npc.ai[3] == 500)
+			//check to see if its time to kill the boss
+			if (npc.ai[3] >= 500)
 			{
+
+				NPCLoot();
+
+				if (!flag)
+				{
+					for (int i = 1; i < 12; i++)
+					{
+						for (int k = 0; k < 4; k++)
+						{
+							Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
+							Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore" + i), 1.5f);
+						}
+					}
+
+					for (int g = 0; g < 20; g++)
+					{
+						int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+						Main.gore[goreIndex].scale = 2.5f;
+						Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+						Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+						goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+						Main.gore[goreIndex].scale = 2.5f;
+						Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+						Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+						goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+						Main.gore[goreIndex].scale = 2.5f;
+						Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+						Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+						goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+						Main.gore[goreIndex].scale = 2.5f;
+						Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+						Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+
+					}
+
+					CreateExplosion(npc.Center, 25);
+
+					ExplosionDamage(10f * 2f, npc.Center, 1000, 30, Main.myPlayer); //breaks NPCloot in mp
+
+					Main.NewText("I only run once");
+
+					flag = true;
+
+				}
+
 				npc.immortal = false;
-				npc.StrikeNPCNoInteraction(100, 0, -npc.direction);
+				npc.netUpdate = true;
+
+				//NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+				if (Main.netMode == 2)
+				{
+					NetMessage.SendData(28, -1, -1, null, npc.whoAmI, 99999f, 0f, 0f, 0, 0, 0);
+				}
+				else if (Main.netMode == NetmodeID.SinglePlayer)
+				{
+					npc.StrikeNPCNoInteraction(10000, 1, -npc.direction, false, false, false);
+				}
+
+				//npc.active = false;
 			}
 
 			npc.ai[3]++;
 			//Main.NewText(npc.velocity);
 		}
 
+		public override bool PreNPCLoot()
+		{
+			return true;
+		}
+
 		public override void NPCLoot()  // What will drop when the npc is killed?
 		{
-			if (Main.expertMode)    // Expert mode only loot
+			if (!flag2)
 			{
-				npc.DropBossBags(); // Boss bag
+				if (Main.expertMode)    // Expert mode only loot
+				{
+					npc.DropBossBags(); // Boss bag
+				}
+				int drop = Main.rand.NextBool() ? ItemType<BombardEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
+				int dropChance = drop == ItemType<BombardEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardEmblem>();    // find the other item
+				npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), drop);  // drop the confirmed item
+				if (Main.rand.Next(7) == 0) npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), dropChance);    // if the roll is sucessful drop the other
+				flag2 = true;
 			}
-			int drop = Main.rand.NextBool() ? ItemType<BombardEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
-			int dropChance = drop == ItemType<BombardEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardEmblem>();    // find the other item
-			npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), drop);  // drop the confirmed item
-			if (Main.rand.Next(7) == 0) npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), dropChance);    // if the roll is sucessful drop the other
 		}
 
 
@@ -210,8 +297,22 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		//{
 		//	if (npc.life <= 0)
 		//	{
-				
+
 		//	}
 		//}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+
+			//writer.Write((bool)ded);
+			//writer.Write(firstTick);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+
+			//ded = reader.ReadBoolean();
+			//firstTick = reader.ReadBoolean();
+		}
 	}
 }

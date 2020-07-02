@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -11,6 +12,8 @@ namespace ExtraExplosives.Projectiles
 	{
 		private const int PickPower = 0;
 		private const string gore = "Gores/Explosives/breaken-the-banken_gore";
+		private const string sounds = "Sounds/Custom/Explosives/Breaken_The_Banken_";
+		private LegacySoundStyle[] explodeSounds;
 
 		public override void SetStaticDefaults()
 		{
@@ -26,12 +29,15 @@ namespace ExtraExplosives.Projectiles
 			projectile.friendly = true;
 			projectile.penetrate = 20;
 			projectile.timeLeft = 140;
+			explodeSounds = new LegacySoundStyle[4];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, sounds + num);
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

@@ -156,7 +156,7 @@ namespace ExtraExplosives
 				}
 
 				// Lihzahrd Brick (Power 210) todo add additional checks for Lihzahrd traps and the locked temple door
-				if ((tileId == 226 || tileId == 237 || tileId == 1137) && pickPower < 210)
+				if ((tileId == 226 || tileId == 237 || tileId == 137) && pickPower < 210)
 				{
 					return false;
 				}

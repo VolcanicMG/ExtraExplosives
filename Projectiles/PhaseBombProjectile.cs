@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,6 +18,9 @@ namespace ExtraExplosives.Projectiles
 		internal static bool CanBreakWalls;
 		private const int PickPower = 50;
 		private const string gore = "Gores/Explosives/phase_gore";
+		private LegacySoundStyle phaseSound;
+		private SoundEffectInstance phaseSoundInstance = null;
+		private LegacySoundStyle[] explodeSounds;
 
 		public override void SetStaticDefaults()
 		{
@@ -33,15 +38,28 @@ namespace ExtraExplosives.Projectiles
 			projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
 			projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
 			projectile.timeLeft = 1000; //The amount of time the projectile is alive for
+			phaseSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Phase_Bomb").WithVolume(0.5f);
+			explodeSounds = new LegacySoundStyle[3];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+            {
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Phase_Bomb_Explode_" + num);
+            }
 		}
 
 
 
 		public override void AI()
 		{
+			if (phaseSoundInstance == null)
+				phaseSoundInstance = Main.PlaySound(phaseSound, (int)projectile.Center.X, (int)projectile.Center.Y);
+
+			if (phaseSoundInstance.State != SoundState.Playing)
+				phaseSoundInstance.Play();
+
 			Player player = Main.player[projectile.owner];
 			if ((player.releaseLeft && Main.mouseLeft) == false)
 			{
+				phaseSoundInstance.Stop(true);
 				projectile.Kill();
 			}
 
@@ -60,7 +78,7 @@ namespace ExtraExplosives.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 500);

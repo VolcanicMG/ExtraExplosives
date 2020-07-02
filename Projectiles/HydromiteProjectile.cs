@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -10,6 +11,7 @@ namespace ExtraExplosives.Projectiles
 	public class HydromiteProjectile : ModProjectile
 	{
 		private const string gore = "Gores/Explosives/lavamite-hydromite_gore";
+		private LegacySoundStyle[] explodeSounds;
 
 		public override void SetStaticDefaults()
 		{
@@ -25,12 +27,17 @@ namespace ExtraExplosives.Projectiles
 			projectile.friendly = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 100;
+			explodeSounds = new LegacySoundStyle[3];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+            {
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Hydromite_" + num);
+            }
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

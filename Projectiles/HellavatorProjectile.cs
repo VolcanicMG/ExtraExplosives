@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,6 +12,7 @@ namespace ExtraExplosives.Projectiles
 	{
 		private const int PickPower = 40;
 		private const string gore = "Gores/Explosives/hellevator_gore";
+		private LegacySoundStyle explodeSound;
 
 		public override void SetStaticDefaults()
 		{
@@ -30,6 +32,7 @@ namespace ExtraExplosives.Projectiles
 
 			drawOffsetX = -15;
 			drawOriginOffsetY = -15;
+			explodeSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Hellavator_1");
 		}
 
 		public override bool OnTileCollide(Vector2 old)
@@ -42,7 +45,7 @@ namespace ExtraExplosives.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSound, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
 			ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

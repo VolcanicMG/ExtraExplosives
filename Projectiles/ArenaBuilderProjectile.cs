@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,6 +12,7 @@ namespace ExtraExplosives.Projectiles
 	public class ArenaBuilderProjectile : ModProjectile
 	{
 		private const int PickPower = 70;
+		private LegacySoundStyle[] explodeSounds;
 
 		public override void SetStaticDefaults()
 		{
@@ -26,6 +28,11 @@ namespace ExtraExplosives.Projectiles
 			projectile.friendly = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 100;
+			explodeSounds = new LegacySoundStyle[2];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+            {
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Arena_Bomb_" + num);
+            }
 		}
 
 		public override bool OnTileCollide(Vector2 old)
@@ -46,7 +53,21 @@ namespace ExtraExplosives.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+
+			/* ===== ABOUT THE BOMB SOUND =====
+			 * 
+			 * Because the KillTile() and KillWall() methods used in CreateExplosion()
+			 * produce a lot of sounds, the bomb's own explosion sound is difficult to
+			 * hear. The solution to eliminate those unnecessary sounds is to alter
+			 * the fields of each Tile that the explosion affects, but this creates
+			 * additional problems (no dropped Tile items, adjacent Tiles not updating
+			 * their sprites, etc). I've decided to ignore doing the changes because
+			 * it would entail making the same changes to multiple projectiles and the
+			 * projectile template.
+			 * 
+			 * -- V8_Ninja
+			 */
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner); //No damage needed
