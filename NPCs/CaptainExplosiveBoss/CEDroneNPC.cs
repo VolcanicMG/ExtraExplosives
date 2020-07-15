@@ -47,12 +47,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void SetDefaults()
         {
-            npc.width = 22;
-            npc.height = 22;
+            npc.width = 15;
+            npc.height = 15;
             npc.Hitbox = new Rectangle(0,0,32,32);
-            npc.damage = 10;
+            npc.damage = 60;
             npc.defense = 5;
-            npc.lifeMax = 150;
+            npc.lifeMax = 25;
             npc.knockBackResist = 0f;
             npc.noTileCollide = true;
             npc.frame.Height = 22;
@@ -61,10 +61,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             npc.aiStyle = -1;
             npc.Center = new Vector2(11,11);
             npc.rotation = Main.rand.Next(360);
-            drawOffsetY = -8f;
+            drawOffsetY = -5f;
         }
-        
-        
+
+        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        {
+            npc.lifeMax = (int)(npc.lifeMax * 0.625f * bossLifeScale);
+            npc.damage = (int)(npc.damage * 0.6f);
+        }
+
         // Animation code do not touch
         public override void FindFrame(int frameHeight)
         {
@@ -309,9 +314,13 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         public void Kill()
         {
             // Explode
-            CreateExplosion(npc.position, 8);
-            CreateDust(npc.Center, 8);
-            ExplosionDamage(8f, npc.Center, 60, 7, 255);
+            if (ExtraExplosives.CheckBossBreak)
+            {
+                CreateExplosion(npc.position, 4);
+            }
+
+            CreateDust(npc.Center, 50);
+            ExplosionDamage(12f, npc.Center, 60, 7, Main.myPlayer);
             // kill the drone
             npc.life = 0;
         }
@@ -328,13 +337,14 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
                         ushort tile = Main.tile[xPosition, yPosition].type;
-                        if (!CanBreakTile(tile, 65)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+                        if (!CanBreakTile(tile, 0)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                         }
                         else //Breakable
                         {
                             WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+                            //NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
                         }
                     }
                 }
@@ -355,7 +365,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                     {
                         updatedPosition = new Vector2(position.X - 90 / 2, position.Y - 90 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 0.5f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 1f)];
                         dust.noGravity = true;
                         dust.fadeIn = 0.986842f;
                     }
@@ -366,7 +376,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                     {
                         updatedPosition = new Vector2(position.X - 90 / 2, position.Y - 90 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 203, 0f, 0f, 0, new Color(255, 255, 255), 0.5f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 203, 0f, 0f, 0, new Color(255, 255, 255), 2f)];
                         dust.noGravity = true;
                         dust.noLight = true;
                     }
@@ -377,7 +387,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                     {
                         updatedPosition = new Vector2(position.X - 90 / 2, position.Y - 90 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 31, 0f, 0f, 0, new Color(255, 255, 255), 0.5f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 31, 0f, 0f, 0, new Color(255, 255, 255), 1.5f)];
                         dust.noGravity = true;
                         dust.noLight = true;
                     }

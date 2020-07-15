@@ -18,21 +18,21 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 67;
+            Main.npcFrameCount[npc.type] = 66;
         }
 
 
         public override void SetDefaults()
         {
             npc.width = 28;
-            npc.height = 72;
-            npc.Hitbox = new Rectangle(0,0,28, 52);
+            npc.height = 92;
+            npc.Hitbox = new Rectangle(0, 0, 28, 72);
             npc.lifeMax = 60;
             npc.defense = 0;
-            npc.frame.Height = 72;
+            npc.frame.Height = 92;
             npc.frame.Width = 28;
             npc.hide = true;
-            drawOffsetY = 20;
+            drawOffsetY = 30;
             npc.noGravity = false;
             npc.knockBackResist = 0f;
         }
@@ -44,18 +44,18 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             {
                 npc.frameCounter = 0;
                 npc.frame.Y += frameHeight;
-                if (npc.frame.Y > 5980) Explode();
+                if (npc.frame.Y > 8052) Explode();
                 //npc.frame.Y = (frameHeight * 66);    //<----- number of frames (3 not 6 since only 3 are ever used at one time)
             }
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            FindFrame(92);
+            FindFrame(122);
             Texture2D glow = (npc.direction == -1) ? mod.GetTexture("NPCs/CaptainExplosiveBoss/BossDynamiteNPC_Glowmask") : mod.GetTexture("NPCs/CaptainExplosiveBoss/BossDynamiteNPC_GlowmaskRev");
             Vector2 pos = npc.position - Main.screenPosition;
             pos.Y -= 16;
-            Rectangle frame = new Rectangle(0,(int)(npc.frame.Y+92), glow.Width, glow.Height/67);
+            Rectangle frame = new Rectangle(0, (int)(npc.frame.Y + 122), glow.Width, glow.Height / 66);
             spriteBatch.Draw(glow, pos, frame, Color.White, npc.rotation, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
@@ -68,13 +68,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public void Explode()
         {
+            Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BigDynamite")); //sound
             Kill(0);
             npc.life = 0;
+            npc.active = false;
         }
         
         public void Kill(int timeLeft)
         {
-            for (int i = 10; i > 0; i--)
+            for (int i = 80; i > 0; i--)
             {
                 Dust.NewDust(npc.position, 4, 4, ModContent.DustType<BossDynamiteDust>());
             }
@@ -82,13 +84,16 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             Main.PlaySound(SoundID.Item14, (int)npc.Center.X, (int)npc.Center.Y);
 
             //Create Bomb Dust
-            CreateDust(npc.Center, 25);
+            CreateDust(npc.Center, 85);
 
             //Create Bomb Damage
-            ExplosionDamage(10f, npc.Center, 75, 20, 255);
+            ExplosionDamage(15f, npc.Center, 120, 20, Main.myPlayer);
 
             //Create Bomb Explosion
-            CreateExplosion(npc.Center, 10);
+            if (ExtraExplosives.CheckBossBreak)
+            {
+                CreateExplosion(npc.Center, 10);
+            }
         }
 
 
@@ -135,6 +140,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                         {
                             WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+                            //NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
                         }
                     }
                 }
@@ -145,44 +151,65 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         {
             Dust dust;
             Vector2 updatedPosition;
-	
+
             for (int i = 0; i <= amount; i++)
             {
                 if (Main.rand.NextFloat() < DustAmount)
                 {
                     //---Dust 1---
-                    if (Main.rand.NextFloat() < 0.2f)
+                    if (Main.rand.NextFloat() < 1f)
                     {
-                        updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
+                        updatedPosition = new Vector2(position.X - 90 / 2, position.Y - 90 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, ModContent.DustType<BossDynamiteDust>(), Main.rand.NextFloat(-1,1), Main.rand.NextFloat(-1,1), 0, new Color(255, 0, 0), 1f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 1f)];
                         dust.noGravity = true;
-                        dust.fadeIn = 2.5f;
+                        dust.fadeIn = 0.986842f;
                     }
                     //------------
 
                     //---Dust 2---
-                    if (Main.rand.NextFloat() < 0.2f)
+                    if (Main.rand.NextFloat() < 1f)
                     {
-                        updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
+                        updatedPosition = new Vector2(position.X - 90 / 2, position.Y - 90 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, ModContent.DustType<BossDynamiteDust>(), Main.rand.NextFloat(-1,1), Main.rand.NextFloat(-1,1), 0, new Color(255, 255, 255), 1f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 203, 0f, 0f, 0, new Color(255, 255, 255), 2f)];
                         dust.noGravity = true;
                         dust.noLight = true;
                     }
                     //------------
 
                     //---Dust 3---
-                    if (Main.rand.NextFloat() < 0.2f)
+                    if (Main.rand.NextFloat() < 1f)
                     {
-                        updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
+                        updatedPosition = new Vector2(position.X - 90 / 2, position.Y - 90 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, ModContent.DustType<BossDynamiteDust>(), Main.rand.NextFloat(-1,1), Main.rand.NextFloat(-1,1), 0, new Color(255, 255, 255), 1f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 31, 0f, 0f, 0, new Color(255, 255, 255), 1.5f)];
                         dust.noGravity = true;
                         dust.noLight = true;
                     }
                     //------------
                 }
+            }
+
+            //gore
+            for (int g = 0; g < 10; g++)
+            {
+                int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                Main.gore[goreIndex].scale = 1.5f;
+                Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+                Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+                goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                Main.gore[goreIndex].scale = 1.5f;
+                Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+                Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+                goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                Main.gore[goreIndex].scale = 1.5f;
+                Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+                Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+                goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                Main.gore[goreIndex].scale = 1.5f;
+                Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+                Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
             }
         }
         

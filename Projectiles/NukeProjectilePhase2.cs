@@ -129,7 +129,7 @@ namespace ExtraExplosives.Projectiles
 				if (Main.netMode == NetmodeID.MultiplayerClient) //set NukeHit to false for all players
 				{
 					ModPacket myPacket = mod.GetPacket();
-					myPacket.WriteVarInt(2);
+					myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkNukeHit);
 					myPacket.Send();
 				}
 			}

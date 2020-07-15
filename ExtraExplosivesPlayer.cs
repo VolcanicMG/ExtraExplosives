@@ -1,4 +1,5 @@
 using ExtraExplosives.Buffs;
+using ExtraExplosives.NPCs.CaptainExplosiveBoss;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace ExtraExplosives
 		public Vector2 BuddyPos;
 
 		public bool RadiatedDebuff;
+
+		private int tickCheck = 1;
 
 		//public static bool NukeActive;
 		//public static Vector2 NukePos;
@@ -105,7 +108,7 @@ namespace ExtraExplosives
 
 		public override void PostUpdate()
 		{
-			//Player player = Main.player[Main.myPlayer];
+			
 			if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["Bang"].Deactivate();
@@ -114,6 +117,35 @@ namespace ExtraExplosives
 			if (Main.netMode != NetmodeID.Server && Filters.Scene["BigBang"].IsActive() && ExtraExplosives.NukeHit == false) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["BigBang"].Deactivate();
+			}
+
+			//Main.NewText(ExtraExplosives.CheckUIBoss);
+
+			if (ExtraExplosives.CheckUIBoss == 1 && tickCheck == 1)
+			{
+				Player playerCheck = Main.player[Main.myPlayer];
+				if (playerCheck.whoAmI == 0)
+				{
+					GetInstance<ExtraExplosives>().CEBossInterface.SetState(new UI.CEBossUI()); //get the UI
+				}
+				else if (playerCheck.whoAmI == 255)
+				{
+
+				}
+				else
+				{
+					GetInstance<ExtraExplosives>().CEBossInterfaceNonOwner.SetState(new UI.CEBossUINonOwner()); //get the UI
+				}
+
+				tickCheck = 2;
+
+				//Main.NewText(player.whoAmI);
+			}
+
+			//disable the looping
+			if (ExtraExplosives.CheckUIBoss != 1)
+			{
+				tickCheck = 1;
 			}
 		}
 
@@ -159,7 +191,7 @@ namespace ExtraExplosives
 
 			if(ExtraExplosives.CurrentVersion.Equals(""))
 			{
-				Main.NewText($"[c/FF0000:Mod browser is currently offline or they're is no Internet connection.]");
+				Main.NewText($"[c/FF0000:They're is no Internet connection.]");
 			}
 			else if(!ExtraExplosives.ModVersion.Equals(ExtraExplosives.CurrentVersion))
 			{

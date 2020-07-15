@@ -43,14 +43,6 @@ namespace ExtraExplosives.Items.Explosives
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-			
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<HeavyBombItem>(), 5);
-			recipe.AddIngredient(ModContent.ItemType<DeliquidifierItem>(), 5);
-			recipe.AddIngredient(ItemID.LeadPickaxe, 2);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
 		}
 	}
 }

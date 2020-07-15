@@ -63,14 +63,14 @@ namespace ExtraExplosives.Items
 				if (Main.netMode == NetmodeID.MultiplayerClient)
 				{
 					ModPacket myPacket = mod.GetPacket();
-					myPacket.WriteVarInt(1);
+					myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkNukeActive);
 					myPacket.Send();
 				}
 
 				//SpawnProjectileSynced(new Vector2(xPosition, 1500), new Vector2(30, 0), type, 0, 0, player.whoAmI);
 				Projectile.NewProjectile(xPosition, 1500, 30, 0, type, damage, knockBack, player.whoAmI);
 
-				//Main.NewText(xPosition);
+				//Main.NewText(ExtraExplosives.NukeActivated);
 
 				//Main.NewText(player.position);
 

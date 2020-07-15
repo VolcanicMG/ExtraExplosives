@@ -56,6 +56,7 @@ namespace ExtraExplosives.Projectiles
 							Main.tile[xPosition, yPosition].liquidType(0);
 							Main.tile[xPosition, yPosition].liquid = 128;
 							WorldGen.SquareTileFrame(xPosition, yPosition, true);
+							NetMessage.SendTileSquare(1, xPosition, yPosition, 1);
 						}
 					}
 				}
