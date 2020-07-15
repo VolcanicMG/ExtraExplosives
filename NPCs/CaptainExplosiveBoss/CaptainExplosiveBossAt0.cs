@@ -4,7 +4,10 @@ using ExtraExplosives.Items.Accessories.AnarchistCookbook;
 using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
 using Microsoft.Xna.Framework;
 using System;
+using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -65,6 +68,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 			drawOffsetY = 50f;
 		}
+		
 
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
@@ -137,6 +141,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
+			return;
 			npc.immortal = false;
 			npc.StrikeNPCNoInteraction(100, 0, -npc.direction);
 		}
@@ -162,6 +167,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				}
 			}
 
+			
+			
 			npc.TargetClosest(true);
 			Vector2 vector89 = new Vector2(npc.Center.X, npc.Center.Y);
 			float num716 = Main.player[npc.target].Center.X - vector89.X;
@@ -190,16 +197,64 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			{
 				npc.DropBossBags(); // Boss bag
 			}
-			int drop = Main.rand.NextBool() ? ItemType<BombardEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
-			int dropChance = drop == ItemType<BombardEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardEmblem>();    // find the other item
+			int drop = Main.rand.NextBool() ? ItemType<BombardierEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
+			int dropChance = drop == ItemType<BombardierEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardierEmblem>();    // find the other item
 			npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), drop);  // drop the confirmed item
 			if (Main.rand.Next(7) == 0) npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), dropChance);    // if the roll is sucessful drop the other
 		}
+		private float _timer = 0;
+		private int _color = 0;
+		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor) {
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
+			// Retrieve reference to shader
+			var deathShader = GameShaders.Misc["bombshader"];
+			switch (_color)
+			{
+				case 0:
+					deathShader.UseColor(0, 0, 0).UseSaturation((_timer/5) * _timer);	// Base (this does nothing but ensure the shader doesnt break)
+					if (_timer > 1f)
+					{
+						_color = 1;
+					}
+					break;
+				case 1:
+					deathShader.UseColor(0.5f, 0.05f, 0.05f).UseSaturation((_timer/3) * _timer);	// Red (increase the number to slow the speed, decrease to make it faster)
+					if (_timer > 2.5f)
+					{
+						_color = 2;
+					}
+					break;
+				
+				case 2:
+					deathShader.UseColor(0.5f, 0.25f, 0.05f).UseSaturation((_timer/2) * _timer); // Orange (see previous)
+					if (_timer > 3.8f)
+					{
+						_color = 3;
+					}
+					break;
+				case 3:
+					deathShader.UseColor(.5f, .5f, 0.05f).UseSaturation(_timer*_timer);	// Yellow (see previous)
+					break;
+			}
+			Main.NewText(_timer);
+			// Call Apply to apply the shader to the SpriteBatch. Only 1 shader can be active at a time.
+			deathShader.Apply(null);
+
+			_timer += 0.01f;
+			return true;
+		}
+
+		public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+		{
+			// As mentioned above, be sure not to forget this step.
+			Main.spriteBatch.End();
+			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+		}
 
 		public override void FindFrame(int frameHeight)
 		{
-
 			npc.frameCounter += 2.0; //change the frame speed
 			npc.frameCounter %= 100.0; //How many frames are in the animation
 			npc.frame.Y = frameHeight * ((int)npc.frameCounter % 16 / 4); //set the npc's frames here

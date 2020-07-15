@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class TorchBombProjectile : ModProjectile
+	public class TorchBombProjectile : ExplosiveProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles
 			//Tooltip.SetDefault("");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.tileCollide = true; //checks to see if the projectile can go through tiles
 			projectile.width = 10;   //This defines the hitbox width

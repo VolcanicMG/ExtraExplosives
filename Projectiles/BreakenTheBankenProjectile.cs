@@ -7,7 +7,7 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class BreakenTheBankenProjectile : ModProjectile
+	public class BreakenTheBankenProjectile : ExplosiveProjectile
 	{
 		private const int PickPower = 0;
 
@@ -16,8 +16,10 @@ namespace ExtraExplosives.Projectiles
 			DisplayName.SetDefault("BreakenTheBanken");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			radius = 20;
+			pickPower = -2;
 			projectile.tileCollide = true;
 			projectile.width = 22;
 			projectile.height = 22;
@@ -36,14 +38,17 @@ namespace ExtraExplosives.Projectiles
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 20);
+			Explosion();
+			
+			ExplosionDamage();
 
 			//Create Bomb Dust
 			//CreateDust(projectile.Center, 10);
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()
 		{
+			Vector2 position = projectile.Center;
 			int cntr = 0; //Tracks how many coins have spawned in
 
 			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
@@ -73,6 +78,11 @@ namespace ExtraExplosives.Projectiles
 					}
 				}
 			}
+		}
+
+		public override void ExplosionDamage()
+		{
+			return;
 		}
 	}
 }

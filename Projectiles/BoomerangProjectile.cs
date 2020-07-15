@@ -6,7 +6,7 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class BoomerangProjectile : ModProjectile
+	public class BoomerangProjectile : ExplosiveProjectile		//TODO Recode so it works with the Bombedier class
 	{
 		private bool HitSomeThing;
 
@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 			DisplayName.SetDefault("BOOMerang");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.CloneDefaults(ProjectileID.EnchantedBoomerang);
 			projectile.damage = 46;
@@ -37,7 +37,7 @@ namespace ExtraExplosives.Projectiles
 			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
-			ExplosionDamage(3f, projectile.Center, 50, 20, projectile.owner);
+			ExplosionDamage();
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 10);
@@ -53,7 +53,7 @@ namespace ExtraExplosives.Projectiles
 				Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 				//Create Bomb Damage
-				ExplosionDamage(3f, projectile.Center, 50, 20, projectile.owner);
+				ExplosionDamage();
 
 				//Create Bomb Dust
 				CreateDust(projectile.Center, 10);
@@ -77,9 +77,13 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 6, 0f, 0.5f, 0, new Color(255, 0, 0), 4f)];
-						dust.noGravity = true;
-						dust.fadeIn = 0f;
-						dust.noLight = true;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.fadeIn = 0f;
+							dust.noLight = true;
+						}
 					}
 					//------------
 				}

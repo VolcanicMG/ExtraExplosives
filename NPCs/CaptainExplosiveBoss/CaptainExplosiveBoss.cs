@@ -516,12 +516,14 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			}
 			if(_dir == 1) CarpetBombingLeftToRight();	// type 1
 			else if(_dir == -1) CarpetBombingRightToLeft();	// type 2
+			else if(_dir == 0) ChooseDirection();
 			//Main.NewText("Something went wrong will setting up a carpet bombing run");
 		}
 
 		private void ChooseDirection()	// sets up the needed values prior to carrying out the run
 		{
 			_dir = Main.rand.NextBool() ? 1 : -1;	// Get the direction to run in
+			npc.netUpdate = true;
 			_carpetBombingValues[0] = npc.position.X;	// get the starting position
 		}
 		/// <summary>
@@ -530,9 +532,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		private void CarpetBombingLeftToRight()
 		{
 			// 1-Move to left of screen (1000),
-			// 2-Move from left to right dropping bombs in choosen pattern TODO make patterns
+			// 2-Move from left to right dropping bombs in chosen pattern TODO make patterns
 			// 3-Reset TODO figure out exact reset pattern
-			if (_carpetBombingValues[3] != 0)	// if CE is resetting
+			/*if (_carpetBombingValues[3] != 0)	// if CE is resetting
 			{
 				// TODO basic movement code, should be slow and floaty to allow the player some time to get attacks in
 				//Main.NewText("Resetting");//debug
@@ -541,8 +543,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				if (npc.velocity.X > 10) npc.velocity.X = 10;	// if the velocity is too high, lower it
 				else if (npc.velocity.X < -10) npc.velocity.X = -10;	// if the velocity is to low, raise it
 				if (npc.position.Y - 100 < Main.player[npc.target].position.Y) npc.velocity.Y += 0.8f;	// if the y pos is too high, lower it
-			}
-			else if (_carpetBombingValues[1] != 0)	// if currently dropping bombs
+			}*/
+			if (_carpetBombingValues[1] != 0)	// if currently dropping bombs
 			{
 				if (_carpetBombingValues[2]-- <= 0)	// if rocket cooldown is done
 				{
@@ -552,15 +554,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					//Main.NewText(_carpetBombingValues[1]);	//debug
 					if (_carpetBombingValues[1] <= 0)	// if no rockets left
 					{
-						_carpetBombingValues[3] = 30;	//reset time
+						_carpetBombingValues[3] = 1;	//reset time
 					}
 				}
 			}
 			else
 			{
-				if (npc.position.Y - 80 < Main.player[npc.target].position.Y)	// deal with y position
+				if (npc.position.Y - 60 < Main.player[npc.target].position.Y)	// deal with y position
 				{
-					npc.velocity.Y -= 0.7f;	// to low
+					npc.position.Y -= 5f;	// to low
 				}
 				else
 				{
@@ -581,7 +583,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					_carpetBombingValues[1] = 40;	// rockets left
 				}
 			}
-			
+			NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
 		}
 
 		/// <summary>
@@ -590,9 +592,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		private void CarpetBombingRightToLeft()		// Methods are identical but values revered, just reference other one for comments
 		{
 			// 1-Move to left of screen (1000),
-			// 2-Move from left to right dropping bombs in choosen pattern TODO make patterns
+			// 2-Move from left to right dropping bombs in chosen pattern TODO make patterns
 			// 3-Reset TODO figure out exact reset pattern
-			if (_carpetBombingValues[3] != 0)
+			/*if (_carpetBombingValues[3] != 0)
 			{
 				// TODO basic movement code, should be slow and floaty to allow the player some time to get attacks in
 				//Main.NewText("Resetting");
@@ -601,8 +603,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				if (npc.velocity.X > 10) npc.velocity.X = 10;
 				else if (npc.velocity.X < -10) npc.velocity.X = -10;
 				if (npc.position.Y - 100 < Main.player[npc.target].position.Y) npc.velocity.Y += 0.8f;
-			}
-			else if (_carpetBombingValues[1] != 0)
+			}*/
+			if (_carpetBombingValues[1] != 0)
 			{
 				if (_carpetBombingValues[2]-- <= 0)
 				{
@@ -612,15 +614,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					//Main.NewText(_carpetBombingValues[1]);
 					if (_carpetBombingValues[1] <= 0)
 					{
-						_carpetBombingValues[3] = 30;
+						_carpetBombingValues[3] = 1;
 					}
 				}
 			}
 			else
 			{
-				if (npc.position.Y - 80 < Main.player[npc.target].position.Y)
+				if (npc.position.Y - 60 < Main.player[npc.target].position.Y)
 				{
-					npc.velocity.Y -= 0.7f;
+					npc.position.Y -= 5f;	// to low	
 				}
 				else
 				{

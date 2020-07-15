@@ -50,10 +50,10 @@ namespace ExtraExplosives.Projectiles.PrismBomb //Namespace is set this way as p
             if( laser1 == -1 && projectile.ai[0] > 80)
             { 
             
-                laser1 = Projectile.NewProjectile(projectile.Center,new Vector2(-14,0),mod.ProjectileType("PrismLaser"),projectile.damage,0f,projectile.owner,projectile.whoAmI);
-                laser2 = Projectile.NewProjectile(projectile.Center, new Vector2(14, 0), mod.ProjectileType("PrismLaser"), projectile.damage, 0f, projectile.owner, projectile.whoAmI);
-                laser3 = Projectile.NewProjectile(projectile.Center, new Vector2(0, 14), mod.ProjectileType("PrismLaser"), projectile.damage, 0f, projectile.owner, projectile.whoAmI);
-                laser4 = Projectile.NewProjectile(projectile.Center, new Vector2(0, -14), mod.ProjectileType("PrismLaser"), projectile.damage, 0f, projectile.owner, projectile.whoAmI);
+                laser1 = Projectile.NewProjectile(projectile.Center,new Vector2(-14,0),mod.ProjectileType("PrismLaser"),projectile.damage,projectile.knockBack,projectile.owner,projectile.whoAmI);
+                laser2 = Projectile.NewProjectile(projectile.Center, new Vector2(14, 0), mod.ProjectileType("PrismLaser"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
+                laser3 = Projectile.NewProjectile(projectile.Center, new Vector2(0, 14), mod.ProjectileType("PrismLaser"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
+                laser4 = Projectile.NewProjectile(projectile.Center, new Vector2(0, -14), mod.ProjectileType("PrismLaser"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
                
             }
             
@@ -72,20 +72,10 @@ namespace ExtraExplosives.Projectiles.PrismBomb //Namespace is set this way as p
         {
             if (resetBatchInPost)
             {
-
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
                 resetBatchInPost = false;
             }
         }
-
-
-
-
-
     }
-
-
-
-
 }

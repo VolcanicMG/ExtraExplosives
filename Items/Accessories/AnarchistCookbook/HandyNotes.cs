@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,7 +9,9 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Handy Notes");
-            Tooltip.SetDefault("Chicken scratch");
+            Tooltip.SetDefault("Double the initial velocity of thrown explosives\n" +
+                               "Thrown explosives stick to walls\n" +
+                               "Functions identically to sticky bombs");
         }
 
         public override void SetDefaults()
@@ -30,6 +33,11 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             modRecipe.AddTile(TileID.TinkerersWorkbench);
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
+        }
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<ExtraExplosivesPlayer>().StickyGunpowder = true;
+            if(player.EE().LightweightBombshellsActive)player.EE().LightweightBombshells = true;
         }
     }
 }

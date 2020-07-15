@@ -7,14 +7,14 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class LandBridgeProjectile : ModProjectile
+	public class LandBridgeProjectile : ExplosiveProjectile
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("LandBridge");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.tileCollide = true;
 			projectile.width = 5;
@@ -46,15 +46,17 @@ namespace ExtraExplosives.Projectiles
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner); //No damage needed
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center);
+			Explosion();
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 500);
 		}
 
-		private void CreateExplosion(Vector2 position)
+		public override void Explosion()
 		{
 
+			Vector2 position = projectile.Center;
+			
 			int height = 10; //Height of arena
 
 			if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -108,9 +110,13 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(159, 0, 255), 5f)];
-						dust.noGravity = true;
-						dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
-						dust.fadeIn = 3f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+							dust.fadeIn = 3f;
+						}
 					}
 
 					//---Dust 2---
@@ -119,9 +125,13 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(0, 17, 255), 5f)];
-						dust.noGravity = true;
-						dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
-						dust.fadeIn = 3f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+							dust.fadeIn = 3f;
+						}
 					}
 
 					//---Dust 3---
@@ -130,9 +140,13 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(255, 0, 150), 5f)];
-						dust.noGravity = true;
-						dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
-						dust.fadeIn = 3f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+							dust.fadeIn = 3f;
+						}
 					}
 				}
 			}

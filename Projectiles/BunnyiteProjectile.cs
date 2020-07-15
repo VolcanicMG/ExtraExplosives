@@ -7,14 +7,14 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	internal class BunnyiteProjectile : ModProjectile
+	internal class BunnyiteProjectile : ExplosiveProjectile
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bunnyite");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.tileCollide = true;
 			projectile.width = 10;
@@ -34,14 +34,16 @@ namespace ExtraExplosives.Projectiles
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 2);
+			Explosion();
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 50);
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()	// custom explosive
 		{
+			Vector2 position = projectile.Center;
+			
 			int bunnies = 200;
 
 			for (int x = 0; x < bunnies; x++)

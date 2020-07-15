@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class FlashbangItem : ModItem
+	public class FlashbangItem : ExplosiveItem
 	{
 		public static int Direction;
 
@@ -17,7 +17,7 @@ namespace ExtraExplosives.Items.Explosives
 				"[c/AB40FF:Stuns enemies and confuses them]");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 12;	//sprite width

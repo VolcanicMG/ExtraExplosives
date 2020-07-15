@@ -328,13 +328,14 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
                         ushort tile = Main.tile[xPosition, yPosition].type;
-                        if (!CanBreakTile(tile, 65)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+                        if (!CanBreakTile(tile, 0)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                         }
                         else //Breakable
                         {
                             WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+                            NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
                         }
                     }
                 }

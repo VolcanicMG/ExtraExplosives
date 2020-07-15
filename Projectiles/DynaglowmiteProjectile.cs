@@ -5,16 +5,18 @@ using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
-{
-	public class DynaglowmiteProjectile : ModProjectile
+{	
+	public class DynaglowmiteProjectile : ExplosiveProjectile
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dynaglowmite");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			pickPower = -2;
+			radius = 0;
 			projectile.tileCollide = true;
 			projectile.width = 16;
 			projectile.height = 32;
@@ -43,14 +45,17 @@ namespace ExtraExplosives.Projectiles
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 0);
+			//CreateExplosion(projectile.Center, 0);
 
+			Explosion();
+			
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 100);
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()
 		{
+			Vector2 position = projectile.Center;
 			float x = 0;
 			float y = 0;
 			float speedX = -22f;
@@ -104,8 +109,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 400 / 2, position.Y - 400 / 2);
 
 						dust = Terraria.Dust.NewDustDirect(updatedPosition, 400, 400, 91, 0f, 0f, 157, new Color(0, 142, 255), 2.565789f);
-						dust.noGravity = true;
-						dust.fadeIn = 1.460526f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.fadeIn = 1.460526f;
+						}
 					}
 					//------------
 
@@ -115,8 +124,13 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 80 / 2, position.Y - 80 / 2);
 
 						dust = Terraria.Dust.NewDustDirect(updatedPosition, 80, 80, 197, 0f, 0f, 157, new Color(0, 67, 255), 2.565789f);
-						dust.noGravity = true;
-						dust.fadeIn = 2.486842f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.fadeIn = 2.486842f;
+						}
+
 						//------------
 					}
 				}

@@ -8,7 +8,7 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class ArenaBuilderProjectile : ModProjectile
+	public class ArenaBuilderProjectile : ExplosiveProjectile
 	{
 		private const int PickPower = 70;
 
@@ -17,8 +17,10 @@ namespace ExtraExplosives.Projectiles
 			DisplayName.SetDefault("ArenaBuilder");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			pickPower = 70;
+			radius = 0;
 			projectile.tileCollide = true;
 			projectile.width = 5;
 			projectile.height = 5;
@@ -50,16 +52,25 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner); //No damage needed
-
+			
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, -1);
+			//CreateExplosion(projectile.Center, -1);
 
-			//Create Bomb Dust
+			Explosion();
+			
+			//Create Bomb Dust dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(159, 0, 255), 5f)];
 			CreateDust(projectile.Center, 500);
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void ExplosionDamage()
 		{
+			return;
+		}
+
+		public override void Explosion()	// This is a special explosive, ignored
+		{
+			if (Main.player[projectile.owner].EE().BombardEmblem) return;
+			Vector2 position = projectile.position;
 			int width = 240; //Width of arena
 			int height = 120; //Height of arena
 
@@ -297,9 +308,13 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(159, 0, 255), 5f)];
-						dust.noGravity = true;
-						dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
-						dust.fadeIn = 3f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+							dust.fadeIn = 3f;
+						}
 					}
 
 					//---Dust 2---
@@ -308,9 +323,13 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(0, 17, 255), 5f)];
-						dust.noGravity = true;
-						dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
-						dust.fadeIn = 3f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+							dust.fadeIn = 3f;
+						}
 					}
 
 					//---Dust 3---
@@ -319,16 +338,20 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(255, 0, 150), 5f)];
-						dust.noGravity = true;
-						dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
-						dust.fadeIn = 3f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+							dust.fadeIn = 3f;
+						}
 					}
 				}
 			}
 		}
 
 		//This returns true if the arena is going out of bounds
-		private Boolean OutOfBounds(int posX, int posY)
+		private bool OutOfBounds(int posX, int posY)
 		{
 			//Tests If Tile Is OutOfBounds
 			if (posX < 0 || posY < 0 || posX > Main.maxTilesX || posY > Main.maxTilesY)

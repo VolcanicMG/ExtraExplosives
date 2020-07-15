@@ -7,15 +7,16 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class RainboomProjectile : ModProjectile
+	public class RainboomProjectile : ExplosiveProjectile
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rainboom");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			radius = 30;
 			projectile.tileCollide = true;
 			projectile.width = 20;
 			projectile.height = 20;
@@ -34,19 +35,22 @@ namespace ExtraExplosives.Projectiles
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 30);
+			//CreateExplosion(projectile.Center, 30);
 
 			//Create Bomb Dust
 			//CreateDust(projectile.Center, 10);
 
+			Explosion();
+			
 			//Buff
 			Player player = Main.player[projectile.owner];
 			player.AddBuff(BuffID.Regeneration, 20000);
 			player.AddBuff(BuffID.Clairvoyance, 20000);
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()
 		{
+			Vector2 position = projectile.Center;
 			RainbowDusts(radius, position, -1, (int)position.X - 10, (int)position.X + 10);
 		}
 

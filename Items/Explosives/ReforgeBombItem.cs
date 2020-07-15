@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class ReforgeBombItem : ModItem
+	public class ReforgeBombItem : ExplosiveItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -15,7 +15,7 @@ namespace ExtraExplosives.Items.Explosives
 				"Change/Set the hotkey within the settings");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width
