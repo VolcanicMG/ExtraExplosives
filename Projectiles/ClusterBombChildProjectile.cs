@@ -9,7 +9,10 @@ namespace ExtraExplosives.Projectiles
 {
 	public class ClusterBombChildProjectile : ExplosiveProjectile
 	{
-		public override void SetStaticDefaults()
+        protected override string explodeSoundsLoc => "n/a";
+        protected override string goreFileLoc => "n/a";
+
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("ClusterBomb");
 		}

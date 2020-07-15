@@ -8,6 +8,8 @@ namespace ExtraExplosives.Projectiles
 {
 	public class BoomerangProjectile : ExplosiveProjectile		//TODO Recode so it works with the Bombedier class
 	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
 		private bool HitSomeThing;
 
 		public override void SetStaticDefaults()

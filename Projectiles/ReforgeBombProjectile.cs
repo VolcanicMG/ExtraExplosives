@@ -13,9 +13,9 @@ namespace ExtraExplosives.Projectiles
 	{
 		//Mod CalamityMod = ModLoader.GetMod("CalamityMod");
 		//Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
-
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Reforge_Bomb_";
+		protected override string goreFileLoc => "n/a";
 		internal static bool CanBreakWalls;
-		private LegacySoundStyle[] explodeSounds;
 
 		public override void SetStaticDefaults()
 		{
@@ -35,7 +35,7 @@ namespace ExtraExplosives.Projectiles
 			explodeSounds = new LegacySoundStyle[2];
 			for (int num = 1; num <= explodeSounds.Length; num++)
             {
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Reforge_Bomb_" + num);
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
 		}
 

@@ -9,6 +9,9 @@ namespace ExtraExplosives.Projectiles
 {
 	public class BigBouncyDynamiteProjectile : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "Gores/Explosives/big-bouncy-dyna_gore";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("BigBouncyDynamite");
@@ -61,6 +64,12 @@ namespace ExtraExplosives.Projectiles
 			ExplosionDamage();
 			//Create Bomb Explosion
 			Explosion();
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(0f, 2f);
+			Vector2 gVel2 = new Vector2(2f, -2f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
 		private void Explosion()	// Custom Explosive

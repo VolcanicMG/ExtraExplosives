@@ -12,10 +12,14 @@ namespace ExtraExplosives.Projectiles
 {
 	public class PhaseBombProjectile : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Phase_Bomb_Explode_";
+		protected override string goreFileLoc => "Gores/Explosives/phase_gore";
 		private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
 		private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 		private bool? explosion = false;
 		internal static bool CanBreakWalls;
+		private LegacySoundStyle phaseSound;
+		private SoundEffectInstance phaseSoundInstance;
 
 		public override void SetStaticDefaults()
 		{
@@ -39,7 +43,7 @@ namespace ExtraExplosives.Projectiles
 			explodeSounds = new LegacySoundStyle[3];
 			for (int num = 1; num <= explodeSounds.Length; num++)
             {
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Phase_Bomb_Explode_" + num);
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
 		}
 
@@ -88,6 +92,12 @@ namespace ExtraExplosives.Projectiles
 			//SpawnDust(49);
 			//SpawnDust(155);
 			CreateDust(projectile.Center, 500);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(0.0f, 3.0f);
+			Vector2 gVel2 = new Vector2(0.0f, -3.0f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
 		/*private void CreateExplosion(Vector2 position, int radius)

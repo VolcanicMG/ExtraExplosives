@@ -12,6 +12,8 @@ namespace ExtraExplosives.Projectiles
 {
     public class HotPotatoProjectile : ExplosiveProjectile
     {
+        protected override string explodeSoundsLoc => "n/a";
+        protected override string goreFileLoc => "Gores/Explosives/hot-potato_gore";
         private readonly int _lifeTime = 300 + Main.rand.Next(60);    // How long to keep alive in ticks (currently 5-6 seconds)
         private bool _thrown;    // If the projectile has been thrown yet
         private int _fuze = 30;   // The fuze length 
@@ -137,6 +139,12 @@ namespace ExtraExplosives.Projectiles
             CreateDust(projectile.Center, (int) projectile.localAI[0] * 2);
             projectile.timeLeft = 0;
             base.Kill(0);
+
+            //Create Bomb Gore
+            Vector2 gVel1 = new Vector2(2f, 2f);
+            Vector2 gVel2 = new Vector2(-2f, -1f);
+            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
         }
         
         private void CreateDust(Vector2 position, int amount)    // TODO UPDATE DUST CODE THIS BIT ACTS STRANGE

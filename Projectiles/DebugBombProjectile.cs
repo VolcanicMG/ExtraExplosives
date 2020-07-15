@@ -9,8 +9,10 @@ namespace ExtraExplosives.Projectiles
     {
         private NPC target = null;
         public override string Texture => "ExtraExplosives/Projectiles/SmallExplosiveProjectile";
-        
-        public override void SetStaticDefaults()
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
+
+		public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("DebugBombProjectile");
         }

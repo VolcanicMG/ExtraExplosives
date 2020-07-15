@@ -9,7 +9,8 @@ namespace ExtraExplosives.Projectiles
 {
 	public class TrollBombProjectile : ExplosiveProjectile
 	{
-		private const int PickPower = 0;
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
 
 		public override void SetStaticDefaults()
 		{

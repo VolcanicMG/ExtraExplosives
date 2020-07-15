@@ -9,7 +9,10 @@ namespace ExtraExplosives.Projectiles
 {
 	public class BasicExplosiveProjectile : ExplosiveProjectile
 	{
-		public override void SetStaticDefaults()
+        protected override string explodeSoundsLoc => "n/a";
+        protected override string goreFileLoc => "Gores/Explosives/basic-explosive_gore";
+
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("BasicExplosive");
 		}
@@ -41,6 +44,12 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Explosion
 			Explosion();
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(-1f, 0f);
+			Vector2 gVel2 = new Vector2(0f, -1f);
+			Gore.NewGore(projectile.position, gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position, gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
 		private void CreateDust(Vector2 position, int amount)

@@ -13,7 +13,9 @@ namespace ExtraExplosives.Projectiles
 {
 	public class C4Projectile : ExplosiveProjectile
 	{
-		//Variables:
+		//Variables
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/C4_";
+		protected override string goreFileLoc => "Gores/Explosives/c4_gore";
 		private enum C4State
         {
 			Airborne,
@@ -23,8 +25,11 @@ namespace ExtraExplosives.Projectiles
         };
 		private C4State projState = C4State.Airborne;
 		// private bool freeze;
-
+		private ExtraExplosivesPlayer c4Owner;
 		private Vector2 positionToFreeze;
+		private LegacySoundStyle indicatorSound;
+		private LegacySoundStyle primedSound;
+		private SoundEffectInstance indicatorSoundInstance;
 
 		public override void SetStaticDefaults()
 		{
@@ -44,12 +49,12 @@ namespace ExtraExplosives.Projectiles
 			projectile.timeLeft = Int32.MaxValue;
 			//projectile.extraUpdates = 1;
 			Terraria.ModLoader.SoundType customType = Terraria.ModLoader.SoundType.Custom;
-			indicatorSound = mod.GetLegacySoundSlot(customType, sounds + "timer").WithPitchVariance(0f).WithVolume(0.5f);
-			primedSound = mod.GetLegacySoundSlot(customType, sounds + "time_to_explode").WithPitchVariance(0f).WithVolume(0.5f);
+			indicatorSound = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "timer").WithPitchVariance(0f).WithVolume(0.5f);
+			primedSound = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "time_to_explode").WithPitchVariance(0f).WithVolume(0.5f);
 			explodeSounds = new LegacySoundStyle[4];
 			for (int num = 1; num <= explodeSounds.Length; num++)
 			{
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(customType, sounds + "Bomb_" + num);
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "Bomb_" + num);
 			}
 		}
 
@@ -147,6 +152,12 @@ namespace ExtraExplosives.Projectiles
 			
 			Explosion();
 			ExplosionDamage();
+
+			//Creating Bomb Gore
+			Vector2 gVel1 = new Vector2(-4f, -4f);
+			Vector2 gVel2 = new Vector2(4f, -4f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
 		public override void Explosion()

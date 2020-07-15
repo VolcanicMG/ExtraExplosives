@@ -6,6 +6,9 @@ namespace ExtraExplosives.Projectiles.PrismBomb
 {
 	public class PrismBomb : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
+
 		public override void SafeSetDefaults()
 		{
 			projectile.width = 26;

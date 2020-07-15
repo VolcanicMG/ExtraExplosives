@@ -10,8 +10,8 @@ namespace ExtraExplosives.Projectiles
 {
 	public class RainboomProjectile : ExplosiveProjectile
 	{
-		private const string gore = "Gores/Explosives/rainboom_gore";
-		private LegacySoundStyle[] explodeSounds;
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Rainboom_";
+		protected override string goreFileLoc => "Gores/Explosives/rainboom_gore";
 
 		public override void SetStaticDefaults()
 		{
@@ -31,7 +31,7 @@ namespace ExtraExplosives.Projectiles
 			explodeSounds = new LegacySoundStyle[4];
 			for (int num = 1; num <= explodeSounds.Length; num++)
             {
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Rainboom_" + num);
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
 		}
 
@@ -50,7 +50,13 @@ namespace ExtraExplosives.Projectiles
 			//CreateDust(projectile.Center, 10);
 
 			Explosion();
-			
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(2.0f, -2.0f);
+			Vector2 gVel2 = new Vector2(0.0f, 2.0f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+
 			//Buff
 			Player player = Main.player[projectile.owner];
 			player.AddBuff(BuffID.Regeneration, 20000);

@@ -9,6 +9,8 @@ namespace ExtraExplosives.Projectiles
 {
 	public class NukeProjectilePlane : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
 		internal static bool CanBreakWalls;
 		private bool done = false;
 		private bool reset = false;

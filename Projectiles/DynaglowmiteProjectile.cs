@@ -11,8 +11,8 @@ namespace ExtraExplosives.Projectiles
 {	
 	public class DynaglowmiteProjectile : ExplosiveProjectile
 	{
-		private const string gore = "Gores/Explosives/Dynaglowmite_Gore";
-		private LegacySoundStyle[] explodeSounds;
+        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Dynaglowmite_";
+        protected override string goreFileLoc => "Gores/Explosives/Dynaglowmite_Gore";
 
 		public override void SetStaticDefaults()
 		{
@@ -36,7 +36,7 @@ namespace ExtraExplosives.Projectiles
 			explodeSounds = new LegacySoundStyle[4];
 			for (int num = 1; num <= explodeSounds.Length; num++)
             {
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Dynaglowmite_" + num);
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
 		}
 
@@ -69,11 +69,11 @@ namespace ExtraExplosives.Projectiles
 			if (goreType == 0)
 				for (int num = 0; num < 2; num++)
 				{
-					Gore.NewGore(projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
+					Gore.NewGore(projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
 					gVel = gVel.RotatedByRandom(Math.PI * 2);
 				}
 			else
-				Gore.NewGore(projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+				Gore.NewGore(projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 
 		}
 

@@ -14,6 +14,8 @@ namespace ExtraExplosives.Projectiles
 	public class NukeProjectileBomb : ExplosiveProjectile
 	{
 		//Variables
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
 		private bool firstTick;
 
 		private SoundEffectInstance sound;

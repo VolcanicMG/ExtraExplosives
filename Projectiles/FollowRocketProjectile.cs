@@ -9,6 +9,8 @@ namespace ExtraExplosives.Projectiles
 {
 	public class FollowRocketProjectile : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
 		private float reference;
 
 		public override void SetStaticDefaults()

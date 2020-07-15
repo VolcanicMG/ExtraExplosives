@@ -11,10 +11,12 @@ namespace ExtraExplosives.Projectiles
 {
 	public class ArenaBuilderProjectile : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Arena_Bomb_";
+		protected override string goreFileLoc => "n/a";
 		private const int PickPower = 70;
-		private LegacySoundStyle[] explodeSounds;
+		// private LegacySoundStyle[] explodeSounds;
 
-		public override void SetStaticDefaults()
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("ArenaBuilder");
 		}
@@ -33,7 +35,7 @@ namespace ExtraExplosives.Projectiles
 			explodeSounds = new LegacySoundStyle[2];
 			for (int num = 1; num <= explodeSounds.Length; num++)
             {
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Arena_Bomb_" + num);
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
 		}
 

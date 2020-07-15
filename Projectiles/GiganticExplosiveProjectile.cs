@@ -10,10 +10,9 @@ namespace ExtraExplosives.Projectiles
 {
 	public class GiganticExplosiveProjectile : ExplosiveProjectile
 	{
-		private const int PickPower = 70;
-		private const string gore = "Gores/Explosives/gigantic-explosive_gore";
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Gigantic_Explosion_";
+		protected override string goreFileLoc => "Gores/Explosives/gigantic-explosive_gore";
 		private LegacySoundStyle fuseSound;
-		private LegacySoundStyle[] explodeSounds;
 		private bool fusePlayed = false;
 
 		public override void SetStaticDefaults()
@@ -33,12 +32,12 @@ namespace ExtraExplosives.Projectiles
 			projectile.penetrate = -1;
 			projectile.timeLeft = 800;
 			//projectile.scale = 1.5f;
-			fuseSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Gigantic_Explosion_Wick");
+			fuseSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + "Wick");
 			fuseSound = fuseSound.WithVolume(0.5f);
 			explodeSounds = new LegacySoundStyle[2];
 			for (int num = 1; num <= explodeSounds.Length; num++)
             {
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Gigantic_Explosion_" + num);
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
 		}
 
@@ -82,6 +81,12 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Explosion
 			//CreateExplosion(projectile.Center, 80);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(0f, 3f);
+			Vector2 gVel2 = new Vector2(-3f, -3f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
 		/*private void CreateExplosion(Vector2 position, int radius)

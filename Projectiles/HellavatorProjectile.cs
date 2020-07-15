@@ -10,6 +10,9 @@ namespace ExtraExplosives.Projectiles
 {
 	public class HellavatorProjectile : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Hellavator_1";
+		protected override string goreFileLoc => "Gores/Explosives/hellevator_gore";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hellavator Projectile");
@@ -30,7 +33,9 @@ namespace ExtraExplosives.Projectiles
 
 			drawOffsetX = -15;
 			drawOriginOffsetY = -15;
-			explodeSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Hellavator_1");
+			explodeSounds = new LegacySoundStyle[] { 
+				mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc)
+			};
 		}
 
 		public override bool OnTileCollide(Vector2 old)
@@ -43,7 +48,7 @@ namespace ExtraExplosives.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(explodeSound, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSounds[0], (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
@@ -60,8 +65,8 @@ namespace ExtraExplosives.Projectiles
 			//Create Bomb Gore
 			Vector2 gVel1 = new Vector2(-2f, 2f);
 			Vector2 gVel2 = new Vector2(2f, -2f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
 		public override void Explosion()

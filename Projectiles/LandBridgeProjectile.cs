@@ -9,7 +9,8 @@ namespace ExtraExplosives.Projectiles
 {
 	public class LandBridgeProjectile : ExplosiveProjectile
 	{
-		private const string gore = "Gores/Explosives/land-bridge_gore";
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "Gores/Explosives/land-bridge_gore";
 
 		public override void SetStaticDefaults()
 		{
@@ -56,8 +57,8 @@ namespace ExtraExplosives.Projectiles
 			//Create Bomb Gore
 			Vector2 gVel1 = new Vector2(0f, -4f);
 			Vector2 gVel2 = new Vector2(4f, 4f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
 		public override void Explosion()

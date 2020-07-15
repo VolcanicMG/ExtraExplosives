@@ -10,9 +10,9 @@ namespace ExtraExplosives.Projectiles
 {
 	public class LargeExplosiveProjectile : ExplosiveProjectile
 	{
-		private const int PickPower = 50;
-		private const string gore = "Gores/Explosives/basic-explosive_gore";
-		private LegacySoundStyle[] explodeSounds;
+
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Large_Explosive_";
+		protected override string goreFileLoc => "Gores/Explosives/basic-explosive_gore";
 
 		public override void SetStaticDefaults()
 		{
@@ -33,7 +33,7 @@ namespace ExtraExplosives.Projectiles
 			explodeSounds = new LegacySoundStyle[3];
 			for (int num = 1; num <= explodeSounds.Length; num++)
             {
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Large_Explosive_" + num);
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
 		}
 
@@ -53,6 +53,18 @@ namespace ExtraExplosives.Projectiles
 
 			//Create Bomb Explosion
 			//CreateExplosion(projectile.Center, 20);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(-2f, 0f);
+			Vector2 gVel2 = new Vector2(0f, -2f);
+			gVel1 = gVel1.RotatedBy(projectile.rotation);
+			gVel2 = gVel2.RotatedBy(projectile.rotation);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1, mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale * 1.5f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2, mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale * 1.5f);
+			gVel1 = gVel1.RotatedBy(Math.PI / 2);
+			gVel2 = gVel2.RotatedBy(Math.PI / 2);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1, mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale * 1.5f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2, mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale * 1.5f);
 		}
 
 		/*private void CreateExplosion(Vector2 position, int radius)

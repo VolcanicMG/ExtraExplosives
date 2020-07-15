@@ -8,6 +8,9 @@ namespace ExtraExplosives.Projectiles
 {
 	internal class InvisFlashbangProjectile : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("InvisFlashbangProjectile");

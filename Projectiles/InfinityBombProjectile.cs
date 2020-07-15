@@ -9,7 +9,9 @@ namespace ExtraExplosives.Projectiles
 {
     public class InfinityBombProjectile : ExplosiveProjectile
     {
-	    private const int OriginalDamage = 250;
+        protected override string explodeSoundsLoc => "n/a";
+        protected override string goreFileLoc => "n/a";
+        private const int OriginalDamage = 250;
 	    private int _multiplier = 1;
 	    public override void SetStaticDefaults()
         {

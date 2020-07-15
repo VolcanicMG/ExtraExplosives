@@ -2,6 +2,7 @@ using System;
 using ExtraExplosives.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
@@ -11,11 +12,14 @@ namespace ExtraExplosives.Projectiles
 {
     public abstract class ExplosiveProjectile : ModProjectile
     {
-        public readonly bool Explosive = true;    // This marks the item as part of the explosive class
-        public int radius;            // Radius of the explosion
-        public int pickPower = 0;     // Strength of the explosion
-        internal bool crit = false; // If it crits (dont edit this it is used internally Left internal so other bombs can edit the crit chances 
-        
+        public readonly bool Explosive = true;              // This marks the item as part of the explosive class
+        public int radius;                                  // Radius of the explosion
+        public int pickPower = 0;                           // Strength of the explosion
+        internal bool crit = false;                         // If it crits (dont edit this it is used internally Left internal so other bombs can edit the crit chances 
+        protected LegacySoundStyle[] explodeSounds;         // The sounds that are played as the bomb explodes
+        protected abstract string explodeSoundsLoc { get; } // Where the explosion sound files are located (relative to project dir)
+        protected abstract string goreFileLoc { get; }      // Where the explosion gore sprites are located (relative to project dir)
+
         public virtual void SafeSetDefaults()
         {
         }

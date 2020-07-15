@@ -8,6 +8,9 @@ namespace ExtraExplosives.Projectiles
 {
 	public class TornadoBombProjectileTornado : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tornado");

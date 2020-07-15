@@ -11,6 +11,8 @@ namespace ExtraExplosives.Projectiles
 	{
 		//Variables:
 		public bool buffActive;
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
 
 		public override void SetStaticDefaults()
 		{
