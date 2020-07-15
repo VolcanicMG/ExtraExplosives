@@ -33,6 +33,7 @@ namespace ExtraExplosives
         {
             GenCrystals();    // once a tick, try to generate a crystal
         }
+        
 
         private void GenCrystals()
         {

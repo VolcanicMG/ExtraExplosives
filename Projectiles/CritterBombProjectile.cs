@@ -7,7 +7,7 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	internal class CritterBombProjectile : ModProjectile
+	internal class CritterBombProjectile : ExplosiveProjectile
 	{
 		private const string gore = "Gores/Explosives/critter_gore";
 
@@ -16,8 +16,9 @@ namespace ExtraExplosives.Projectiles
 			DisplayName.SetDefault("CritterBomb");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			radius = 10;
 			projectile.tileCollide = true;
 			projectile.width = 10;
 			projectile.height = 32;
@@ -34,23 +35,21 @@ namespace ExtraExplosives.Projectiles
 			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
-			ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
+			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 10);
+			//CreateExplosion(projectile.Center, 10);
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 50);
 
-			//Create Bomb Gore
-			Vector2 gVel1 = new Vector2(3f, 3f);
-			Vector2 gVel2 = new Vector2(-3f, -3f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+			Explosion();
+			ExplosionDamage();
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()
 		{
+			Vector2 position = projectile.Center;
 			int spread = 0;
 			int pick = 0;
 			int[] variety = { 442, 443, 445, 446, 447, 448, 539, 444 }; //442:GoldenBird - 443:GoldenBunny - 445:GoldenFrog - 446:GoldenGrasshopper - 447:GoldenMouse - 539:GoldenSquirrel - 448:GoldenWorm - 444:GoldenButterfly
@@ -81,9 +80,13 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 600 / 2, position.Y - 600 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 600, 100, 1, 0f, 0f, 0, new Color(159, 255, 0), 1.776316f)];
-						dust.noLight = true;
-						dust.shader = GameShaders.Armor.GetSecondaryShader(112, Main.LocalPlayer);
-						dust.fadeIn = 1.697368f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noLight = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(112, Main.LocalPlayer);
+							dust.fadeIn = 1.697368f;
+						}
 					}
 					//------------
 				}

@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,7 +9,8 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Utility Notes");
-            Tooltip.SetDefault("Chicken scratch");
+            Tooltip.SetDefault("Minor increase to damage and crit chance\n" +
+                               "Explosives leave behind a glowing aura");
         }
 
         public override void SetDefaults()
@@ -30,6 +32,11 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             modRecipe.AddTile(TileID.TinkerersWorkbench);
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
+        }
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<ExtraExplosivesPlayer>().CrossedWires = true;
+            player.GetModPlayer<ExtraExplosivesPlayer>().GlowingCompound = true;
         }
     }
 }

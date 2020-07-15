@@ -6,14 +6,14 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-	internal class InvisFlashbangProjectile : ModProjectile
+	internal class InvisFlashbangProjectile : ExplosiveProjectile
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("InvisFlashbangProjectile");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.tileCollide = false;
 			projectile.width = 10;
@@ -27,7 +27,7 @@ namespace ExtraExplosives.Projectiles
 			projectile.scale = 45 * 2; //DamageRadius
 		}
 
-		public override string Texture => "ExtraExplosives/Projectiles/ExplosionDamageProjectile";
+		public override string Texture => "ExtraExplosives/Projectiles/InvisibleProjectile";
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{

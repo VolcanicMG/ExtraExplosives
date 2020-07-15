@@ -8,15 +8,12 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class TheLevelerProjectile : ModProjectile
+	public class TheLevelerProjectile : ExplosiveProjectile
 	{
 		private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
 		private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
 		internal static bool CanBreakWalls;
-		private const int PickPower = 65;
-		private const string gore = "Gores/Explosives/the-leveler_gore";
-		private LegacySoundStyle[] explodeSounds;
 
 		public override void SetStaticDefaults()
 		{
@@ -24,8 +21,10 @@ namespace ExtraExplosives.Projectiles
 			//Tooltip.SetDefault("");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			pickPower = 65;
+			radius = 20;
 			projectile.tileCollide = true; //checks to see if the projectile can go through tiles
 			projectile.width = 10;   //This defines the hitbox width
 			projectile.height = 10;	//This defines the hitbox height
@@ -81,19 +80,13 @@ namespace ExtraExplosives.Projectiles
 			//ExplosionDamage(20f * 2f, projectile.Center, 450, 40, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 20);
-
-			//Create Bomb Gore
-			Vector2 gVel1 = new Vector2(4.0f, 4.0f);
-			Vector2 gVel2 = new Vector2(0.0f, -4.0f);
-			Vector2 gVel3 = new Vector2(-4.0f, 0.0f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel3), gVel3.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+			Explosion();
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()
 		{
+			Vector2 position = projectile.Center;
+			
 			int x = 0;
 			int y = 0;
 
@@ -110,7 +103,7 @@ namespace ExtraExplosives.Projectiles
 					if (WorldGen.InWorld(xPosition, yPosition)) //Circle
 					{
 						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+						if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
 						{
 						}
 						else //Breakable
@@ -144,12 +137,20 @@ namespace ExtraExplosives.Projectiles
 
 						Vector2 position1 = new Vector2(position.X - 2000 / 2, position.Y - 320);
 						dust1 = Main.dust[Terraria.Dust.NewDust(position1, 2000, 320, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
-						dust1.noGravity = true;
-						dust1.noLight = true;
-						dust1.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
-
+						if (Vector2.Distance(dust1.position, projectile.Center) > radius * 16) dust1.active = false;
+						else
+						{
+							dust1.noLight = true;
+							dust1.noGravity = true;
+							dust1.shader = GameShaders.Armor.GetSecondaryShader(105, Main.LocalPlayer);
+						}
 						Vector2 position2 = new Vector2(position.X - 2000 / 2, position.Y - 320);
 						dust2 = Main.dust[Terraria.Dust.NewDust(position2, 2000, 320, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
+						if (Vector2.Distance(dust2.position, projectile.Center) > radius * 16)
+						{
+							dust2.active = false;
+							continue;
+						}
 						dust2.noGravity = true;
 						dust2.noLight = true;
 						dust2.shader = GameShaders.Armor.GetSecondaryShader(111, Main.LocalPlayer);

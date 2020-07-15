@@ -174,8 +174,7 @@ namespace ExtraExplosives.UI
 			                                if (modCheckItem.item.shoot == _vanillaItemSlot2.Item.shoot && modCheckItem.overStack <= 998)
 			                                {
 				                                modCheckItem.overStack++;
-												ItemText.NewText(modCheckItem.item, modCheckItem.overStack, true, false);
-												flag = true;
+				                                flag = true;
 			                                }
 		                                }
 	                                }

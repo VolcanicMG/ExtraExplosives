@@ -7,7 +7,7 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class NukeProjectilePhase2 : ModProjectile
+	public class NukeProjectilePlane : ExplosiveProjectile
 	{
 		internal static bool CanBreakWalls;
 		private bool done = false;
@@ -21,7 +21,7 @@ namespace ExtraExplosives.Projectiles
 			Main.projFrames[projectile.type] = 4;
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.tileCollide = false; //checks to see if the projectile can go through tiles
 			projectile.width = 536;   //This defines the hitbox width
@@ -96,7 +96,7 @@ namespace ExtraExplosives.Projectiles
 					"Dropping the Load!!");
 				done = true;
 
-				SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
+				SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectileBomb>(), 3000, 1, projectile.owner);
 
 				//Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
 			}
@@ -107,7 +107,7 @@ namespace ExtraExplosives.Projectiles
 				projectile.frame = 4;
 				done = true;
 
-				SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
+				SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectileBomb>(), 3000, 1, projectile.owner);
 
 				//Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
 			}

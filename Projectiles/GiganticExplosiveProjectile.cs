@@ -8,7 +8,7 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class GiganticExplosiveProjectile : ModProjectile
+	public class GiganticExplosiveProjectile : ExplosiveProjectile
 	{
 		private const int PickPower = 70;
 		private const string gore = "Gores/Explosives/gigantic-explosive_gore";
@@ -21,8 +21,10 @@ namespace ExtraExplosives.Projectiles
 			DisplayName.SetDefault("GiganticExplosive");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			pickPower = 70;
+			radius = 80;
 			projectile.tileCollide = true;
 			projectile.width = 40;
 			projectile.height = 40;
@@ -70,22 +72,19 @@ namespace ExtraExplosives.Projectiles
 			 */
 
 			//Create Bomb Dust
-			CreateDust(projectile.Center, 600);
+			//CreateDust(projectile.Center, 300);
 
+			
+			Explosion();
+			ExplosionDamage();
 			//Create Bomb Damage
-			ExplosionDamage(80f * 1.5f, projectile.Center, 1000, 100, projectile.owner);
+			//ExplosionDamage(80f * 1.5f, projectile.Center, 1000, 100, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 80);
-
-			//Create Bomb Gore
-			Vector2 gVel1 = new Vector2(0f, 3f);
-			Vector2 gVel2 = new Vector2(-3f, -3f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+			//CreateExplosion(projectile.Center, 80);
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		/*private void CreateExplosion(Vector2 position, int radius)
 		{
 			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
 			{
@@ -110,7 +109,7 @@ namespace ExtraExplosives.Projectiles
 					}
 				}
 			}
-		}
+		}*/
 
 		private void CreateDust(Vector2 position, int amount)
 		{
@@ -127,8 +126,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 1500 / 2, position.Y - 1500 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 1500, 1500, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 15f)];
-						dust.noGravity = true;
-						dust.fadeIn = 2.486842f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.fadeIn = 2.486842f;
+						}
 					}
 					//------------
 
@@ -138,8 +141,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 1500 / 2, position.Y - 1500 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 1500, 1500, 203, 0f, 0f, 0, new Color(255, 255, 255), 15f)];
-						dust.noGravity = true;
-						dust.noLight = true;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
 					}
 					//------------
 
@@ -149,8 +156,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 1500 / 2, position.Y - 1500 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 1500, 1500, 31, 0f, 0f, 0, new Color(255, 255, 255), 15f)];
-						dust.noGravity = true;
-						dust.noLight = true;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
 					}
 					//------------
 				}

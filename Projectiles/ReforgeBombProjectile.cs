@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class ReforgeBombProjectile : ModProjectile
+	public class ReforgeBombProjectile : ExplosiveProjectile
 	{
 		//Mod CalamityMod = ModLoader.GetMod("CalamityMod");
 		//Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
@@ -23,7 +23,7 @@ namespace ExtraExplosives.Projectiles
 			//Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.tileCollide = true; //checks to see if the projectile can go through tiles
 			projectile.width = 22;   //This defines the hitbox width
@@ -73,15 +73,23 @@ namespace ExtraExplosives.Projectiles
 						Dust dust;
 						Vector2 position2 = new Vector2(position.X - 105 / 2, position.Y - 105 / 2);
 						dust = Main.dust[Terraria.Dust.NewDust(position2, 105, 105, 1, 0f, 0f, 0, new Color(255, 255, 255), 1.4f)];
-						dust.noGravity = true;
-						dust.fadeIn = 1f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.fadeIn = 1f;
+						}
 
 						Dust dust2;
 						// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
 						Vector2 position3 = new Vector2(position.X - 131 / 2, position.Y - 131 / 2);
 						dust2 = Main.dust[Terraria.Dust.NewDust(position3, 131, 131, 6, 0f, 0f, 0, new Color(255, 255, 255), 2.565789f)];
-						dust2.noGravity = true;
-						dust.position += dust.velocity;
+						if (Vector2.Distance(dust2.position, projectile.Center) > radius * 16) dust2.active = false;
+						else
+						{
+							dust2.noGravity = true;
+							dust2.position += dust2.velocity;
+						}
 					}
 				}
 			}

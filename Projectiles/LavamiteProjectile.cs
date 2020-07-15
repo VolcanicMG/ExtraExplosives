@@ -9,7 +9,7 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class LavamiteProjectile : ModProjectile
+	public class LavamiteProjectile : ExplosiveProjectile
 	{
 		private const string gore = "Gores/Explosives/lavamite-hydromite_gore";
 		private LegacySoundStyle[] explodeSounds;
@@ -19,8 +19,9 @@ namespace ExtraExplosives.Projectiles
 			DisplayName.SetDefault("Lavamite");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			radius = 10;
 			projectile.tileCollide = true;
 			projectile.width = 10;
 			projectile.height = 32;
@@ -51,7 +52,7 @@ namespace ExtraExplosives.Projectiles
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 10);
+			Explosion();
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 100);
@@ -63,8 +64,9 @@ namespace ExtraExplosives.Projectiles
 			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()
 		{
+			Vector2 position = projectile.Center;
 			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
 			{
 				for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
@@ -100,8 +102,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 168 / 2, position.Y - 168 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 168, 168, 185, 0.2631581f, 0f, 0, new Color(255, 0, 0), 3.815789f)];
-						dust.noGravity = true;
-						dust.shader = GameShaders.Armor.GetSecondaryShader(58, Main.LocalPlayer);
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(58, Main.LocalPlayer);
+						}
 					}
 					//------------
 				}

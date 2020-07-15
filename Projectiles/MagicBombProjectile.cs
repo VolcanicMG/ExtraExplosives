@@ -7,20 +7,18 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-    public class MagicBombProjectile : ModProjectile
+    public class MagicBombProjectile : ExplosiveProjectile
     {
-	    private int _pickPower = 0;
-		private const string gore = "Gores/Explosives/magic_gore";
-	    
-        public override string Texture => "ExtraExplosives/Projectiles/HotPotatoProjectile";
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Magic Bomb");
         }
 
-        public override void SetDefaults()
+        public override void SafeSetDefaults()
         {
             projectile.CloneDefaults(29);
+            pickPower = 0;
+            radius = 5;
         }
         public override void Kill(int timeLeft)
 		{
@@ -29,10 +27,10 @@ namespace ExtraExplosives.Projectiles
 			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
-			ExplosionDamage(5f * 2f, projectile.Center, projectile.damage, 25, projectile.owner);
+			ExplosionDamage();
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 5);
+			Explosion();
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 15);
@@ -43,32 +41,7 @@ namespace ExtraExplosives.Projectiles
 			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
 			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
 		}
-
-		private void CreateExplosion(Vector2 position, int radius)
-		{
-			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
-			{
-				for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
-				{
-					int xPosition = (int)(x + position.X / 16.0f);
-					int yPosition = (int)(y + position.Y / 16.0f);
-
-					if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
-					{
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, _pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
-						{
-						}
-						else //Breakable
-						{
-							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
-						}
-					}
-				}
-			}
-		}
-
+        
 		private void CreateDust(Vector2 position, int amount)
 		{
 			Dust dust;
@@ -84,8 +57,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 120 / 2, position.Y - 120 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 120, 120, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.5f)];
-						dust.noGravity = true;
-						dust.fadeIn = 2.486842f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.fadeIn = 2.486842f;
+						}
 					}
 					//------------
 
@@ -95,8 +72,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 120 / 2, position.Y - 120 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 120, 120, 203, 0f, 0f, 0, new Color(255, 255, 255), 3f)];
-						dust.noGravity = true;
-						dust.noLight = true;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
 					}
 					//------------
 
@@ -106,8 +87,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 120 / 2, position.Y - 120 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 120, 120, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-						dust.noGravity = true;
-						dust.noLight = true;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
 					}
 					//------------
 				}

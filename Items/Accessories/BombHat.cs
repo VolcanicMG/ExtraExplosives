@@ -1,8 +1,10 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Accessories
 {
+    [AutoloadEquip(EquipType.Head)]
     public class BombHat : ModItem
     {
         public override void SetStaticDefaults()
@@ -19,5 +21,7 @@ namespace ExtraExplosives.Items.Accessories
             item.consumable = false;
             item.expert = true;
         }
+
+        public override bool DrawHead() => false;
     }
 }
