@@ -7,16 +7,17 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	internal class BunnyiteProjectile : ModProjectile
+	internal class BunnyiteProjectile : ExplosiveProjectile
 	{
-		private const string gore = "Gores/Explosives/bunnyite_gore";
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "Gores/Explosives/bunnyite_gore";
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bunnyite");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.tileCollide = true;
 			projectile.width = 10;
@@ -36,7 +37,7 @@ namespace ExtraExplosives.Projectiles
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 2);
+			Explosion();
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 50);
@@ -44,12 +45,14 @@ namespace ExtraExplosives.Projectiles
 			//Create Bomb Gore
 			Vector2 gVel1 = new Vector2(-3f, -3f);
 			Vector2 gVel2 = new Vector2(3f, 3f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()	// custom explosive
 		{
+			Vector2 position = projectile.Center;
+			
 			int bunnies = 200;
 
 			for (int x = 0; x < bunnies; x++)

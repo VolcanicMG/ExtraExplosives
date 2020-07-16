@@ -1,6 +1,8 @@
-﻿using ExtraExplosives.Projectiles;
+﻿using System;
+using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -77,18 +79,51 @@ namespace ExtraExplosives
 			}
 		}
 
+		public static void InflictDubuff(int id, int radius, Vector2 position, int owner = 255, int? dust = null, int time = 300)
+		{
+			foreach (NPC npc in Main.npc) // Get each npc
+			{
+				if (Vector2.Distance(position, npc.Center) / 16f < radius)
+				{
+					npc.AddBuff(id, time);
+				}
+			}
+
+			if (Vector2.Distance(position, Main.player[owner].Center) / 16f < radius &&
+			    !Main.player[owner].EE().BlastShielding)
+			{
+				Main.player[Main.myPlayer].AddBuff(id, time);
+			}
+
+			if (dust == null) return;
+			float projX = position.X;
+			float projY = position.Y;
+			for (float i = projX - radius * 16; i <= projX + radius * 16; i += radius/4) // Cycle X cords
+			{
+				for (float j = projY - radius * 16; j <= projY + radius * 16; j += radius/4) // Cycle Y cords
+				{
+					//float dist = Vector2.Distance(new Vector2(i, j), projectile.Center);
+					if (Main.rand.Next(400) == 0) // Random Scattering
+					{
+						Dust.NewDust(new Vector2(i, j), 1, 1, (int)dust);
+					}
+				}
+			}
+		}
+		
+
 		//============================================================================\\
 
 		//check if the tile can be broken or not
 		public static bool CanBreakTile(int tileId, int pickPower)
 		{
+			// Dynamic mod tile functionality at the bottom
+			if (pickPower == -1)
+				return true; // Override so an item can be set to ignore pickaxe power and destory everything
+			if (pickPower <= -2)
+				return false; // Override so an item can be set to not damage anything ever also catches invalid garbage
 			if (tileId < 470)
 			{
-				// Dynamic mod tile functionality at the bottom
-				if (pickPower == -1)
-					return true; // Override so an item can be set to ignore pickaxe power and destory everything
-				if (pickPower <= -2)
-					return false; // Override so an item can be set to not damage anything ever also catches invalid garbage
 				// this is for all blocks which can be destroyed by any pickaxe
 				if (Main.tileNoFail[tileId])
 				{
@@ -112,13 +147,13 @@ namespace ExtraExplosives
 				}
 
 				// Demonite & Crimtane Ores (Power 55)
-				if ((tileId == 22 || tileId == 204) && pickPower < 55)
+				if ((tileId == TileID.Demonite || tileId == TileID.Crimtane) && pickPower < 55)
 				{
 					return false;
 				}
 
 				// Obsidian & Ebonstone Hellstone Pearlstone and Crimstone Blocks (Power 65)
-				if ((tileId == 56 || tileId == 25 || tileId == 58 || tileId == 117 || tileId == 203) &&
+				if ((tileId == TileID.Obsidian || tileId == TileID.Ebonstone || tileId == TileID.Hellstone || tileId == TileID.Pearlstone || tileId == TileID.Crimstone) &&
 					pickPower < 65)
 				{
 					return false;
@@ -126,37 +161,43 @@ namespace ExtraExplosives
 
 				// Dungeon Bricks (Power 65)
 				// Separate from Obsidian block to allow for future functionality to better reflect base game mechanics
-				if ((tileId == 41 || tileId == 43 || tileId == 44) && pickPower < 65)
+				if ((tileId == TileID.BlueDungeonBrick || tileId == TileID.GreenDungeonBrick || tileId == TileID.PinkDungeonBrick)
+				    && pickPower < 65)
 				{
 					return false;
 				}
 
 				// Cobalt & Palladium (Power 100)
-				if ((tileId == 107 || tileId == 221) && pickPower < 100)
+				if ((tileId == TileID.Cobalt || tileId == TileID.Palladium)
+				    && pickPower < 100)
 				{
 					return false;
 				}
 
 				// Mythril & Orichalcum (Power 110)
-				if ((tileId == 108 || tileId == 222) && pickPower < 110)
+				if ((tileId == TileID.Mythril || tileId == TileID.Orichalcum)
+				    && pickPower < 110)
 				{
 					return false;
 				}
 
 				// Adamantite & Titanium (Power 150)
-				if ((tileId == 111 || tileId == 223) && pickPower < 150)
+				if ((tileId == TileID.Adamantite || tileId == TileID.Titanium)
+				    && pickPower < 150)
 				{
 					return false;
 				}
 
 				// Chlorophyte Ore (Power 200)
-				if (tileId == 211 && pickPower < 200)
+				if (tileId == TileID.Chlorophyte
+				    && pickPower < 200)
 				{
 					return false;
 				}
 
 				// Lihzahrd Brick (Power 210) todo add additional checks for Lihzahrd traps and the locked temple door
-				if ((tileId == 226 || tileId == 237 || tileId == 137) && pickPower < 210)
+				if ((tileId == TileID.LihzahrdBrick || tileId == TileID.LihzahrdAltar || tileId == TileID.Traps)
+				    && pickPower < 210)
 				{
 					return false;
 				}
@@ -168,7 +209,7 @@ namespace ExtraExplosives
 				if (tileResistance <= pickPower) return true;
 				return false;
 			}
-			return true;
+			return true;	// Catch for anything which slipped through, defaults to true
 		}
 
 		//========================| Code Snippets Ready For Copy/Paste |========================\\

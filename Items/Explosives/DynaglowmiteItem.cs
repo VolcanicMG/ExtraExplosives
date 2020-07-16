@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class DynaglowmiteItem : ModItem
+	public class DynaglowmiteItem : ExplosiveItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("Spawns in a bunch of glow sticks. Great for spelunking!");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width

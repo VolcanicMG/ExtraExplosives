@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,7 +9,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lightweight Bombshells");
-            Tooltip.SetDefault("It should make things easier to throw");
+            Tooltip.SetDefault("Double the initial velocity of thrown explosives");
         }
 
         public override void SetDefaults()
@@ -20,6 +21,10 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             item.rare = ItemRarityID.Orange;
             item.accessory = true;
             item.social = false;
+        }
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.EE().LightweightBombshells = true;
         }
     }
 }

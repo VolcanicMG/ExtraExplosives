@@ -10,19 +10,15 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-    public class HotPotatoProjectile : ModProjectile
+    public class HotPotatoProjectile : ExplosiveProjectile
     {
-        private const string gore = "Gores/Explosives/hot-potato_gore";
-
-        private int _damage = 100;
-        private int _pickPower = 0;
-        private int _lifeTime = 300 + Main.rand.Next(60);    // How long to keep alive in ticks (currently 5-6 seconds)
-        private bool _thrown;
-        private float changeTotal;
+        protected override string explodeSoundsLoc => "n/a";
+        protected override string goreFileLoc => "Gores/Explosives/hot-potato_gore";
+        private readonly int _lifeTime = 300 + Main.rand.Next(60);    // How long to keep alive in ticks (currently 5-6 seconds)
+        private bool _thrown;    // If the projectile has been thrown yet
+        private int _fuze = 30;   // The fuze length 
         private float change;
-
-        private int _fuze = 30;
-        //private float[] rgb = new[] {1.58f, 1.58f, 0.0f};
+        private float changeTotal;
 
         public override bool CloneNewInstances => true;
 
@@ -31,8 +27,10 @@ namespace ExtraExplosives.Projectiles
             DisplayName.SetDefault("Hot Potato");
         }
 
-        public override void SetDefaults()
+        public override void SafeSetDefaults()
         {
+            pickPower = 0;
+            radius = 1;
             projectile.tileCollide = true;
             projectile.width = 20;
             projectile.height = 20;
@@ -48,59 +46,11 @@ namespace ExtraExplosives.Projectiles
 
         public override string Texture => "ExtraExplosives/Projectiles/HotPotatoProjectile";
 
-        /*public override bool PreAI()
-        {
-            projectile.ai[0]++;
-            if ((Mouse.GetState().LeftButton == ButtonState.Released && !_thrown) || projectile.ai[0] >= _lifeTime - 15)    // Add support for controllers
-            {
-                projectile.alpha = 0;
-                projectile.ai[1] = projectile.ai[0];
-                _thrown = true;
-            }
-            else if(!_thrown)
-            {
-                projectile.position = Main.player[projectile.owner].position;
-            }
-            return _thrown;
-        }
-
-        public override void AI()
-        {
-            projectile.ai[1]++;
-            if (projectile.ai[0] >= _lifeTime - 15 && projectile.ai[1] >= _lifeTime)
-            {
-                Kill(_lifeTime - (int)projectile.ai[0]);
-            }
-            else if (projectile.ai[1] >= _lifeTime)
-            {
-                Kill(_lifeTime - (int)projectile.ai[0]);
-            }
-            else if(projectile.ai[1] < 2f)
-            {
-                projectile.velocity.X += 100;
-            }
-            projectile.velocity.Y += 0.2f;
-            projectile.velocity.X *= 0.99f;
-        }*/
-
-
-        //public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
-       // {
-       //     spriteBatch.End();
-       //     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-       //     return true;
-       // }
-
         public override bool PreAI()
         {
             Player player = Main.player[projectile.owner];
-            if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive() && !_thrown)
+            if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive() && !_thrown && Main.myPlayer == projectile.owner)
             {
-
-                //mod.Logger.Debug("_lifeTime - projectile.localAI[0]/60f(start at 0 raise till release)" + ((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f));
-
-                //mod.Logger.Debug("_lifeTime - projectile.localAI[0]/60f(start at 0 raise till release)" + ((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f));
-                //float progress = _lifeTime - (_lifeTime - projectile.timeLeft) / _lifeTime; // Will range from -3 to 3, 0 being the point where the bomb explodes.
                 float progress = (projectile.timeLeft) / 60f; 
                 Filters.Scene["BurningScreen"].GetShader().UseProgress((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f);
             }
@@ -124,11 +74,9 @@ namespace ExtraExplosives.Projectiles
                     float mouseY = Main.MouseScreen.Y - (screenH/2);
                     projectile.velocity.X = projectile.localAI[0] /_lifeTime * mouseX * modifier;
                     projectile.velocity.Y = projectile.localAI[0] /_lifeTime * mouseY * modifier;
-                    //mod.Logger.DebugFormat("Potato thrown at {0} {1}, mouse {2} {3}, screen {4} {5}", projectile.velocity.X, projectile.velocity.Y,Main.MouseScreen.X,Main.MouseScreen.Y,screenW,screenH);
                 }
                 else
                 {
-                    projectile.velocity.Y = 1;
                     projectile.velocity.Y = 3;
                 }
             }
@@ -144,13 +92,12 @@ namespace ExtraExplosives.Projectiles
 
         public override void AI()
         {
-            if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive())
+            if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive() && Main.myPlayer == projectile.owner)
             {
                 changeTotal += change;
                 float tmp = (5 - (_lifeTime - projectile.localAI[0]) / 60f - (changeTotal * (projectile.localAI[1] - projectile.localAI[0])));
                 if (tmp < 0) tmp = 0;
                 Filters.Scene["BurningScreen"].GetShader().UseProgress((tmp > 0) ? tmp : 0);
-               // mod.Logger.DebugFormat("Overall progress made is {0} and decrease every tick is {1}",(_lifeTime - projectile.localAI[0]), tmp);
             }
             projectile.localAI[1]++;
             if (projectile.localAI[1] >= _lifeTime)
@@ -164,67 +111,40 @@ namespace ExtraExplosives.Projectiles
 
         public override void PostAI()
         {
-            if (Main.netMode != NetmodeID.Server && !Filters.Scene["BurningScreen"].IsActive() && !_thrown)        // Shader stuff
+            if (Main.netMode != NetmodeID.Server && !Filters.Scene["BurningScreen"].IsActive() && !_thrown && Main.myPlayer == projectile.owner)        // Shader stuff
             {
-                //Filters.Scene.Activate("BurningScreen", Main.player[projectile.owner].Center).GetShader().UseColor(255, 255, 255).UseOpacity(0.1f);
                 Filters.Scene.Activate("BurningScreen", Main.player[projectile.owner].position).GetShader()
                     .UseColor(255f, 0, 0).UseTargetPosition(Main.player[projectile.owner].position);
             }
         }
-        
 
-        private void CreateExplosion(Vector2 position, int radius)    // Ripped from troll bomb, changed where needed
-        {                                                                // comments removed
-            for (int x = -radius; x <= radius; x++) 
-            {
-                for (int y = -radius; y <= radius; y++) 
-                {
-                    int xPosition = (int)(x + position.X / 16.0f);
-                    int yPosition = (int)(y + position.Y / 16.0f);
-
-                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5) 
-                    {
-                        ushort tile = Main.tile[xPosition, yPosition].type;
-                        if (!CanBreakTile(tile, _pickPower)) 
-                        {
-                        }
-                        else //Breakable
-                        {
-                            if (CanBreakTiles) //User preferences dictates if this bomb can break tiles
-                            {
-                                WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-                                if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
         public override void Kill(int ignore)
         {
-            if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive())        // Shader stuff
+            if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive() && Main.myPlayer == projectile.owner)         // Shader stuff
             {
                 Filters.Scene["BurningScreen"].Deactivate();
             }
             
             //Create Bomb Sound
             Main.PlaySound(SoundID.Item14, (int) projectile.Center.X, (int) projectile.Center.Y);
-
-            //Create Bomb Damage
-            ExplosionDamage(projectile.localAI[0] / 6, projectile.Center, (int)projectile.localAI[0], projectile.localAI[0]/4, projectile.owner);
-
-            //Create Bomb Explosion
-            CreateExplosion(projectile.Center, (int) projectile.localAI[0]/12);
-
-            //Create Bomb Dust
-            CreateDust(projectile.Center, (int) projectile.localAI[0]/50);
+            
+            //Since these values change as the timer ticks down, they need to be set immedietly before an explosion
+            // To ensure they are accurate
+            projectile.damage = (int)projectile.localAI[0];
+            projectile.knockBack = (int) projectile.localAI[0] / 4f;
+            radius = (int) projectile.localAI[0] / 12;
+            Main.NewText($"Damage: {projectile.damage}, Knockback: {projectile.knockBack}, radius: {radius}");
+            Explosion();
+            ExplosionDamage();
+            CreateDust(projectile.Center, (int) projectile.localAI[0] * 2);
+            projectile.timeLeft = 0;
+            base.Kill(0);
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(2f, 2f);
             Vector2 gVel2 = new Vector2(-2f, -1f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
         }
         
         private void CreateDust(Vector2 position, int amount)    // TODO UPDATE DUST CODE THIS BIT ACTS STRANGE
@@ -237,26 +157,25 @@ namespace ExtraExplosives.Projectiles
                 if (Main.rand.NextFloat() < DustAmount)
                 {
                     //---Dust 1---
-                    if (Main.rand.NextFloat() < 0.1)    // dynamite gibs    // Standard
+                    if (Main.rand.NextFloat() < 0.5f)    // dynamite gibs    // Standard
                     {
-                        updatedPosition = new Vector2(position.X - 70 / 2, position.Y - 70 / 2);
+                        updatedPosition = new Vector2(position.X - radius * 16 / 2, position.Y - radius * 16 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 70, 70, 4, 0f, 0f, 154, new Color(255, 255, 255), 1.55f)];
-                        dust.noGravity = false;
-                        dust.fadeIn = 0.2763158f;
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 90)];
+                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
+                        else dust.noGravity = true;
                     }
-                    if (Main.rand.NextFloat() < 0.1)    // potato gibs    // change if a better dust exists
+                    if (Main.rand.NextFloat() < 0.25f)    // potato gibs    // change if a better dust exists
                     {
-                        updatedPosition = new Vector2(position.X - 70 / 2, position.Y - 70 / 2);
+                        updatedPosition = new Vector2(position.X - radius * 16 / 2, position.Y - radius * 16 / 2);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 70, 70, 216, 0f, 0f, 154, new Color(255, 255, 255), 1.55f)];
-                        dust.noGravity = false;
-                        dust.fadeIn = 0.2763158f;
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 216)];//new Color(255, 255, 255)
+                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
+                        else dust.noGravity = true;
                     }
                     //------------
                 }
             }
         }
-        
     }
 }

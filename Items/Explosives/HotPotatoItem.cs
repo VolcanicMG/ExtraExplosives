@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-    public class HotPotatoItem : ModItem
+    public class HotPotatoItem : ExplosiveItem
     {
         private int _pickPower = 0;
         private int firespeed = 345;
@@ -20,7 +20,7 @@ namespace ExtraExplosives.Items.Explosives
                 + "Hold the left mouse button to charge");
         }
 
-        public override void SetDefaults()
+        public override void SafeSetDefaults()
         {
             item.useTurn = true;
             item.damage = 0;	 

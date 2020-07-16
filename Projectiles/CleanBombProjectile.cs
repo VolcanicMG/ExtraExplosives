@@ -8,19 +8,20 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-    class CleanBombProjectile: ModProjectile
+    class CleanBombProjectile: ExplosiveProjectile
     {
 		//Variables:
 		public static float Radius = 400f;      // Used for Dust particles + Damage radius
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
 		private int[] dustsToSpawn;
-		private const string sounds = "n/a";
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("CleanBomb");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.tileCollide = true;
 			projectile.width = 22;

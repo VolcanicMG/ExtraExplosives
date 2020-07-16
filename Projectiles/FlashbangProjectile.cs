@@ -5,14 +5,17 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-	internal class FlashbangProjectile : ModProjectile
+	internal class FlashbangProjectile : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Flashbang");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.tileCollide = true;
 			projectile.width = 12;

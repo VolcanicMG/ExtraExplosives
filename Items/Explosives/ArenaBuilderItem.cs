@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class ArenaBuilderItem : ModItem
+	public class ArenaBuilderItem : ExplosiveItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -12,9 +12,10 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("Explodes into a 240 x 120 arena equipped with only the finest of platforms and lights.");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			item.damage = 0;	 //The damage stat for the Weapon.
+			item.knockBack = 0; // Not needed but here for consisitency
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
 			item.maxStack = 1;   //This defines the items max stack

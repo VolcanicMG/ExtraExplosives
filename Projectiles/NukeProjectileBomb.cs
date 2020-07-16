@@ -11,12 +11,13 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class NukeProjectile : ModProjectile
+	public class NukeProjectileBomb : ExplosiveProjectile
 	{
 		//Variables
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
 		private bool firstTick;
 
-		private const int PickPower = 250;
 		private SoundEffectInstance sound;
 
 		public override void SetStaticDefaults()
@@ -24,8 +25,10 @@ namespace ExtraExplosives.Projectiles
 			DisplayName.SetDefault("NukeExplosive");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			pickPower = 250;
+			radius = 150;
 			projectile.tileCollide = false;
 			projectile.width = 66;
 			projectile.height = 112;
@@ -97,11 +100,12 @@ namespace ExtraExplosives.Projectiles
 			ExtraExplosives.NukeActivated = false;
 			Main.screenPosition = player.Center;
 
+
 			//Create Bomb Damage
-			ExplosionDamage(150f * 1.5f, projectile.Center, 3000, 1.0f, projectile.owner);
+			ExplosionDamage();
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 150);
+			Explosion();
 
 			//for (int x = 0; x < 50; x++)
 			//{
@@ -110,32 +114,56 @@ namespace ExtraExplosives.Projectiles
 			//}
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()
 		{
-			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
-			{
-				for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
-				{
-					int xPosition = (int)(x + position.X / 16.0f);
-					int yPosition = (int)(y + position.Y / 16.0f);
+			// x and y are the tile offset of the current tile relative to the player
+            // i and j are the true tile cords relative to 0,0 in the world
+            Player player = Main.player[projectile.owner];
 
-					if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
-					{
-						Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
-						WorldGen.SquareTileFrame(xPosition, yPosition, true);
+            Vector2 position = new Vector2(projectile.Center.X / 16f, projectile.Center.Y / 16f);    // Converts to tile cords for convenience
 
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
-						{
-						}
-						else //Breakable
-						{
-							WorldGen.KillTile(xPosition, yPosition, false, false, true);
-						}
-					}
-				}
-			}
+            radius = (int)((radius + player.EE().RadiusBonus) * player.EE().RadiusMulti);
+            for (int x = -radius;
+                x <= radius;
+                x++)
+            {
+                //int x = (int)(i + position.X);
+                for (int y = -radius;
+                    y <= radius;
+                    y++)
+                {
+                    //int y = (int)(j + position.Y);
+                    int i = (int) (x + position.X);
+                    int j = (int) (y + position.Y);
+                    if (!WorldGen.InWorld(i, j)) continue;
+                    if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
+                    {
+                        //Main.NewText($"({i}, {j})");
+                        //Dust dust = Dust.NewDustDirect(new Vector2(i, j), 1, 1, 54);
+                        //dust.noGravity = true;
+                        if (!WorldGen.TileEmpty(i, j))
+                        {
+                            if (!CanBreakTile(Main.tile[i, j].type, pickPower)) continue;
+                            if (!CanBreakTiles) continue;
+                            // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
+                            // But KillTile must be used tiles sitting on the radius to ensure propper updates so use it only on outermost tiles
+                            // Using cleartile on the edge of the explosion will cause update failures when breaking tiles (especially multitiles) which is buggy and bad
+                            if (Math.Abs(x) == radius || Math.Abs(y) == radius)
+                                WorldGen.KillTile((int) (i), (int) (j), false, false, false);
+                            else Main.tile[i,j].ClearTile();   
+                            //
+                        }
+                        
+                        if (CanBreakWalls)
+                        {
+                            //WorldGen.KillWall((int) (i), (int) (j));
+                        }
+                    }
+                }
+            }
 
+			position = projectile.Center;
+			
 			int depth = 10; //Sets the depth of the waste
 
 			for (int x = depth + 1; x > 0; x--)
@@ -151,52 +179,52 @@ namespace ExtraExplosives.Projectiles
 			{
 				for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
 				{
-					int xPosition = (int)(x + position.X / 16.0f);
-					int yPosition = (int)(y + position.Y / 16.0f);
+					int i = (int)(x + position.X / 16.0f);
+					int j = (int)(y + position.Y / 16.0f);
 
-					if (Math.Sqrt(x * x + y * y) <= radius - 1 + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
+					if (Math.Sqrt(x * x + y * y) <= radius - 1 + 0.5 && (WorldGen.InWorld(i, j))) //Circle
 					{
-						Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
-						WorldGen.SquareTileFrame(xPosition, yPosition, true);
+						Main.tile[i, j].liquid = Tile.Liquid_Water;
+						WorldGen.SquareTileFrame(i, j, true);
 					}
-					else if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
+					else if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(i, j))) //Circle
 					{
-						Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
-						WorldGen.SquareTileFrame(xPosition, yPosition, true);
+						Main.tile[i, j].liquid = Tile.Liquid_Water;
+						WorldGen.SquareTileFrame(i, j, true);
 
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+						ushort tile = Main.tile[i, j].type;
+						if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
 						{
-							if (!WorldGen.TileEmpty(xPosition, yPosition)) //Runs when a tile is not equal empty
+							if (!WorldGen.TileEmpty(i, j)) //Runs when a tile is not equal empty
 							{
 								if (Main.rand.Next(10) < spawnChance)
 								{
-									WorldGen.KillTile(xPosition, yPosition, false, false, true);
-									if (WorldGen.TileEmpty(xPosition + 1, yPosition) || WorldGen.TileEmpty(xPosition - 1, yPosition) || WorldGen.TileEmpty(xPosition, yPosition + 1) || WorldGen.TileEmpty(xPosition, yPosition - 1))
+									WorldGen.KillTile(i, j, false, false, true);
+									if (WorldGen.TileEmpty(i + 1, j) || WorldGen.TileEmpty(i - 1, j) || WorldGen.TileEmpty(i, j + 1) || WorldGen.TileEmpty(i, j - 1))
 									{
-										WorldGen.PlaceTile(xPosition, yPosition, surfaceTile);
+										WorldGen.PlaceTile(i, j, surfaceTile);
 									}
 									else
 									{
-										WorldGen.PlaceTile(xPosition, yPosition, subSurfaceTile);
+										WorldGen.PlaceTile(i, j, subSurfaceTile);
 									}
 								}
 							}
 						}
 						else //Breakable
 						{
-							if (!WorldGen.TileEmpty(xPosition, yPosition)) //Runs when a tile is not equal empty
+							if (!WorldGen.TileEmpty(i, j)) //Runs when a tile is not equal empty
 							{
 								if (Main.rand.Next(10) < spawnChance)
 								{
-									WorldGen.KillTile(xPosition, yPosition, false, false, true);
-									if (WorldGen.TileEmpty(xPosition + 1, yPosition) || WorldGen.TileEmpty(xPosition - 1, yPosition) || WorldGen.TileEmpty(xPosition, yPosition + 1) || WorldGen.TileEmpty(xPosition, yPosition - 1))
+									WorldGen.KillTile(i, j, false, false, true);
+									if (WorldGen.TileEmpty(i + 1, j) || WorldGen.TileEmpty(i - 1, j) || WorldGen.TileEmpty(i, j + 1) || WorldGen.TileEmpty(i, j - 1))
 									{
-										WorldGen.PlaceTile(xPosition, yPosition, surfaceTile);
+										WorldGen.PlaceTile(i, j, surfaceTile);
 									}
 									else
 									{
-										WorldGen.PlaceTile(xPosition, yPosition, subSurfaceTile);
+										WorldGen.PlaceTile(i, j, subSurfaceTile);
 									}
 								}
 							}

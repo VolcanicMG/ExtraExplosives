@@ -13,14 +13,29 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 
+using static ExtraExplosives.GlobalMethods;
+using System;
+using Terraria.ModLoader.UI.ModBrowser;
+using System.Net;
+using System.Data;
+using ExtraExplosives.NPCs.CaptainExplosiveBoss;
+using ExtraExplosives.UI;
+using ExtraExplosives.UI.AnarchistCookbookUI;
+
 namespace ExtraExplosives
 {
 	public class ExtraExplosives : Mod
 	{
+
+		private GameTime _lastUpdateUiGameTime;
+		
 		//move the first 4 over to player????
 		internal static ModHotKey TriggerExplosion;
 
 		internal static ModHotKey TriggerUIReforge;
+
+		internal static ModHotKey ToggleCookbookUI;
+		
 
 		public static bool NukeActivated;
 		public static bool NukeActive;
@@ -30,6 +45,12 @@ namespace ExtraExplosives
 		internal static float dustAmount;
 		internal UserInterface ExtraExplosivesUserInterface;
 		internal UserInterface ExtraExplosivesReforgeBombInterface;
+		private UserInterface cookbookInterface;
+		private UserInterface buttonInterface;
+		internal ButtonUI ButtonUI;
+		internal CookbookUI CookbookUI;
+
+		internal static ExtraExplosivesConfig EEConfig;
 
 		public static string GithubUserName => "VolcanicMG";
 		public static string GithubProjectName => "ExtraExplosives";
@@ -126,6 +147,18 @@ namespace ExtraExplosives
 		{
 			ExtraExplosivesUserInterface?.Update(gameTime);
 			//ExtraExplosivesReforgeBombInterface?.Update(gameTime);
+			if (CookbookUI.Visible)
+			{ 
+				ButtonUI.Visible = false;
+			}
+			else if (ButtonUI.Visible)
+			{
+				//Main.playerInventory = true;
+				CookbookUI.Visible = false;
+			}
+			
+			buttonInterface?.Update(gameTime);
+			cookbookInterface?.Update(gameTime);
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -155,6 +188,32 @@ namespace ExtraExplosives
 					},
 					InterfaceScaleType.UI)
 				);
+				layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
+					"ExtraExplosives: CookbookButton",
+					delegate
+					{
+						if (ButtonUI.Visible && Main.playerInventory)
+						{
+							buttonInterface.Draw(Main.spriteBatch, new GameTime());
+						}
+						return true;
+					},
+					InterfaceScaleType.UI));
+			}
+
+			if (mouseTextIndex != -1)
+			{
+				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+					"ExtraExplosives: CookbookUI",
+					delegate
+					{
+						if (CookbookUI.Visible && !Main.playerInventory)
+						{
+							cookbookInterface.Draw(Main.spriteBatch, new GameTime());
+						}
+						return true;
+					},
+					InterfaceScaleType.UI));
 			}
 		}
 
@@ -167,6 +226,22 @@ namespace ExtraExplosives
 
 			TriggerExplosion = RegisterHotKey("Explode", "Mouse2");
 			TriggerUIReforge = RegisterHotKey("Open Reforge Bomb UI", "P");
+			ToggleCookbookUI = RegisterHotKey("UIToggle", "\\");
+
+			if (!Main.dedServ)
+			{
+				cookbookInterface = new UserInterface();
+				buttonInterface = new UserInterface();
+				
+				ButtonUI = new ButtonUI();
+				ButtonUI.Activate();
+
+				CookbookUI = new CookbookUI();
+				CookbookUI.Deactivate();
+				
+				cookbookInterface.SetState(CookbookUI);
+				buttonInterface.SetState(ButtonUI);
+			}
 
 			if (Main.netMode != NetmodeID.Server)
 			{
@@ -183,21 +258,9 @@ namespace ExtraExplosives
 				Ref<Effect> burningScreenFilter = new Ref<Effect>(GetEffect("Effects/HPScreenFilter"));
 				Filters.Scene["BurningScreen"] = new Filter(new ScreenShaderData(burningScreenFilter, "BurningScreen"), EffectPriority.Medium); // Shouldnt override more important shaders
 				Filters.Scene["BurningScreen"].Load();
-			}
-
-			ModVersion = "v" + Version.ToString().Trim();
-
-			//Goes out and grabs the version that the mod browser has
-			using (WebClient client = new WebClient())
-			{
-				if (CheckForInternetConnection())
-				{
-					//Parsing the data we need from the api
-					var json = client.DownloadString("http://javid.ddns.net/tModLoader/tools/latestmodversionsimple.php?modname=extraexplosives");
-					json.ToString().Trim();
-					CurrentVersion = json;
-					client.Dispose();
-				}
+				
+				Ref<Effect> bombShader = new Ref<Effect>(GetEffect("Effects/bombshader"));
+				GameShaders.Misc["bombshader"] = new MiscShaderData(bombShader, "BombShader");
 			}
 
 			Mod yabhb = ModLoader.GetMod("FKBossHealthBar");
@@ -214,20 +277,6 @@ namespace ExtraExplosives
 				yabhb.Call("hbFinishSingle", ModContent.NPCType<CaptainExplosiveBoss>());
 			}
 		}
-
-		//so if the Internet is out the client won't crash on loading
-		public static bool CheckForInternetConnection()
-		{
-			try
-			{
-				using (var client = new WebClient())
-				using (client.OpenRead("http://google.com/generate_204"))
-					return true;
-			}
-			catch
-			{
-				return false;
-			}
-		}
+		
 	}
 }

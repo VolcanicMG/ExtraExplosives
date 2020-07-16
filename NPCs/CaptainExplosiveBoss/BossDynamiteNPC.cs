@@ -18,21 +18,21 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 67;
+            Main.npcFrameCount[npc.type] = 66;
         }
 
 
         public override void SetDefaults()
         {
             npc.width = 28;
-            npc.height = 72;
-            npc.Hitbox = new Rectangle(0,0,28, 52);
+            npc.height = 92;
+            npc.Hitbox = new Rectangle(0,0,28, 72);
             npc.lifeMax = 60;
             npc.defense = 0;
-            npc.frame.Height = 72;
+            npc.frame.Height = 92;
             npc.frame.Width = 28;
             npc.hide = true;
-            drawOffsetY = 20;
+            drawOffsetY = 30;
             npc.noGravity = false;
             npc.knockBackResist = 0f;
         }
@@ -44,18 +44,18 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             {
                 npc.frameCounter = 0;
                 npc.frame.Y += frameHeight;
-                if (npc.frame.Y > 5980) Explode();
+                if (npc.frame.Y > 8052) Explode();
                 //npc.frame.Y = (frameHeight * 66);    //<----- number of frames (3 not 6 since only 3 are ever used at one time)
             }
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            FindFrame(92);
+            FindFrame(122);
             Texture2D glow = (npc.direction == -1) ? mod.GetTexture("NPCs/CaptainExplosiveBoss/BossDynamiteNPC_Glowmask") : mod.GetTexture("NPCs/CaptainExplosiveBoss/BossDynamiteNPC_GlowmaskRev");
             Vector2 pos = npc.position - Main.screenPosition;
             pos.Y -= 16;
-            Rectangle frame = new Rectangle(0,(int)(npc.frame.Y+92), glow.Width, glow.Height/67);
+            Rectangle frame = new Rectangle(0,(int)(npc.frame.Y+122), glow.Width, glow.Height/66);
             spriteBatch.Draw(glow, pos, frame, Color.White, npc.rotation, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
@@ -105,7 +105,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             if (!WorldGen.TileEmpty((int) (npc.position.X / 16f), (int) (npc.position.Y / 16f) + 4) && !collide)
             {
                 collide = true;
-                Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BombLanding")); //sound
                 for (int i = 3; i > 0; i--)
                 {
                     WorldGen.KillTile((int) (npc.position.X / 16f) + 1, (int) (npc.position.Y / 16f) + 4, true, true);
@@ -135,6 +134,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                         {
                             WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+                            NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
                         }
                     }
                 }

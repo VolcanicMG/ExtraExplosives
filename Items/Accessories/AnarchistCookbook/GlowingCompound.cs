@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,7 +9,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glowing Compound");
-            Tooltip.SetDefault("RADIOACTIVE: DO NO TOUCH");
+            Tooltip.SetDefault("Makes your bombs glow");
         }
 
         public override void SetDefaults()
@@ -20,6 +21,10 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             item.rare = ItemRarityID.Purple;
             item.accessory = true;
             item.social = false;
+        }
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<ExtraExplosivesPlayer>().GlowingCompound = true;
         }
     }
 }

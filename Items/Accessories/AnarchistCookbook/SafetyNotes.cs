@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,8 +11,10 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Safety Notes");
-            Tooltip.SetDefault("Chicken scratch");
+            Tooltip.SetDefault("Prevents self damage from friendly explosives\n" +
+                               "Increased damage output and defence");
         }
+        
 
         public override void SetDefaults()
         {
@@ -30,6 +35,11 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             modRecipe.AddTile(TileID.TinkerersWorkbench);
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
+        }
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<ExtraExplosivesPlayer>().BlastShielding = true;
+            player.GetModPlayer<ExtraExplosivesPlayer>().ReactivePlating = true;
         }
     }
 }

@@ -7,19 +7,19 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class HouseBombProjectile : ModProjectile
+	public class HouseBombProjectile : ExplosiveProjectile
 	{
-		private const int PickPower = 40;
-		private const string gore = "Gores/Explosives/house_gore";
-		private LegacySoundStyle[] explodeSounds;
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/House_Bomb_";
+		protected override string goreFileLoc => "Gores/Explosives/house_gore";
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("HouseBomb");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			pickPower = 40;
 			projectile.tileCollide = true;
 			projectile.width = 10;
 			projectile.height = 10;
@@ -33,7 +33,7 @@ namespace ExtraExplosives.Projectiles
 			explodeSounds = new LegacySoundStyle[4];
 			for (int num = 1; num <= explodeSounds.Length; num++)
             {
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/House_Bomb_" + num);
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
 		}
 
@@ -61,7 +61,7 @@ namespace ExtraExplosives.Projectiles
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 0);
+			Explosion();
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 250);
@@ -69,12 +69,14 @@ namespace ExtraExplosives.Projectiles
 			//Create Bomb Gore
 			Vector2 gVel1 = new Vector2(2f, 2f);
 			Vector2 gVel2 = new Vector2(-2f, -2f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(gore + "2"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()
 		{
+			Vector2 position = projectile.Center;
+			
 			int x = 0;
 			int y = 0;
 
@@ -91,7 +93,7 @@ namespace ExtraExplosives.Projectiles
 					if (WorldGen.InWorld(xPosition, yPosition))
 					{
 						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+						if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
 						{
 						}
 						else //Breakable
@@ -106,7 +108,7 @@ namespace ExtraExplosives.Projectiles
 						Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
 						WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
-						//Partical Effects
+						//Particle Effects
 						Dust.NewDust(position, 22, 22, DustID.Smoke, 0.0f, 0.0f, 120, new Color(), 1f);  //this is the dust that will spawn after the explosion
 
 						//Place House Outline
@@ -170,9 +172,13 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 250 / 2, position.Y - 190 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 250, 190, 263, 0f, 0f, 0, new Color(255, 255, 255), 4.5f)];
-						dust.noGravity = true;
-						dust.noLight = true;
-						dust.fadeIn = 1.618421f;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+							dust.fadeIn = 1.618421f;
+						}
 					}
 					//------------
 
@@ -182,8 +188,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 221 / 2, position.Y - 170 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 221, 170, 232, 0f, 0f, 214, new Color(255, 150, 0), 4.407895f)];
-						dust.noGravity = true;
-						dust.noLight = true;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
 					}
 					//----------------------
 
@@ -193,8 +203,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 221 / 2, position.Y - 170 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 221, 170, 1, 0f, 0f, 140, new Color(255, 255, 255), 2.5f)];
-						dust.noGravity = true;
-						dust.noLight = true;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
 					}
 					//------------
 				}
