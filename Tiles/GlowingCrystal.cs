@@ -14,7 +14,6 @@ namespace ExtraExplosives.Tiles
     public class GlowingCrystal : ModTile        // Tile counterpart to GlowingCompound
     {
         private string dustString = "GreenCrystalDust";
-        
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = false;

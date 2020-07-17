@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using ExtraExplosives.NPCs;
 using ExtraExplosives.Tiles;
 using IL.Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using Terraria.World.Generation;
 using ItemID = Terraria.ID.ItemID;
@@ -16,6 +18,33 @@ namespace ExtraExplosives
 {
     public class ExtraExplosivesWorld : ModWorld
     {
+
+        internal int[,] originalWorldState;
+
+        public int GetState(int i, int j)
+        {
+            return originalWorldState[i, j];
+        }
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        {
+            tasks.Add(new PassLegacy("archivingValues", delegate(GenerationProgress progress)
+            {
+                progress.Message = "Archiving Tile Locations";
+                originalWorldState = new int[Main.maxTilesX, Main.maxTilesY];
+                for(int i = 0; i < Main.maxTilesX; i++)
+                {
+                    for (int j = 0; j < Main.maxTilesY; j++)
+                    {
+                        if (WorldGen.TileEmpty(i, j)) originalWorldState[i, j] = -1;
+                        else originalWorldState[i, j] = Main.tile[i, j].type;
+                        progress.Message = $"{i},{j} @ {i * j}";
+                    }
+
+                    progress.Set(i / Main.maxTilesX);
+                }
+            }));
+        }
+
         public override void ModifyHardmodeTasks(List<GenPass> list)
         {
             int goodIndex = list.FindIndex(genpass => genpass.Name.Equals("Hardmode Good"));
@@ -33,7 +62,6 @@ namespace ExtraExplosives
         {
             GenCrystals();    // once a tick, try to generate a crystal
         }
-        
 
         private void GenCrystals()
         {

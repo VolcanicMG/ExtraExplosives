@@ -1,10 +1,9 @@
-using ExtraExplosives.NPCs.CaptainExplosiveBoss;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
+using ExtraExplosives.NPCs.CaptainExplosiveBoss;
+using ExtraExplosives.UI.AnarchistCookbookUI;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
@@ -12,15 +11,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
-
-using static ExtraExplosives.GlobalMethods;
-using System;
-using Terraria.ModLoader.UI.ModBrowser;
-using System.Net;
-using System.Data;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss;
-using ExtraExplosives.UI;
-using ExtraExplosives.UI.AnarchistCookbookUI;
 
 namespace ExtraExplosives
 {
@@ -229,7 +219,7 @@ namespace ExtraExplosives
 			TriggerExplosion = RegisterHotKey("Explode", "Mouse2");
 			TriggerUIReforge = RegisterHotKey("Open Reforge Bomb UI", "P");
 			ToggleCookbookUI = RegisterHotKey("UIToggle", "\\");
-			TriggerBoost = RegisterHotKey("TriggerBoost", "Mouse2");
+			TriggerBoost = RegisterHotKey("TriggerBoost", "S");
 
 			if (!Main.dedServ)
 			{

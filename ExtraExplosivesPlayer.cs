@@ -1,29 +1,19 @@
-using System;
-using ExtraExplosives.Buffs;
-using Microsoft.Xna.Framework;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Net;
-using ExtraExplosives.Items.Accessories;
-using ExtraExplosives.Items.Accessories.AnarchistCookbook;
+using ExtraExplosives.Buffs;
+using ExtraExplosives.Items.Misc;
 using ExtraExplosives.Projectiles;
 using ExtraExplosives.UI;
 using ExtraExplosives.UI.AnarchistCookbookUI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.UI;
 using static Terraria.ModLoader.ModContent;
-using Color = System.Drawing.Color;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace ExtraExplosives
 {
@@ -53,7 +43,7 @@ namespace ExtraExplosives
 		//public static Vector2 NukePos;
 		//public static bool NukeHit;
 
-		public List<Terraria.ModLoader.PlayerLayer> playerLayers = new List<Terraria.ModLoader.PlayerLayer>();
+		public List<PlayerLayer> playerLayers = new List<PlayerLayer>();
 		
 		public bool reforge = false;
 		public static bool reforgePub;
@@ -217,7 +207,7 @@ namespace ExtraExplosives
 			if (reforgeUIActive == 1) //check to see if the reforge bomb key was pressed
 			{
 				GetInstance<ExtraExplosives>().ExtraExplosivesReforgeBombInterface
-					.SetState(new UI.ExtraExplosivesReforgeBombUI());
+					.SetState(new ExtraExplosivesReforgeBombUI());
 				reforgeUIActive++;
 			}
 
@@ -255,7 +245,7 @@ namespace ExtraExplosives
 						case 200:
 							Projectile projectile = Projectile.NewProjectileDirect(
 								new Vector2(player.Center.X - 256, player.Center.Y + 128), Vector2.Zero,
-								ModContent.ProjectileType<NovaBoosterProjectile>(), 200, 20, player.whoAmI);
+								ProjectileType<NovaBoosterProjectile>(), 200, 20, player.whoAmI);
 							projectile.timeLeft = 0;
 							projectile.friendly = true;
 							projectile.Kill();
@@ -292,7 +282,7 @@ namespace ExtraExplosives
 		{
 			Projectile projectile = new Projectile();
 			projectile.CloneDefaults(damageSource.SourceProjectileType);
-			if (projectile.type == ModContent.ProjectileType<BombCloakProjectile>()) return false;	// If the bomb cloak caused the explosion, do nothing
+			if (projectile.type == ProjectileType<BombCloakProjectile>()) return false;	// If the bomb cloak caused the explosion, do nothing
 			
 			if (projectile.aiStyle == 16)
 			{
@@ -320,7 +310,7 @@ namespace ExtraExplosives
 		public override void PostUpdate()
 		{
 			//Player player = Main.player[Main.myPlayer];
-			if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
+			if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["Bang"].Deactivate();
 			}
@@ -389,7 +379,7 @@ namespace ExtraExplosives
 				
 				int drawX = (int) (info.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
 				int drawY = (int) (info.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y);
-				Main.NewText((mp.boosting ? BoosterHigh : Booster));
+				//Main.NewText((mp.boosting ? BoosterHigh : Booster));
 				if (mp.boosting)
 				{
 					mp.boostTimer--;
@@ -399,10 +389,10 @@ namespace ExtraExplosives
 						mp.boosting = false;
 					}
 				}
-				DrawData data = new DrawData((mp.boosting ? BoosterHigh : Booster), new Vector2(drawX + mp.offset, drawY), new Rectangle(0,(mp.player.velocity.Y == 0 ? 6 * 44 : 44 * mp.wingFrame),46, 44), new Microsoft.Xna.Framework.Color(255,255,255),  0f, new Vector2(Booster.Width / 2f, Booster.Height / 4f - 60), 1f, mp.effect, 0);
+				DrawData data = new DrawData((mp.boosting ? BoosterHigh : Booster), new Vector2(drawX + mp.offset, drawY), new Rectangle(0,(mp.player.velocity.Y == 0 ? 6 * 44 : 44 * mp.wingFrame),46, 44), new Color(255,255,255),  0f, new Vector2(Booster.Width / 2f, Booster.Height / 4f - 60), 1f, mp.effect, 0);
 				Main.playerDrawData.Add(data);
 			});
-		public override void ModifyDrawLayers(List<Terraria.ModLoader.PlayerLayer> layers) //Make the players invisable
+		public override void ModifyDrawLayers(List<PlayerLayer> layers) //Make the players invisable
 		{
 			if (novaBooster && !player.dead)
 			{
@@ -441,6 +431,16 @@ namespace ExtraExplosives
 			//player.ResetEffects();
 			player.ResetEffects();
 			Main.screenPosition = player.Center;
+		}
+
+		public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish,
+			ref int caughtType, ref bool junk)
+		{
+			base.CatchFish(fishingRod, bait, power, liquidType, poolSize, worldLayer, questFish, ref caughtType, ref junk);
+			if (liquidType != 0) return;
+			if (worldLayer % 4 < 2) return;
+			int res = Main.rand.Next(25);
+			if (res == 0) caughtType = ItemType<FuseEelItem>();
 		}
 
 		public override void SetControls() //when the nuke is active set the player to not build or use items

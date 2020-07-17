@@ -24,6 +24,31 @@ namespace ExtraExplosives
             base.SetDefaults(item);
             instancedItem = item;
             defaultConsume = item.consumable;
+            
+            int[] grenades = new int[]
+            {
+                ItemID.Grenade,
+                ItemID.BouncyGrenade,
+                ItemID.StickyGrenade,
+                ItemID.Beenade
+            };
+
+            if (Array.IndexOf(grenades, item.type) != -1)
+            {
+                item.ammo = ItemID.Grenade;
+            }
+            
+            int[] dynamite = new int[]
+            {
+                ItemID.Dynamite,
+                ItemID.StickyDynamite,
+                ItemID.BouncyDynamite
+            };
+
+            if (Array.IndexOf(dynamite, item.type) != -1)
+            {
+                item.ammo = ItemID.Dynamite;
+            }
         }
 
         public void ConsumeOnUse()

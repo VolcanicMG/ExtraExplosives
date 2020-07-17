@@ -49,8 +49,7 @@ namespace ExtraExplosives.Items
 		{
 			if (cooldown > 0) return false;
 			cooldown = 30;
-			Projectile projectile = Projectile.NewProjectileDirect(Main.player[item.owner].position, Vector2.Zero, ProjectileID.BoneArrow, 10, 0);
-			projectile.hostile = true;
+			
 			return false;
 		}
 	}
