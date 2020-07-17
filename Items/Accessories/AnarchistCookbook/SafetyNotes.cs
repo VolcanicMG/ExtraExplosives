@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Terraria;
+>>>>>>> Charlie's-Uploads
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,8 +14,15 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Safety Notes");
+<<<<<<< HEAD
             Tooltip.SetDefault("Chicken scratch");
         }
+=======
+            Tooltip.SetDefault("Prevents self damage from friendly explosives\n" +
+                               "Increased damage output and defence");
+        }
+        
+>>>>>>> Charlie's-Uploads
 
         public override void SetDefaults()
         {
@@ -31,5 +44,13 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
         }
+<<<<<<< HEAD
+=======
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<ExtraExplosivesPlayer>().BlastShielding = true;
+            player.GetModPlayer<ExtraExplosivesPlayer>().ReactivePlating = true;
+        }
+>>>>>>> Charlie's-Uploads
     }
 }

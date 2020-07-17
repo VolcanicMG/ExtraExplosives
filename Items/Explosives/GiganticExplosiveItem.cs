@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class GiganticExplosiveItem : ModItem
+	public class GiganticExplosiveItem : ExplosiveItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -12,9 +12,10 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("[c/AB40FF:Can destroy dungeon bricks and desert fossils]");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
-			item.damage = 0;	 //The damage stat for the Weapon.
+			item.damage = 1000;	 //The damage stat for the Weapon.
+			item.knockBack = 100;
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
 			item.maxStack = 999;   //This defines the items max stack

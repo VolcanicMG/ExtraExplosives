@@ -26,7 +26,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         {
             npc.width = 28;
             npc.height = 92;
+<<<<<<< HEAD
             npc.Hitbox = new Rectangle(0, 0, 28, 72);
+=======
+            npc.Hitbox = new Rectangle(0,0,28, 72);
+>>>>>>> Charlie's-Uploads
             npc.lifeMax = 60;
             npc.defense = 0;
             npc.frame.Height = 92;
@@ -55,7 +59,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             Texture2D glow = (npc.direction == -1) ? mod.GetTexture("NPCs/CaptainExplosiveBoss/BossDynamiteNPC_Glowmask") : mod.GetTexture("NPCs/CaptainExplosiveBoss/BossDynamiteNPC_GlowmaskRev");
             Vector2 pos = npc.position - Main.screenPosition;
             pos.Y -= 16;
+<<<<<<< HEAD
             Rectangle frame = new Rectangle(0, (int)(npc.frame.Y + 122), glow.Width, glow.Height / 66);
+=======
+            Rectangle frame = new Rectangle(0,(int)(npc.frame.Y+122), glow.Width, glow.Height/66);
+>>>>>>> Charlie's-Uploads
             spriteBatch.Draw(glow, pos, frame, Color.White, npc.rotation, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
@@ -68,15 +76,24 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public void Explode()
         {
+<<<<<<< HEAD
             Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BigDynamite")); //sound
             Kill(0);
             npc.life = 0;
             npc.active = false;
+=======
+            Kill(0);
+            npc.life = 0;
+>>>>>>> Charlie's-Uploads
         }
         
         public void Kill(int timeLeft)
         {
+<<<<<<< HEAD
             for (int i = 80; i > 0; i--)
+=======
+            for (int i = 10; i > 0; i--)
+>>>>>>> Charlie's-Uploads
             {
                 Dust.NewDust(npc.position, 4, 4, ModContent.DustType<BossDynamiteDust>());
             }
@@ -84,6 +101,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             Main.PlaySound(SoundID.Item14, (int)npc.Center.X, (int)npc.Center.Y);
 
             //Create Bomb Dust
+<<<<<<< HEAD
             CreateDust(npc.Center, 85);
 
             //Create Bomb Damage
@@ -94,6 +112,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             {
                 CreateExplosion(npc.Center, 10);
             }
+=======
+            CreateDust(npc.Center, 25);
+
+            //Create Bomb Damage
+            ExplosionDamage(10f, npc.Center, 75, 20, 255);
+
+            //Create Bomb Explosion
+            CreateExplosion(npc.Center, 10);
+>>>>>>> Charlie's-Uploads
         }
 
 
@@ -110,7 +137,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             if (!WorldGen.TileEmpty((int) (npc.position.X / 16f), (int) (npc.position.Y / 16f) + 4) && !collide)
             {
                 collide = true;
+<<<<<<< HEAD
                 Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BombLanding")); //sound
+=======
+>>>>>>> Charlie's-Uploads
                 for (int i = 3; i > 0; i--)
                 {
                     WorldGen.KillTile((int) (npc.position.X / 16f) + 1, (int) (npc.position.Y / 16f) + 4, true, true);
@@ -140,7 +170,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                         {
                             WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+<<<<<<< HEAD
                             //NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
+=======
+                            NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
+>>>>>>> Charlie's-Uploads
                         }
                     }
                 }
@@ -151,12 +185,17 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         {
             Dust dust;
             Vector2 updatedPosition;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> Charlie's-Uploads
             for (int i = 0; i <= amount; i++)
             {
                 if (Main.rand.NextFloat() < DustAmount)
                 {
                     //---Dust 1---
+<<<<<<< HEAD
                     if (Main.rand.NextFloat() < 1f)
                     {
                         updatedPosition = new Vector2(position.X - 90 / 2, position.Y - 90 / 2);
@@ -164,32 +203,58 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 1f)];
                         dust.noGravity = true;
                         dust.fadeIn = 0.986842f;
+=======
+                    if (Main.rand.NextFloat() < 0.2f)
+                    {
+                        updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, ModContent.DustType<BossDynamiteDust>(), Main.rand.NextFloat(-1,1), Main.rand.NextFloat(-1,1), 0, new Color(255, 0, 0), 1f)];
+                        dust.noGravity = true;
+                        dust.fadeIn = 2.5f;
+>>>>>>> Charlie's-Uploads
                     }
                     //------------
 
                     //---Dust 2---
+<<<<<<< HEAD
                     if (Main.rand.NextFloat() < 1f)
                     {
                         updatedPosition = new Vector2(position.X - 90 / 2, position.Y - 90 / 2);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 203, 0f, 0f, 0, new Color(255, 255, 255), 2f)];
+=======
+                    if (Main.rand.NextFloat() < 0.2f)
+                    {
+                        updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, ModContent.DustType<BossDynamiteDust>(), Main.rand.NextFloat(-1,1), Main.rand.NextFloat(-1,1), 0, new Color(255, 255, 255), 1f)];
+>>>>>>> Charlie's-Uploads
                         dust.noGravity = true;
                         dust.noLight = true;
                     }
                     //------------
 
                     //---Dust 3---
+<<<<<<< HEAD
                     if (Main.rand.NextFloat() < 1f)
                     {
                         updatedPosition = new Vector2(position.X - 90 / 2, position.Y - 90 / 2);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 90, 90, 31, 0f, 0f, 0, new Color(255, 255, 255), 1.5f)];
+=======
+                    if (Main.rand.NextFloat() < 0.2f)
+                    {
+                        updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
+
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, ModContent.DustType<BossDynamiteDust>(), Main.rand.NextFloat(-1,1), Main.rand.NextFloat(-1,1), 0, new Color(255, 255, 255), 1f)];
+>>>>>>> Charlie's-Uploads
                         dust.noGravity = true;
                         dust.noLight = true;
                     }
                     //------------
                 }
             }
+<<<<<<< HEAD
 
             //gore
             for (int g = 0; g < 10; g++)
@@ -211,6 +276,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
             }
+=======
+>>>>>>> Charlie's-Uploads
         }
         
     }

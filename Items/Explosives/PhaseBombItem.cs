@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class PhaseBombItem : ModItem
+	public class PhaseBombItem : ExplosiveItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -18,9 +18,10 @@ namespace ExtraExplosives.Items.Explosives
 			//ItemID.Sets.ItemIconPulse[item.type] = true;
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
-			item.damage = 0;	 //The damage stat for the Weapon.
+			item.damage = 450;	 //The damage stat for the Weapon.
+			item.knockBack = 40;
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
 			item.maxStack = 999;   //This defines the items max stack

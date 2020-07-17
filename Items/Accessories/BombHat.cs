@@ -1,8 +1,16 @@
+<<<<<<< HEAD
+=======
+using Terraria;
+>>>>>>> Charlie's-Uploads
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Accessories
 {
+<<<<<<< HEAD
+=======
+    [AutoloadEquip(EquipType.Head)]
+>>>>>>> Charlie's-Uploads
     public class BombHat : ModItem
     {
         public override void SetStaticDefaults()
@@ -19,5 +27,10 @@ namespace ExtraExplosives.Items.Accessories
             item.consumable = false;
             item.expert = true;
         }
+<<<<<<< HEAD
+=======
+
+        public override bool DrawHead() => false;
+>>>>>>> Charlie's-Uploads
     }
 }

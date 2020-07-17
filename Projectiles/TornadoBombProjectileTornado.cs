@@ -6,15 +6,18 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class TornadoBombProjectileTornado : ModProjectile
+	public class TornadoBombProjectileTornado : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tornado");
 			Main.projFrames[projectile.type] = 6;
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.CloneDefaults(386);
 			//projectile.tileCollide = true;
@@ -147,30 +150,34 @@ namespace ExtraExplosives.Projectiles
 			Player player = Main.player[Main.myPlayer];
 
 			//Player
-			if ((projectile.position.X / 16) <= ((player.position.X + 700) / 16) && (projectile.position.X / 16) >= ((player.position.X - 700) / 16))
+			if (!player.EE().BlastShielding)
 			{
-				//X
-				if (player.position.X <= (projectile.position.X + 30))
+				if ((projectile.position.X / 16) <= ((player.position.X + 700) / 16) &&
+				    (projectile.position.X / 16) >= ((player.position.X - 700) / 16))
 				{
-					//player.velocity.X = 2;
-					player.velocity.X = player.velocity.X + 0.3f;
-				}
-				else
-				{
-					//player.velocity.X = -2;
-					player.velocity.X = player.velocity.X - 0.3f;
-				}
+					//X
+					if (player.position.X <= (projectile.position.X + 30))
+					{
+						//player.velocity.X = 2;
+						player.velocity.X = player.velocity.X + 0.3f;
+					}
+					else
+					{
+						//player.velocity.X = -2;
+						player.velocity.X = player.velocity.X - 0.3f;
+					}
 
-				//Y
-				if (player.position.Y <= (projectile.position.Y - 200))
-				{
-					//player.velocity.Y = 2;
-					player.velocity.Y = player.velocity.Y + .5f;
-				}
-				else
-				{
-					//player.velocity.Y = -2;
-					player.velocity.Y = player.velocity.Y - .5f;
+					//Y
+					if (player.position.Y <= (projectile.position.Y - 200))
+					{
+						//player.velocity.Y = 2;
+						player.velocity.Y = player.velocity.Y + .5f;
+					}
+					else
+					{
+						//player.velocity.Y = -2;
+						player.velocity.Y = player.velocity.Y - .5f;
+					}
 				}
 			}
 

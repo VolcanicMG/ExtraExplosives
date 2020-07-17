@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+using Terraria;
+>>>>>>> Charlie's-Uploads
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,7 +12,13 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Random Fuel");
+<<<<<<< HEAD
             Tooltip.SetDefault("Questionable but flammable");
+=======
+            Tooltip.SetDefault("Randomly debuffs enemies\n" +
+                               "Enemies can be burnt, frozen, or confused\n" +
+                               "Debuffs can affect the player");
+>>>>>>> Charlie's-Uploads
         }
 
         public override void SetDefaults()
@@ -21,5 +31,12 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             item.accessory = true;
             item.social = false;
         }
+<<<<<<< HEAD
+=======
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<ExtraExplosivesPlayer>().RandomFuel = true;
+        }
+>>>>>>> Charlie's-Uploads
     }
 }

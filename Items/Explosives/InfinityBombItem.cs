@@ -10,11 +10,19 @@ using Terraria.ModLoader.IO;
 
 namespace ExtraExplosives.Items.Explosives
 {
+<<<<<<< HEAD
     public class InfinityBombItem : ModItem
     {
         public override bool CloneNewInstances => true;
 
         public double multiplier = 1;    // Starts at zero, each instance will slowly grow
+=======
+    public class InfinityBombItem : ExplosiveItem
+    {
+        public override bool CloneNewInstances => true;
+
+        public double multiplier = 1;    // Starts at one, each instance will slowly grow
+>>>>>>> Charlie's-Uploads
 
         public bool enableGrowth = true;
 
@@ -28,6 +36,7 @@ namespace ExtraExplosives.Items.Explosives
             
         }
 
+<<<<<<< HEAD
         public override void SetDefaults()
         {
             item.CloneDefaults(167);
@@ -38,15 +47,43 @@ namespace ExtraExplosives.Items.Explosives
             item.value = 10000 * (int)multiplier;
             item.maxStack = 1;
             item.damage = 0;
+=======
+        public override void SafeSetDefaults()
+        {
+            //item.CloneDefaults(167);
+            item.useStyle = 1;
+            item.shootSpeed = 4f;
+            item.width = 8;
+            item.height = 28;
+            item.UseSound = SoundID.Item1;
+            item.useAnimation = 40;
+            item.useTime = 40;
+            item.noUseGraphic = true;
+            item.noMelee = true;
+            item.damage = 250;
+            item.knockBack = 2;
+            item.consumable = false;
+            item.shoot = ModContent.ProjectileType<InfinityBombProjectile>();
+            item.autoReuse = false;
+            item.value = 200000;
+            item.maxStack = 1;
+>>>>>>> Charlie's-Uploads
             item.rare = ItemRarityID.Green;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
             ref float knockBack)
         {
+<<<<<<< HEAD
             Projectile.NewProjectile(position.X, position.Y, speedX, speedY,
                 ModContent.ProjectileType<InfinityBombProjectile>(), 0, 0, 255, (float) multiplier);
             return false;
+=======
+            damage = (int)(damage * multiplier);
+            knockBack = (int) (knockBack * multiplier);
+            Main.NewText(multiplier);
+            return true;
+>>>>>>> Charlie's-Uploads
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -64,7 +101,11 @@ namespace ExtraExplosives.Items.Explosives
                 multiplier += 0.001f;
                 multiplier = Math.Round(multiplier, 4);
             }
+<<<<<<< HEAD
         return base.CanUseItem(player);
+=======
+            return base.CanUseItem(player);
+>>>>>>> Charlie's-Uploads
         }
 
         public override void AddRecipes()

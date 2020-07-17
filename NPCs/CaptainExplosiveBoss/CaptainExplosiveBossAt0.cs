@@ -1,17 +1,30 @@
 using ExtraExplosives.Items;
 using ExtraExplosives.Items.Accessories;
 using ExtraExplosives.Items.Accessories.AnarchistCookbook;
+<<<<<<< HEAD
 using ExtraExplosives.Items.Explosives;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+=======
+using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
+using Microsoft.Xna.Framework;
+using System;
+using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
+using Microsoft.Xna.Framework.Graphics;
+>>>>>>> Charlie's-Uploads
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+<<<<<<< HEAD
 using static ExtraExplosives.GlobalMethods;
 using static Terraria.ModLoader.ModContent;
+=======
+using static Terraria.ModLoader.ModContent;
+using static ExtraExplosives.GlobalMethods;
+>>>>>>> Charlie's-Uploads
 
 namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 {
@@ -43,15 +56,22 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		//	//AltTextures[1] = "NPCs/CaptainExplosiveBoss/CaptainExplosiveBossDamaged";
 		//}
 
+<<<<<<< HEAD
 		private bool firstTick;
 		private bool flag;
 		private bool flag2;
 
+=======
+>>>>>>> Charlie's-Uploads
 		public override void SetDefaults()
 		{
 			npc.aiStyle = -1;
 			npc.lifeMax = 9800;
+<<<<<<< HEAD
 			npc.damage = 80;
+=======
+			npc.damage = 1000;
+>>>>>>> Charlie's-Uploads
 			npc.defense = 999999;
 			npc.knockBackResist = 0f;
 			npc.width = 200;
@@ -65,13 +85,21 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.buffImmune[24] = true;
+<<<<<<< HEAD
 			//music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
+=======
+			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
+>>>>>>> Charlie's-Uploads
 
 			bossBag = ItemType<CaptainExplosiveTreasureBag>();
 			npc.immortal = true;
 
 			drawOffsetY = 50f;
 		}
+<<<<<<< HEAD
+=======
+		
+>>>>>>> Charlie's-Uploads
 
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
@@ -79,6 +107,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.damage = (int)(npc.damage * 0.6f);
 		}
 
+<<<<<<< HEAD
 		//public override bool CheckDead()
 		//{
 		//	if (!flag)
@@ -124,6 +153,45 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		//	}
 		//	return true;
 		//}
+=======
+		public override bool CheckDead()
+		{
+			for (int i = 1; i < 12; i++)
+			{
+				for (int k = 0; k < 4; k++)
+				{
+					Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
+					Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore" + i), 1.5f);
+				}
+			}
+
+			for (int g = 0; g < 50; g++)
+			{
+				int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+				Main.gore[goreIndex].scale = 2.5f;
+				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+				Main.gore[goreIndex].scale = 2.5f;
+				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+				Main.gore[goreIndex].scale = 2.5f;
+				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+				Main.gore[goreIndex].scale = 2.5f;
+				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+			}
+
+			CreateExplosion(npc.Center, 25);
+
+			ExplosionDamage(10f * 2f, npc.Center, 1000, 30, Main.myPlayer);
+
+			return true;
+		}
+>>>>>>> Charlie's-Uploads
 
 		private void CreateExplosion(Vector2 position, int radius)
 		{
@@ -143,13 +211,18 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 						else //Breakable
 						{
 							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
+<<<<<<< HEAD
 							NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
+=======
+							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+>>>>>>> Charlie's-Uploads
 						}
 					}
 				}
 			}
 		}
 
+<<<<<<< HEAD
 
 		public override void AI()
 		{
@@ -164,6 +237,21 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			}
 
 			//check for the players death
+=======
+		public override void OnHitPlayer(Player target, int damage, bool crit)
+		{
+			return;
+			npc.immortal = false;
+			npc.StrikeNPCNoInteraction(100, 0, -npc.direction);
+		}
+
+		public override void AI()
+		{
+			npc.life = 1;
+
+			//check for the players death
+			Player player = Main.player[npc.target];
+>>>>>>> Charlie's-Uploads
 			if (!player.active || player.dead)
 			{
 				npc.TargetClosest(false);
@@ -179,6 +267,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				}
 			}
 
+<<<<<<< HEAD
+=======
+			
+			
+>>>>>>> Charlie's-Uploads
 			npc.TargetClosest(true);
 			Vector2 vector89 = new Vector2(npc.Center.X, npc.Center.Y);
 			float num716 = Main.player[npc.target].Center.X - vector89.X;
@@ -191,6 +284,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.velocity.X = ((npc.velocity.X * 100f + num716) / 101f);
 			npc.velocity.Y = ((npc.velocity.Y * 100f + num717) / 101f);
 
+<<<<<<< HEAD
 			//check to see if its time to kill the boss
 			if (npc.ai[3] >= 500)
 			{
@@ -257,12 +351,19 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				}
 
 				//npc.active = false;
+=======
+			if (npc.ai[3] == 500)
+			{
+				npc.immortal = false;
+				npc.StrikeNPCNoInteraction(100, 0, -npc.direction);
+>>>>>>> Charlie's-Uploads
 			}
 
 			npc.ai[3]++;
 			//Main.NewText(npc.velocity);
 		}
 
+<<<<<<< HEAD
 		public override bool PreNPCLoot()
 		{
 			return true;
@@ -338,6 +439,22 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		private int _color = 0;
 		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
 		{
+=======
+		public override void NPCLoot()  // What will drop when the npc is killed?
+		{
+			if (Main.expertMode)    // Expert mode only loot
+			{
+				npc.DropBossBags(); // Boss bag
+			}
+			int drop = Main.rand.NextBool() ? ItemType<BombardierEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
+			int dropChance = drop == ItemType<BombardierEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardierEmblem>();    // find the other item
+			npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), drop);  // drop the confirmed item
+			if (Main.rand.Next(7) == 0) npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), dropChance);    // if the roll is sucessful drop the other
+		}
+		private float _timer = 0;
+		private int _color = 0;
+		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor) {
+>>>>>>> Charlie's-Uploads
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
@@ -346,32 +463,53 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			switch (_color)
 			{
 				case 0:
+<<<<<<< HEAD
 					deathShader.UseColor(0, 0, 0).UseSaturation((_timer / 5) * _timer); // Base (this does nothing but ensure the shader doesnt break)
+=======
+					deathShader.UseColor(0, 0, 0).UseSaturation((_timer/5) * _timer);	// Base (this does nothing but ensure the shader doesnt break)
+>>>>>>> Charlie's-Uploads
 					if (_timer > 1f)
 					{
 						_color = 1;
 					}
 					break;
 				case 1:
+<<<<<<< HEAD
 					deathShader.UseColor(0.5f, 0.05f, 0.05f).UseSaturation((_timer / 3) * _timer);  // Red (increase the number to slow the speed, decrease to make it faster)
+=======
+					deathShader.UseColor(0.5f, 0.05f, 0.05f).UseSaturation((_timer/3) * _timer);	// Red (increase the number to slow the speed, decrease to make it faster)
+>>>>>>> Charlie's-Uploads
 					if (_timer > 2.5f)
 					{
 						_color = 2;
 					}
 					break;
+<<<<<<< HEAD
 
 				case 2:
 					deathShader.UseColor(0.5f, 0.25f, 0.05f).UseSaturation((_timer / 2) * _timer); // Orange (see previous)
+=======
+				
+				case 2:
+					deathShader.UseColor(0.5f, 0.25f, 0.05f).UseSaturation((_timer/2) * _timer); // Orange (see previous)
+>>>>>>> Charlie's-Uploads
 					if (_timer > 3.8f)
 					{
 						_color = 3;
 					}
 					break;
 				case 3:
+<<<<<<< HEAD
 					deathShader.UseColor(.5f, .5f, 0.05f).UseSaturation(_timer * _timer);   // Yellow (see previous)
 					break;
 			}
 			//Main.NewText(_timer);
+=======
+					deathShader.UseColor(.5f, .5f, 0.05f).UseSaturation(_timer*_timer);	// Yellow (see previous)
+					break;
+			}
+			Main.NewText(_timer);
+>>>>>>> Charlie's-Uploads
 			// Call Apply to apply the shader to the SpriteBatch. Only 1 shader can be active at a time.
 			deathShader.Apply(null);
 
@@ -386,6 +524,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 		}
 
+<<<<<<< HEAD
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 
@@ -430,5 +569,22 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				ModContent.ItemType<RainboomItem>(),
 				ModContent.ItemType<HotPotatoItem>()
 			};
+=======
+		public override void FindFrame(int frameHeight)
+		{
+			npc.frameCounter += 2.0; //change the frame speed
+			npc.frameCounter %= 100.0; //How many frames are in the animation
+			npc.frame.Y = frameHeight * ((int)npc.frameCounter % 16 / 4); //set the npc's frames here
+
+		}
+
+		//public override void HitEffect(int hitDirection, double damage)
+		//{
+		//	if (npc.life <= 0)
+		//	{
+				
+		//	}
+		//}
+>>>>>>> Charlie's-Uploads
 	}
 }

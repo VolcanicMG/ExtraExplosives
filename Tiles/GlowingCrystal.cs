@@ -17,7 +17,10 @@ namespace ExtraExplosives.Tiles
         
         public override void SetDefaults()
         {
+<<<<<<< HEAD
             
+=======
+>>>>>>> Charlie's-Uploads
             Main.tileSolid[Type] = false;
             Main.tileNoAttach[Type] = true;
             Main.tileFrameImportant[Type] = true;
@@ -71,6 +74,10 @@ namespace ExtraExplosives.Tiles
 
             //TileObjectData.newTile.FullCopyFrom(TileID.Crystals);
         }
+<<<<<<< HEAD
+=======
+        
+>>>>>>> Charlie's-Uploads
 
         private int animationFrameWidth = 18;
         

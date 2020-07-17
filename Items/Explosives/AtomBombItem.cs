@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class AtomBombItem : ModItem
+	public class AtomBombItem : ExplosiveItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -15,9 +15,10 @@ namespace ExtraExplosives.Items.Explosives
 				"[c/AB40FF:Can destroy anything... aside from the immortal chest...]");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
-			item.damage = 0;	 //The damage stat for the Weapon.
+			item.damage = 5000;	 //The damage stat for the Weapon.
+			item.knockBack = 0;
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
 			item.maxStack = 999;   //This defines the items max stack

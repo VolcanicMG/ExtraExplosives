@@ -7,14 +7,26 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
+<<<<<<< HEAD
 	public class LandBridgeProjectile : ModProjectile
 	{
+=======
+	public class LandBridgeProjectile : ExplosiveProjectile
+	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "Gores/Explosives/land-bridge_gore";
+
+>>>>>>> Charlie's-Uploads
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("LandBridge");
 		}
 
+<<<<<<< HEAD
 		public override void SetDefaults()
+=======
+		public override void SafeSetDefaults()
+>>>>>>> Charlie's-Uploads
 		{
 			projectile.tileCollide = true;
 			projectile.width = 5;
@@ -46,6 +58,7 @@ namespace ExtraExplosives.Projectiles
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner); //No damage needed
 
 			//Create Bomb Explosion
+<<<<<<< HEAD
 			CreateExplosion(projectile.Center);
 
 			//Create Bomb Dust
@@ -55,6 +68,25 @@ namespace ExtraExplosives.Projectiles
 		private void CreateExplosion(Vector2 position)
 		{
 
+=======
+			Explosion();
+
+			//Create Bomb Dust
+			CreateDust(projectile.Center, 500);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(0f, -4f);
+			Vector2 gVel2 = new Vector2(4f, 4f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+		}
+
+		public override void Explosion()
+		{
+
+			Vector2 position = projectile.Center;
+			
+>>>>>>> Charlie's-Uploads
 			int height = 10; //Height of arena
 
 			if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -108,9 +140,19 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(159, 0, 255), 5f)];
+<<<<<<< HEAD
 						dust.noGravity = true;
 						dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
 						dust.fadeIn = 3f;
+=======
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+							dust.fadeIn = 3f;
+						}
+>>>>>>> Charlie's-Uploads
 					}
 
 					//---Dust 2---
@@ -119,9 +161,19 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(0, 17, 255), 5f)];
+<<<<<<< HEAD
 						dust.noGravity = true;
 						dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
 						dust.fadeIn = 3f;
+=======
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+							dust.fadeIn = 3f;
+						}
+>>>>>>> Charlie's-Uploads
 					}
 
 					//---Dust 3---
@@ -130,9 +182,19 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(255, 0, 150), 5f)];
+<<<<<<< HEAD
 						dust.noGravity = true;
 						dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
 						dust.fadeIn = 3f;
+=======
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(88, Main.LocalPlayer);
+							dust.fadeIn = 3f;
+						}
+>>>>>>> Charlie's-Uploads
 					}
 				}
 			}

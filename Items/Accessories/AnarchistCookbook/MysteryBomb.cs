@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+using Terraria;
+>>>>>>> Charlie's-Uploads
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,7 +12,11 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mystery Bomb");
+<<<<<<< HEAD
             Tooltip.SetDefault("A question mark is a terrible shape for a bomb");
+=======
+            Tooltip.SetDefault("20% chance to not consume explosives");
+>>>>>>> Charlie's-Uploads
         }
 
         public override void SetDefaults()
@@ -21,5 +29,12 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             item.accessory = true;
             item.social = false;
         }
+<<<<<<< HEAD
+=======
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.GetModPlayer<ExtraExplosivesPlayer>().MysteryBomb = true;
+        }
+>>>>>>> Charlie's-Uploads
     }
 }
