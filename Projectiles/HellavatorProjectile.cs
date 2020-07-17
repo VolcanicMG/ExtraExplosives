@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,20 +7,17 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class HellavatorProjectile : ExplosiveProjectile
+	public class HellavatorProjectile : ModProjectile
 	{
-		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Hellavator_1";
-		protected override string goreFileLoc => "Gores/Explosives/hellevator_gore";
+		private const int PickPower = 40;
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hellavator Projectile");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
-			radius = 0;
-			pickPower = 40;
 			projectile.tileCollide = true;
 			projectile.width = 10;
 			projectile.height = 10;
@@ -33,9 +29,6 @@ namespace ExtraExplosives.Projectiles
 
 			drawOffsetX = -15;
 			drawOriginOffsetY = -15;
-			explodeSounds = new LegacySoundStyle[] { 
-				mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc)
-			};
 		}
 
 		public override bool OnTileCollide(Vector2 old)
@@ -48,30 +41,20 @@ namespace ExtraExplosives.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(explodeSounds[0], (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
-			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
+			ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			//CreateExplosion(projectile.Center, 0);
+			CreateExplosion(projectile.Center, 0);
 
-			Explosion();
-			ExplosionDamage();
-			
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 400);
-
-			//Create Bomb Gore
-			Vector2 gVel1 = new Vector2(-2f, 2f);
-			Vector2 gVel2 = new Vector2(2f, -2f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
-		public override void Explosion()
+		private void CreateExplosion(Vector2 position, int radius)
 		{
-			Vector2 position = projectile.Center;
 			int width = 3; //Explosion Width
 			int height = Main.maxTilesY; //Explosion Height
 
@@ -92,7 +75,7 @@ namespace ExtraExplosives.Projectiles
 					if (WorldGen.InWorld(xPosition, yPosition))
 					{
 						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+						if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
 						{
 						}
 						else //Breakable
@@ -125,13 +108,9 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
-						else
-						{
-							dust.noGravity = true;
-							dust.noLight = true;
-							dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
-						}
+						dust.noGravity = true;
+						dust.noLight = true;
+						dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
 					}
 					//------------
 
@@ -141,14 +120,10 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
-						else
-						{
-							dust.noGravity = true;
-							dust.noLight = true;
-							dust.shader = GameShaders.Armor.GetSecondaryShader(111, Main.LocalPlayer);
-							dust.fadeIn = 3f;
-						}
+						dust.noGravity = true;
+						dust.noLight = true;
+						dust.shader = GameShaders.Armor.GetSecondaryShader(111, Main.LocalPlayer);
+						dust.fadeIn = 3f;
 					}
 					//------------
 				}

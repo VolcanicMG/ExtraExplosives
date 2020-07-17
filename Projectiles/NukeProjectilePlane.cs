@@ -7,10 +7,8 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class NukeProjectilePlane : ExplosiveProjectile
+	public class NukeProjectilePlane : ModProjectile
 	{
-		protected override string explodeSoundsLoc => "n/a";
-		protected override string goreFileLoc => "n/a";
 		internal static bool CanBreakWalls;
 		private bool done = false;
 		private bool reset = false;
@@ -23,7 +21,7 @@ namespace ExtraExplosives.Projectiles
 			Main.projFrames[projectile.type] = 4;
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
 			projectile.tileCollide = false; //checks to see if the projectile can go through tiles
 			projectile.width = 536;   //This defines the hitbox width
@@ -98,7 +96,7 @@ namespace ExtraExplosives.Projectiles
 					"Dropping the Load!!");
 				done = true;
 
-				SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectileBomb>(), 3000, 1, projectile.owner);
+				SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
 
 				//Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
 			}
@@ -109,7 +107,7 @@ namespace ExtraExplosives.Projectiles
 				projectile.frame = 4;
 				done = true;
 
-				SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectileBomb>(), 3000, 1, projectile.owner);
+				SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
 
 				//Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
 			}
@@ -131,7 +129,7 @@ namespace ExtraExplosives.Projectiles
 				if (Main.netMode == NetmodeID.MultiplayerClient) //set NukeHit to false for all players
 				{
 					ModPacket myPacket = mod.GetPacket();
-					myPacket.WriteVarInt(2);
+					myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkNukeHit);
 					myPacket.Send();
 				}
 			}

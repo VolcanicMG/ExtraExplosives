@@ -11,12 +11,13 @@ using Projectile = Terraria.Projectile;
 
 namespace ExtraExplosives.Items.Explosives
 {
-    public class MagicBombItem : ExplosiveItem
+    public class MagicBombItem : ModItem
     {
         private int _pickPower = 0;
         private int timeLeft = 0;
 
         public override bool CloneNewInstances => true;
+        public override string Texture => "Terraria/Item_" + ItemID.StickyBomb;
         
         public override void SetStaticDefaults()
         {
@@ -25,10 +26,8 @@ namespace ExtraExplosives.Items.Explosives
                                "Right Click to increase its power");
         }
 
-        public override void SafeSetDefaults()
+        public override void SetDefaults()
         {
-            item.damage = 100;
-            item.knockBack = 25;
             item.useTurn = true;
             item.height = 20;
             item.width = 20;
@@ -49,8 +48,8 @@ namespace ExtraExplosives.Items.Explosives
             ref float knockBack)
         {
             Projectile.NewProjectile(position, new Vector2(speedX, speedY),
-                ModContent.ProjectileType<SmallExplosiveProjectile>(), item.damage, item.knockBack);   //ModContent.ProjectileType<MagicBombProjectile>()
-            item.damage = 100;
+                ModContent.ProjectileType<SmallExplosiveProjectile>(), item.damage, 0);   //ModContent.ProjectileType<MagicBombProjectile>()
+            item.damage = 40;
             return false;
         }
 
@@ -64,7 +63,7 @@ namespace ExtraExplosives.Items.Explosives
         public override bool AltFunctionUse(Player player)
         {
             if (player.statMana < 20 || timeLeft != 0 || item.damage >= 1000) return false;
-            item.damage += 30;    // TODO add indicator showing failed or successful mana addition
+            item.damage += 20;    // TODO add indicator showing failed or successful mana addition
             player.statMana -= 20;
             timeLeft = 30;
             return false;
@@ -76,5 +75,7 @@ namespace ExtraExplosives.Items.Explosives
             currentDamageTooltip.overrideColor = Color.Aquamarine;
             tooltips.Add(currentDamageTooltip);
         }
+        
+        
     }
 }

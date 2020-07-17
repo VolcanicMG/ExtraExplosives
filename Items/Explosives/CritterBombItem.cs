@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class CritterBombItem : ExplosiveItem
+	public class CritterBombItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -12,10 +12,9 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("Spawns in golden critters");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
-			item.damage = 70;	 //The damage stat for the Weapon.
-			item.knockBack = 20;	
+			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
 			item.maxStack = 999;   //This defines the items max stack

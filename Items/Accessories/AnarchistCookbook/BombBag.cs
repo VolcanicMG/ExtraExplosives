@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,8 +8,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bomb Bag");
-            Tooltip.SetDefault("50% chance to throw a second explosives\n" +
-                               "Does not consume a second item");
+            Tooltip.SetDefault("Filled with explosives");
         }
 
         public override void SetDefaults()
@@ -24,10 +20,6 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             item.rare = ItemRarityID.Pink;
             item.accessory = true;
             item.social = false;
-        }
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.GetModPlayer<ExtraExplosivesPlayer>().BombBag = true;
         }
     }
 }

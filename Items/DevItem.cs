@@ -1,9 +1,4 @@
-﻿using ExtraExplosives.NPCs.CaptainExplosiveBoss;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
-using ExtraExplosives.Projectiles;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Terraria;
+﻿using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,10 +28,11 @@ namespace ExtraExplosives.Items
 			item.noUseGraphic = true;
 			item.noMelee = true;	  //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
 			item.noMelee = true;	  //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damage
-			item.shoot = ModContent.ProjectileType<NukeProjectileBomb>(); //This defines what type of projectile this item will shoot
+			item.shoot = ModContent.ProjectileType<BossGooBombProjectile>(); //This defines what type of projectile this item will shoot
 			item.shootSpeed = 5f; //This defines the projectile speed when shot
 			//item.createTile = mod.TileType("ExplosiveTile");
 		}
+<<<<<<< HEAD
 
 
 		private int cooldown = 0;
@@ -52,5 +48,7 @@ namespace ExtraExplosives.Items
 			
 			return false;
 		}
+=======
+>>>>>>> ade5cb7c462e2a26ee38cb48d28cf4313244afbb
 	}
 }

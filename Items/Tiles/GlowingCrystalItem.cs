@@ -25,7 +25,6 @@ namespace ExtraExplosives.Items
             item.consumable = true;
             item.value = 1000;
             item.createTile = ModContent.TileType<GlowingCrystal>();
-            item.UseSound = null;
         }
 
         public override string Texture => "ExtraExplosives/Items/Accessories/AnarchistCookbook/GlowingCompound";

@@ -4,12 +4,9 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles.PrismBomb
 {
-	public class PrismBomb : ExplosiveProjectile
+	public class PrismBomb : ModProjectile
 	{
-		protected override string explodeSoundsLoc => "n/a";
-		protected override string goreFileLoc => "n/a";
-
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
 			projectile.width = 26;
 			projectile.height = 26;
@@ -30,8 +27,8 @@ namespace ExtraExplosives.Projectiles.PrismBomb
 
 		public override void Kill(int timeleft)
 		{
-			Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("PrismBombPrism"), projectile.damage, projectile.knockBack, projectile.owner);
-			Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("PrismExplosion"), projectile.damage, projectile.knockBack, projectile.owner);
+			Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("PrismBombPrism"), projectile.damage, 0f, projectile.owner);
+			Projectile.NewProjectile(projectile.Center, Vector2.Zero, mod.ProjectileType("PrismExplosion"), projectile.damage, 0f, projectile.owner);
 		}
 	}
 }

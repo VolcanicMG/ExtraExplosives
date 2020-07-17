@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class MeteoriteBusterItem : ExplosiveItem
+	public class MeteoriteBusterItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -13,10 +13,9 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("Only targets meteorite");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
-			item.damage = 450;	 //The damage stat for the Weapon.
-			item.knockBack = 40;
+			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
 			item.maxStack = 999;   //This defines the items max stack

@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items.Weapons
 			item.width = 66;
 			item.height = 36;
 			item.shoot = ProjectileID.RocketI;
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/AirStrike_Call");
+			item.UseSound = SoundID.Item11;
 			//item.channel = true;
 			item.damage = 200;
 			item.shootSpeed = 10f;

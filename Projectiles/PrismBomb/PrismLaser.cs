@@ -117,10 +117,13 @@ namespace ExtraExplosives.Projectiles.PrismBomb
         // The AI of the projectile
         public override void AI()
         {
+          
+           
             projectile.velocity = Rotate(projectile.velocity, ROTATION_SPEED);
             CheckKill();
             SpawnDusts();
             CastLights();
+            
         }
 
         private void SpawnDusts()
@@ -172,7 +175,7 @@ namespace ExtraExplosives.Projectiles.PrismBomb
             Vector2 rotatedVelocity = Rotate(diff, projectile.ai[1]);
             for (laserLength = START_DISTANCE; laserLength <= MAX_LENGTH; laserLength += 5f)
             {
-                Vector2 start = projectile.Center + projectile.velocity * laserLength;
+                var start = projectile.Center + projectile.velocity * laserLength;
                 if (!Collision.CanHit(projectile.Center, 1, 1, start, 1, 1))
                 {
                     laserLength -= 5f;
@@ -184,10 +187,12 @@ namespace ExtraExplosives.Projectiles.PrismBomb
         private void CheckKill()
         {
             // Kill the projectile if the npc isnt active or pushes in ai[0] of -1 
-            if (projectile.ai[0] == -1 || Main.projectile[(int)projectile.ai[0]].active == false)           
-            {
+            if (projectile.ai[0] == -1 || Main.projectile[(int)projectile.ai[0]].active == false)           {
+                
                 projectile.active = false;
+              
             }
+       
         }
 
     

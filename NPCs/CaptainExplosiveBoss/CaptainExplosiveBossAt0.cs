@@ -1,17 +1,17 @@
 using ExtraExplosives.Items;
 using ExtraExplosives.Items.Accessories;
 using ExtraExplosives.Items.Accessories.AnarchistCookbook;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
+using ExtraExplosives.Items.Explosives;
 using Microsoft.Xna.Framework;
-using System;
-using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using static ExtraExplosives.GlobalMethods;
+using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 {
@@ -43,11 +43,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		//	//AltTextures[1] = "NPCs/CaptainExplosiveBoss/CaptainExplosiveBossDamaged";
 		//}
 
+		private bool firstTick;
+		private bool flag;
+		private bool flag2;
+
 		public override void SetDefaults()
 		{
 			npc.aiStyle = -1;
 			npc.lifeMax = 9800;
-			npc.damage = 1000;
+			npc.damage = 80;
 			npc.defense = 999999;
 			npc.knockBackResist = 0f;
 			npc.width = 200;
@@ -61,14 +65,13 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.buffImmune[24] = true;
-			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
+			//music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
 
 			bossBag = ItemType<CaptainExplosiveTreasureBag>();
 			npc.immortal = true;
 
 			drawOffsetY = 50f;
 		}
-		
 
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
@@ -76,43 +79,51 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.damage = (int)(npc.damage * 0.6f);
 		}
 
-		public override bool CheckDead()
-		{
-			for (int i = 1; i < 12; i++)
-			{
-				for (int k = 0; k < 4; k++)
-				{
-					Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
-					Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore" + i), 1.5f);
-				}
-			}
+		//public override bool CheckDead()
+		//{
+		//	if (!flag)
+		//	{
+		//		for (int i = 1; i < 12; i++)
+		//		{
+		//			for (int k = 0; k < 4; k++)
+		//			{
+		//				Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
+		//				Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore" + i), 1.5f);
+		//			}
+		//		}
 
-			for (int g = 0; g < 50; g++)
-			{
-				int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 2.5f;
-				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
-				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 2.5f;
-				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
-				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 2.5f;
-				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
-				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
-				goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 2.5f;
-				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
-				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
-			}
+		//		for (int g = 0; g < 50; g++)
+		//		{
+		//			int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+		//			Main.gore[goreIndex].scale = 2.5f;
+		//			Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+		//			Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+		//			goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+		//			Main.gore[goreIndex].scale = 2.5f;
+		//			Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+		//			Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+		//			goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+		//			Main.gore[goreIndex].scale = 2.5f;
+		//			Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+		//			Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+		//			goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+		//			Main.gore[goreIndex].scale = 2.5f;
+		//			Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+		//			Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
 
-			CreateExplosion(npc.Center, 25);
+		//		}
 
-			ExplosionDamage(10f * 2f, npc.Center, 1000, 30, Main.myPlayer);
+		//		CreateExplosion(npc.Center, 25);
 
-			return true;
-		}
+		//		ExplosionDamage(10f * 2f, npc.Center, 1000, 30, Main.myPlayer);
+
+		//		Main.NewText("I only run once");
+
+		//		flag = true;
+
+		//	}
+		//	return true;
+		//}
 
 		private void CreateExplosion(Vector2 position, int radius)
 		{
@@ -132,26 +143,27 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 						else //Breakable
 						{
 							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+							NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
 						}
 					}
 				}
 			}
 		}
 
-		public override void OnHitPlayer(Player target, int damage, bool crit)
-		{
-			return;
-			npc.immortal = false;
-			npc.StrikeNPCNoInteraction(100, 0, -npc.direction);
-		}
 
 		public override void AI()
 		{
-			npc.life = 1;
+			Player player = Main.player[npc.target];
+
+			//Main.NewText(npc.active);
+
+			if (!firstTick)
+			{
+				npc.life = 1;
+				firstTick = true;
+			}
 
 			//check for the players death
-			Player player = Main.player[npc.target];
 			if (!player.active || player.dead)
 			{
 				npc.TargetClosest(false);
@@ -167,8 +179,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				}
 			}
 
-			
-			
 			npc.TargetClosest(true);
 			Vector2 vector89 = new Vector2(npc.Center.X, npc.Center.Y);
 			float num716 = Main.player[npc.target].Center.X - vector89.X;
@@ -181,30 +191,153 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.velocity.X = ((npc.velocity.X * 100f + num716) / 101f);
 			npc.velocity.Y = ((npc.velocity.Y * 100f + num717) / 101f);
 
-			if (npc.ai[3] == 500)
+			//check to see if its time to kill the boss
+			if (npc.ai[3] >= 500)
 			{
+
+				NPCLoot();
+				Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/CaptainExplosion")); //sound
+
 				npc.immortal = false;
-				npc.StrikeNPCNoInteraction(100, 0, -npc.direction);
+				npc.netUpdate = true;
+
+				//NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+				if (Main.netMode == 2)
+				{
+					NetMessage.SendData(28, -1, -1, null, npc.whoAmI, 99999f, 0f, 0f, 0, 0, 0);
+				}
+				else if (Main.netMode == NetmodeID.SinglePlayer)
+				{
+					npc.StrikeNPCNoInteraction(10000, 1, -npc.direction, false, false, false);
+				}
+
+				if (!flag)
+				{
+					for (int i = 1; i < 12; i++)
+					{
+						for (int k = 0; k < 4; k++)
+						{
+							Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width - 8), Main.rand.Next(npc.height / 2));
+							Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore" + i), 1.5f);
+						}
+					}
+
+					for (int g = 0; g < 15; g++)
+					{
+						int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+						Main.gore[goreIndex].scale = 2.5f;
+						Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+						Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+						goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+						Main.gore[goreIndex].scale = 2.5f;
+						Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+						Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+						goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 64f), default(Vector2), Main.rand.Next(61, 64), 1f);
+						Main.gore[goreIndex].scale = 2.5f;
+						Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
+						Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+						goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 84f), default(Vector2), Main.rand.Next(61, 64), 1f);
+						Main.gore[goreIndex].scale = 2.5f;
+						Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
+						Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+
+					}
+
+					if (ExtraExplosives.CheckBossBreak)
+					{
+						CreateExplosion(npc.Center, 25);
+					}
+
+					ExplosionDamage(10f * 2f, npc.Center, 1000, 30, Main.myPlayer);
+
+					//Main.NewText("I only run once");
+
+					flag = true;
+
+				}
+
+				//npc.active = false;
 			}
 
 			npc.ai[3]++;
 			//Main.NewText(npc.velocity);
 		}
 
+		public override bool PreNPCLoot()
+		{
+			return true;
+		}
+
 		public override void NPCLoot()  // What will drop when the npc is killed?
 		{
-			if (Main.expertMode)    // Expert mode only loot
+			if (!flag2)
 			{
-				npc.DropBossBags(); // Boss bag
+				if (Main.expertMode)    // Expert mode only loot
+				{
+					//npc.DropBossBags(); // Boss bag
+
+					npc.DropItemInstanced(npc.position, npc.Size, ItemType<CaptainExplosiveTreasureBag>(), 1, false);
+
+				}
+
+				int drop = Main.rand.NextBool() ? ItemType<BombardEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
+				int dropChance = drop == ItemType<BombardEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardEmblem>();    // find the other item
+				npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), drop);  // drop the confirmed item
+
+				//A litte over 50% boost if check break is true
+				if (ExtraExplosives.CheckBossBreak)
+				{
+					int cntr = 0; //to make sure the boss doesn't drop more than one bomb.
+
+					if (Main.rand.Next(3) == 0) npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), dropChance);    // if the roll is successful drop the other
+					
+					foreach(int item in bombs) //for each bomb on the list test to see if it should drop
+					{
+						if (Main.rand.Next(3) == 0 && cntr != 5)
+						{
+							npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), item);    //spawn the bomb
+							cntr++;
+						}
+					}
+				}
+				else
+				{
+					if (Main.rand.Next(7) == 0) npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), dropChance);    // if the roll is successful drop the other
+				}
+
+				flag2 = true;
+
 			}
-			int drop = Main.rand.NextBool() ? ItemType<BombardierEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
-			int dropChance = drop == ItemType<BombardierEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardierEmblem>();    // find the other item
-			npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), drop);  // drop the confirmed item
-			if (Main.rand.Next(7) == 0) npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), dropChance);    // if the roll is sucessful drop the other
 		}
+
+		public override void BossLoot(ref string name, ref int potionType)
+		{
+			name = "Captain Explosive";
+			potionType = ItemID.HealingPotion;
+		}
+
+
+		public override void FindFrame(int frameHeight)
+		{
+
+			npc.frameCounter += 2.0; //change the frame speed
+			npc.frameCounter %= 100.0; //How many frames are in the animation
+			npc.frame.Y = frameHeight * ((int)npc.frameCounter % 16 / 4); //set the npc's frames here
+
+		}
+
+		//public override void HitEffect(int hitDirection, double damage)
+		//{
+		//	if (npc.life <= 0)
+		//	{
+
+		//	}
+		//}
+
 		private float _timer = 0;
 		private int _color = 0;
-		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor) {
+		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+		{
 			Main.spriteBatch.End();
 			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 
@@ -213,32 +346,32 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			switch (_color)
 			{
 				case 0:
-					deathShader.UseColor(0, 0, 0).UseSaturation((_timer/5) * _timer);	// Base (this does nothing but ensure the shader doesnt break)
+					deathShader.UseColor(0, 0, 0).UseSaturation((_timer / 5) * _timer); // Base (this does nothing but ensure the shader doesnt break)
 					if (_timer > 1f)
 					{
 						_color = 1;
 					}
 					break;
 				case 1:
-					deathShader.UseColor(0.5f, 0.05f, 0.05f).UseSaturation((_timer/3) * _timer);	// Red (increase the number to slow the speed, decrease to make it faster)
+					deathShader.UseColor(0.5f, 0.05f, 0.05f).UseSaturation((_timer / 3) * _timer);  // Red (increase the number to slow the speed, decrease to make it faster)
 					if (_timer > 2.5f)
 					{
 						_color = 2;
 					}
 					break;
-				
+
 				case 2:
-					deathShader.UseColor(0.5f, 0.25f, 0.05f).UseSaturation((_timer/2) * _timer); // Orange (see previous)
+					deathShader.UseColor(0.5f, 0.25f, 0.05f).UseSaturation((_timer / 2) * _timer); // Orange (see previous)
 					if (_timer > 3.8f)
 					{
 						_color = 3;
 					}
 					break;
 				case 3:
-					deathShader.UseColor(.5f, .5f, 0.05f).UseSaturation(_timer*_timer);	// Yellow (see previous)
+					deathShader.UseColor(.5f, .5f, 0.05f).UseSaturation(_timer * _timer);   // Yellow (see previous)
 					break;
 			}
-			Main.NewText(_timer);
+			//Main.NewText(_timer);
 			// Call Apply to apply the shader to the SpriteBatch. Only 1 shader can be active at a time.
 			deathShader.Apply(null);
 
@@ -253,20 +386,49 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
 		}
 
-		public override void FindFrame(int frameHeight)
+		public override void SendExtraAI(BinaryWriter writer)
 		{
-			npc.frameCounter += 2.0; //change the frame speed
-			npc.frameCounter %= 100.0; //How many frames are in the animation
-			npc.frame.Y = frameHeight * ((int)npc.frameCounter % 16 / 4); //set the npc's frames here
 
+			//writer.Write((bool)ded);
+			//writer.Write(firstTick);
 		}
 
-		//public override void HitEffect(int hitDirection, double damage)
-		//{
-		//	if (npc.life <= 0)
-		//	{
-				
-		//	}
-		//}
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+
+			//ded = reader.ReadBoolean();
+			//firstTick = reader.ReadBoolean();
+		}
+
+		private int[] bombs = new int[]        // List of bombs which should drop from CE boss bag,
+            {
+				ModContent.ItemType<BasicExplosiveItem>(),
+				ModContent.ItemType<SmallExplosiveItem>(),
+				ModContent.ItemType<MediumExplosiveItem>(),
+				ModContent.ItemType<LargeExplosiveItem>(),
+				ModContent.ItemType<MegaExplosiveItem>(),
+				ModContent.ItemType<GiganticExplosiveItem>(),
+				ModContent.ItemType<TorchBombItem>(),
+				ModContent.ItemType<DynaglowmiteItem>(),
+				ModContent.ItemType<BigBouncyDynamiteItem>(),
+				ModContent.ItemType<HouseBombItem>(),
+				ModContent.ItemType<ClusterBombItem>(),
+				ModContent.ItemType<PhaseBombItem>(),
+				ModContent.ItemType<TheLevelerItem>(),
+				ModContent.ItemType<DeliquidifierItem>(),
+				ModContent.ItemType<HydromiteItem>(),
+				ModContent.ItemType<LavamiteItem>(),
+				ModContent.ItemType<CritterBombItem>(),
+				ModContent.ItemType<BunnyiteItem>(),
+				ModContent.ItemType<BreakenTheBankenItem>(),
+				ModContent.ItemType<HeavyBombItem>(),
+				ModContent.ItemType<DaBombItem>(),
+				ModContent.ItemType<ReforgeBombItem>(),
+				ModContent.ItemType<MeteoriteBusterItem>(),
+				ModContent.ItemType<TrollBombItem>(),
+				ModContent.ItemType<FlashbangItem>(),
+				ModContent.ItemType<RainboomItem>(),
+				ModContent.ItemType<HotPotatoItem>()
+			};
 	}
 }
