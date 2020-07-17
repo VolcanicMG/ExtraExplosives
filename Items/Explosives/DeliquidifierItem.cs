@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class DeliquidifierItem : ExplosiveItem
+	public class DeliquidifierItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("Removes water, lava, and honey");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
 			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width

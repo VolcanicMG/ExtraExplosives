@@ -17,6 +17,7 @@ namespace ExtraExplosives.Tiles
         
         public override void SetDefaults()
         {
+            
             Main.tileSolid[Type] = false;
             Main.tileNoAttach[Type] = true;
             Main.tileFrameImportant[Type] = true;
@@ -70,7 +71,6 @@ namespace ExtraExplosives.Tiles
 
             //TileObjectData.newTile.FullCopyFrom(TileID.Crystals);
         }
-        
 
         private int animationFrameWidth = 18;
         

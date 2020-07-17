@@ -7,7 +7,7 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	internal class NPCProjectile : ModProjectile	// This is only used by CE as an attack, ignoring
+	internal class NPCProjectile : ModProjectile
 	{
 		private const int PickPower = 0;
 
@@ -72,7 +72,7 @@ namespace ExtraExplosives.Projectiles
 			CreateDust(projectile.Center, 50);
 		}
 
-		/*private void CreateExplosion(Vector2 position, int radius)
+		private void CreateExplosion(Vector2 position, int radius)
 		{
 			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
 			{
@@ -93,7 +93,7 @@ namespace ExtraExplosives.Projectiles
 					}
 				}
 			}
-		}*/
+		}
 
 		private void CreateDust(Vector2 position, int amount)
 		{

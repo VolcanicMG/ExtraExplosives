@@ -1,4 +1,3 @@
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,9 +8,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Random Fuel");
-            Tooltip.SetDefault("Randomly debuffs enemies\n" +
-                               "Enemies can be burnt, frozen, or confused\n" +
-                               "Debuffs can affect the player");
+            Tooltip.SetDefault("Questionable but flammable");
         }
 
         public override void SetDefaults()
@@ -23,10 +20,6 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             item.rare = ItemRarityID.Orange;
             item.accessory = true;
             item.social = false;
-        }
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.GetModPlayer<ExtraExplosivesPlayer>().RandomFuel = true;
         }
     }
 }

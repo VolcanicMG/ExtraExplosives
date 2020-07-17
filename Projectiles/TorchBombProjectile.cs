@@ -5,18 +5,15 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class TorchBombProjectile : ExplosiveProjectile
+	public class TorchBombProjectile : ModProjectile
 	{
-		protected override string explodeSoundsLoc => "n/a";
-		protected override string goreFileLoc => "Gores/Explosives/torch_gore";
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Torch Bomb");
 			//Tooltip.SetDefault("");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
 			projectile.tileCollide = true; //checks to see if the projectile can go through tiles
 			projectile.width = 10;   //This defines the hitbox width
@@ -32,12 +29,6 @@ namespace ExtraExplosives.Projectiles
 		{
 			Vector2 position = projectile.Center;
 			Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-
-			//Create Bomb Gore
-			Vector2 gVel1 = new Vector2(0.0f, -2.0f);
-			Vector2 gVel2 = new Vector2(-1.0f, 2.0f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 
 			float x = 0;
 			float y = 0;

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class LandBridgeItem : ExplosiveItem
+	public class LandBridgeItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -13,7 +13,7 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("Explodes into a long bridge across the world");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
 			item.damage = 0;     //The damage stat for the Weapon.
 			item.width = 20;    //sprite width

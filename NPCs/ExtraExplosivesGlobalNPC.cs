@@ -50,10 +50,6 @@ namespace ExtraExplosives.NPCs
 				{
 					Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BlastShielding>(), 1);
 				}
-			}
-
-			if (npc.type == NPCID.TacticalSkeleton)
-			{
 				if (Main.rand.Next(2) == 1)
 				{
 					Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<ReactivePlating>(), 1);

@@ -1,35 +1,33 @@
-using System;
 using ExtraExplosives.Buffs;
+using ExtraExplosives.NPCs.CaptainExplosiveBoss;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Net;
+using Terraria;
+using Terraria.GameInput;
+using Terraria.Graphics.Effects;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 using System.Diagnostics;
 using System.Drawing;
-using System.Net;
 using ExtraExplosives.Items.Accessories;
 using ExtraExplosives.Items.Accessories.AnarchistCookbook;
 using ExtraExplosives.Projectiles;
 using ExtraExplosives.UI;
 using ExtraExplosives.UI.AnarchistCookbookUI;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
 using Color = System.Drawing.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
+using Terraria.DataStructures;
 
 namespace ExtraExplosives
 {
 	public class ExtraExplosivesPlayer : ModPlayer
 	{
-		
 		// Bombard Class stuff	(may need to make setting these on a per client basis)
 		public int DamageBonus { get; set; }
 		public float KnockbackBonus { get; set; }
@@ -38,6 +36,7 @@ namespace ExtraExplosives
 		public float KnockbackMulti { get; set; }
 		public float RadiusMulti { get; set; }
 		public int ExplosiveCrit { get; set; }
+
 
 		public int reforgeUIActive = 0;
 		public bool detonate;
@@ -49,15 +48,17 @@ namespace ExtraExplosives
 
 		public bool RadiatedDebuff;
 
+		private int tickCheck = 1;
+
 		//public static bool NukeActive;
 		//public static Vector2 NukePos;
 		//public static bool NukeHit;
 
 		public List<Terraria.ModLoader.PlayerLayer> playerLayers = new List<Terraria.ModLoader.PlayerLayer>();
-		
+
 		public bool reforge = false;
 		public static bool reforgePub;
-		
+
 		//Anarchist Cookbook Stuff
 		public bool BlastShielding { get; set; }
 		public bool BlastShieldingActive { get; set; }
@@ -85,18 +86,18 @@ namespace ExtraExplosives
 		public bool StickyGunpowder { get; set; }
 		public bool StickyGunpowderActive { get; set; }
 		public bool AnarchistCookbook { get; set; }
-		
+
 		// Chaos Bomb
 		public bool AlienExplosive { get; set; }
-		public bool Bombshroom  { get; set; }
+		public bool Bombshroom { get; set; }
 		public bool ChaosBomb { get; set; }
-		public bool EclecticBomb  { get; set; }
+		public bool EclecticBomb { get; set; }
 		public bool LihzahrdFuzeset { get; set; }
 		public bool SupernaturalBomb { get; set; }
 		public bool WyrdBomb { get; set; }
-		
-		public int FuzeTime { get; set; }	// Later use with Anarchist Cookbook UI
-		
+
+		public int FuzeTime { get; set; }   // Later use with Anarchist Cookbook UI
+
 		// Grenadier Class stuff (Bombard whatever)
 		public bool BombardEmblem { get; set; }
 		public bool BombCloak { get; set; }
@@ -106,7 +107,7 @@ namespace ExtraExplosives
 		public bool BombardsLaurels { get; set; }
 		public bool BombersPouch { get; set; }
 		public bool RavenousBomb { get; set; }
-		
+
 		internal bool InventoryOpen { get; set; }
 		private bool InvFlag { get; set; }
 
@@ -117,13 +118,12 @@ namespace ExtraExplosives
 		internal int boostTimer = 30;
 		internal bool novaBooster = false;
 		internal int novaBoostRechargeDelay = 0;
-		
 		public override void ResetEffects()
 		{
 			RadiatedDebuff = false;
 			BombBuddy = false;
 			novaBooster = false;
-			
+
 			// Anarchist Cookbook Resets
 			BlastShielding = false;
 			BombBag = false;
@@ -136,13 +136,13 @@ namespace ExtraExplosives
 			ShortFuse = false;
 			StickyGunpowder = false;
 			AnarchistCookbook = false;
-			
+
 			// Generic class stuff
 			BombardEmblem = false;
 			BombCloak = false;
 			CertificateOfDemolition = false;
 			RavenousBomb = false;
-			
+
 			// Chaos bomb
 			AlienExplosive = false;
 			Bombshroom = false;
@@ -161,7 +161,7 @@ namespace ExtraExplosives
 			RadiusMulti = 1;
 			ExplosiveCrit = 0;
 		}
-		
+
 		public override void UpdateDead()
 		{
 			RadiatedDebuff = false;
@@ -216,17 +216,16 @@ namespace ExtraExplosives
 
 			if (reforgeUIActive == 1) //check to see if the reforge bomb key was pressed
 			{
-				GetInstance<ExtraExplosives>().ExtraExplosivesReforgeBombInterface
-					.SetState(new UI.ExtraExplosivesReforgeBombUI());
+				GetInstance<ExtraExplosives>().ExtraExplosivesReforgeBombInterface.SetState(new UI.ExtraExplosivesReforgeBombUI());
 				reforgeUIActive++;
 			}
-
 			if (reforgeUIActive == 3)
 			{
 				GetInstance<ExtraExplosives>().ExtraExplosivesReforgeBombInterface.SetState(null);
 				reforgeUIActive = 4;
 			}
 
+			//cookbook stuff
 			if (ExtraExplosives.ToggleCookbookUI.JustPressed && Main.LocalPlayer.EE().AnarchistCookbook)
 			{
 				if (Main.playerInventory)
@@ -246,7 +245,7 @@ namespace ExtraExplosives
 			if (novaBoostRechargeDelay > 0)
 			{
 				novaBoostRechargeDelay--; // if it needs to recharge, let it recharge
-				if (player.wingTime > 0 || boosting)	// Can only boost if there is 'fuel' (wingTime) left in the novaBooster	(ignore wingtime if already boosting)
+				if (player.wingTime > 0 || boosting)    // Can only boost if there is 'fuel' (wingTime) left in the novaBooster	(ignore wingtime if already boosting)
 				{
 					switch (novaBoostRechargeDelay)
 					{
@@ -270,8 +269,8 @@ namespace ExtraExplosives
 				}
 			}
 			else if (Main.LocalPlayer.EE().novaBooster &&
-			    ExtraExplosives.TriggerBoost.JustPressed &&
-			    Main.LocalPlayer.velocity.Y != 0)
+				ExtraExplosives.TriggerBoost.JustPressed &&
+				Main.LocalPlayer.velocity.Y != 0)
 			{
 				novaBoostRechargeDelay = 300;
 				player.velocity *= 3;
@@ -279,32 +278,24 @@ namespace ExtraExplosives
 			}
 		}
 
-		/*
-		public override void PreUpdate()
-		{
-			playerLayers.Find(PlayerLayer.Wings)
-			base.PreUpdate();
-		}
-		*/
-
 		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage,
 			ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
 			Projectile projectile = new Projectile();
 			projectile.CloneDefaults(damageSource.SourceProjectileType);
-			if (projectile.type == ModContent.ProjectileType<BombCloakProjectile>()) return false;	// If the bomb cloak caused the explosion, do nothing
-			
+			if (projectile.type == ModContent.ProjectileType<BombCloakProjectile>()) return false;  // If the bomb cloak caused the explosion, do nothing
+
 			if (projectile.aiStyle == 16)
 			{
 				//Main.NewText(damage);
-				if (BlastShielding)	// Blast Shielding (working)
+				if (BlastShielding) // Blast Shielding (working)
 				{
 					return false;
 				}
-				else if(ReactivePlating) damage = (int)(damage * 0.9);
+				else if (ReactivePlating) damage = (int)(damage * 0.9);
 				//Main.NewText(damage);
 			}
-			
+
 			return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
 		}
 
@@ -319,7 +310,7 @@ namespace ExtraExplosives
 
 		public override void PostUpdate()
 		{
-			//Player player = Main.player[Main.myPlayer];
+			
 			if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["Bang"].Deactivate();
@@ -329,12 +320,40 @@ namespace ExtraExplosives
 			{
 				Filters.Scene["BigBang"].Deactivate();
 			}
-			
+
+			//Main.NewText(ExtraExplosives.CheckUIBoss);
+
+			if (ExtraExplosives.CheckUIBoss == 1 && tickCheck == 1)
+			{
+				Player playerCheck = Main.player[Main.myPlayer];
+				if (playerCheck.whoAmI == 0)
+				{
+					GetInstance<ExtraExplosives>().CEBossInterface.SetState(new UI.CEBossUI()); //get the UI
+				}
+				else if (playerCheck.whoAmI == 255)
+				{
+
+				}
+				else
+				{
+					GetInstance<ExtraExplosives>().CEBossInterfaceNonOwner.SetState(new UI.CEBossUINonOwner()); //get the UI
+				}
+
+				tickCheck = 2;
+
+				//Main.NewText(player.whoAmI);
+			}
+
+			//disable the looping
+			if (ExtraExplosives.CheckUIBoss != 1)
+			{
+				tickCheck = 1;
+			}
 		}
-		
-		public override void PostUpdateMiscEffects()	// Put updates to damage, knockback, crit, and radius here
+
+		public override void PostUpdateMiscEffects()    // Put updates to damage, knockback, crit, and radius here
 		{
-			if (CrossedWires) 
+			if (CrossedWires)
 			{
 				DamageMulti += 0.15f;
 				ExplosiveCrit += 10;
@@ -345,14 +364,14 @@ namespace ExtraExplosives
 			if (CertificateOfDemolition) RadiusMulti += 0.5f;
 
 		}
-		
+
 		private SpriteEffects effect;
 		private int offset;
 		public static readonly PlayerLayer Wings = new PlayerLayer("ExtraExplosives", "Wings", PlayerLayer.Wings,
-			delegate(PlayerDrawInfo info)
+			delegate (PlayerDrawInfo info)
 			{
 				//Main.NewText($"{GetInstance<ExtraExplosivesPlayer>().wingFrameCounter} {GetInstance<ExtraExplosivesPlayer>().wingFrame}");
-				
+
 
 				Player drawPlayer = info.drawPlayer;
 
@@ -360,7 +379,7 @@ namespace ExtraExplosives
 				ExtraExplosivesPlayer mp = drawPlayer.EE();
 				Texture2D Booster = GetTexture("ExtraExplosives/Items/Accessories/NovaBoosterLow_Wings");
 				Texture2D BoosterHigh = GetTexture("ExtraExplosives/Items/Accessories/NovaBoosterHigh_Wings");
-				
+
 				if (Main.LocalPlayer.direction < 0)
 				{
 					mp.offset = 24;
@@ -371,8 +390,8 @@ namespace ExtraExplosives
 					mp.offset = -24;
 					mp.effect = SpriteEffects.None;
 				}
-				
-				mp.wingFrameCounter++;	// This deals with the current frame
+
+				mp.wingFrameCounter++;  // This deals with the current frame
 				if (mp.wingFrameCounter > 8)
 				{
 					mp.wingFrameCounter = 0;
@@ -386,9 +405,9 @@ namespace ExtraExplosives
 						mp.wingFrame = 0;
 					}
 				}
-				
-				int drawX = (int) (info.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
-				int drawY = (int) (info.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y);
+
+				int drawX = (int)(info.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
+				int drawY = (int)(info.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y);
 				Main.NewText((mp.boosting ? BoosterHigh : Booster));
 				if (mp.boosting)
 				{
@@ -399,7 +418,7 @@ namespace ExtraExplosives
 						mp.boosting = false;
 					}
 				}
-				DrawData data = new DrawData((mp.boosting ? BoosterHigh : Booster), new Vector2(drawX + mp.offset, drawY), new Rectangle(0,(mp.player.velocity.Y == 0 ? 6 * 44 : 44 * mp.wingFrame),46, 44), new Microsoft.Xna.Framework.Color(255,255,255),  0f, new Vector2(Booster.Width / 2f, Booster.Height / 4f - 60), 1f, mp.effect, 0);
+				DrawData data = new DrawData((mp.boosting ? BoosterHigh : Booster), new Vector2(drawX + mp.offset, drawY), new Rectangle(0, (mp.player.velocity.Y == 0 ? 6 * 44 : 44 * mp.wingFrame), 46, 44), new Microsoft.Xna.Framework.Color(255, 255, 255), 0f, new Vector2(Booster.Width / 2f, Booster.Height / 4f - 60), 1f, mp.effect, 0);
 				Main.playerDrawData.Add(data);
 			});
 		public override void ModifyDrawLayers(List<Terraria.ModLoader.PlayerLayer> layers) //Make the players invisable
@@ -441,6 +460,21 @@ namespace ExtraExplosives
 			//player.ResetEffects();
 			player.ResetEffects();
 			Main.screenPosition = player.Center;
+
+			if(ExtraExplosives.CurrentVersion.Equals(""))
+			{
+				Main.NewText($"[c/FF0000:They're is no Internet connection.]");
+			}
+			else if(!ExtraExplosives.ModVersion.Equals(ExtraExplosives.CurrentVersion))
+			{
+				Main.NewText($"[c/AB40FF:The Extra Explosives Mod had an update available.]");
+				Main.NewText($"[c/AB40FF:Current Version Installed: {ExtraExplosives.ModVersion}]");
+				Main.NewText($"[c/AB40FF:Mod Browser Version: {ExtraExplosives.CurrentVersion}]");
+				Main.NewText($"[c/AB40FF:You can find the latests version in the TML mod browser.]");
+			}
+
+			//Main.NewText($"Version: {ExtraExplosives.ModVersion}");
+			//Main.NewText($"Current Version: |{currentVersion}|");
 		}
 
 		public override void SetControls() //when the nuke is active set the player to not build or use items
@@ -474,7 +508,7 @@ namespace ExtraExplosives
 
 		public override TagCompound Save()
 		{
-			return new TagCompound	// save tag, leave whats here add more as needed
+			return new TagCompound  // save tag, leave whats here add more as needed
 			{
 				// Main Cookbook Integration DO NOT REMOVE
 				[nameof(BlastShieldingActive)] = BlastShieldingActive,
@@ -487,14 +521,14 @@ namespace ExtraExplosives
 				[nameof(ReactivePlatingActive)] = ReactivePlatingActive,
 				[nameof(ShortFuseActive)] = ShortFuseActive,
 				[nameof(StickyGunpowderActive)] = StickyGunpowderActive,
-				
+
 				// Lesser tags
 				[nameof(LightweightBombshellVelocity)] = LightweightBombshellVelocity,
 				[nameof(RandomFuelOnFire)] = RandomFuelOnFire,
 				[nameof(RandomFuelFrostburn)] = RandomFuelFrostburn,
 				[nameof(RandomFuelConfused)] = RandomFuelConfused,
 				[nameof(ShortFuseTime)] = ShortFuseTime
-				
+
 			};
 		}
 
@@ -511,7 +545,7 @@ namespace ExtraExplosives
 			ReactivePlatingActive = tag.GetBool(nameof(ReactivePlatingActive));
 			ShortFuseActive = tag.GetBool(nameof(ShortFuseActive));
 			StickyGunpowderActive = tag.GetBool(nameof(StickyGunpowderActive));
-			
+
 			// Lesser tag loading
 			LightweightBombshellVelocity = tag.GetFloat(nameof(LightweightBombshellVelocity));
 			RandomFuelOnFire = tag.GetBool(nameof(RandomFuelOnFire));

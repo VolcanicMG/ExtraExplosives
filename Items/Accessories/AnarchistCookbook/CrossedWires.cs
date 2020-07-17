@@ -1,4 +1,3 @@
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ItemID = Terraria.ID.ItemID;
@@ -10,8 +9,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crossed Wires");
-            Tooltip.SetDefault("Increases explosive damage by X\n" +
-                               "Increases Explosive Critchance by Y");
+            Tooltip.SetDefault("The only time you should cross the streams");
         }
 
         public override void SetDefaults()
@@ -30,22 +28,15 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             ModRecipe modRecipe = new ModRecipe(mod);
             //modRecipe.AddIngredient(ItemID.Oil);
             modRecipe.AddIngredient(ItemID.CopperBar, 10);
-            modRecipe.AddIngredient(ItemID.Gel, 10);
             modRecipe.AddTile(TileID.Anvils);
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
             modRecipe = new ModRecipe(mod);
             //modRecipe.AddIngredient(ItemID.Oil);
             modRecipe.AddIngredient(ItemID.TinBar, 10);
-            modRecipe.AddIngredient(ItemID.Gel, 10);
             modRecipe.AddTile(TileID.Anvils);
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
-        }
-
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.GetModPlayer<ExtraExplosivesPlayer>().CrossedWires = true;
         }
     }
 }

@@ -1,4 +1,3 @@
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,7 +8,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mystery Bomb");
-            Tooltip.SetDefault("20% chance to not consume explosives");
+            Tooltip.SetDefault("A question mark is a terrible shape for a bomb");
         }
 
         public override void SetDefaults()
@@ -21,10 +20,6 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             item.rare = ItemRarityID.Orange;
             item.accessory = true;
             item.social = false;
-        }
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.GetModPlayer<ExtraExplosivesPlayer>().MysteryBomb = true;
         }
     }
 }

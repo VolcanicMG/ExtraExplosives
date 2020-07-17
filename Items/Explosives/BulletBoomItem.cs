@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Xml.Linq;
 using ExtraExplosives.Projectiles;
+using IL.Terraria.UI.Chat;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -16,7 +17,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace ExtraExplosives.Items.Explosives
 {
-    public class BulletBoomItem : ExplosiveItem
+    public class BulletBoomItem : ModItem
     {
 	    private int _projectileID;
 	    public int overStack = 0;
@@ -84,7 +85,7 @@ namespace ExtraExplosives.Items.Explosives
 			                   "Blows up upon touching a block.");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
 			item.damage = 30;	 //The damage stat for the Weapoon
 			item.width = 20;	//sprite width
