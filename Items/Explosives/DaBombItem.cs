@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class DaBombItem : ExplosiveItem
+	public class DaBombItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -12,10 +12,9 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("You are the bomb");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
-			item.damage = 400;	 //The damage stat for the Weapon.
-			item.knockBack = 200;
+			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
 			item.maxStack = 999;   //This defines the items max stack

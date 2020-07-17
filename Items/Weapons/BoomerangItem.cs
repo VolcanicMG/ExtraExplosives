@@ -6,21 +6,20 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-	public class BoomerangItem : ExplosiveItem
+	public class BoomerangItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("BOOMerang");
-			Tooltip.SetDefault("Itï¿½s coming back!!\n" +
+			Tooltip.SetDefault("It’s coming back!!\n" +
 				"[c/FF0000:Has a 1/5 chance of damaging you]");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
 			item.CloneDefaults(ItemID.EnchantedBoomerang);
 			item.shoot = ModContent.ProjectileType<BoomerangProjectile>();
 			item.damage = 50;
-			item.knockBack = 20;
 			item.rare = ItemRarityID.Lime;
 			item.value = Item.buyPrice(0, 1, 0, 0);
 		}

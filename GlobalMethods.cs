@@ -1,8 +1,6 @@
-﻿using System;
-using ExtraExplosives.Projectiles;
+﻿using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -79,40 +77,6 @@ namespace ExtraExplosives
 			}
 		}
 
-		public static void InflictDubuff(int id, int radius, Vector2 position, bool ownerImmune = false, int owner = 255, int? dust = null, int time = 300)
-		{
-			foreach (NPC npc in Main.npc) // Get each npc
-			{
-				if (Vector2.Distance(position, npc.Center) / 16f < radius)
-				{
-					npc.AddBuff(id, time);
-				}
-			}
-
-			if (Vector2.Distance(position, Main.player[owner].Center) / 16f < radius &&
-			    !Main.player[owner].EE().BlastShielding &&
-			    !ownerImmune)
-			{
-				Main.player[Main.myPlayer].AddBuff(id, time);
-			}
-
-			if (dust == null) return;
-			float projX = position.X;
-			float projY = position.Y;
-			for (float i = projX - radius * 16; i <= projX + radius * 16; i += radius/4) // Cycle X cords
-			{
-				for (float j = projY - radius * 16; j <= projY + radius * 16; j += radius/4) // Cycle Y cords
-				{
-					//float dist = Vector2.Distance(new Vector2(i, j), projectile.Center);
-					if (Main.rand.Next(400) == 0) // Random Scattering
-					{
-						Dust.NewDust(new Vector2(i, j), 1, 1, (int)dust);
-					}
-				}
-			}
-		}
-		
-
 		//============================================================================\\
 
 		//check if the tile can be broken or not
@@ -163,40 +127,41 @@ namespace ExtraExplosives
 				// Dungeon Bricks (Power 65)
 				// Separate from Obsidian block to allow for future functionality to better reflect base game mechanics
 				if ((tileId == TileID.BlueDungeonBrick || tileId == TileID.GreenDungeonBrick || tileId == TileID.PinkDungeonBrick)
-				    && pickPower < 65)
+					&& pickPower < 65)
 				{
 					return false;
 				}
 
 				// Cobalt & Palladium (Power 100)
 				if ((tileId == TileID.Cobalt || tileId == TileID.Palladium)
-				    && pickPower < 100)
+					&& pickPower < 100)
 				{
 					return false;
 				}
 
 				// Mythril & Orichalcum (Power 110)
 				if ((tileId == TileID.Mythril || tileId == TileID.Orichalcum)
-				    && pickPower < 110)
+					&& pickPower < 110)
 				{
 					return false;
 				}
 
 				// Adamantite & Titanium (Power 150)
 				if ((tileId == TileID.Adamantite || tileId == TileID.Titanium)
-				    && pickPower < 150)
+					&& pickPower < 150)
 				{
 					return false;
 				}
 
 				// Chlorophyte Ore (Power 200)
 				if (tileId == TileID.Chlorophyte
-				    && pickPower < 200)
+					&& pickPower < 200)
 				{
 					return false;
 				}
 
 				// Lihzahrd Brick (Power 210) todo add additional checks for Lihzahrd traps and the locked temple door
+
 				if ((tileId == TileID.LihzahrdBrick || tileId == TileID.LihzahrdAltar || tileId == TileID.Traps)
 				    && pickPower < 210)
 				{
@@ -210,7 +175,7 @@ namespace ExtraExplosives
 				if (tileResistance <= pickPower) return true;
 				return false;
 			}
-			return true;	// Catch for anything which slipped through, defaults to true
+			return true;    // Catch for anything which slipped through, defaults to true
 		}
 
 		//========================| Code Snippets Ready For Copy/Paste |========================\\

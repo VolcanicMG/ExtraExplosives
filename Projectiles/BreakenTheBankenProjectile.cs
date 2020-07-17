@@ -1,17 +1,14 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class BreakenTheBankenProjectile : ExplosiveProjectile
+	public class BreakenTheBankenProjectile : ModProjectile
 	{
-		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Breaken_The_Banken_";
-		protected override string goreFileLoc => "Gores/Explosives/breaken-the-banken_gore";
 		private const int PickPower = 0;
 
 		public override void SetStaticDefaults()
@@ -19,10 +16,8 @@ namespace ExtraExplosives.Projectiles
 			DisplayName.SetDefault("BreakenTheBanken");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
-			radius = 20;
-			pickPower = -2;
 			projectile.tileCollide = true;
 			projectile.width = 22;
 			projectile.height = 22;
@@ -30,37 +25,25 @@ namespace ExtraExplosives.Projectiles
 			projectile.friendly = true;
 			projectile.penetrate = 20;
 			projectile.timeLeft = 140;
-			explodeSounds = new LegacySoundStyle[4];
-			for (int num = 1; num <= explodeSounds.Length; num++)
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			Explosion();
-			
-			ExplosionDamage();
+			CreateExplosion(projectile.Center, 20);
 
 			//Create Bomb Dust
 			//CreateDust(projectile.Center, 10);
-
-			//Create Bomb Gore
-			Vector2 gVel1 = new Vector2(-3f, 3f);
-			Vector2 gVel2 = new Vector2(3f, 0f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
-		public override void Explosion()
+		private void CreateExplosion(Vector2 position, int radius)
 		{
-			Vector2 position = projectile.Center;
 			int cntr = 0; //Tracks how many coins have spawned in
 
 			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
@@ -90,11 +73,6 @@ namespace ExtraExplosives.Projectiles
 					}
 				}
 			}
-		}
-
-		public override void ExplosionDamage()
-		{
-			return;
 		}
 	}
 }

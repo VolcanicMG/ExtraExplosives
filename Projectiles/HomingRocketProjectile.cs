@@ -7,16 +7,9 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-<<<<<<< HEAD
 	public class HomingRocketProjectile : ModProjectile
 	{
 		private const int PickPower = 0;
-=======
-	public class HomingRocketProjectile : ExplosiveProjectile
-	{
-		protected override string explodeSoundsLoc => "n/a";
-		protected override string goreFileLoc => "n/a";
->>>>>>> Charlie's-Uploads
 
 		public override void SetStaticDefaults()
 		{
@@ -24,14 +17,8 @@ namespace ExtraExplosives.Projectiles
 			Main.projFrames[projectile.type] = 3;
 		}
 
-<<<<<<< HEAD
 		public override void SetDefaults()
 		{
-=======
-		public override void SafeSetDefaults()
-		{
-			pickPower = 0;
->>>>>>> Charlie's-Uploads
 			projectile.tileCollide = true;
 			projectile.width = 46;
 			projectile.height = 18;
@@ -184,21 +171,11 @@ namespace ExtraExplosives.Projectiles
 			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
-<<<<<<< HEAD
 			ExplosionDamage(10f, projectile.Center, projectile.damage, 20f, projectile.owner);
-=======
-			//ExplosionDamage(10f, projectile.Center, projectile.damage, 20f, projectile.owner);
->>>>>>> Charlie's-Uploads
 
 			//Create Bomb Explosion
 			//CreateExplosion(projectile.Center, 2);
 
-<<<<<<< HEAD
-=======
-			projectile.knockBack = 20;	// Since no calling item exists, knockback must be set internally	(Set in Hellfire Rocket Battery)
-			ExplosionDamage();
-			
->>>>>>> Charlie's-Uploads
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 100);
 		}
@@ -218,17 +195,8 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 180 / 2, position.Y - 180 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 180, 180, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
-<<<<<<< HEAD
 						dust.noGravity = true;
 						dust.fadeIn = 2.5f;
-=======
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
-						else
-						{
-							dust.noGravity = true;
-							dust.fadeIn = 2.5f;
-						}
->>>>>>> Charlie's-Uploads
 					}
 					//------------
 
@@ -238,17 +206,8 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 180 / 2, position.Y - 180 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 180, 180, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
-<<<<<<< HEAD
 						dust.noGravity = true;
 						dust.noLight = true;
-=======
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
-						else
-						{
-							dust.noGravity = true;
-							dust.noLight = true;
-						}
->>>>>>> Charlie's-Uploads
 					}
 					//------------
 
@@ -258,17 +217,8 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 180 / 2, position.Y - 180 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 180, 180, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-<<<<<<< HEAD
 						dust.noGravity = true;
 						dust.noLight = true;
-=======
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
-						else
-						{
-							dust.noGravity = true;
-							dust.noLight = true;
-						}
->>>>>>> Charlie's-Uploads
 					}
 					//------------
 				}

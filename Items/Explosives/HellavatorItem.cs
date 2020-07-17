@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class HellavatorItem : ExplosiveItem
+	public class HellavatorItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -14,10 +14,9 @@ namespace ExtraExplosives.Items.Explosives
 				"[c/AB40FF:Can destroy desert fossils]");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
-			item.damage = 70;	 //The damage stat for the Weapon.
-			item.knockBack = 20;
+			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
 			item.maxStack = 1;   //This defines the items max stack
@@ -41,14 +40,6 @@ namespace ExtraExplosives.Items.Explosives
 			recipe.AddIngredient(ModContent.ItemType<HeavyBombItem>(), 5);
 			recipe.AddIngredient(ModContent.ItemType<DeliquidifierItem>(), 5);
 			recipe.AddIngredient(ItemID.IronPickaxe, 2);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-			
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<HeavyBombItem>(), 5);
-			recipe.AddIngredient(ModContent.ItemType<DeliquidifierItem>(), 5);
-			recipe.AddIngredient(ItemID.LeadPickaxe, 2);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-using Terraria;
->>>>>>> Charlie's-Uploads
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,13 +8,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Resourceful Notes");
-<<<<<<< HEAD
             Tooltip.SetDefault("Chicken scratch");
-=======
-            Tooltip.SetDefault("50% chance to throw a second explosives\n" +
-                               "Does not consume a second item\n" +
-                               "20% chance to not consume explosives");
->>>>>>> Charlie's-Uploads
         }
 
         public override void SetDefaults()
@@ -41,13 +31,5 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
         }
-<<<<<<< HEAD
-=======
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.GetModPlayer<ExtraExplosivesPlayer>().BombBag = true;
-            player.GetModPlayer<ExtraExplosivesPlayer>().MysteryBomb = true;
-        }
->>>>>>> Charlie's-Uploads
     }
 }

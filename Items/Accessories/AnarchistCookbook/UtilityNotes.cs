@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-using Terraria;
->>>>>>> Charlie's-Uploads
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,12 +8,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Utility Notes");
-<<<<<<< HEAD
             Tooltip.SetDefault("Chicken scratch");
-=======
-            Tooltip.SetDefault("Minor increase to damage and crit chance\n" +
-                               "Explosives leave behind a glowing aura");
->>>>>>> Charlie's-Uploads
         }
 
         public override void SetDefaults()
@@ -40,13 +31,5 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
         }
-<<<<<<< HEAD
-=======
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.GetModPlayer<ExtraExplosivesPlayer>().CrossedWires = true;
-            player.GetModPlayer<ExtraExplosivesPlayer>().GlowingCompound = true;
-        }
->>>>>>> Charlie's-Uploads
     }
 }

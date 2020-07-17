@@ -10,7 +10,6 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-<<<<<<< HEAD
     public class HotPotatoProjectile : ModProjectile
     {
         private int _damage = 100;
@@ -22,17 +21,6 @@ namespace ExtraExplosives.Projectiles
 
         private int _fuze = 30;
         //private float[] rgb = new[] {1.58f, 1.58f, 0.0f};
-=======
-    public class HotPotatoProjectile : ExplosiveProjectile
-    {
-        protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "Gores/Explosives/hot-potato_gore";
-        private readonly int _lifeTime = 300 + Main.rand.Next(60);    // How long to keep alive in ticks (currently 5-6 seconds)
-        private bool _thrown;    // If the projectile has been thrown yet
-        private int _fuze = 30;   // The fuze length 
-        private float change;
-        private float changeTotal;
->>>>>>> Charlie's-Uploads
 
         public override bool CloneNewInstances => true;
 
@@ -41,15 +29,8 @@ namespace ExtraExplosives.Projectiles
             DisplayName.SetDefault("Hot Potato");
         }
 
-<<<<<<< HEAD
         public override void SetDefaults()
         {
-=======
-        public override void SafeSetDefaults()
-        {
-            pickPower = 0;
-            radius = 1;
->>>>>>> Charlie's-Uploads
             projectile.tileCollide = true;
             projectile.width = 20;
             projectile.height = 20;
@@ -65,7 +46,6 @@ namespace ExtraExplosives.Projectiles
 
         public override string Texture => "ExtraExplosives/Projectiles/HotPotatoProjectile";
 
-<<<<<<< HEAD
         /*public override bool PreAI()
         {
             projectile.ai[0]++;
@@ -119,13 +99,6 @@ namespace ExtraExplosives.Projectiles
 
                 //mod.Logger.Debug("_lifeTime - projectile.localAI[0]/60f(start at 0 raise till release)" + ((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f));
                 //float progress = _lifeTime - (_lifeTime - projectile.timeLeft) / _lifeTime; // Will range from -3 to 3, 0 being the point where the bomb explodes.
-=======
-        public override bool PreAI()
-        {
-            Player player = Main.player[projectile.owner];
-            if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive() && !_thrown && Main.myPlayer == projectile.owner)
-            {
->>>>>>> Charlie's-Uploads
                 float progress = (projectile.timeLeft) / 60f; 
                 Filters.Scene["BurningScreen"].GetShader().UseProgress((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f);
             }
@@ -149,17 +122,11 @@ namespace ExtraExplosives.Projectiles
                     float mouseY = Main.MouseScreen.Y - (screenH/2);
                     projectile.velocity.X = projectile.localAI[0] /_lifeTime * mouseX * modifier;
                     projectile.velocity.Y = projectile.localAI[0] /_lifeTime * mouseY * modifier;
-<<<<<<< HEAD
                     //mod.Logger.DebugFormat("Potato thrown at {0} {1}, mouse {2} {3}, screen {4} {5}", projectile.velocity.X, projectile.velocity.Y,Main.MouseScreen.X,Main.MouseScreen.Y,screenW,screenH);
                 }
                 else
                 {
                     projectile.velocity.Y = 1;
-=======
-                }
-                else
-                {
->>>>>>> Charlie's-Uploads
                     projectile.velocity.Y = 3;
                 }
             }
@@ -175,20 +142,13 @@ namespace ExtraExplosives.Projectiles
 
         public override void AI()
         {
-<<<<<<< HEAD
             if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive())
-=======
-            if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive() && Main.myPlayer == projectile.owner)
->>>>>>> Charlie's-Uploads
             {
                 changeTotal += change;
                 float tmp = (5 - (_lifeTime - projectile.localAI[0]) / 60f - (changeTotal * (projectile.localAI[1] - projectile.localAI[0])));
                 if (tmp < 0) tmp = 0;
                 Filters.Scene["BurningScreen"].GetShader().UseProgress((tmp > 0) ? tmp : 0);
-<<<<<<< HEAD
                // mod.Logger.DebugFormat("Overall progress made is {0} and decrease every tick is {1}",(_lifeTime - projectile.localAI[0]), tmp);
-=======
->>>>>>> Charlie's-Uploads
             }
             projectile.localAI[1]++;
             if (projectile.localAI[1] >= _lifeTime)
@@ -202,19 +162,13 @@ namespace ExtraExplosives.Projectiles
 
         public override void PostAI()
         {
-<<<<<<< HEAD
             if (Main.netMode != NetmodeID.Server && !Filters.Scene["BurningScreen"].IsActive() && !_thrown)        // Shader stuff
             {
                 //Filters.Scene.Activate("BurningScreen", Main.player[projectile.owner].Center).GetShader().UseColor(255, 255, 255).UseOpacity(0.1f);
-=======
-            if (Main.netMode != NetmodeID.Server && !Filters.Scene["BurningScreen"].IsActive() && !_thrown && Main.myPlayer == projectile.owner)        // Shader stuff
-            {
->>>>>>> Charlie's-Uploads
                 Filters.Scene.Activate("BurningScreen", Main.player[projectile.owner].position).GetShader()
                     .UseColor(255f, 0, 0).UseTargetPosition(Main.player[projectile.owner].position);
             }
         }
-<<<<<<< HEAD
         
 
         private void CreateExplosion(Vector2 position, int radius)    // Ripped from troll bomb, changed where needed
@@ -248,19 +202,12 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int ignore)
         {
             if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive())        // Shader stuff
-=======
-
-        public override void Kill(int ignore)
-        {
-            if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive() && Main.myPlayer == projectile.owner)         // Shader stuff
->>>>>>> Charlie's-Uploads
             {
                 Filters.Scene["BurningScreen"].Deactivate();
             }
             
             //Create Bomb Sound
             Main.PlaySound(SoundID.Item14, (int) projectile.Center.X, (int) projectile.Center.Y);
-<<<<<<< HEAD
 
             //Create Bomb Damage
             ExplosionDamage(projectile.localAI[0] / 6, projectile.Center, (int)projectile.localAI[0], projectile.localAI[0]/4, projectile.owner);
@@ -270,26 +217,6 @@ namespace ExtraExplosives.Projectiles
 
             //Create Bomb Dust
             CreateDust(projectile.Center, (int) projectile.localAI[0]/50);
-=======
-            
-            //Since these values change as the timer ticks down, they need to be set immedietly before an explosion
-            // To ensure they are accurate
-            projectile.damage = (int)projectile.localAI[0];
-            projectile.knockBack = (int) projectile.localAI[0] / 4f;
-            radius = (int) projectile.localAI[0] / 12;
-            Main.NewText($"Damage: {projectile.damage}, Knockback: {projectile.knockBack}, radius: {radius}");
-            Explosion();
-            ExplosionDamage();
-            CreateDust(projectile.Center, (int) projectile.localAI[0] * 2);
-            projectile.timeLeft = 0;
-            base.Kill(0);
-
-            //Create Bomb Gore
-            Vector2 gVel1 = new Vector2(2f, 2f);
-            Vector2 gVel2 = new Vector2(-2f, -1f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
->>>>>>> Charlie's-Uploads
         }
         
         private void CreateDust(Vector2 position, int amount)    // TODO UPDATE DUST CODE THIS BIT ACTS STRANGE
@@ -302,7 +229,6 @@ namespace ExtraExplosives.Projectiles
                 if (Main.rand.NextFloat() < DustAmount)
                 {
                     //---Dust 1---
-<<<<<<< HEAD
                     if (Main.rand.NextFloat() < 0.1)    // dynamite gibs    // Standard
                     {
                         updatedPosition = new Vector2(position.X - 70 / 2, position.Y - 70 / 2);
@@ -318,31 +244,11 @@ namespace ExtraExplosives.Projectiles
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 70, 70, 216, 0f, 0f, 154, new Color(255, 255, 255), 1.55f)];
                         dust.noGravity = false;
                         dust.fadeIn = 0.2763158f;
-=======
-                    if (Main.rand.NextFloat() < 0.5f)    // dynamite gibs    // Standard
-                    {
-                        updatedPosition = new Vector2(position.X - radius * 16 / 2, position.Y - radius * 16 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 90)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
-                        else dust.noGravity = true;
-                    }
-                    if (Main.rand.NextFloat() < 0.25f)    // potato gibs    // change if a better dust exists
-                    {
-                        updatedPosition = new Vector2(position.X - radius * 16 / 2, position.Y - radius * 16 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 216)];//new Color(255, 255, 255)
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
-                        else dust.noGravity = true;
->>>>>>> Charlie's-Uploads
                     }
                     //------------
                 }
             }
         }
-<<<<<<< HEAD
         
-=======
->>>>>>> Charlie's-Uploads
     }
 }

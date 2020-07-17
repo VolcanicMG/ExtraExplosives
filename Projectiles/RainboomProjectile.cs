@@ -1,26 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class RainboomProjectile : ExplosiveProjectile
+	public class RainboomProjectile : ModProjectile
 	{
-		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Rainboom_";
-		protected override string goreFileLoc => "Gores/Explosives/rainboom_gore";
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rainboom");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
-			radius = 30;
 			projectile.tileCollide = true;
 			projectile.width = 20;
 			projectile.height = 20;
@@ -28,34 +23,21 @@ namespace ExtraExplosives.Projectiles
 			projectile.friendly = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 15;
-			explodeSounds = new LegacySoundStyle[4];
-			for (int num = 1; num <= explodeSounds.Length; num++)
-            {
-				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
-            }
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			//CreateExplosion(projectile.Center, 30);
+			CreateExplosion(projectile.Center, 30);
 
 			//Create Bomb Dust
 			//CreateDust(projectile.Center, 10);
-
-			Explosion();
-
-			//Create Bomb Gore
-			Vector2 gVel1 = new Vector2(2.0f, -2.0f);
-			Vector2 gVel2 = new Vector2(0.0f, 2.0f);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 
 			//Buff
 			Player player = Main.player[projectile.owner];
@@ -63,9 +45,8 @@ namespace ExtraExplosives.Projectiles
 			player.AddBuff(BuffID.Clairvoyance, 20000);
 		}
 
-		public override void Explosion()
+		private void CreateExplosion(Vector2 position, int radius)
 		{
-			Vector2 position = projectile.Center;
 			RainbowDusts(radius, position, -1, (int)position.X - 10, (int)position.X + 10);
 		}
 

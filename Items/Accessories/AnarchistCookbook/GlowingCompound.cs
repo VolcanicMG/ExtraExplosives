@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-using Terraria;
->>>>>>> Charlie's-Uploads
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,11 +8,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Glowing Compound");
-<<<<<<< HEAD
             Tooltip.SetDefault("RADIOACTIVE: DO NO TOUCH");
-=======
-            Tooltip.SetDefault("Makes your bombs glow");
->>>>>>> Charlie's-Uploads
         }
 
         public override void SetDefaults()
@@ -29,12 +21,5 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             item.accessory = true;
             item.social = false;
         }
-<<<<<<< HEAD
-=======
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.GetModPlayer<ExtraExplosivesPlayer>().GlowingCompound = true;
-        }
->>>>>>> Charlie's-Uploads
     }
 }

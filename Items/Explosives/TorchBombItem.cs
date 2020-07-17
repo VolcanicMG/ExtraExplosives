@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class TorchBombItem : ExplosiveItem
+	public class TorchBombItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -13,7 +13,7 @@ namespace ExtraExplosives.Items.Explosives
 				"Make sure you have walls to attach too!");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
 			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width

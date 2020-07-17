@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-using Terraria;
->>>>>>> Charlie's-Uploads
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,13 +8,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Handy Notes");
-<<<<<<< HEAD
             Tooltip.SetDefault("Chicken scratch");
-=======
-            Tooltip.SetDefault("Double the initial velocity of thrown explosives\n" +
-                               "Thrown explosives stick to walls\n" +
-                               "Functions identically to sticky bombs");
->>>>>>> Charlie's-Uploads
         }
 
         public override void SetDefaults()
@@ -41,13 +31,5 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
         }
-<<<<<<< HEAD
-=======
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.GetModPlayer<ExtraExplosivesPlayer>().StickyGunpowder = true;
-            if(player.EE().LightweightBombshellsActive)player.EE().LightweightBombshells = true;
-        }
->>>>>>> Charlie's-Uploads
     }
 }

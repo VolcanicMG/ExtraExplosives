@@ -28,10 +28,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 			projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
 			projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
 			projectile.timeLeft = 150; //The amount of time the projectile is alive for
-<<<<<<< HEAD
-=======
-			projectile.damage = 150;
->>>>>>> Charlie's-Uploads
 		}
 
 		public override void AI()

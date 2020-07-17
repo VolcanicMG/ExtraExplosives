@@ -11,20 +11,13 @@ using Projectile = Terraria.Projectile;
 
 namespace ExtraExplosives.Items.Explosives
 {
-<<<<<<< HEAD
     public class MagicBombItem : ModItem
-=======
-    public class MagicBombItem : ExplosiveItem
->>>>>>> Charlie's-Uploads
     {
         private int _pickPower = 0;
         private int timeLeft = 0;
 
         public override bool CloneNewInstances => true;
-<<<<<<< HEAD
         public override string Texture => "Terraria/Item_" + ItemID.StickyBomb;
-=======
->>>>>>> Charlie's-Uploads
         
         public override void SetStaticDefaults()
         {
@@ -33,15 +26,8 @@ namespace ExtraExplosives.Items.Explosives
                                "Right Click to increase its power");
         }
 
-<<<<<<< HEAD
         public override void SetDefaults()
         {
-=======
-        public override void SafeSetDefaults()
-        {
-            item.damage = 100;
-            item.knockBack = 25;
->>>>>>> Charlie's-Uploads
             item.useTurn = true;
             item.height = 20;
             item.width = 20;
@@ -62,13 +48,8 @@ namespace ExtraExplosives.Items.Explosives
             ref float knockBack)
         {
             Projectile.NewProjectile(position, new Vector2(speedX, speedY),
-<<<<<<< HEAD
                 ModContent.ProjectileType<SmallExplosiveProjectile>(), item.damage, 0);   //ModContent.ProjectileType<MagicBombProjectile>()
             item.damage = 40;
-=======
-                ModContent.ProjectileType<SmallExplosiveProjectile>(), item.damage, item.knockBack);   //ModContent.ProjectileType<MagicBombProjectile>()
-            item.damage = 100;
->>>>>>> Charlie's-Uploads
             return false;
         }
 
@@ -82,11 +63,7 @@ namespace ExtraExplosives.Items.Explosives
         public override bool AltFunctionUse(Player player)
         {
             if (player.statMana < 20 || timeLeft != 0 || item.damage >= 1000) return false;
-<<<<<<< HEAD
             item.damage += 20;    // TODO add indicator showing failed or successful mana addition
-=======
-            item.damage += 30;    // TODO add indicator showing failed or successful mana addition
->>>>>>> Charlie's-Uploads
             player.statMana -= 20;
             timeLeft = 30;
             return false;
@@ -98,10 +75,7 @@ namespace ExtraExplosives.Items.Explosives
             currentDamageTooltip.overrideColor = Color.Aquamarine;
             tooltips.Add(currentDamageTooltip);
         }
-<<<<<<< HEAD
         
         
-=======
->>>>>>> Charlie's-Uploads
     }
 }

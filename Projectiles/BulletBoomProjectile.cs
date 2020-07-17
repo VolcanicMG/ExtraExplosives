@@ -6,13 +6,11 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-    public class BulletBoomProjectile : ExplosiveProjectile	// Will rebuild this file later
+    public class BulletBoomProjectile : ModProjectile
     {
         public override bool CloneNewInstances => true;    // DONT CHANGE
 		public override string Texture => "ExtraExplosives/Items/Explosives/BulletBoomItem";    // texture, change if needed
-		protected override string explodeSoundsLoc => "n/a";
-		protected override string goreFileLoc => "n/a";
-
+        
 		// Variables
 		private int _projectileID;
 		//internal static bool CanBreakWalls;    // doesn't seem necessary but left alone just in case
@@ -34,7 +32,7 @@ namespace ExtraExplosives.Projectiles
 			DisplayName.SetDefault("Test Projectile");    // internal name only, will not have a space for the projName piece
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
 			projectile.tileCollide = true; //checks to see if the projectile can go through tiles
 			projectile.width = 22;   //This defines the hitbox width
@@ -84,15 +82,14 @@ namespace ExtraExplosives.Projectiles
 
 					if (Math.Sqrt(x * x + y * y) <= radius + 0.5)   //this make so the explosion radius is a circle
 					{
-						//mod.Logger.Debug(projectile.damage);
+						mod.Logger.Debug(projectile.damage);
 						if (WorldGen.TileEmpty(xPosition, yPosition))
 						{
 							spedX = Main.rand.Next(15) - 7;
 							spedY = Main.rand.Next(15) - 7;
 							if (spedX == 0) spedX = 1;
 							if (spedY == 0) spedY = 1;
-							//if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 20, projectile.owner, 0.0f, 0);
-							if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, projectile.damage, 20, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 0.0f, 0);
+							if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, projectile.damage, 20, projectile.owner, 0.0f, 0);
 						}
 						else
 						{
@@ -100,7 +97,7 @@ namespace ExtraExplosives.Projectiles
 							spedY = Main.rand.Next(15) - 7;
 							if (spedX == 0) spedX = 1;
 							if (spedY == 0) spedY = 1;
-							if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, projectile.damage, 20, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 0.0f, 0);
+							if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, projectile.damage, 20, projectile.owner, 0.0f, 0);
 						}
 					}
 				}
@@ -115,12 +112,8 @@ namespace ExtraExplosives.Projectiles
 				{
 					Vector2 position1 = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
 					dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
-					if (Vector2.Distance(dust1.position, projectile.Center) > radius * 16) dust1.active = false;
-					else
-					{
-						dust1.noGravity = true;
-						dust1.noLight = true;
-					}
+					dust1.noGravity = true;
+					dust1.noLight = true;
 				}
 			}
 
@@ -130,11 +123,7 @@ namespace ExtraExplosives.Projectiles
 				{
 					Vector2 position2 = new Vector2(position.X - 80 / 2, position.Y - 80 / 2);
 					dust2 = Main.dust[Terraria.Dust.NewDust(position2, 80, 80, 6/*35*/, 0f, 0f, 0, new Color(240, 240, 240), 4.0f)];
-					if (Vector2.Distance(dust2.position, projectile.Center) > radius * 16) dust2.active = false;
-					else
-					{
-						dust2.noGravity = true;
-					}
+					dust2.noGravity = true;
 				}
 			}
 		}

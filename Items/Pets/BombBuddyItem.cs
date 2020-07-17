@@ -21,7 +21,6 @@ namespace ExtraExplosives.Items.Pets
 			item.value = Item.buyPrice(1, 0, 0, 0);
 			item.rare = 9;
 			item.buffType = ModContent.BuffType<BombBuddyBuff>();
-			item.maxStack = 1;
 		}
 
 		public override void UseStyle(Player player)

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class BigBouncyDynamiteItem : ExplosiveItem
+	public class BigBouncyDynamiteItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -12,10 +12,9 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("Spawns in multiple bouncy dynamite.");
 		}
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
-			item.damage = 300;	 //The damage stat for the Weapon.
-			item.knockBack = 30;
+			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
 			item.maxStack = 999;   //This defines the items max stack

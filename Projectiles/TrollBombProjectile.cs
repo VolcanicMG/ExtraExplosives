@@ -7,10 +7,9 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class TrollBombProjectile : ExplosiveProjectile
+	public class TrollBombProjectile : ModProjectile
 	{
-		protected override string explodeSoundsLoc => "n/a";
-		protected override string goreFileLoc => "n/a";
+		private const int PickPower = 0;
 
 		public override void SetStaticDefaults()
 		{
@@ -19,9 +18,8 @@ namespace ExtraExplosives.Projectiles
 
 		public override string Texture => "Terraria/Projectile_637";
 
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
-			pickPower = 0;
 			projectile.tileCollide = true;
 			projectile.width = 20;
 			projectile.height = 20;
@@ -63,7 +61,7 @@ namespace ExtraExplosives.Projectiles
 			CreateDust(projectile.Center, 100);
 		}
 
-		/*private void CreateExplosion(Vector2 position, int radius)
+		private void CreateExplosion(Vector2 position, int radius)
 		{
 			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
 			{
@@ -84,7 +82,7 @@ namespace ExtraExplosives.Projectiles
 					}
 				}
 			}
-		}*/
+		}
 
 		private void CreateDust(Vector2 position, int amount)
 		{
@@ -101,12 +99,8 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 70 / 2, position.Y - 70 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 70, 70, 4, 0f, 0f, 154, new Color(255, 255, 255), 3.55f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
-						else
-						{
-							dust.noGravity = true;
-							dust.fadeIn = 0.2763158f;
-						}
+						dust.noGravity = true;
+						dust.fadeIn = 0.2763158f;
 					}
 					//------------
 				}

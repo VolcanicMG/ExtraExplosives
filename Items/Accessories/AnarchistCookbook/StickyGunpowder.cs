@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-using Terraria;
->>>>>>> Charlie's-Uploads
 using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,12 +9,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sticky Gunpowder");
-<<<<<<< HEAD
             Tooltip.SetDefault("Impossibly Adhesive");
-=======
-            Tooltip.SetDefault("Thrown explosives stick to walls\n" +
-                               "Functions identically to sticky bombs");
->>>>>>> Charlie's-Uploads
         }
 
         public override void SetDefaults()
@@ -41,13 +32,5 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
         }
-<<<<<<< HEAD
-=======
-
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.EE().StickyGunpowder = true;
-        }
->>>>>>> Charlie's-Uploads
     }
 }

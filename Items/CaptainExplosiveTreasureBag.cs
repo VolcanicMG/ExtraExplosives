@@ -1,9 +1,5 @@
 using ExtraExplosives.Items.Accessories;
 using ExtraExplosives.Items.Accessories.AnarchistCookbook;
-<<<<<<< HEAD
-=======
-using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
->>>>>>> Charlie's-Uploads
 using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Items.Pets;
 using ExtraExplosives.NPCs;
@@ -19,11 +15,7 @@ namespace ExtraExplosives.Items
         private int[] items = new int[3];
 
         private int[] bombs = new int[27];
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> Charlie's-Uploads
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Captain Explosive Treasure Bag");    // Name, (change if you want idk)
@@ -38,28 +30,17 @@ namespace ExtraExplosives.Items
             item.height = 32;
             item.expert = true;
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> Charlie's-Uploads
 
         public override bool CanRightClick() => true;    // always able to right click so hijack the code to return true
 
         public override void OpenBossBag(Player player)
         {
-<<<<<<< HEAD
             //player.QuickSpawnItem(items[0], 1);
             if (Main.hardMode)
             {
                 player.TryGettingDevArmor(); // Will attempt to get dev armor if its hardmode
                 player.TryGettingDevArmor(); // Dev armor only technically drops from hardmode bosses but fuck it
-=======
-            if (Main.hardMode)
-            {
-                //player.TryGettingDevArmor(); // Will attempt to get dev armor if its hardmode
-                //player.TryGettingDevArmor(); // Dev armor only technically drops from hardmode bosses but fuck it
->>>>>>> Charlie's-Uploads
             }
 
             int drop = Main.rand.Next(3);    // get the item which will 100% drop
@@ -72,11 +53,7 @@ namespace ExtraExplosives.Items
                     player.QuickSpawnItem(item, 1);    // add hooks for special items here
                 }
             }
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> Charlie's-Uploads
         }
 
         public override void AddRecipes()
@@ -87,11 +64,7 @@ namespace ExtraExplosives.Items
                 ModContent.ItemType<BombHat>(),
                 ModContent.ItemType<BombCloak>()
             };
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> Charlie's-Uploads
             bombs = new int[]        // List of bombs which should drop from CE boss bag,
             {
                 ModContent.ItemType<BasicExplosiveItem>(),

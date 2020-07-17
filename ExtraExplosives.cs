@@ -12,6 +12,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
+using ExtraExplosives.UI.AnarchistCookbookUI;
+
 
 namespace ExtraExplosives
 {
@@ -48,6 +50,13 @@ namespace ExtraExplosives
 
 		public static string ModVersion;
 		public static string CurrentVersion = "";
+
+		private UserInterface cookbookInterface;
+		private UserInterface buttonInterface;
+		internal ButtonUI ButtonUI;
+		internal CookbookUI CookbookUI;
+
+		internal static ExtraExplosivesConfig EEConfig;
 
 		// Create the item to item id reference (used with cpt explosive) Needs to stay loaded
 		public ExtraExplosives()
@@ -292,6 +301,18 @@ namespace ExtraExplosives
 			CEBossInterface?.Update(gameTime);
 			CEBossInterfaceNonOwner?.Update(gameTime);
 			//ExtraExplosivesReforgeBombInterface?.Update(gameTime);
+			if (CookbookUI.Visible)
+			{
+				ButtonUI.Visible = false;
+			}
+			else if (ButtonUI.Visible)
+			{
+				//Main.playerInventory = true;
+				CookbookUI.Visible = false;
+			}
+
+			buttonInterface?.Update(gameTime);
+			cookbookInterface?.Update(gameTime);
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -342,6 +363,31 @@ namespace ExtraExplosives
 					},
 					InterfaceScaleType.UI)
 				);
+				"ExtraExplosives: CookbookButton",
+					delegate
+					{
+						if (ButtonUI.Visible && Main.playerInventory)
+						{
+							buttonInterface.Draw(Main.spriteBatch, new GameTime());
+						}
+						return true;
+					},
+					InterfaceScaleType.UI));
+			}
+
+			if (mouseTextIndex != -1)
+			{
+				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+					"ExtraExplosives: CookbookUI",
+					delegate
+					{
+						if (CookbookUI.Visible && !Main.playerInventory)
+						{
+							cookbookInterface.Draw(Main.spriteBatch, new GameTime());
+						}
+						return true;
+					},
+					InterfaceScaleType.UI));
 			}
 
 
@@ -362,6 +408,23 @@ namespace ExtraExplosives
 			//Hotkey stuff
 			TriggerExplosion = RegisterHotKey("Explode", "Mouse2");
 			TriggerUIReforge = RegisterHotKey("Open Reforge Bomb UI", "P");
+			ToggleCookbookUI = RegisterHotKey("UIToggle", "\\");
+			TriggerBoost = RegisterHotKey("TriggerBoost", "S");
+
+			if (!Main.dedServ)
+			{
+				cookbookInterface = new UserInterface();
+				buttonInterface = new UserInterface();
+
+				ButtonUI = new ButtonUI();
+				ButtonUI.Activate();
+
+				CookbookUI = new CookbookUI();
+				CookbookUI.Deactivate();
+
+				cookbookInterface.SetState(CookbookUI);
+				buttonInterface.SetState(ButtonUI);
+			}
 
 			//shaders
 			if (Main.netMode != NetmodeID.Server)

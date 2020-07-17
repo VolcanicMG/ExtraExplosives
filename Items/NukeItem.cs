@@ -34,7 +34,7 @@ namespace ExtraExplosives.Items
 			item.value = Item.buyPrice(3, 25, 0, 0);   //How much the item is worth, in copper coins, when you sell it to a merchant. It costs 1/5th of this to buy it back from them. An easy way to remember the value is platinum, gold, silver, copper or PPGGSSCC (so this item price is 3 silver)
 			item.noUseGraphic = true;
 			item.noMelee = true;	  //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
-			item.shoot = ModContent.ProjectileType<NukeProjectilePlane>(); //This defines what type of projectile this item will shoot
+			item.shoot = ModContent.ProjectileType<NukeProjectilePhase2>(); //This defines what type of projectile this item will shoot
 			item.shootSpeed = 5f; //This defines the projectile speed when shot
 			//item.createTile = mod.TileType("ExplosiveTile");
 		}

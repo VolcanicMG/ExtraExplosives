@@ -1,22 +1,12 @@
-<<<<<<< HEAD
 using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
 using log4net.Repository.Hierarchy;
-=======
-using ExtraExplosives.Items;
-using ExtraExplosives.Items.Accessories;
-using ExtraExplosives.Items.Accessories.AnarchistCookbook;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
->>>>>>> Charlie's-Uploads
 using Microsoft.Xna.Framework;
 using System;
 using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-<<<<<<< HEAD
 using Terraria.ModLoader.IO;
-=======
->>>>>>> Charlie's-Uploads
 using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
@@ -28,11 +18,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		//private static int hellLayer => Main.maxTilesY - 200;
 
 		private const int sphereRadius = 300;
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> Charlie's-Uploads
 		private float attackCool
 		{
 			get => npc.ai[0];
@@ -68,7 +54,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 		private bool _dropDynamite = false;
 
-<<<<<<< HEAD
 
 		private int amount = 3;
 
@@ -81,14 +66,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		private int Check;
 		private bool go;
 
-=======
-		private bool go;
-		private int amount = 3;
-
-		private bool _carpetBombing = false;	// When true, will hijack CE's movement and fully control him to avoid any conflicts with other movement methods
-		private int _carpetBombingCooldown = 360;
-		
->>>>>>> Charlie's-Uploads
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Captain Explosive");
@@ -120,18 +97,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.buffImmune[24] = true;
-<<<<<<< HEAD
 			//music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
-=======
-			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
-
->>>>>>> Charlie's-Uploads
 			//bossBag = ItemType<CaptainExplosiveTreasureBag>();
 
 			drawOffsetY = 50f;
 		}
 
-<<<<<<< HEAD
 		//public override bool CheckActive()
 		//{
 		//	if (!firstTick)
@@ -169,20 +140,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		//	return base.CheckActive();
 		//}
 
-=======
->>>>>>> Charlie's-Uploads
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
 			npc.lifeMax = (int)(npc.lifeMax * 0.625f * bossLifeScale);
 			npc.damage = (int)(npc.damage * 0.6f);
-<<<<<<< HEAD
 
 			for(int i = 0; i < numPlayers; i++)
 			{
 				npc.lifeMax += 2000;
 			}
-=======
->>>>>>> Charlie's-Uploads
 		}
 
 		public override bool CheckDead()
@@ -200,7 +166,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), mod.GetGoreSlot("Gores/CaptainExplosiveBoss/gore1"), 1.2f);
 			}
 
-<<<<<<< HEAD
 			int Boss0 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y + 50, NPCType<CaptainExplosiveBossAt0>(), 0, 0, 0, 0, 0, player.whoAmI);
 			Main.npc[Boss0].netUpdate = true;
 			NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, Boss0);
@@ -583,239 +548,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 
 			}
-=======
-			NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y + 50, NPCType<CaptainExplosiveBossAt0>(), 0, 0, 0, 0, 0, player.whoAmI);
-			return false;
-		}
-
-		public override void AI()
-		{
-
-
-			//Phases
-			//##############################################
-			if (((float)npc.life / (float)npc.lifeMax) > .66f) //above 66%, Phase 1
-			{
-				//callDrones(1);
-				//callBombAtk(200);
-			}
-			else if (((float)npc.life / (float)npc.lifeMax) <= .66f && ((float)npc.life / (float)npc.lifeMax) > .33f) //Between 66% and 33%, Phase 2
-			{
-				callDrones(2);
-				callBombAtk(300);
-				if (_dropDynamite && attackCool >= 200)
-				{
-					npc.velocity = Vector2.Multiply(npc.velocity, 0.75f);
-					dropDynamite();
-				}
-
-				//callDrones(2);
-				//callBombAtk(300);
-				//if (_dropDynamite && attackCool >= 200)
-				//{
-				//	npc.velocity = Vector2.Multiply(npc.velocity, 0.75f);
-				//	dropDynamite();
-				//}
-			}
-			else if (((float)npc.life / (float)npc.lifeMax) <= .33f) //Below 33%, Phase 3
-			{
-				if (_carpetBombingCooldown-- <= 0)
-				{
-					_carpetBombing = true;
-				}
-				if (_carpetBombing)
-				{
-					CarpetBombing();
-					return;
-				}
-				callDrones(3);
-				callBombAtk(350);
-			}
-			//##############################################
-
-			//check for the players death
-			Player player = Main.player[npc.target];
-			if (!player.active || player.dead)
-			{
-				npc.TargetClosest(false);
-				player = Main.player[npc.target];
-				if (!player.active || player.dead)
-				{
-					npc.velocity = new Vector2(0f, -15f);
-					if (npc.timeLeft > 120)
-					{
-						npc.timeLeft = 120;
-					}
-					return;
-				}
-			}
-
-			//movement cool down
-			moveCool -= 1f;
-
-			//set the movement and move to the position
-			if (Main.netMode != NetmodeID.MultiplayerClient && moveCool <= 0f)
-			{
-
-				npc.TargetClosest(false);
-				player = Main.player[npc.target];
-				//double angle = Main.rand.NextDouble() * 2.0 * Math.PI;
-				int distance = sphereRadius + Main.rand.Next(300);
-
-				//set the movement
-				Vector2 playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(-250, 250), player.Center.Y - 320);
-				//get a head of the player
-				if (player.direction == 1 && player.velocity.X > 5f)
-				{
-					playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(400, 600), player.Center.Y - 320);
-				}
-				else if (player.direction == -1 && player.velocity.X < -5f)
-				{
-					playerPlus = new Vector2(player.Center.X + Main.rand.NextFloat(-400, -600), player.Center.Y - 320);
-				}
-				//move to the player position
-				Vector2 moveTo = playerPlus;
-				moveCool = (float)moveTime - 20 - (float)Main.rand.Next(20);
-				npc.velocity = ((moveTo - npc.Center) / moveCool * 1.5f); //depending on how far the player is increase speed
-				rotationSpeed = (float)(Main.rand.NextDouble() + Main.rand.NextDouble());
-				if (rotationSpeed > 1f)
-				{
-					rotationSpeed = 1f + (rotationSpeed - 1f) / 2f;
-				}
-				if (Main.rand.NextBool())
-				{
-					rotationSpeed *= -1;
-				}
-
-				//dust debug to check where the npc is going
-				//Dust dust = Main.dust[Terraria.Dust.NewDust(moveTo, 10, 10, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 15f)];
-				//dust.noGravity = true;
-				//dust.fadeIn = 10f;
-
-				if (npc.velocity.X >= 0)
-				{
-					npc.direction = 1;
-				}
-				else
-				{
-					npc.direction = -1;
-				}
-
-				//Main.NewText(moveCool);
-				//Main.NewText($"Velocity {npc.velocity}");
-				//Main.NewText($"Direction {npc.direction}");
-
-				rotationSpeed *= 0.01f;
-				npc.netUpdate = true;
-
-				//Main.NewText($"Rotation: {npc.rotation}");
-			}
-
-			//Main.NewText($"Rotation: {npc.rotation}");
-			//rotation code
-			if (npc.velocity.X > 17f && npc.rotation <= .5f) //right
-			{
-				npc.rotation += .05f;
-				if (npc.rotation >= .5f)
-				{
-					npc.rotation = .5f;
-				}
-			}
-			else if (npc.rotation >= 0f)
-			{
-				npc.rotation -= .05f;
-			}
-
-
-			if (npc.velocity.X < -17f && npc.rotation >= -.5f) //left
-			{
-				npc.rotation -= .05f;
-				if (npc.rotation <= -.5f)
-				{
-					npc.rotation = -.5f;
-				}
-			}
-			else if (npc.rotation <= 0f)
-			{
-				npc.rotation += .05f;
-			}
-
-
-
-			//the farther the player gets, make the movements happen more often
-			if (Vector2.Distance(Main.player[npc.target].position, npc.position) > sphereRadius)
-			{
-				moveTimer--;
-			}
-			else
-			{
-				moveTimer += 3;
-				if (moveTime >= 300 && moveTimer > 60)
-				{
-					moveTimer = 60;
-				}
-			}
-
-			//Check the moveTimer and change it depending on the distance from the player and the boss
-			if (moveTimer <= 0)
-			{
-				moveTimer += 60;
-				moveTime -= 3;
-				if (moveTime < 99)
-				{
-					moveTime = 99;
-					moveTimer = 0;
-				}
-				npc.netUpdate = true;
-			}
-			else if (moveTimer > 60)
-			{
-				moveTimer -= 60;
-				moveTime += 3;
-				npc.netUpdate = true;
-			}
-			//sets the speed of captiveRotation for the npc to travel by
-			captiveRotation += rotationSpeed;
-
-			//checks the speed of captiveRotation to see how fast the npc should move
-			if (captiveRotation < 0f)
-			{
-				captiveRotation += 2f * (float)Math.PI;
-			}
-			if (captiveRotation >= 2f * (float)Math.PI)
-			{
-				captiveRotation -= 2f * (float)Math.PI;
-			}
-
-			//attack cool down
-			attackCool -= 1f;
-
-
-
-			//check if the mode is expert
-			if (Main.expertMode)
-			{
-
-			}
-
-			//Random chance for this to happen
-			if (Main.rand.NextBool())
-			{
-				float radius = (float)Math.Sqrt(Main.rand.Next(sphereRadius * sphereRadius));
-				double angle = Main.rand.NextDouble() * 2.0 * Math.PI;
-				//Dust.NewDust(new Vector2(npc.Center.X + radius * (float)Math.Cos(angle), npc.Center.Y + radius * (float)Math.Sin(angle)), 0, 0, DustType<Sparkle>(), 0f, 0f, 0, default(Color), 1.5f);
-			}
-
-			if (npc.direction == 1)
-			{
-				npc.spriteDirection = 1;
-			}
-			if (npc.direction == -1)
-			{
-				npc.spriteDirection = -1;
-			}
-
->>>>>>> Charlie's-Uploads
 		}
 
 		public override bool PreNPCLoot()
@@ -831,7 +563,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			}
 		}
 
-<<<<<<< HEAD
 		public override void HitEffect(int hitDirection, double damage)
 		{
 			for (int k = 0; k < damage / npc.lifeMax * 100.0; k++)
@@ -842,8 +573,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		}
 
 
-=======
->>>>>>> Charlie's-Uploads
 		public override void FindFrame(int frameHeight)
 		{
 
@@ -857,16 +586,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		{
 			int spawnCase = Main.rand.Next(3);  // gets the side the drone will spawn from
 			Vector2 spawnCord = new Vector2(npc.position.X + (spawnCase * 100), npc.position.Y + (spawnCase == 1 ? 60 : 0) + 180);  // calculates the cords of the spawn loc
-<<<<<<< HEAD
 			int drone = NPC.NewNPC((int)spawnCord.X, (int)spawnCord.Y, NPCType<CEDroneNPC>(), 0, spawnCase, 0, 0, 0, this.npc.type);    // spawns the drone at those cords
 			Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/DronePlop")); //sound
 																																//Dust.NewDust(spawnCord, 8, 8, Main.rand.Next(250)); // spawns dust
 			Main.npc[drone].netUpdate = true;
 			NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, drone);
-=======
-			NPC.NewNPC((int)spawnCord.X, (int)spawnCord.Y, NPCType<CEDroneNPC>(), 0, spawnCase, 0, 0, 0, this.npc.type);    // spawns the drone at those cords
-			Dust.NewDust(spawnCord, 8, 8, Main.rand.Next(250)); // spawns dust
->>>>>>> Charlie's-Uploads
 		}
 
 		public void chooseBomb(int direction)
@@ -896,11 +620,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			}
 
 			//spawn the projectile
-<<<<<<< HEAD
 			int choose = Main.rand.Next(0, 5); //might need to be a global var for syncing?
-=======
-			int choose = Main.rand.Next(0, 5);
->>>>>>> Charlie's-Uploads
 
 			switch (choose)
 			{
@@ -961,11 +681,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				//chooseBomb(1); //Left
 				//chooseBomb(2); //Center
 				//chooseBomb(3); //Right
-<<<<<<< HEAD
 
-=======
-				
->>>>>>> Charlie's-Uploads
 				_dropDynamite = true;
 
 				//create all the bombs
@@ -979,19 +695,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				//npc.netUpdate = true;
 			}
 		}
-<<<<<<< HEAD
 
 
 		// Holds the current direction of travel
 		private int _dir = 0;
 
-=======
-		
-		
-		// Holds the current direction of travel
-		private int _dir = 0;
-		
->>>>>>> Charlie's-Uploads
 		private float[] _carpetBombingValues = new float[]
 		{
 			0,	// Starting position, DO NOT CHANGE WHILE HANDLING ATTACK
@@ -1005,11 +713,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		/// </summary>
 		public void CarpetBombing()
 		{
-<<<<<<< HEAD
 			if (_carpetBombingValues[3] == 1)   // Reset
-=======
-			if (_carpetBombingValues[3] == 1)	// Reset
->>>>>>> Charlie's-Uploads
 			{
 				_carpetBombingValues[0] = 0;
 				_carpetBombingValues[1] = 0;
@@ -1017,7 +721,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				_carpetBombingValues[3] = 0;
 				_dir = 0;
 				_carpetBombing = false;
-<<<<<<< HEAD
 				_carpetBombingCooldown = 720;   // Time before next run
 				return; // stop the rest of the method running
 			}
@@ -1032,22 +735,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			_dir = Main.rand.NextBool() ? 1 : -1;   // Get the direction to run in
 			npc.netUpdate = true;
 			_carpetBombingValues[0] = npc.position.X;   // get the starting position
-=======
-				_carpetBombingCooldown = 720;	// Time before next run
-				return;	// stop the rest of the method running
-			}
-			if(_dir == 1) CarpetBombingLeftToRight();	// type 1
-			else if(_dir == -1) CarpetBombingRightToLeft();	// type 2
-			else if(_dir == 0) ChooseDirection();
-			//Main.NewText("Something went wrong will setting up a carpet bombing run");
-		}
-
-		private void ChooseDirection()	// sets up the needed values prior to carrying out the run
-		{
-			_dir = Main.rand.NextBool() ? 1 : -1;	// Get the direction to run in
-			npc.netUpdate = true;
-			_carpetBombingValues[0] = npc.position.X;	// get the starting position
->>>>>>> Charlie's-Uploads
 		}
 		/// <summary>
 		/// DO NOT CALL THIS METHOD, CALL THE WRAPPER (CarpetBombing)
@@ -1067,7 +754,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				else if (npc.velocity.X < -10) npc.velocity.X = -10;	// if the velocity is to low, raise it
 				if (npc.position.Y - 100 < Main.player[npc.target].position.Y) npc.velocity.Y += 0.8f;	// if the y pos is too high, lower it
 			}*/
-<<<<<<< HEAD
 			if (_carpetBombingValues[1] != 0)   // if currently dropping bombs
 			{
 				if (_carpetBombingValues[2]-- <= 0) // if rocket cooldown is done
@@ -1079,25 +765,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					if (_carpetBombingValues[1] <= 0)   // if no rockets left
 					{
 						_carpetBombingValues[3] = 1;    //reset time
-=======
-			if (_carpetBombingValues[1] != 0)	// if currently dropping bombs
-			{
-				if (_carpetBombingValues[2]-- <= 0)	// if rocket cooldown is done
-				{
-					Projectile.NewProjectileDirect(new Vector2(npc.position.X + 100, npc.position.Y + 240), new Vector2(0, 2), ProjectileID.RocketI, 100, 20);
-					_carpetBombingValues[1]--;	// one less rocket
-					_carpetBombingValues[2] = 4;	// time between rocket drop
-					//Main.NewText(_carpetBombingValues[1]);	//debug
-					if (_carpetBombingValues[1] <= 0)	// if no rockets left
-					{
-						_carpetBombingValues[3] = 1;	//reset time
->>>>>>> Charlie's-Uploads
 					}
 				}
 			}
 			else
 			{
-<<<<<<< HEAD
 				if (npc.position.Y - 60 < Main.player[npc.target].position.Y)   // deal with y position
 				{
 					npc.position.Y -= 5f;   // to low
@@ -1119,29 +791,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					npc.velocity.X = 12;    // set x velocity
 					npc.velocity.Y = 0;     // stop y movement
 					_carpetBombingValues[1] = 40;   // rockets left
-=======
-				if (npc.position.Y - 60 < Main.player[npc.target].position.Y)	// deal with y position
-				{
-					npc.position.Y -= 5f;	// to low
-				}
-				else
-				{
-					npc.velocity.Y *= 0.75f;	// high enough, just hover
-				}
-				if (npc.position.X > _carpetBombingValues[0] - 1000)	// not far enough left
-				{
-					npc.velocity.X -= 1.1f;	// move further right
-				}
-				else if (npc.velocity.X > 0.25f)	// if still moving right after moving 1000 tiles	
-				{
-					npc.velocity.X *= 0.75f;	//slow down
-				}
-				else  // if x and y are set
-				{
-					npc.velocity.X = 12;	// set x velocity
-					npc.velocity.Y = 0;		// stop y movement
-					_carpetBombingValues[1] = 40;	// rockets left
->>>>>>> Charlie's-Uploads
 				}
 			}
 			NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
@@ -1150,11 +799,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 		/// <summary>
 		/// DO NOT CALL THIS METHOD, CALL THE WRAPPER (CarpetBombing)
 		/// </summary>
-<<<<<<< HEAD
 		private void CarpetBombingRightToLeft()     // Methods are identical but values revered, just reference other one for comments
-=======
-		private void CarpetBombingRightToLeft()		// Methods are identical but values revered, just reference other one for comments
->>>>>>> Charlie's-Uploads
 		{
 			// 1-Move to left of screen (1000),
 			// 2-Move from left to right dropping bombs in chosen pattern TODO make patterns
@@ -1173,11 +818,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			{
 				if (_carpetBombingValues[2]-- <= 0)
 				{
-<<<<<<< HEAD
 					Projectile.NewProjectileDirect(new Vector2(npc.position.X + 100, npc.position.Y + 240), new Vector2(0, 15), ModContent.ProjectileType<BossCarpetBomb>(), 50, 20);
-=======
-					Projectile.NewProjectileDirect(new Vector2(npc.position.X + 100, npc.position.Y + 240), new Vector2(0, 2), ProjectileID.RocketI, 100, 20);
->>>>>>> Charlie's-Uploads
 					_carpetBombingValues[1]--;
 					_carpetBombingValues[2] = 4;
 					//Main.NewText(_carpetBombingValues[1]);
@@ -1191,11 +832,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			{
 				if (npc.position.Y - 60 < Main.player[npc.target].position.Y)
 				{
-<<<<<<< HEAD
 					npc.position.Y -= 5f;   // to low	
-=======
-					npc.position.Y -= 5f;	// to low	
->>>>>>> Charlie's-Uploads
 				}
 				else
 				{
@@ -1216,7 +853,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					_carpetBombingValues[1] = 40;
 				}
 			}
-<<<<<<< HEAD
 
 			NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
 		}
@@ -1251,17 +887,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				Main.npc[drop].netUpdate = true;
 				_dropDynamite = false;
 				NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, drop);
-=======
-			
-		}
-
-		public void dropDynamite()
-		{
-			if (Main.rand.Next(5) == 0 && Vector2.Distance(npc.velocity, Vector2.Zero) < 0.1f && attackCool >= 200)
-			{
-				NPC.NewNPC((int)(npc.position.X + 100), (int)(npc.position.Y + 240), ModContent.NPCType<BossDynamiteNPC>());
-				_dropDynamite = false;
->>>>>>> Charlie's-Uploads
 			}
 		}
 
@@ -1271,7 +896,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			return null;
 		}
 
-<<<<<<< HEAD
 		//big tnt and carpet bomb need fixed using netcode
 		public override void SendExtraAI(BinaryWriter writer)
 		{
@@ -1292,33 +916,18 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			{
 				writer.Write((float)_carpetBombingValues[i]);
 			}
-=======
-		public override void SendExtraAI(BinaryWriter writer)
-		{
-			writer.Write((short)moveTime);
-			writer.Write((short)moveTimer);
-			writer.Write((short)_droneTimer);//-------
-			writer.Write((short)_dronesLeft);
-			writer.Write((bool)_dropDynamite);
-			writer.Write((short)_carpetBombingCooldown);
-			writer.Write((bool)_carpetBombing);
->>>>>>> Charlie's-Uploads
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-<<<<<<< HEAD
 			firstTick = reader.ReadBoolean();
 			firstAiTick = reader.ReadBoolean();
 			Check = reader.ReadInt16();
-=======
->>>>>>> Charlie's-Uploads
 			moveTime = reader.ReadInt16();
 			moveTimer = reader.ReadInt16();
 			_droneTimer = reader.ReadInt16();
 			_dronesLeft = reader.ReadInt16();
 			_carpetBombingCooldown = reader.ReadInt16();
-<<<<<<< HEAD
 			//_dropDynamite = reader.ReadBoolean();
 			_carpetBombing = reader.ReadBoolean();
 			_dir = reader.ReadInt16();
@@ -1332,10 +941,3 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 	}
 }
-=======
-			_dropDynamite = reader.ReadBoolean();
-			_carpetBombing = reader.ReadBoolean();
-		}
-	}
-}
->>>>>>> Charlie's-Uploads
