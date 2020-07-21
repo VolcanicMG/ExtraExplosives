@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
@@ -164,20 +165,20 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			}
 
 			//check for the players death
-			if (!player.active || player.dead)
-			{
-				npc.TargetClosest(false);
-				player = Main.player[npc.target];
-				if (!player.active || player.dead)
-				{
-					npc.velocity = new Vector2(0f, -15f);
-					if (npc.timeLeft > 120)
-					{
-						npc.timeLeft = 120;
-					}
-					return;
-				}
-			}
+			//if (!player.active || player.dead)
+			//{
+			//	npc.TargetClosest(false);
+			//	player = Main.player[npc.target];
+			//	if (!player.active || player.dead)
+			//	{
+			//		npc.velocity = new Vector2(0f, -15f);
+			//		if (npc.timeLeft > 120)
+			//		{
+			//			npc.timeLeft = 120;
+			//		}
+			//		return;
+			//	}
+			//}
 
 			npc.TargetClosest(true);
 			Vector2 vector89 = new Vector2(npc.Center.X, npc.Center.Y);
@@ -280,8 +281,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 				}
 
-				int drop = Main.rand.NextBool() ? ItemType<BombardEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
-				int dropChance = drop == ItemType<BombardEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardEmblem>();    // find the other item
+				int drop = Main.rand.NextBool() ? ItemType<BombardierEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
+				int dropChance = drop == ItemType<BombardierEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardierEmblem>();    // find the other item
 				npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), drop);  // drop the confirmed item
 
 				//A litte over 50% boost if check break is true

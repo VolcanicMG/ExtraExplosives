@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class HydromiteItem : ModItem
+	public class HydromiteItem : ExplosiveItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("Spawns in water");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width

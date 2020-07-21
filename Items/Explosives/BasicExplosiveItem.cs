@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class BasicExplosiveItem : ModItem
+	public class BasicExplosiveItem : ExplosiveItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -12,9 +12,10 @@ namespace ExtraExplosives.Items.Explosives
 			Tooltip.SetDefault("The most basic explosive");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
-			//item.damage = 0;	 //The damage stat for the Weapon.
+			item.damage = 70;	 //The damage stat for the Weapon.
+			item.knockBack = 20;
 			item.width = 10;	//sprite width
 			item.height = 32;   //sprite height
 			item.maxStack = 999;   //This defines the items max stack
@@ -52,15 +53,6 @@ namespace ExtraExplosives.Items.Explosives
 
 			ModRecipe recipe2 = new ModRecipe(mod);
 			recipe2.AddIngredient(ItemID.CopperBar, 5);
-			recipe2.AddIngredient(ItemID.Gel, 7);
-			recipe2.AddIngredient(ItemID.StoneBlock, 2);
-			recipe2.AddIngredient(ItemID.Torch, 1);
-			recipe2.AddTile(TileID.WorkBenches);
-			recipe2.SetResult(this);
-			recipe2.AddRecipe();
-
-			recipe2 = new ModRecipe(mod);
-			recipe2.AddIngredient(ItemID.TinBar, 5);
 			recipe2.AddIngredient(ItemID.Gel, 7);
 			recipe2.AddIngredient(ItemID.StoneBlock, 2);
 			recipe2.AddIngredient(ItemID.Torch, 1);

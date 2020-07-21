@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Explosives
 {
-	public class TornadoBombItem : ModItem
+	public class TornadoBombItem : ExplosiveItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -16,9 +16,10 @@ namespace ExtraExplosives.Items.Explosives
 			Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 5));
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
-			item.damage = 0;	 //The damage stat for the Weapon.
+			item.damage = 30;	 //The damage stat for the Weapon.
+			item.knockBack = 0;
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
 			item.maxStack = 999;   //This defines the items max stack

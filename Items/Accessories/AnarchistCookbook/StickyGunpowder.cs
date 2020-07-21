@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,7 +10,8 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sticky Gunpowder");
-            Tooltip.SetDefault("Impossibly Adhesive");
+            Tooltip.SetDefault("Thrown explosives stick to walls\n" +
+                               "Functions identically to sticky bombs");
         }
 
         public override void SetDefaults()
@@ -31,6 +33,11 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             modRecipe.AddTile(TileID.Anvils);
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.EE().StickyGunpowder = true;
         }
     }
 }

@@ -12,6 +12,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
+using ExtraExplosives.UI.AnarchistCookbookUI;
+
 
 namespace ExtraExplosives
 {
@@ -19,8 +21,9 @@ namespace ExtraExplosives
 	{
 		//move the first 4 over to player????
 		internal static ModHotKey TriggerExplosion;
-
 		internal static ModHotKey TriggerUIReforge;
+		internal static ModHotKey ToggleCookbookUI;
+		internal static ModHotKey TriggerBoost;
 
 		public static bool NukeActivated;
 		public static bool NukeActive;
@@ -42,12 +45,18 @@ namespace ExtraExplosives
 		public static bool firstTick;
 		public static float bossDirection;
 		public static bool removeUIElements;
-
 		public static string GithubUserName => "VolcanicMG";
 		public static string GithubProjectName => "ExtraExplosives";
 
 		public static string ModVersion;
 		public static string CurrentVersion = "";
+
+		private UserInterface cookbookInterface;
+		private UserInterface buttonInterface;
+		internal ButtonUI ButtonUI;
+		internal CookbookUI CookbookUI;
+
+		internal static ExtraExplosivesConfig EEConfig;
 
 		// Create the item to item id reference (used with cpt explosive) Needs to stay loaded
 		public ExtraExplosives()
@@ -84,91 +93,30 @@ namespace ExtraExplosives
 			switch (msgType) 
 			{
 				case EEMessageTypes.checkNukeActive:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(1);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	NukeActivated = true;
-					//}
+					
 					NukeActivated = true;
 					break;
 
 				case EEMessageTypes.checkNukeHit:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(2);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	NukeHit = false;
-					//}
+					
 					NukeHit = false;
 					break;
 
 				case EEMessageTypes.BossCheckDynamite:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(check);
-					//	myPacket.Write(boolBossCheckDynamite);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else 
-					//{
-					//	bossDropDynamite = check;
-					//}
+					
 					int randomNumber = reader.ReadVarInt();
 
 					bossDropDynamite = randomNumber;
 					break;
 
 				case EEMessageTypes.bossMovment:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(check);
-					//	myPacket.Write(boolBossCheckDynamite);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else 
-					//{
-					//	bossDropDynamite = check;
-					//}
+					
 					float randomFloat = reader.ReadSingle();
 
 					bossDirection = randomFloat;
 					break;
 
 				case EEMessageTypes.checkBossUIYes:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkBossUIYes);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 2;
-					//	CheckBossBreak = true;
-					//}
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(3);
-					//	myPacket.Write(false);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 2;
-					//	CheckBossBreak = false;
-					//}
 
 					CheckUIBoss = 2;
 					CheckBossBreak = true;
@@ -177,29 +125,6 @@ namespace ExtraExplosives
 					break;
 
 				case EEMessageTypes.checkBossUINo:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkBossUINo);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 2;
-					//	CheckBossBreak = false;
-					//}
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(3);
-					//	myPacket.Write(false);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 2;
-					//	CheckBossBreak = false;
-					//}
 
 					CheckUIBoss = 2;
 					CheckBossBreak = false;
@@ -208,30 +133,12 @@ namespace ExtraExplosives
 					break;
 
 				case EEMessageTypes.checkBossActive:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(4);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 1;
-					//}
+
 					CheckUIBoss = 1;
 					break;
 
 				case EEMessageTypes.setBossInactive:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(5);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 3;
-					//}
+
 					CheckUIBoss = 3;
 					break;
 
@@ -292,6 +199,18 @@ namespace ExtraExplosives
 			CEBossInterface?.Update(gameTime);
 			CEBossInterfaceNonOwner?.Update(gameTime);
 			//ExtraExplosivesReforgeBombInterface?.Update(gameTime);
+			if (CookbookUI.Visible)
+			{
+				ButtonUI.Visible = false;
+			}
+			else if (ButtonUI.Visible)
+			{
+				//Main.playerInventory = true;
+				CookbookUI.Visible = false;
+			}
+
+			buttonInterface?.Update(gameTime);
+			cookbookInterface?.Update(gameTime);
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -342,6 +261,32 @@ namespace ExtraExplosives
 					},
 					InterfaceScaleType.UI)
 				);
+				layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
+				"ExtraExplosives: CookbookButton",
+					delegate
+					{
+						if (ButtonUI.Visible && Main.playerInventory)
+						{
+							buttonInterface.Draw(Main.spriteBatch, new GameTime());
+						}
+						return true;
+					},
+					InterfaceScaleType.UI));
+			}
+
+			if (mouseTextIndex != -1)
+			{
+				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+					"ExtraExplosives: CookbookUI",
+					delegate
+					{
+						if (CookbookUI.Visible && !Main.playerInventory)
+						{
+							cookbookInterface.Draw(Main.spriteBatch, new GameTime());
+						}
+						return true;
+					},
+					InterfaceScaleType.UI));
 			}
 
 
@@ -362,6 +307,23 @@ namespace ExtraExplosives
 			//Hotkey stuff
 			TriggerExplosion = RegisterHotKey("Explode", "Mouse2");
 			TriggerUIReforge = RegisterHotKey("Open Reforge Bomb UI", "P");
+			ToggleCookbookUI = RegisterHotKey("UIToggle", "\\");
+			TriggerBoost = RegisterHotKey("TriggerBoost", "S");
+
+			if (!Main.dedServ)
+			{
+				cookbookInterface = new UserInterface();
+				buttonInterface = new UserInterface();
+
+				ButtonUI = new ButtonUI();
+				ButtonUI.Activate();
+
+				CookbookUI = new CookbookUI();
+				CookbookUI.Deactivate();
+
+				cookbookInterface.SetState(CookbookUI);
+				buttonInterface.SetState(ButtonUI);
+			}
 
 			//shaders
 			if (Main.netMode != NetmodeID.Server)

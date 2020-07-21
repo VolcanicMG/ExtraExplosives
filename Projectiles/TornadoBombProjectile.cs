@@ -5,8 +5,10 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class TornadoBombProjectile : ModProjectile
+	public class TornadoBombProjectile : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "n/a";
+		protected override string goreFileLoc => "n/a";
 		private Vector2 vector;
 		private bool done;
 
@@ -16,7 +18,7 @@ namespace ExtraExplosives.Projectiles
 			Main.projFrames[projectile.type] = 5;
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			projectile.tileCollide = true;
 			projectile.width = 40;
@@ -51,7 +53,7 @@ namespace ExtraExplosives.Projectiles
 				//{
 					if (projectile.ai[1] >= 1f && !done)
 					{
-						int num328 = Projectile.NewProjectile(projectile.Center.X - 49, projectile.Center.Y - 4f, (0f - (float)projectile.direction) * 0.01f, 0f, ModContent.ProjectileType<TornadoBombProjectileTornado>(), 30, 0f, Main.myPlayer, 16f, 15f); //384 //376
+						int num328 = Projectile.NewProjectile(projectile.Center.X - 49, projectile.Center.Y - 4f, (0f - (float)projectile.direction) * 0.01f, 0f, ModContent.ProjectileType<TornadoBombProjectileTornado>(), projectile.damage, projectile.knockBack, Main.myPlayer, 16f, 15f); //384 //376
 						NetMessage.SendData(MessageID.SyncProjectile, number: num328);
 						Main.projectile[num328].netUpdate = true;
 

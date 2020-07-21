@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,15 +9,19 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class LavamiteProjectile : ModProjectile
+	public class LavamiteProjectile : ExplosiveProjectile
 	{
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Lavamite_";
+		protected override string goreFileLoc => "Gores/Explosives/lavamite-hydromite_gore";
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lavamite");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
+			radius = 10;
 			projectile.tileCollide = true;
 			projectile.width = 10;
 			projectile.height = 32;
@@ -24,6 +29,11 @@ namespace ExtraExplosives.Projectiles
 			projectile.friendly = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 100;
+			explodeSounds = new LegacySoundStyle[3];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+            {
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+            }
 		}
 
 		public override void PostAI()
@@ -36,20 +46,27 @@ namespace ExtraExplosives.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
 			//Create Bomb Explosion
-			CreateExplosion(projectile.Center, 10);
+			Explosion();
 
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 100);
+
+			//Create Bomb Gore
+			Vector2 gVel1 = new Vector2(-2f, -2f);
+			Vector2 gVel2 = new Vector2(0f, 2f);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 		}
 
-		private void CreateExplosion(Vector2 position, int radius)
+		public override void Explosion()
 		{
+			Vector2 position = projectile.Center;
 			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
 			{
 				for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
@@ -85,8 +102,12 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 168 / 2, position.Y - 168 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 168, 168, 185, 0.2631581f, 0f, 0, new Color(255, 0, 0), 3.815789f)];
-						dust.noGravity = true;
-						dust.shader = GameShaders.Armor.GetSecondaryShader(58, Main.LocalPlayer);
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.shader = GameShaders.Armor.GetSecondaryShader(58, Main.LocalPlayer);
+						}
 					}
 					//------------
 				}

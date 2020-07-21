@@ -1,5 +1,6 @@
 using ExtraExplosives.Items.Accessories;
 using ExtraExplosives.Items.Accessories.AnarchistCookbook;
+using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
 using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Items.Pets;
 using ExtraExplosives.NPCs;
@@ -15,7 +16,7 @@ namespace ExtraExplosives.Items
         private int[] items = new int[3];
 
         private int[] bombs = new int[27];
-
+        
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Captain Explosive Treasure Bag");    // Name, (change if you want idk)
@@ -30,17 +31,16 @@ namespace ExtraExplosives.Items
             item.height = 32;
             item.expert = true;
         }
-
+        
 
         public override bool CanRightClick() => true;    // always able to right click so hijack the code to return true
 
         public override void OpenBossBag(Player player)
         {
-            //player.QuickSpawnItem(items[0], 1);
             if (Main.hardMode)
             {
-                player.TryGettingDevArmor(); // Will attempt to get dev armor if its hardmode
-                player.TryGettingDevArmor(); // Dev armor only technically drops from hardmode bosses but fuck it
+                //player.TryGettingDevArmor(); // Will attempt to get dev armor if its hardmode
+                //player.TryGettingDevArmor(); // Dev armor only technically drops from hardmode bosses but fuck it
             }
 
             int drop = Main.rand.Next(3);    // get the item which will 100% drop
@@ -53,7 +53,7 @@ namespace ExtraExplosives.Items
                     player.QuickSpawnItem(item, 1);    // add hooks for special items here
                 }
             }
-
+            
         }
 
         public override void AddRecipes()
@@ -64,7 +64,7 @@ namespace ExtraExplosives.Items
                 ModContent.ItemType<BombHat>(),
                 ModContent.ItemType<BombCloak>()
             };
-
+            
             bombs = new int[]        // List of bombs which should drop from CE boss bag,
             {
                 ModContent.ItemType<BasicExplosiveItem>(),

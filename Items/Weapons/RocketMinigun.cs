@@ -76,7 +76,7 @@ namespace ExtraExplosives.Items.Weapons
 
 		public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(-24, -10);
+			return new Vector2(-20, -10);
 		}
 
 		public override void AddRecipes()

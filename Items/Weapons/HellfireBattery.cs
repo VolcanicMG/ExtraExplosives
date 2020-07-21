@@ -137,7 +137,7 @@ namespace ExtraExplosives.Items.Weapons
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<RocketMinigun>(), 1);
-			//recipe.AddIngredient(ModContent.ItemType<EndlessRocketLoader>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<EndlessRocketLoader>(), 1);
 			recipe.AddIngredient(ItemID.SDMG, 1);
 			recipe.AddIngredient(ItemID.FragmentSolar, 25);
 			recipe.AddIngredient(ItemID.FragmentNebula, 25);
