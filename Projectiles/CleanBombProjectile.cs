@@ -12,7 +12,7 @@ namespace ExtraExplosives.Projectiles
     {
 		//Variables:
 		public static float Radius = 400f;      // Used for Dust particles + Damage radius
-		protected override string explodeSoundsLoc => "n/a";
+		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Clean_Bomb_";
 		protected override string goreFileLoc => "n/a";
 		private int[] dustsToSpawn;
 
@@ -25,7 +25,7 @@ namespace ExtraExplosives.Projectiles
 		{
 			projectile.tileCollide = true;
 			projectile.width = 22;
-			projectile.height = 40;
+			projectile.height = 38;
 			projectile.aiStyle = 16;
 			projectile.friendly = true;
 			projectile.penetrate = -1;
@@ -39,6 +39,13 @@ namespace ExtraExplosives.Projectiles
 				177,
 				177
 			};
+
+			//Retrieving the explosion sounds
+			explodeSounds = new Terraria.Audio.LegacySoundStyle[4];
+			for (int num = 1; num <= explodeSounds.Length; num++)
+            {
+				explodeSounds[num - 1] = mod.GetLegacySoundSlot(SoundType.Custom, explodeSoundsLoc + num);
+            }
 		}
 
 		public override bool OnTileCollide(Vector2 old)
@@ -52,7 +59,7 @@ namespace ExtraExplosives.Projectiles
 			Vector2 center = projectile.Center;
 			
 			//Create bomb sound
-			Main.PlaySound(SoundID.Item3, (int)center.X, (int)center.Y);
+			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)center.X, (int)center.Y);
 
 			//Create bomb dust
 			CreateDust(center, (int)(Radius / 3f));
@@ -77,7 +84,7 @@ namespace ExtraExplosives.Projectiles
 				currentDust = dustsToSpawn[Main.rand.Next(dustsToSpawn.Length)];
 
 				//Spawning the dust particle
-				dust = Main.dust[Dust.NewDust(spawnRegionCorner, (int)Radius, (int)Radius, currentDust, 0f, 0.5f, 1, Color.White, 1f)];
+				dust = Main.dust[Dust.NewDust(spawnRegionCorner, (int)Radius, (int)Radius, currentDust, 0f, 0.5f, 1, Color.LightGreen, 1f)];
 			}
 		}
 	}

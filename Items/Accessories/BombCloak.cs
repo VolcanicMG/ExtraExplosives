@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Accessories
 {
+    /*
     public class BombCloak : ModItem
     {
         public override void SetStaticDefaults()
@@ -20,4 +21,5 @@ namespace ExtraExplosives.Items.Accessories
             item.expert = true;
         }
     }
+    /**/
 }
