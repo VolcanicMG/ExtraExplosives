@@ -11,7 +11,7 @@ namespace ExtraExplosives.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("BOOMerang");
-			Tooltip.SetDefault("It�s coming back!!\n" +
+			Tooltip.SetDefault("It's coming back!!\n" +
 				"[c/FF0000:Has a 1/5 chance of damaging you]");
 		}
 
@@ -21,7 +21,7 @@ namespace ExtraExplosives.Items.Weapons
 			item.shoot = ModContent.ProjectileType<BoomerangProjectile>();
 			item.damage = 50;
 			item.knockBack = 20;
-			item.rare = ItemRarityID.Lime;
+			item.rare = ItemRarityID.Green;
 			item.value = Item.buyPrice(0, 1, 0, 0);
 		}
 

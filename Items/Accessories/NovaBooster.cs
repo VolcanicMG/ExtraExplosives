@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.UI;
@@ -10,10 +11,6 @@ namespace ExtraExplosives.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class NovaBooster : ModItem
     {
-        private string _boostLowTexture = "ExtraExplosives/Items/Accessories/NovaBooster";
-        private string _boostHighTexture = "ExtraExplosives/Items/Accessories/NovaBoosterHigh";
-        private string _boosterTexture = "ExtraExplosives/Items/Accessories/NovaBooster";
-        public override string Texture => _boosterTexture;
 
         public override void SetStaticDefaults()
         {
@@ -34,7 +31,9 @@ namespace ExtraExplosives.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.wingTimeMax = 360;
+            //player.wings = item.type;
+            player.EE().novaBooster = true;
+            player.wingTimeMax = 300;
         }
 
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
@@ -43,20 +42,14 @@ namespace ExtraExplosives.Items.Accessories
             ascentWhenFalling = 0.7f;
             ascentWhenRising = 0.15f;
             maxCanAscendMultiplier = 2;
-            maxAscentMultiplier = 4;
-            constantAscend = 0.4f;
+            maxAscentMultiplier = 2f;
+            constantAscend = 1f;
         }
 
         public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
         {
-            speed = 27f;
-            acceleration *= 3.5f;
-        }
-
-        public override bool AltFunctionUse(Player player)
-        {
-            _boosterTexture = (_boosterTexture == _boostLowTexture) ? _boostHighTexture : _boostLowTexture;
-            return base.AltFunctionUse(player);
+            speed = 40;
+            acceleration *= 2f;
         }
     }
 }

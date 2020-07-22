@@ -262,7 +262,8 @@ namespace ExtraExplosives
 		        {
 			        projectile.velocity = constVelocity;
 		        }
-	        }
+	        }    
+	        base.AI(projectile);
         }
 
         public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
@@ -525,10 +526,25 @@ namespace ExtraExplosives
 			        }
 		        }
 		        
-		        if(mp.LihzahrdFuzeset) GlobalMethods.InflictDubuff(BuffID.OnFire, 15, projectile.Center, projectile.owner, 6, 300);
-		        if(mp.AlienExplosive) GlobalMethods.InflictDubuff(BuffID.Confused, 15, projectile.Center, projectile.owner, 261, 300);
-		        if(mp.SupernaturalBomb) GlobalMethods.InflictDubuff(BuffID.ShadowFlame, 15, projectile.Center, projectile.owner, 179, 300);
-		        if(mp.Bombshroom) GlobalMethods.InflictDubuff(BuffID.Venom, 15, projectile.Center, projectile.owner, 173, 300);
+		        if (mp.Bombshroom &&
+		            mp.AnarchistCookbook)
+		        {
+			        for (int n = 0; n < 3; n++)
+			        {
+				        Main.NewText("Spawn" + n);
+				        Projectile.NewProjectileDirect(projectile.Center,
+					        new Vector2(Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1)),
+					        ModContent.ProjectileType<MushroomProjectile>(), 40, 0);
+			        }
+		        }
+		        
+		        bool immune = false;
+		        if (projectile.type == ModContent.ProjectileType<NovaBoosterProjectile>() ||
+		            projectile.type == ModContent.ProjectileType<BombCloakProjectile>()) immune = true;
+		        if(mp.LihzahrdFuzeset) GlobalMethods.InflictDebuff(BuffID.OnFire, 15, projectile.Center, immune, projectile.owner, 6, 300);
+		        if(mp.AlienExplosive) GlobalMethods.InflictDebuff(BuffID.Confused, 15, projectile.Center, immune, projectile.owner, 261, 300);
+		        if(mp.SupernaturalBomb) GlobalMethods.InflictDebuff(BuffID.ShadowFlame, 15, projectile.Center, immune, projectile.owner, 179, 300);
+		        if(mp.Bombshroom) GlobalMethods.InflictDebuff(BuffID.Venom, 15, projectile.Center, immune, projectile.owner, 173, 300);
 	        }
         }
     }
