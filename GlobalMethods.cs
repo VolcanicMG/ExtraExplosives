@@ -79,7 +79,7 @@ namespace ExtraExplosives
 			}
 		}
 
-		public static void InflictDubuff(int id, int radius, Vector2 position, int owner = 255, int? dust = null, int time = 300)
+		public static void InflictDebuff(int id, int radius, Vector2 position, bool ownerImmune = false, int owner = 255, int? dust = null, int time = 300)
 		{
 			foreach (NPC npc in Main.npc) // Get each npc
 			{
@@ -90,7 +90,8 @@ namespace ExtraExplosives
 			}
 
 			if (Vector2.Distance(position, Main.player[owner].Center) / 16f < radius &&
-			    !Main.player[owner].EE().BlastShielding)
+			    !Main.player[owner].EE().BlastShielding &&
+			    !ownerImmune)
 			{
 				Main.player[Main.myPlayer].AddBuff(id, time);
 			}

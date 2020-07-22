@@ -106,7 +106,7 @@ namespace ExtraExplosives.UI
 			Append(ReforgeText);
 
 			//slots
-			_vanillaItemSlot = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f)
+			_vanillaItemSlot = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f, "ExtraExplosives/UI/SwordIcon")
 			{
 				//Left = { Precent = .5f },
 				Top = { Pixels = screenY },
@@ -114,7 +114,7 @@ namespace ExtraExplosives.UI
 				ValidItemFunc = item => item.IsAir || !item.IsAir && item.Prefix(-3),
 			};
 
-			_vanillaItemSlot2 = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f)
+			_vanillaItemSlot2 = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f, "ExtraExplosives/UI/SwordIcon")
 			{
 				//Left = { Pixels = screenX - 30 },
 				Top = { Pixels = screenY },
@@ -122,7 +122,7 @@ namespace ExtraExplosives.UI
 				ValidItemFunc = item => item.IsAir || !item.IsAir && item.Prefix(-3)
 			};
 
-			_vanillaItemSlot3 = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f)
+			_vanillaItemSlot3 = new VanillaItemSlotWrapper(ItemSlot.Context.PrefixItem, 0.85f, "ExtraExplosives/UI/SwordIcon")
 			{
 				//Left = { Pixels = screenX + 30 },
 				Top = { Pixels = screenY },
