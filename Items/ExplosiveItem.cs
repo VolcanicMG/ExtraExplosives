@@ -37,7 +37,7 @@ namespace ExtraExplosives.Items
         public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
         {
             
-            mult += player.EE().DamageMulti;
+            mult = player.EE().DamageMulti;
             add += player.EE().DamageBonus * player.EE().DamageMulti;
         }
 
