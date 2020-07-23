@@ -1,8 +1,6 @@
 ﻿using ExtraExplosives.Buffs;
 using ExtraExplosives.Items.Explosives;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,58 +18,23 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			projectile.tileCollide = false;
 			projectile.width = 10;
-			projectile.height = 10;
-			projectile.aiStyle = -1;
+			projectile.height = 20;
+			projectile.aiStyle = 0;
+			projectile.friendly = true;
+			projectile.hostile = true;
+			projectile.penetrate = -1;
 			projectile.timeLeft = 10;
 			projectile.Opacity = 0f;
 			projectile.scale = 45 * 2; //DamageRadius
 		}
 
-		public override void DangerousSetDefaults()
-		{
-			projectile.friendly = true;	// have to put these here because they are set to false by the explosive projectile for various reasons
-			projectile.hostile = true;
-		}
-
-		public override string Texture => "ExtraExplosives/Projectiles/FlashbangProjectile";
+		public override string Texture => "ExtraExplosives/Projectiles/InvisibleProjectile";
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			target.AddBuff(BuffID.Confused, 300);
-			target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
-		}
-
-		public override void OnHitPlayer(Player target, int damage, bool crit)
-		{
-			//Main.NewText($"{target.direction} {projectile.Center.X} {target.Center.X} {projectile.Center.X - target.Center.X}");
-			if (target.whoAmI == projectile.owner && target.direction * (projectile.Center.X - target.Center.X) > 0)
-			{
-				target.AddBuff(BuffID.Confused, 300);
-				target.AddBuff(BuffID.Dazed, 300);
-				target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
-			}
-		}
-
-		public override void OnHitPvp(Player target, int damage, bool crit)
-		{
-			if (target.direction * (projectile.Center.X - target.Center.X) > 0)
-			{
-				target.AddBuff(BuffID.Confused, 300);
-				target.AddBuff(BuffID.Dazed, 300);
-				target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
-			}
-		}
-
-		/*public override void Kill(int timeLeft)		// Old code left in just in case
-		{
-			//ExplosionDamage();
-		}
-
-		public override string Texture => "ExtraExplosives/Projectiles/FlashbangProjectile";
-
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
 			target.AddBuff(BuffID.Confused, 300);
 			target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
 
@@ -85,44 +48,31 @@ namespace ExtraExplosives.Projectiles
 			//Main.NewText("PlayerDirection " + target.direction);
 			if (target.whoAmI == projectile.owner)
 			{
-				if (projectile.knockBack == 0)
+				//Applying debuffs
+				target.AddBuff(BuffID.Confused, 300);
+				target.AddBuff(BuffID.Dazed, 300);
+				target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
+
+				//Direction testing
+				if (target.direction == 1 && FlashbangItem.Direction == 1 && projectile.knockBack == 0) //left side
 				{
-					
-				}
-				/*if (target.direction == 1 && FlashbangItem.Direction == 1 && projectile.knockBack == 0) //left side total 2
-				{
-					target.AddBuff(BuffID.Confused, 300);
-					target.AddBuff(BuffID.Dazed, 300);
-					target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
 					//Main.NewText("Hit on the left");
 				}
-
-				if (target.direction == 1 && FlashbangItem.Direction == -1 && projectile.knockBack == 0) //left side total 0
+				if (target.direction == 1 && FlashbangItem.Direction == -1 && projectile.knockBack == 0) //left side
 				{
-					target.AddBuff(BuffID.Confused, 300);
-					target.AddBuff(BuffID.Dazed, 300);
-					target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
 					//Main.NewText("Hit on the left");
 				}
-
-				if (target.direction == -1 && FlashbangItem.Direction == -1 && projectile.knockBack >= 1) //right side total -1
+				if (target.direction == -1 && FlashbangItem.Direction == -1 && projectile.knockBack >= 1) //right side
 				{
-					target.AddBuff(BuffID.Confused, 300);
-					target.AddBuff(BuffID.Dazed, 300);
-					target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
 					//Main.NewText("Hit on the right");
 				}
-
-				if (target.direction == -1 && FlashbangItem.Direction == 1 && projectile.knockBack >= 1) //right side total 1
+				if (target.direction == -1 && FlashbangItem.Direction == 1 && projectile.knockBack >= 1) //right side
 				{
-					target.AddBuff(BuffID.Confused, 300);
-					target.AddBuff(BuffID.Dazed, 300);
-					target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
 					//Main.NewText("Hit on the right");
 				}
 			}
 
 			base.OnHitPlayer(target, damage, crit);
-		}*/
+		}
 	}
 }

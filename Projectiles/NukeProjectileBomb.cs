@@ -58,7 +58,7 @@ namespace ExtraExplosives.Projectiles
 
 			if ((projectile.position.Y / 16) > Main.maxTilesY - 100) //check abd see if the projectile is in the underworld if so destroy at maxtilesy - 100
 			{
-				Kill(0);
+				projectile.Kill();
 			}
 
 			if ((projectile.position.Y / 16) > Main.worldSurface * 0.35)
@@ -67,19 +67,17 @@ namespace ExtraExplosives.Projectiles
 				projectile.tileCollide = true;
 			}
 		}
-		
+
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Kill(0);
+			projectile.Kill();
 			return base.OnTileCollide(oldVelocity);
 		}
 
 		public override void Kill(int timeLeft)
 		{
-            Main.NewText("Kill");
-			Player player = Main.player[projectile.owner];
-			
-			Main.screenPosition = player.Center;
+			Player player = Main.player[Main.myPlayer];
+
 			//Stop the sound
 			if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
 			{
@@ -98,6 +96,9 @@ namespace ExtraExplosives.Projectiles
 			}
 
 			Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Explosion"));
+			ExtraExplosives.NukeActive = false;
+			ExtraExplosives.NukeActivated = false;
+			Main.screenPosition = player.Center;
 
 
 			//Create Bomb Damage
@@ -111,12 +112,6 @@ namespace ExtraExplosives.Projectiles
 			//	SpawnProjectileSynced(new Vector2(projectile.position.X, projectile.position.Y), new Vector2(Main.rand.Next(15) - 7, Main.rand.Next(15) - 7), ModContent.ProjectileType<InvisibleNukeProjectile>(), 0, 0, 0, 0, projectile.owner);
 			//	//Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(40) + 10, Main.rand.Next(40) + 10, ModContent.ProjectileType<InvisibleNukeProjectile>(), 0, 0, projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
 			//}
-			projectile.timeLeft = 0;
-			
-			ExtraExplosives.NukeActive = false;
-			ExtraExplosives.NukeActivated = false;
-			ExtraExplosives.NukeHit = false;
-			projectile.Kill();
 		}
 
 		public override void Explosion()

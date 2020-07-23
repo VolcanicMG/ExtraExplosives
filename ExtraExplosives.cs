@@ -93,91 +93,30 @@ namespace ExtraExplosives
 			switch (msgType) 
 			{
 				case EEMessageTypes.checkNukeActive:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(1);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	NukeActivated = true;
-					//}
+					
 					NukeActivated = true;
 					break;
 
 				case EEMessageTypes.checkNukeHit:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(2);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	NukeHit = false;
-					//}
+					
 					NukeHit = false;
 					break;
 
 				case EEMessageTypes.BossCheckDynamite:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(check);
-					//	myPacket.Write(boolBossCheckDynamite);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else 
-					//{
-					//	bossDropDynamite = check;
-					//}
+					
 					int randomNumber = reader.ReadVarInt();
 
 					bossDropDynamite = randomNumber;
 					break;
 
 				case EEMessageTypes.bossMovment:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(check);
-					//	myPacket.Write(boolBossCheckDynamite);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else 
-					//{
-					//	bossDropDynamite = check;
-					//}
+					
 					float randomFloat = reader.ReadSingle();
 
 					bossDirection = randomFloat;
 					break;
 
 				case EEMessageTypes.checkBossUIYes:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkBossUIYes);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 2;
-					//	CheckBossBreak = true;
-					//}
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(3);
-					//	myPacket.Write(false);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 2;
-					//	CheckBossBreak = false;
-					//}
 
 					CheckUIBoss = 2;
 					CheckBossBreak = true;
@@ -186,29 +125,6 @@ namespace ExtraExplosives
 					break;
 
 				case EEMessageTypes.checkBossUINo:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkBossUINo);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 2;
-					//	CheckBossBreak = false;
-					//}
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(3);
-					//	myPacket.Write(false);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 2;
-					//	CheckBossBreak = false;
-					//}
 
 					CheckUIBoss = 2;
 					CheckBossBreak = false;
@@ -217,30 +133,12 @@ namespace ExtraExplosives
 					break;
 
 				case EEMessageTypes.checkBossActive:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(4);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 1;
-					//}
+
 					CheckUIBoss = 1;
 					break;
 
 				case EEMessageTypes.setBossInactive:
-					//if (Main.netMode == NetmodeID.Server)
-					//{
-					//	ModPacket myPacket = GetPacket();
-					//	myPacket.WriteVarInt(5);
-					//	myPacket.Send(ignoreClient: whoAmI);
-					//}
-					//else
-					//{
-					//	CheckUIBoss = 3;
-					//}
+
 					CheckUIBoss = 3;
 					break;
 
@@ -439,7 +337,7 @@ namespace ExtraExplosives
 				Filters.Scene["BigBang"] = new Filter(new ScreenShaderData(screenRef2, "BigBang"), EffectPriority.VeryHigh); //float4 name
 				Filters.Scene["BigBang"].Load();
 
-				// Hot Potato Shader
+				// Shader stuff sent in this pull cuz i didnt want to delete it, ignore for now
 				Ref<Effect> burningScreenFilter = new Ref<Effect>(GetEffect("Effects/HPScreenFilter"));
 				Filters.Scene["BurningScreen"] = new Filter(new ScreenShaderData(burningScreenFilter, "BurningScreen"), EffectPriority.Medium); // Shouldnt override more important shaders
 				Filters.Scene["BurningScreen"].Load();

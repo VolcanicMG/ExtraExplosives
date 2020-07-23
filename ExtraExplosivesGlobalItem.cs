@@ -16,6 +16,8 @@ namespace ExtraExplosives
 
         private Item instancedItem;
         private bool defaultConsume;
+        
+        private static int cooldown = 0;
 
         public override void SetDefaults(Item item)
         {

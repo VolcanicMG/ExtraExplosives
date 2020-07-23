@@ -15,8 +15,6 @@ namespace ExtraExplosives.Projectiles
 		private bool done = false;
 		private bool reset = false;
 		private bool firstTick;
-		private bool droppedBomb = false;
-		private int counter = 300;
 
 		//SoundEffectInstance soundPlane;
 		public override void SetStaticDefaults()
@@ -27,6 +25,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			projectile.tileCollide = false; //checks to see if the projectile can go through tiles
 			projectile.width = 536;   //This defines the hitbox width
 			projectile.height = 168;	//This defines the hitbox height
 			projectile.aiStyle = 0;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
@@ -38,17 +37,8 @@ namespace ExtraExplosives.Projectiles
 			projectile.scale = .9f;
 		}
 
-		public override void DangerousSetDefaults()
-		{
-			projectile.tileCollide = false; //checks to see if the projectile can go through tiles
-		}
-
 		public override void AI()
 		{
-			if (projectile.velocity.X < 0)
-			{
-				projectile.spriteDirection = -1;
-			}
 			Player player = Main.player[projectile.owner];
 			//Main.NewText(projectile.timeLeft);
 
@@ -109,7 +99,7 @@ namespace ExtraExplosives.Projectiles
 				done = true;
 
 				SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectileBomb>(), 3000, 1, projectile.owner);
-				droppedBomb = true;
+
 				//Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
 			}
 
@@ -120,7 +110,7 @@ namespace ExtraExplosives.Projectiles
 				done = true;
 
 				SpawnProjectileSynced(projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectileBomb>(), 3000, 1, projectile.owner);
-				droppedBomb = true;
+
 				//Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
 			}
 
@@ -159,18 +149,12 @@ namespace ExtraExplosives.Projectiles
 			dust.noGravity = true;
 		}
 
-		public override void PostAI()	// Testing a way to fix the nuke, if this comment is here it probably didnt work and i forgot to remove this
+		public override void PostAI()
 		{
-			if (droppedBomb)
-			{
-				counter--;
-				if (counter < 0)
-				{
-					projectile.timeLeft = 0;
-					projectile.Kill();
-				}
-			}
 		}
-		
+
+		public override void Kill(int timeLeft)
+		{
+		}
 	}
 }

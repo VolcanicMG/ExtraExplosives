@@ -9,6 +9,10 @@ namespace ExtraExplosives.Items.Explosives
 {
     public class HotPotatoItem : ExplosiveItem
     {
+        private int _pickPower = 0;
+        private int firespeed = 345;
+        private bool beingUsed = false;
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hot Potato");

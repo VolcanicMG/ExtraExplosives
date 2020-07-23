@@ -39,7 +39,10 @@ namespace ExtraExplosives.Items.Weapons
         public override void UpdateInventory(Player player)
         {
             if (swapCooldown > 0)
+            {
+                Main.NewText(swapCooldown);
                 swapCooldown--;
+            }
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

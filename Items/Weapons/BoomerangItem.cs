@@ -11,7 +11,7 @@ namespace ExtraExplosives.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("BOOMerang");
-			Tooltip.SetDefault("It�s coming back!!\n" +
+			Tooltip.SetDefault("It's coming back!!\n" +
 				"[c/FF0000:Has a 1/5 chance of damaging you]");
 		}
 

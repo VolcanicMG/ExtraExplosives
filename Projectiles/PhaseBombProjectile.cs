@@ -16,6 +16,7 @@ namespace ExtraExplosives.Projectiles
 		protected override string goreFileLoc => "Gores/Explosives/phase_gore";
 		private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
 		private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+		private bool? explosion = false;
 		internal static bool CanBreakWalls;
 		private LegacySoundStyle phaseSound;
 		private SoundEffectInstance phaseSoundInstance;

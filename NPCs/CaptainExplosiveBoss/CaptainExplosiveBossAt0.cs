@@ -165,20 +165,20 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			}
 
 			//check for the players death
-			if (!player.active || player.dead)
-			{
-				npc.TargetClosest(false);
-				player = Main.player[npc.target];
-				if (!player.active || player.dead)
-				{
-					npc.velocity = new Vector2(0f, -15f);
-					if (npc.timeLeft > 120)
-					{
-						npc.timeLeft = 120;
-					}
-					return;
-				}
-			}
+			//if (!player.active || player.dead)
+			//{
+			//	npc.TargetClosest(false);
+			//	player = Main.player[npc.target];
+			//	if (!player.active || player.dead)
+			//	{
+			//		npc.velocity = new Vector2(0f, -15f);
+			//		if (npc.timeLeft > 120)
+			//		{
+			//			npc.timeLeft = 120;
+			//		}
+			//		return;
+			//	}
+			//}
 
 			npc.TargetClosest(true);
 			Vector2 vector89 = new Vector2(npc.Center.X, npc.Center.Y);

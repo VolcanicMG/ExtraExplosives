@@ -55,18 +55,7 @@ namespace ExtraExplosives.Items
 		{
 			if (ExtraExplosives.NukeActive == false && ExtraExplosives.NukeActivated == false)
 			{
-				int vel;
-				int pos;
-				if (player.position.X <= Main.maxTilesX / 2)
-				{
-					pos = 0;
-					vel = -60;
-				}
-				else
-				{
-					pos = (int)(Main.maxTilesX / 16.0f);
-					vel = 60;
-				}
+				int xPosition = (int)(Main.maxTilesX / 16.0f);
 				//int yPosition = (int)(y + position.Y / 16.0f);
 
 				ExtraExplosives.NukeActivated = true;
@@ -79,7 +68,7 @@ namespace ExtraExplosives.Items
 				}
 
 				//SpawnProjectileSynced(new Vector2(xPosition, 1500), new Vector2(30, 0), type, 0, 0, player.whoAmI);
-				Projectile.NewProjectile(pos, 1500, vel, 0, type, damage, knockBack, player.whoAmI);
+				Projectile.NewProjectile(xPosition, 1500, 30, 0, type, damage, knockBack, player.whoAmI);
 
 				//Main.NewText(xPosition);
 

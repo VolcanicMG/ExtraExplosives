@@ -39,7 +39,7 @@ namespace ExtraExplosives.Projectiles
 		public override void SafeSetDefaults()
 		{
 			pickPower = 70;
-			radius = 20;
+			radius = 2;
 			projectile.tileCollide = true;
 			projectile.width = 32;
 			projectile.height = 40;
@@ -66,6 +66,8 @@ namespace ExtraExplosives.Projectiles
 				// freeze = true;
 				projState = C4State.Frozen;
 				positionToFreeze = new Vector2(projectile.position.X, projectile.position.Y);
+				projectile.width = 64;
+				projectile.height = 40;
 				projectile.position.X = positionToFreeze.X;
 				projectile.position.Y = positionToFreeze.Y;
 				projectile.velocity.X = 0;
@@ -73,11 +75,40 @@ namespace ExtraExplosives.Projectiles
 				//projectile.rotation = 0;
 			}
 			
-			return false;
+			return true;
 		}
 
 		public override void PostAI()
 		{
+			/*
+			if (projectile.owner == Main.myPlayer)
+			{
+				var player = Main.player[projectile.owner].GetModPlayer<ExtraExplosivesPlayer>();
+
+				if (player.detonate == true)
+				{
+					projectile.Kill();
+				}
+			}
+
+			if (freeze == true)
+			{
+				projectile.position.X = positionToFreeze.X;
+				projectile.position.Y = positionToFreeze.Y;
+				projectile.velocity.X = 0;
+				projectile.velocity.Y = 0;
+				if (projectile.ai[1] < 1)
+                {
+					Main.PlaySound(indicatorSound, (int)projectile.position.X, (int)projectile.position.Y);
+					projectile.ai[1] = 55;
+                }
+				else
+                {
+					projectile.ai[1]--;
+                }
+			}
+			*/
+
 			switch (projState)
             {
 				case C4State.Airborne:
@@ -87,8 +118,6 @@ namespace ExtraExplosives.Projectiles
 					}
 					break;
 				case C4State.Frozen:
-					projectile.position = positionToFreeze;
-					projectile.velocity = Vector2.Zero;
 					if (indicatorSoundInstance == null)
 						indicatorSoundInstance = Main.PlaySound(indicatorSound, (int)projectile.Center.X, (int)projectile.Center.Y);
 					if (indicatorSoundInstance.State != SoundState.Playing)
@@ -150,7 +179,7 @@ namespace ExtraExplosives.Projectiles
 						}
 						else //Breakable
 						{
-							if (CanBreakTiles) //User preferences dictates if bombs can break tiles
+							if (CanBreakTiles) //User preferences dictates if this bomb can break tiles
 							{
 								WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
 								if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls

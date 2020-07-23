@@ -542,10 +542,10 @@ namespace ExtraExplosives
 		        bool immune = false;
 		        if (projectile.type == ModContent.ProjectileType<NovaBoosterProjectile>() ||
 		            projectile.type == ModContent.ProjectileType<BombCloakProjectile>()) immune = true;
-		        if(mp.LihzahrdFuzeset) GlobalMethods.InflictDubuff(BuffID.OnFire, 15, projectile.Center, immune, projectile.owner, 6, 300);
-		        if(mp.AlienExplosive) GlobalMethods.InflictDubuff(BuffID.Confused, 15, projectile.Center, immune, projectile.owner, 261, 300);
-		        if(mp.SupernaturalBomb) GlobalMethods.InflictDubuff(BuffID.ShadowFlame, 15, projectile.Center, immune, projectile.owner, 179, 300);
-		        if(mp.Bombshroom) GlobalMethods.InflictDubuff(BuffID.Venom, 15, projectile.Center, immune, projectile.owner, 173, 300);
+		        if(mp.LihzahrdFuzeset) GlobalMethods.InflictDebuff(BuffID.OnFire, 15, projectile.Center, immune, projectile.owner, 6, 300);
+		        if(mp.AlienExplosive) GlobalMethods.InflictDebuff(BuffID.Confused, 15, projectile.Center, immune, projectile.owner, 261, 300);
+		        if(mp.SupernaturalBomb) GlobalMethods.InflictDebuff(BuffID.ShadowFlame, 15, projectile.Center, immune, projectile.owner, 179, 300);
+		        if(mp.Bombshroom) GlobalMethods.InflictDebuff(BuffID.Venom, 15, projectile.Center, immune, projectile.owner, 173, 300);
 	        }
         }
     }
