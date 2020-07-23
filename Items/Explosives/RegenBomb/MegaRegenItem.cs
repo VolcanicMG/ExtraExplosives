@@ -1,7 +1,7 @@
 ﻿using ExtraExplosives.Projectiles.RegenBomb;
 using Terraria.ModLoader;
 
-namespace ExtraExplosives.Items
+namespace ExtraExplosives.Items.Explosives.RegenBomb
 {
     public class MegaRegenItem : ExplosiveItem
     {
@@ -10,9 +10,7 @@ namespace ExtraExplosives.Items
             DisplayName.SetDefault("Mega Regeneration Bomb");
             Tooltip.SetDefault("Regenerates everything in a 40 block radius");
         }
-
-        public override string Texture { get; } = "ExtraExplosives/Items/Explosives/MegaExplosiveItem";
-
+        
         public override void SafeSetDefaults()
         {
             item.consumable = false;
@@ -22,7 +20,7 @@ namespace ExtraExplosives.Items
             item.knockBack = 0;
             item.shoot = ModContent.ProjectileType<MegaRegenProjectile>();
             item.useTime = 15;
-            item.useAnimation = 1;
+            item.useAnimation = 15;
             item.useStyle = 1;
         }
     }

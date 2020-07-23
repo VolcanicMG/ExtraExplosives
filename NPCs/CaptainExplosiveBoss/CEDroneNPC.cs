@@ -29,10 +29,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         //Testing stuff
         private float[] _velocityStorage = new float[2];
-        private bool alert = true;
 
-        private int testTimer = 0;
-        
         private float[] direction = new float[]    // Direction the drone will drift in during its targeting phase
         {
             Main.rand.NextFloat(-0.1f,0.1f),

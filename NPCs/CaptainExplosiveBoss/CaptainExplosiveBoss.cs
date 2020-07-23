@@ -54,9 +54,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 		private bool _dropDynamite = false;
 
-
-		private int amount = 3;
-
 		private bool _carpetBombing = false;    // When true, will hijack CE's movement and fully control him to avoid any conflicts with other movement methods
 		private int _carpetBombingCooldown = 360;
 

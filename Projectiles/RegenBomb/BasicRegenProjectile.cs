@@ -2,12 +2,10 @@
 {
     public class BasicRegenProjectile : RegenBombProjectile
     {
-        public override string Texture { get; } = "ExtraExplosives/Projectiles/BasicExplosiveProjectile";
-
-        public override void SafeSetDefaults()
+        public override void RegenDefaults()
         {
-            base.SafeSetDefaults();
             projectile.extraUpdates = 2;
+            velocity = 0.005f;
             SetRadius(2);
         }
     }

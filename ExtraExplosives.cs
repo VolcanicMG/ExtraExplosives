@@ -439,7 +439,7 @@ namespace ExtraExplosives
 				Filters.Scene["BigBang"] = new Filter(new ScreenShaderData(screenRef2, "BigBang"), EffectPriority.VeryHigh); //float4 name
 				Filters.Scene["BigBang"].Load();
 
-				// Shader stuff sent in this pull cuz i didnt want to delete it, ignore for now
+				// Hot Potato Shader
 				Ref<Effect> burningScreenFilter = new Ref<Effect>(GetEffect("Effects/HPScreenFilter"));
 				Filters.Scene["BurningScreen"] = new Filter(new ScreenShaderData(burningScreenFilter, "BurningScreen"), EffectPriority.Medium); // Shouldnt override more important shaders
 				Filters.Scene["BurningScreen"].Load();

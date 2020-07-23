@@ -20,9 +20,7 @@ namespace ExtraExplosives.Items
         
         public bool Explosive;
 
-        public virtual void SafeSetDefaults()
-        {
-        }
+        public abstract void SafeSetDefaults();
         
         public sealed override void SetDefaults()
         {
@@ -37,8 +35,8 @@ namespace ExtraExplosives.Items
         public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
         {
             
-            mult += player.EE().DamageMulti;
-            add += player.EE().DamageBonus * player.EE().DamageMulti;
+            mult = player.EE().DamageMulti;
+            add += player.EE().DamageBonus;// * player.EE().DamageMulti;
         }
 
         public override void GetWeaponKnockback(Player player, ref float knockback)
