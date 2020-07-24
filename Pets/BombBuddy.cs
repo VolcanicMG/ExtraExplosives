@@ -20,7 +20,7 @@ namespace ExtraExplosives.Pets
 		public override void SetDefaults()
 		{
 			projectile.CloneDefaults(ProjectileID.CursedSapling);
-			aiType = ProjectileID.CursedSapling;
+			aiType = ProjectileID.Bunny;
 			projectile.netImportant = true;
 			projectile.width = 38;
 			projectile.height = 40;
@@ -36,6 +36,8 @@ namespace ExtraExplosives.Pets
 		public override void AI()
 		{
 			Vector2 position = projectile.position;
+			Player player = Main.player[projectile.owner];
+			ExtraExplosivesPlayer modPlayer = player.GetModPlayer<ExtraExplosivesPlayer>();
 
 			if (!firstTick)
 			{
@@ -43,9 +45,11 @@ namespace ExtraExplosives.Pets
 				Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, projectile.owner);
 				firstTick = true;
 			}
+			else if (player.ownedProjectileCounts[ModContent.ProjectileType<BombBuddyDetector>()] == 0 && player.HasBuff(ModContent.BuffType<BombBuddyBuff>()))
+			{
+				Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, projectile.owner);
+			}
 
-			Player player = Main.player[projectile.owner];
-			ExtraExplosivesPlayer modPlayer = player.GetModPlayer<ExtraExplosivesPlayer>();
 			if (player.dead)
 			{
 				modPlayer.BombBuddy = false;

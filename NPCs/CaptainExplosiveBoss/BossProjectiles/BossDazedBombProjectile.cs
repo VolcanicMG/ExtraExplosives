@@ -102,9 +102,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 						updatedPosition = new Vector2(position.X - 500 / 2, position.Y - 500 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 500, 500, 64, 0f, 0f, 0, new Color(255, 226, 0), 5f)];
-						dust.noGravity = true;
-						dust.fadeIn = 2.5f;
-
+						if (Vector2.Distance(dust.position, projectile.Center) > 15 * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.fadeIn = 2.5f;
+						}
 					}
 
 					//Dust 2
@@ -113,8 +116,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 						updatedPosition = new Vector2(position.X - 500 / 2, position.Y - 500 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 500, 500, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
-						dust.noGravity = true;
-						dust.noLight = true;
+						if (Vector2.Distance(dust.position, projectile.Center) > 15 * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
 					}
 
 					//Dust 3
@@ -123,8 +130,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 						updatedPosition = new Vector2(position.X - 500 / 2, position.Y - 500 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 500, 500, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-						dust.noGravity = true;
-						dust.noLight = true;
+						if (Vector2.Distance(dust.position, projectile.Center) > 15 * 16) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
 					}
 				}
 			}
