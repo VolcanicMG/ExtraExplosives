@@ -38,7 +38,11 @@ namespace ExtraExplosives.Projectiles
 			projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
 			projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
 			projectile.timeLeft = 1000; //The amount of time the projectile is alive for
-			phaseSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Phase_Bomb").WithVolume(0.5f);
+			phaseSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Phase_Bomb");
+			if (!Main.dedServ)
+            {
+				phaseSound = phaseSound.WithVolume(0.5f);
+            }
 			explodeSounds = new LegacySoundStyle[3];
 			for (int num = 1; num <= explodeSounds.Length; num++)
             {
