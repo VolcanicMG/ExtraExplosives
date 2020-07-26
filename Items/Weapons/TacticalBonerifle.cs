@@ -49,7 +49,6 @@ namespace ExtraExplosives.Items.Weapons
         {
             if (swapCooldown > 0)
             {
-                Main.NewText(swapCooldown);
                 swapCooldown--;
             }
         }
@@ -64,15 +63,16 @@ namespace ExtraExplosives.Items.Weapons
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-18, 4);
+            return new Vector2(-14, -7);
         }
         
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 10f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
+                position.Y -= 6;
             }
             return true;
         }

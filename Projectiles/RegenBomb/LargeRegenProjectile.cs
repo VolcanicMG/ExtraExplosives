@@ -2,12 +2,11 @@
 {
     public class LargeRegenProjectile : RegenBombProjectile
     {
-        public override string Texture { get; } = "ExtraExplosives/Projectiles/LargeExplosiveProjectile";
 
-        public override void SafeSetDefaults()
+        public override void RegenDefaults()
         {
-            base.SafeSetDefaults();
-            projectile.extraUpdates = 20;
+            projectile.extraUpdates = 10;
+            velocity = 0.0005f;
             SetRadius(20);
         }
     }

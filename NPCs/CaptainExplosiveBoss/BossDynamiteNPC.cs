@@ -4,6 +4,7 @@ using ExtraExplosives.Dusts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -27,7 +28,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             npc.width = 28;
             npc.height = 92;
             npc.Hitbox = new Rectangle(0, 0, 28, 72);
-            npc.lifeMax = 60;
+            npc.lifeMax = 200;
             npc.defense = 0;
             npc.frame.Height = 92;
             npc.frame.Width = 28;
@@ -36,7 +37,13 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             npc.noGravity = false;
             npc.knockBackResist = 0f;
         }
-        
+
+        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        {
+            npc.lifeMax += 100;
+            base.ScaleExpertStats(numPlayers, bossLifeScale);
+        }
+
         public override void FindFrame(int frameHeight)
         {
             npc.frameCounter++;
@@ -87,13 +94,55 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             CreateDust(npc.Center, 85);
 
             //Create Bomb Damage
-            ExplosionDamage(15f, npc.Center, 120, 20, Main.myPlayer);
+            //ExplosionDamage(15f, npc.Center, 120, 20, Main.myPlayer);
+            ExplosionDamage();
 
             //Create Bomb Explosion
             if (ExtraExplosives.CheckBossBreak)
             {
                 CreateExplosion(npc.Center, 10);
             }
+        }
+
+        public override bool CheckDead()
+        {
+            Explode();
+            return base.CheckDead();
+        }
+
+        public virtual void ExplosionDamage()
+        {
+            float radius = 15f;
+            foreach (NPC npcID in Main.npc)
+            {
+                float dist = Vector2.Distance(npcID.Center, npc.Center);
+                if (dist / 16f <= radius && !npcID.boss)
+                {
+                    int dir = (dist > 0) ? 1 : -1;
+                    npcID.StrikeNPC(120, 10f, dir, true);
+                }
+            }
+
+            foreach (Player player in Main.player)
+            {
+                if (player == null || player.whoAmI == 255 || !player.active) return;
+                //if (!CanHitPlayer(player)) continue;
+                if (player.EE().BlastShielding &&
+                    player.EE().BlastShieldingActive) continue;
+                float dist = Vector2.Distance(player.Center, npc.Center);
+                int dir = (dist > 0) ? 1 : -1;
+                if (dist / 16f <= radius)
+                {
+                    //Main.NewText("Hit");
+                    player.Hurt(PlayerDeathReason.ByNPC(npc.whoAmI), 120, dir);
+                    player.hurtCooldowns[0] += 15;
+                }
+                if (Main.netMode != 0)
+                {
+                    NetMessage.SendPlayerHurt(player.whoAmI, PlayerDeathReason.ByNPC(npc.whoAmI), 120, dir, false, pvp: false, 0);
+                }
+            }
+
         }
 
 

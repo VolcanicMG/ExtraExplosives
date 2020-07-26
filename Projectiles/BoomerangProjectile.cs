@@ -17,11 +17,19 @@ namespace ExtraExplosives.Projectiles
 			DisplayName.SetDefault("BOOMerang");
 		}
 
-		public override void SafeSetDefaults()
+		public override void DangerousSetDefaults()
 		{
+			radius = 5;
 			projectile.CloneDefaults(ProjectileID.EnchantedBoomerang);
 			projectile.damage = 46;
+			projectile.melee = false;
+			projectile.ranged = false;
+			projectile.magic = false;
+			projectile.thrown = false;
+			projectile.minion = false;
+			projectile.penetrate = -1;
 			projectile.friendly = true;
+			projectile.hostile = false;
 			aiType = ProjectileID.EnchantedBoomerang;
 		}
 
@@ -42,7 +50,7 @@ namespace ExtraExplosives.Projectiles
 			ExplosionDamage();
 
 			//Create Bomb Dust
-			CreateDust(projectile.Center, 10);
+			CreateDust(projectile.Center, 50);
 
 			//projectile.Kill();
 		}

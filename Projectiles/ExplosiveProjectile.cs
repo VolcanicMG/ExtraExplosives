@@ -26,16 +26,24 @@ namespace ExtraExplosives.Projectiles
 
         public sealed override void SetDefaults()
         {
+            //constants throughout all bombs
             SafeSetDefaults();
             projectile.melee = false;
             projectile.ranged = false;
             projectile.magic = false;
             projectile.thrown = false;
             projectile.minion = false;
-            projectile.penetrate = -1;
-            projectile.friendly = false;
-            projectile.hostile = false;
-            projectile.tileCollide = true;
+            //projectile.penetrate = -1;
+            //projectile.friendly = false;
+            //projectile.hostile = false;
+           //projectile.tileCollide = true;
+            DangerousSetDefaults();
+        }
+
+        public virtual void DangerousSetDefaults()
+        {
+            // Does nothing, this should be used to override the values locked by SetDefaults
+            // Only use if you need to since those values are set to ensure the bombs function as intended
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

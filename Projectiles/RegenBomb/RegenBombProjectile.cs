@@ -6,10 +6,12 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles.RegenBomb
 {
-    public class RegenBombProjectile : ExplosiveProjectile
+    public abstract class RegenBombProjectile : ExplosiveProjectile
     {
+        //public override bool CloneNewInstances { get; } = true;
+        internal float velocity = 0.01f;
         private bool complete = false;
-        private int countdown = 120;
+        internal int countdown = 120;
         protected override string explodeSoundsLoc { get; } = "n/a";
         protected override string goreFileLoc { get; } = "n/a";
         private int minX { get; set; }
@@ -18,17 +20,15 @@ namespace ExtraExplosives.Projectiles.RegenBomb
         private int maxY { get; set; }
         private int seed { get; set; }
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Regen Bomb");
-        }
-
+        public abstract void RegenDefaults();
         public override void SafeSetDefaults()
         {
             pickPower = -2;
             projectile.tileCollide = false;
-            projectile.timeLeft = Int32.MaxValue;
-            projectile.aiStyle = 16;
+            projectile.timeLeft = 1000000;
+            projectile.aiStyle = 0;
+            RegenDefaults();
+            countdown *= projectile.extraUpdates;
         }
 
         public virtual void SetRadius(int radius)
@@ -36,16 +36,13 @@ namespace ExtraExplosives.Projectiles.RegenBomb
             this.radius = radius;
         }
 
-        public override string Texture { get; } = "ExtraExplosives/Projectiles/SmallExplosiveProjectile";
-        
         private int[] currentTile = new int[2];
-        public override bool PreAI()
+        public sealed override bool PreAI()
         {
-            projectile.velocity.X *= 0.99f;
-            if (projectile.velocity.Y < 0) projectile.velocity *= 0.98f;
-            else if (projectile.velocity.Y == 0) projectile.velocity.Y += 0.1f;
-            else projectile.velocity *= 1.05f;
-            //Main.NewText(countdown);
+            //projectile.velocity.X *= 0.99f;
+            //if (projectile.velocity.Y < 0) projectile.velocity *= 1 - velocity;
+            //else if (projectile.velocity.Y == 0) projectile.velocity.Y += 0.1f;
+            //else projectile.velocity *= 1 + velocity;
             if (countdown == 0)
             {
                 countdown--;
@@ -53,36 +50,37 @@ namespace ExtraExplosives.Projectiles.RegenBomb
                 maxX = (int)(projectile.Center.X / 16 + radius);
                 minY = (int)(projectile.Center.Y / 16 - radius);
                 maxY = (int)(projectile.Center.Y / 16 + radius);
-                //if (minX < 0) minX = 0;
-                //else if (maxX > Main.mapMaxX) maxX = Main.mapMaxX;
-                //if (minY < 0) minY = 0;
-                //else if (maxY > Main.mapMaxX) maxY = Main.mapMaxY;
                 currentTile[0] = minX;
                 currentTile[1] = minY;
             }
             else if (countdown > 0)
             {
                 countdown--;
+                base.AI();
                 return false;
             }
             return true;
         }
-        
-        public override void AI()
+
+        public sealed override void AI()
         {
+            try
+            {
+                int _ = ContentInstance<ExtraExplosivesWorld>.Instance.originalWorldState[currentTile[0],
+                    currentTile[1]];
+            }
+            catch (Exception e)
+            {
+                Main.NewText("The world doesn't have the required information to be regenerated\n" +
+                             "This may be due to using a world which was generated before installing this version of EE\n" +
+                             "or by installing a newer version of EE over the version this world was originally generated in\n" +
+                             "The regen bomb will not work in this world, please generate a new world and try again");
+                projectile.timeLeft = 0;
+                complete = true;
+                projectile.Kill();
+            }
             projectile.velocity = Vector2.Zero;
 
-            /*for (int i = minX; i < maxX; i++)
-            {
-                for (int j = minY; j < maxY; j++)
-                {
-                    if (ContentInstance<ExtraExplosivesWorld>.Instance.originalWorldState[i, j] == -1) continue;
-                    WorldGen.PlaceTile(i, j, ContentInstance<ExtraExplosivesWorld>.Instance.originalWorldState[i, j],
-                        false, true);
-                    Main.NewText($"{i}{j} type {ContentInstance<ExtraExplosivesWorld>.Instance.originalWorldState[i,j]}");
-                }
-            }*/
-                
             int x = (int)(currentTile[0] - projectile.Center.X / 16);
             int y = (int)(currentTile[1] - projectile.Center.Y / 16);
             Main.NewText($"{currentTile[0]}, {currentTile[1]}");
@@ -98,12 +96,9 @@ namespace ExtraExplosives.Projectiles.RegenBomb
                 {
                     WorldGen.PlaceTile(currentTile[0], currentTile[1], type);
                 }
-                Main.NewText("placing");
             }
-            //else Main.NewText("Skipping");
             
             currentTile[0]++;
-            //Main.NewText($"i: {currentTile[0]} @ {minX}|{maxX}, j: {currentTile[1]} @ {minY}|{maxY}");
             if (currentTile[0] > maxX)
             {
                 currentTile[0] = minX;
@@ -112,7 +107,6 @@ namespace ExtraExplosives.Projectiles.RegenBomb
             if (currentTile[1] > maxY)
             {
                 currentTile[1] = minY;
-                Main.NewText("Finsihed placing dirt");
                 complete = true;
                 projectile.timeLeft = 0;
                 projectile.Kill();
@@ -128,11 +122,6 @@ namespace ExtraExplosives.Projectiles.RegenBomb
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             return;
-        }
-
-        public override void Explosion()
-        {
-            base.Explosion();
         }
 
         public override bool PreKill(int timeLeft)

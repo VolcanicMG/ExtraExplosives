@@ -79,7 +79,7 @@ namespace ExtraExplosives
 			}
 		}
 
-		public static void InflictDebuff(int id, int radius, Vector2 position, bool ownerImmune = false, int owner = 255, int? dust = null, int time = 300)
+		public static void InflictDubuff(int id, int radius, Vector2 position, bool ownerImmune = false, int owner = 255, int? dust = null, int time = 300)
 		{
 			foreach (NPC npc in Main.npc) // Get each npc
 			{

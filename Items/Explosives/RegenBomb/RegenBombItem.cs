@@ -9,13 +9,10 @@ namespace ExtraExplosives.Items
     // More or less completely ignore this and its projectile for now it doesnt work
     public class RegenBombItem : ExplosiveItem
     {
-        public override void SetStaticDefaults()
+        public override bool Autoload(ref string name)
         {
-            DisplayName.SetDefault("Base Regeneration Bomb");
-            Tooltip.SetDefault("You really shouldn't have this, it does nothing");
+            return false;
         }
-
-        public override string Texture { get; } = "ExtraExplosives/Items/Explosives/LargeExplosiveItem";
 
         public override void SafeSetDefaults()
         {
@@ -26,7 +23,7 @@ namespace ExtraExplosives.Items
             item.knockBack = 0;
             item.shoot = ModContent.ProjectileType<RegenBombProjectile>();
             item.useTime = 15;
-            item.useAnimation = 1;
+            item.useAnimation = 15;
             item.useStyle = 1;
         }
     }

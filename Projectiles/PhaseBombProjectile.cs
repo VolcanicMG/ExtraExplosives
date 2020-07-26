@@ -16,7 +16,6 @@ namespace ExtraExplosives.Projectiles
 		protected override string goreFileLoc => "Gores/Explosives/phase_gore";
 		private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
 		private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
-		private bool? explosion = false;
 		internal static bool CanBreakWalls;
 		private LegacySoundStyle phaseSound;
 		private SoundEffectInstance phaseSoundInstance;
@@ -47,13 +46,15 @@ namespace ExtraExplosives.Projectiles
             }
 		}
 
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			return false;
-		}
+		//public override bool OnTileCollide(Vector2 oldVelocity)
+		//{
+		//	return false;
+		//}
 
 		public override void AI()
 		{
+			//projectile.tileCollide = false;
+
 			if (phaseSoundInstance == null)
 				phaseSoundInstance = Main.PlaySound(phaseSound, (int)projectile.Center.X, (int)projectile.Center.Y);
 
