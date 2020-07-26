@@ -27,6 +27,8 @@ namespace ExtraExplosives.Projectiles.RegenBomb
             projectile.tileCollide = false;
             projectile.timeLeft = 1000000;
             projectile.aiStyle = 0;
+            //projectile.aiStyle = 16;
+            projectile.Hitbox = new Rectangle(0,0, 80, 60);
             RegenDefaults();
             countdown *= projectile.extraUpdates;
         }
@@ -39,10 +41,6 @@ namespace ExtraExplosives.Projectiles.RegenBomb
         private int[] currentTile = new int[2];
         public sealed override bool PreAI()
         {
-            //projectile.velocity.X *= 0.99f;
-            //if (projectile.velocity.Y < 0) projectile.velocity *= 1 - velocity;
-            //else if (projectile.velocity.Y == 0) projectile.velocity.Y += 0.1f;
-            //else projectile.velocity *= 1 + velocity;
             if (countdown == 0)
             {
                 countdown--;

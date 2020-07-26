@@ -10,6 +10,9 @@ namespace ExtraExplosives.Projectiles
 	{
 		protected override string explodeSoundsLoc => "n/a";
 		protected override string goreFileLoc => "Gores/Explosives/heavy_gore";
+		
+		//Used to track when a tile can be destroyed
+		private int cooldown = 0;
 
 		public override void SetStaticDefaults()
 		{
@@ -19,7 +22,7 @@ namespace ExtraExplosives.Projectiles
 		public override void SafeSetDefaults()
 		{
 			pickPower = 50;
-			radius = 20;
+			radius = 2;
 			projectile.tileCollide = true;
 			projectile.width = 13;
 			projectile.height = 19;
@@ -29,9 +32,19 @@ namespace ExtraExplosives.Projectiles
 			projectile.timeLeft = 1000;
 		}
 
+		public override void PostAI()
+		{
+			if (cooldown > 0)
+			{
+				cooldown--;
+				return;
+			}
+
+			cooldown = 10;
+		}
+
 		public override bool OnTileCollide(Vector2 old)
 		{
-			
 			//Create Bomb Sound
 			Main.PlaySound(SoundID.Item37, (int) projectile.Center.X, (int) projectile.Center.Y);
 
@@ -89,6 +102,7 @@ namespace ExtraExplosives.Projectiles
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 500);
 
+			radius = 20;
 			projectile.damage =
 				500; // Done because two different damage values are required and there is not clean way to alter then besdies this
 			Explosion();

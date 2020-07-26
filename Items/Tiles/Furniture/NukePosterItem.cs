@@ -8,7 +8,7 @@ namespace ExtraExplosives.Items.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nuke the Corruption");
+            DisplayName.SetDefault("Nuke the Corruption Poster");
         }
 
         public override void SetDefaults()
