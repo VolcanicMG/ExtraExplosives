@@ -5,7 +5,7 @@
 
         public override void RegenDefaults()
         {
-            projectile.extraUpdates = 20;
+            projectile.extraUpdates = 10;
             velocity = 0.0005f;
             SetRadius(20);
         }

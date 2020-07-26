@@ -20,6 +20,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			radius = 4;
 			pickPower = 0;
 			projectile.tileCollide = true;
 			projectile.width = 46;

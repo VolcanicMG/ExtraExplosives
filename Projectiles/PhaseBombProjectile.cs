@@ -46,13 +46,15 @@ namespace ExtraExplosives.Projectiles
             }
 		}
 
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			return false;
-		}
+		//public override bool OnTileCollide(Vector2 oldVelocity)
+		//{
+		//	return false;
+		//}
 
 		public override void AI()
 		{
+			//projectile.tileCollide = false;
+
 			if (phaseSoundInstance == null)
 				phaseSoundInstance = Main.PlaySound(phaseSound, (int)projectile.Center.X, (int)projectile.Center.Y);
 

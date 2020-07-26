@@ -57,7 +57,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 				projectile.Center = projectile.position;
 				//projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
 				//projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
-				projectile.damage = 80;
+				projectile.damage = 25;
 				projectile.knockBack = 10f;
 			}
 		}

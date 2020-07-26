@@ -26,16 +26,17 @@ namespace ExtraExplosives.Projectiles
 
         public sealed override void SetDefaults()
         {
+            //constants throughout all bombs
             SafeSetDefaults();
             projectile.melee = false;
             projectile.ranged = false;
             projectile.magic = false;
             projectile.thrown = false;
             projectile.minion = false;
-            projectile.penetrate = -1;
-            projectile.friendly = false;
-            projectile.hostile = false;
-            projectile.tileCollide = true;
+            //projectile.penetrate = -1;
+            //projectile.friendly = false;
+            //projectile.hostile = false;
+           //projectile.tileCollide = true;
             DangerousSetDefaults();
         }
 
