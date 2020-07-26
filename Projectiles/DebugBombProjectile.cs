@@ -7,7 +7,6 @@ namespace ExtraExplosives.Projectiles
 {
     public class DebugBombProjectile : ExplosiveProjectile
     {
-        private NPC target = null;
         public override string Texture => "ExtraExplosives/Projectiles/SmallExplosiveProjectile";
 		protected override string explodeSoundsLoc => "n/a";
 		protected override string goreFileLoc => "n/a";

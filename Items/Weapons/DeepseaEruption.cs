@@ -10,7 +10,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("DeepseaEruption");
+            DisplayName.SetDefault("Deepsea Eruption");
             Tooltip.SetDefault("Wet, yet powerful");
         }
 
@@ -30,7 +30,7 @@ namespace ExtraExplosives.Items.Weapons
             item.UseSound = SoundID.Item11;
             item.autoReuse = true;
             item.shoot = 133; //idk why but all the guns in the vanilla source have this
-            item.shootSpeed = 2;
+            item.shootSpeed = 10;
             item.useAmmo = AmmoID.Rocket;
         }
         

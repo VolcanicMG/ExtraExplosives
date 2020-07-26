@@ -27,6 +27,7 @@ namespace ExtraExplosives.Projectiles
 			projectile.friendly = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 860;
+			projectile.damage = 20;
 		}
 
 		public override void AI()

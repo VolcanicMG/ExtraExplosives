@@ -446,6 +446,7 @@ namespace ExtraExplosives
 		{
 			if (ExtraExplosives.NukeActive == true)
 			{
+				//Main.NewText("Nuke active");
 				//follow the projectiles
 				Main.screenPosition = new Vector2(ExtraExplosives.NukePos.X - (Main.screenWidth / 2), ExtraExplosives.NukePos.Y - (Main.screenHeight / 2));
 			}
@@ -493,7 +494,8 @@ namespace ExtraExplosives
 		{
 			if (ExtraExplosives.NukeActive == true)
 			{
-				player.controlUseItem = false;
+				// Removed so i dont have to close the game each time i test the nuke
+				/*player.controlUseItem = false;
 				player.noBuilding = true;
 				player.controlUseTile = false;
 				if (Main.playerInventory)
@@ -501,7 +503,7 @@ namespace ExtraExplosives
 					player.ToggleInv();
 				}
 				player.controlInv = false;
-				player.controlMap = false;
+				player.controlMap = false;*/
 			}
 		}
 

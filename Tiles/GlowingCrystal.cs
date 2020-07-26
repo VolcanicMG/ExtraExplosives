@@ -70,10 +70,7 @@ namespace ExtraExplosives.Tiles
 
             //TileObjectData.newTile.FullCopyFrom(TileID.Crystals);
         }
-        
 
-        private int animationFrameWidth = 18;
-        
         /*public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset) {
             // Tweak the frame drawn by x position so tiles next to each other are off-sync and look much more interesting.
             int uniqueAnimationFrame = Main.tileFrame[Type] + i;

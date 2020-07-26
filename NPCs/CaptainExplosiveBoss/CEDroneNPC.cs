@@ -50,9 +50,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             npc.width = 15;
             npc.height = 15;
             npc.Hitbox = new Rectangle(0,0,32,32);
-            npc.damage = 60;
+            npc.damage = 0;
             npc.defense = 5;
-            npc.lifeMax = 25;
+            npc.lifeMax = 40;
             npc.knockBackResist = 0f;
             npc.noTileCollide = true;
             npc.frame.Height = 22;
@@ -66,7 +66,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 0.625f * bossLifeScale);
+            npc.lifeMax += 20;
             npc.damage = (int)(npc.damage * 0.6f);
         }
 
@@ -269,6 +269,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
             if (_targetingFrames < 0)    // Accelerate the first step for a more 'energetic' attack
             {
+                npc.damage = 40;
                 npc.velocity.X += direction.X * 8;        
                 if (_target.position.Y < npc.position.Y)
                 {
@@ -308,7 +309,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (spawnTimer > 0) return;
-            Kill();    // on collide kill it (here so it wont deal damage)
+            if (_targetingFrames < 0)
+            {
+                Kill();    // on collide kill it (here so it wont deal damage)
+            }
         }
 
         public void Kill()
@@ -319,10 +323,18 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 CreateExplosion(npc.position, 4);
             }
 
+            Main.PlaySound(SoundID.Item14, (int)npc.position.X, (int)npc.position.Y);
+
             CreateDust(npc.Center, 50);
-            ExplosionDamage(12f, npc.Center, 60, 7, Main.myPlayer);
+            ExplosionDamage(12f, npc.Center, 40, 7, Main.myPlayer);
             // kill the drone
             npc.life = 0;
+        }
+
+        public override bool CheckDead()
+        {
+            Kill();
+            return base.CheckDead();
         }
 
         private void CreateExplosion(Vector2 position, int radius)

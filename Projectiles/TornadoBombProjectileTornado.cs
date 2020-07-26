@@ -17,7 +17,7 @@ namespace ExtraExplosives.Projectiles
 			Main.projFrames[projectile.type] = 6;
 		}
 
-		public override void SafeSetDefaults()
+		public override void DangerousSetDefaults()
 		{
 			projectile.CloneDefaults(386);
 			//projectile.tileCollide = true;
@@ -26,9 +26,15 @@ namespace ExtraExplosives.Projectiles
 			projectile.aiStyle = -1;
 			projectile.friendly = true;
 			projectile.hostile = true;
-			//projectile.hostile = true;
+			projectile.melee = false;
+			projectile.ranged = false;
+			projectile.magic = false;
+			projectile.thrown = false;
+			projectile.minion = false;
+			projectile.penetrate = -1;
 			//projectile.penetrate = -1;
 			projectile.timeLeft = 560;
+			projectile.damage = 20;
 		}
 
 		public override void AI()
@@ -38,6 +44,8 @@ namespace ExtraExplosives.Projectiles
 			float num614 = 1f;
 			int num615 = 150;
 			int num616 = 42;
+
+			projectile.damage = 20;
 			//if (projectile.type == 386)
 			//{
 			//	num612 = 16;
@@ -108,7 +116,7 @@ namespace ExtraExplosives.Projectiles
 				float num617 = ((float)(num612 + num613) - projectile.ai[1] + 1f) * num614 / (float)(num613 + num612);
 				center4.Y -= (float)num616 * num617 / 2f;
 				center4.Y += 2f;
-				Projectile.NewProjectile(center4.X, center4.Y, projectile.velocity.X, projectile.velocity.Y, projectile.type, projectile.damage, projectile.knockBack, projectile.owner, 10f, projectile.ai[1] - 1f);
+				Projectile.NewProjectile(center4.X, center4.Y, projectile.velocity.X, projectile.velocity.Y, projectile.type, 20, projectile.knockBack, projectile.owner, 10f, projectile.ai[1] - 1f);
 				int num618 = 4;
 				//if (projectile.type == 386)
 				//{
