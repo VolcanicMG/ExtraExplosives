@@ -1,6 +1,8 @@
 using ExtraExplosives.Items;
 using ExtraExplosives.Items.Accessories.AnarchistCookbook;
 using ExtraExplosives.Items.Explosives;
+using ExtraExplosives.Items.Weapons;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,17 +45,72 @@ namespace ExtraExplosives.NPCs
 					Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BreakenTheBankenItem>(), 1);
 				}
 			}
-
-			if (npc.type == NPCID.SkeletonCommando)
+			
+			switch (npc.type)
 			{
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BlastShielding>(), 1);
-				}
-				if (Main.rand.Next(2) == 1)
-				{
-					Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<ReactivePlating>(), 1);
-				}
+				// Bosses
+				case NPCID.WallofFlesh:
+					if (Main.rand.NextFloat() < 0.10210526f)
+					{
+						Item.NewItem(npc.position, new Vector2(32,32), ModContent.ItemType<MinerainLauncher>(), 1);
+					}
+					break;
+				case NPCID.PirateShip:
+					if (Main.rand.NextFloat() < 0.10210526f)
+					{
+						Item.NewItem(npc.position, new Vector2(32,32), ModContent.ItemType<DutchmansBlaster>(), 1);
+					}
+					break;
+				case NPCID.Pumpking:
+					if (Main.rand.NextFloat() < 0.1021f)
+					{
+						Item.NewItem(npc.position, new Vector2(32,32), ModContent.ItemType<PumpkinLauncher>(), 1);
+					}
+					break;
+				case NPCID.DukeFishron:
+					if (Main.rand.NextFloat() < 0.1021f)
+					{
+						Item.NewItem(npc.position, new Vector2(32,32), ModContent.ItemType<DeepseaEruption>(), 1);
+					}
+					break;
+				
+				// NPCs
+				case NPCID.SkeletonCommando:
+					if (Main.rand.Next(100) == 0)
+					{
+						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BlastShielding>(), 1);
+					}
+					break;
+				case NPCID.TacticalSkeleton:
+					if (Main.rand.Next(100) == 0)
+					{
+						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BlastShielding>(), 1);
+					}
+					if (Main.rand.Next(100) == 0)
+					{
+						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<TacticalBonerifle>(), 1);
+					}
+					break;
+				case NPCID.GoblinPeon:
+					if (Main.rand.Next(100) == 0)
+					{
+						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<TrashCannon>(), 1);
+					}
+					break;
+				case NPCID.PirateDeadeye:
+					if (Main.rand.Next(100) == 0)
+					{
+						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<Blunderboom>(), 1);
+					}
+					break;
+				case NPCID.RayGunner:
+					if (Main.rand.Next(100) == 0)
+					{
+						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<SilentCricket>(), 1);
+					}
+					break;
+				default:
+					break;
 			}
 		}
 
@@ -85,6 +142,16 @@ namespace ExtraExplosives.NPCs
 				nextSlot++;
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpongeItem>());
 				nextSlot++;
+			}
+		}
+		
+		public override void GetChat(NPC npc, ref string chat)
+		{
+			switch (npc.type)
+			{
+				case NPCID.Guide:
+				default:
+					break;
 			}
 		}
 	}

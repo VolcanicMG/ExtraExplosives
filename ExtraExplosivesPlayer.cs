@@ -37,7 +37,6 @@ namespace ExtraExplosives
 		public float RadiusMulti { get; set; }
 		public int ExplosiveCrit { get; set; }
 
-
 		public int reforgeUIActive = 0;
 		public bool detonate;
 
@@ -161,7 +160,7 @@ namespace ExtraExplosives
 			RadiusMulti = 1;
 			ExplosiveCrit = 0;
 		}
-
+		
 		public override void UpdateDead()
 		{
 			RadiatedDebuff = false;
@@ -275,6 +274,7 @@ namespace ExtraExplosives
 				novaBoostRechargeDelay = 300;
 				player.velocity *= 3;
 				boosting = true;
+
 			}
 		}
 
@@ -283,6 +283,7 @@ namespace ExtraExplosives
 		{
 			Projectile projectile = new Projectile();
 			projectile.CloneDefaults(damageSource.SourceProjectileType);
+
 			if (projectile.type == ModContent.ProjectileType<BombCloakProjectile>()) return false;  // If the bomb cloak caused the explosion, do nothing
 
 			if (projectile.aiStyle == 16)
@@ -530,7 +531,6 @@ namespace ExtraExplosives
 				[nameof(RandomFuelFrostburn)] = RandomFuelFrostburn,
 				[nameof(RandomFuelConfused)] = RandomFuelConfused,
 				[nameof(ShortFuseTime)] = ShortFuseTime
-
 			};
 		}
 

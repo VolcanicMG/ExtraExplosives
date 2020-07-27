@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using ExtraExplosives.Items.Weapons;
 using ExtraExplosives.Tiles;
 using IL.Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using Terraria.World.Generation;
+using Item = IL.Terraria.Item;
 using ItemID = Terraria.ID.ItemID;
 using Tile = IL.Terraria.Tile;
 using TileID = Terraria.ID.TileID;
@@ -77,5 +81,48 @@ namespace ExtraExplosives
                 }
             }
         }
+
+        public override void PostWorldGen()
+        {
+            int[] itemsToPlaceInIceChests = {ModContent.ItemType<CoralKrakSlinger>()};
+            int itemToPlaceInChestChoice = 0;
+            for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
+            {
+                Chest chest = Main.chest[chestIndex];
+                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers &&
+                    Main.tile[chest.x, chest.y].frameX == 11 * 36)
+                {
+                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                    {
+                        if (chest.item[inventoryIndex].type == ItemID.None)
+                        {
+                            chest.item[inventoryIndex].SetDefaults(itemsToPlaceInIceChests[itemToPlaceInChestChoice]);
+                            itemToPlaceInChestChoice = (itemToPlaceInChestChoice + 1) % itemsToPlaceInIceChests.Length;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        /*public override TagCompound Save()
+        {
+            string worldName = Main.worldName;
+            string path = @"%username%\Documents\My Games\Terraria\Worlds\" + worldName + ".save";
+            if (!File.Exists(path))
+            {
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    sw.WriteLine($"[worldName]:{Main.worldName}");
+                    sw.Write("[tileID]:");
+                    foreach (int tileID in originalWorldState)
+                    {
+                        sw.Write(tileID + ",");
+                    }
+                }
+            }
+
+            return base.Save();
+        }*/
     }
 }

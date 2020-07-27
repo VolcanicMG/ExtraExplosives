@@ -10,7 +10,9 @@ namespace ExtraExplosives.Items.Weapons
         // Class Variables
         public bool Explosive { get; set; } = true;
 
-        public abstract void SafeSetDefaults();
+        public virtual void SafeSetDefaults()
+        {
+        }
 
         public sealed override void SetDefaults()
         {
@@ -21,11 +23,16 @@ namespace ExtraExplosives.Items.Weapons
             item.summon = false;
             item.thrown = false;
             item.useStyle = 5;
+            DangerousSetDefaults();
+        }
+
+        public virtual void DangerousSetDefaults()
+        {
         }
         
         public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
         {
-            mult += player.EE().DamageMulti;
+            mult = player.EE().DamageMulti;
             add += player.EE().DamageBonus * player.EE().DamageMulti;
         }
 

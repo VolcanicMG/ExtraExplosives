@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -48,6 +48,25 @@ namespace ExtraExplosives.Items.Weapons
 
             type = ProjectileID.Dynamite;
             return true; // return false because we don't want tmodloader to shoot projectile
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.IronBow, 1);
+            recipe.AddIngredient(ItemID.Wood, 20);
+            recipe.AddIngredient(ItemID.Dynamite, 1);
+            recipe.anyWood = true;
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+            
+            recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.LeadBow, 1);
+            recipe.AddIngredient(ItemID.Wood, 20);
+            recipe.AddIngredient(ItemID.Dynamite, 1);
+            recipe.anyWood = true;
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

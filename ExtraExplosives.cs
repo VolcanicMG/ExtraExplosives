@@ -15,6 +15,15 @@ using Terraria.UI;
 using ExtraExplosives.UI.AnarchistCookbookUI;
 
 
+using static ExtraExplosives.GlobalMethods;
+using System;
+using Terraria.ModLoader.UI.ModBrowser;
+using System.Net;
+using System.Data;
+using ExtraExplosives.NPCs.CaptainExplosiveBoss;
+using ExtraExplosives.UI;
+using ExtraExplosives.UI.AnarchistCookbookUI;
+
 namespace ExtraExplosives
 {
 	public class ExtraExplosives : Mod
@@ -24,6 +33,7 @@ namespace ExtraExplosives
 		internal static ModHotKey TriggerUIReforge;
 		internal static ModHotKey ToggleCookbookUI;
 		internal static ModHotKey TriggerBoost;
+		
 
 		public static bool NukeActivated;
 		public static bool NukeActive;

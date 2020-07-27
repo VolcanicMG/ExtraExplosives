@@ -1,3 +1,4 @@
+using ExtraExplosives.Projectiles.Weapons.TrashCannonProjectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -5,19 +6,17 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-    public class TrashCannon : ModItem
+    public class TrashCannon : ExplosiveWeapon
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Trash Cannon");
-            Tooltip.SetDefault("One's trash,\n" +
-                               "Is another's lethal projectile");
+            Tooltip.SetDefault("One's trash, is another's lethal projectile");
         }
 
-        public override void SetDefaults()
+        public override void SafeSetDefaults()
         {
             item.damage = 60;
-            item.ranged = true;
             item.width = 46;
             item.height = 36;
             item.useTime = 50;
@@ -30,7 +29,7 @@ namespace ExtraExplosives.Items.Weapons
             item.rare = ItemRarityID.Green;
             item.UseSound = SoundID.Item11;
             item.autoReuse = true;
-            item.shoot = ProjectileID.SpikyBall; //idk why but all the guns in the vanilla source have this
+            item.shoot = 10;
             item.shootSpeed = 15;
             item.useAmmo = AmmoID.Rocket;
         }
@@ -42,6 +41,7 @@ namespace ExtraExplosives.Items.Weapons
         
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            Main.NewText("test");
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
@@ -54,7 +54,7 @@ namespace ExtraExplosives.Items.Weapons
                 // If you want to randomize the speed to stagger the projectiles
                 // float scale = 1f - (Main.rand.NextFloat() * .3f);
                 // perturbedSpeed = perturbedSpeed * scale; 
-                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<TrashCannonProjectile>(), damage, knockBack, player.whoAmI);
             }
             return false; // return false because we don't want tmodloader to shoot projectile
         }

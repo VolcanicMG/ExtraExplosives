@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,7 +29,7 @@ namespace ExtraExplosives.Items.Weapons
             item.rare = ItemRarityID.Yellow;
             item.UseSound = SoundID.Item11;
             item.autoReuse = true;
-            item.shoot = 133; //idk why but all the guns in the vanilla source have this
+            item.shoot = ProjectileID.GrenadeI; //idk why but all the guns in the vanilla source have this
             item.shootSpeed = 10;
             item.useAmmo = AmmoID.Rocket;
         }

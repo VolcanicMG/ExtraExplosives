@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pumpkin Launcher");
+            DisplayName.SetDefault("Bombkin 3000 (WIP)");
             Tooltip.SetDefault("These pumpkins are NOT safe around open flames\n" +
                                "Launches three rockets in quick succession\n" +
                                "Consumes one rocket per burst");
@@ -20,7 +20,8 @@ namespace ExtraExplosives.Items.Weapons
             item.useStyle = 5;
             item.autoReuse = true;
             item.useAnimation = 33;
-            item.useTime = 33;
+            item.useTime = 11;
+            item.reuseDelay = 11;
             item.useAmmo = AmmoID.Rocket;
             item.width = 66;
             item.height = 34;
@@ -48,16 +49,15 @@ namespace ExtraExplosives.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            int numberProjectiles = 3;
-            for (int i = 0; i < numberProjectiles; i++)
-            {
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30)); // 30 degree spread.
-                // If you want to randomize the speed to stagger the projectiles
-                // float scale = 1f - (Main.rand.NextFloat() * .3f);
-                // perturbedSpeed = perturbedSpeed * scale; 
-                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-            }
-            return false; // return false because we don't want tmodloader to shoot projectile
+
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+        }
+        
+        public override bool ConsumeAmmo(Player player)
+        {
+            // Because of how the game works, player.itemAnimation will be 11, 7, and finally 3. (UseAmination - 1, then - useTime until less than 0.) 
+            // We can get the Clockwork Assault Riffle Effect by not consuming ammo when itemAnimation is lower than the first shot.
+            return !(player.itemAnimation < item.useAnimation - 2);
         }
     }
 }

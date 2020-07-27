@@ -33,7 +33,10 @@ namespace ExtraExplosives.Projectiles
 			projectile.timeLeft = 800;
 			//projectile.scale = 1.5f;
 			fuseSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + "Wick");
-			fuseSound = fuseSound.WithVolume(0.5f);
+			if (!Main.dedServ)
+            {
+				fuseSound = fuseSound.WithVolume(0.5f);
+			}
 			explodeSounds = new LegacySoundStyle[2];
 			for (int num = 1; num <= explodeSounds.Length; num++)
             {

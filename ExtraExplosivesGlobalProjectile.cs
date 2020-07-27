@@ -26,7 +26,7 @@ namespace ExtraExplosives
         public override bool PreAI(Projectile projectile)
         {
 	        if (projectile.type == ModContent.ProjectileType<NukeProjectileBomb>() ||
-	            projectile.type == ModContent.ProjectileType<NukeProjectilePlane>()) return true;
+	            projectile.type == ModContent.ProjectileType<NukeProjectilePlane>()) return base.PreAI(projectile);
 	        ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
             if (!_upVelocity &&
                 mp.LightweightBombshells &&
@@ -60,7 +60,8 @@ namespace ExtraExplosives
         public override void AI(Projectile projectile)
         {
 	        if (projectile.type == ModContent.ProjectileType<NukeProjectileBomb>() ||
-	            projectile.type == ModContent.ProjectileType<NukeProjectilePlane>()) return;
+	            projectile.type == ModContent.ProjectileType<NukeProjectilePlane>()) 
+		        base.AI(projectile);
 	        ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
 	        if (projectile.aiStyle == 16 &&
 	            !projectile.arrow &&
@@ -262,8 +263,7 @@ namespace ExtraExplosives
 		        {
 			        projectile.velocity = constVelocity;
 		        }
-	        }
-	        
+	        }    
 	        base.AI(projectile);
         }
 
