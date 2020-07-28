@@ -49,8 +49,13 @@ namespace ExtraExplosives.Projectiles
 			projectile.timeLeft = Int32.MaxValue;
 			//projectile.extraUpdates = 1;
 			Terraria.ModLoader.SoundType customType = Terraria.ModLoader.SoundType.Custom;
-			//indicatorSound = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "timer").WithPitchVariance(0f).WithVolume(0.5f);
-			//primedSound = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "time_to_explode").WithPitchVariance(0f).WithVolume(0.5f);
+			indicatorSound = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "timer");
+			primedSound = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "time_to_explode");
+			if (!Main.dedServ)
+            {
+				indicatorSound = indicatorSound.WithPitchVariance(0f).WithVolume(0.5f);
+				primedSound = primedSound.WithPitchVariance(0f).WithVolume(0.5f);
+            }
 			explodeSounds = new LegacySoundStyle[4];
 			for (int num = 1; num <= explodeSounds.Length; num++)
 			{
