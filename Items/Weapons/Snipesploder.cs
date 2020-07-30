@@ -1,3 +1,4 @@
+using ExtraExplosives.Projectiles.Weapons.Snipesploder;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -16,7 +17,6 @@ namespace ExtraExplosives.Items.Weapons
         public override void SetDefaults()
         {
             item.damage = 38;
-            item.ranged = true;
             item.width = 62;
             item.height = 24;
             item.useTime = 30;
@@ -28,27 +28,12 @@ namespace ExtraExplosives.Items.Weapons
             item.rare = ItemRarityID.Green;
             item.UseSound = SoundID.Item11;
             item.autoReuse = true;
-            item.shoot = 10; //idk why but all the guns in the vanilla source have this
+            item.shoot = ModContent.ProjectileType<SnipesploderProjectile>(); //idk why but all the guns in the vanilla source have this
             item.shootSpeed = 15;
             item.useAmmo = AmmoID.Rocket;
         }
-        
-        public override Vector2? HoldoutOffset()
-        {
-            return new Vector2(-9, 2);
-        }
-        
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-            {
-                position += muzzleOffset;
-            }
 
-            type = ProjectileID.Dynamite;
-            return true; // return false because we don't want tmodloader to shoot projectile
-        }
+        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<SnipesploderProjectile>()] <= 0;
 
         public override void AddRecipes()
         {

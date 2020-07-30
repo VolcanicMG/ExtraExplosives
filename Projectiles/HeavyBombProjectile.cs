@@ -45,6 +45,10 @@ namespace ExtraExplosives.Projectiles
 
 		public override bool OnTileCollide(Vector2 old)
 		{
+			if (cooldown > 0)
+			{
+				return base.OnTileCollide(old);
+			}
 			//Create Bomb Sound
 			Main.PlaySound(SoundID.Item37, (int) projectile.Center.X, (int) projectile.Center.Y);
 
@@ -54,7 +58,7 @@ namespace ExtraExplosives.Projectiles
 			//Create Bomb Explosion
 			Vector2 position = projectile.Center;
 			int radius = 2;
-			if (!Main.player[projectile.owner].EE().BombardEmblem)	// Skip this if the emblem is equiped
+			if (!Main.player[projectile.owner].EE().BombardEmblem)	// Skip this if the emblem is equipped
 			{
 				for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
 				{

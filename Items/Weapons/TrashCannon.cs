@@ -1,4 +1,4 @@
-using ExtraExplosives.Projectiles.Weapons.TrashCannonProjectiles;
+using ExtraExplosives.Projectiles.Weapons.TrashCannon;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

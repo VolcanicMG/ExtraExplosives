@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ExtraExplosives.Projectiles.Weapons.DutchmansBlaster;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,8 +30,8 @@ namespace ExtraExplosives.Items.Weapons
             item.rare = ItemRarityID.LightRed;
             item.UseSound = SoundID.Item11;
             item.autoReuse = true;
-            item.shoot = 155; //idk why but all the guns in the vanilla source have this
-            item.shootSpeed = 12;
+            item.shoot = ModContent.ProjectileType<DutchmansBlasterProjectile>(); //idk why but all the guns in the vanilla source have this
+            item.shootSpeed = 24;
             item.useAmmo = AmmoID.Rocket;
         }
         
