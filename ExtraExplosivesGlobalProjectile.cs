@@ -83,7 +83,7 @@ namespace ExtraExplosives
 		        {
 			        projectile.tileCollide = (bool)_stickyGunpowderFlag;
 		        }
-		        else if (mp.StickyGunpowder &&
+		        else if (mp.StickyGunpowder ||
 		                 mp.StickyGunpowderActive) // Sticky Gunpowder (working)
 		        {
 			        if (_stickyGunpowderFlag == null) _stickyGunpowderFlag = projectile.tileCollide;	// Get the standard collide value
