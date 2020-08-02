@@ -27,6 +27,7 @@ namespace ExtraExplosives
         {
 	        if (projectile.type == ModContent.ProjectileType<NukeProjectileBomb>() ||
 	            projectile.type == ModContent.ProjectileType<NukeProjectilePlane>()) return true;
+			if (projectile.type == ModContent.ProjectileType<NPCProjectile>()) return true;
 	        ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
             if (!_upVelocity &&
                 mp.LightweightBombshells &&
@@ -61,7 +62,8 @@ namespace ExtraExplosives
         {
 	        if (projectile.type == ModContent.ProjectileType<NukeProjectileBomb>() ||
 	            projectile.type == ModContent.ProjectileType<NukeProjectilePlane>()) return;
-	        ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
+			if (projectile.type == ModContent.ProjectileType<NPCProjectile>()) return;
+			ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
 	        if (projectile.aiStyle == 16 &&
 	            !projectile.arrow &&
 	            !projectile.ranged &&

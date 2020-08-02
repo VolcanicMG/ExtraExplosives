@@ -304,7 +304,14 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 					if (_dropDynamite && attackCool >= 200)
 					{
 						npc.velocity = Vector2.Multiply(npc.velocity, 0.75f);
-						dropDynamite();
+						if(Main.expertMode)
+						{
+							fireRocket();
+						}
+						else
+						{
+							dropDynamite();
+						}
 					}
 				}
 				else if (((float)npc.life / (float)npc.lifeMax) <= .33f) //Below 33%, Phase 3
@@ -899,6 +906,39 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			if (rand == 0 && Vector2.Distance(npc.velocity, Vector2.Zero) < 0.1f && attackCool >= 200)
 			{
 				int drop = NPC.NewNPC((int)(npc.position.X + 100), (int)(npc.position.Y + 240), ModContent.NPCType<BossDynamiteNPC>());
+				Main.npc[drop].netUpdate = true;
+				_dropDynamite = false;
+				NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, drop);
+			}
+		}
+
+		public void fireRocket()
+		{//might need to get rid of the Main.rand change it to a global so we can sync it
+
+			int rand = 0;
+
+			if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				rand = Main.rand.Next(5);
+			}
+
+			if (Main.netMode == NetmodeID.Server)
+			{
+				rand = Main.rand.Next(5);
+
+				ModPacket myPacket = mod.GetPacket();
+				myPacket.Write((byte)ExtraExplosives.EEMessageTypes.bossCheckRocket);
+				myPacket.WriteVarInt(rand);
+				myPacket.Send();
+
+				rand = ExtraExplosives.bossDropDynamite;
+			}
+
+			//Main.NewText(rand);
+
+			if (rand == 0 && Vector2.Distance(npc.velocity, Vector2.Zero) < 0.1f && attackCool >= 200)
+			{
+				int drop = NPC.NewNPC((int)(npc.position.X + 100), (int)(npc.position.Y + 240), ModContent.NPCType<BossRocket>());
 				Main.npc[drop].netUpdate = true;
 				_dropDynamite = false;
 				NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, drop);

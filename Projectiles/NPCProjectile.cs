@@ -31,7 +31,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void AI()
 		{
-			if (projectile.owner == Main.myPlayer && projectile.timeLeft <= 3)
+			if (projectile.timeLeft <= 3)
 			{
 				projectile.tileCollide = false;
 				// Set to transparent. This projectile technically lives as  transparent for about 3 frames

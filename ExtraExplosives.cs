@@ -92,6 +92,7 @@ namespace ExtraExplosives
 			checkBossUIYes,
 			checkBossUINo,
 			BossCheckDynamite,
+			bossCheckRocket,
 			boolBossCheck,
 			checkBossActive,
 			setBossInactive,
@@ -120,6 +121,13 @@ namespace ExtraExplosives
 					int randomNumber = reader.ReadVarInt();
 
 					bossDropDynamite = randomNumber;
+					break;
+
+				case EEMessageTypes.bossCheckRocket:
+
+					int randomNumber2 = reader.ReadVarInt();
+
+					bossDropDynamite = randomNumber2;
 					break;
 
 				case EEMessageTypes.bossMovment:
