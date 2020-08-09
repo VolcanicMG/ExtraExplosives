@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
@@ -9,6 +10,11 @@ namespace ExtraExplosives.Items.Weapons
     {
         // Class Variables
         public bool Explosive { get; set; } = true;
+
+        protected abstract string SoundLocation { get; }  
+
+        protected LegacySoundStyle[] PrimarySounds;
+        protected LegacySoundStyle[] SecondarySounds;
 
         public virtual void SafeSetDefaults()
         {
@@ -22,7 +28,7 @@ namespace ExtraExplosives.Items.Weapons
             item.magic = false;
             item.summon = false;
             item.thrown = false;
-            item.useStyle = 5;
+            item.useStyle = 5;    // Required for correct animations (override where needed)
             DangerousSetDefaults();
         }
 

@@ -17,6 +17,6 @@
     <Folder Include="Sounds\Music" />
   </ItemGroup>
   <Target Name="AfterBuild">
-    <Exec Command='C:\Program Files (x86)\Steam\steamapps\common\tModLoader\tModLoaderServer.exe -build "$([System.IO.Path]::GetFullPath("$(MSBuildProjectDirectory)"))"'/>
+    <Exec Command="C:\Program Files (x86)\Steam\steamapps\common\tModLoader\tModLoaderServer.exe -build &quot;$([System.IO.Path]::GetFullPath(&quot;$(MSBuildProjectDirectory)&quot;))&quot;" />
   </Target>
 </Project>

@@ -11,7 +11,6 @@ namespace ExtraExplosives.Sounds.Custom
 			//if (soundInstance.State == SoundState.Stopped)
 			//{
 			//}
-
 			soundInstance.Volume = volume * .4f;
 			soundInstance.Pan = pan;
 			soundInstance.IsLooped = true;

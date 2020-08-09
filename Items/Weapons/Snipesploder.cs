@@ -1,12 +1,13 @@
 using ExtraExplosives.Projectiles.Weapons.Snipesploder;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-    public class Snipesploder : ModItem
+    public class Snipesploder : ExplosiveWeapon
     {
         public override void SetStaticDefaults()
         {
@@ -14,7 +15,9 @@ namespace ExtraExplosives.Items.Weapons
             Tooltip.SetDefault("Arrows are for chumps");
         }
 
-        public override void SetDefaults()
+        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/Snipesploder/Snipesploder";
+
+        public override void SafeSetDefaults()
         {
             item.damage = 38;
             item.width = 62;
@@ -22,15 +25,31 @@ namespace ExtraExplosives.Items.Weapons
             item.useTime = 30;
             item.useAnimation = 30;
             item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true; //so the item's animation doesn't do damage
+            item.noMelee = true; 
             item.knockBack = 4;
             item.value = 10000;
             item.rare = ItemRarityID.Green;
-            item.UseSound = SoundID.Item11;
             item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<SnipesploderProjectile>(); //idk why but all the guns in the vanilla source have this
+            item.shoot = ModContent.ProjectileType<SnipesploderProjectile>();
             item.shootSpeed = 15;
             item.useAmmo = AmmoID.Rocket;
+            
+            PrimarySounds = new LegacySoundStyle[4];
+            SecondarySounds = null;
+
+            for (int n = 1; n <= PrimarySounds.Length; n++)
+            {
+                PrimarySounds[n - 1] =
+                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+            }
+        }
+
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
+            ref float knockBack)
+        {
+            Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                (int) player.position.X, (int) player.position.Y);
+            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
 
         public override bool CanUseItem(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<SnipesploderProjectile>()] <= 0;

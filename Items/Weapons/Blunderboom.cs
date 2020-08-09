@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-    public class Blunderboom : ModItem
+    public class Blunderboom : ExplosiveWeapon
     {
         private int swapCooldown = 0;
         
@@ -16,7 +17,9 @@ namespace ExtraExplosives.Items.Weapons
             Tooltip.SetDefault("Lead and explosions go well together");
         }
 
-        public override void SetDefaults()
+        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/Blunderboom/Blunderboom";
+
+        public override void SafeSetDefaults()
         {
             item.damage = 26;
             item.ranged = true;
@@ -29,11 +32,24 @@ namespace ExtraExplosives.Items.Weapons
             item.knockBack = 2.5f;
             item.value = 10000;
             item.rare = ItemRarityID.LightRed;
-            item.UseSound = SoundID.Item11;
             item.autoReuse = true;
             item.shoot = 10; //idk why but all the guns in the vanilla source have this
             item.shootSpeed = 11;
             item.useAmmo = AmmoID.Bullet;
+            
+            PrimarySounds = new LegacySoundStyle[4];
+            SecondarySounds = new LegacySoundStyle[4];
+
+            for (int n = 1; n <= PrimarySounds.Length; n++)
+            {
+                PrimarySounds[n - 1] =
+                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Primary" + n);
+            }
+            for (int n = 1; n <= SecondarySounds.Length; n++)
+            {
+                SecondarySounds[n - 1] =
+                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Secondary" + n);
+            }
         }
 
         public override void UpdateInventory(Player player)
@@ -58,6 +74,17 @@ namespace ExtraExplosives.Items.Weapons
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
             ref int type, ref int damage, ref float knockBack)
         {
+            switch (item.useAmmo)
+            {
+                case 97:    // Bullet
+                    Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                        (int) player.position.X, (int) player.position.Y);
+                    break;
+                case 771:    // Rocket
+                    Main.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
+                        (int)player.position.X, (int) player.position.Y);
+                    break;
+            }
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {

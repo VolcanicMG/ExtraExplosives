@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-    public class TwinDetonator : ModItem
+    public class TwinDetonator : ExplosiveWeapon
     {
         public override void SetStaticDefaults()
         {
@@ -15,7 +16,9 @@ namespace ExtraExplosives.Items.Weapons
                                "Consumes one rocket per volley");
         }
 
-        public override void SetDefaults()
+        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/TwinDetonator/TwinDetonator";
+
+        public override void SafeSetDefaults()
         {
             item.damage = 15;
             item.ranged = true;
@@ -28,11 +31,19 @@ namespace ExtraExplosives.Items.Weapons
             item.knockBack = 4;
             item.value = 10000;
             item.rare = ItemRarityID.Blue;
-            item.UseSound = SoundID.Item11;
             item.autoReuse = true;
             item.shoot = 133; //idk why but all the guns in the vanilla source have this
             item.shootSpeed = 8;
             item.useAmmo = AmmoID.Rocket;
+            
+            PrimarySounds = new LegacySoundStyle[4];
+            SecondarySounds = null;
+
+            for (int n = 1; n <= PrimarySounds.Length; n++)
+            {
+                PrimarySounds[n - 1] =
+                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+            }
         }
         
         public override Vector2? HoldoutOffset()
@@ -42,6 +53,9 @@ namespace ExtraExplosives.Items.Weapons
         
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                (int) player.position.X, (int) player.position.Y);
+            
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {

@@ -1,6 +1,7 @@
 using ExtraExplosives.Projectiles.Weapons.TrashCannon;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,6 +9,8 @@ namespace ExtraExplosives.Items.Weapons
 {
     public class TrashCannon : ExplosiveWeapon
     {
+        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/TrashCannon/TrashCannon";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Trash Cannon");
@@ -27,11 +30,19 @@ namespace ExtraExplosives.Items.Weapons
             item.crit = 11;
             item.value = 10000;
             item.rare = ItemRarityID.Green;
-            item.UseSound = SoundID.Item11;
             item.autoReuse = true;
             item.shoot = 10;
             item.shootSpeed = 15;
             item.useAmmo = AmmoID.Rocket;
+            
+            PrimarySounds = new LegacySoundStyle[4];
+            SecondarySounds = null;
+
+            for (int n = 1; n <= PrimarySounds.Length; n++)
+            {
+                PrimarySounds[n - 1] =
+                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+            }
         }
         
         public override Vector2? HoldoutOffset()
@@ -41,7 +52,9 @@ namespace ExtraExplosives.Items.Weapons
         
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Main.NewText("test");
+            Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                (int) player.position.X, (int) player.position.Y);
+            
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {

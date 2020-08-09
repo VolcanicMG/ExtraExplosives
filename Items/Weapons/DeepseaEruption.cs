@@ -1,11 +1,12 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-    public class DeepseaEruption : ModItem
+    public class DeepseaEruption : ExplosiveWeapon
     {
 
         public override void SetStaticDefaults()
@@ -14,7 +15,9 @@ namespace ExtraExplosives.Items.Weapons
             Tooltip.SetDefault("Wet, yet powerful");
         }
 
-        public override void SetDefaults()
+        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";
+        
+        public override void SafeSetDefaults()
         {
             item.damage = 25;
             item.ranged = true;
@@ -23,15 +26,23 @@ namespace ExtraExplosives.Items.Weapons
             item.useTime = 23;
             item.useAnimation = 23;
             item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true; //so the item's animation doesn't do damage
+            item.noMelee = true;
             item.knockBack = 7;
             item.value = 10000;
             item.rare = ItemRarityID.Yellow;
-            item.UseSound = SoundID.Item11;
             item.autoReuse = true;
-            item.shoot = ProjectileID.GrenadeI; //idk why but all the guns in the vanilla source have this
+            item.shoot = ProjectileID.GrenadeI; 
             item.shootSpeed = 10;
             item.useAmmo = AmmoID.Rocket;
+            
+            PrimarySounds = new LegacySoundStyle[4];
+            SecondarySounds = null;
+
+            for (int n = 1; n <= PrimarySounds.Length; n++)
+            {
+                PrimarySounds[n - 1] =
+                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+            }
         }
         
         public override Vector2? HoldoutOffset()
@@ -41,6 +52,9 @@ namespace ExtraExplosives.Items.Weapons
         
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                (int) player.position.X, (int) player.position.Y);
+            
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
