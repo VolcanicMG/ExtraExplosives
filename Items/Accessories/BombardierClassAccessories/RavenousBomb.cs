@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.EE().BombardEmblem = true;
+            player.EE().RavenousBomb = true;
         }
     }
 }
