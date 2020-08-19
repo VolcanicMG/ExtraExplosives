@@ -6,13 +6,18 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
+	//TODO Possible make Explosion() and ExplosionDamage() unique to cut down on radius and damage resets
 	public class HeavyBombProjectile : ExplosiveProjectile
 	{
 		protected override string explodeSoundsLoc => "n/a";
 		protected override string goreFileLoc => "Gores/Explosives/heavy_gore";
 		
 		//Used to track when a tile can be destroyed
-		private int cooldown = 0;
+		private float counter
+		{
+			get => projectile.localAI[0];
+			set => projectile.localAI[0] = value;
+		}
 
 		public override void SetStaticDefaults()
 		{
@@ -34,21 +39,19 @@ namespace ExtraExplosives.Projectiles
 
 		public override void PostAI()
 		{
-			if (cooldown > 0)
+			if (counter > 0)
 			{
-				cooldown--;
+				counter--;
 				return;
 			}
 
-			cooldown = 10;
+			counter = 5; // Timer so dust doesnt get spammed
 		}
 
 		public override bool OnTileCollide(Vector2 old)
 		{
-			if (cooldown > 0)
-			{
-				return base.OnTileCollide(old);
-			}
+			projectile.velocity.Y = -0.8f * old.Y;
+			if (projectile.velocity.Y > 10) projectile.velocity.Y = 10;
 			//Create Bomb Sound
 			Main.PlaySound(SoundID.Item37, (int) projectile.Center.X, (int) projectile.Center.Y);
 
@@ -77,13 +80,16 @@ namespace ExtraExplosives.Projectiles
 							else //Breakable
 							{
 								WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-								if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+								//Doesnt make sense for the heavy bomb to break walls, commented for now
+								//if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
 							}
 						}
 					}
 				}
 			}
 
+			if (counter >= 1) return false;	// if the dust counter hasn't reset, dont spawn dust
+			
 			//Create Bomb Dust
 			for (int i = 0; i < 10; i++)
 			{
@@ -95,7 +101,7 @@ namespace ExtraExplosives.Projectiles
 				}
 			}
 
-			return true;
+			return false;
 		}
 
 		public override void Kill(int timeLeft)

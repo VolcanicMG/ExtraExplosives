@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,8 +8,6 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
 {
     public class SnipesploderProjectile : ModProjectile
     {
-        public override string Texture { get; } = "ExtraExplosives/Items/Explosives/BasicExplosiveItem";
-
         private float LifeTime    // Tracks how long the projectile has been alive
         {
             get => projectile.ai[0];
@@ -23,18 +22,20 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
 
         public override void SetDefaults()
         {
-            projectile.width = 62;
-            projectile.height = 24;
-            projectile.aiStyle = 20;
+            projectile.aiStyle = 1;
+            projectile.timeLeft = 31;
+            projectile.rotation = (float) Math.Atan(projectile.velocity.Y / projectile.velocity.X);
+            Main.NewText(projectile.rotation);
         }
 
         public override bool PreAI()
         {
-            Main.NewText("Projectile alive");
             LifeTime++;
             Player player = Main.player[projectile.owner];
             Vector2 playerHandPos = player.RotatedRelativePoint(player.MountedCenter, true);
             projectile.Center = playerHandPos;
+            //float angle = (float) Math.Acos(1 / Vector2.Distance(player.Center, projectile.Center));
+            //Main.NewText(angle + " " + Vector2.Distance(player.Center, projectile.Center));
             return true;
         }
 

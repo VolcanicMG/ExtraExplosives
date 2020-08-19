@@ -16,7 +16,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.useStyle = 5;
+            item.useStyle = ItemUseStyleID.HoldingOut;
             item.autoReuse = true;
             item.useTime = 9;
             item.useAnimation = 9;
@@ -30,7 +30,7 @@ namespace ExtraExplosives.Items.Weapons
             item.noMelee = true;
             item.value = Item.buyPrice(0, 15, 0, 50);
             item.knockBack = 8;
-            item.rare = ItemRarityID.Yellow;
+            item.rare = ItemRarityID.Red;
             item.ranged = true;
         }
 
@@ -59,10 +59,16 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void AddRecipes()
         {
+            /*
+             * TODO Might be good to add a post LC or ML recipe for power cells to avoid having to farm lihzahrds 
+             */
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.LunarBar, 12);
             recipe.AddIngredient(ItemID.FragmentSolar, 10);
             recipe.AddIngredient(ItemID.LihzahrdPowerCell, 5);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

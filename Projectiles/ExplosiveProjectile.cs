@@ -33,10 +33,6 @@ namespace ExtraExplosives.Projectiles
             projectile.magic = false;
             projectile.thrown = false;
             projectile.minion = false;
-            //projectile.penetrate = -1;
-            //projectile.friendly = false;
-            //projectile.hostile = false;
-           //projectile.tileCollide = true;
             DangerousSetDefaults();
         }
 
@@ -61,6 +57,11 @@ namespace ExtraExplosives.Projectiles
             return;
         }
 
+        /// <summary>
+        /// Takes the projectiles radius attribute in place of passing variables
+        /// Creates a circular explosion in the radius defined
+        /// Efficient but most blocks dont drop due to optimization methods (WIP)
+        /// </summary>
         public virtual void Explosion()
         {
             
@@ -112,6 +113,10 @@ namespace ExtraExplosives.Projectiles
             }
         }
 
+        /// <summary>
+        /// Cycles through every npc and player, checking the distance, and deals damage accordingly
+        /// Damage is not dealt if Blast Shielding is equipped
+        /// </summary>
         public virtual void ExplosionDamage()
         {
             if (Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;

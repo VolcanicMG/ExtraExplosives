@@ -33,7 +33,7 @@ namespace ExtraExplosives.Items.Weapons
             item.shoot = ModContent.ProjectileType<SnipesploderProjectile>();
             item.shootSpeed = 15;
             item.useAmmo = AmmoID.Rocket;
-            
+
             PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = null;
 

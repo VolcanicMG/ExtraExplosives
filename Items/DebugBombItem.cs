@@ -20,7 +20,6 @@ namespace ExtraExplosives.Items
         public override void SafeSetDefaults()
         {
             item.CloneDefaults(167);
-            Explosive = true;
             item.shoot = ModContent.ProjectileType<DebugBombProjectile>();
             item.damage = 100;
             item.knockBack = 100;

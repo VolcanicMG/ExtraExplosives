@@ -18,9 +18,12 @@ namespace ExtraExplosives.Items
             internal set;
         }
         
-        public bool Explosive;
+        // Made readonly since any use of ExplosiveItem over ModItem would be to allow for explosive damage
+        public readonly bool Explosive = true;
 
-        public abstract void SafeSetDefaults();
+        public virtual void SafeSetDefaults()
+        {
+        }
         
         public sealed override void SetDefaults()
         {
@@ -30,13 +33,17 @@ namespace ExtraExplosives.Items
             item.magic = false;
             item.summon = false;
             item.thrown = false;
+            DangerousSetDefaults();
+        }
+
+        public virtual void DangerousSetDefaults()
+        {
         }
 
         public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
         {
-            
             mult = player.EE().DamageMulti;
-            add += player.EE().DamageBonus;// * player.EE().DamageMulti;
+            add += player.EE().DamageBonus;
         }
 
         public override void GetWeaponKnockback(Player player, ref float knockback)

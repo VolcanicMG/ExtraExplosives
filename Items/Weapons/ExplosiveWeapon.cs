@@ -6,17 +6,17 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-    public abstract class ExplosiveWeapon : ModItem
+    public abstract class ExplosiveWeapon : ExplosiveItem
     {
         // Class Variables
-        public bool Explosive { get; set; } = true;
 
         protected abstract string SoundLocation { get; }  
 
         protected LegacySoundStyle[] PrimarySounds;
         protected LegacySoundStyle[] SecondarySounds;
 
-        public virtual void SafeSetDefaults()
+        // IGNORE //
+        /*public virtual void SafeSetDefaults()
         {
         }
 
@@ -28,7 +28,7 @@ namespace ExtraExplosives.Items.Weapons
             item.magic = false;
             item.summon = false;
             item.thrown = false;
-            item.useStyle = 5;    // Required for correct animations (override where needed)
+            //item.useStyle = 5;    // Required for correct animations (override where needed)
             DangerousSetDefaults();
         }
 
@@ -39,7 +39,7 @@ namespace ExtraExplosives.Items.Weapons
         public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
         {
             mult = player.EE().DamageMulti;
-            add += player.EE().DamageBonus * player.EE().DamageMulti;
+            add += player.EE().DamageBonus;
         }
 
         public override void GetWeaponKnockback(Player player, ref float knockback)
@@ -62,6 +62,6 @@ namespace ExtraExplosives.Items.Weapons
                 string damageWord = split.Last();
                 stats.text = damageValue + " explosive " + damageWord;
             }
-        }
+        }*/
     }
 }
