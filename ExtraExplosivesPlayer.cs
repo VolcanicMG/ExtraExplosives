@@ -29,12 +29,40 @@ namespace ExtraExplosives
 	public class ExtraExplosivesPlayer : ModPlayer
 	{
 		// Bombard Class stuff	(may need to make setting these on a per client basis)
+		
+		/// <summary>
+		/// Additional explosive damage
+		/// </summary>
 		public int DamageBonus { get; set; }
+		
+		/// <summary>
+		/// Additional explosive knockback
+		/// </summary>
 		public float KnockbackBonus { get; set; }
+		
+		/// <summary>
+		/// Additional explosive radius
+		/// </summary>
 		public int RadiusBonus { get; set; }
+		
+		/// <summary>
+		/// Explosive damage multiplier
+		/// </summary>
 		public float DamageMulti { get; set; }
+		
+		/// <summary>
+		/// Explosive knockback multiplier
+		/// </summary>
 		public float KnockbackMulti { get; set; }
+		
+		/// <summary>
+		/// Explosion radius multiplier
+		/// </summary>
 		public float RadiusMulti { get; set; }
+		
+		/// <summary>
+		/// Explosive crit chance bonus
+		/// </summary>
 		public int ExplosiveCrit { get; set; }
 
 		public int reforgeUIActive = 0;
@@ -59,52 +87,201 @@ namespace ExtraExplosives
 		public static bool reforgePub;
 
 		//Anarchist Cookbook Stuff
+		/// <summary>
+		/// Blast Shielding equipped
+		/// </summary>
 		public bool BlastShielding { get; set; }
+		/// <summary>
+		/// Blast Shielding active in cookbook
+		/// </summary>
 		public bool BlastShieldingActive { get; set; }
+		
+		/// <summary>
+		/// Bomb bag equipped
+		/// </summary>
 		public bool BombBag { get; set; }
+		/// <summary>
+		/// Bomb bag active in cookbook
+		/// </summary>
 		public bool BombBagActive { get; set; }
+		
+		/// <summary>
+		/// Crossed wires equipped
+		/// </summary>
 		public bool CrossedWires { get; set; }
+		/// <summary>
+		/// Crossed wires active in cookbook
+		/// </summary>
 		public bool CrossedWiresActive { get; set; }
+		
+		/// <summary>
+		/// Glowing compound equipped
+		/// </summary>
 		public bool GlowingCompound { get; set; }
+		/// <summary>
+		/// Glowing compound active in cookbook
+		/// </summary>
 		public bool GlowingCompoundActive { get; set; }
+		
+		/// <summary>
+		/// Lightweight bombshells equipped
+		/// </summary>
 		public bool LightweightBombshells { get; set; }
+		/// <summary>
+		/// Lightweight bombshells active in cookbook
+		/// </summary>
 		public bool LightweightBombshellsActive { get; set; }
+		/// <summary>
+		/// Lightweight bombshells cookbook velocity
+		/// </summary>
 		public float LightweightBombshellVelocity { get; set; } = 1;
+		
+		/// <summary>
+		/// Mystery bomb equipped
+		/// </summary>
 		public bool MysteryBomb { get; set; }
+		/// <summary>
+		/// Mystery bomb active in cookbook
+		/// </summary>
 		public bool MysteryBombActive { get; set; }
+		
+		/// <summary>
+		/// Random fuel equipped
+		/// </summary>
 		public bool RandomFuel { get; set; }
+		/// <summary>
+		/// Random fuel active in cookbook
+		/// </summary>
 		public bool RandomFuelActive { get; set; }
+		/// <summary>
+		/// Depricated
+		/// </summary>
 		public bool RandomFuelOnFire { get; set; }
+		/// <summary>
+		/// Depricated
+		/// </summary>
 		public bool RandomFuelFrostburn { get; set; }
+		/// <summary>
+		/// Depricated
+		/// </summary>
 		public bool RandomFuelConfused { get; set; }
+		
+		/// <summary>
+		/// Reactive Plating equipped
+		/// </summary>
 		public bool ReactivePlating { get; set; }
+		/// <summary>
+		/// Reactive Plating active in cookbook
+		/// </summary>
 		public bool ReactivePlatingActive { get; set; }
+		
+		/// <summary>
+		/// Short Fuse equipped
+		/// </summary>
 		public bool ShortFuse { get; set; }
+		/// <summary>
+		/// Short Fuse active in cookbook
+		/// </summary>
 		public bool ShortFuseActive { get; set; }
+		/// <summary>
+		/// Short Fuse cookbook time
+		/// </summary>
 		public float ShortFuseTime { get; set; } = 1;
+		
+		/// <summary>
+		/// Sticky gunpowder equipped
+		/// </summary>
 		public bool StickyGunpowder { get; set; }
+		/// <summary>
+		/// Sticky gunpowder active in cookbook
+		/// </summary>
 		public bool StickyGunpowderActive { get; set; }
+		
+		/// <summary>
+		/// Anarchist Cookbook equipped
+		/// </summary>
 		public bool AnarchistCookbook { get; set; }
 
 		// Chaos Bomb
+		/// <summary>
+		/// Alien Explosive equipped
+		/// </summary>
 		public bool AlienExplosive { get; set; }
+		
+		/// <summary>
+		/// Bombshroom equipped
+		/// </summary>
 		public bool Bombshroom { get; set; }
+		
+		/// <summary>
+		/// Chaos Bomb equipped
+		/// </summary>
 		public bool ChaosBomb { get; set; }
+		
+		/// <summary>
+		/// Eclectic Bomb equipped
+		/// </summary>
 		public bool EclecticBomb { get; set; }
+		
+		/// <summary>
+		/// Lihzahrd Fuzeset equipped
+		/// </summary>
 		public bool LihzahrdFuzeset { get; set; }
+		
+		/// <summary>
+		/// Supernatural Bomb equipped
+		/// </summary>
 		public bool SupernaturalBomb { get; set; }
+		
+		/// <summary>
+		/// Wyrd Bomb equipped
+		/// </summary>
 		public bool WyrdBomb { get; set; }
 
-		public int FuzeTime { get; set; }   // Later use with Anarchist Cookbook UI
+		/// <summary>
+		/// Lihzahrd Fuzeset fuse time
+		/// </summary>
+		public int? FuseTime { get; set; }   // Later use with Anarchist Cookbook UI
 
 		// Grenadier Class stuff (Bombard whatever)
+		/// <summary>
+		/// Bombardier emblem equipped
+		/// </summary>
 		public bool BombardEmblem { get; set; }
+		
+		/// <summary>
+		/// Bomb Cloak equipped
+		/// </summary>
 		public bool BombCloak { get; set; }
+		
+		/// <summary>
+		/// Certificate of Demolition equipped
+		/// </summary>
 		public bool CertificateOfDemolition { get; set; }
+		
+		/// <summary>
+		/// Bombers Hat equipped
+		/// </summary>
 		public bool BombersHat { get; set; }
+		
+		/// <summary>
+		/// Flesh Blasting Caps equipped
+		/// </summary>
 		public bool FleshBlastingCaps { get; set; }
+		
+		/// <summary>
+		/// Bombards Laurels equipped
+		/// </summary>
 		public bool BombardsLaurels { get; set; }
+		
+		/// <summary>
+		/// Bombers Pouch equipped
+		/// </summary>
 		public bool BombersPouch { get; set; }
+		
+		/// <summary>
+		/// Ravenous Bomb equipped
+		/// </summary>
 		public bool RavenousBomb { get; set; }
 
 		internal bool InventoryOpen { get; set; }
@@ -117,6 +294,7 @@ namespace ExtraExplosives
 		internal int boostTimer = 30;
 		internal bool novaBooster = false;
 		internal int novaBoostRechargeDelay = 0;
+		
 		public override void ResetEffects()
 		{
 			RadiatedDebuff = false;
@@ -269,7 +447,7 @@ namespace ExtraExplosives
 			}
 			else if (Main.LocalPlayer.EE().novaBooster &&
 				ExtraExplosives.TriggerBoost.JustPressed &&
-				Main.LocalPlayer.velocity.Y != 0)
+				(int)Main.LocalPlayer.velocity.Y != 0)
 			{
 				novaBoostRechargeDelay = 300;
 				player.velocity *= 3;
@@ -527,9 +705,6 @@ namespace ExtraExplosives
 
 				// Lesser tags
 				[nameof(LightweightBombshellVelocity)] = LightweightBombshellVelocity,
-				[nameof(RandomFuelOnFire)] = RandomFuelOnFire,
-				[nameof(RandomFuelFrostburn)] = RandomFuelFrostburn,
-				[nameof(RandomFuelConfused)] = RandomFuelConfused,
 				[nameof(ShortFuseTime)] = ShortFuseTime
 			};
 		}
@@ -550,9 +725,6 @@ namespace ExtraExplosives
 
 			// Lesser tag loading
 			LightweightBombshellVelocity = tag.GetFloat(nameof(LightweightBombshellVelocity));
-			RandomFuelOnFire = tag.GetBool(nameof(RandomFuelOnFire));
-			RandomFuelFrostburn = tag.GetBool(nameof(RandomFuelFrostburn));
-			RandomFuelConfused = tag.GetBool(nameof(RandomFuelConfused));
 			ShortFuseTime = tag.GetFloat(nameof(ShortFuseTime));
 		}
 	}

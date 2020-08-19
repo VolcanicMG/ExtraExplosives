@@ -284,114 +284,46 @@ namespace ExtraExplosives
         public override bool PreKill(Projectile projectile, int timeLeft)
         {
 	        int type = projectile.type;	// Dont only so i didnt have to rename the variables below (copied from vanilla dont @ me), inefficient but who cares
-	        if (type == ProjectileID.Bomb || type == ProjectileID.Dynamite || type == ProjectileID.StickyBomb ||
-	            type == ProjectileID.Explosives || type == ProjectileID.GrenadeII || type == ProjectileID.RocketII ||
-	            type == ProjectileID.ProximityMineII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV ||
-	            type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanII || type == ProjectileID.RocketSnowmanIV ||
-	            type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyBomb ||
-	            type == ProjectileID.BombFish || type == ProjectileID.BouncyDynamite)
+	        switch (type)
 	        {
+		        // Vanilla Explosives (Known to work)
+		        case ProjectileID.Bomb:
+			    case ProjectileID.Dynamite:
+				case ProjectileID.StickyBomb:
+				case ProjectileID.Explosives:
+				case ProjectileID.GrenadeII:
+				case ProjectileID.RocketII:
+				case ProjectileID.ProximityMineII:
+				case ProjectileID.GrenadeIV:
+				case ProjectileID.RocketIV:
+				case ProjectileID.ProximityMineIV:
+				case ProjectileID.RocketSnowmanII:
+				case ProjectileID.RocketSnowmanIV:
+				case ProjectileID.StickyDynamite:
+				case ProjectileID.BouncyBomb:
+				case ProjectileID.BombFish:
+				case ProjectileID.BouncyDynamite:
+					
+				// New ones, might break stuff idk
+				case ProjectileID.Grenade:
+		        case ProjectileID.GrenadeIII:
+		        case ProjectileID.BouncyGrenade:
+		        case ProjectileID.StickyGrenade:
+		        case ProjectileID.RocketI:
+		        case ProjectileID.RocketIII:
+
+			        /*if (type == ProjectileID.Bomb || type == ProjectileID.Dynamite || type == ProjectileID.StickyBomb ||
+			            type == ProjectileID.Explosives || type == ProjectileID.GrenadeII || type == ProjectileID.RocketII ||
+			            type == ProjectileID.ProximityMineII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV ||
+			            type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanII || type == ProjectileID.RocketSnowmanIV ||
+			            type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyBomb ||
+			            type == ProjectileID.BombFish || type == ProjectileID.BouncyDynamite)*/
+	        
 		        Main.NewText("Kill vanilla projectile");
 		        if (!Main.player[projectile.owner].EE().BombardEmblem)
 		        {
 			        return base.PreKill(projectile, timeLeft);
 		        }
-		        // If its a vanilla explosive we are gonna emulate its behavior so we can decide if it destroys blocks
-		        // I took like ~ hours to rewrite this entire block of code so its legible, it was painful
-		        /*
-		        int radius = 3;
-				if (type == ProjectileID.Bomb || type == ProjectileID.StickyBomb || type == ProjectileID.BouncyBomb || type == ProjectileID.BombFish)
-					radius = 4;
-
-				if (type == ProjectileID.Dynamite || type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyDynamite)
-					radius = 7;
-
-				if (type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV || type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanIV)
-					radius = 5;
-
-				if (type == ProjectileID.Explosives)
-					radius = 10;
-
-				int minX = (int)(projectile.position.X / 16f - (float)radius);
-				int maxX = (int)(projectile.position.X / 16f + (float)radius);
-				int minY = (int)(projectile.position.Y / 16f - (float)radius);
-				int maxY = (int)(projectile.position.Y / 16f + (float)radius);
-				if (minX < 0)
-					minX = 0;
-
-				if (maxX > Main.maxTilesX)
-					maxX = Main.maxTilesX;
-
-				if (minY < 0)
-					minY = 0;
-
-				if (maxY > Main.maxTilesY)
-					maxY = Main.maxTilesY;
-
-				bool tilesPresent = false;
-				for (int i = minX; i <= maxX; i++) {
-					for (int j = minY; j <= maxY; j++) {
-						float x = Math.Abs(i - projectile.position.X / 16f);
-						float y = Math.Abs(j - projectile.position.Y / 16f);
-						double dist = Math.Sqrt(x * x + y * y);
-						if (dist < radius && Main.tile[i, j] != null && Main.tile[i, j].wall == 0) {
-							tilesPresent = true;
-							break;
-						}
-					}
-				}
-
-				AchievementsHelper.CurrentlyMining = true;
-				for (int i = minX; i <= maxX; i++) 
-				{
-					for (int j = minY; j <= maxY; j++) 
-					{
-						float x = Math.Abs((float)i - projectile.position.X / 16f);
-						float y = Math.Abs((float)j - projectile.position.Y / 16f);
-						double dist = Math.Sqrt(x * x + y * y);
-						if (dist < radius)
-							continue;
-
-						bool tileDestroyable = true;
-						if (Main.tile[i, j] != null && Main.tile[i, j].active()) 
-						{
-							tileDestroyable = true;
-							if (Main.tileDungeon[Main.tile[i, j].type] || Main.tile[i, j].type == TileID.Dressers ||
-							    TileID.Sets.BasicChest[Main.tile[i, j].type] || Main.tile[i, j].type == TileID.DemonAltar ||
-							    Main.tile[i, j].type == TileID.Cobalt || Main.tile[i, j].type == TileID.Mythril ||
-							    Main.tile[i, j].type == TileID.Adamantite || Main.tile[i, j].type == TileID.LihzahrdBrick ||
-							    Main.tile[i, j].type == TileID.LihzahrdAltar || Main.tile[i, j].type == TileID.Palladium ||
-							    Main.tile[i, j].type == TileID.Orichalcum || Main.tile[i, j].type == TileID.Titanium ||
-							    Main.tile[i, j].type == TileID.Chlorophyte || Main.tile[i, j].type == TileID.DesertFossil)
-								tileDestroyable = false;
-
-							if (!Main.hardMode && Main.tile[i, j].type == TileID.Hellstone)
-								tileDestroyable = false;
-
-							if (tileDestroyable) {
-								WorldGen.KillTile(i, j);
-								if (!Main.tile[i, j].active() && Main.netMode != 0)
-									NetMessage.SendData(17, -1, -1, null, 0, i, j);
-							}
-						}
-
-						if (!tileDestroyable)
-							continue;
-
-						for (int iWall = i - 1; iWall <= i + 1; iWall++) {
-							for (int jWall = j - 1; jWall <= j + 1; jWall++) {
-								if (Main.tile[iWall, jWall] != null && Main.tile[iWall, jWall].wall > 0 && tilesPresent) {
-									WorldGen.KillWall(iWall, jWall);
-									if (Main.tile[iWall, jWall].wall == 0 && Main.netMode != 0)
-										NetMessage.SendData(17, -1, -1, null, 2, iWall, jWall);
-								}
-							}
-						}
-					}
-				}
-
-				AchievementsHelper.CurrentlyMining = false;
-				*/
 		        
 		        void ExplosionDamage()
 		        {
@@ -402,13 +334,12 @@ namespace ExtraExplosives
 			        if (type == ProjectileID.Dynamite || type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyDynamite)
 				        radius = 7;
 
-			        if (type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV || type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanIV)
+			        if (type == ProjectileID.GrenadeIII || type == ProjectileID.RocketIII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV || type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanIV)
 				        radius = 5;
 
 			        if (type == ProjectileID.Explosives)
 				        radius = 10;
-			        bool crit = false;
-			        if (Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
+			        bool crit = Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101);
 			        foreach (NPC npc in Main.npc)
 			        {
 				        float dist = Vector2.Distance(npc.Center, projectile.Center);
@@ -442,6 +373,8 @@ namespace ExtraExplosives
 		        
 		        ExplosionDamage();
 		        return false;
+		        default:
+			        break;
 	        }
 	        return base.PreKill(projectile, timeLeft);
         }
