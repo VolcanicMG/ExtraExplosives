@@ -149,27 +149,27 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         public override void AI()
         {
             //dust
-            float num248 = 0f;
-            float num249 = 0f;
+            float num248 = 0;
+            float num249 = 0;
 
-            Vector2 position71 = new Vector2(npc.position.X + num248, npc.position.Y + num249) - npc.velocity;
-            int width67 = 25;
-            int height67 = 25;
-            Color newColor = default(Color);
-            int num250 = Dust.NewDust(position71, width67, height67, 6, 0f, 0f, 100, newColor, 2f);
-            Dust dust3 = Main.dust[num250];
-            dust3.scale *= 2f + (float)Main.rand.Next(10) * 0.1f;
-            dust3 = Main.dust[num250];
-            dust3.velocity *= 0.2f;
-            Main.dust[num250].noGravity = true;
-            Vector2 position72 = new Vector2(npc.position.X + num248, npc.position.Y + num249) - npc.velocity;
-            int width68 = npc.width - 8;
-            int height68 = npc.height - 8;
-            newColor = default(Color);
-            num250 = Dust.NewDust(position72, width68, height68, 31, 0f, 0f, 100, newColor, 1f);
-            Main.dust[num250].fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
-            dust3 = Main.dust[num250];
-            dust3.velocity *= 0.05f;
+            //Vector2 position71 = new Vector2(npc.position.X + num248, npc.position.Y + num249) - npc.velocity;
+            //int width67 = 25;
+            //int height67 = 25;
+            //Color newColor = default(Color);
+            //int num250 = Dust.NewDust(position71, width67, height67, 6, 0f, 0f, 100, newColor, 2.5f);
+            //Dust dust3 = Main.dust[num250];
+            //dust3.scale *= 2f + (float)Main.rand.Next(10) * 0.1f;
+            //dust3 = Main.dust[num250];
+            //dust3.velocity *= 0.2f;
+            //Main.dust[num250].noGravity = true;
+            //Vector2 position72 = new Vector2(npc.position.X + num248, npc.position.Y + num249) - npc.velocity;
+            //int width68 = 25;
+            //int height68 = 25;
+            //newColor = default(Color);
+            //num250 = Dust.NewDust(position72, width68, height68, 31, 0f, 0f, 100, newColor, 1f);
+            //Main.dust[num250].fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
+            //dust3 = Main.dust[num250];
+            //dust3.velocity *= 0.05f;
 
             //follow code
             npc.TargetClosest(true);

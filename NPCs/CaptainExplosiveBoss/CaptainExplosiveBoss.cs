@@ -74,12 +74,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 		}
 
-		//public override void AutoStaticDefaults()
-		//{
-		//	//AltTextures[0] = "NPCs/CaptainExplosiveBoss/CaptainExplosiveBoss";
-		//	//AltTextures[1] = "NPCs/CaptainExplosiveBoss/CaptainExplosiveBossDamaged";
-		//}
-
 		public override void SetDefaults()
 		{
 			npc.aiStyle = -1;
@@ -104,42 +98,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			drawOffsetY = 50f;
 		}
 
-		//public override bool CheckActive()
-		//{
-		//	if (!firstTick)
-		//	{
-
-		//		//get the player
-		//		Player player = Main.player[Main.myPlayer];
-		//		ExtraExplosives.CheckUIBoss = 0;
-
-		//		npc.immortal = true; //Check into since I think it has something wrong in MP, check example mod to see how they do it again
-
-		//		npc.damage = 0; //make the npc does not do damage to the player
-		//		if (player.whoAmI == 0)
-		//		{
-		//			GetInstance<ExtraExplosives>().CEBossInterface.SetState(new UI.CEBossUI()); //get the UI
-		//		}
-		//		else
-		//		{
-		//			GetInstance<ExtraExplosives>().CEBossInterfaceNonOwner.SetState(new UI.CEBossUINonOwner()); //get the UI
-		//		}
-		//		//Main.NewText(player.whoAmI);
-		//		Check = 1; //pause the boss
-		//		firstTick = true; //so this only happens once
-
-		//		Main.NewText("Only run once");
-		//	}
-
-		//	if (Check != 3)
-		//	{
-		//		Check = ExtraExplosives.CheckUIBoss; //Get the button click
-		//											 //Main.NewText(Check);
-		//											 //Main.NewText(ExtraExplosives.CheckUIBoss);
-		//	}
-
-		//	return base.CheckActive();
-		//}
 
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
@@ -182,48 +140,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 			return false;
 		}
-
-		//public override bool PreAI()
-		//{
-
-		//	////Main.NewText(Check);
-		//	////Main.NewText(go);
-
-		//	//if (Check == 2 || go)
-		//	//{
-		//	//	//Main.NewText("Set");
-
-		//	//	if (!firstAiTick)
-		//	//	{
-
-		//	//		npc.damage = 100;
-		//	//		npc.immortal = false;
-
-		//	//		go = true;
-		//	//		Check = 3;
-
-		//	//		firstAiTick = true;
-		//	//	}
-
-
-		//	//	//Main.NewText(go);
-		//	//	//Main.NewText(Check);
-		//	//	//Main.NewText(ExtraExplosives.CheckUIBoss);
-
-		//	//	//if(Main.netMode == NetmodeID.Server)
-		//	//	//{
-		//	//	//	go = true;
-		//	//	//	Check = 3;
-		//	//	//	return true;
-		//	//	//}
-
-		//	//	return true;
-		//	//}
-		//	//else
-		//	//{
-		//	//	return false;
-		//	//}
-		//}
 
 		public override void AI()
 		{
@@ -277,18 +193,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
 					firstAiTick = true;
 				}
-
-
-				//Main.NewText(go);
-				//Main.NewText(Check);
-				//Main.NewText(ExtraExplosives.CheckUIBoss);
-
-				//if(Main.netMode == NetmodeID.Server)
-				//{
-				//	go = true;
-				//	Check = 3;
-				//	return true;
-				//}
 
 				//Phases
 				//##############################################

@@ -34,7 +34,7 @@ namespace ExtraExplosives.Items
 			item.value = Item.buyPrice(3, 25, 0, 0);   //How much the item is worth, in copper coins, when you sell it to a merchant. It costs 1/5th of this to buy it back from them. An easy way to remember the value is platinum, gold, silver, copper or PPGGSSCC (so this item price is 3 silver)
 			item.noUseGraphic = true;
 			item.noMelee = true;	  //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
-			item.shoot = ModContent.ProjectileType<NukeProjectilePlane>(); //This defines what type of projectile this item will shoot
+			item.shoot = ModContent.ProjectileType<NukeProjectilePhase2>(); //This defines what type of projectile this item will shoot
 			item.shootSpeed = 5f; //This defines the projectile speed when shot
 			//item.createTile = mod.TileType("ExplosiveTile");
 		}
@@ -57,15 +57,23 @@ namespace ExtraExplosives.Items
 			{
 				int vel;
 				int pos;
-				if (player.position.X <= Main.maxTilesX / 2)
+
+				Main.NewText(player.position.X / 16);
+				Main.NewText((Main.maxTilesX * 16));
+
+				if (player.position.X / 16 >= Main.maxTilesX / 2)
 				{
-					pos = 0;
-					vel = -60;
+					pos = (Main.maxTilesX * 16) - 700;
+					vel = -50;
+
+					Main.NewText("Right");
 				}
 				else
 				{
 					pos = (int)(Main.maxTilesX / 16.0f);
-					vel = 60;
+					vel = 50;
+
+					Main.NewText("Left");
 				}
 				//int yPosition = (int)(y + position.Y / 16.0f);
 
@@ -74,16 +82,12 @@ namespace ExtraExplosives.Items
 				if (Main.netMode == NetmodeID.MultiplayerClient)
 				{
 					ModPacket myPacket = mod.GetPacket();
-					myPacket.WriteVarInt(1);
+					myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkNukeActive);
 					myPacket.Send();
 				}
 
 				//SpawnProjectileSynced(new Vector2(xPosition, 1500), new Vector2(30, 0), type, 0, 0, player.whoAmI);
 				Projectile.NewProjectile(pos, 1500, vel, 0, type, damage, knockBack, player.whoAmI);
-
-				//Main.NewText(xPosition);
-
-				//Main.NewText(player.position);
 
 				item.consumable = true;
 			}

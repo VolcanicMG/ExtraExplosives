@@ -13,16 +13,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
 using ExtraExplosives.UI.AnarchistCookbookUI;
-
-
-using static ExtraExplosives.GlobalMethods;
-using System;
-using Terraria.ModLoader.UI.ModBrowser;
-using System.Net;
-using System.Data;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss;
-using ExtraExplosives.UI;
-using ExtraExplosives.UI.AnarchistCookbookUI;
+using ExtraExplosives.Items;
 
 namespace ExtraExplosives
 {
@@ -33,7 +24,6 @@ namespace ExtraExplosives
 		internal static ModHotKey TriggerUIReforge;
 		internal static ModHotKey ToggleCookbookUI;
 		internal static ModHotKey TriggerBoost;
-		
 
 		public static bool NukeActivated;
 		public static bool NukeActive;
@@ -178,24 +168,6 @@ namespace ExtraExplosives
 
 		}
 
-		//public override void MidUpdateInvasionNet()
-		//{
-		//	if (CheckUIBoss == 2 && !firstTick)
-		//	{
-		//		if (Main.netMode == NetmodeID.MultiplayerClient)
-		//		{
-		//			ModPacket myPacket = GetPacket();
-		//			//myPacket.WriteVarInt(3);
-		//			//myPacket.Write(false);
-		//			myPacket.Write((byte)0);
-		//			myPacket.Send();
-		//		}
-		//		firstTick = true;
-		//	}
-		//	base.MidUpdateInvasionNet();
-
-		//}
-
 		public override void PostSetupContent()
 		{
 			Mod censusMod = ModLoader.GetMod("Census");
@@ -205,7 +177,7 @@ namespace ExtraExplosives
 				// If you localize your mod, pass in a localized string instead of just English.
 				// Additional lines for additional town npc that your mod adds
 				// Simpler example:
-				censusMod.Call("TownNPCCondition", NPCType("CaptainExplosive"), "Kill King Slime"); //Change later for the boss
+				censusMod.Call("TownNPCCondition", NPCType("CaptainExplosive"), $"Kill King Slime or use an [i:{ModContent.ItemType<Unhinged_Letter>()}]"); //Change later for the boss
 			}
 
 			base.PostSetupContent();
