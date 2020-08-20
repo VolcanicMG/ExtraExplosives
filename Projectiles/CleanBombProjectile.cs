@@ -25,7 +25,6 @@ namespace ExtraExplosives.Projectiles
 		{
 			projectile.tileCollide = true;
 			projectile.width = 22;
-			projectile.height = 40;
 			projectile.height = 38;
 			projectile.aiStyle = 16;
 			projectile.friendly = true;
@@ -60,7 +59,6 @@ namespace ExtraExplosives.Projectiles
 			Vector2 center = projectile.Center;
 			
 			//Create bomb sound
-			Main.PlaySound(SoundID.Item3, (int)center.X, (int)center.Y);
 			Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)center.X, (int)center.Y);
 
 			//Create bomb dust
@@ -86,7 +84,6 @@ namespace ExtraExplosives.Projectiles
 				currentDust = dustsToSpawn[Main.rand.Next(dustsToSpawn.Length)];
 
 				//Spawning the dust particle
-				dust = Main.dust[Dust.NewDust(spawnRegionCorner, (int)Radius, (int)Radius, currentDust, 0f, 0.5f, 1, Color.White, 1f)];
 				dust = Main.dust[Dust.NewDust(spawnRegionCorner, (int)Radius, (int)Radius, currentDust, 0f, 0.5f, 1, Color.LightGreen, 1f)];
 			}
 		}
