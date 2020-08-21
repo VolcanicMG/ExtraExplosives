@@ -284,11 +284,100 @@ namespace ExtraExplosives
 
         public override bool PreKill(Projectile projectile, int timeLeft)
         {
+	        
+	        // Block destruction and damage for EE bombs handled in there respective classes
+	        // So lifesteal and vanilla block damage and damage need to be handled here
+	        // 
+	        if (projectile.aiStyle != 16 ||		// Do nothing if it isnt a bomb
+	            projectile.owner == 255) return true;	// or if it is owned by the server
+	        
+	        ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
+	        int radius = GetBombRadius(projectile) ?? 0;	// Get radius or default to 0 if null is returned
+	        if (mp.RavenousBomb)	// Life steal code here
+	        {
+		        int damageDone = 0;
+		        foreach (NPC npc in Main.npc)
+		        {
+			        float dist = Vector2.Distance(npc.Center, projectile.Center);
+			        if (dist / 16f <= radius)
+			        {
+				        if (npc.lifeMax > projectile.damage)
+					        damageDone += projectile.damage;
+				        else
+					        damageDone += npc.lifeMax;
+			        }
+		        }
+
+		        foreach (Player player in Main.player)
+		        {
+			        if (player == null || player.whoAmI == 255 || player.whoAmI == projectile.owner || !player.active)
+				        continue;
+			        float dist = Vector2.Distance(player.Center, projectile.Center);
+			        if (dist / 16f <= radius)
+			        {
+				        damageDone += projectile.damage;
+			        }
+		        }
+		        if (damageDone > 0)
+		        {
+			        int healPower = (int)(damageDone);
+			        Main.player[projectile.owner].HealEffect(healPower, true);
+			        Main.NewText($"Healed by {healPower}");
+		        }
+	        }
+
+	        if (ProjectileLoader.GetProjectile(projectile.type) != null) return true;
+
+	        if (mp.BombardEmblem)	// Vanilla explosive damage code here
+	        {
+		        bool crit = Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101);
+		        foreach (NPC npc in Main.npc)
+		        {
+			        float dist = Vector2.Distance(npc.Center, projectile.Center);
+			        if (dist/16f <= radius)
+			        {
+				        int dir = (dist > 0) ? 1 : -1;
+				        npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+			        }
+		        }
+
+		        foreach (Player player in Main.player)
+		        {
+			        if (player == null || player.whoAmI == 255 || !player.active) continue;
+			        if (!CanHitPlayer(projectile, player)) continue;
+			        if (player.EE().BlastShielding &&
+			            player.EE().BlastShieldingActive) continue;
+			        float dist = Vector2.Distance(player.Center, projectile.Center);
+			        int dir = (dist > 0) ? 1 : -1;
+			        if (dist/16f <= radius)
+			        {
+				        player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
+				        player.hurtCooldowns[0] += 15;
+			        }
+			        if (Main.netMode != 0)
+			        {
+				        NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+			        }
+		        }
+		        return false;
+	        }
+
+	        return base.PreKill(projectile, timeLeft);
+        }
+        
+        /*public override bool PreKill(Projectile projectile, int timeLeft)	//TODO fix this, its bloated and busted
+        {
+	        /*
+	         * What it needs to do
+	         * Life steal
+	         * nullify block damage for bombard emblem
+	         * deal damage on bombard emblem
+	         #1#
 			// Applying the Ravenous Bomb lifesteal property
 			if (Main.player[projectile.owner].EE().RavenousBomb)
 			{
 				int damageDone = 0;
-				int projRadius = GetBombRadius(projectile);
+				int projRadius = GetBombRadius(projectile) ?? 0;	// Radius is 0 if GetBombRadius returns null
 				foreach (NPC npc in Main.npc)
 				{
 					float dist = Vector2.Distance(npc.Center, projectile.Center);
@@ -312,8 +401,10 @@ namespace ExtraExplosives
 				}
 				if (damageDone > 0)
 				{
-					int healPower = (int)(damageDone * 0.1);
+					int healPower = (int)(damageDone);
 					Main.player[projectile.owner].HealEffect(healPower, true);
+					Main.player[projectile.owner].lifeSteal();
+					Main.NewText($"Healed by {healPower}");
 				}
 			}
 
@@ -333,7 +424,7 @@ namespace ExtraExplosives
 			            type == ProjectileID.ProximityMineII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV ||
 			            type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanII || type == ProjectileID.RocketSnowmanIV ||
 			            type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyBomb ||
-			            type == ProjectileID.BombFish || type == ProjectileID.BouncyDynamite)*/
+			            type == ProjectileID.BombFish || type == ProjectileID.BouncyDynamite)#1#
 	        
 		        Main.NewText("Kill vanilla projectile");
 		        if (!Main.player[projectile.owner].EE().BombardEmblem)
@@ -388,12 +479,10 @@ namespace ExtraExplosives
 		        
 		        ExplosionDamage();
 		        return false;
-		        default:
-			        break;
 	        }
 
 	        return base.PreKill(projectile, timeLeft);
-        }
+        }*/
 
         public override void Kill(Projectile projectile, int timeLeft)
         {
@@ -499,9 +588,15 @@ namespace ExtraExplosives
 	        }
         }
 
-		private int GetBombRadius(Projectile projectile)
+        /// <summary>
+        /// Gets the radius of the passed projectile
+        /// Returns null if the passed projectile doesnt have a radius or isn't explosive
+        /// </summary>
+        /// <param name="projectile">The projectile being checked</param>
+        /// <returns>The radius of the passed projectile (null if non-explosive)</returns>
+		private int? GetBombRadius(Projectile projectile)
 		{
-			int radius = 3;
+			int? radius = null;
 
 			switch (projectile.type)
             {
@@ -509,18 +604,22 @@ namespace ExtraExplosives
 				case ProjectileID.StickyBomb:
 				case ProjectileID.BouncyBomb:
 				case ProjectileID.BombFish:
+				case ProjectileID.RocketII:
+				case ProjectileID.GrenadeII:
+				case ProjectileID.ProximityMineII:
+				case ProjectileID.RocketSnowmanII:
 					radius = 4;
-					break;
-				case ProjectileID.Dynamite:
-				case ProjectileID.StickyDynamite:
-				case ProjectileID.BouncyDynamite:
-					radius = 7;
 					break;
 				case ProjectileID.GrenadeIV:
 				case ProjectileID.RocketIV:
 				case ProjectileID.ProximityMineIV:
 				case ProjectileID.RocketSnowmanIV:
 					radius = 5;
+					break;
+				case ProjectileID.Dynamite:
+				case ProjectileID.StickyDynamite:
+				case ProjectileID.BouncyDynamite:
+					radius = 7;
 					break;
 				case ProjectileID.Explosives:
 					radius = 10;
