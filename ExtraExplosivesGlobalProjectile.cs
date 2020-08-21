@@ -284,34 +284,49 @@ namespace ExtraExplosives
 
         public override bool PreKill(Projectile projectile, int timeLeft)
         {
-	        int type = projectile.type;	// Dont only so i didnt have to rename the variables below (copied from vanilla dont @ me), inefficient but who cares
-	        switch (type)
+			// Applying the Ravenous Bomb lifesteal property
+			if (Main.player[projectile.owner].EE().RavenousBomb)
+			{
+				int damageDone = 0;
+				int projRadius = GetBombRadius(projectile);
+				foreach (NPC npc in Main.npc)
+				{
+					float dist = Vector2.Distance(npc.Center, projectile.Center);
+					if (dist / 16f <= projRadius)
+					{
+						if (npc.lifeMax > projectile.damage)
+							damageDone += projectile.damage;
+						else
+							damageDone += npc.lifeMax;
+					}
+				}
+				foreach (Player player in Main.player)
+				{
+					if (player == null || player.whoAmI == 255 || player.whoAmI == projectile.owner || !player.active)
+						continue;
+					float dist = Vector2.Distance(player.Center, projectile.Center);
+					if (dist / 16f <= projRadius)
+					{
+						damageDone += projectile.damage;
+					}
+				}
+				if (damageDone > 0)
+				{
+					int healPower = (int)(damageDone * 0.1);
+					Main.player[projectile.owner].HealEffect(healPower, true);
+				}
+			}
+
+			// Bombard Emblem stuff (I think? IDK, I didn't write this code. -- V8_Ninja)
+			int type = projectile.type;	// Dont only so i didnt have to rename the variables below (copied from vanilla dont @ me), inefficient but who cares
+	        if (type == ProjectileID.Bomb || type == ProjectileID.Dynamite || type == ProjectileID.StickyBomb ||
+	            type == ProjectileID.Explosives || type == ProjectileID.GrenadeII || type == ProjectileID.RocketII ||
+	            type == ProjectileID.ProximityMineII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV ||
+	            type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanII || type == ProjectileID.RocketSnowmanIV ||
+	            type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyBomb ||
+	            type == ProjectileID.BombFish || type == ProjectileID.BouncyDynamite)
 	        {
-		        // Vanilla Explosives (Known to work)
-		        case ProjectileID.Bomb:
-			    case ProjectileID.Dynamite:
-				case ProjectileID.StickyBomb:
-				case ProjectileID.Explosives:
-				case ProjectileID.GrenadeII:
-				case ProjectileID.RocketII:
-				case ProjectileID.ProximityMineII:
-				case ProjectileID.GrenadeIV:
-				case ProjectileID.RocketIV:
-				case ProjectileID.ProximityMineIV:
-				case ProjectileID.RocketSnowmanII:
-				case ProjectileID.RocketSnowmanIV:
-				case ProjectileID.StickyDynamite:
-				case ProjectileID.BouncyBomb:
-				case ProjectileID.BombFish:
-				case ProjectileID.BouncyDynamite:
-					
-				// New ones, might break stuff idk
-				case ProjectileID.Grenade:
-		        case ProjectileID.GrenadeIII:
-		        case ProjectileID.BouncyGrenade:
-		        case ProjectileID.StickyGrenade:
-		        case ProjectileID.RocketI:
-		        case ProjectileID.RocketIII:
+		        
 
 			        /*if (type == ProjectileID.Bomb || type == ProjectileID.Dynamite || type == ProjectileID.StickyBomb ||
 			            type == ProjectileID.Explosives || type == ProjectileID.GrenadeII || type == ProjectileID.RocketII ||
@@ -353,7 +368,7 @@ namespace ExtraExplosives
 
 			        foreach (Player player in Main.player)
 			        {
-				        if (player == null || player.whoAmI == 255 || !player.active) return;
+				        if (player == null || player.whoAmI == 255 || !player.active) continue;
 				        if (!CanHitPlayer(projectile, player)) continue;
 				        if (player.EE().BlastShielding &&
 				            player.EE().BlastShieldingActive) continue;
@@ -369,7 +384,6 @@ namespace ExtraExplosives
 					        NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
 				        }
 			        }
-            
 		        }
 		        
 		        ExplosionDamage();
@@ -377,6 +391,7 @@ namespace ExtraExplosives
 		        default:
 			        break;
 	        }
+
 	        return base.PreKill(projectile, timeLeft);
         }
 
@@ -483,5 +498,43 @@ namespace ExtraExplosives
 		        if(mp.Bombshroom) GlobalMethods.InflictDubuff(BuffID.Venom, 15, projectile.Center, immune, projectile.owner, 173, 300);
 	        }
         }
+
+		private int GetBombRadius(Projectile projectile)
+		{
+			int radius = 3;
+
+			switch (projectile.type)
+            {
+				case ProjectileID.Bomb:
+				case ProjectileID.StickyBomb:
+				case ProjectileID.BouncyBomb:
+				case ProjectileID.BombFish:
+					radius = 4;
+					break;
+				case ProjectileID.Dynamite:
+				case ProjectileID.StickyDynamite:
+				case ProjectileID.BouncyDynamite:
+					radius = 7;
+					break;
+				case ProjectileID.GrenadeIV:
+				case ProjectileID.RocketIV:
+				case ProjectileID.ProximityMineIV:
+				case ProjectileID.RocketSnowmanIV:
+					radius = 5;
+					break;
+				case ProjectileID.Explosives:
+					radius = 10;
+					break;
+				default:
+					if (projectile.modProjectile is ExplosiveProjectile)
+                    {
+						ExplosiveProjectile exp = (ExplosiveProjectile)projectile.modProjectile;
+						radius = exp.radius;
+                    }
+					break;
+            }
+
+			return radius;
+		}
     }
 }
