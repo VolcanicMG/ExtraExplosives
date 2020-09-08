@@ -58,6 +58,10 @@ namespace ExtraExplosives
 
 		internal static ExtraExplosivesConfig EEConfig;
 
+		public static bool boomBoxMusic = false;
+		public static int randomMusicID = 0;
+		public static int boomBoxTimer = 0;
+
 		// Create the item to item id reference (used with cpt explosive) Needs to stay loaded
 		public ExtraExplosives()
 		{
@@ -381,6 +385,29 @@ namespace ExtraExplosives
 				return false;
 			}
 		}
-
-	}
+        public override void UpdateMusic(ref int music, ref MusicPriority priority)
+        {
+            if(boomBoxMusic)
+            {
+				if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active)
+				{
+					return;
+				}
+				music = randomMusicID;
+				priority = MusicPriority.BossHigh;
+			}
+        }
+        public override void PostUpdateEverything()
+        {
+            if(boomBoxMusic)
+            {
+				boomBoxTimer++;
+				if(boomBoxTimer > (1200 + Main.rand.Next(600)))
+                {
+					boomBoxMusic = false;
+					boomBoxTimer = 0;
+                }
+            }
+        }
+    }
 }
