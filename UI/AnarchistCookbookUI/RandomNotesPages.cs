@@ -52,8 +52,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             RandomFuelFlavorText.TextColor = Color.Yellow;
             RandomFuelHeader.Append(RandomFuelFlavorText);
             
-            UIText RandomFuelDescription = new UIText("Explosives are infused with\n" +
-                                                            "one of three status effects");
+            UIText RandomFuelDescription = new UIText("Explosives will duplicate before\n" +
+                                                            "going off, causing two explosions");
             RandomFuelDescription.Top.Pixels = 40;
             RandomFuelDescription.HAlign = 0.7f;
             RandomFuelDescription.Left.Pixels = -10;
@@ -72,7 +72,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ShortFuzeFlavorText.TextColor = Color.Orange;
             ShortFuzeHeader.Append(ShortFuzeFlavorText);
             
-            UIText ShortFuzeDescription = new UIText("Allows for chaning the fuze\n" +
+            UIText ShortFuzeDescription = new UIText("Allows for changing the fuze\n" +
                                                            "length for most  explosives\n");
             ShortFuzeDescription.Top.Pixels = 40;
             ShortFuzeDescription.HAlign = 0.85f;
