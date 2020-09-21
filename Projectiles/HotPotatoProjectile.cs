@@ -133,18 +133,19 @@ namespace ExtraExplosives.Projectiles
             projectile.damage = (int)projectile.localAI[0];
             projectile.knockBack = (int) projectile.localAI[0] / 4f;
             radius = (int) projectile.localAI[0] / 12;
-            Main.NewText($"Damage: {projectile.damage}, Knockback: {projectile.knockBack}, radius: {radius}");
+            //Main.NewText($"Damage: {projectile.damage}, Knockback: {projectile.knockBack}, radius: {radius}");
             Explosion();
             ExplosionDamage();
             CreateDust(projectile.Center, (int) projectile.localAI[0] * 2);
-            projectile.timeLeft = 0;
-            base.Kill(0);
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(2f, 2f);
             Vector2 gVel2 = new Vector2(-2f, -1f);
             Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
             Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            
+            projectile.timeLeft = 0;
+            base.Kill(0);
         }
         
         private void CreateDust(Vector2 position, int amount)    // TODO UPDATE DUST CODE THIS BIT ACTS STRANGE
@@ -159,7 +160,7 @@ namespace ExtraExplosives.Projectiles
                     //---Dust 1---
                     if (Main.rand.NextFloat() < 0.5f)    // dynamite gibs    // Standard
                     {
-                        updatedPosition = new Vector2(position.X - radius * 16 / 2, position.Y - radius * 16 / 2);
+                        updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 90)];
                         if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
@@ -167,7 +168,7 @@ namespace ExtraExplosives.Projectiles
                     }
                     if (Main.rand.NextFloat() < 0.25f)    // potato gibs    // change if a better dust exists
                     {
-                        updatedPosition = new Vector2(position.X - radius * 16 / 2, position.Y - radius * 16 / 2);
+                        updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 216)];//new Color(255, 255, 255)
                         if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;

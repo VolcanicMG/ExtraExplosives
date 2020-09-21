@@ -20,6 +20,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			IgnoreTrinkets = true;
 			radius = 0;
 			pickPower = 40;
 			projectile.tileCollide = true;
@@ -125,7 +126,7 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > 5) dust.active = false;
 						else
 						{
 							dust.noGravity = true;
@@ -141,7 +142,7 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > 5) dust.active = false;
 						else
 						{
 							dust.noGravity = true;

@@ -21,6 +21,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			IgnoreTrinkets = true;
 			radius = 20;
 			pickPower = -2;
 			projectile.tileCollide = true;

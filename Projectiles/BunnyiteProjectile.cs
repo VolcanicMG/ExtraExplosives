@@ -19,6 +19,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			IgnoreTrinkets = true;
 			projectile.tileCollide = true;
 			projectile.width = 10;
 			projectile.height = 32;
@@ -73,11 +74,14 @@ namespace ExtraExplosives.Projectiles
 					//---Dust 1---
 					if (Main.rand.NextFloat() < 1f)
 					{
-						updatedPosition = new Vector2(position.X - 800 / 2, position.Y - 100 / 2);
+						updatedPosition = new Vector2(position.X - 400, position.Y - 50);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 800, 100, 112, 0f, 0f, 0, new Color(255, 0, 0), 1.447368f)];
-						dust.shader = GameShaders.Armor.GetSecondaryShader(36, Main.LocalPlayer);
-						dust.fadeIn = 1.144737f;
+						if (Vector2.Distance(dust.position, projectile.Center) > 400) dust.active = false;
+						{
+							dust.shader = GameShaders.Armor.GetSecondaryShader(36, Main.LocalPlayer);
+							dust.fadeIn = 1.144737f;
+						}
 					}
 					//------------
 				}

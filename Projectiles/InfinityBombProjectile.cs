@@ -44,9 +44,9 @@ namespace ExtraExplosives.Projectiles
             radius = (int) (radius * _multiplier);
             //Create Bomb Explosion
             
-            Main.NewText($"Damage {projectile.damage}, Knockback {projectile.knockBack}, Radius {radius}, multiplier {_multiplier}");
+            //Main.NewText($"Damage {projectile.damage}, Knockback {projectile.knockBack}, Radius {radius}, multiplier {_multiplier}");
             Explosion();
-            Main.NewText(projectile.localAI[0]);
+            //Main.NewText(projectile.localAI[0]);
             //Create Bomb Dust
             CreateDust(projectile.Center, 10);
 
@@ -64,6 +64,9 @@ namespace ExtraExplosives.Projectiles
             Vector2 position = new Vector2(projectile.Center.X / 16f, projectile.Center.Y / 16f);    // Converts to tile cords for convenience
 
             radius = (int)((radius + player.EE().RadiusBonus) * player.EE().RadiusMulti);
+            
+            Main.NewText(radius);
+            
             for (int x = -radius;
                 x <= radius;
                 x++)
@@ -112,7 +115,7 @@ namespace ExtraExplosives.Projectiles
         				updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
 
         				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, projectile.Center) > 39) dust.active = false;
                         else
                         {
 	                        dust.noGravity = true;
@@ -126,7 +129,7 @@ namespace ExtraExplosives.Projectiles
         				updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
 
         				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, projectile.Center) > 39) dust.active = false;
                         else
                         {
 	                        dust.noGravity = true;
@@ -140,7 +143,7 @@ namespace ExtraExplosives.Projectiles
         				updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
 
         				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, projectile.Center) > 50) dust.active = false;
                         else
                         {
 	                        dust.noGravity = true;

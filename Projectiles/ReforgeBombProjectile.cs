@@ -25,6 +25,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			IgnoreTrinkets = true;
 			projectile.tileCollide = true; //checks to see if the projectile can go through tiles
 			projectile.width = 22;   //This defines the hitbox width
 			projectile.height = 22;	//This defines the hitbox height
@@ -73,7 +74,7 @@ namespace ExtraExplosives.Projectiles
 						Dust dust;
 						Vector2 position2 = new Vector2(position.X - 105 / 2, position.Y - 105 / 2);
 						dust = Main.dust[Terraria.Dust.NewDust(position2, 105, 105, 1, 0f, 0f, 0, new Color(255, 255, 255), 1.4f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > 52) dust.active = false;
 						else
 						{
 							dust.noGravity = true;
@@ -84,7 +85,7 @@ namespace ExtraExplosives.Projectiles
 						// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
 						Vector2 position3 = new Vector2(position.X - 131 / 2, position.Y - 131 / 2);
 						dust2 = Main.dust[Terraria.Dust.NewDust(position3, 131, 131, 6, 0f, 0f, 0, new Color(255, 255, 255), 2.565789f)];
-						if (Vector2.Distance(dust2.position, projectile.Center) > radius * 16) dust2.active = false;
+						if (Vector2.Distance(dust2.position, projectile.Center) > 115) dust2.active = false;
 						else
 						{
 							dust2.noGravity = true;

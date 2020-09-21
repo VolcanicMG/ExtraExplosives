@@ -133,7 +133,7 @@ namespace ExtraExplosives.Projectiles
 
 		private void CreateDust(Vector2 position, int amount)
 		{
-			//Vector2 updatedPosition;
+			Vector2 updatedPosition;
 
 			for (int i = 0; i <= amount; i++)
 			{
@@ -145,18 +145,18 @@ namespace ExtraExplosives.Projectiles
 						Dust dust1;
 						Dust dust2;
 
-						Vector2 position1 = new Vector2(position.X - 2000 / 2, position.Y - 320);
-						dust1 = Main.dust[Terraria.Dust.NewDust(position1, 2000, 320, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
-						if (Vector2.Distance(dust1.position, projectile.Center) > radius * 16) dust1.active = false;
+						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 320);
+						dust1 = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 320, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
+						if (Vector2.Distance(dust1.position, projectile.Center) > 1000) dust1.active = false;
 						else
 						{
 							dust1.noLight = true;
 							dust1.noGravity = true;
 							dust1.shader = GameShaders.Armor.GetSecondaryShader(105, Main.LocalPlayer);
 						}
-						Vector2 position2 = new Vector2(position.X - 2000 / 2, position.Y - 320);
-						dust2 = Main.dust[Terraria.Dust.NewDust(position2, 2000, 320, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
-						if (Vector2.Distance(dust2.position, projectile.Center) > radius * 16)
+						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 320);
+						dust2 = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 320, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
+						if (Vector2.Distance(dust2.position, projectile.Center) > 1000)
 						{
 							dust2.active = false;
 							continue;

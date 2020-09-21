@@ -22,7 +22,7 @@ namespace ExtraExplosives
         private bool clone = false;
         private bool colliding = false;
         private Vector2 constVelocity;
-
+        
         public override bool PreAI(Projectile projectile)
         {
 	        if (projectile.type == ModContent.ProjectileType<NukeProjectilePhase2>() ||

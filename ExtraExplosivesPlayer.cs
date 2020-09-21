@@ -23,11 +23,14 @@ using Terraria.UI;
 using Color = System.Drawing.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
 
 namespace ExtraExplosives
 {
 	public class ExtraExplosivesPlayer : ModPlayer
 	{
+		#region Variables Initalization
+		
 		// Bombard Class stuff	(may need to make setting these on a per client basis)
 		
 		/// <summary>
@@ -295,6 +298,8 @@ namespace ExtraExplosives
 		internal bool novaBooster = false;
 		internal int novaBoostRechargeDelay = 0;
 		
+		#endregion
+		
 		public override void ResetEffects()
 		{
 			RadiatedDebuff = false;
@@ -556,7 +561,7 @@ namespace ExtraExplosives
 				ExtraExplosivesPlayer mp = drawPlayer.EE();
 				Texture2D Booster = GetTexture("ExtraExplosives/Items/Accessories/NovaBoosterLow_Wings");
 				Texture2D BoosterHigh = GetTexture("ExtraExplosives/Items/Accessories/NovaBoosterHigh_Wings");
-
+				
 				if (Main.LocalPlayer.direction < 0)
 				{
 					mp.offset = 24;
@@ -595,7 +600,10 @@ namespace ExtraExplosives
 						mp.boosting = false;
 					}
 				}
-				DrawData data = new DrawData((mp.boosting ? BoosterHigh : Booster), new Vector2(drawX + mp.offset, drawY), new Rectangle(0, (mp.player.velocity.Y == 0 ? 6 * 44 : 44 * mp.wingFrame), 46, 44), new Microsoft.Xna.Framework.Color(255, 255, 255), 0f, new Vector2(Booster.Width / 2f, Booster.Height / 4f - 60), 1f, mp.effect, 0);
+				DrawData data = new DrawData((mp.boosting ? BoosterHigh : Booster), new Vector2(drawX + mp.offset, drawY),
+					new Rectangle(0, (mp.player.velocity.Y == 0 ? 6 * 44 : 44 * mp.wingFrame), 46, 44),
+					new Microsoft.Xna.Framework.Color(255, 255, 255), 0f, new Vector2(Booster.Width / 2f,
+						Booster.Height / 4f - 60), 1f, mp.effect, 0);
 				Main.playerDrawData.Add(data);
 			});
 		public override void ModifyDrawLayers(List<Terraria.ModLoader.PlayerLayer> layers) //Make the players invisable

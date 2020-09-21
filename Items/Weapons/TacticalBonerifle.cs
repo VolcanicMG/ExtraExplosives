@@ -55,6 +55,11 @@ namespace ExtraExplosives.Items.Weapons
             }
         }
 
+        public override void DangerousSetDefaults()
+        {
+            item.ranged = true;
+        }
+
         public override void HoldItem(Player player)
         {
             
@@ -69,13 +74,13 @@ namespace ExtraExplosives.Items.Weapons
             }
         }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            string firemode = (item.useAmmo == AmmoID.Bullet ? "Bone Rifle" : "Bone Launcher");
-            var fireModeUseTip = new TooltipLine(mod, "Multiplier", $"Fire Mode: {firemode}");
-            fireModeUseTip.overrideColor = Color.Tan;
-            tooltips.Add(fireModeUseTip);
-        }
+        // public override void ModifyTooltips(List<TooltipLine> tooltips)
+        // {
+        //     string firemode = (item.useAmmo == AmmoID.Bullet ? "Bone Rifle" : "Bone Launcher");
+        //     var fireModeUseTip = new TooltipLine(mod, "Multiplier", $"Fire Mode: {firemode}");
+        //     fireModeUseTip.overrideColor = Color.Tan;
+        //     tooltips.Add(fireModeUseTip);
+        // }
 
         public override Vector2? HoldoutOffset()
         {

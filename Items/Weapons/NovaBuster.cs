@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -36,10 +37,19 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var ColoredTooltip = new TooltipLine(mod, "ExtraTooltip", $"The death of a star\n" +
-                                                                      $"Compressed into a single weapon");
+            TooltipLine ColoredTooltip = new TooltipLine(mod, "ExtraTooltip", $"The death of a star\n" +
+                                                                              $"Compressed into a single weapon");
             ColoredTooltip.overrideColor = Color.Chartreuse;
             tooltips.Add(ColoredTooltip);
+            
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            if (stats != null)
+            {
+                string[] split = stats.text.Split(' ');
+                string damageValue = split.First();
+                string damageWord = split.Last();
+                stats.text = damageValue + " explosive " + damageWord;
+            }
         }
 
         public override Vector2? HoldoutOffset()

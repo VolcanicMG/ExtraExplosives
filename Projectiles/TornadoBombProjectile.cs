@@ -20,6 +20,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			IgnoreTrinkets = true;
 			projectile.tileCollide = true;
 			projectile.width = 40;
 			projectile.height = 40;
@@ -50,17 +51,15 @@ namespace ExtraExplosives.Projectiles
 			{
 				Main.PlaySound(16, (int)projectile.Center.X, (int)projectile.Center.Y, 19, 1f, 0f);
 
-				//if (projectile.owner == Main.myPlayer)
-				//{
-					if (projectile.ai[1] >= 1f && !done)
-					{
-						int num328 = Projectile.NewProjectile(projectile.Center.X - 49, projectile.Center.Y - 4f, (0f - (float)projectile.direction) * 0.01f, 0f, ModContent.ProjectileType<TornadoBombProjectileTornado>(), projectile.damage, projectile.knockBack, Main.myPlayer, 16f, 15f); //384 //376
-						NetMessage.SendData(MessageID.SyncProjectile, number: num328);
-						Main.projectile[num328].netUpdate = true;
+				if (projectile.ai[1] >= 1f && !done)
+				{
+					int num328 = Projectile.NewProjectile(projectile.Center.X - 49, projectile.Center.Y - 4f, (0f - (float)projectile.direction) * 0.01f, 0f, ModContent.ProjectileType<TornadoBombProjectileTornado>(), projectile.damage, projectile.knockBack, Main.myPlayer, 16f, 15f); //384 //376
+					NetMessage.SendData(MessageID.SyncProjectile, number: num328);
+					Main.projectile[num328].netUpdate = true;
 
-						Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Tornado"));
-					}
-				//}
+					Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Tornado"));
+				}
+					
 				done = true;
 			}
 

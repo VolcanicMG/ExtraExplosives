@@ -144,7 +144,7 @@ namespace ExtraExplosives.Projectiles
 						Vector2 position1 = new Vector2(position.X - 600 / 2, position.Y - 600 / 2);
 						// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
 						Dust dust1 = Main.dust[Terraria.Dust.NewDust(position1, 600, 600, 155, 0f, 0f, 0, new Color(255, 255, 255), 2)];
-						if (Vector2.Distance(dust1.position, projectile.Center) > radius * 16) dust1.active = false;
+						if (Vector2.Distance(dust1.position, projectile.Center) > 300) dust1.active = false;
 						else
 						{
 							dust1.noGravity = true;
@@ -155,7 +155,7 @@ namespace ExtraExplosives.Projectiles
 						Dust dust2 = Main.dust[Terraria.Dust.NewDust(position2, 650, 650, 49, 0f, 0f, 0, new Color(255, 255, 255), 2)];
 						//dust2.position.X += Main.rand.NextFloat(-0.5f, 0.5f); 
 						//dust2.position.Y += Main.rand.NextFloat(-0.5f, 0.5f); 
-						if (Vector2.Distance(dust2.position, projectile.Center) > radius * 16)
+						if (Vector2.Distance(dust2.position, projectile.Center) > 325)
 						{
 							dust2.active = false;
 							continue;

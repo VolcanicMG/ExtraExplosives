@@ -11,7 +11,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Reactive Plating");
-            Tooltip.SetDefault("Increases Explosive damage by X\n" +
+            Tooltip.SetDefault("Increases Explosive damage by 10%\n" +
                                "Reduces damage taken by 10%");
         }
 

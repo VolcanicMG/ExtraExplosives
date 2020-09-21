@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,6 +37,18 @@ namespace ExtraExplosives.Items.Weapons
             item.knockBack = 4f;
             item.rare = ItemRarityID.Yellow;
             item.ranged = true;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            if (stats != null)
+            {
+                string[] split = stats.text.Split(' ');
+                string damageValue = split.First();
+                string damageWord = split.Last();
+                stats.text = damageValue + "x3 explosive " + damageWord;
+            }
         }
 
         public override Vector2? HoldoutOffset()

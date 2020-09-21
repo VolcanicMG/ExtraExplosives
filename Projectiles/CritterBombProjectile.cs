@@ -19,6 +19,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			IgnoreTrinkets = true;
 			radius = 10;
 			projectile.tileCollide = true;
 			projectile.width = 10;
@@ -84,10 +85,10 @@ namespace ExtraExplosives.Projectiles
 					//---Dust 1---
 					if (Main.rand.NextFloat() < 1f)
 					{
-						updatedPosition = new Vector2(position.X - 600 / 2, position.Y - 600 / 2);
+						updatedPosition = new Vector2(position.X - 600 / 2, position.Y - 100 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 600, 100, 1, 0f, 0f, 0, new Color(159, 255, 0), 1.776316f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > 300) dust.active = false;
 						else
 						{
 							dust.noLight = true;
