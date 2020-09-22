@@ -492,7 +492,7 @@ namespace ExtraExplosives
 	        {
 		        Vector2 npcPos = new Vector2();
 		        ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
-		        if (mp.RandomFuel &&
+		        if (mp.RandomFuel ||
 		            mp.RandomFuelActive)	// Random fuel (working)
 		        {
 			        
@@ -512,32 +512,7 @@ namespace ExtraExplosives
 				        proj.timeLeft = 10;
 				        proj.velocity = projectile.velocity;
 				        proj.GetGlobalProjectile<ExtraExplosivesGlobalProjectile>().clone = true;
-			        }
-			        /*int buffId = 0;
-			        int dustId = 0;
-			        switch (Main.rand.Next(3)) // get the buff id
-			        {
-				        case 0:
-					        if (!mp.RandomFuelOnFire) break;
-					        buffId = BuffID.OnFire;
-					        dustId = 6;	// A red dust
-					        break;
-				        case 1:
-					        if (!mp.RandomFuelFrostburn) break;
-					        buffId = BuffID.Frostburn;
-					        dustId = 211;	// a bluish dust
-					        break;
-				        case 2:
-					        if (!mp.RandomFuelConfused) break;
-					        buffId = BuffID.Confused;
-					        dustId = 261;	// grey?
-					        break;
-				        default:	// if something breaks
-					        break;
-			        }
-			        // Random Fuel
-			        if(buffId != 0)GlobalMethods.InflictDubuff(buffId, 15, projectile.Center, projectile.owner, dustId, 300);*/
-			        
+			        }			        
 		        }
 
 		        if (mp.GlowingCompound && 
