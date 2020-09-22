@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,13 +13,13 @@ namespace ExtraExplosives.Items.Weapons
         {
             DisplayName.SetDefault("Minerain-Launcher");
             Tooltip.SetDefault("Today's Forcast; Cloudy with a chance of death from above\n" +
-                               "Creates a cloud which rains bombs");    // This will be added later for various reasons
+                               "Creates a cloud which rains bombs\n" + // This will be added later for various reasons
+                               "Not Functioning ATM");
         }
 
         public override void SetDefaults()
         {
             item.damage = 25;
-            item.ranged = true;
             item.width = 56;
             item.height = 40;
             item.useTime = 33;
@@ -32,6 +34,18 @@ namespace ExtraExplosives.Items.Weapons
             item.shoot = 155; //idk why but all the guns in the vanilla source have this
             item.shootSpeed = 5;
             item.useAmmo = AmmoID.Rocket;
+        }
+        
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            if (stats != null)
+            {
+                string[] split = stats.text.Split(' ');
+                string damageValue = split.First();
+                string damageWord = split.Last();
+                stats.text = damageValue + "x3 explosive " + damageWord;
+            }
         }
         
         public override Vector2? HoldoutOffset()

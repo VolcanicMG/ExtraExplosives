@@ -19,6 +19,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			IgnoreTrinkets = true;
 			projectile.tileCollide = true;
 			projectile.width = 5;
 			projectile.height = 5;
@@ -30,10 +31,8 @@ namespace ExtraExplosives.Projectiles
 
 		public override bool OnTileCollide(Vector2 old)
 		{
-
 			projectile.position.Y -= 2;
-
-
+			
 			projectile.velocity = Vector2.Zero;
 
 			projectile.aiStyle = 0;
@@ -63,7 +62,6 @@ namespace ExtraExplosives.Projectiles
 
 		public override void Explosion()
 		{
-
 			Vector2 position = projectile.Center;
 			
 			int height = 10; //Height of arena
@@ -79,9 +77,7 @@ namespace ExtraExplosives.Projectiles
 				{
 					int xPosition = x;
 					int yPosition = (int)(-y + position.Y / 16.0f);
-
-
-
+					
 					//The following happens whether the block is breakable or not as the following methods cannot break or replace blocks that already exist.
 					if (!OutOfBounds(xPosition, yPosition))
 					{
@@ -90,7 +86,6 @@ namespace ExtraExplosives.Projectiles
 						WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
 						//Place Outline
-
 						if ((y == 0) || y == height)
 						{
 							WorldGen.PlaceTile(xPosition, yPosition, TileID.Platforms);
@@ -100,7 +95,6 @@ namespace ExtraExplosives.Projectiles
 						NetMessage.SendTileSquare(-1, xPosition, yPosition, 1);
 					}
 				}
-
 			}
 		}
 
@@ -119,7 +113,7 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(159, 0, 255), 5f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > 1000) dust.active = false;
 						else
 						{
 							dust.noGravity = true;
@@ -134,7 +128,7 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(0, 17, 255), 5f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > 1000) dust.active = false;
 						else
 						{
 							dust.noGravity = true;
@@ -149,7 +143,7 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(255, 0, 150), 5f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > 1000) dust.active = false;
 						else
 						{
 							dust.noGravity = true;

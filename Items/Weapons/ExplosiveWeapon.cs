@@ -15,6 +15,11 @@ namespace ExtraExplosives.Items.Weapons
         protected LegacySoundStyle[] PrimarySounds;
         protected LegacySoundStyle[] SecondarySounds;
 
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            //Left blank since tooltip modification needs to be handled on a per item basis
+        }
+
         // IGNORE //
         /*public virtual void SafeSetDefaults()
         {

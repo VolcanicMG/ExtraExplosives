@@ -23,6 +23,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			IgnoreTrinkets = true;
 			projectile.tileCollide = true;
 			projectile.width = 22;
 			projectile.height = 38;
@@ -85,6 +86,7 @@ namespace ExtraExplosives.Projectiles
 
 				//Spawning the dust particle
 				dust = Main.dust[Dust.NewDust(spawnRegionCorner, (int)Radius, (int)Radius, currentDust, 0f, 0.5f, 1, Color.LightGreen, 1f)];
+				if (Vector2.Distance(dust.position, position) > Radius) dust.active = false;
 			}
 		}
 	}

@@ -133,7 +133,7 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 400 / 2, position.Y - 400 / 2);
 
 						dust = Terraria.Dust.NewDustDirect(updatedPosition, 400, 400, 91, 0f, 0f, 157, new Color(0, 142, 255), 2.565789f);
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > 200) dust.active = false;
 						else
 						{
 							dust.noGravity = true;
@@ -148,7 +148,7 @@ namespace ExtraExplosives.Projectiles
 						updatedPosition = new Vector2(position.X - 80 / 2, position.Y - 80 / 2);
 
 						dust = Terraria.Dust.NewDustDirect(updatedPosition, 80, 80, 197, 0f, 0f, 157, new Color(0, 67, 255), 2.565789f);
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > 40) dust.active = false;
 						else
 						{
 							dust.noGravity = true;

@@ -66,9 +66,9 @@ namespace ExtraExplosives.Projectiles
 					{
 						//updatedPosition = new Vector2(position.X, position.Y);
 
-						updatedPosition = projectile.Center;
-						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
 						else
 						{
 							dust.noGravity = true;
@@ -81,9 +81,9 @@ namespace ExtraExplosives.Projectiles
 					{
 						//updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
 
-						updatedPosition = projectile.Center;
+						updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
 						else
 						{
 							dust.noGravity = true;
@@ -95,9 +95,9 @@ namespace ExtraExplosives.Projectiles
 					if (Main.rand.NextFloat() < 0.3f)
 					{
 						//updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-						updatedPosition = projectile.Center;
+						updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
 						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
 						else
 						{
 							dust.noGravity = true;

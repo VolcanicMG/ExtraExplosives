@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using ExtraExplosives.Projectiles.Weapons.Snipesploder;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -30,7 +32,7 @@ namespace ExtraExplosives.Items.Weapons
             item.value = 10000;
             item.rare = ItemRarityID.Green;
             item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<SnipesploderProjectile>();
+            item.shoot = ModContent.ProjectileType<SnipesploderFired>();
             item.shootSpeed = 15;
             item.useAmmo = AmmoID.Rocket;
 
@@ -43,16 +45,28 @@ namespace ExtraExplosives.Items.Weapons
                     mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
             }
         }
-
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
-            ref float knockBack)
+        
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                (int) player.position.X, (int) player.position.Y);
-            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            if (stats != null)
+            {
+                string[] split = stats.text.Split(' ');
+                string damageValue = split.First();
+                string damageWord = split.Last();
+                stats.text = damageValue + " explosive " + damageWord;
+            }
         }
 
-        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<SnipesploderProjectile>()] <= 0;
+        // public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
+                    //     ref float knockBack)
+                    // {
+                    //     Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                    //         (int) player.position.X, (int) player.position.Y);
+                    //     return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+                    // }
+
+        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<SnipesploderFired>()] <= 0;
 
         public override void AddRecipes()
         {

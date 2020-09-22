@@ -1,4 +1,6 @@
-﻿using ExtraExplosives.Projectiles.Weapons.DutchmansBlaster;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ExtraExplosives.Projectiles.Weapons.DutchmansBlaster;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -43,6 +45,18 @@ namespace ExtraExplosives.Items.Weapons
             {
                 PrimarySounds[n - 1] =
                     mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+            }
+        }
+        
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            if (stats != null)
+            {
+                string[] split = stats.text.Split(' ');
+                string damageValue = split.First();
+                string damageWord = split.Last();
+                stats.text = damageValue + " explosive " + damageWord;
             }
         }
         

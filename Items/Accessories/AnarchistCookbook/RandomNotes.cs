@@ -9,10 +9,8 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Random Notes");
-            Tooltip.SetDefault("Randomly debuffs enemies\n" +
-                               "Enemies can be burnt, frozen, or confused\n" +
-                               "Debuffs can affect the player\n" +
-                               "Explosives detonate twice as fast");
+            Tooltip.SetDefault("Makes explosives detonate twice\n" +
+                               "Halves fuse length of explosives");
         }
 
         public override void SetDefaults()

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -12,7 +14,7 @@ namespace ExtraExplosives.Items.Weapons
         {
             DisplayName.SetDefault("Twin Detonator");
             Tooltip.SetDefault("Double the trouble.\n" +
-                               "Launches two grenades per use\n" +
+                               "Launches a pair of grenades\n" +
                                "Consumes one rocket per volley");
         }
 
@@ -21,7 +23,6 @@ namespace ExtraExplosives.Items.Weapons
         public override void SafeSetDefaults()
         {
             item.damage = 15;
-            item.ranged = true;
             item.width = 40;
             item.height = 20;
             item.useTime = 30;
@@ -49,6 +50,18 @@ namespace ExtraExplosives.Items.Weapons
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-8, 1);
+        }
+        
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            if (stats != null)
+            {
+                string[] split = stats.text.Split(' ');
+                string damageValue = split.First();
+                string damageWord = split.Last();
+                stats.text = damageValue + "x2 explosive " + damageWord;
+            }
         }
         
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

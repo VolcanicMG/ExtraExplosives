@@ -19,7 +19,7 @@ namespace ExtraExplosives.Items
         }
         
         // Made readonly since any use of ExplosiveItem over ModItem would be to allow for explosive damage
-        public readonly bool Explosive = true;
+        public bool Explosive = true;
 
         public virtual void SafeSetDefaults()
         {

@@ -84,10 +84,10 @@ namespace ExtraExplosives.Projectiles
 					//---Dust 1---
 					if (Main.rand.NextFloat() < 1f)
 					{
-						updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+						updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
 
-						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 6, 0f, 0.5f, 0, new Color(255, 0, 0), 4f)];
-						if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 6, 0f, 0.5f, 0, new Color(255, 0, 0), 4f)];
+						if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
 						else
 						{
 							dust.noGravity = true;

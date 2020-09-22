@@ -76,7 +76,8 @@ namespace ExtraExplosives.Projectiles
 			Player player = Main.player[Main.myPlayer];
 
 			//Stop the sound
-			if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
+			if (Main.netMode != NetmodeID.Server &&  // This all needs to happen client-side!
+			    sound != null)						 // If the sound is null (the game is muted) just skip this step to avoid a crash
 			{
 				sound.Stop();
 			}

@@ -31,11 +31,12 @@ namespace ExtraExplosives.Projectiles
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Test Projectile");    // internal name only, will not have a space for the projName piece
+			DisplayName.SetDefault("Bullet Boom");    // internal name only, will not have a space for the projName piece
 		}
 
 		public override void SafeSetDefaults()
 		{
+			radius = 5;
 			projectile.tileCollide = true; //checks to see if the projectile can go through tiles
 			projectile.width = 22;   //This defines the hitbox width
 			projectile.height = 22;	//This defines the hitbox height
@@ -68,7 +69,6 @@ namespace ExtraExplosives.Projectiles
 
 			Vector2 position = projectile.Center;
 			Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
-			int radius = 5;	 //this is the explosion radius, the highter is the value the bigger is the explosion
 
 			Vector2 vel;
 			int spedX;
@@ -106,6 +106,7 @@ namespace ExtraExplosives.Projectiles
 				}
 			}
 
+			Vector2 updatedPosition;
 			Dust dust1;
 			Dust dust2;
 			// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
@@ -113,9 +114,9 @@ namespace ExtraExplosives.Projectiles
 			{
 				if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
 				{
-					Vector2 position1 = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-					dust1 = Main.dust[Terraria.Dust.NewDust(position1, 100, 100, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
-					if (Vector2.Distance(dust1.position, projectile.Center) > radius * 16) dust1.active = false;
+					updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
+					dust1 = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
+					if (Vector2.Distance(dust1.position, projectile.Center) > radius * 8) dust1.active = false;
 					else
 					{
 						dust1.noGravity = true;
@@ -128,9 +129,9 @@ namespace ExtraExplosives.Projectiles
 			{
 				if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
 				{
-					Vector2 position2 = new Vector2(position.X - 80 / 2, position.Y - 80 / 2);
-					dust2 = Main.dust[Terraria.Dust.NewDust(position2, 80, 80, 6/*35*/, 0f, 0f, 0, new Color(240, 240, 240), 4.0f)];
-					if (Vector2.Distance(dust2.position, projectile.Center) > radius * 16) dust2.active = false;
+					updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
+					dust2 = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 6/*35*/, 0f, 0f, 0, new Color(240, 240, 240), 4.0f)];
+					if (Vector2.Distance(dust2.position, projectile.Center) > radius * 8) dust2.active = false;
 					else
 					{
 						dust2.noGravity = true;

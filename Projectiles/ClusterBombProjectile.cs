@@ -58,7 +58,7 @@ namespace ExtraExplosives.Projectiles
 			Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
 			Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
 
-			Vector2 vel;
+			/*Vector2 vel;
 			Vector2 pos;
 
 			for (int i = 0; i <= 50; i++)
@@ -97,7 +97,7 @@ namespace ExtraExplosives.Projectiles
 						dust.noLight = true;
 					}
 				}
-			}
+			}*/
 		}
 
 		public override void Explosion()
@@ -138,32 +138,30 @@ namespace ExtraExplosives.Projectiles
 			{
 				if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
 				{
-					//Dust 1
-					if (Main.rand.NextFloat() < 0.9f)
+					// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+					updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
+					dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 5f)];
+					if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
+					else
 					{
-						updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
-
-						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
 						dust.noGravity = true;
-						dust.fadeIn = 2.5f;
+						dust.fadeIn = 2.486842f;
 					}
 
-					//Dust 2
-					if (Main.rand.NextFloat() < 0.6f)
+					// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+					dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 203, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
+					if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
+					else
 					{
-						updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
-
-						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
 						dust.noGravity = true;
 						dust.noLight = true;
 					}
 
-					//Dust 3
-					if (Main.rand.NextFloat() < 0.3f)
+					// You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
+					dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
+					if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
+					else
 					{
-						updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-
-						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
 						dust.noGravity = true;
 						dust.noLight = true;
 					}

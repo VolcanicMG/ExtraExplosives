@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -45,6 +47,18 @@ namespace ExtraExplosives.Items.Weapons
             }
         }
         
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            if (stats != null)
+            {
+                string[] split = stats.text.Split(' ');
+                string damageValue = split.First();
+                string damageWord = split.Last();
+                stats.text = damageValue + "x5 explosive " + damageWord;
+            }
+        }
+        
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-16, 0);
@@ -60,7 +74,7 @@ namespace ExtraExplosives.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            int numberProjectiles = 4 + Main.rand.Next(2); // 4 or 5 shots
+            int numberProjectiles = 5; // 4 or 5 shots
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30)); // 30 degree spread.
