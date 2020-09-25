@@ -66,7 +66,7 @@ namespace ExtraExplosives.Projectiles
 				phaseSoundInstance.Play();
 
 			Player player = Main.player[projectile.owner];
-			if ((player.releaseLeft && Main.mouseLeft) == false)
+			if (!(Main.mouseLeft && player.releaseLeft))
 			{
 				phaseSoundInstance.Stop(true);
 				projectile.Kill();
@@ -160,7 +160,7 @@ namespace ExtraExplosives.Projectiles
 							dust2.active = false;
 							continue;
 						}
-						Main.NewText(dust2.position);
+						//Main.NewText(dust2.position);
 						dust2.noGravity = true;
 						dust2.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
 					}

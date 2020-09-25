@@ -17,6 +17,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			IgnoreTrinkets = true;
 			projectile.tileCollide = true;
 			projectile.width = 12;
 			projectile.height = 32;

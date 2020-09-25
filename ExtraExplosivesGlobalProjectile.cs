@@ -1,5 +1,4 @@
 using ExtraExplosives.Dusts;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
 using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
@@ -24,36 +23,14 @@ namespace ExtraExplosives
 
 		private bool firstTick;
 
-		private int[] avoidList = new int[11];
-
+		private bool flag3; //used to check if the projectile found something to chase
 		public override bool PreAI(Projectile projectile)
 		{
-
-			if (!firstTick) //load in the required list of avoidable projectiles that have a AI style of 16
-			{
-				avoidList = new int[]
-					{
-						ModContent.ProjectileType<BossArmorBreakBombProjectile>(),
-						ModContent.ProjectileType<BossChillBombProjectile>(),
-						ModContent.ProjectileType<BossDazedBombProjectile>(),
-						ModContent.ProjectileType<BossFireBombProjectile>(),
-						ModContent.ProjectileType<BossGooBombProjectile>(),
-						ModContent.ProjectileType<ExplosionDamageProjectileEnemy>(), //A bit outdated but still needs to stay in for now until someone changes it.
-						ProjectileID.BombSkeletronPrime,
-						ProjectileID.DD2GoblinBomb,
-						ProjectileID.HappyBomb,
-						ProjectileID.SantaBombs,
-						ProjectileID.SmokeBomb
-					};
-
-				firstTick = true;
-			}
 
 			if (projectile.type == ModContent.ProjectileType<NukeProjectilePhase2>() ||
 				projectile.type == ModContent.ProjectileType<NukeProjectile>()) return true;
 			if (projectile.type == ModContent.ProjectileType<NPCProjectile>()) return true;
-			if (avoidList.Contains(projectile.type)) return true;
-
+			if (ExtraExplosives.avoidList.Contains(projectile.type)) return true;
 
 			ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
 			if (!_upVelocity &&
@@ -80,7 +57,7 @@ namespace ExtraExplosives
 			}
 
 			//glowing compound check
-			if (mp.GlowingCompound || mp.GlowingCompoundActive)
+			if ((mp.GlowingCompound || mp.GlowingCompoundActive) && projectile.aiStyle == 16)
 			{
 				Lighting.AddLight(projectile.position, new Vector3(1f, 1f, 1f));
 				Lighting.maxX = 15;
@@ -95,10 +72,11 @@ namespace ExtraExplosives
 		private bool? _stickyGunpowderFlag = null;  // used to get the default collide value
 		public override void AI(Projectile projectile)
 		{
+			//the ai will avoid these
 			if (projectile.type == ModContent.ProjectileType<NukeProjectile>() ||
 				projectile.type == ModContent.ProjectileType<NukeProjectilePhase2>()) return;
 			if (projectile.type == ModContent.ProjectileType<NPCProjectile>()) return;
-			if (avoidList.Contains(projectile.type)) return;
+			if (ExtraExplosives.avoidList.Contains(projectile.type)) return;
 
 			ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
 			if (projectile.aiStyle == 16 &&
@@ -161,6 +139,7 @@ namespace ExtraExplosives
 									 (Main.tileSolidTop[Main.tile[currentX, currentY].type] &&  //  or (has a solid top and
 									  Main.tile[currentX, currentY].frameY == 0))) // has a frameY of 0))
 								{
+									
 									collisionPoint.X = currentX * 16;   // get the point in world cords from tile cords
 									collisionPoint.Y = currentY * 16;   // get the point in world cords from tile cords, but the y
 									if (projectile.position.X + (float)projectile.width - 4f > collisionPoint.X &&  // projectile touches the point
@@ -170,6 +149,7 @@ namespace ExtraExplosives
 									{
 										projectile.velocity.X = 0f; // x velocity 0
 										projectile.velocity.Y = 0f; // y velocity 0
+										colliding = true;
 									}
 								}
 							}
@@ -180,11 +160,25 @@ namespace ExtraExplosives
 						Main.NewText("You killed the collision detector, it had a family, and you just killed it; You monster.");
 					}
 				}
+				else if (projectile.Name.Contains("Sticky") && projectile.aiStyle == 16) projectile.tileCollide = true; //Used for modded and vanilla projectiles that work as bombs that have the sticky attribute
+
+			}
+
+
+			//anti-gravity 
+			if (mp.AntiGravity && projectile.aiStyle == 16)
+			{
+				if(!flag3 && !colliding && mp.AnarchistCookbook) projectile.velocity = constVelocity;
+				
+				if(colliding && projectile.Name.Contains("Sticky") && projectile.aiStyle == 16) //used to make sure projectiles with the sticky attribute stay in place.
+				{
+					projectile.velocity.X = 0f; // x velocity 0
+					projectile.velocity.Y = 0f; // y velocity 0
+				}
 			}
 
 			if (mp.SupernaturalBomb &&
-				projectile.aiStyle == 16 &&
-				Array.IndexOf(StaticMethods.DoNotHome, projectile.type) == -1)
+				projectile.aiStyle == 16)
 			{
 				//dust
 				float num248 = 0f;
@@ -209,7 +203,6 @@ namespace ExtraExplosives
 				dust3 = Main.dust[num250];
 				dust3.velocity *= 0.05f;
 
-
 				//Actual AI code
 				float num132 = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
 				float num133 = projectile.localAI[0];
@@ -220,8 +213,8 @@ namespace ExtraExplosives
 				}
 				float num134 = projectile.position.X;
 				float num135 = projectile.position.Y;
-				float num136 = 600f;
-				bool flag3 = false;
+				float num136 = 600f; //I assume this is the range
+				flag3 = false;
 				int num137 = 0;
 				if (projectile.ai[1] == 0f)
 				{
@@ -271,7 +264,7 @@ namespace ExtraExplosives
 				{
 					flag3 = false;
 				}
-				if (flag3)
+				if (flag3) //the  heat seeking part of the code
 				{
 					float num145 = num133;
 					Vector2 vector10 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
@@ -286,21 +279,8 @@ namespace ExtraExplosives
 					projectile.velocity.Y = (projectile.velocity.Y * (float)(num149 - 1) + num147) / (float)num149;
 				}
 
-				projectile.rotation = projectile.velocity.ToRotation();
+				//projectile.rotation = projectile.velocity.ToRotation();
 				//projectile.spriteDirection = projectile.direction;
-			}
-
-			else
-			{
-				if (mp.AlienExplosive &&
-					mp.AnarchistCookbook &&
-					projectile.aiStyle == 16 &&
-					!projectile.ranged &&
-					!projectile.thrown &&
-					!colliding)
-				{
-					projectile.velocity = constVelocity;
-				}
 			}
 
 			base.AI(projectile);
@@ -308,10 +288,10 @@ namespace ExtraExplosives
 
 		public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
 		{
-			if (Main.player[projectile.owner].EE().AlienExplosive)
+			if (Main.player[projectile.owner].EE().AlienExplosive && projectile.aiStyle == 16 && !ExtraExplosives.avoidList.Contains(projectile.type))
 			{
 				colliding = true;
-				projectile.velocity = Vector2.Zero;
+				//projectile.velocity = Vector2.Zero; //makes things bounce in a weird way
 				return true;
 			}
 			return base.OnTileCollide(projectile, oldVelocity);
@@ -322,7 +302,7 @@ namespace ExtraExplosives
 		public override bool PreKill(Projectile projectile, int timeLeft)
 		{
 			// Applying the Ravenous Bomb lifesteal property
-			if (Main.player[projectile.owner].EE().RavenousBomb)
+			if (Main.player[projectile.owner].EE().RavenousBomb && projectile.aiStyle == 16)
 			{
 				int damageDone = 0;
 				int projRadius = GetBombRadius(projectile);
@@ -337,7 +317,7 @@ namespace ExtraExplosives
 							damageDone += npc.lifeMax;
 					}
 				}
-				foreach (Player player in Main.player)
+				foreach (Player player in Main.player) //Might need removed or revamped since I think you could get healed to full
 				{
 					if (player == null || player.whoAmI == 255 || player.whoAmI == projectile.owner || !player.active)
 						continue;
@@ -434,7 +414,7 @@ namespace ExtraExplosives
 		{
 			if (projectile.type == ModContent.ProjectileType<NukeProjectile>() ||
 				projectile.type == ModContent.ProjectileType<NukeProjectilePhase2>()) return;
-			if (avoidList.Contains(projectile.type)) return;
+			if (ExtraExplosives.avoidList.Contains(projectile.type)) return;
 
 			if (projectile.aiStyle == 16)
 			{
@@ -457,7 +437,7 @@ namespace ExtraExplosives
 							projectile.ai[0],
 							projectile.ai[1]
 						);
-						proj.timeLeft = 10;
+						proj.timeLeft = 15;
 						proj.velocity = projectile.velocity;
 						proj.GetGlobalProjectile<ExtraExplosivesGlobalProjectile>().clone = true;
 					}
@@ -522,7 +502,7 @@ namespace ExtraExplosives
 						// Main.NewText("Spawn" + n);
 						Projectile.NewProjectileDirect(projectile.Center,
 							new Vector2(Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1)),
-							ModContent.ProjectileType<MushroomProjectile>(), 40, 0);
+							ModContent.ProjectileType<MushroomProjectile>(), 100, 1, projectile.owner);
 					}
 				}
 

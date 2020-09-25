@@ -33,7 +33,7 @@ namespace ExtraExplosives
 		/// <summary>
 		/// Additional explosive damage
 		/// </summary>
-		public int DamageBonus { get; set; }
+		public float DamageBonus { get; set; }
 		
 		/// <summary>
 		/// Additional explosive knockback
@@ -243,6 +243,11 @@ namespace ExtraExplosives
 		/// </summary>
 		public int? FuseTime { get; set; }   // Later use with Anarchist Cookbook UI
 
+		/// <summary>
+		/// Anti gravity equipped
+		/// </summary>
+		public bool AntiGravity { get; set; }   // Later use with Anarchist Cookbook UI
+
 		// Grenadier Class stuff (Bombard whatever)
 		/// <summary>
 		/// Bombardier emblem equipped
@@ -287,6 +292,8 @@ namespace ExtraExplosives
 		internal bool InventoryOpen { get; set; }
 		private bool InvFlag { get; set; }
 
+		public static bool BossCheckDead;
+
 		// Nova Wing Draw Data
 		internal int wingFrame = 0;
 		internal int wingFrameCounter = 0;
@@ -328,6 +335,7 @@ namespace ExtraExplosives
 			LihzahrdFuzeset = false;
 			SupernaturalBomb = false;
 			WyrdBomb = false;
+			AntiGravity = false;
 
 			// Class Bonus and Multiplier Set and Reset
 			DamageBonus = 0;
@@ -338,7 +346,7 @@ namespace ExtraExplosives
 			RadiusMulti = 1;
 			ExplosiveCrit = 0;
 		}
-		
+
 		public override void UpdateDead()
 		{
 			RadiatedDebuff = false;
@@ -361,7 +369,6 @@ namespace ExtraExplosives
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
 			reforgePub = reforge;
-			//Player player = Main.player[Main.myPlayer];
 
 			//Main.NewText(ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard)[0].ToString());
 			if (reforge == true)
@@ -498,8 +505,6 @@ namespace ExtraExplosives
 				Filters.Scene["BigBang"].Deactivate();
 			}
 
-			//Main.NewText(ExtraExplosives.CheckUIBoss);
-
 			if (ExtraExplosives.CheckUIBoss == 1 && tickCheck == 1)
 			{
 				Player playerCheck = Main.player[Main.myPlayer];
@@ -535,7 +540,7 @@ namespace ExtraExplosives
 				DamageMulti += 0.15f;
 				ExplosiveCrit += 10;
 			}
-			if (ReactivePlating) DamageBonus += 10;
+			if (ReactivePlating) DamageBonus += .1f;
 			if (BombardEmblem) DamageMulti += 0.15f;
 			if (BombersHat) RadiusMulti += 0.3f;
 			if (CertificateOfDemolition) RadiusMulti += 0.5f;
@@ -630,7 +635,7 @@ namespace ExtraExplosives
 
 		public override void OnEnterWorld(Player player) //might need to set to new netmode in case it dosnt work in MP
 		{
-			StaticMethods.BuildDoNotHomeList();
+			//StaticMethods.BuildDoNotHomeList();
 			InventoryOpen = false;
 			//NukeActive = false;
 			//ExtraExplosives.NukeActivated = false;
@@ -703,7 +708,10 @@ namespace ExtraExplosives
 
 				// Lesser tags
 				[nameof(LightweightBombshellVelocity)] = LightweightBombshellVelocity,
-				[nameof(ShortFuseTime)] = ShortFuseTime
+				[nameof(ShortFuseTime)] = ShortFuseTime,
+
+				//Boss
+				[nameof(BossCheckDead)] = BossCheckDead
 			};
 		}
 
@@ -724,6 +732,9 @@ namespace ExtraExplosives
 			// Lesser tag loading
 			LightweightBombshellVelocity = tag.GetFloat(nameof(LightweightBombshellVelocity));
 			ShortFuseTime = tag.GetFloat(nameof(ShortFuseTime));
+
+			//Boss tag loading
+			BossCheckDead = tag.GetBool(nameof(BossCheckDead));
 		}
 	}
 }

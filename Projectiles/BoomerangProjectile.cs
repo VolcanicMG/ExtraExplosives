@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -57,13 +58,19 @@ namespace ExtraExplosives.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
+			Player player = Main.player[projectile.owner];
+
 			if (Main.rand.NextFloat() < .2f && HitSomeThing == false)
 			{
 				//Create Bomb Sound
 				Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 				//Create Bomb Damage
-				ExplosionDamage();
+				if(!player.EE().BlastShielding &&
+					!player.EE().BlastShieldingActive)
+				{
+					player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), projectile.direction);
+				}
 
 				//Create Bomb Dust
 				CreateDust(projectile.Center, 10);

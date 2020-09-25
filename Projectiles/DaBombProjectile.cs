@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -70,34 +71,92 @@ namespace ExtraExplosives.Projectiles
 			buffActive = false;
 		}
 
-		/*public override void Explosion()
+		public override void ExplosionDamage()
 		{
-			Vector2 position = projectile.Center;
-			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
-			{
-				for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
-				{
-					int xPosition = (int)(x + position.X / 16.0f);
-					int yPosition = (int)(y + position.Y / 16.0f);
+			Player playerO = Main.player[projectile.owner];
 
-					if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
+			if (Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
+			foreach (NPC npc in Main.npc)
+			{
+				float dist = Vector2.Distance(npc.Center, playerO.Center);
+				if (dist / 16f <= radius)
+				{
+					int dir = (dist > 0) ? 1 : -1;
+					npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+				}
+			}
+
+			foreach (Player player in Main.player)
+			{
+				if (player == null || player.whoAmI == 255 || !player.active) return;
+				if (!CanHitPlayer(player)) continue;
+				if (player.EE().BlastShielding &&
+					player.EE().BlastShieldingActive) continue;
+				float dist = Vector2.Distance(player.Center, playerO.Center);
+				int dir = (dist > 0) ? 1 : -1;
+				if (dist / 16f <= radius)
+				{
+					player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
+					player.hurtCooldowns[0] += 15;
+				}
+				if (Main.netMode != 0)
+				{
+					NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+				}
+			}
+
+		}
+
+		public override void Explosion()
+		{
+
+			// x and y are the tile offset of the current tile relative to the player
+			// i and j are the true tile cords relative to 0,0 in the world
+			Player player = Main.player[projectile.owner];
+			if (pickPower < -1) return;
+			if (player.EE().BombardEmblem) return;
+
+			Vector2 position = new Vector2(player.Center.X / 16f, player.Center.Y / 16f);    // Converts to tile cords for convenience
+
+			radius = (int)((radius + player.EE().RadiusBonus) * player.EE().RadiusMulti);
+			for (int x = -radius;
+				x <= radius;
+				x++)
+			{
+				//int x = (int)(i + position.X);
+				for (int y = -radius;
+					y <= radius;
+					y++)
+				{
+					//int y = (int)(j + position.Y);
+					int i = (int)(x + position.X);
+					int j = (int)(y + position.Y);
+					if (!WorldGen.InWorld(i, j)) continue;
+					if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
 					{
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+						//Main.NewText($"({i}, {j})");
+						//Dust dust = Dust.NewDustDirect(new Vector2(i, j), 1, 1, 54);
+						//dust.noGravity = true;
+						if (!WorldGen.TileEmpty(i, j))
 						{
+							if (!CanBreakTile(Main.tile[i, j].type, pickPower)) continue;
+							if (!CanBreakTiles) continue;
+							// Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
+							// But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
+							if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1)
+								WorldGen.KillTile((int)(i), (int)(j), false, false, false);
+							else Main.tile[i, j].ClearTile();
+							//
 						}
-						else //Breakable
+
+						if (CanBreakWalls)
 						{
-							if (CanBreakTiles) //User preferences dictates if this bomb can break tiles
-							{
-								WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-								if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
-							}
+							//WorldGen.KillWall((int) (i), (int) (j));
 						}
 					}
 				}
 			}
-		}*/
+		}
 
 		private void CreateDust(Vector2 position, int amount)
 		{

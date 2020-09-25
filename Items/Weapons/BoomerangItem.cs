@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Weapons
 		{
 			DisplayName.SetDefault("BOOMerang");
 			Tooltip.SetDefault("It�s coming back!!\n" +
-				"[c/FF0000:Has a 1/5 chance of damaging you]");
+				"[c/FF0000:Has a 1/5 chance of damaging you when you don't hit an enemy]");
 		}
 
 		public override void SafeSetDefaults()
@@ -23,6 +23,7 @@ namespace ExtraExplosives.Items.Weapons
 			item.knockBack = 20;
 			item.rare = ItemRarityID.Green;
 			item.value = Item.buyPrice(0, 1, 0, 0);
+			item.crit = 15;
 		}
 
 		public override Vector2? HoldoutOffset()

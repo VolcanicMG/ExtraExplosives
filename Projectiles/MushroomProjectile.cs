@@ -18,8 +18,10 @@ namespace ExtraExplosives.Projectiles
             projectile.height = 18;
             projectile.timeLeft = 3000;
             projectile.friendly = true;
-            projectile.light = 10;
+            projectile.hostile = false;
+            projectile.light = .8f;
             projectile.tileCollide = false;
+            projectile.damage = 100;
         }
 
         public override void AI()
@@ -37,19 +39,20 @@ namespace ExtraExplosives.Projectiles
             // Does nothing, just float, will add code to emulate the Vanilla NPC
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            return;
-        }
+        //public override void OnHitPlayer(Player target, int damage, bool crit)
+        //{
+        //    return;
+        //}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            Kill(0);
-        }
+        //public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        //{
+        //    target.StrikeNPC(damage, knockback, projectile.direction, crit);
+        //    projectile.Kill();
+        //}
 
-        public override void Kill(int timeLeft)
-        {
-            return;
-        }
+        //public override void Kill(int timeLeft)
+        //{
+            
+        //}
     }
 }

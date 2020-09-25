@@ -26,7 +26,7 @@ namespace ExtraExplosives
 
         public void ConsumeOnUse()
         {
-            
+
         }
 
         private int[] _doNotDuplicate;

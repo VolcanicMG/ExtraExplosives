@@ -17,20 +17,22 @@ namespace ExtraExplosives
         public static ExtraExplosivesGlobalProjectile EE(this Projectile projectile) => (ExtraExplosivesGlobalProjectile) projectile.GetGlobalProjectile<ExtraExplosivesGlobalProjectile>();
         public static ExtraExplosivesGlobalNPC EE(this NPC npc) => (ExtraExplosivesGlobalNPC) npc.GetGlobalNPC<ExtraExplosivesGlobalNPC>();
 
-        internal static int[] DoNotHome { get; set; }
+  //      internal static int[] DoNotHome { get; set; }
 
-        internal static void BuildDoNotHomeList()
-        {
-            DoNotHome = new int[]
-            {
-                ModContent.ProjectileType<HouseBombProjectile>(),
-                ModContent.ProjectileType<ArenaBuilderProjectile>(),
-               // ModContent.ProjectileType<>(),
-               // ModContent.ProjectileType<>(),
-               // ModContent.ProjectileType<>(),
-               // ModContent.ProjectileType<>(),
-               // ModContent.ProjectileType<>(),
-            };
-        }
+  //      internal static void BuildDoNotHomeList() //kinda outdated
+  //      {
+  //          DoNotHome = new int[]
+  //          {
+  //              ModContent.ProjectileType<HouseBombProjectile>(),
+  //              ModContent.ProjectileType<ArenaBuilderProjectile>(),
+  //             // ModContent.ProjectileType<>(),
+  //             // ModContent.ProjectileType<>(),
+  //             // ModContent.ProjectileType<>(),
+  //             // ModContent.ProjectileType<>(),
+  //             // ModContent.ProjectileType<>(),
+  //          };
+  //      }
+
+		//Array.IndexOf(StaticMethods.DoNotHome, projectile.type
     }
 }

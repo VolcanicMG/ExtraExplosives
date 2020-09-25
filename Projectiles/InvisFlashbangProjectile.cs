@@ -26,6 +26,7 @@ namespace ExtraExplosives.Projectiles
 			projectile.timeLeft = 10;
 			projectile.Opacity = 0f;
 			projectile.scale = 45 * 2; //DamageRadius
+			projectile.tileCollide = false;
 		}
 
 		public override void DangerousSetDefaults()

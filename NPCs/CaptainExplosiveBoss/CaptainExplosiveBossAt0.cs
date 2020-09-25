@@ -13,6 +13,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ModLoader.IO;
 
 namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 {
@@ -197,6 +198,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			{
 
 				NPCLoot();
+				ExtraExplosivesPlayer.BossCheckDead = true;
 				Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/CaptainExplosion")); //sound
 
 				npc.immortal = false;

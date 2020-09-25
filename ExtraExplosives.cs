@@ -14,6 +14,9 @@ using Terraria.ModLoader.IO;
 using Terraria.UI;
 using ExtraExplosives.UI.AnarchistCookbookUI;
 using ExtraExplosives.Items;
+using ExtraExplosives.Projectiles;
+using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
+using ExtraExplosives.Items.Accessories;
 
 namespace ExtraExplosives
 {
@@ -61,6 +64,8 @@ namespace ExtraExplosives
 		public static bool boomBoxMusic = false;
 		public static int randomMusicID = 0;
 		public static int boomBoxTimer = 0;
+
+		internal static int[] avoidList = new int[25];
 
 		// Create the item to item id reference (used with cpt explosive) Needs to stay loaded
 		public ExtraExplosives()
@@ -175,6 +180,8 @@ namespace ExtraExplosives
 		public override void PostSetupContent()
 		{
 			Mod censusMod = ModLoader.GetMod("Census");
+			Mod bossChecklist = ModLoader.GetMod("BossChecklist");
+
 			if (censusMod != null)
 			{
 				// Here I am using Chat Tags to make my condition even more interesting.
@@ -182,6 +189,12 @@ namespace ExtraExplosives
 				// Additional lines for additional town npc that your mod adds
 				// Simpler example:
 				censusMod.Call("TownNPCCondition", NPCType("CaptainExplosive"), $"Kill King Slime or use an [i:{ModContent.ItemType<Unhinged_Letter>()}]"); 
+			}
+
+			if (bossChecklist != null)
+			{
+				// AddBoss, bossname, order or value in terms of vanilla bosses, inline method for retrieving downed value.
+				bossChecklist.Call("AddBoss", 6, ModContent.NPCType<CaptainExplosiveBoss>(), this, "Captain Explosive", (Func<bool>)(() => ExtraExplosivesPlayer.BossCheckDead), ModContent.ItemType<Unhinged_Letter>(), ModContent.ItemType<BombHat>(), ModContent.ItemType<CaptainExplosiveTreasureBag>(), $"Kill King Slime or use an [i:{ModContent.ItemType<Unhinged_Letter>()}]");
 			}
 
 			base.PostSetupContent();
@@ -409,5 +422,56 @@ namespace ExtraExplosives
                 }
             }
         }
-    }
+
+		public override void AddRecipes()
+		{
+			avoidList = new int[] //not a recipe just need it to load in once everything else loads in
+			{
+						ModContent.ProjectileType<BossArmorBreakBombProjectile>(),
+						ModContent.ProjectileType<BossChillBombProjectile>(),
+						ModContent.ProjectileType<BossDazedBombProjectile>(),
+						ModContent.ProjectileType<BossFireBombProjectile>(),
+						ModContent.ProjectileType<BossGooBombProjectile>(),
+						ModContent.ProjectileType<ExplosionDamageProjectileEnemy>(), //A bit outdated but still needs to stay in for now until someone changes it.
+						ProjectileID.BombSkeletronPrime,
+						ProjectileID.DD2GoblinBomb,
+						ProjectileID.HappyBomb,
+						ProjectileID.SantaBombs,
+						ProjectileID.SmokeBomb,
+						ModContent.ProjectileType<HouseBombProjectile>(),
+						ModContent.ProjectileType<CritterBombProjectile>(),
+						ModContent.ProjectileType<BunnyiteProjectile>(),
+						ModContent.ProjectileType<BreakenTheBankenProjectile>(),
+						ModContent.ProjectileType<BreakenTheBankenChildProjectile>(),
+						ModContent.ProjectileType<DaBombProjectile>(),
+						ModContent.ProjectileType<ArenaBuilderProjectile>(),
+						ModContent.ProjectileType<ReforgeBombProjectile>(),
+						ModContent.ProjectileType<TornadoBombProjectile>(),
+						ModContent.ProjectileType<HellavatorProjectile>(),
+						//ModContent.ProjectileType<InfinityBombProjectile>(),
+						ModContent.ProjectileType<LandBridgeProjectile>(),
+						ModContent.ProjectileType<BoomBoxProjectile>(),
+						ModContent.ProjectileType<FlashbangProjectile>(),
+						ProjectileID.RocketI,
+						ProjectileID.RocketII,
+						ProjectileID.RocketIII,
+						ProjectileID.RocketIV,
+						ProjectileID.RocketSnowmanI,
+						ProjectileID.RocketSnowmanII,
+						ProjectileID.RocketSnowmanIII,
+						ProjectileID.RocketSnowmanIV,
+						ModContent.ProjectileType<DynaglowmiteProjectile>(),
+						ModContent.ProjectileType<CleanBombProjectile>(),
+						ModContent.ProjectileType<CleanBombExplosionProjectile>(),
+						ModContent.ProjectileType<RainboomProjectile>(),
+						ModContent.ProjectileType<TrollBombProjectile>(),
+						ModContent.ProjectileType<TorchBombProjectile>(),
+						ModContent.ProjectileType<HydromiteProjectile>(),
+						ModContent.ProjectileType<LavamiteProjectile>(),
+						ModContent.ProjectileType<DeliquidifierProjectile>()
+
+			};
+			base.AddRecipes();
+		}
+	}
 }

@@ -29,6 +29,8 @@ namespace ExtraExplosives.Projectiles
             projectile.width = 20;
             projectile.height = 20;
             projectile.tileCollide = true;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
         }
         public override void Kill(int timeLeft)
         {
@@ -48,7 +50,7 @@ namespace ExtraExplosives.Projectiles
             Explosion();
             //Main.NewText(projectile.localAI[0]);
             //Create Bomb Dust
-            CreateDust(projectile.Center, 10);
+            CreateDust(projectile.Center, 50 + radius);
 
         }
         
@@ -65,7 +67,7 @@ namespace ExtraExplosives.Projectiles
 
             radius = (int)((radius + player.EE().RadiusBonus) * player.EE().RadiusMulti);
             
-            Main.NewText(radius);
+            //Main.NewText(radius);
             
             for (int x = -radius;
                 x <= radius;
@@ -112,9 +114,9 @@ namespace ExtraExplosives.Projectiles
         			//Dust 1
         			if (Main.rand.NextFloat() < 0.9f)
         			{
-        				updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
+        				updatedPosition = new Vector2(position.X - 100 + radius / 2, position.Y - 100 - radius / 2);
 
-        				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
+        				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100 + radius, 100 + radius, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
                         if (Vector2.Distance(dust.position, projectile.Center) > 39) dust.active = false;
                         else
                         {
@@ -126,9 +128,9 @@ namespace ExtraExplosives.Projectiles
         			//Dust 2
         			if (Main.rand.NextFloat() < 0.6f)
         			{
-        				updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
+        				updatedPosition = new Vector2(position.X - 100 + radius / 2, position.Y - 100 - radius / 2);
 
-        				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
+        				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100 + radius, 100 + radius, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
                         if (Vector2.Distance(dust.position, projectile.Center) > 39) dust.active = false;
                         else
                         {
@@ -140,9 +142,9 @@ namespace ExtraExplosives.Projectiles
         			//Dust 3
         			if (Main.rand.NextFloat() < 0.3f)
         			{
-        				updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
+        				updatedPosition = new Vector2(position.X - 130 + radius / 2, position.Y - 130 - radius / 2);
 
-        				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
+        				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 130 + radius, 130 + radius, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
                         if (Vector2.Distance(dust.position, projectile.Center) > 50) dust.active = false;
                         else
                         {

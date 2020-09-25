@@ -45,6 +45,8 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
             player.EE().AlienExplosive = true;
             player.EE().SupernaturalBomb = true;
             player.EE().Bombshroom = true;
+            player.EE().AntiGravity = true;
+
         }
         
         public override void AddRecipes()

@@ -12,7 +12,7 @@ namespace ExtraExplosives.Projectiles
 {
     public abstract class ExplosiveProjectile : ModProjectile
     {
-        public bool IgnoreTrinkets = false;
+        public bool IgnoreTrinkets = false; //not set up yet
         
         public readonly bool Explosive = true;              // This marks the item as part of the explosive class
         public int radius = 0;                                  // Radius of the explosion

@@ -55,7 +55,7 @@ namespace ExtraExplosives.Items.Explosives
         {
             damage = (int)(damage * multiplier);
             knockBack = (int) (knockBack * multiplier);
-            Main.NewText(multiplier);
+            //Main.NewText(multiplier);
             return true;
         }
 
@@ -88,8 +88,12 @@ namespace ExtraExplosives.Items.Explosives
 
         public override bool AltFunctionUse(Player player)
         {
-            enableGrowth = (enableGrowth) ? false : true;
-            growing = (enableGrowth) ? "" : "not ";
+            if (Main.mouseRight && Main.mouseRightRelease)
+            {
+                enableGrowth = (enableGrowth) ? false : true;
+                growing = (enableGrowth) ? "" : "not ";
+                Main.NewText($"[c/FF00000:{growing}growing]");
+    }
             return false;
         }
 

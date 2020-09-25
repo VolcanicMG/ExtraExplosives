@@ -25,9 +25,9 @@ namespace ExtraExplosives.Projectiles
 			projectile.width = 26;
 			projectile.height = 22;
 			projectile.aiStyle = 16;
-			projectile.friendly = false;
-			projectile.hostile = false;
-			//projectile.penetrate = -1;
+			projectile.friendly = true;
+			//projectile.hostile = false;
+			projectile.penetrate = -1;
 			projectile.timeLeft = 150;
 		}
 
@@ -39,11 +39,11 @@ namespace ExtraExplosives.Projectiles
 			//Create Bomb Dust
 			CreateDust(projectile.Center, 10);
 
-			//Create Bomb Damage
-			ExplosionDamage();
-
 			//Create Bomb Explosion
 			Explosion();
+
+			//Create Bomb Damage
+			ExplosionDamage();
 
 			//Create Bomb Gore
 			Vector2 gVel1 = new Vector2(-1f, 0f);
