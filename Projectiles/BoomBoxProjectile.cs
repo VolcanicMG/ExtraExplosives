@@ -32,7 +32,7 @@ namespace ExtraExplosives.Projectiles
 		}
         public override void AI()
         {
-			if(!ExtraExplosives.boomBoxMusic)
+			if(!ExtraExplosives.boomBoxMusic && setToTrue)
             {
 				projectile.active = false;
 				//Create Bomb Sound
@@ -52,9 +52,9 @@ namespace ExtraExplosives.Projectiles
         {
             if (!setToTrue)
             {
-                setToTrue = true;
-                ExtraExplosives.boomBoxMusic = true;
-                ExtraExplosives.randomMusicID = (Main.rand.Next(41) + 1);
+				ExtraExplosives.boomBoxMusic = true;
+				ExtraExplosives.randomMusicID = (Main.rand.Next(41) + 1);
+				setToTrue = true;
             }
 			return true;
 		}
