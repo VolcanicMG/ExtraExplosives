@@ -17,6 +17,7 @@ using ExtraExplosives.Items;
 using ExtraExplosives.Projectiles;
 using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
 using ExtraExplosives.Items.Accessories;
+using Terraria.GameInput;
 
 namespace ExtraExplosives
 {
@@ -27,6 +28,7 @@ namespace ExtraExplosives
 		internal static ModHotKey TriggerUIReforge;
 		internal static ModHotKey ToggleCookbookUI;
 		internal static ModHotKey TriggerBoost;
+		internal static ModHotKey TriggerNovaBomb;
 
 		public static bool NukeActivated;
 		public static bool NukeActive;
@@ -316,6 +318,7 @@ namespace ExtraExplosives
 			TriggerUIReforge = RegisterHotKey("Open Reforge Bomb UI", "P");
 			ToggleCookbookUI = RegisterHotKey("UIToggle", "\\");
 			TriggerBoost = RegisterHotKey("TriggerBoost", "S");
+			TriggerNovaBomb = RegisterHotKey("TriggerNovaSetBonus", "X");
 
 			if (!Main.dedServ)
 			{

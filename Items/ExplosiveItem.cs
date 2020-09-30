@@ -17,12 +17,13 @@ namespace ExtraExplosives.Items
             get;
             internal set;
         }
-        
+
         // Made readonly since any use of ExplosiveItem over ModItem would be to allow for explosive damage
         public bool Explosive = true;
 
         public virtual void SafeSetDefaults()
         {
+
         }
         
         public sealed override void SetDefaults()

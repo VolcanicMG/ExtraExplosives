@@ -1,65 +1,57 @@
 using ExtraExplosives.Buffs;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss;
+using ExtraExplosives.Projectiles;
+using ExtraExplosives.UI.AnarchistCookbookUI;
 using Microsoft.Xna.Framework;
-using Newtonsoft.Json.Linq;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Net;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
-using System.Diagnostics;
-using System.Drawing;
-using ExtraExplosives.Items.Accessories;
-using ExtraExplosives.Items.Accessories.AnarchistCookbook;
-using ExtraExplosives.Projectiles;
-using ExtraExplosives.UI;
-using ExtraExplosives.UI.AnarchistCookbookUI;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader.IO;
-using Terraria.UI;
+using static Terraria.ModLoader.ModContent;
 using Color = System.Drawing.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
-using Terraria.DataStructures;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives
 {
 	public class ExtraExplosivesPlayer : ModPlayer
 	{
 		// Bombard Class stuff	(may need to make setting these on a per client basis)
-		
+
 		/// <summary>
 		/// Additional explosive damage
 		/// </summary>
 		public float DamageBonus { get; set; }
-		
+
 		/// <summary>
 		/// Additional explosive knockback
 		/// </summary>
 		public float KnockbackBonus { get; set; }
-		
+
 		/// <summary>
 		/// Additional explosive radius
 		/// </summary>
 		public int RadiusBonus { get; set; }
-		
+
 		/// <summary>
 		/// Explosive damage multiplier
 		/// </summary>
 		public float DamageMulti { get; set; }
-		
+
 		/// <summary>
 		/// Explosive knockback multiplier
 		/// </summary>
 		public float KnockbackMulti { get; set; }
-		
+
 		/// <summary>
 		/// Explosion radius multiplier
 		/// </summary>
 		public float RadiusMulti { get; set; }
-		
+
 		/// <summary>
 		/// Explosive crit chance bonus
 		/// </summary>
@@ -95,7 +87,7 @@ namespace ExtraExplosives
 		/// Blast Shielding active in cookbook
 		/// </summary>
 		public bool BlastShieldingActive { get; set; }
-		
+
 		/// <summary>
 		/// Bomb bag equipped
 		/// </summary>
@@ -104,7 +96,7 @@ namespace ExtraExplosives
 		/// Bomb bag active in cookbook
 		/// </summary>
 		public bool BombBagActive { get; set; }
-		
+
 		/// <summary>
 		/// Crossed wires equipped
 		/// </summary>
@@ -113,7 +105,7 @@ namespace ExtraExplosives
 		/// Crossed wires active in cookbook
 		/// </summary>
 		public bool CrossedWiresActive { get; set; }
-		
+
 		/// <summary>
 		/// Glowing compound equipped
 		/// </summary>
@@ -122,7 +114,7 @@ namespace ExtraExplosives
 		/// Glowing compound active in cookbook
 		/// </summary>
 		public bool GlowingCompoundActive { get; set; }
-		
+
 		/// <summary>
 		/// Lightweight bombshells equipped
 		/// </summary>
@@ -135,7 +127,7 @@ namespace ExtraExplosives
 		/// Lightweight bombshells cookbook velocity
 		/// </summary>
 		public float LightweightBombshellVelocity { get; set; } = 1;
-		
+
 		/// <summary>
 		/// Mystery bomb equipped
 		/// </summary>
@@ -144,7 +136,7 @@ namespace ExtraExplosives
 		/// Mystery bomb active in cookbook
 		/// </summary>
 		public bool MysteryBombActive { get; set; }
-		
+
 		/// <summary>
 		/// Random fuel equipped
 		/// </summary>
@@ -165,7 +157,7 @@ namespace ExtraExplosives
 		/// Depricated
 		/// </summary>
 		public bool RandomFuelConfused { get; set; }
-		
+
 		/// <summary>
 		/// Reactive Plating equipped
 		/// </summary>
@@ -174,7 +166,7 @@ namespace ExtraExplosives
 		/// Reactive Plating active in cookbook
 		/// </summary>
 		public bool ReactivePlatingActive { get; set; }
-		
+
 		/// <summary>
 		/// Short Fuse equipped
 		/// </summary>
@@ -187,7 +179,7 @@ namespace ExtraExplosives
 		/// Short Fuse cookbook time
 		/// </summary>
 		public float ShortFuseTime { get; set; } = 1;
-		
+
 		/// <summary>
 		/// Sticky gunpowder equipped
 		/// </summary>
@@ -196,7 +188,7 @@ namespace ExtraExplosives
 		/// Sticky gunpowder active in cookbook
 		/// </summary>
 		public bool StickyGunpowderActive { get; set; }
-		
+
 		/// <summary>
 		/// Anarchist Cookbook equipped
 		/// </summary>
@@ -207,32 +199,32 @@ namespace ExtraExplosives
 		/// Alien Explosive equipped
 		/// </summary>
 		public bool AlienExplosive { get; set; }
-		
+
 		/// <summary>
 		/// Bombshroom equipped
 		/// </summary>
 		public bool Bombshroom { get; set; }
-		
+
 		/// <summary>
 		/// Chaos Bomb equipped
 		/// </summary>
 		public bool ChaosBomb { get; set; }
-		
+
 		/// <summary>
 		/// Eclectic Bomb equipped
 		/// </summary>
 		public bool EclecticBomb { get; set; }
-		
+
 		/// <summary>
 		/// Lihzahrd Fuzeset equipped
 		/// </summary>
 		public bool LihzahrdFuzeset { get; set; }
-		
+
 		/// <summary>
 		/// Supernatural Bomb equipped
 		/// </summary>
 		public bool SupernaturalBomb { get; set; }
-		
+
 		/// <summary>
 		/// Wyrd Bomb equipped
 		/// </summary>
@@ -253,37 +245,37 @@ namespace ExtraExplosives
 		/// Bombardier emblem equipped
 		/// </summary>
 		public bool BombardEmblem { get; set; }
-		
+
 		/// <summary>
 		/// Bomb Cloak equipped
 		/// </summary>
 		public bool BombCloak { get; set; }
-		
+
 		/// <summary>
 		/// Certificate of Demolition equipped
 		/// </summary>
 		public bool CertificateOfDemolition { get; set; }
-		
+
 		/// <summary>
 		/// Bombers Hat equipped
 		/// </summary>
 		public bool BombersHat { get; set; }
-		
+
 		/// <summary>
 		/// Flesh Blasting Caps equipped
 		/// </summary>
 		public bool FleshBlastingCaps { get; set; }
-		
+
 		/// <summary>
 		/// Bombards Laurels equipped
 		/// </summary>
 		public bool BombardsLaurels { get; set; }
-		
+
 		/// <summary>
 		/// Bombers Pouch equipped
 		/// </summary>
 		public bool BombersPouch { get; set; }
-		
+
 		/// <summary>
 		/// Ravenous Bomb equipped
 		/// </summary>
@@ -296,6 +288,21 @@ namespace ExtraExplosives
 
 		public Vector2 cookbBookPos;
 
+		/// <summary>
+		/// Meltbomber set bonus
+		/// </summary>
+		public bool MeltbomberFire { get; set; }
+
+		/// <summary>
+		/// Dungeon Bombard set bonus
+		/// </summary>
+		public bool DungeonBombard { get; set; }
+
+		/// <summary>
+		/// Nova set bonus
+		/// </summary>
+		public bool Nova { get; set; }
+
 		// Nova Wing Draw Data
 		internal int wingFrame = 0;
 		internal int wingFrameCounter = 0;
@@ -303,7 +310,10 @@ namespace ExtraExplosives
 		internal int boostTimer = 30;
 		internal bool novaBooster = false;
 		internal int novaBoostRechargeDelay = 0;
-		
+
+		//Nova bomb 
+		internal int novaBombRecharge = 0;
+
 		public override void ResetEffects()
 		{
 			RadiatedDebuff = false;
@@ -347,11 +357,16 @@ namespace ExtraExplosives
 			RadiusBonus = 0;
 			RadiusMulti = 1;
 			ExplosiveCrit = 0;
+
+			//armor
+			MeltbomberFire = false;
 		}
 
 		public override void UpdateDead()
 		{
 			RadiatedDebuff = false;
+			DungeonBombard = false;
+			Nova = false;
 		}
 
 		public override void UpdateBadLifeRegen()
@@ -462,6 +477,32 @@ namespace ExtraExplosives
 				player.velocity *= 3;
 				boosting = true;
 			}
+
+			//nova bomb
+			if (Nova && ExtraExplosives.TriggerNovaBomb.JustPressed && (novaBombRecharge >= 600))
+			{
+				//Create Bomb Sound
+				Main.PlaySound(SoundID.Item14, (int)player.Center.X, (int)player.Center.Y);
+
+				novaBombRecharge = 0;
+
+				CreateDust(player.Center, 100);
+
+				foreach (NPC npc in Main.npc)
+				{
+					float dist = Vector2.Distance(npc.Center, player.Center);
+					if (dist / 16f <= 15)
+					{
+						int dir = (dist > 0) ? 1 : -1;
+						npc.StrikeNPC(300, 1, dir);
+					}
+				}
+
+			}
+			else if (novaBombRecharge < 600) //recharge
+			{
+				novaBombRecharge++;
+			}
 		}
 
 		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage,
@@ -482,6 +523,13 @@ namespace ExtraExplosives
 				//Main.NewText(damage);
 			}
 
+			//Dungeon bombard dodge
+			if (player == Main.player[player.whoAmI] && DungeonBombard && Main.rand.Next(10) == 0)
+			{
+				player.NinjaDodge();
+				return false;
+			}
+
 			return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
 		}
 
@@ -491,12 +539,12 @@ namespace ExtraExplosives
 			{
 				Projectile.NewProjectileDirect(player.position, Vector2.Zero, ProjectileType<BombCloakProjectile>(), (int)((100 + DamageBonus) * DamageMulti), 10, player.whoAmI).timeLeft = 1;
 			}
-			base.Hurt(pvp, quiet, damage, hitDirection, crit);
+			
 		}
 
 		public override void PostUpdate()
 		{
-			
+
 			if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
 			{
 				Filters.Scene["Bang"].Deactivate();
@@ -532,6 +580,24 @@ namespace ExtraExplosives
 			if (ExtraExplosives.CheckUIBoss != 1)
 			{
 				tickCheck = 1;
+			}
+
+			if (MeltbomberFire && (player.velocity.X > 1 || player.velocity.X < -1)) //dust for the meltbomber
+			{
+				if (player.direction == 1 && Main.rand.NextFloat() < 0.6f)
+				{
+
+					Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(player.BottomLeft.X - 5, player.BottomLeft.Y - 5), 2, 2, 6, 0f, 0f, 0, Scale: 2)];
+					dust.noGravity = true;
+					dust.noLight = false;
+
+				}
+				else if(player.direction == -1 && Main.rand.NextFloat() < 0.6f)
+				{
+					Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(player.BottomRight.X - 5, player.BottomRight.Y - 5), 2, 2, 6, 0f, 0f, 0, Scale: 2)];
+					dust.noGravity = true;
+					dust.noLight = false;
+				}
 			}
 		}
 
@@ -592,7 +658,7 @@ namespace ExtraExplosives
 
 				int drawX = (int)(info.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
 				int drawY = (int)(info.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y);
-				
+
 				if (mp.boosting)
 				{
 					mp.boostTimer--;
@@ -646,16 +712,27 @@ namespace ExtraExplosives
 			player.ResetEffects();
 			Main.screenPosition = player.Center;
 
-			if(ExtraExplosives.CurrentVersion.Equals(""))
+			if (ExtraExplosives.CurrentVersion.Equals(""))
 			{
 				Main.NewText($"[c/FF0000:They're is no Internet connection.]");
 			}
-			else if(!ExtraExplosives.ModVersion.Equals(ExtraExplosives.CurrentVersion))
+			else if (!ExtraExplosives.ModVersion.Equals(ExtraExplosives.CurrentVersion))
 			{
 				Main.NewText($"[c/AB40FF:The Extra Explosives Mod had an update available.]");
 				Main.NewText($"[c/AB40FF:Current Version Installed: {ExtraExplosives.ModVersion}]");
 				Main.NewText($"[c/AB40FF:Mod Browser Version: {ExtraExplosives.CurrentVersion}]");
 				Main.NewText($"[c/AB40FF:You can find the latest version in the TML mod browser.]");
+			}
+
+			//Hotkey checks
+			if(ExtraExplosives.TriggerNovaBomb.GetAssignedKeys(InputMode.Keyboard).Count <= 0)
+			{
+				ExtraExplosives.TriggerNovaBomb.GetAssignedKeys(InputMode.Keyboard).Add("X");
+			}
+
+			if(ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard).Count <= 0)
+			{
+				ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard).Add("P");
 			}
 
 			//Main.NewText($"Version: {ExtraExplosives.ModVersion}");
@@ -692,8 +769,62 @@ namespace ExtraExplosives
 		{
 		}
 
+		private void CreateDust(Vector2 position, int amount)
+		{
+			Dust dust;
+			Vector2 updatedPosition;
 
+			for (int i = 0; i <= amount; i++)
+			{
+				if (Main.rand.NextFloat() < DustAmount)
+				{
+					//---Dust 1---
+					if (Main.rand.NextFloat() < 0.2f)
+					{
+						updatedPosition = new Vector2(position.X - 550 / 2, position.Y - 550 / 2);
 
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 550, 550, 6, 0f, 0.5263162f, 0, Scale: 10)];
+						if (Vector2.Distance(dust.position, player.Center) > 275) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.fadeIn = 2.5f;
+						}
+					}
+					//------------
+
+					//---Dust 2---
+					if (Main.rand.NextFloat() < 0.2f)
+					{
+						updatedPosition = new Vector2(position.X - 550 / 2, position.Y - 550 / 2);
+
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 550, 550, 203, 0f, 0f, 0, Scale: 10)];
+						if (Vector2.Distance(dust.position, player.Center) > 275) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
+					}
+					//------------
+
+					//---Dust 3---
+					if (Main.rand.NextFloat() < 0.2f)
+					{
+						updatedPosition = new Vector2(position.X - 550 / 2, position.Y - 550 / 2);
+
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 550, 550, 31, 0f, 0f, 0, Scale: 10)];
+						if (Vector2.Distance(dust.position, player.Center) > 275) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
+					}
+					//------------
+				}
+			}
+		}
 		public override TagCompound Save()
 		{
 			return new TagCompound  // save tag, leave whats here add more as needed
