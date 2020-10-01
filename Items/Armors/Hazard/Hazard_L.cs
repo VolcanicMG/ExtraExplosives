@@ -12,8 +12,7 @@ namespace ExtraExplosives.Items.Armors.Hazard
         {
             DisplayName.SetDefault("Adamantite Hazard Demolisher Legs");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage\n" +
-                "6% Blast Radius\n" +
+                "6% Bomb Damage and Blast Radius\n" +
                 "5% movement speed");
         }
 
@@ -21,7 +20,7 @@ namespace ExtraExplosives.Items.Armors.Hazard
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 0, 80, 50);
             item.rare = ItemRarityID.LightRed;
             item.defense = 13;
         }
@@ -36,9 +35,8 @@ namespace ExtraExplosives.Items.Armors.Hazard
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bone, 10);
-            recipe.AddIngredient(ItemID.BlueBrick, 10);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.AdamantiteBar, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

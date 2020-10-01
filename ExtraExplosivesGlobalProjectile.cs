@@ -557,6 +557,60 @@ namespace ExtraExplosives
 
 				}
 
+				if(mp.Anarchy || mp.HeavyBombard)
+				{
+					Vector2 position = projectile.Center;
+					int proj = 0;
+					int CustomDamage = 0;
+
+					if (mp.Anarchy)
+					{
+						proj = ModContent.ProjectileType<Spike_Anarchy>();
+						CustomDamage = 20;
+					}
+					else if(mp.HeavyBombard)
+					{
+						proj = ProjectileID.RubyBolt;
+						CustomDamage = 60;
+					}
+
+					Vector2 vel;
+					int spedX;
+					int spedY;
+					int cntr = 0;
+
+					for (int x = -15; x <= 15; x++)
+					{
+						for (int y = -15; y <= 15; y++)
+						{
+							int xPosition = (int)(x + position.X / 16.0f);
+							int yPosition = (int)(y + position.Y / 16.0f);
+
+							if (Math.Sqrt(x * x + y * y) <= 15 + 0.5)   //this make so the explosion radius is a circle
+							{
+								//mod.Logger.Debug(projectile.damage);
+								if (WorldGen.TileEmpty(xPosition, yPosition))
+								{
+									spedX = Main.rand.Next(15) - 7;
+									spedY = Main.rand.Next(15) - 7;
+									if (spedX == 0) spedX = 1;
+									if (spedY == 0) spedY = 1;
+									//if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 20, projectile.owner, 0.0f, 0);
+									if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((mp.DamageBonus + CustomDamage) * mp.DamageMulti), 20, projectile.owner, 0.0f, 0);
+								}
+								else
+								{
+									spedX = Main.rand.Next(15) - 7;
+									spedY = Main.rand.Next(15) - 7;
+									if (spedX == 0) spedX = 1;
+									if (spedY == 0) spedY = 1;
+									if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((mp.DamageBonus + CustomDamage) * mp.DamageMulti), 20, projectile.owner, 0.0f, 0);
+								}
+							}
+						}
+					}
+				}
+
 				if (mp.GlowingCompound &&
 					mp.GlowingCompoundActive)   // Glowing compound (working)
 				{

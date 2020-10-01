@@ -12,15 +12,14 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
         {
             DisplayName.SetDefault("Cobalt Space Demolisher Helm");
             Tooltip.SetDefault("\n" +
-                "3% Bomb Damage\n" +
-                "3% Blast Radius");
+                "3% Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 0, 60, 50);
             item.rare = ItemRarityID.LightRed;
             item.defense = 10;
         }
@@ -36,11 +35,14 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
                 "6% Bomb Damage\n" +
                 "6% Blast Radius\n" +
                 "10% movement speed\n" +
-                "3% critical strike chance";
+                "3% critical strike chance\n" +
+                "15% chance to drop ores twice on bomb explosion (EE bombs only)";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .06f;
             player.moveSpeed += .1f;
             player.EE().ExplosiveCrit += 3;
+            player.EE().DropOresTwice = true;
+            player.EE().dropChanceOre = .15f;
         }
 
         public override void UpdateEquip(Player player)
@@ -52,8 +54,7 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bone, 10);
-            recipe.AddIngredient(ItemID.BlueBrick, 10);
+            recipe.AddIngredient(ItemID.CobaltBar, 10);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

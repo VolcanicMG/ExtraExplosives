@@ -303,6 +303,26 @@ namespace ExtraExplosives
 		/// </summary>
 		public bool Nova { get; set; }
 
+		/// <summary>
+		/// Tunnelrat set bonus
+		/// </summary>
+		public bool DropOresTwice { get; set; }
+
+		/// <summary>
+		/// Anarchy set bonus
+		/// </summary>
+		public bool Anarchy { get; set; }
+
+		/// <summary>
+		/// Heavy Bombard set bonus
+		/// </summary>
+		public bool HeavyBombard { get; set; }
+
+		/// <summary>
+		/// Lihard Bombard set bonus
+		/// </summary>
+		public bool Lizhard { get; set; }
+
 		// Nova Wing Draw Data
 		internal int wingFrame = 0;
 		internal int wingFrameCounter = 0;
@@ -311,8 +331,10 @@ namespace ExtraExplosives
 		internal bool novaBooster = false;
 		internal int novaBoostRechargeDelay = 0;
 
-		//Nova bomb 
+		//Armors 
 		internal int novaBombRecharge = 0;
+		internal float dropChanceOre = 0;
+		internal int lizhardRecharge = 0;
 
 		public override void ResetEffects()
 		{
@@ -360,13 +382,19 @@ namespace ExtraExplosives
 
 			//armor
 			MeltbomberFire = false;
+			Nova = false;
+			DropOresTwice = false;
+			Anarchy = false;
+			DungeonBombard = false;
+			dropChanceOre = 0;
+			HeavyBombard = false;
+			Lizhard = false;
+
 		}
 
 		public override void UpdateDead()
 		{
 			RadiatedDebuff = false;
-			DungeonBombard = false;
-			Nova = false;
 		}
 
 		public override void UpdateBadLifeRegen()
@@ -494,7 +522,7 @@ namespace ExtraExplosives
 					if (dist / 16f <= 15)
 					{
 						int dir = (dist > 0) ? 1 : -1;
-						npc.StrikeNPC(300, 1, dir);
+						npc.StrikeNPC(1000, 1, dir);
 					}
 				}
 
@@ -502,6 +530,28 @@ namespace ExtraExplosives
 			else if (novaBombRecharge < 600) //recharge
 			{
 				novaBombRecharge++;
+			}
+
+			//Lizhard set
+			if (Lizhard && ExtraExplosives.TriggerLizhard.JustPressed && (lizhardRecharge >= 600))
+			{
+				//Create Bomb Sound
+				//Main.PlaySound(SoundID.Mech, (int)player.Center.X, (int)player.Center.Y);
+
+				lizhardRecharge = 0;
+				int rotate = 0;
+
+				for (int i = 0; i < 6; i++)
+				{
+					Vector2 perturbedSpeed = new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(rotate - 38)); //set spread
+					Projectile.NewProjectileDirect(new Vector2(player.Center.X, player.Center.Y - player.height + 10), perturbedSpeed, ModContent.ProjectileType<SunRocket>(), (int)((DamageBonus + 120) * DamageMulti), 1, player.whoAmI);
+					rotate += 15;
+				}
+
+			}
+			else if (lizhardRecharge < 600) //recharge
+			{
+				lizhardRecharge++;
 			}
 		}
 
@@ -733,6 +783,11 @@ namespace ExtraExplosives
 			if(ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard).Count <= 0)
 			{
 				ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard).Add("P");
+			}
+
+			if (ExtraExplosives.TriggerLizhard.GetAssignedKeys(InputMode.Keyboard).Count <= 0)
+			{
+				ExtraExplosives.TriggerLizhard.GetAssignedKeys(InputMode.Keyboard).Add("Z");
 			}
 
 			//Main.NewText($"Version: {ExtraExplosives.ModVersion}");

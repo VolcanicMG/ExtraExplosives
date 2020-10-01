@@ -12,15 +12,14 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
         {
             DisplayName.SetDefault("Palladium  Space Demolisher Body");
             Tooltip.SetDefault("\n" +
-                "3% Bomb Damage\n" +
-                "3% Blast Radius");
+                "3% Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 0, 60, 50);
             item.rare = ItemRarityID.LightRed;
             item.defense = 12;
         }
@@ -34,8 +33,7 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bone, 15);
-            recipe.AddIngredient(ItemID.BlueBrick, 15);
+            recipe.AddIngredient(ItemID.PalladiumBar, 15);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

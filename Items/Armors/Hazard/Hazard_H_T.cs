@@ -12,15 +12,14 @@ namespace ExtraExplosives.Items.Armors.Hazard
         {
             DisplayName.SetDefault("Titanium Hazard Demolisher Helm");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage\n" +
-                "6% Blast Radius\n");
+                "6% Bomb Damage and Blast Radius\n");
         }
 
         public override void SetDefaults()
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 0, 80, 50);
             item.rare = ItemRarityID.LightRed;
             item.defense = 12;
         }
@@ -36,11 +35,14 @@ namespace ExtraExplosives.Items.Armors.Hazard
                 "6% Bomb Damage\n" +
                 "6% Blast Radius\n" +
                 "7% damage\n" +
-                "3% critical strike chance";
+                "3% critical strike chance\n" +
+                "25% chance to drop ores twice on bomb explosion (EE bombs only)";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .06f;
             player.allDamage += .07f;
             player.EE().ExplosiveCrit += 6;
+            player.EE().DropOresTwice = true;
+            player.EE().dropChanceOre = .25f;
         }
 
         public override void UpdateEquip(Player player)
@@ -52,9 +54,8 @@ namespace ExtraExplosives.Items.Armors.Hazard
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bone, 10);
-            recipe.AddIngredient(ItemID.BlueBrick, 10);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.TitaniumBar, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

@@ -17,7 +17,7 @@ namespace ExtraExplosives.Items.Armors.CorruptedAnarchy
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 0, 1, 50);
             item.rare = ItemRarityID.Blue;
             item.defense = 6;
         }
@@ -31,9 +31,11 @@ namespace ExtraExplosives.Items.Armors.CorruptedAnarchy
         {
             player.setBonus = "\n" +
                 "5% Bomb Damage\n" +
-                "10% Blast Radius";
+                "10% Blast Radius\n" +
+                "Spawn in deadly spikes whenever your bombs blow up";
             player.EE().RadiusMulti += .1f;
             player.EE().DamageMulti += .05f;
+            player.EE().Anarchy = true;
         }
 
         public override void UpdateEquip(Player player)
@@ -46,7 +48,9 @@ namespace ExtraExplosives.Items.Armors.CorruptedAnarchy
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.DemoniteBar, 10);
             recipe.AddIngredient(ItemID.ShadowScale, 10);
-            recipe.anyIronBar = true;
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 
     }

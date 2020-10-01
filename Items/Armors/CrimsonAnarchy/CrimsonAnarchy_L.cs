@@ -17,7 +17,7 @@ namespace ExtraExplosives.Items.Armors.CrimsonAnarchy
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 0, 1, 50);
             item.rare = ItemRarityID.Blue;
             item.defense = 6;
         }
@@ -32,7 +32,9 @@ namespace ExtraExplosives.Items.Armors.CrimsonAnarchy
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.CrimtaneBar, 10);
             recipe.AddIngredient(ItemID.TissueSample, 10);
-            recipe.anyIronBar = true;
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 
     }

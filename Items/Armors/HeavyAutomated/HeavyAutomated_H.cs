@@ -12,15 +12,14 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
         {
             DisplayName.SetDefault("Heavy Automated Bombard Helm");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage\n" +
-                "8% Blast Radius\n");
+                "6% Bomb Damage and 8% Blast Radius\n");
         }
 
         public override void SetDefaults()
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 0, 90, 50);
             item.rare = ItemRarityID.Pink;
             item.defense = 14;
         }
@@ -36,11 +35,13 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
                 "6% Bomb Damage\n" +
                 "6% Blast Radius\n" +
                 "7% damage\n" +
-                "8% critical strike chance";
+                "8% critical strike chance\n" +
+                "Fire out bolts of fire after every explosion";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .06f;
             player.allDamage += .07f;
             player.EE().ExplosiveCrit += 8;
+            player.EE().HeavyBombard = true;
         }
 
         public override void UpdateEquip(Player player)
@@ -52,9 +53,8 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bone, 10);
-            recipe.AddIngredient(ItemID.BlueBrick, 10);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.HallowedBar, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

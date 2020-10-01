@@ -35,7 +35,7 @@ namespace ExtraExplosives.Items.Armors.Nova
 
             player.setBonus = "\n" +
                 "10% damage and critical strike chance\n" +
-                "Press " + ExtraExplosives.TriggerNovaBomb.GetAssignedKeys(InputMode.Keyboard)[0].ToString() + " to trigger a localized explosion on your character that \nwill knock enemies away from you and deal decent damage";
+                "Press " + ExtraExplosives.TriggerNovaBomb.GetAssignedKeys(InputMode.Keyboard)[0].ToString() + " to trigger a localized explosion on your character that \nwill knock enemies away from you and deal decent damage. 10s cooldown";
 
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .08f;

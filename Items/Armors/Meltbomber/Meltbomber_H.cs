@@ -12,16 +12,15 @@ namespace ExtraExplosives.Items.Armors.Meltbomber
         {
             DisplayName.SetDefault("Meltbomber Helm");
             Tooltip.SetDefault("\n" +
-                "2.5% Bomb Damage\n" +
-                "2.5% Blast Radius"); ;
+                "2.5% Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
-            item.rare = ItemRarityID.Blue;
+            item.value = Item.buyPrice(0, 0, 10, 50);
+            item.rare = ItemRarityID.Orange;
             item.defense = 7;
         }
 
@@ -51,6 +50,9 @@ namespace ExtraExplosives.Items.Armors.Meltbomber
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.HellstoneBar, 10);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 
     }

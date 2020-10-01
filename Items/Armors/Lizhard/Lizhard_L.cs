@@ -12,8 +12,7 @@ namespace ExtraExplosives.Items.Armors.Lizhard
         {
             DisplayName.SetDefault("Lizhard Bombard Legs");
             Tooltip.SetDefault("\n" +
-                "8% Bomb Damage\n" +
-                "8% Blast Radius\n" +
+                "8% Bomb Damage and Blast Radius\n" +
                 "5% movement speed");
         }
 
@@ -21,7 +20,7 @@ namespace ExtraExplosives.Items.Armors.Lizhard
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 1, 0, 50);
             item.rare = ItemRarityID.Lime;
             item.defense = 16;
         }
@@ -36,9 +35,8 @@ namespace ExtraExplosives.Items.Armors.Lizhard
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bone, 10);
-            recipe.AddIngredient(ItemID.BlueBrick, 10);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

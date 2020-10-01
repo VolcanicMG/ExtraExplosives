@@ -18,6 +18,20 @@ using ExtraExplosives.Projectiles;
 using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
 using ExtraExplosives.Items.Accessories;
 using Terraria.GameInput;
+using ExtraExplosives.Items.Armors.Asteroid;
+using ExtraExplosives.Items.Accessories.AnarchistCookbook;
+using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
+using ExtraExplosives.Items.Accessories.ChaosBomb;
+using ExtraExplosives.Items.Armors.CorruptedAnarchy;
+using ExtraExplosives.Items.Armors.CrimsonAnarchy;
+using ExtraExplosives.Items.Armors.DungeonBombard;
+using ExtraExplosives.Items.Armors.Hazard;
+using ExtraExplosives.Items.Armors.HeavyAutomated;
+using ExtraExplosives.Items.Armors.Lizhard;
+using ExtraExplosives.Items.Armors.Meltbomber;
+using ExtraExplosives.Items.Armors.Nova;
+using ExtraExplosives.Items.Armors.SpaceDemolisher;
+using ExtraExplosives.Items.Armors.TunnelRat;
 
 namespace ExtraExplosives
 {
@@ -29,6 +43,7 @@ namespace ExtraExplosives
 		internal static ModHotKey ToggleCookbookUI;
 		internal static ModHotKey TriggerBoost;
 		internal static ModHotKey TriggerNovaBomb;
+		internal static ModHotKey TriggerLizhard;
 
 		public static bool NukeActivated;
 		public static bool NukeActive;
@@ -68,6 +83,8 @@ namespace ExtraExplosives
 		public static int boomBoxTimer = 0;
 
 		internal static int[] avoidList = new int[25];
+		internal static int[] _doNotDuplicate;
+		internal static int[] _tooltipWhitelist;
 
 		// Create the item to item id reference (used with cpt explosive) Needs to stay loaded
 		public ExtraExplosives()
@@ -199,6 +216,165 @@ namespace ExtraExplosives
 				bossChecklist.Call("AddBoss", 6, ModContent.NPCType<CaptainExplosiveBoss>(), this, "Captain Explosive", (Func<bool>)(() => ExtraExplosivesPlayer.BossCheckDead), ModContent.ItemType<Unhinged_Letter>(), ModContent.ItemType<BombHat>(), ModContent.ItemType<CaptainExplosiveTreasureBag>(), $"Kill King Slime or use an [i:{ModContent.ItemType<Unhinged_Letter>()}]");
 			}
 
+			_tooltipWhitelist = new int[] //Whitelist for the (Bombard Item) tag at the end of bombard items. Not all items use the Explosive Item class or else I would just use it.
+            {
+                //armors
+                ModContent.ItemType<AsteroidMiner_B>(),
+				ModContent.ItemType<AsteroidMiner_B_O>(),
+				ModContent.ItemType<AsteroidMiner_H>(),
+				ModContent.ItemType<AsteroidMiner_H_O>(),
+				ModContent.ItemType<AsteroidMiner_L>(),
+				ModContent.ItemType<AsteroidMiner_L_O>(),
+
+				ModContent.ItemType<Nova_B>(),
+				ModContent.ItemType<Nova_H>(),
+				ModContent.ItemType<Nova_L>(),
+
+				ModContent.ItemType<CorruptedAnarchy_B>(),
+				ModContent.ItemType<CorruptedAnarchy_H>(),
+				ModContent.ItemType<CorruptedAnarchy_L>(),
+
+				ModContent.ItemType<CrimsonAnarchy_B>(),
+				ModContent.ItemType<CrimsonAnarchy_H>(),
+				ModContent.ItemType<CrimsonAnarchy_L>(),
+
+				ModContent.ItemType<DungeonBombard_B>(),
+				ModContent.ItemType<DungeonBombard_H>(),
+				ModContent.ItemType<DungeonBombard_L>(),
+				ModContent.ItemType<DungeonBombard_B>(),
+
+				ModContent.ItemType<Hazard_B>(),
+				ModContent.ItemType<Hazard_B_T>(),
+				ModContent.ItemType<Hazard_H>(),
+				ModContent.ItemType<Hazard_H_T>(),
+				ModContent.ItemType<Hazard_L>(),
+				ModContent.ItemType<Hazard_L_T>(),
+
+				ModContent.ItemType<HeavyAutomated_B>(),
+				ModContent.ItemType<HeavyAutomated_H>(),
+				ModContent.ItemType<HeavyAutomated_L>(),
+
+				ModContent.ItemType<Lizhard_B>(),
+				ModContent.ItemType<Lizhard_H>(),
+				ModContent.ItemType<Lizhard_L>(),
+
+				ModContent.ItemType<Meltbomber_B>(),
+				ModContent.ItemType<Meltbomber_H>(),
+				ModContent.ItemType<Meltbomber_L>(),
+
+				ModContent.ItemType<SpaceDemolisher_B>(),
+				ModContent.ItemType<SpaceDemolisher_B_C>(),
+				ModContent.ItemType<SpaceDemolisher_H>(),
+				ModContent.ItemType<SpaceDemolisher_H_C>(),
+				ModContent.ItemType<SpaceDemolisher_L>(),
+				ModContent.ItemType<SpaceDemolisher_L_C>(),
+
+				ModContent.ItemType<Tunnelrat_B>(),
+				ModContent.ItemType<Tunnelrat_H>(),
+				ModContent.ItemType<Tunnelrat_L>(),
+
+                //Accessories
+                ModContent.ItemType<NovaBooster>(),
+				ModContent.ItemType<BombardierEmblem>(),
+				ModContent.ItemType<BombardsLaurels>(),
+				ModContent.ItemType<BombardsPouch>(),
+				ModContent.ItemType<BombCloak>(),
+				ModContent.ItemType<BombersCap>(),
+				ModContent.ItemType<CertificateOfDemolition>(),
+				ModContent.ItemType<FleshyBlastingCaps>(),
+				ModContent.ItemType<RavenousBomb>(),
+
+				ModContent.ItemType<AlienExplosive>(),
+				ModContent.ItemType<Bombshroom>(),
+				ModContent.ItemType<ChaosBomb>(),
+				ModContent.ItemType<EclecticBomb>(),
+				ModContent.ItemType<LihzahrdFuzeset>(),
+				ModContent.ItemType<SupernaturalBomb>(),
+				ModContent.ItemType<WyrdBomb>(),
+
+				ModContent.ItemType<AnarchistCookbook>(),
+				ModContent.ItemType<BlastShielding>(),
+				ModContent.ItemType<BombBag>(),
+				ModContent.ItemType<CrossedWires>(),
+				ModContent.ItemType<GlowingCompound>(),
+				ModContent.ItemType<HandyNotes>(),
+				ModContent.ItemType<LightweightBombshells>(),
+				ModContent.ItemType<MysteryBomb>(),
+				ModContent.ItemType<RandomFuel>(),
+				ModContent.ItemType<RandomNotes>(),
+				ModContent.ItemType<ReactivePlating>(),
+				ModContent.ItemType<ResourcefulNotes>(),
+				ModContent.ItemType<SafetyNotes>(),
+				ModContent.ItemType<ShortFuse>(),
+				ModContent.ItemType<StickyGunpowder>(),
+				ModContent.ItemType<UtilityNotes>()
+
+
+			};
+
+
+			_doNotDuplicate = new int[]    // Added here because the compile order is annoying, and i hate it
+            {
+				ModContent.ProjectileType<HouseBombProjectile>(),
+				ModContent.ProjectileType<TheLevelerProjectile>(),
+				ModContent.ProjectileType<ArenaBuilderProjectile>(),
+				ModContent.ProjectileType<ReforgeBombProjectile>(),
+				ModContent.ProjectileType<HellavatorProjectile>(),
+				ModContent.ProjectileType<RainboomProjectile>(),
+				ModContent.ProjectileType<BulletBoomProjectile>(),
+				ModContent.ProjectileType<AtomBombProjectile>()
+			};
+
+			avoidList = new int[] //not a recipe just need it to load in once everything else loads in
+			{
+						ModContent.ProjectileType<BossArmorBreakBombProjectile>(),
+						ModContent.ProjectileType<BossChillBombProjectile>(),
+						ModContent.ProjectileType<BossDazedBombProjectile>(),
+						ModContent.ProjectileType<BossFireBombProjectile>(),
+						ModContent.ProjectileType<BossGooBombProjectile>(),
+						ModContent.ProjectileType<ExplosionDamageProjectileEnemy>(), //A bit outdated but still needs to stay in for now until someone changes it.
+						ProjectileID.BombSkeletronPrime,
+						ProjectileID.DD2GoblinBomb,
+						ProjectileID.HappyBomb,
+						ProjectileID.SantaBombs,
+						ProjectileID.SmokeBomb,
+						ModContent.ProjectileType<HouseBombProjectile>(),
+						ModContent.ProjectileType<CritterBombProjectile>(),
+						ModContent.ProjectileType<BunnyiteProjectile>(),
+						ModContent.ProjectileType<BreakenTheBankenProjectile>(),
+						ModContent.ProjectileType<BreakenTheBankenChildProjectile>(),
+						ModContent.ProjectileType<DaBombProjectile>(),
+						ModContent.ProjectileType<ArenaBuilderProjectile>(),
+						ModContent.ProjectileType<ReforgeBombProjectile>(),
+						ModContent.ProjectileType<TornadoBombProjectile>(),
+						ModContent.ProjectileType<HellavatorProjectile>(),
+						//ModContent.ProjectileType<InfinityBombProjectile>(),
+						ModContent.ProjectileType<LandBridgeProjectile>(),
+						ModContent.ProjectileType<BoomBoxProjectile>(),
+						ModContent.ProjectileType<FlashbangProjectile>(),
+						ProjectileID.RocketI,
+						ProjectileID.RocketII,
+						ProjectileID.RocketIII,
+						ProjectileID.RocketIV,
+						ProjectileID.RocketSnowmanI,
+						ProjectileID.RocketSnowmanII,
+						ProjectileID.RocketSnowmanIII,
+						ProjectileID.RocketSnowmanIV,
+						ModContent.ProjectileType<DynaglowmiteProjectile>(),
+						ModContent.ProjectileType<CleanBombProjectile>(),
+						ModContent.ProjectileType<CleanBombExplosionProjectile>(),
+						ModContent.ProjectileType<RainboomProjectile>(),
+						ModContent.ProjectileType<TrollBombProjectile>(),
+						ModContent.ProjectileType<TorchBombProjectile>(),
+						ModContent.ProjectileType<HydromiteProjectile>(),
+						ModContent.ProjectileType<LavamiteProjectile>(),
+						ModContent.ProjectileType<DeliquidifierProjectile>(),
+						ModContent.ProjectileType<BulletBoomProjectile>(),
+						ModContent.ProjectileType<NPCProjectile>(),
+						ProjectileID.Beenade
+
+			};
+
 			base.PostSetupContent();
 		}
 
@@ -319,6 +495,7 @@ namespace ExtraExplosives
 			ToggleCookbookUI = RegisterHotKey("UIToggle", "\\");
 			TriggerBoost = RegisterHotKey("TriggerBoost", "S");
 			TriggerNovaBomb = RegisterHotKey("TriggerNovaSetBonus", "X");
+			TriggerLizhard = RegisterHotKey("TriggerMissleFireLizhard", "Z");
 
 			if (!Main.dedServ)
 			{
@@ -428,54 +605,7 @@ namespace ExtraExplosives
 
 		public override void AddRecipes()
 		{
-			avoidList = new int[] //not a recipe just need it to load in once everything else loads in
-			{
-						ModContent.ProjectileType<BossArmorBreakBombProjectile>(),
-						ModContent.ProjectileType<BossChillBombProjectile>(),
-						ModContent.ProjectileType<BossDazedBombProjectile>(),
-						ModContent.ProjectileType<BossFireBombProjectile>(),
-						ModContent.ProjectileType<BossGooBombProjectile>(),
-						ModContent.ProjectileType<ExplosionDamageProjectileEnemy>(), //A bit outdated but still needs to stay in for now until someone changes it.
-						ProjectileID.BombSkeletronPrime,
-						ProjectileID.DD2GoblinBomb,
-						ProjectileID.HappyBomb,
-						ProjectileID.SantaBombs,
-						ProjectileID.SmokeBomb,
-						ModContent.ProjectileType<HouseBombProjectile>(),
-						ModContent.ProjectileType<CritterBombProjectile>(),
-						ModContent.ProjectileType<BunnyiteProjectile>(),
-						ModContent.ProjectileType<BreakenTheBankenProjectile>(),
-						ModContent.ProjectileType<BreakenTheBankenChildProjectile>(),
-						ModContent.ProjectileType<DaBombProjectile>(),
-						ModContent.ProjectileType<ArenaBuilderProjectile>(),
-						ModContent.ProjectileType<ReforgeBombProjectile>(),
-						ModContent.ProjectileType<TornadoBombProjectile>(),
-						ModContent.ProjectileType<HellavatorProjectile>(),
-						//ModContent.ProjectileType<InfinityBombProjectile>(),
-						ModContent.ProjectileType<LandBridgeProjectile>(),
-						ModContent.ProjectileType<BoomBoxProjectile>(),
-						ModContent.ProjectileType<FlashbangProjectile>(),
-						ProjectileID.RocketI,
-						ProjectileID.RocketII,
-						ProjectileID.RocketIII,
-						ProjectileID.RocketIV,
-						ProjectileID.RocketSnowmanI,
-						ProjectileID.RocketSnowmanII,
-						ProjectileID.RocketSnowmanIII,
-						ProjectileID.RocketSnowmanIV,
-						ModContent.ProjectileType<DynaglowmiteProjectile>(),
-						ModContent.ProjectileType<CleanBombProjectile>(),
-						ModContent.ProjectileType<CleanBombExplosionProjectile>(),
-						ModContent.ProjectileType<RainboomProjectile>(),
-						ModContent.ProjectileType<TrollBombProjectile>(),
-						ModContent.ProjectileType<TorchBombProjectile>(),
-						ModContent.ProjectileType<HydromiteProjectile>(),
-						ModContent.ProjectileType<LavamiteProjectile>(),
-						ModContent.ProjectileType<DeliquidifierProjectile>(),
-						ModContent.ProjectileType<BulletBoomProjectile>(),
-						ModContent.ProjectileType<NPCProjectile>()
 
-			};
 			base.AddRecipes();
 		}
 	}

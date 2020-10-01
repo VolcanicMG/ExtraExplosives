@@ -12,16 +12,15 @@ namespace ExtraExplosives.Items.Armors.DungeonBombard
         {
             DisplayName.SetDefault("Dungeon Bombard Legs");
             Tooltip.SetDefault("\n" +
-                "2.5% Bomb Damage\n" +
-                "2.5% Blast Radius"); ;
+                "2.5% Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
-            item.rare = ItemRarityID.Blue;
+            item.value = Item.buyPrice(0, 0, 50, 50);
+            item.rare = ItemRarityID.LightRed;
             item.defense = 5;
         }
 

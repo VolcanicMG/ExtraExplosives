@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Asteroid
         {
             DisplayName.SetDefault("Orichalcum Asteroid Miner Body");
             Tooltip.SetDefault("\n" +
-                "3% Bomb Damage\n" +
+                "3% Bomb Damage and " +
                 "6% Blast Radius");
         }
 
@@ -20,7 +20,7 @@ namespace ExtraExplosives.Items.Armors.Asteroid
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 0, 70, 50);
             item.rare = ItemRarityID.LightRed;
             item.defense = 16;
         }
@@ -34,8 +34,7 @@ namespace ExtraExplosives.Items.Armors.Asteroid
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bone, 15);
-            recipe.AddIngredient(ItemID.BlueBrick, 15);
+            recipe.AddIngredient(ItemID.OrichalcumBar, 15);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

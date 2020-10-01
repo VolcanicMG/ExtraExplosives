@@ -17,7 +17,7 @@ namespace ExtraExplosives.Items.Armors.CorruptedAnarchy
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 0, 2, 50);
             item.rare = ItemRarityID.Blue;
             item.defense = 7;
         }
@@ -32,7 +32,9 @@ namespace ExtraExplosives.Items.Armors.CorruptedAnarchy
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.DemoniteBar, 19);
             recipe.AddIngredient(ItemID.ShadowScale, 15);
-            recipe.anyIronBar = true;
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 
     }

@@ -1,9 +1,25 @@
-using System;
 using ExtraExplosives.Items;
+using ExtraExplosives.Items.Accessories;
 using ExtraExplosives.Items.Accessories.AnarchistCookbook;
+using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
+using ExtraExplosives.Items.Accessories.ChaosBomb;
+using ExtraExplosives.Items.Armors.Asteroid;
+using ExtraExplosives.Items.Armors.CorruptedAnarchy;
+using ExtraExplosives.Items.Armors.CrimsonAnarchy;
+using ExtraExplosives.Items.Armors.DungeonBombard;
+using ExtraExplosives.Items.Armors.Hazard;
+using ExtraExplosives.Items.Armors.HeavyAutomated;
+using ExtraExplosives.Items.Armors.Lizhard;
+using ExtraExplosives.Items.Armors.Meltbomber;
+using ExtraExplosives.Items.Armors.Nova;
+using ExtraExplosives.Items.Armors.SpaceDemolisher;
+using ExtraExplosives.Items.Armors.TunnelRat;
 using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,8 +45,6 @@ namespace ExtraExplosives
 
         }
 
-        private int[] _doNotDuplicate;
-        
         public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type,
             ref int damage, ref float knockBack)
         {
@@ -52,7 +66,7 @@ namespace ExtraExplosives
                     if (mp.CrossedWires)    // probably doesnt work, will require il editing
                     {
                         item.crit = (int)(item.crit * 1.25f);
-                        damage = (int) (damage * 1.25f);
+                        damage = (int)(damage * 1.25f);
                     }
 
                     if (mp.MysteryBomb)    // Mystery Bomb (working)
@@ -65,13 +79,13 @@ namespace ExtraExplosives
 
                     if (mp.ReactivePlating)
                     {
-                        damage = (int) (damage * 1.25f);    // Probably doesnt work, will probably require il editing
+                        damage = (int)(damage * 1.25f);    // Probably doesnt work, will probably require il editing
                     }
-                    
+
                     if (mp.BombBag &&
-                        Array.IndexOf(_doNotDuplicate, item.shoot) == -1)    // Bomb bag (working)
+                        Array.IndexOf(ExtraExplosives._doNotDuplicate, item.shoot) == -1)    // Bomb bag (working)
                     {                // Some bones shouldnt be duplicated, this does that, for list of bombs check AddRecipes()
-                        if(Main.rand.NextBool())
+                        if (Main.rand.NextBool())
                         {
                             Projectile proj = Projectile.NewProjectileDirect(position,
                                 new Vector2(speedX + 0.1f, speedY + 0.1f), item.shoot, damage,
@@ -88,14 +102,28 @@ namespace ExtraExplosives
                             item.consumable = false;
                         }
                     }
-                    
+
                 }
             }
             return base.Shoot(item, player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
         }
-        
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            TooltipLine Info = tooltips.FirstOrDefault(t => t.mod == "Terraria");
+
+            if (Info != null && ExtraExplosives._tooltipWhitelist.Contains<int>(item.type))
+            {
+
+                Info.text += "[c/AB40FF: (Bombard Item)]";
+
+            }
+
+        }
+
         public override void AddRecipes()
         {
+
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 3);
             recipe.AddIngredient(ItemID.Gel, 5);
@@ -112,18 +140,7 @@ namespace ExtraExplosives
             recipe2.SetResult(ItemID.Bomb);
             recipe2.AddRecipe();
             base.AddRecipes();
-            
-            _doNotDuplicate = new int[]    // Added here because the compile order is annoying, and i hate it
-            {
-                ModContent.ProjectileType<HouseBombProjectile>(),
-                ModContent.ProjectileType<TheLevelerProjectile>(),
-                ModContent.ProjectileType<ArenaBuilderProjectile>(),
-                ModContent.ProjectileType<ReforgeBombProjectile>(),
-                ModContent.ProjectileType<HellavatorProjectile>(),
-                ModContent.ProjectileType<RainboomProjectile>(),
-                ModContent.ProjectileType<BulletBoomProjectile>(),
-                ModContent.ProjectileType<AtomBombProjectile>()
-            };
+
         }
     }
 }

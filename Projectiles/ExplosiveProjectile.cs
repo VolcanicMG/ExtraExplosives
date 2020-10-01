@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ExtraExplosives.Dusts;
 using IL.Terraria.ID;
 using Microsoft.Xna.Framework;
@@ -72,6 +73,7 @@ namespace ExtraExplosives.Projectiles
             // x and y are the tile offset of the current tile relative to the player
             // i and j are the true tile cords relative to 0,0 in the world
             Player player = Main.player[projectile.owner];
+
             if (pickPower < -1) return;
             if (player.EE().BombardEmblem) return;
 
@@ -93,18 +95,26 @@ namespace ExtraExplosives.Projectiles
                     if (!WorldGen.InWorld(i, j)) continue;
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
                     {
-                        //Main.NewText($"({i}, {j})");
-                        //Dust dust = Dust.NewDustDirect(new Vector2(i, j), 1, 1, 54);
-                        //dust.noGravity = true;
-                        if (!WorldGen.TileEmpty(i, j))
+                        Tile tile = Framing.GetTileSafely(i, j);
+                        
+                        if (!WorldGen.TileEmpty(i, j) && tile.active())
                         {
-                            if (!CanBreakTile(Main.tile[i, j].type, pickPower)) continue;
+                            if (!CanBreakTile(tile.type, pickPower)) continue;
                             if (!CanBreakTiles) continue;
                             // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
                             // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
-                            if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1)
-                                WorldGen.KillTile((int) (i), (int) (j), false, false, false);
-                            else Main.tile[i,j].ClearTile();   
+                            if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.type])
+                            {
+                                int type = tile.type;
+                                WorldGen.KillTile((int)(i), (int)(j), false, false, false);
+
+                                if(player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
+                                {
+                                    WorldGen.PlaceTile(i, j, type);
+                                    WorldGen.KillTile((int)(i), (int)(j), false, false, false);
+                                }
+                            }
+                            else Main.tile[i, j].ClearTile();
                             //
                         }
                         

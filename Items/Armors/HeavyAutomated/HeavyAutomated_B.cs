@@ -12,15 +12,14 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
         {
             DisplayName.SetDefault("Heavy Automated Bombard Body");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage\n" +
-                "8% Blast Radius");
+                "6% Bomb Damage and 8% Blast Radius\n");
         }
 
         public override void SetDefaults()
         {
             item.height = 18;
             item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
+            item.value = Item.buyPrice(0, 0, 90, 50);
             item.rare = ItemRarityID.Pink;
             item.defense = 19;
         }
@@ -34,9 +33,8 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bone, 15);
-            recipe.AddIngredient(ItemID.BlueBrick, 15);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.HallowedBar, 15);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
