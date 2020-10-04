@@ -11,10 +11,9 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
-using Color = System.Drawing.Color;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using static ExtraExplosives.GlobalMethods;
+using static Terraria.ModLoader.ModContent;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace ExtraExplosives
 {
@@ -335,6 +334,8 @@ namespace ExtraExplosives
 		internal int novaBombRecharge = 0;
 		internal float dropChanceOre = 0;
 		internal int lizhardRecharge = 0;
+		internal bool lizhardLaunch;
+		private int delayLizhard = 0;
 
 		public override void ResetEffects()
 		{
@@ -389,7 +390,6 @@ namespace ExtraExplosives
 			dropChanceOre = 0;
 			HeavyBombard = false;
 			Lizhard = false;
-
 		}
 
 		public override void UpdateDead()
@@ -507,7 +507,7 @@ namespace ExtraExplosives
 			}
 
 			//nova bomb
-			if (Nova && ExtraExplosives.TriggerNovaBomb.JustPressed && (novaBombRecharge >= 600))
+			if (Nova && ExtraExplosives.TriggerNovaBomb.JustPressed && (novaBombRecharge >= 60))
 			{
 				//Create Bomb Sound
 				Main.PlaySound(SoundID.Item14, (int)player.Center.X, (int)player.Center.Y);
@@ -532,27 +532,38 @@ namespace ExtraExplosives
 				novaBombRecharge++;
 			}
 
-			//Lizhard set
+			//Lizhard set -----------------------------------------
 			if (Lizhard && ExtraExplosives.TriggerLizhard.JustPressed && (lizhardRecharge >= 600))
 			{
-				//Create Bomb Sound
-				//Main.PlaySound(SoundID.Mech, (int)player.Center.X, (int)player.Center.Y);
 
 				lizhardRecharge = 0;
-				int rotate = 0;
-
-				for (int i = 0; i < 6; i++)
-				{
-					Vector2 perturbedSpeed = new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(rotate - 38)); //set spread
-					Projectile.NewProjectileDirect(new Vector2(player.Center.X, player.Center.Y - player.height + 10), perturbedSpeed, ModContent.ProjectileType<SunRocket>(), (int)((DamageBonus + 120) * DamageMulti), 1, player.whoAmI);
-					rotate += 15;
-				}
+				lizhardLaunch = true;
 
 			}
 			else if (lizhardRecharge < 600) //recharge
 			{
 				lizhardRecharge++;
 			}
+
+			if (lizhardLaunch)
+			{
+				delayLizhard++;
+
+				if (delayLizhard % 15 == 0)
+				{
+					Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Hellfire"), (int)player.Center.X, (int)player.Center.Y);
+
+					Vector2 perturbedSpeed = new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(35)); //set spread
+					Projectile.NewProjectileDirect(new Vector2(player.Center.X, player.Center.Y - player.height + 10), perturbedSpeed, ModContent.ProjectileType<SunRocket>(), (int)((DamageBonus + 120) * DamageMulti), 1, player.whoAmI);
+				}
+				else if (delayLizhard >= 90)
+				{
+					lizhardLaunch = false;
+					delayLizhard = 0;
+				}
+
+			}
+			//--------------------------------------------------------
 		}
 
 		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage,
@@ -589,7 +600,7 @@ namespace ExtraExplosives
 			{
 				Projectile.NewProjectileDirect(player.position, Vector2.Zero, ProjectileType<BombCloakProjectile>(), (int)((100 + DamageBonus) * DamageMulti), 10, player.whoAmI).timeLeft = 1;
 			}
-			
+
 		}
 
 		public override void PostUpdate()
@@ -600,7 +611,7 @@ namespace ExtraExplosives
 				Filters.Scene["Bang"].Deactivate();
 			}
 
-			if (Main.netMode != NetmodeID.Server && Filters.Scene["BigBang"].IsActive() && ExtraExplosives.NukeHit == false) //destroy the filter once the buff has ended
+			if (Main.netMode != NetmodeID.Server && Filters.Scene["BigBang"].IsActive() && ExtraExplosives.NukeHit == false) 
 			{
 				Filters.Scene["BigBang"].Deactivate();
 			}
@@ -642,7 +653,7 @@ namespace ExtraExplosives
 					dust.noLight = false;
 
 				}
-				else if(player.direction == -1 && Main.rand.NextFloat() < 0.6f)
+				else if (player.direction == -1 && Main.rand.NextFloat() < 0.6f)
 				{
 					Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(player.BottomRight.X - 5, player.BottomRight.Y - 5), 2, 2, 6, 0f, 0f, 0, Scale: 2)];
 					dust.noGravity = true;
@@ -775,12 +786,12 @@ namespace ExtraExplosives
 			}
 
 			//Hotkey checks
-			if(ExtraExplosives.TriggerNovaBomb.GetAssignedKeys(InputMode.Keyboard).Count <= 0)
+			if (ExtraExplosives.TriggerNovaBomb.GetAssignedKeys(InputMode.Keyboard).Count <= 0)
 			{
 				ExtraExplosives.TriggerNovaBomb.GetAssignedKeys(InputMode.Keyboard).Add("X");
 			}
 
-			if(ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard).Count <= 0)
+			if (ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard).Count <= 0)
 			{
 				ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard).Add("P");
 			}

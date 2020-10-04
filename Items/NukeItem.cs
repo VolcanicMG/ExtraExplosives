@@ -58,31 +58,31 @@ namespace ExtraExplosives.Items
 				int vel;
 				int pos;
 
-				Main.NewText(player.position.X / 16);
-				Main.NewText((Main.maxTilesX * 16));
+				//Main.NewText(player.position.X / 16);
+				//Main.NewText((Main.maxTilesX * 16));
 
 				if (player.position.X / 16 >= Main.maxTilesX / 2)
 				{
 					pos = (Main.maxTilesX * 16) - 700;
 					vel = -50;
 
-					Main.NewText("Right");
+					//Main.NewText("Right");
 				}
 				else
 				{
 					pos = (int)(Main.maxTilesX / 16.0f);
 					vel = 50;
 
-					Main.NewText("Left");
+					//Main.NewText("Left");
 				}
 				//int yPosition = (int)(y + position.Y / 16.0f);
 
 				ExtraExplosives.NukeActivated = true;
 
-				if (Main.netMode == NetmodeID.MultiplayerClient)
+				if (Main.netMode != NetmodeID.SinglePlayer)
 				{
 					ModPacket myPacket = mod.GetPacket();
-					myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkNukeActive);
+					myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkNukeActivated);
 					myPacket.Send();
 				}
 

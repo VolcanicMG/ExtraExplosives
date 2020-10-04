@@ -37,7 +37,7 @@ namespace ExtraExplosives.Items.Armors.Lizhard
                 "6% Blast Radius\n" +
                 "7% damage\n" +
                 "8% critical strike chance\n" +
-                "Press "+ ExtraExplosives.TriggerLizhard.GetAssignedKeys(InputMode.Keyboard)[0] + " to fire a spread of 6 sun rockets";
+                "Press "+ ExtraExplosives.TriggerLizhard.GetAssignedKeys(InputMode.Keyboard)[0] + " to fire a spread of 6 sun rockets \n 10s Cooldown";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .08f;
             player.allDamage += .07f;

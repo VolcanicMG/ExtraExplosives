@@ -1,12 +1,9 @@
-using System;
-using System.Linq;
-using ExtraExplosives.Dusts;
-using IL.Terraria.ID;
+using ExtraExplosives.Tiles;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -16,7 +13,7 @@ namespace ExtraExplosives.Projectiles
     public abstract class ExplosiveProjectile : ModProjectile
     {
         public bool IgnoreTrinkets = false; //not set up yet
-        
+
         public readonly bool Explosive = true;              // This marks the item as part of the explosive class
         public int radius = 0;                                  // Radius of the explosion
         public int pickPower = 0;                           // Strength of the explosion
@@ -69,7 +66,7 @@ namespace ExtraExplosives.Projectiles
         /// </summary>
         public virtual void Explosion()
         {
-            
+
             // x and y are the tile offset of the current tile relative to the player
             // i and j are the true tile cords relative to 0,0 in the world
             Player player = Main.player[projectile.owner];
@@ -90,13 +87,13 @@ namespace ExtraExplosives.Projectiles
                     y++)
                 {
                     //int y = (int)(j + position.Y);
-                    int i = (int) (x + position.X);
-                    int j = (int) (y + position.Y);
+                    int i = (int)(x + position.X);
+                    int j = (int)(y + position.Y);
                     if (!WorldGen.InWorld(i, j)) continue;
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
                     {
                         Tile tile = Framing.GetTileSafely(i, j);
-                        
+
                         if (!WorldGen.TileEmpty(i, j) && tile.active())
                         {
                             if (!CanBreakTile(tile.type, pickPower)) continue;
@@ -108,16 +105,26 @@ namespace ExtraExplosives.Projectiles
                                 int type = tile.type;
                                 WorldGen.KillTile((int)(i), (int)(j), false, false, false);
 
-                                if(player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
+                                if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
                                 {
                                     WorldGen.PlaceTile(i, j, type);
                                     WorldGen.KillTile((int)(i), (int)(j), false, false, false);
                                 }
                             }
-                            else Main.tile[i, j].ClearTile();
+
+                            else
+                            {
+                                tile.ClearTile();
+                                tile.active(false);
+
+                                if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
+                                {
+                                    WorldGen.SquareTileFrame(i, j, true);
+                                }
+                            }
                             //
                         }
-                        
+
                         if (CanBreakWalls)
                         {
                             //WorldGen.KillWall((int) (i), (int) (j));
@@ -137,7 +144,7 @@ namespace ExtraExplosives.Projectiles
             foreach (NPC npc in Main.npc)
             {
                 float dist = Vector2.Distance(npc.Center, projectile.Center);
-                if (dist/16f <= radius)
+                if (dist / 16f <= radius)
                 {
                     int dir = (dist > 0) ? 1 : -1;
                     npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
@@ -152,17 +159,17 @@ namespace ExtraExplosives.Projectiles
                     player.EE().BlastShieldingActive) continue;
                 float dist = Vector2.Distance(player.Center, projectile.Center);
                 int dir = (dist > 0) ? 1 : -1;
-                if (dist/16f <= radius)
+                if (dist / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer)
                 {
                     player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
                     player.hurtCooldowns[0] += 15;
                 }
-                if (Main.netMode != 0)
+                else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius)
                 {
                     NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
-            
+
         }
     }
 }

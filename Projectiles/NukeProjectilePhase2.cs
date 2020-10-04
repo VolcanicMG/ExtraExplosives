@@ -13,6 +13,7 @@ namespace ExtraExplosives.Projectiles
 		private bool done = false;
 		private bool reset = false;
 		private bool firstTick;
+		private bool firstTickStart;
 
 		private Vector2 FirstPos;
 
@@ -68,22 +69,21 @@ namespace ExtraExplosives.Projectiles
 
 			if (projectile.timeLeft <= 9700 && done == false)
 			{
-				//send the projectiles postion to the player's camera and set NukeActive to true
-
-				//projectile.velocity.X = 30;
 				ExtraExplosives.NukePos = projectile.Center;
-				ExtraExplosives.NukeActive = true; //since the projectile is active set it active in the player class
 
-				//if (Main.netMode == NetmodeID.MultiplayerClient)
-				//{
-				//	ModPacket myPacket = mod.GetPacket(); //clean up later
-				//	myPacket.Write("boom");
-				//	myPacket.Send();
+				if(firstTickStart)
+				{
+					ExtraExplosives.NukeActive = true;
 
-				//	ModPacket myPacket2 = mod.GetPacket();
-				//	myPacket2.WriteVector2(projectile.Center);
-				//	myPacket2.Send();
-				//}
+					if (Main.netMode != NetmodeID.SinglePlayer)
+					{
+						ModPacket myPacket2 = mod.GetPacket();
+						myPacket2.Write((byte)ExtraExplosives.EEMessageTypes.nukeActive);
+						myPacket2.Send();
+					}
+				}
+				firstTickStart = true;
+
 			}
 			else if (projectile.timeLeft >= 9700 && done == false)
 			{
@@ -136,7 +136,7 @@ namespace ExtraExplosives.Projectiles
 				if (Main.netMode == NetmodeID.MultiplayerClient) //set NukeHit to false for all players
 				{
 					ModPacket myPacket = mod.GetPacket();
-					myPacket.WriteVarInt(2);
+					myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkNukeHit);
 					myPacket.Send();
 				}
 			}

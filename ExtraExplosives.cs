@@ -102,8 +102,12 @@ namespace ExtraExplosives
 
 		internal enum EEMessageTypes : byte
 		{
-			checkNukeActive,
+			checkNukeActivated,
+			nukeDeactivate,
 			checkNukeHit,
+			nukeHit,
+			nukeNotActive,
+			nukeActive,
 			checkBossUIYes,
 			checkBossUINo,
 			BossCheckDynamite,
@@ -121,15 +125,54 @@ namespace ExtraExplosives
 
 			switch (msgType) 
 			{
-				case EEMessageTypes.checkNukeActive:
-					
-					NukeActivated = true;
+				//Nuke stuff ------------------------
+				case EEMessageTypes.checkNukeActivated:
+					if (Main.netMode == NetmodeID.Server)
+					{
+						ModPacket myPacket = GetPacket();
+						myPacket.Write((byte)ExtraExplosives.EEMessageTypes.checkNukeActivated);
+						myPacket.Send(ignoreClient: whoAmI);
+					}
+					else
+					{
+						NukeActivated = true;
+					}
+					break;
+
+				case EEMessageTypes.nukeDeactivate:
+
+					NukeActivated = false;
 					break;
 
 				case EEMessageTypes.checkNukeHit:
 					
 					NukeHit = false;
 					break;
+
+				case EEMessageTypes.nukeHit:
+
+					NukeHit = true;
+					break;
+
+				case EEMessageTypes.nukeNotActive:
+
+					NukeActive = false;
+					break;
+
+				case EEMessageTypes.nukeActive:
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						ModPacket myPacket = GetPacket();
+						myPacket.Write((byte)ExtraExplosives.EEMessageTypes.nukeActive);
+						myPacket.Send(ignoreClient: whoAmI);
+					}
+					else
+					{
+						NukeActive = true;
+					}
+					break;
+				//Nuke stuff ------------------------
 
 				case EEMessageTypes.BossCheckDynamite:
 					
@@ -371,7 +414,9 @@ namespace ExtraExplosives
 						ModContent.ProjectileType<DeliquidifierProjectile>(),
 						ModContent.ProjectileType<BulletBoomProjectile>(),
 						ModContent.ProjectileType<NPCProjectile>(),
-						ProjectileID.Beenade
+						ProjectileID.Beenade,
+						ProjectileID.Explosives,
+						ProjectileID.DD2GoblinBomb
 
 			};
 

@@ -25,7 +25,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			pickPower = 65;
+			pickPower = 64;
 			radius = 20;
 			projectile.tileCollide = true; //checks to see if the projectile can go through tiles
 			projectile.width = 10;   //This defines the hitbox width
@@ -110,20 +110,30 @@ namespace ExtraExplosives.Projectiles
 					int xPosition = (int)(x + position.X / 16.0f);
 					int yPosition = (int)(-y + position.Y / 16.0f);
 
-					if (WorldGen.InWorld(xPosition, yPosition)) //Circle
+					if (!WorldGen.InWorld(xPosition, yPosition)) continue;
+
+					Tile tile = Framing.GetTileSafely(xPosition, yPosition);
+
+					if (WorldGen.InWorld(xPosition, yPosition) && tile.active()) //Circle
 					{
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+						if (!CanBreakTile(tile.type, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
 						{
 						}
 						else //Breakable
 						{
-							WorldGen.KillTile(xPosition, yPosition, false, false, false);  //this makes the explosion destroy tiles
-							if (CanBreakWalls)
+							tile.ClearTile();
+							tile.active(false);
+
+							if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
 							{
-								WorldGen.KillWall(xPosition, yPosition, false);
-								WorldGen.KillWall(xPosition + 1, yPosition + 1, false); //get the last bit
+								WorldGen.SquareTileFrame(xPosition, yPosition, true);
 							}
+						}
+
+						if (CanBreakWalls)
+						{
+							WorldGen.KillWall(xPosition, yPosition, false);
+							WorldGen.KillWall(xPosition + 1, yPosition + 1, false); //get the last bit
 						}
 					}
 				}

@@ -93,7 +93,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void Explosion()	// This is a special explosive, ignored
 		{
-			if (Main.player[projectile.owner].EE().BombardEmblem) return;
+			//if (Main.player[projectile.owner].EE().BombardEmblem) return;
 			Vector2 position = projectile.position;
 			int width = 240; //Width of arena
 			int height = 120; //Height of arena
@@ -110,15 +110,20 @@ namespace ExtraExplosives.Projectiles
 					int xPosition = (int)(x + position.X / 16.0f);
 					int yPosition = (int)(-y + position.Y / 16.0f);
 
-					if (!OutOfBounds(xPosition, yPosition))
+					if (!WorldGen.InWorld(xPosition, yPosition)) continue;
+
+					Tile tile = Framing.GetTileSafely(xPosition, yPosition);
+
+					if (WorldGen.InWorld(xPosition, yPosition) && tile.active())
 					{
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+						if (!CanBreakTile(tile.type, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
 						{
 						}
 						else //Breakable
 						{
-							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
+							tile.ClearTile();
+							tile.active(false);
+
 							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
 						}
 					}

@@ -76,7 +76,7 @@ namespace ExtraExplosives.Projectiles
 			{
 				if(!firstTick)
 				{
-					projectile.velocity = projectile.oldVelocity * 6;
+					projectile.velocity = projectile.oldVelocity * 8;
 					firstTick = true;
 				}
 
