@@ -26,8 +26,8 @@ namespace ExtraExplosives.Projectiles
 			projectile.width = 32;
 			projectile.height = 38;
 			projectile.aiStyle = 16;
-			projectile.friendly = false;
-			projectile.hostile = false;
+			projectile.friendly = true;
+			//projectile.hostile = false;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 500;
 			explodeSounds = new LegacySoundStyle[2];

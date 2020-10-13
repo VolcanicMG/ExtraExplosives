@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives
 {
@@ -424,6 +425,7 @@ namespace ExtraExplosives
 				}
 			}
 
+
 			// Bombard Emblem stuff (I think? IDK, I didn't write this code. -- V8_Ninja)
 			int type = projectile.type; // Dont only so i didnt have to rename the variables below (copied from vanilla dont @ me), inefficient but who cares
 			if (type == ProjectileID.Bomb || type == ProjectileID.Dynamite || type == ProjectileID.StickyBomb ||
@@ -431,37 +433,48 @@ namespace ExtraExplosives
 				type == ProjectileID.ProximityMineII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV ||
 				type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanII || type == ProjectileID.RocketSnowmanIV ||
 				type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyBomb ||
-				type == ProjectileID.BombFish || type == ProjectileID.BouncyDynamite)
+				type == ProjectileID.BombFish || type == ProjectileID.BouncyDynamite || type == ProjectileID.ExplosiveBullet)
 			{
+				//Three varables to make sure everything works as intended
+				int pickPower = 1;
+				int radius = 4;
+				bool tileDamage = true;
 
-
-				/*if (type == ProjectileID.Bomb || type == ProjectileID.Dynamite || type == ProjectileID.StickyBomb ||
-					type == ProjectileID.Explosives || type == ProjectileID.GrenadeII || type == ProjectileID.RocketII ||
-					type == ProjectileID.ProximityMineII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV ||
-					type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanII || type == ProjectileID.RocketSnowmanIV ||
-					type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyBomb ||
-					type == ProjectileID.BombFish || type == ProjectileID.BouncyDynamite)*/
-
-				//Main.NewText("Kill vanilla projectile");
-				if (!Main.player[projectile.owner].EE().BombardEmblem)
+				//set the defaults for the vanilla bombs
+				if (type == ProjectileID.Bomb || type == ProjectileID.StickyBomb || type == ProjectileID.BouncyBomb || type == ProjectileID.BombFish)
 				{
-					return base.PreKill(projectile, timeLeft);
+					radius = 5;
+					pickPower = 45;
+				}
+
+				if (type == ProjectileID.Dynamite || type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyDynamite)
+				{
+					radius = 7;
+					pickPower = 50;
+				}
+
+				if (type == ProjectileID.GrenadeIII || type == ProjectileID.GrenadeI || type == ProjectileID.GrenadeII || type == ProjectileID.GrenadeIV ||
+					type == ProjectileID.RocketIII || type == ProjectileID.RocketI ||
+					type == ProjectileID.ProximityMineIV || type == ProjectileID.ProximityMineI || type == ProjectileID.ProximityMineII || type == ProjectileID.ProximityMineIII)
+				{
+					radius = 5;
+					tileDamage = false;
+				}
+				
+				if(type == ProjectileID.ExplosiveBullet)
+				{
+					radius = 3;
+					tileDamage = false;
+				}
+
+				if (type == ProjectileID.Explosives)
+				{
+					radius = 10;
+					pickPower = 50;
 				}
 
 				void ExplosionDamage()
 				{
-					int radius = 3;
-					if (type == ProjectileID.Bomb || type == ProjectileID.StickyBomb || type == ProjectileID.BouncyBomb || type == ProjectileID.BombFish)
-						radius = 4;
-
-					if (type == ProjectileID.Dynamite || type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyDynamite)
-						radius = 7;
-
-					if (type == ProjectileID.GrenadeIII || type == ProjectileID.RocketIII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV || type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanIV)
-						radius = 5;
-
-					if (type == ProjectileID.Explosives)
-						radius = 10;
 					bool crit = Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101);
 					foreach (NPC npc in Main.npc)
 					{
@@ -486,14 +499,93 @@ namespace ExtraExplosives
 							player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
 							player.hurtCooldowns[0] += 15;
 						}
-						if (Main.netMode != 0)
+						if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius)
 						{
 							NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
 						}
 					}
 				}
 
+				void Explosion()
+				{
+					// x and y are the tile offset of the current tile relative to the player
+					// i and j are the true tile cords relative to 0,0 in the world
+					Player player = Main.player[projectile.owner];
+
+					if (pickPower < -1) return;
+					if (player.EE().BombardEmblem) return;
+
+					Vector2 position = new Vector2(projectile.Center.X / 16f, projectile.Center.Y / 16f);    // Converts to tile cords for convenience
+
+					radius = (int)((radius + player.EE().RadiusBonus) * player.EE().RadiusMulti);
+					for (int x = -radius;
+						x <= radius;
+						x++)
+					{
+						//int x = (int)(i + position.X);
+						for (int y = -radius;
+							y <= radius;
+							y++)
+						{
+							//int y = (int)(j + position.Y);
+							int i = (int)(x + position.X);
+							int j = (int)(y + position.Y);
+							if (!WorldGen.InWorld(i, j)) continue;
+							if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
+							{
+								Tile tile = Framing.GetTileSafely(i, j);
+
+								if (!WorldGen.TileEmpty(i, j) && tile.active())
+								{
+									if (!CanBreakTile(tile.type, pickPower)) continue;
+									if (!CanBreakTiles) continue;
+									// Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
+									// But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
+									if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.type])
+									{
+										int typeOre = tile.type;
+										WorldGen.KillTile((int)(i), (int)(j), false, false, false);
+
+										if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
+										{
+											WorldGen.PlaceTile(i, j, typeOre);
+											WorldGen.KillTile((int)(i), (int)(j), false, false, false);
+										}
+									}
+
+									else
+									{
+										tile.ClearTile();
+										tile.active(false);
+
+										if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
+										{
+											WorldGen.SquareTileFrame(i, j, true);
+										}
+									}
+									//
+								}
+
+								if (CanBreakWalls)
+								{
+									//WorldGen.KillWall((int) (i), (int) (j));
+								}
+							}
+						}
+					}
+				}
+
+				Player playerRad = Main.player[projectile.owner];
+
+				//Create Bomb Sound
+				Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+
 				ExplosionDamage();
+
+				if(tileDamage && !Main.player[projectile.owner].EE().BombardEmblem) Explosion();
+
+				CreateDust(projectile.Center, 100, (int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15));
+
 				return false;
 			}
 
@@ -654,18 +746,20 @@ namespace ExtraExplosives
 				if (projectile.type == ModContent.ProjectileType<NovaBoosterProjectile>() ||
 					projectile.type == ModContent.ProjectileType<BombCloakProjectile>()) immune = true;
 
-				//Might need to move later so we can use the radius instead of hard number
+
 				if (mp.LihzahrdFuzeset) GlobalMethods.InflictDubuff(BuffID.OnFire, 15, projectile.Center, immune, projectile.owner, 6, 300);
 				if (mp.AlienExplosive) GlobalMethods.InflictDubuff(BuffID.Confused, 15, projectile.Center, immune, projectile.owner, 261, 300);
 				if (mp.SupernaturalBomb) GlobalMethods.InflictDubuff(BuffID.ShadowFlame, 15, projectile.Center, immune, projectile.owner, 179, 300);
 				if (mp.Bombshroom) GlobalMethods.InflictDubuff(BuffID.Venom, 15, projectile.Center, immune, projectile.owner, 173, 300);
 				if (mp.MeltbomberFire) GlobalMethods.InflictDubuff(BuffID.OnFire, 15, projectile.Center, immune, projectile.owner, 10, 300);
+				
 			}
 		}
 
 		private int GetBombRadius(Projectile projectile)
 		{
 			int radius = 3;
+			Player player = Main.player[projectile.owner];
 
 			switch (projectile.type)
 			{
@@ -673,7 +767,7 @@ namespace ExtraExplosives
 				case ProjectileID.StickyBomb:
 				case ProjectileID.BouncyBomb:
 				case ProjectileID.BombFish:
-					radius = 4;
+					radius = 5;
 					break;
 				case ProjectileID.Dynamite:
 				case ProjectileID.StickyDynamite:
@@ -699,6 +793,63 @@ namespace ExtraExplosives
 			}
 
 			return radius;
+		}
+
+		private void CreateDust(Vector2 position, int amount, int radius)
+		{
+			Dust dust;
+			Vector2 updatedPosition;
+
+			for (int i = 0; i <= amount; i++)
+			{
+				if (Main.rand.NextFloat() < DustAmount)
+				{
+					//---Dust 1---
+					if (Main.rand.NextFloat() < 0.2f)
+					{
+						updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
+
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 6, 0f, 0.5263162f, 0, Scale: 10)];
+						if (Vector2.Distance(dust.position, position) > radius * 8) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.fadeIn = 2.5f;
+						}
+					}
+					//------------
+
+					//---Dust 2---
+					if (Main.rand.NextFloat() < 0.2f)
+					{
+						updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
+
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 203, 0f, 0f, 0, Scale: 10)];
+						if (Vector2.Distance(dust.position, position) > radius * 8) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
+					}
+					//------------
+
+					//---Dust 3---
+					if (Main.rand.NextFloat() < 0.2f)
+					{
+						updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
+
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 31, 0f, 0f, 0, Scale: 10)];
+						if (Vector2.Distance(dust.position, position) > radius * 8) dust.active = false;
+						else
+						{
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
+					}
+					//------------
+				}
+			}
 		}
 	}
 }

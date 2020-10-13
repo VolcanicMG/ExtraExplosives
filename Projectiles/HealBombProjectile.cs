@@ -61,7 +61,7 @@ namespace ExtraExplosives.Projectiles
 				if (!CanHitPlayer(player)) continue;
 				float dist = Vector2.Distance(player.Center, projectile.Center);
 				int dir = (dist > 0) ? 1 : -1;
-				if (dist / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer)
+				if (dist / 16f <= radius)
 				{
 					Main.player[player.whoAmI].HealEffect(25, true);
 					player.statLife += 25;

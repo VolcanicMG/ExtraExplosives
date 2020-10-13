@@ -8,14 +8,14 @@ using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
 {
-	public class HellavatorProjectile : ExplosiveProjectile
+	public class BiomeCleanerProjectile : ExplosiveProjectile
 	{
-		protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Hellavator_1";
-		protected override string goreFileLoc => "Gores/Explosives/hellevator_gore";
+		protected override string explodeSoundsLoc => null;
+		protected override string goreFileLoc => null;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hellavator Projectile");
+			DisplayName.SetDefault("Biome Cleaner Projectile");
 		}
 
 		public override void SafeSetDefaults()
@@ -49,7 +49,7 @@ namespace ExtraExplosives.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			//Create Bomb Sound
-			Main.PlaySound(explodeSounds[0], (int)projectile.Center.X, (int)projectile.Center.Y);
+			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
 			//ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
@@ -61,7 +61,7 @@ namespace ExtraExplosives.Projectiles
 			ExplosionDamage();
 			
 			//Create Bomb Dust
-			CreateDust(projectile.Center, 400);
+			CreateDust(projectile.Center, 50);
 
 			//Create Bomb Gore
 			Vector2 gVel1 = new Vector2(-2f, 2f);
@@ -73,7 +73,7 @@ namespace ExtraExplosives.Projectiles
 		public override void Explosion()
 		{
 			Vector2 position = projectile.Center;
-			int width = 3; //Explosion Width
+			int width = 250; //Explosion Width
 			int height = Main.maxTilesY; //Explosion Height
 
 			if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -85,25 +85,14 @@ namespace ExtraExplosives.Projectiles
 			{
 				for (int y = 0; y <= height; y++)
 				{
-					int xPosition = (int)(x + position.X / 16.0f);
-					int yPosition = (int)(y + position.Y / 16.0f);
+					int i = (int)(x + position.X / 16.0f);
+					int j = (int)(y + position.Y / 16.0f);
 
-					if (WorldGen.InWorld(xPosition, yPosition))
+					Tile tile = Framing.GetTileSafely(i, j);
+					if (WorldGen.InWorld(i, j))
 					{
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
-						{
-						}
-						else //Breakable
-						{
-							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
-							if (CanBreakWalls && y - 1 != height) WorldGen.KillWall(xPosition + 1, yPosition + 1, false); //Break the last bit of wall
-							NetMessage.SendTileSquare(-1, xPosition, yPosition, 1);
-						}
-
-						Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water; //This destroys liquids
-						WorldGen.SquareTileFrame(xPosition, yPosition, true); //Updates Area
+						WorldGen.Convert(i, j, 0, 2);
+						//NetMessage.SendTileSquare(-1, i, j, 1);
 					}
 				}
 			}
@@ -123,7 +112,7 @@ namespace ExtraExplosives.Projectiles
 					{
 						updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
 
-						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, 0, 0f, 0f, 56, new Color(33, 0, 255), 5.0f)];
 						if (Vector2.Distance(dust.position, projectile.Center) > 5) dust.active = false;
 						else
 						{
@@ -139,7 +128,7 @@ namespace ExtraExplosives.Projectiles
 					{
 						updatedPosition = new Vector2(position.X - 10 / 2, position.Y - 10 / 2);
 
-						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
+						dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 10, 10, 148, 0f, 0.2631581f, 34, new Color(255, 226, 0), 2.039474f)];
 						if (Vector2.Distance(dust.position, projectile.Center) > 5) dust.active = false;
 						else
 						{

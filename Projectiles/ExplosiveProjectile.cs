@@ -105,10 +105,22 @@ namespace ExtraExplosives.Projectiles
                                 int type = tile.type;
                                 WorldGen.KillTile((int)(i), (int)(j), false, false, false);
 
+                                if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
+                                {
+                                    WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                    NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                }
+
                                 if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
                                 {
                                     WorldGen.PlaceTile(i, j, type);
                                     WorldGen.KillTile((int)(i), (int)(j), false, false, false);
+
+                                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                                    {
+                                        WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                        NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                    }
                                 }
                             }
 
@@ -121,13 +133,14 @@ namespace ExtraExplosives.Projectiles
                                 {
                                     WorldGen.SquareTileFrame(i, j, true);
                                 }
+
+                                if(Main.netMode == NetmodeID.MultiplayerClient)
+                                {
+                                    NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                    WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                }
                             }
                             //
-                        }
-
-                        if (CanBreakWalls)
-                        {
-                            //WorldGen.KillWall((int) (i), (int) (j));
                         }
                     }
                 }

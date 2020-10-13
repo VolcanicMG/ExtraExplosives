@@ -25,14 +25,13 @@ namespace ExtraExplosives.Items.Weapons
             item.autoReuse = true;
             item.useTime = 10;
             item.useAnimation = 10;
-            //item.useStyle = ItemUseStyleID.HoldingOut;
             item.useAmmo = AmmoID.Bullet;
+            item.useStyle = ItemUseStyleID.HoldingOut;
             item.crit = 15;
             item.width = 66;
             item.height = 36;
             item.shoot = 10;
             //item.UseSound = SoundID.Item11;
-            //item.channel = true;
             item.damage = 33;
             item.shootSpeed = 10f;
             item.noMelee = true;
@@ -89,8 +88,6 @@ namespace ExtraExplosives.Items.Weapons
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            //mod.Logger.InfoFormat("Something went wrong {0}", item.useAmmo);
-
             switch (item.useAmmo)
             {
                 case 97:    // Bullet
@@ -114,17 +111,10 @@ namespace ExtraExplosives.Items.Weapons
             return true;
         }
 
-        // public override bool CanUseItem(Player player)
-        // {
-        //     mod.Logger.InfoFormat("Something went wrong in CanUseItem {0}", item.useAmmo);
-        //     return true;
-        // }
-        //
-        // public override bool UseItem(Player player)
-        // {
-        //     mod.Logger.InfoFormat("Something went wrong in UseItem {0}", item.useAmmo);
-        //     return true;
-        // }
+        public override bool CanUseItem(Player player)
+        {
+            return base.CanUseItem(player);
+        }
 
         public override bool AltFunctionUse(Player player)
         {
@@ -138,7 +128,7 @@ namespace ExtraExplosives.Items.Weapons
                 item.useAmmo = AmmoID.Rocket;
                 item.useAnimation = 90;
                 item.useTime = 90;
-                item.shootSpeed = 5;
+                item.shootSpeed = 10;
                 item.damage = 40;
                 item.knockBack = 7;
                 Main.NewText("Bone Launcher");
@@ -147,8 +137,8 @@ namespace ExtraExplosives.Items.Weapons
             {
                 item.shoot = 10;
                 item.useAmmo = AmmoID.Bullet;
-                item.useTime = 15;
-                item.useAnimation = 15;
+                item.useTime = 10;
+                item.useAnimation = 10;
                 item.shootSpeed = 13;
                 item.damage = 35;
                 item.knockBack = 3.5f;

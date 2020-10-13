@@ -111,6 +111,7 @@ namespace ExtraExplosives
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             TooltipLine Info = tooltips.FirstOrDefault(t => t.mod == "Terraria");
+            TooltipLine Disclaimer = tooltips.LastOrDefault(t => t.mod == "Terraria");
 
             if (Info != null && ExtraExplosives._tooltipWhitelist.Contains<int>(item.type))
             {
@@ -118,7 +119,11 @@ namespace ExtraExplosives
                 Info.text += "[c/AB40FF: (Bombard Item)]";
 
             }
-
+            else if(Disclaimer != null && ExtraExplosives.disclaimerTooltip.Contains<int>(item.type))
+            {
+                Disclaimer.text += "[c/FF0000: (Doesn't work with Extra Explosive trinkets)]";
+            }
+            
         }
 
         public override void AddRecipes()

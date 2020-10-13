@@ -14,15 +14,15 @@ namespace ExtraExplosives.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Nova Buster");
-            Tooltip.SetDefault("20% Chance to double blast radius (InDev)");
+            Tooltip.SetDefault("20% Chance to double blast Damage");
         }
 
         public override void SetDefaults()
         {
             item.useStyle = ItemUseStyleID.HoldingOut;
             item.autoReuse = true;
-            item.useTime = 20;
-            item.useAnimation = 20;
+            item.useTime = 10;
+            item.useAnimation = 10;
             item.useAmmo = AmmoID.Rocket;
             item.width = 94;
             item.height = 34;
@@ -67,7 +67,14 @@ namespace ExtraExplosives.Items.Weapons
                 position += muzzleOffset;
             }
 
-            Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
+            if(Main.rand.NextFloat() < .2f)
+            {
+                Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti) * 2, knockBack, player.whoAmI);
+            }
+            else
+            {
+                Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
+            }
 
             return false;
         }

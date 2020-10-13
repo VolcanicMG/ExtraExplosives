@@ -33,6 +33,8 @@ using ExtraExplosives.Items.Armors.Nova;
 using ExtraExplosives.Items.Armors.SpaceDemolisher;
 using ExtraExplosives.Items.Armors.TunnelRat;
 using ExtraExplosives.Projectiles.Weapons.DutchmansBlaster;
+using ExtraExplosives.Projectiles.Weapons.NovaBuster;
+using ExtraExplosives.Items.Explosives;
 
 namespace ExtraExplosives
 {
@@ -51,7 +53,7 @@ namespace ExtraExplosives
 		public static Vector2 NukePos;
 		public static bool NukeHit;
 
-		public static int bossDropDynamite; 
+		public static int bossDropDynamite;
 
 		internal static float dustAmount;
 		internal UserInterface ExtraExplosivesUserInterface;
@@ -86,6 +88,7 @@ namespace ExtraExplosives
 		internal static int[] avoidList = new int[25];
 		internal static int[] _doNotDuplicate;
 		internal static int[] _tooltipWhitelist;
+		internal static int[] disclaimerTooltip;
 
 		// Create the item to item id reference (used with cpt explosive) Needs to stay loaded
 		public ExtraExplosives()
@@ -260,7 +263,7 @@ namespace ExtraExplosives
 				bossChecklist.Call("AddBoss", 6, ModContent.NPCType<CaptainExplosiveBoss>(), this, "Captain Explosive", (Func<bool>)(() => ExtraExplosivesPlayer.BossCheckDead), ModContent.ItemType<Unhinged_Letter>(), ModContent.ItemType<BombHat>(), ModContent.ItemType<CaptainExplosiveTreasureBag>(), $"Kill King Slime or use an [i:{ModContent.ItemType<Unhinged_Letter>()}]");
 			}
 
-			_tooltipWhitelist = new int[] //Whitelist for the (Bombard Item) tag at the end of bombard items. Not all items use the Explosive Item class or else I would just use it.
+			_tooltipWhitelist = new int[] //Whitelist for the (Bombard Item) tag at the end of bombard items.
             {
                 //armors
                 ModContent.ItemType<AsteroidMiner_B>(),
@@ -357,7 +360,7 @@ namespace ExtraExplosives
 			};
 
 
-			_doNotDuplicate = new int[]    // Added here because the compile order is annoying, and i hate it
+			_doNotDuplicate = new int[]
             {
 				ModContent.ProjectileType<HouseBombProjectile>(),
 				ModContent.ProjectileType<TheLevelerProjectile>(),
@@ -369,14 +372,14 @@ namespace ExtraExplosives
 				ModContent.ProjectileType<AtomBombProjectile>()
 			};
 
-			avoidList = new int[] //not a recipe just need it to load in once everything else loads in
+			avoidList = new int[]
 			{
 						ModContent.ProjectileType<BossArmorBreakBombProjectile>(),
 						ModContent.ProjectileType<BossChillBombProjectile>(),
 						ModContent.ProjectileType<BossDazedBombProjectile>(),
 						ModContent.ProjectileType<BossFireBombProjectile>(),
 						ModContent.ProjectileType<BossGooBombProjectile>(),
-						ModContent.ProjectileType<ExplosionDamageProjectileEnemy>(), //A bit outdated but still needs to stay in for now until someone changes it.
+						ModContent.ProjectileType<ExplosionDamageProjectileEnemy>(), 
 						ProjectileID.BombSkeletronPrime,
 						ProjectileID.DD2GoblinBomb,
 						ProjectileID.HappyBomb,
@@ -408,6 +411,14 @@ namespace ExtraExplosives
 						ProjectileID.ProximityMineII,
 						ProjectileID.ProximityMineIII,
 						ProjectileID.ProximityMineIV,
+						ProjectileID.Grenade, //Might come back later -----------
+						ProjectileID.GrenadeI,
+						ProjectileID.GrenadeII,
+						ProjectileID.GrenadeIII,
+						ProjectileID.GrenadeIV,
+						ProjectileID.BouncyGrenade,
+						ProjectileID.PartyGirlGrenade,
+						ProjectileID.StickyGrenade,//----------------------------
 						ModContent.ProjectileType<DynaglowmiteProjectile>(),
 						ModContent.ProjectileType<CleanBombProjectile>(),
 						ModContent.ProjectileType<CleanBombExplosionProjectile>(),
@@ -422,9 +433,41 @@ namespace ExtraExplosives
 						ProjectileID.Beenade,
 						ProjectileID.Explosives,
 						ProjectileID.DD2GoblinBomb,
-						ModContent.ProjectileType<DutchmansBlasterProjectile>()
+						ModContent.ProjectileType<DutchmansBlasterProjectile>(),
+						ModContent.ProjectileType<NovaBusterProjectile>(),
+						ModContent.ProjectileType<HealBombProjectile>(),
+						ModContent.ProjectileType<BiomeCleanerProjectile>()
 
 			};
+
+			disclaimerTooltip = new int[]
+			{ 
+				ModContent.ItemType<HouseBombItem>(),
+				ModContent.ItemType<CritterBombItem>(),
+				ModContent.ItemType<BunnyiteItem>(),
+				ModContent.ItemType<BreakenTheBankenItem>(),
+				ModContent.ItemType<DaBombItem>(),
+				ModContent.ItemType<ArenaBuilderItem>(),
+				ModContent.ItemType<ReforgeBombItem>(),
+				ModContent.ItemType<TornadoBombItem>(),
+				ModContent.ItemType<HellavatorItem>(),
+				ModContent.ItemType<InfinityBombItem>(),
+				ModContent.ItemType<LandBridgeItem>(),
+				ModContent.ItemType<BoomBoxItem>(),
+				ModContent.ItemType<FlashbangItem>(),
+				ModContent.ItemType<DynaglowmiteItem>(),
+				ModContent.ItemType<CleanBombItem>(),
+				ModContent.ItemType<RainboomItem>(),
+				ModContent.ItemType<TrollBombItem>(),
+				ModContent.ItemType<TorchBombItem>(),
+				ModContent.ItemType<HydromiteItem>(),
+				ModContent.ItemType<LavamiteItem>(),
+				ModContent.ItemType<DeliquidifierItem>(),
+				ModContent.ItemType<BulletBoomItem>(),
+				ModContent.ItemType<HealBomb>(),
+				ModContent.ItemType<BiomeCleanerItem>()
+			};
+
 
 			base.PostSetupContent();
 		}

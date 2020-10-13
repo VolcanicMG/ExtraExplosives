@@ -508,7 +508,7 @@ namespace ExtraExplosives
 				(int)Main.LocalPlayer.velocity.Y != 0)
 			{
 				novaBoostRechargeDelay = 300;
-				player.velocity *= 3;
+				player.velocity *= 1.8f;
 				boosting = true;
 			}
 
@@ -681,6 +681,13 @@ namespace ExtraExplosives
 			if (CertificateOfDemolition) RadiusMulti += 0.5f;
 
 			if(surstromming) DamageMulti += 0.5f;
+
+			if(novaBooster)
+			{
+				Lighting.AddLight(player.position, new Vector3(1f, 1f, 1f));
+				Lighting.maxX = 1;
+				Lighting.maxY = 1;
+			}
 		}
 
 		private SpriteEffects effect;
@@ -723,7 +730,7 @@ namespace ExtraExplosives
 						mp.wingFrame = 0;
 					}
 				}
-
+				
 				int drawX = (int)(info.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
 				int drawY = (int)(info.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y);
 

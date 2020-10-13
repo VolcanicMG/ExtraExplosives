@@ -55,7 +55,7 @@ namespace ExtraExplosives.Projectiles.Weapons.NovaBuster
             foreach (NPC npc in Main.npc)
             {
                 float dist = Vector2.Distance(npc.Center, projectile.Center);
-                if (dist / 16f <= radius)
+                if (dist / 16f <= radius && !npc.friendly)
                 {
                     int dir = (dist > 0) ? 1 : -1;
                     npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);

@@ -77,9 +77,11 @@ namespace ExtraExplosives.Projectiles
 				{
 					int xPosition = x;
 					int yPosition = (int)(-y + position.Y / 16.0f);
-					
+
+					Tile tile = Framing.GetTileSafely(xPosition, yPosition);
+
 					//The following happens whether the block is breakable or not as the following methods cannot break or replace blocks that already exist.
-					if (!OutOfBounds(xPosition, yPosition))
+					if (!OutOfBounds(xPosition, yPosition) && !tile.active())
 					{
 						//Breaks Liquid
 						Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;

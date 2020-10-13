@@ -76,7 +76,7 @@ namespace ExtraExplosives.Items.Weapons
                 position += muzzleOffset;
             }
 
-            Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<DutchmansBlasterProjectile>(), (int)((damage + 3000 + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
+            Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<DutchmansBlasterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
 
             return false; // return false because we don't want tmodloader to shoot projectile
         }

@@ -67,7 +67,7 @@ namespace ExtraExplosives.Projectiles
 
 			Player player = Main.player[projectile.owner];
 
-			if (!Main.mouseLeft)
+			if (!Main.mouseLeft && projectile.timeLeft <= 940)
 			{
 				phaseSoundInstance.Stop(true);
 				projectile.Kill();

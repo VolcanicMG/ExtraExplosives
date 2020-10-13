@@ -124,6 +124,12 @@ namespace ExtraExplosives.Projectiles
 							tile.ClearTile();
 							tile.active(false);
 
+							if (Main.netMode == NetmodeID.MultiplayerClient)
+							{
+								WorldGen.SquareTileFrame(xPosition, yPosition, true); //Updates Area
+								NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
+							}
+
 							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
 						}
 					}
