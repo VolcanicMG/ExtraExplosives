@@ -63,7 +63,7 @@ namespace ExtraExplosives.Items.Weapons
         {
             return new Vector2(-16, 0);
         }
-        
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
@@ -81,7 +81,7 @@ namespace ExtraExplosives.Items.Weapons
                 // If you want to randomize the speed to stagger the projectiles
                 // float scale = 1f - (Main.rand.NextFloat() * .3f);
                 // perturbedSpeed = perturbedSpeed * scale; 
-                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileID.GrenadeII, damage, knockBack, player.whoAmI);
             }
             return false;
         }

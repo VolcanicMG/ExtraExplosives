@@ -13,7 +13,7 @@ namespace ExtraExplosives.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snipesploder");
+            DisplayName.SetDefault("Snipesploder(WIP)");
             Tooltip.SetDefault("Arrows are for chumps");
         }
 
@@ -68,23 +68,23 @@ namespace ExtraExplosives.Items.Weapons
 
         public override bool CanUseItem(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<SnipesploderProjectile>()] <= 0;
 
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.IronBow, 1);
-            recipe.AddIngredient(ItemID.Wood, 20);
-            recipe.AddIngredient(ItemID.Dynamite, 1);
-            recipe.anyWood = true;
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+        //public override void AddRecipes()
+        //{
+        //    ModRecipe recipe = new ModRecipe(mod);
+        //    recipe.AddIngredient(ItemID.IronBow, 1);
+        //    recipe.AddIngredient(ItemID.Wood, 20);
+        //    recipe.AddIngredient(ItemID.Dynamite, 1);
+        //    recipe.anyWood = true;
+        //    recipe.SetResult(this);
+        //    recipe.AddRecipe();
             
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.LeadBow, 1);
-            recipe.AddIngredient(ItemID.Wood, 20);
-            recipe.AddIngredient(ItemID.Dynamite, 1);
-            recipe.anyWood = true;
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
+        //    recipe = new ModRecipe(mod);
+        //    recipe.AddIngredient(ItemID.LeadBow, 1);
+        //    recipe.AddIngredient(ItemID.Wood, 20);
+        //    recipe.AddIngredient(ItemID.Dynamite, 1);
+        //    recipe.anyWood = true;
+        //    recipe.SetResult(this);
+        //    recipe.AddRecipe();
+        //}
     }
 }

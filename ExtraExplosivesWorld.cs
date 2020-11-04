@@ -84,20 +84,20 @@ namespace ExtraExplosives
 
         public override void PostWorldGen()
         {
-            int[] itemsToPlaceInIceChests = {ModContent.ItemType<CoralKrakSlinger>()};
+            int[] itemsToPlaceInWaterChests = {ModContent.ItemType<CoralKrakSlinger>()};
             int itemToPlaceInChestChoice = 0;
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
             {
                 Chest chest = Main.chest[chestIndex];
                 if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers &&
-                    Main.tile[chest.x, chest.y].frameX == 11 * 36)
+                    Main.tile[chest.x, chest.y].frameX == 17 * 36 && Main.rand.NextFloat() < 0.2f)
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
                         if (chest.item[inventoryIndex].type == ItemID.None)
                         {
-                            chest.item[inventoryIndex].SetDefaults(itemsToPlaceInIceChests[itemToPlaceInChestChoice]);
-                            itemToPlaceInChestChoice = (itemToPlaceInChestChoice + 1) % itemsToPlaceInIceChests.Length;
+                            chest.item[inventoryIndex].SetDefaults(itemsToPlaceInWaterChests[itemToPlaceInChestChoice]);
+                            itemToPlaceInChestChoice = (itemToPlaceInChestChoice + 1) % itemsToPlaceInWaterChests.Length;
                             break;
                         }
                     }

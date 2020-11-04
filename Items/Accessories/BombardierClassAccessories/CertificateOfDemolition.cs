@@ -18,7 +18,7 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
         public override void SetDefaults()
         {
             item.accessory = true;
-            item.value = 5000;
+            item.value = Item.buyPrice(1,0,0,0);
             item.rare = ItemRarityID.Orange;
             item.consumable = false;
         }

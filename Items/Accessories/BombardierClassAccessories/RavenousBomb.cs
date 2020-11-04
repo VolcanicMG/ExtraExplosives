@@ -24,5 +24,15 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
         {
             player.EE().RavenousBomb = true;
         }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ModContent.ItemType<FleshyBlastingCaps>(), 1);
+            recipe.AddIngredient(ItemID.PlanteraMask, 1);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

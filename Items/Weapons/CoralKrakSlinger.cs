@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items.Weapons
             item.useAmmo = AmmoID.Rocket;
             item.width = 26;
             item.height = 38;
-            item.shoot = 133;
+            item.shoot = ProjectileID.Grenade;
             item.UseSound = SoundID.Item11;
             item.damage = 12;
             item.shootSpeed = 5;
@@ -33,7 +33,7 @@ namespace ExtraExplosives.Items.Weapons
             item.knockBack = 4f;
             item.rare = ItemRarityID.Blue;
         }
-        
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
@@ -58,7 +58,19 @@ namespace ExtraExplosives.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            return true;
+
+            Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.GrenadeI, damage, knockBack, player.whoAmI);
+            return false;
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Coral, 6);
+            recipe.AddIngredient(ItemID.Gel, 5);
+            recipe.AddTile(TileID.WorkBenches);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

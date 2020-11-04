@@ -405,7 +405,7 @@ namespace ExtraExplosives
 			RadiatedDebuff = false;
 		}
 
-		public override void UpdateBadLifeRegen()
+        public override void UpdateBadLifeRegen()
 		{
 			if (RadiatedDebuff)
 			{

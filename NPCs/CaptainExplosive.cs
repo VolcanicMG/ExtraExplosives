@@ -1,3 +1,4 @@
+using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
 using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Items.Pets;
 using Microsoft.Xna.Framework;

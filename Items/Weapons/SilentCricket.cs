@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Silent Cricket");
+            DisplayName.SetDefault("Silent Cricket(WIP)");
             Tooltip.SetDefault("I feel like imma break this damn thing!");
         }
 

@@ -1,6 +1,9 @@
 using ExtraExplosives.Items;
 using ExtraExplosives.Items.Accessories.AnarchistCookbook;
+using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
+using ExtraExplosives.Items.Accessories.ChaosBomb;
 using ExtraExplosives.Items.Explosives;
+using ExtraExplosives.Items.Rockets;
 using ExtraExplosives.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -50,9 +53,13 @@ namespace ExtraExplosives.NPCs
 			{
 				// Bosses
 				case NPCID.WallofFlesh:
-					if (Main.rand.NextFloat() < 0.10210526f)
+					if (Main.rand.NextFloat() < 0.20210526f)
 					{
 						Item.NewItem(npc.position, new Vector2(32,32), ModContent.ItemType<MinerainLauncher>(), 1);
+					}
+					if (Main.rand.NextFloat() < 0.10210526f)
+					{
+						Item.NewItem(npc.position, new Vector2(32, 32), ModContent.ItemType<FleshyBlastingCaps>(), 1);
 					}
 					break;
 				case NPCID.PirateShip:
@@ -103,12 +110,30 @@ namespace ExtraExplosives.NPCs
 						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<Blunderboom>(), 1);
 					}
 					break;
-				case NPCID.RayGunner:
-					if (Main.rand.Next(100) == 0)
+				case NPCID.Golem:
+					if (Main.rand.NextFloat() < 0.15021f)
 					{
-						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<SilentCricket>(), 1);
+						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<LihzahrdFuzeset>(), 1);
 					}
 					break;
+				case NPCID.MartianSaucer:
+					if (Main.rand.NextFloat() < 0.15021f)
+					{
+						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<AlienExplosive>(), 1);
+					}
+					break;
+				case NPCID.DungeonSpirit:
+					if (Main.rand.NextFloat() < 0.15021f)
+					{
+						Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<SupernaturalBomb>(), 1);
+					}
+					break;
+				//case NPCID.RayGunner:
+				//	if (Main.rand.Next(100) == 0)
+				//	{
+				//		Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<SilentCricket>(), 1);
+				//	}
+				//	break;
 				default:
 					break;
 			}
@@ -125,11 +150,22 @@ namespace ExtraExplosives.NPCs
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<MediumExplosiveItem>());
 				nextSlot++;
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<LargeExplosiveItem>());
+				nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<Rocket0>());
+				nextSlot++;
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<BombardsPouch>());
 
-				if(NPC.downedSlimeKing)
+				if (NPC.downedSlimeKing)
 				{
 					nextSlot++;
 					shop.item[nextSlot].SetDefaults(ModContent.ItemType<Unhinged_Letter>());
+					nextSlot++;
+					shop.item[nextSlot].SetDefaults(ModContent.ItemType<Rocket0Point5>());
+				}
+				if(NPC.downedFishron)
+                {
+					nextSlot++;
+					shop.item[nextSlot].SetDefaults(ModContent.ItemType<CertificateOfDemolition>());
 				}
 			}
 			else if (type == NPCID.TravellingMerchant)
@@ -147,6 +183,11 @@ namespace ExtraExplosives.NPCs
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<PotatoItem>());
 				nextSlot++;
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpongeItem>());
+				nextSlot++;
+			}
+			else if(type == NPCID.Truffle)
+            {
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<Bombshroom>());
 				nextSlot++;
 			}
 		}

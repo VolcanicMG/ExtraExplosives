@@ -25,5 +25,15 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
             player.EE().BombersHat = true;
             player.EE().CertificateOfDemolition = true;
         }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ModContent.ItemType<BombHat>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<CertificateOfDemolition>(), 1);
+            recipe.AddTile(TileID.TinkerersWorkbench);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

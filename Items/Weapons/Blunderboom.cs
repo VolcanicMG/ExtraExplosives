@@ -22,7 +22,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            item.damage = 13;
+            item.damage = 26;
             item.width = 78;
             item.height = 32;
             item.useTime = 45;
@@ -112,9 +112,10 @@ namespace ExtraExplosives.Items.Weapons
                 case 771:    // Rocket
                     Main.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
                         (int)player.position.X, (int) player.position.Y);
+                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.GrenadeIII, damage, knockBack, player.whoAmI);
                     break;
             }
-            return true;
+            return false;
         }
 
         public override bool AltFunctionUse(Player player)
@@ -141,7 +142,7 @@ namespace ExtraExplosives.Items.Weapons
                 item.useTime = 45;
                 item.useAnimation = 45;
                 item.shootSpeed = 11;
-                item.damage = 13;
+                item.damage = 26;
                 item.knockBack = 2.5f;
                 item.ranged = true;
                 Explosive = false;

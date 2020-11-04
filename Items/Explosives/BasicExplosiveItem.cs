@@ -52,12 +52,21 @@ namespace ExtraExplosives.Items.Explosives
 			recipe.AddRecipe();
 
 			ModRecipe recipe2 = new ModRecipe(mod);
-			recipe2.AddIngredient(ItemID.CopperBar, 5);
+			recipe2.AddIngredient(ItemID.CopperBar, 2);
 			recipe2.AddIngredient(ItemID.Gel, 7);
 			recipe2.AddIngredient(ItemID.StoneBlock, 2);
 			recipe2.AddIngredient(ItemID.Torch, 1);
 			recipe2.AddTile(TileID.WorkBenches);
-			recipe2.SetResult(this);
+			recipe2.SetResult(this, 2);
+			recipe2.AddRecipe();
+
+			recipe2 = new ModRecipe(mod);
+			recipe2.AddIngredient(ItemID.TinBar, 2);
+			recipe2.AddIngredient(ItemID.Gel, 7);
+			recipe2.AddIngredient(ItemID.StoneBlock, 2);
+			recipe2.AddIngredient(ItemID.Torch, 1);
+			recipe2.AddTile(TileID.WorkBenches);
+			recipe2.SetResult(this, 2);
 			recipe2.AddRecipe();
 		}
 	}

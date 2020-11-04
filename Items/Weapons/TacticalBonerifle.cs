@@ -93,10 +93,12 @@ namespace ExtraExplosives.Items.Weapons
                 case 97:    // Bullet
                     Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                         (int) player.position.X, (int) player.position.Y);
+                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI);
                     break;
                 case 771:    // Rocket
                     Main.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
                         (int)player.position.X, (int) player.position.Y);
+                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.Grenade, damage, knockBack, player.whoAmI);
                     break;
                 default:
                     mod.Logger.InfoFormat("Something went wrong {0}", item.useAmmo);
@@ -108,7 +110,7 @@ namespace ExtraExplosives.Items.Weapons
                 position += muzzleOffset;
                 position.Y -= 6;
             }
-            return true;
+            return false;
         }
 
         public override bool CanUseItem(Player player)
