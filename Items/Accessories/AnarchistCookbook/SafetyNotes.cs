@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         {
             DisplayName.SetDefault("Safety Notes");
             Tooltip.SetDefault("Prevents self damage from friendly explosives\n" +
-                               "Increased damage output and defence");
+                               "Increased damage output by 10%");
         }
         
 

@@ -176,8 +176,11 @@ namespace ExtraExplosives.Projectiles
 							}
 							else
 							{
-								tile.ClearTile();
-								tile.active(false); 
+								if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type))
+								{
+									tile.ClearTile();
+									tile.active(false);
+								}
 
 								if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
 								{
@@ -226,8 +229,11 @@ namespace ExtraExplosives.Projectiles
 							{
 								if (Main.rand.Next(10) < spawnChance)
 								{
-									Main.tile[xPosition, yPosition].ClearTile();
-									Main.tile[xPosition, yPosition].active(false);
+									if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type))
+									{
+										Main.tile[xPosition, yPosition].ClearTile();
+										Main.tile[xPosition, yPosition].active(false);
+									}
 									if (WorldGen.TileEmpty(xPosition + 1, yPosition) || WorldGen.TileEmpty(xPosition - 1, yPosition) || WorldGen.TileEmpty(xPosition, yPosition + 1) || WorldGen.TileEmpty(xPosition, yPosition - 1))
 									{
 										WorldGen.PlaceTile(xPosition, yPosition, surfaceTile);
@@ -246,8 +252,11 @@ namespace ExtraExplosives.Projectiles
 							{
 								if (Main.rand.Next(10) < spawnChance)
 								{
-									Main.tile[xPosition, yPosition].ClearTile();
-									Main.tile[xPosition, yPosition].active(false);
+									if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type))
+									{
+										Main.tile[xPosition, yPosition].ClearTile();
+										Main.tile[xPosition, yPosition].active(false);
+									}
 									if (WorldGen.TileEmpty(xPosition + 1, yPosition) || WorldGen.TileEmpty(xPosition - 1, yPosition) || WorldGen.TileEmpty(xPosition, yPosition + 1) || WorldGen.TileEmpty(xPosition, yPosition - 1))
 									{
 										WorldGen.PlaceTile(xPosition, yPosition, surfaceTile);

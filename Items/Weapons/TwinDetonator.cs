@@ -13,7 +13,7 @@ namespace ExtraExplosives.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Twin Detonator");
-            Tooltip.SetDefault("Double the trouble.\n" +
+            Tooltip.SetDefault("'Double the trouble.'\n" +
                                "Launches a pair of grenades\n" +
                                "Consumes one rocket per volley");
         }
@@ -52,17 +52,17 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-8, 1);
         }
         
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
-            if (stats != null)
-            {
-                string[] split = stats.text.Split(' ');
-                string damageValue = split.First();
-                string damageWord = split.Last();
-                stats.text = damageValue + "x2 explosive " + damageWord;
-            }
-        }
+        //public override void ModifyTooltips(List<TooltipLine> tooltips)
+        //{
+        //    TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+        //    if (stats != null)
+        //    {
+        //        string[] split = stats.text.Split(' ');
+        //        string damageValue = split.First();
+        //        string damageWord = split.Last();
+        //        stats.text = damageValue + "x2 explosive " + damageWord;
+        //    }
+        //}
         
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {

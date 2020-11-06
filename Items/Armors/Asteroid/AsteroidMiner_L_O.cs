@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Asteroid
         {
             DisplayName.SetDefault("Orichalcum Asteroid Miner Legs");
             Tooltip.SetDefault("\n" +
-                "3% Bomb Damage and " +
+                "5% Increased Bomb Damage and " +
                 "6% Blast Radius");
         }
 
@@ -22,13 +22,13 @@ namespace ExtraExplosives.Items.Armors.Asteroid
             item.width = 18;
             item.value = Item.buyPrice(0, 0, 70, 50);
             item.rare = ItemRarityID.LightRed;
-            item.defense = 10;
+            item.defense = 11;
         }
 
         public override void UpdateEquip(Player player)
         {
             player.EE().RadiusMulti += .06f;
-            player.EE().DamageMulti += .03f;
+            player.EE().DamageMulti += .05f;
         }
 
         public override void AddRecipes()

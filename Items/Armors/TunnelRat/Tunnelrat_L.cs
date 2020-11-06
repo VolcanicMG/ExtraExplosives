@@ -10,6 +10,7 @@ namespace ExtraExplosives.Items.Armors.TunnelRat
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tunnel-rat Legs");
+            Tooltip.SetDefault("1% Increased Bomb Damage");
         }
 
         public override void SetDefaults()
@@ -24,7 +25,7 @@ namespace ExtraExplosives.Items.Armors.TunnelRat
 
         public override void UpdateEquip(Player player)
         {
-            
+            player.EE().DamageMulti += .01f;
         }
 
         public override void AddRecipes()

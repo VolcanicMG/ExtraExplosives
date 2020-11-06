@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
+using ExtraExplosives.Items.Rockets;
 
 namespace ExtraExplosives.Tiles
 {
@@ -15,6 +16,7 @@ namespace ExtraExplosives.Tiles
                 if (Main.rand.Next(15) + 1 == 1)
                 {
                     Item.NewItem(new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.ItemType<TwinDetonator>());
+                    Item.NewItem(new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.ItemType<Rocket0Point5>());
                     return false;
                 }
             }

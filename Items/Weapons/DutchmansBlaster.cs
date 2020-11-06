@@ -14,8 +14,8 @@ namespace ExtraExplosives.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dutchman's Blaster");
-            Tooltip.SetDefault("This belongs on a ship.\n" +
-                               "Sadly, pirates care little for rules.");
+            Tooltip.SetDefault("'This belongs on a ship.\n" +
+                               "Sadly, pirates care little for rules.'");
         }
 
         protected override string SoundLocation { get; } = "Sounds/Item/Weapons/DutchmansBlaster/DutchmansBlaster";

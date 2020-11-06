@@ -115,13 +115,17 @@ namespace ExtraExplosives
 
             if (Info != null && ExtraExplosives._tooltipWhitelist.Contains<int>(item.type))
             {
-
-                Info.text += "[c/AB40FF: (Bombard Item)]";
+                var Dis = new TooltipLine(mod, "", "(Bombard Item)");
+                Dis.overrideColor = Color.Purple;
+                //tooltips.Add(Dis);
+                tooltips.Insert(tooltips.Count - 1, Dis);
 
             }
             else if(Disclaimer != null && ExtraExplosives.disclaimerTooltip.Contains<int>(item.type))
             {
-                Disclaimer.text += "[c/FF0000: (Doesn't work with Extra Explosive trinkets)]";
+                var Dis = new TooltipLine(mod, "", "(Doesn't work with Extra Explosive trinkets)");
+                Dis.overrideColor = Color.Red;
+                tooltips.Add(Dis);
             }
             
         }

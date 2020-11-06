@@ -1,8 +1,15 @@
 [c/FF4500:EXTRA EXPLOSIVES]
-[c/00FF00:The Overhaul and Content Update! 3.0]
-Over that past few months, we totally redesigned the old and boring explosives that remained in the game. We decided to give a little love to bombs and explosion, with this new update you can now manage how some bombs work! We incorporated a class within the mod that takes explosions to a whole new level. Check it out! 
+[c/00FF00:The Overhaul and Content Update!]
+Over that past few months, we totally redesigned the old and boring explosives that remained in the game. We decided to give a little love to bombs and explosion, with this new update you can now manage how some bombs work! (Explosion lag is no more!) We incorporated a class within the mod that takes explosions to a whole new level. Check it out! 
 
-[c/FF4500:160 EXPLOSIVE ITEMS WITH UNIQUE ABILITIES] (Infinite possibilities with the bullet boom)
+Check out the changelog for a full list of changes and additions.
+
+[c/FF1234:Content:]
+-[c/cd2345:1 New Interesting Boss]
+-[c/aF8923:1 New Crazy Class]
+-[c/Fc9023:Multiple New Exciting Mechanics]
+-[c/FF4500:160 EXPLOSIVE ITEMS WITH UNIQUE ABILITIES]
+(∞ possibilities with the bullet boom) 
 
 Found an issue or a bug? Let us know on discord, our homepage, or through Mod Helper!
 [c/FF4578:Discord: https://discord.gg/UvwEDJ]

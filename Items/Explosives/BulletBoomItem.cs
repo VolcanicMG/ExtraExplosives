@@ -80,7 +80,7 @@ namespace ExtraExplosives.Items.Explosives
 		{
 			DisplayName.SetDefault(" Bullet Boom");    // Name
 			
-			Tooltip.SetDefault("Who said a gun is the only thing that can shoot a bullet? \n" +
+			Tooltip.SetDefault("'Who said a gun is the only thing that can shoot a bullet?' \n" +
 			                   "Blows up upon touching a block.");
 		}
 

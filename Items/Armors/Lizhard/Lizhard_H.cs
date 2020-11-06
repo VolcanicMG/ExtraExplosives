@@ -13,7 +13,7 @@ namespace ExtraExplosives.Items.Armors.Lizhard
         {
             DisplayName.SetDefault("Lizhard Bombard Helm");
             Tooltip.SetDefault("\n" +
-                "10% Bomb Damage and 8% Blast Radius\n");
+                "10% Increased Bomb Damage and 8% Blast Radius\n");
         }
 
         public override void SetDefaults()
@@ -33,10 +33,10 @@ namespace ExtraExplosives.Items.Armors.Lizhard
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = "\n" +
-                "8% Bomb Damage\n" +
-                "6% Blast Radius\n" +
-                "7% damage\n" +
-                "8% critical strike chance\n" +
+                "8% Increased Bomb Damage\n" +
+                "6% Increased Blast Radius\n" +
+                "7% Increased Damage\n" +
+                "8% Increased Critical Strike Chance\n" +
                 "Press "+ ExtraExplosives.TriggerLizhard.GetAssignedKeys(InputMode.Keyboard)[0] + " to fire a spread of 7 sun rockets \n 10s Cooldown";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .08f;

@@ -23,7 +23,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Infinity Bomb");
-            Tooltip.SetDefault("No wait it gets better\n" +
+            Tooltip.SetDefault("'No wait it gets better'\n" +
                                "Right Click to disable its growth");
             
         }
@@ -61,8 +61,8 @@ namespace ExtraExplosives.Items.Explosives
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var multiplerTooltip = new TooltipLine(mod, "Multiplier", $"Its become {multiplier} times more powerful\n" +
-                                                                      $"Its {growing}currently growing");
+            var multiplerTooltip = new TooltipLine(mod, "Multiplier", $"It has become {multiplier} times more powerful\n" +
+                                                                      $"It is {growing}currently growing");
             multiplerTooltip.overrideColor = Color.Crimson;
             tooltips.Add(multiplerTooltip);
         }

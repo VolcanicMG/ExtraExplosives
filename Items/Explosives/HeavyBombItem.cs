@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Explosives
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Heavy Bomb");
-			Tooltip.SetDefault("This bomb is heavy. How can you even hold it???");
+			Tooltip.SetDefault("'This bomb is heavy. How can you even hold it???'");
 		}
 
 		public override void SafeSetDefaults()

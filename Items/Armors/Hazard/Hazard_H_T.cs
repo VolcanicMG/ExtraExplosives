@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Hazard
         {
             DisplayName.SetDefault("Titanium Hazard Demolisher Helm");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage and Blast Radius\n");
+                "7% Increased Bomb Damage and Blast Radius\n");
         }
 
         public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace ExtraExplosives.Items.Armors.Hazard
             item.width = 18;
             item.value = Item.buyPrice(0, 0, 80, 50);
             item.rare = ItemRarityID.LightRed;
-            item.defense = 12;
+            item.defense = 14;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -32,11 +32,11 @@ namespace ExtraExplosives.Items.Armors.Hazard
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = "\n" +
-                "6% Bomb Damage\n" +
-                "6% Blast Radius\n" +
-                "7% damage\n" +
-                "3% critical strike chance\n" +
-                "25% chance to drop ores twice on bomb explosion (EE bombs only)";
+                "6% Increased Bomb Damage\n" +
+                "6% Increased Blast Radius\n" +
+                "7% Increased Damage\n" +
+                "6% Increased Critical Strike Chance\n" +
+                "25% chance to drop ores twice on bomb explosion";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .06f;
             player.allDamage += .07f;
@@ -47,8 +47,8 @@ namespace ExtraExplosives.Items.Armors.Hazard
 
         public override void UpdateEquip(Player player)
         {
-            player.EE().RadiusMulti += .06f;
-            player.EE().DamageMulti += .06f;
+            player.EE().RadiusMulti += .07f;
+            player.EE().DamageMulti += .07f;
         }
 
         public override void AddRecipes()

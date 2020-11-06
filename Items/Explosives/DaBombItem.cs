@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Explosives
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Da Bomb");
-			Tooltip.SetDefault("You are the bomb");
+			Tooltip.SetDefault("'You are the bomb'");
 		}
 
 		public override void SafeSetDefaults()

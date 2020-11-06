@@ -39,8 +39,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine ColoredTooltip = new TooltipLine(mod, "ExtraTooltip", $"The death of a star\n" +
-                                                                              $"Compressed into a single weapon");
+            TooltipLine ColoredTooltip = new TooltipLine(mod, "ExtraTooltip", $"'The death of a star compressed into a single weapon'");
             ColoredTooltip.overrideColor = Color.Chartreuse;
             tooltips.Add(ColoredTooltip);
             
@@ -87,7 +86,7 @@ namespace ExtraExplosives.Items.Weapons
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.LunarBar, 12);
             recipe.AddIngredient(ItemID.FragmentSolar, 10);
-            recipe.AddIngredient(ItemID.LihzahrdPowerCell, 5);
+            recipe.AddIngredient(ItemID.LihzahrdPowerCell, 2);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();

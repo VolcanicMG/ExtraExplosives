@@ -9,7 +9,7 @@ namespace ExtraExplosives.Buffs
 	{
 		public override void SetDefaults()
 		{
-			DisplayName.SetDefault("Fuse-Eel Surströmming");
+			DisplayName.SetDefault("Fuse-Eel Surstromming");
 			Description.SetDefault("Explosive damage up!");
 			Main.debuff[Type] = false;
 			Main.buffNoSave[Type] = false;

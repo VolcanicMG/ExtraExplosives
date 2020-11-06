@@ -85,25 +85,30 @@ namespace ExtraExplosives.Projectiles
 			{
 				for (int y = 0; y <= height; y++)
 				{
-					int xPosition = (int)(x + position.X / 16.0f);
-					int yPosition = (int)(y + position.Y / 16.0f);
+					int i = (int)(x + position.X / 16.0f);
+					int j = (int)(y + position.Y / 16.0f);
 
-					if (WorldGen.InWorld(xPosition, yPosition))
+					Tile tile = Framing.GetTileSafely(i, j);
+					if (WorldGen.InWorld(i, j))
 					{
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+						ushort tileP = tile.type;
+						if (!CanBreakTile(tileP, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
 						{
 						}
 						else //Breakable
 						{
-							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
-							if (CanBreakWalls && y - 1 != height) WorldGen.KillWall(xPosition + 1, yPosition + 1, false); //Break the last bit of wall
-							NetMessage.SendTileSquare(-1, xPosition, yPosition, 1);
+							if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type))
+							{
+								tile.ClearTile();
+								tile.active(false);
+							}
+							if (CanBreakWalls) WorldGen.KillWall(i, j, false); //This destroys Walls
+							if (CanBreakWalls && y - 1 != height) WorldGen.KillWall(i + 1, j + 1, false); //Break the last bit of wall
+							NetMessage.SendTileSquare(-1, i, j, 1);
 						}
 
-						Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water; //This destroys liquids
-						WorldGen.SquareTileFrame(xPosition, yPosition, true); //Updates Area
+						Main.tile[i, j].liquid = Tile.Liquid_Water; //This destroys liquids
+						WorldGen.SquareTileFrame(i, j, true); //Updates Area
 					}
 				}
 			}

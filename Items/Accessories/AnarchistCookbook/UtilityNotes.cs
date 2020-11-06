@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Utility Notes");
-            Tooltip.SetDefault("Minor increase to damage and crit chance\n" +
+            Tooltip.SetDefault("10% Increase to Damage and Crit Chance\n" +
                                "Explosives leave behind a glowing aura");
         }
 

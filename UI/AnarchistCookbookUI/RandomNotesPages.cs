@@ -61,7 +61,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             leftPage.Append(RandomFuelDescription);
             leftPage.Append(RandomFuelHeader);
 
-            CookbookHeader ShortFuzeHeader = new CookbookHeader("Short Fuze");
+            CookbookHeader ShortFuzeHeader = new CookbookHeader("Short Fuse");
             ShortFuzeHeader.HAlign = 0.65f;
             ShortFuzeHeader.Top.Pixels = -20;
             ShortFuzeHeader.TextColor = Color.LightGray;
@@ -72,8 +72,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ShortFuzeFlavorText.TextColor = Color.Orange;
             ShortFuzeHeader.Append(ShortFuzeFlavorText);
             
-            UIText ShortFuzeDescription = new UIText("Allows for changing the fuze\n" +
-                                                           "length for most  explosives\n");
+            UIText ShortFuzeDescription = new UIText("Allows for changing the fuse\n" +
+                                                           "length for most explosives\n");
             ShortFuzeDescription.Top.Pixels = 40;
             ShortFuzeDescription.HAlign = 0.85f;
             ShortFuzeDescription.Left.Pixels = -20;
@@ -144,7 +144,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                 RandomFuel.VAlign = 0.5f;
                 RandomFuel.HAlign = 0.5f;
                 ToggleRandomFuel.Append(RandomFuel);    // Image of Random fuel for labeling
-            ToggleRandomFuel.Left.Pixels = 50;
+            ToggleRandomFuel.Left.Pixels = 25;
             ToggleRandomFuel.Top.Pixels = rightPage.Height.Pixels/2 - 100;
             ToggleRandomFuel.OnClick += new MouseEvent(RandomFuelToggle);
             leftPage.Append(ToggleRandomFuel);
@@ -308,7 +308,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                 float bounds = (float)Math.Round((FuseSliderBar.value - 5) / 87.5f + 0.5f, 2);
                 if (bounds > 2) bounds = 2;
                 string text = (bounds < 1 ? " shorter" : " longer");
-                FuseOut = new UIText($"Fuze is {bounds} times" + text);
+                FuseOut = new UIText($"Fuse is {bounds} times" + text);
                 FuseOut.VAlign = 1f;
                 FuseOut.HAlign = 0.5f;
                 FuseOut.Top.Pixels = 25;

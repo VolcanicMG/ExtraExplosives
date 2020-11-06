@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fleshy Blasting Caps");
-            Tooltip.SetDefault("Why is it sticky\n" +
+            Tooltip.SetDefault("'Why is it sticky'\n" +
                                "Bombs gain a small amount of lifesteal");
         }
 

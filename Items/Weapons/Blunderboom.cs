@@ -77,7 +77,7 @@ namespace ExtraExplosives.Items.Weapons
             
             string firemode = (item.useAmmo == AmmoID.Bullet ? "Shotgun" : "Explosive");
             var fireModeUseTip = new TooltipLine(mod, "Firemode", $"Fire Mode: {firemode}");
-            fireModeUseTip.overrideColor = Color.Brown;
+            fireModeUseTip.overrideColor = Color.Tan;
             tooltips.Add(fireModeUseTip);
         }
 
@@ -133,7 +133,8 @@ namespace ExtraExplosives.Items.Weapons
                 item.knockBack = 7;
                 item.ranged = false;
                 Explosive = true;
-                Main.NewText("Loaded with gunpowder");
+                //Main.NewText("Loaded with gunpowder");
+                Main.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
             else
             {
@@ -146,7 +147,9 @@ namespace ExtraExplosives.Items.Weapons
                 item.knockBack = 2.5f;
                 item.ranged = true;
                 Explosive = false;
-                Main.NewText("Loaded with shrapnel");
+                // Main.NewText("Loaded with shrapnel");
+                Main.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+
             }
             return false;
         }

@@ -12,8 +12,8 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
         {
             DisplayName.SetDefault("Heavy Automated Bombard Legs");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage and 8% Blast Radius\n" +
-                "10% movement speed");
+                "7% Increased Bomb Damage and 8% Blast Radius\n" +
+                "10% Increased Movement Speed");
         }
 
         public override void SetDefaults()
@@ -28,7 +28,7 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
         public override void UpdateEquip(Player player)
         {
             player.EE().RadiusMulti += .08f;
-            player.EE().DamageMulti += .06f;
+            player.EE().DamageMulti += .07f;
             player.moveSpeed += .1f;
         }
 

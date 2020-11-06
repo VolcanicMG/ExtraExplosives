@@ -11,9 +11,8 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bombshroom");
-            Tooltip.SetDefault("Its an explosive mushroom,\n" +
-                               "what more could you want?\n" +
-                               "Bombs inflict the Venom Debuff");
+            Tooltip.SetDefault("'It's an explosive mushroom, what more could you want?'\n" +
+                               "Bombs inflict Venom");
         }
         
         public override void ModifyTooltips(List<TooltipLine> tooltips)

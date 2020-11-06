@@ -10,10 +10,10 @@ namespace ExtraExplosives.Items.Armors.Hazard
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Titanium  Hazard Demolisher Legs");
+            DisplayName.SetDefault("Titanium Hazard Demolisher Legs");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage and Blast Radius\n" +
-                "5% movement speed");
+                "7% Increased Bomb Damage and Blast Radius\n" +
+                "6% Increased Movement Speed");
         }
 
         public override void SetDefaults()
@@ -22,14 +22,14 @@ namespace ExtraExplosives.Items.Armors.Hazard
             item.width = 18;
             item.value = Item.buyPrice(0, 0, 80, 50);
             item.rare = ItemRarityID.LightRed;
-            item.defense = 13;
+            item.defense = 15;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.EE().RadiusMulti += .06f;
-            player.EE().DamageMulti += .06f;
-            player.moveSpeed += .05f;
+            player.EE().RadiusMulti += .07f;
+            player.EE().DamageMulti += .07f;
+            player.moveSpeed += .06f;
         }
 
         public override void AddRecipes()

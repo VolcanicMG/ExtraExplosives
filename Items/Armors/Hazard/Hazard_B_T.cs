@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Hazard
         {
             DisplayName.SetDefault("Titanium Hazard Demolisher Body");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage and Blast Radius\n");
+                "7% Increased Bomb Damage and Blast Radius\n");
         }
 
         public override void SetDefaults()
@@ -21,13 +21,13 @@ namespace ExtraExplosives.Items.Armors.Hazard
             item.width = 18;
             item.value = Item.buyPrice(0, 0, 80, 50);
             item.rare = ItemRarityID.LightRed;
-            item.defense = 18;
+            item.defense = 20;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.EE().RadiusMulti += .06f;
-            player.EE().DamageMulti += .06f;
+            player.EE().RadiusMulti += .07f;
+            player.EE().DamageMulti += .07f;
         }
 
         public override void AddRecipes()

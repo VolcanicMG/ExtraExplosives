@@ -41,8 +41,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             BombBagFlavorText.TextColor = Color.GreenYellow;
             BombBagHeader.Append(BombBagFlavorText);
             
-            UIText BombBagDescription = new UIText("Chance  to  throw a  second\n" +
-                                                         "explosive at no addition cost");
+            UIText BombBagDescription = new UIText("Chance to throw a second\n" +
+                                                         "explosive at no additional cost");
             BombBagDescription.Top.Pixels = 40;
             BombBagDescription.HAlign = 0.69f;
             BombBagDescription.TextColor = Color.DarkGray;
@@ -164,6 +164,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                 MysteryBomb = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/MysteryBomb"));
                 MysteryBomb.VAlign = 0.5f;
                 MysteryBomb.HAlign = 0.5f;
+                MysteryBomb.ImageScale = .8f;
                 ToggleMysteryBomb.Append(MysteryBomb);    // Image of bomb bag for labeling
             ToggleMysteryBomb.Left.Pixels = 50;
             ToggleMysteryBomb.Top.Pixels = leftPage.Height.Pixels/2 - 100;

@@ -13,7 +13,7 @@ namespace ExtraExplosives.Items.Armors.Nova
         {
             DisplayName.SetDefault("Nova Bombard Helm");
             Tooltip.SetDefault("\n" +
-                "10% Bomb Damage and Blast Radius\n");
+                "10% Increased Bomb Damage and Blast Radius\n");
         }
 
         public override void SetDefaults()
@@ -34,7 +34,7 @@ namespace ExtraExplosives.Items.Armors.Nova
         {
 
             player.setBonus = "\n" +
-                "10% damage and critical strike chance\n" +
+                "10% Increased Damage and Critical Strike Chance\n" +
                 "Press " + ExtraExplosives.TriggerNovaBomb.GetAssignedKeys(InputMode.Keyboard)[0].ToString() + " to trigger a localized explosion on your character that \nwill knock enemies away from you and deal decent damage. 10s cooldown";
 
             player.EE().RadiusMulti += .06f;
@@ -54,7 +54,7 @@ namespace ExtraExplosives.Items.Armors.Nova
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.FragmentSolar, 10);
-            recipe.AddIngredient(ItemID.LihzahrdPowerCell, 5);
+            recipe.AddIngredient(ItemID.LihzahrdPowerCell, 2);
             recipe.AddIngredient(ItemID.LunarBar, 10);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);

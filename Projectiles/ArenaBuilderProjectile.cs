@@ -121,8 +121,11 @@ namespace ExtraExplosives.Projectiles
 						}
 						else //Breakable
 						{
-							tile.ClearTile();
-							tile.active(false);
+							if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type))
+							{
+								tile.ClearTile();
+								tile.active(false);
+							}
 
 							if (Main.netMode == NetmodeID.MultiplayerClient)
 							{

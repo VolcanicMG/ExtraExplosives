@@ -93,7 +93,7 @@ namespace ExtraExplosives.Items
                 ModContent.ItemType<TrollBombItem>(),
                 ModContent.ItemType<FlashbangItem>(),
                 ModContent.ItemType<RainboomItem>(),
-                ModContent.ItemType<HotPotatoItem>()
+                //ModContent.ItemType<HotPotatoItem>()
             };
             base.AddRecipes();
         }

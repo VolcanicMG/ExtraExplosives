@@ -14,8 +14,8 @@ namespace ExtraExplosives.Items.Accessories
 
         public override void SetDefaults()
         {
-            item.social = true;
-            item.accessory = true;
+            //item.social = true;
+            //item.accessory = true;
             item.value = 5000;
             item.rare = ItemRarityID.Orange;
             item.consumable = false;

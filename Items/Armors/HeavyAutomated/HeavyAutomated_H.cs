@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
         {
             DisplayName.SetDefault("Heavy Automated Bombard Helm");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage and 8% Blast Radius\n");
+                "7% Increased Bomb Damage and 8% Blast Radius\n");
         }
 
         public override void SetDefaults()
@@ -32,10 +32,10 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = "\n" +
-                "6% Bomb Damage\n" +
-                "6% Blast Radius\n" +
-                "7% damage\n" +
-                "8% critical strike chance\n" +
+                "6% Increased Bomb Damage\n" +
+                "6% Increased Blast Radius\n" +
+                "7% Increased Damage\n" +
+                "8% Increased Critical Strike Chance\n" +
                 "Fire out bolts of fire after every explosion";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .06f;
@@ -47,7 +47,7 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
         public override void UpdateEquip(Player player)
         {
             player.EE().RadiusMulti += .08f;
-            player.EE().DamageMulti += .06f;
+            player.EE().DamageMulti += .07f;
         }
 
         public override void AddRecipes()

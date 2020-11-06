@@ -9,12 +9,10 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Certificate of Demolition");
-            Tooltip.SetDefault("Certification that you are\n" +
-                               "trained in the art of Demolition.\n" +
-                               "Also increases area of effect of\n" +
-                               "all explosives by 50%");
+            Tooltip.SetDefault("'Certification that you are trained in the art of Demolition.'\n" +
+                "50% Increased area of effect for explosives");
         }
-
+        
         public override void SetDefaults()
         {
             item.accessory = true;

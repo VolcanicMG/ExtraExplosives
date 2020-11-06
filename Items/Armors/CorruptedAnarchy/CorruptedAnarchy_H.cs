@@ -11,6 +11,7 @@ namespace ExtraExplosives.Items.Armors.CorruptedAnarchy
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Corrupted Anarchy Helm");
+            Tooltip.SetDefault("2% Increased Bomb Damage");
         }
 
         public override void SetDefaults()
@@ -30,17 +31,17 @@ namespace ExtraExplosives.Items.Armors.CorruptedAnarchy
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = "\n" +
-                "5% Bomb Damage\n" +
-                "10% Blast Radius\n" +
+                "2% Increased Bomb Damage\n" +
+                "10% Increased Blast Radius\n" +
                 "Spawn in deadly spikes whenever your bombs blow up";
             player.EE().RadiusMulti += .1f;
-            player.EE().DamageMulti += .05f;
+            player.EE().DamageMulti += .02f;
             player.EE().Anarchy = true;
         }
 
         public override void UpdateEquip(Player player)
         {
-            
+            player.EE().DamageMulti += .02f;
         }
 
         public override void AddRecipes()

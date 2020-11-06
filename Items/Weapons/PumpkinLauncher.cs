@@ -11,7 +11,7 @@ namespace ExtraExplosives.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bombkin 3000 (WIP)");
+            DisplayName.SetDefault("Bombkin 3000");
             Tooltip.SetDefault("These pumpkins are NOT safe around open flames\n" +
                                "Launches three rockets in quick succession\n" +
                                "Consumes one rocket per burst");
@@ -21,9 +21,9 @@ namespace ExtraExplosives.Items.Weapons
         {
             item.useStyle = 5;
             item.autoReuse = true;
-            item.useAnimation = 33;
-            item.useTime = 11;
-            item.reuseDelay = 11;
+            item.useAnimation = 12;
+            item.useTime = 4;
+            item.reuseDelay = 14;
             item.useAmmo = AmmoID.Rocket;
             item.width = 66;
             item.height = 34;
@@ -39,17 +39,17 @@ namespace ExtraExplosives.Items.Weapons
             item.ranged = true;
         }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
-            if (stats != null)
-            {
-                string[] split = stats.text.Split(' ');
-                string damageValue = split.First();
-                string damageWord = split.Last();
-                stats.text = damageValue + "x3 explosive " + damageWord;
-            }
-        }
+        //public override void ModifyTooltips(List<TooltipLine> tooltips)
+        //{
+        //    TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+        //    if (stats != null)
+        //    {
+        //        string[] split = stats.text.Split(' ');
+        //        string damageValue = split.First();
+        //        string damageWord = split.Last();
+        //        stats.text = damageValue + "x3 explosive " + damageWord;
+        //    }
+        //}
 
         public override Vector2? HoldoutOffset()
         {

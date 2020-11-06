@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
         {
             DisplayName.SetDefault("Palladium Space Demolisher Helm");
             Tooltip.SetDefault("\n" +
-                "3% Bomb Damage and Blast Radius");
+                "4% Increased Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
             item.width = 18;
             item.value = Item.buyPrice(0, 0, 60, 50);
             item.rare = ItemRarityID.LightRed;
-            item.defense = 10;
+            item.defense = 11;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -32,11 +32,11 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = "\n" +
-                "6% Bomb Damage\n" +
-                "6% Blast Radius\n" +
-                "10% movement speed\n" +
-                "3% critical strike chance\n" +
-                "15% chance to drop ores twice on bomb explosion (EE bombs only)";
+                "6% Increased Bomb Damage\n" +
+                "6% Increased Blast Radius\n" +
+                "10% Increased Movement SSpeed\n" +
+                "3% Increased Critical Strike Chance\n" +
+                "15% chance to drop ores twice on bomb explosion";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .06f;
             player.moveSpeed += .1f;
@@ -47,8 +47,8 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
 
         public override void UpdateEquip(Player player)
         {
-            player.EE().RadiusMulti += .03f;
-            player.EE().DamageMulti += .03f;
+            player.EE().RadiusMulti += .04f;
+            player.EE().DamageMulti += .04f;
         }
 
         public override void AddRecipes()

@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.DungeonBombard
         {
             DisplayName.SetDefault("Dungeon Bombard Helm");
             Tooltip.SetDefault("\n" +
-                "2.5% Bomb Damage and Blast Radius");
+                "3% Increased Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()
@@ -32,9 +32,9 @@ namespace ExtraExplosives.Items.Armors.DungeonBombard
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = "\n" +
-                "2.5% Bomb Damage\n" +
-                "7.5% Blast Radius\n" +
-                "10% chance to dodge attack";
+                "2.5% Increased Bomb Damage\n" +
+                "7.5% Increased Blast Radius\n" +
+                "10% chance to dodge attacks";
             player.EE().RadiusMulti += .075f;
             player.EE().DamageMulti += .025f;
             player.EE().DungeonBombard = true;
@@ -42,8 +42,8 @@ namespace ExtraExplosives.Items.Armors.DungeonBombard
 
         public override void UpdateEquip(Player player)
         {
-            player.EE().RadiusMulti += .025f;
-            player.EE().DamageMulti += .025f;
+            player.EE().RadiusMulti += .03f;
+            player.EE().DamageMulti += .03f;
         }
 
         public override void AddRecipes()

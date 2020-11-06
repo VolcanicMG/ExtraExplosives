@@ -35,7 +35,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             CrossedWiresHeader.Top.Pixels = -20;
             CrossedWiresHeader.TextColor = Color.LightGray;
             
-            UIText CrossedWiresFlavorText = new UIText("Min Maxing has never been so fun");
+            UIText CrossedWiresFlavorText = new UIText("Min-Maxing has never been so fun");
             CrossedWiresFlavorText.HAlign = 0.5f;
             CrossedWiresFlavorText.Top.Pixels = 30;
             CrossedWiresFlavorText.TextColor = Color.Gold;

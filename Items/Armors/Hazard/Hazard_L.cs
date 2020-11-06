@@ -12,8 +12,8 @@ namespace ExtraExplosives.Items.Armors.Hazard
         {
             DisplayName.SetDefault("Adamantite Hazard Demolisher Legs");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage and Blast Radius\n" +
-                "5% movement speed");
+                "6% Increased Bomb Damage and Blast Radius\n" +
+                "5% Increased Movement Speed");
         }
 
         public override void SetDefaults()

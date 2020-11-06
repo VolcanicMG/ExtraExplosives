@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Meltbomber
         {
             DisplayName.SetDefault("Meltbomber Helm");
             Tooltip.SetDefault("\n" +
-                "2.5% Bomb Damage and Blast Radius");
+                "2.5% Increased Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()

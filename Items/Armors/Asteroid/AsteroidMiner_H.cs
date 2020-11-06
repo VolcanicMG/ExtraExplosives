@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Asteroid
         {
             DisplayName.SetDefault("Mythril Asteroid Miner Helm");
             Tooltip.SetDefault("\n" +
-                "3% Bomb Damage and " +
+                "3% Increased Bomb Damage and " +
                 "6% Blast Radius");
         }
 
@@ -33,11 +33,11 @@ namespace ExtraExplosives.Items.Armors.Asteroid
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = "\n" +
-                "6% Bomb Damage\n" +
-                "6% Blast Radius\n" +
-                "5% damage\n" +
-                "3% critical strike chance\n" +
-                "20% chance to drop ores twice on bomb explosion (EE bombs only)";
+                "6% Increased Bomb Damage\n" +
+                "6% Increased Blast Radius\n" +
+                "5% Increased Damage\n" +
+                "3% Increased Critical Strike Chance\n" +
+                "20% chance to drop ores twice on bomb explosion";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .06f;
             player.allDamage += .05f;

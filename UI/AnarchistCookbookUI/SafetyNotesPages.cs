@@ -39,7 +39,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             BlastShieldFlavorText.TextColor = Color.OliveDrab;
             BlastShieldHeader.Append(BlastShieldFlavorText);
             
-            UIText BlastShieldDescription = new UIText("Prevents  the  user  from taking\n" +
+            UIText BlastShieldDescription = new UIText("Prevents the user from taking\n" +
                                                              "damage from their own explosives");
             BlastShieldDescription.Top.Pixels = 40;
             BlastShieldDescription.HAlign = 0.7f;
@@ -115,8 +115,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ReactivePlatingFlavorText.TextColor = Color.Crimson;
             ReactivePlatingHeader.Append(ReactivePlatingFlavorText);
             
-            UIText ReactivePlatingDescription = new UIText("Increases  damage  output;\n" +
-                                                                 "Decreases   damage  taken;");
+            UIText ReactivePlatingDescription = new UIText("Increases damage output\n" +
+                                                                 "Decreases  damage taken");
             ReactivePlatingDescription.Top.Pixels = 40;
             ReactivePlatingDescription.HAlign = 0.82f;
             ReactivePlatingDescription.Left.Pixels = 10;
@@ -128,7 +128,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                 BlastShielding = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/BlastShielding"));
                 BlastShielding.VAlign = 0.5f;
                 BlastShielding.HAlign = 0.5f;
-                ToggleBlastShielding.Append(BlastShielding);    // Image of bomb bag for labeling
+                ToggleBlastShielding.Append(BlastShielding);    
             ToggleBlastShielding.Left.Pixels = 25;
             ToggleBlastShielding.Top.Pixels = leftPage.Height.Pixels/2 - 100;
             ToggleBlastShielding.OnClick += new MouseEvent(BlastShieldingToggle);
@@ -138,7 +138,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                 ReactivePlating = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/ReactivePlating"));
                 ReactivePlating.VAlign = 0.5f;
                 ReactivePlating.HAlign = 0.5f;
-                ToggleReactivePlating.Append(ReactivePlating);    // Image of bomb bag for labeling
+                ToggleReactivePlating.Append(ReactivePlating);   
             ToggleReactivePlating.Left.Pixels = 50;
             ToggleReactivePlating.Top.Pixels = rightPage.Height.Pixels/2 - 100;
             ToggleReactivePlating.OnClick += new MouseEvent(ReactivePlatingToggle);

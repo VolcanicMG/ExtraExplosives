@@ -13,7 +13,7 @@ namespace ExtraExplosives.Items.Rockets
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rocket 0");
-            Tooltip.SetDefault("Mildly explosive");
+            Tooltip.SetDefault("'Mildly explosive'");
         }
 
         public override void SafeSetDefaults()

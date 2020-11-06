@@ -26,8 +26,7 @@ namespace ExtraExplosives.Items.Accessories
         {
 
             DisplayName.SetDefault("Nova Booster");
-            Tooltip.SetDefault("The power of a dying star,\n" +
-                               "strapped to your back\n");
+            Tooltip.SetDefault("'The power of a dying star strapped to your back'");
             //Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(15, ));
         }
 
@@ -157,6 +156,18 @@ namespace ExtraExplosives.Items.Accessories
                 dust = Main.dust[Terraria.Dust.NewDust(position, 8, 8, 6, -10f, 0f, 0, new Color(255, 176, 0), Main.rand.NextFloat(.8f, 1.5f))];
                 dust.noGravity = true;
             }
+        }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.FragmentSolar, 15);
+            recipe.AddIngredient(ItemID.LihzahrdPowerCell, 3);
+            recipe.AddIngredient(ItemID.LunarBar, 15);
+            recipe.AddIngredient(ItemID.WingsVortex, 1);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 
     }

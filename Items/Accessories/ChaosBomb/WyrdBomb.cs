@@ -11,8 +11,8 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Wyrd Bomb");
-            Tooltip.SetDefault("Truly a strange specimen\n" +
-                               "Bombs inflict the Venom & Shadowflames Debuff");
+            Tooltip.SetDefault("'Truly a strange specimen'\n" +
+                               "Bombs inflict Venom & Shadowflame");
         }
         
         public override void SetDefaults()

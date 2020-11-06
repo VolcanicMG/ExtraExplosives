@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ExtraExplosives.Items.Rockets;
 using ExtraExplosives.Items.Weapons;
 using ExtraExplosives.Tiles;
 using IL.Terraria.ID;
@@ -97,6 +98,8 @@ namespace ExtraExplosives
                         if (chest.item[inventoryIndex].type == ItemID.None)
                         {
                             chest.item[inventoryIndex].SetDefaults(itemsToPlaceInWaterChests[itemToPlaceInChestChoice]);
+                            chest.item[inventoryIndex + 1].SetDefaults(ModContent.ItemType<Rocket0>());
+                            chest.item[inventoryIndex + 1].stack = 30;
                             itemToPlaceInChestChoice = (itemToPlaceInChestChoice + 1) % itemsToPlaceInWaterChests.Length;
                             break;
                         }

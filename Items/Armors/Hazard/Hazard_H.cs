@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Hazard
         {
             DisplayName.SetDefault("Adamantite Hazard Demolisher Helm");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage and Blast Radius\n");
+                "6% Increased Bomb Damage and Blast Radius\n");
         }
 
         public override void SetDefaults()
@@ -32,11 +32,11 @@ namespace ExtraExplosives.Items.Armors.Hazard
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = "\n" +
-                "6% Bomb Damage\n" +
-                "6% Blast Radius\n" +
-                "7% damage\n" +
-                "3% critical strike chance\n" +
-                "25% chance to drop ores twice on bomb explosion (EE bombs only)";
+                "6% Increased Bomb Damage\n" +
+                "6% Increased Blast Radius\n" +
+                "7% Increased Damage\n" +
+                "3% Increased Critical Strike Chance\n" +
+                "25% chance to drop ores twice on bomb explosion";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .06f;
             player.allDamage += .07f;

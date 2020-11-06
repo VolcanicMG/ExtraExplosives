@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Lizhard
         {
             DisplayName.SetDefault("Lizhard Bombard Body");
             Tooltip.SetDefault("\n" +
-                "8% Bomb Damage and Blast Radius");
+                "8% Increased Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()

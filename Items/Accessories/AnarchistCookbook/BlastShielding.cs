@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Blast Shielding");
-            Tooltip.SetDefault("Immunity to friendly Explosives");
+            Tooltip.SetDefault("Immunity to friendly explosives");
         }
 
         public override void SetDefaults()

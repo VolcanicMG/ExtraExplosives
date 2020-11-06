@@ -10,8 +10,8 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Crossed Wires");
-            Tooltip.SetDefault("Increases explosive damage by X\n" +
-                               "Increases Explosive Critchance by Y");
+            Tooltip.SetDefault("Increases explosive damage by 15%\n" +
+                               "Increases Explosive Critical chance by 10%");
         }
 
         public override void SetDefaults()
@@ -31,6 +31,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             //modRecipe.AddIngredient(ItemID.Oil);
             modRecipe.AddIngredient(ItemID.CopperBar, 10);
             modRecipe.AddIngredient(ItemID.Gel, 10);
+            modRecipe.AddIngredient(ItemID.Wire, 10);
             modRecipe.AddTile(TileID.Anvils);
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
@@ -38,6 +39,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             //modRecipe.AddIngredient(ItemID.Oil);
             modRecipe.AddIngredient(ItemID.TinBar, 10);
             modRecipe.AddIngredient(ItemID.Gel, 10);
+            modRecipe.AddIngredient(ItemID.Wire, 10);
             modRecipe.AddTile(TileID.Anvils);
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();

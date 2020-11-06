@@ -39,11 +39,6 @@ namespace ExtraExplosives.Items.Misc
             recipe.AddTile(TileID.WorkBenches);
             recipe.AddRecipe();
             
-            recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<FuseEelItem>(), 5);
-            recipe.SetResult(this);
-            recipe.needWater = true;
-            recipe.AddRecipe();
         }
     }
 }

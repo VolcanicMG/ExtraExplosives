@@ -45,10 +45,10 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             UIText StickyGunpowderFlavorText = new UIText("Gorillas and Ducks");
             StickyGunpowderFlavorText.HAlign = 0.5f;
             StickyGunpowderFlavorText.Top.Pixels = 30;
-            StickyGunpowderFlavorText.TextColor = Color.Blue;
+            StickyGunpowderFlavorText.TextColor = Color.AliceBlue;
             StickyGunpowderHeader.Append(StickyGunpowderFlavorText);
             
-            UIText StickyGunpowderDescription = new UIText("   Explosives  stick to surfaces\n" +
+            UIText StickyGunpowderDescription = new UIText("   Explosives stick to surfaces\n" +
                                                                  "Works with bombs and grenades");
             StickyGunpowderDescription.Top.Pixels = 40;
             StickyGunpowderDescription.HAlign = 0.7f;
@@ -68,7 +68,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             LightweightBombshellsHeader.Append(LightweightBombshellsFlavorText);
             
             UIText LightweightBombshellsDescription = new UIText("Allows you to throw explosives\n" +
-                                                                       " further  than   ever  before.");
+                                                                       " further than ever before.");
             LightweightBombshellsDescription.Top.Pixels = 40;
             LightweightBombshellsDescription.HAlign = 0.85f;
             LightweightBombshellsDescription.TextColor = Color.LightGray;

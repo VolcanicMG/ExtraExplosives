@@ -9,8 +9,7 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bombard's Laurels");
-            Tooltip.SetDefault("Increases Area of Effect of\n" +
-                               "all Explosives by 80%");
+            Tooltip.SetDefault("Increases Area of Effect of all Explosives by 80%");
         }
 
         public override void SetDefaults()
@@ -29,7 +28,7 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<BombHat>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<BombersCap>(), 1);
             recipe.AddIngredient(ModContent.ItemType<CertificateOfDemolition>(), 1);
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.SetResult(this);

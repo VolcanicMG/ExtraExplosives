@@ -11,7 +11,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bomb Bag");
-            Tooltip.SetDefault("50% chance to throw a second explosives\n" +
+            Tooltip.SetDefault("50% chance to throw a second explosive\n" +
                                "Does not consume a second item");
         }
 

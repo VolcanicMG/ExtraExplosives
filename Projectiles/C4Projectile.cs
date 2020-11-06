@@ -148,17 +148,23 @@ namespace ExtraExplosives.Projectiles
 					int xPosition = (int)(x + position.X / 16.0f);
 					int yPosition = (int)(y + position.Y / 16.0f);
 
+					Tile tile = Framing.GetTileSafely(xPosition, yPosition);
+
 					if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
 					{
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+						ushort tileP = tile.type;
+						if (!CanBreakTile(tileP, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
 						{
 						}
 						else //Breakable
 						{
 							if (CanBreakTiles) //User preferences dictates if bombs can break tiles
 							{
-								WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
+								if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type))
+								{
+									tile.ClearTile();
+									tile.active(false);
+								}
 								if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
 							}
 						}

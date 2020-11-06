@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
         {
             DisplayName.SetDefault("Cobalt Space Demolisher Legs");
             Tooltip.SetDefault("\n" +
-                "3% Bomb Damage and Blast Radius");
+                "3% Increased Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()

@@ -12,8 +12,8 @@ namespace ExtraExplosives.Items.Armors.Nova
         {
             DisplayName.SetDefault("Nova Bombard Legs");
             Tooltip.SetDefault("\n" +
-                "10% Bomb Damage and Blast Radius\n" +
-                "15% movement speed");
+                "10% Increased Bomb Damage and Blast Radius\n" +
+                "15% Increased Movement Speed");
         }
 
         public override void SetDefaults()
@@ -36,7 +36,7 @@ namespace ExtraExplosives.Items.Armors.Nova
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.FragmentSolar, 10);
-            recipe.AddIngredient(ItemID.LihzahrdPowerCell, 5);
+            recipe.AddIngredient(ItemID.LihzahrdPowerCell, 2);
             recipe.AddIngredient(ItemID.LunarBar, 10);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);

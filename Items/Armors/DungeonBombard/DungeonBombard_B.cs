@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.DungeonBombard
         {
             DisplayName.SetDefault("Dungeon Bombard Body");
             Tooltip.SetDefault("\n" +
-                "2.5% Bomb Damage and Blast Radius");
+                "3% Increased Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()
@@ -26,8 +26,8 @@ namespace ExtraExplosives.Items.Armors.DungeonBombard
 
         public override void UpdateEquip(Player player)
         {
-            player.EE().RadiusMulti += .025f;
-            player.EE().DamageMulti += .025f;
+            player.EE().RadiusMulti += .03f;
+            player.EE().DamageMulti += .03f;
         }
 
         public override void AddRecipes()

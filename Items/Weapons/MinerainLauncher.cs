@@ -12,9 +12,7 @@ namespace ExtraExplosives.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Minerain-Launcher");
-            Tooltip.SetDefault("Today's Forcast; Cloudy with a chance of death from above\n" +
-                               "Creates a cloud which rains bombs\n" + // This will be added later for various reasons
-                               "Not Functioning ATM");
+            Tooltip.SetDefault("'Today's Forcast; Cloudy with a chance of death from above'");
         }
 
         public override void SetDefaults()
@@ -36,17 +34,17 @@ namespace ExtraExplosives.Items.Weapons
             item.useAmmo = AmmoID.Rocket;
         }
         
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
-            if (stats != null)
-            {
-                string[] split = stats.text.Split(' ');
-                string damageValue = split.First();
-                string damageWord = split.Last();
-                stats.text = damageValue + "x3 explosive " + damageWord;
-            }
-        }
+        //public override void ModifyTooltips(List<TooltipLine> tooltips)
+        //{
+        //    TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+        //    if (stats != null)
+        //    {
+        //        string[] split = stats.text.Split(' ');
+        //        string damageValue = split.First();
+        //        string damageWord = split.Last();
+        //        stats.text = damageValue + "x3 explosive " + damageWord;
+        //    }
+        //}
         
         public override Vector2? HoldoutOffset()
         {

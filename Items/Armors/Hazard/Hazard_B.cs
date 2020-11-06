@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Hazard
         {
             DisplayName.SetDefault("Adamantite Hazard Demolisher Body");
             Tooltip.SetDefault("\n" +
-                "6% Bomb Damage and Blast Radius\n");
+                "6% Increased Bomb Damage and Blast Radius\n");
         }
 
         public override void SetDefaults()

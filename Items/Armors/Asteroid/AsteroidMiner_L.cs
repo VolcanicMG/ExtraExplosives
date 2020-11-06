@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Asteroid
         {
             DisplayName.SetDefault("Mythril Asteroid Miner Legs");
             Tooltip.SetDefault("\n" +
-                "3% Bomb Damage and " +
+                "3% Increased Bomb Damage and " +
                 "6% Blast Radius");
         }
 

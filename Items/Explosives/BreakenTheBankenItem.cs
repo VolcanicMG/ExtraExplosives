@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Explosives
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Breaken The Banken");
-			Tooltip.SetDefault("Need gold?");
+			Tooltip.SetDefault("'Need gold?'");
 		}
 
 		public override void SafeSetDefaults()

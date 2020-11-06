@@ -5,14 +5,14 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-	public class PrismBomb : ModItem
+	public class PrismBomb : ExplosiveItem
 	{
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Explodes into a rainbow prism that damages enemies");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			item.damage = 250;
 			item.useStyle = ItemUseStyleID.SwingThrow;

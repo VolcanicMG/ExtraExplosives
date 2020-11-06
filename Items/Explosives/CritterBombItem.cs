@@ -8,7 +8,7 @@ namespace ExtraExplosives.Items.Explosives
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("CritterBomb");
+			DisplayName.SetDefault("Critter Bomb");
 			Tooltip.SetDefault("Spawns in golden critters");
 		}
 

@@ -133,7 +133,8 @@ namespace ExtraExplosives.Items.Weapons
                 item.shootSpeed = 10;
                 item.damage = 40;
                 item.knockBack = 7;
-                Main.NewText("Bone Launcher");
+                //Main.NewText("Bone Launcher");
+                Main.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
             else
             {
@@ -144,7 +145,8 @@ namespace ExtraExplosives.Items.Weapons
                 item.shootSpeed = 13;
                 item.damage = 35;
                 item.knockBack = 3.5f;
-                Main.NewText("Bone Rifle");
+                // Main.NewText("Bone Rifle");
+                Main.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
 
             return false;

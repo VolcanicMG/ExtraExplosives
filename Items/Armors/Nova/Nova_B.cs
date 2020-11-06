@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Armors.Nova
         {
             DisplayName.SetDefault("Nova Bombard Body");
             Tooltip.SetDefault("\n" +
-                "10% Bomb Damage and Blast Radius");
+                "10% Increased Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()
@@ -34,7 +34,7 @@ namespace ExtraExplosives.Items.Armors.Nova
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.FragmentSolar, 15);
-            recipe.AddIngredient(ItemID.LihzahrdPowerCell, 10);
+            recipe.AddIngredient(ItemID.LihzahrdPowerCell, 3);
             recipe.AddIngredient(ItemID.LunarBar, 15);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);

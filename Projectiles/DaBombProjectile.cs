@@ -145,7 +145,14 @@ namespace ExtraExplosives.Projectiles
 							// But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
 							if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1)
 								WorldGen.KillTile((int)(i), (int)(j), false, false, false);
-							else Main.tile[i, j].ClearTile();
+							else
+							{
+								if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type))
+								{
+									Main.tile[i,j].ClearTile();
+									Main.tile[i,j].active(false);
+								}
+							}
 							//
 						}
 

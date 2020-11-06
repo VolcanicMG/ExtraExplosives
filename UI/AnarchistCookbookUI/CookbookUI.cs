@@ -127,7 +127,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ResourcefulNotes.OnClick += new MouseEvent(MoveToResourcefulNotesPage);
             tabs.Append(ResourcefulNotes);
 
-            SafetyNotes = new UIHoverImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/SafetyNotesTab"), "SafetyNotes");
+            SafetyNotes = new UIHoverImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/SafetyNotesTab"), "Safety Notes");
             SafetyNotes.Left.Set(16, 0);
             SafetyNotes.Top.Set(12,0);
             SafetyNotes.VAlign = 4/6f;

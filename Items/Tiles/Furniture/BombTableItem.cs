@@ -8,7 +8,7 @@ namespace ExtraExplosives.Items.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Captain Explosive Statue");
+            DisplayName.SetDefault("Bomb Table");
         }
 
         public override void SetDefaults()

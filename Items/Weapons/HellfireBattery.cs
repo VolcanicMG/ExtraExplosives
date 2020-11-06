@@ -9,24 +9,23 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-	public class HellfireBattery : ModItem
+	public class HellfireBattery : ExplosiveWeapon
 	{
 		private int fireSpeed = 6;
 		private int mode = 0;
+		private string firemode = "Spread";
+		protected override string SoundLocation { get; } = "";
 
 		public static bool homing;
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hellfire Battery");
-			Tooltip.SetDefault("The rocket minigun's older bigger brother\n" +
-				"[c/AB40FF:Right click to swap between 3 different modes:]\n" +
-				"Spread mode\n" +
-				"Precision mode\n" +
-				"Homing mode");
+			Tooltip.SetDefault("'The rocket minigun's older bigger brother'\n" +
+				"Right click to swap between 3 different modes");
 		}
 
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 			item.useStyle = 5;
 			item.autoReuse = true;
@@ -50,14 +49,19 @@ namespace ExtraExplosives.Items.Weapons
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
-			if (stats != null)
-			{
-				string[] split = stats.text.Split(' ');
-				string damageValue = split.First();
-				string damageWord = split.Last();
-				stats.text = damageValue + " explosive " + damageWord;
-			}
+			//TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+			//if (stats != null)
+			//{
+			//	string[] split = stats.text.Split(' ');
+			//	string damageValue = split.First();
+			//	string damageWord = split.Last();
+			//	stats.text = damageValue + " explosive " + damageWord;
+
+			//}
+
+			var fireModeUseTip = new TooltipLine(mod, "Multiplier", $"Fire Mode: {firemode}");
+			fireModeUseTip.overrideColor = Color.Tan;
+			tooltips.Add(fireModeUseTip);
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -96,32 +100,35 @@ namespace ExtraExplosives.Items.Weapons
 		{
 			if(Main.mouseRight && Main.mouseRightRelease)
 			{
+				Main.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
 				mode++;
 
 				if (mode == 1)
 				{
-					Main.NewText("[c/AC7988:Precision Mode]");
+					//Main.NewText("[c/AC7988:Precision Mode]");
 
 					item.useAnimation = 50;
 					item.useTime = 50;
+					firemode = "Precision";
 				}
 
 				if (mode == 3)
 				{
-					Main.NewText("[c/AC7988:Spread Mode]");
+					//Main.NewText("[c/AC7988:Spread Mode]");
 
 					item.useAnimation = 6;
 					item.useTime = 6;
-
+					firemode = "Spread";
 					mode = 0;
 				}
 
 				if (mode == 2)
 				{
-					Main.NewText("[c/AC7988:Homing Mode]");
+					//Main.NewText("[c/AC7988:Homing Mode]");
 
 					item.useAnimation = 12;
 					item.useTime = 12;
+					firemode = "Homing";
 
 				}
 
@@ -133,7 +140,7 @@ namespace ExtraExplosives.Items.Weapons
 		{
 			if (mode == 1)
 			{
-				// Ensures no more than one spear can be thrown out, use this when using autoReuse
+				// Ensures no more than one rocket can fire during this mode
 				return player.ownedProjectileCounts[ModContent.ProjectileType<FollowRocketProjectile>()] < 1;
 			}
 			else

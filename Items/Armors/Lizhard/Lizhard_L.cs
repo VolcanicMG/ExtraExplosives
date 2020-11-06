@@ -12,8 +12,8 @@ namespace ExtraExplosives.Items.Armors.Lizhard
         {
             DisplayName.SetDefault("Lizhard Bombard Legs");
             Tooltip.SetDefault("\n" +
-                "8% Bomb Damage and Blast Radius\n" +
-                "5% movement speed");
+                "8% Increased Bomb Damage and Blast Radius\n" +
+                "5% Increased Movement Speed");
         }
 
         public override void SetDefaults()

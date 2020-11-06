@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -12,8 +13,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         {
             DisplayName.SetDefault("Anarchist Cookbook");
             Tooltip.SetDefault("Just owning it could get you arrested\n" +
-                               "Allows for modification of\n" +
-                               "most accessories effects");
+                               "Allows for modification of most accessories effects");
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -24,13 +24,17 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
                 !mp.Bombshroom &&
                 !mp.SupernaturalBomb)
             {
-                var hintTooltipLine = new TooltipLine(mod, "hintTooltipLine", $"There still seem to be pages missing");
+                var hintTooltipLine = new TooltipLine(mod, "Tooltip4", $"There still seem to be pages missing");
                 hintTooltipLine.overrideColor = Color.LightSkyBlue;
-                tooltips.Add(hintTooltipLine);
+                //tooltips.Add(hintTooltipLine);
+                tooltips.Insert(4, hintTooltipLine);
+
             }
-            var extraTooltip = new TooltipLine(mod, "extraTooltip", $"Its more than just the sum of its parts");
+
+            var extraTooltip = new TooltipLine(mod, "Tooltip5", $"Its more than just the sum of its parts");
             extraTooltip.overrideColor = Color.MediumVioletRed;
-            tooltips.Add(extraTooltip);
+            //tooltips.Add(extraTooltip);
+            tooltips.Insert(5, extraTooltip);
         }
 
         public override void SetDefaults()

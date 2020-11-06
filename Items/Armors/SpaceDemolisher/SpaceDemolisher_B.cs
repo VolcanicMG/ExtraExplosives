@@ -10,9 +10,9 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Palladium  Space Demolisher Body");
+            DisplayName.SetDefault("Palladium Space Demolisher Body");
             Tooltip.SetDefault("\n" +
-                "3% Bomb Damage and Blast Radius");
+                "4% Increased Bomb Damage and Blast Radius");
         }
 
         public override void SetDefaults()
@@ -21,13 +21,13 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
             item.width = 18;
             item.value = Item.buyPrice(0, 0, 60, 50);
             item.rare = ItemRarityID.LightRed;
-            item.defense = 12;
+            item.defense = 13;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.EE().RadiusMulti += .03f;
-            player.EE().DamageMulti += .03f;
+            player.EE().RadiusMulti += .04f;
+            player.EE().DamageMulti += .04f;
         }
 
         public override void AddRecipes()

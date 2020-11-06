@@ -431,7 +431,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				ModContent.ItemType<TrollBombItem>(),
 				ModContent.ItemType<FlashbangItem>(),
 				ModContent.ItemType<RainboomItem>(),
-				ModContent.ItemType<HotPotatoItem>()
+				//ModContent.ItemType<HotPotatoItem>()
 			};
 	}
 }
