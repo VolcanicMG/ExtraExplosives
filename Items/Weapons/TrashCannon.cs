@@ -21,7 +21,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            item.damage = 60;
+            item.damage = 25;
             item.width = 46;
             item.height = 36;
             item.useTime = 50;

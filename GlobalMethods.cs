@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -14,6 +15,22 @@ namespace ExtraExplosives
 	/// </summary>
 	internal class GlobalMethods
 	{
+        //========================| List of npcs for damage reduction |===============================================\\
+        /// <summary>
+        /// List of npcs that get damage reduction from explosives by 50% if its in expert mode
+        /// </summary>
+        public static List<int> DamageReducedNps = new List<int>
+        {
+			NPCID.EaterofWorldsBody,
+			NPCID.EaterofWorldsHead,
+			NPCID.EaterofWorldsTail,
+
+		};
+
+
+		//============================================================================================================\\
+
+
 		//========================| List of Mods for Mod Integration |========================\\
 
 		/// <summary>

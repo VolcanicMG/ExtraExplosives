@@ -481,10 +481,14 @@ namespace ExtraExplosives
 					foreach (NPC npc in Main.npc)
 					{
 						float dist = Vector2.Distance(npc.Center, projectile.Center);
-						if (dist / 16f <= radius && doubleDamage)
+						if (dist / 16f <= radius)
 						{
 							int dir = (dist > 0) ? 1 : -1;
-							npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+							if (!DamageReducedNps.Contains(npc.type))
+							{
+								npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+							}
+							else npc.StrikeNPC(projectile.damage - (int)(projectile.damage * .8f), projectile.knockBack, dir, crit);
 						}
 					}
 
@@ -661,7 +665,7 @@ namespace ExtraExplosives
 					if (mp.Anarchy)
 					{
 						proj = ModContent.ProjectileType<Spike_Anarchy>();
-						CustomDamage = 20;
+						CustomDamage = 12;
 					}
 					else if(mp.HeavyBombard)
 					{
@@ -681,7 +685,7 @@ namespace ExtraExplosives
 							int xPosition = (int)(x + position.X / 16.0f);
 							int yPosition = (int)(y + position.Y / 16.0f);
 
-							if (Math.Sqrt(x * x + y * y) <= 15 + 0.5)   //this make so the explosion radius is a circle
+							if (Math.Sqrt(x * x + y * y) <= 15 + 0.5)   
 							{
 								//mod.Logger.Debug(projectile.damage);
 								if (WorldGen.TileEmpty(xPosition, yPosition))
@@ -691,7 +695,7 @@ namespace ExtraExplosives
 									if (spedX == 0) spedX = 1;
 									if (spedY == 0) spedY = 1;
 									//if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 20, projectile.owner, 0.0f, 0);
-									if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((mp.DamageBonus + CustomDamage) * mp.DamageMulti), 20, projectile.owner, 0.0f, 0);
+									if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((mp.DamageBonus + CustomDamage) * mp.DamageMulti), 2, projectile.owner, 0.0f, 0);
 								}
 								else
 								{
@@ -699,7 +703,7 @@ namespace ExtraExplosives
 									spedY = Main.rand.Next(15) - 7;
 									if (spedX == 0) spedX = 1;
 									if (spedY == 0) spedY = 1;
-									if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((mp.DamageBonus + CustomDamage) * mp.DamageMulti), 20, projectile.owner, 0.0f, 0);
+									if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((mp.DamageBonus + CustomDamage) * mp.DamageMulti), 2, projectile.owner, 0.0f, 0);
 								}
 							}
 						}

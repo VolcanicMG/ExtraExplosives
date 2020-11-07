@@ -165,7 +165,11 @@ namespace ExtraExplosives.Projectiles
                 if (dist / 16f <= radius)
                 {
                     int dir = (dist > 0) ? 1 : -1;
-                    npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+                    if (!DamageReducedNps.Contains(npc.type))
+                    {
+                        npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+                    }
+                    else npc.StrikeNPC(projectile.damage - (int)(projectile.damage * .8f), projectile.knockBack, dir, crit);
                 }
             }
 

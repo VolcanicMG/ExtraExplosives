@@ -123,7 +123,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             leftPage.Append(CrossedWiresBox2);
             
             UIText foundCW2 = new UIText("                        Crafted with:\n" +
-                                        "      Copper or Tin,                      and Gel");
+                                        "      Copper or Tin     and           Gel");
             foundCW2.TextColor = Color.LightGray;
             foundCW2.HAlign = 0.5f;
             foundCW2.Top.Pixels = -60;

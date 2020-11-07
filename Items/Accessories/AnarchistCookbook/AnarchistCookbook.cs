@@ -24,17 +24,17 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
                 !mp.Bombshroom &&
                 !mp.SupernaturalBomb)
             {
-                var hintTooltipLine = new TooltipLine(mod, "Tooltip4", $"There still seem to be pages missing");
+                var hintTooltipLine = new TooltipLine(mod, "", $"There still seem to be pages missing");
                 hintTooltipLine.overrideColor = Color.LightSkyBlue;
                 //tooltips.Add(hintTooltipLine);
-                tooltips.Insert(4, hintTooltipLine);
+                tooltips.Insert(tooltips.Count - 1, hintTooltipLine);
 
             }
 
-            var extraTooltip = new TooltipLine(mod, "Tooltip5", $"Its more than just the sum of its parts");
+            var extraTooltip = new TooltipLine(mod, "", $"Its more than just the sum of its parts");
             extraTooltip.overrideColor = Color.MediumVioletRed;
             //tooltips.Add(extraTooltip);
-            tooltips.Insert(5, extraTooltip);
+            tooltips.Insert(tooltips.Count - 1, extraTooltip);
         }
 
         public override void SetDefaults()
