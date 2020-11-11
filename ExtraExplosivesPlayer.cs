@@ -506,7 +506,7 @@ namespace ExtraExplosives
 				player.velocity.Y != 0)
 			{
 				novaBoostRechargeDelay = 300;
-				player.velocity *= 1.8f;
+				player.velocity *= 2.2f;
 				boosting = true;
 			}
 
@@ -791,10 +791,10 @@ namespace ExtraExplosives
 			}
 			else if (!ExtraExplosives.ModVersion.Equals(ExtraExplosives.CurrentVersion))
 			{
-				Main.NewText($"[c/AB40FF:The Extra Explosives Mod has an update available!]");
-				Main.NewText($"[c/AB40FF:Current Version Installed: {ExtraExplosives.ModVersion}]");
-				Main.NewText($"[c/AB40FF:The Mod Browser Version: {ExtraExplosives.CurrentVersion}]");
-				Main.NewText($"[c/AB40FF:You can find the latest version in the TML mod browser.]");
+				Main.NewText($"[c/00ff00:The Extra Explosives Mod has an update available!]");
+				Main.NewText($"[c/AB40FF:Current Version Installed: ]" + $"[c/FF0000:{ExtraExplosives.ModVersion}]"); 
+				Main.NewText($"[c/AB40FF:The Mod Browser Version: ]"  + $"[c/00ff00:{ExtraExplosives.CurrentVersion}]");
+				Main.NewText($"[c/FF5349:You can find the latest version in the TML mod browser.]");
 			}
 
 			//Hotkey checks

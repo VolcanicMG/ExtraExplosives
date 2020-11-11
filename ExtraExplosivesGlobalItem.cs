@@ -115,10 +115,11 @@ namespace ExtraExplosives
 
             if (Info != null && ExtraExplosives._tooltipWhitelist.Contains<int>(item.type))
             {
-                var Dis = new TooltipLine(mod, "", "(Bombard Item)");
+                //Info.text += "[c/AB40FF: (Bombard Item)]";
+                var Dis = new TooltipLine(mod, "ItemName", "(Bombard Item)");
                 Dis.overrideColor = Color.Purple;
                 //tooltips.Add(Dis);
-                tooltips.Insert(tooltips.Count - 1, Dis);
+                tooltips.Insert(1, Dis);
 
             }
             else if(Disclaimer != null && ExtraExplosives.disclaimerTooltip.Contains<int>(item.type))
