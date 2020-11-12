@@ -1,4 +1,4 @@
-using ExtraExplosives.NPCs.CaptainExplosiveBoss;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -37,6 +37,7 @@ using ExtraExplosives.Projectiles.Weapons.NovaBuster;
 using ExtraExplosives.Items.Explosives;
 using Microsoft.Xna.Framework.Audio;
 using ExtraExplosives.Projectiles.Weapons.TrashCannon;
+using ExtraExplosives.NPCs.CaptainExplosiveBoss;
 
 namespace ExtraExplosives
 {
@@ -74,7 +75,7 @@ namespace ExtraExplosives
 		public static string GithubProjectName => "ExtraExplosives";
 
 		public static string ModVersion;
-		public static string CurrentVersion = "";
+		public static string CurrentVersion;
 
 		internal UserInterface cookbookInterface;
 		internal UserInterface buttonInterface;
@@ -104,6 +105,8 @@ namespace ExtraExplosives
 			ExtraExplosivesUserInterface = null;
 			ModVersion = null;
 			Instance = null;
+			CurrentVersion = null;
+			ModVersion = null;
 		}
 
 		internal enum EEMessageTypes : byte
@@ -625,15 +628,15 @@ namespace ExtraExplosives
 			{
 				if (CheckForInternetConnection())
 				{
-					//Parsing the data we need from the api
-					var json = client.DownloadString("https://raw.githubusercontent.com/VolcanicMG/ExtraExplosives/master/Version.TXT");
+					//Parsing the data we need
+					var json = client.DownloadString("https://raw.githubusercontent.com/VolcanicMG/ExtraExplosives/master/Version.txt");
 					json.ToString().Trim();
-					CurrentVersion = json;
+					CurrentVersion = "v" + json;
 					client.Dispose();
 				}
 			}
 
-			Mod yabhb = ModLoader.GetMod("FKBossHealthBar");
+            Mod yabhb = ModLoader.GetMod("FKBossHealthBar");
 			if (yabhb != null)
 			{
 				yabhb.Call("hbStart");

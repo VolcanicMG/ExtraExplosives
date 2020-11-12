@@ -51,7 +51,7 @@ namespace ExtraExplosives.Items.Accessories
 
             EndSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Novabooster/NovaboosterEnd");
             EngineSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Novabooster/Novabooster");
-            if (!Main.dedServ)
+            if (!Main.dedServ && EngineSound != null && EndSound != null)
             {
                 EngineSound = EngineSound.WithVolume(0.3f);
                 EndSound = EndSound.WithVolume(0.4f);

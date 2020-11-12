@@ -23,6 +23,7 @@ namespace ExtraExplosives.Projectiles
 		{
 			pickPower = 0;
 			radius = 12;
+			InflictDamageSelf = false;
 			projectile.knockBack = 20;
 			projectile.tileCollide = true;
 			projectile.width = 46;

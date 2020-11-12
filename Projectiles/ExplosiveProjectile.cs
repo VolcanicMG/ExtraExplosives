@@ -12,8 +12,9 @@ namespace ExtraExplosives.Projectiles
 {
     public abstract class ExplosiveProjectile : ModProjectile
     {
-        public bool IgnoreTrinkets = false; //not set up yet
+        public bool IgnoreTrinkets; //not set up
 
+        public bool InflictDamageSelf = true;
         public readonly bool Explosive = true;              // This marks the item as part of the explosive class
         public int radius = 0;                                  // Radius of the explosion
         public int pickPower = 0;                           // Strength of the explosion
@@ -169,7 +170,7 @@ namespace ExtraExplosives.Projectiles
                     {
                         npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
                     }
-                    else npc.StrikeNPC(projectile.damage - (int)(projectile.damage * .8f), projectile.knockBack, dir, crit);
+                    else npc.StrikeNPC(projectile.damage - (int)(projectile.damage * .5f), projectile.knockBack, dir, crit);
                 }
             }
 
@@ -181,12 +182,12 @@ namespace ExtraExplosives.Projectiles
                     player.EE().BlastShieldingActive) continue;
                 float dist = Vector2.Distance(player.Center, projectile.Center);
                 int dir = (dist > 0) ? 1 : -1;
-                if (dist / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer)
+                if (dist / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer && InflictDamageSelf)
                 {
                     player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
                     player.hurtCooldowns[0] += 15;
                 }
-                else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == projectile.owner)
+                else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == projectile.owner && InflictDamageSelf)
                 {
                     NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }

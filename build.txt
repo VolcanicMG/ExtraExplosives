@@ -1,6 +1,6 @@
 displayName = Extra Explosives [c/00FF00:(The Overhaul Update!)]
 author = Volcanic, Charlie, and the Dev team
-version = 3.0
+version = 3.0.1
 homepage = https://forums.terraria.org/index.php?threads/extra-explosives.87772/
 hideCode = true
 hideResources = true

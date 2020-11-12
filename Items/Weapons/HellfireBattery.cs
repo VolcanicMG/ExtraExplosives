@@ -86,7 +86,7 @@ namespace ExtraExplosives.Items.Weapons
 			}
 			else if (mode == 1) //precision
 			{
-				Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<FollowRocketProjectile>(), (int)((damage + 3000 + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
+				Projectile.NewProjectile(new Vector2(position.X, position.Y - 10), new Vector2(speedX, speedY), ModContent.ProjectileType<FollowRocketProjectile>(), (int)((damage + 3000 + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
 			}
 			else if (mode == 2) //homing
 			{

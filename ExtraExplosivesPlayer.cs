@@ -511,7 +511,7 @@ namespace ExtraExplosives
 			}
 
 			//nova bomb
-			if (Nova && ExtraExplosives.TriggerNovaBomb.JustPressed && (novaBombRecharge >= 60))
+			if (Nova && ExtraExplosives.TriggerNovaBomb.JustPressed && (novaBombRecharge >= 600))
 			{
 				//Create Bomb Sound
 				Main.PlaySound(SoundID.Item14, (int)player.Center.X, (int)player.Center.Y);
@@ -785,7 +785,7 @@ namespace ExtraExplosives
 			player.ResetEffects();
 			Main.screenPosition = player.Center;
 
-			if (ExtraExplosives.CurrentVersion.Equals(""))
+			if (ExtraExplosives.CurrentVersion == null)
 			{
 				Main.NewText($"[c/FF0000:There is no Internet connection.]");
 			}
@@ -793,7 +793,7 @@ namespace ExtraExplosives
 			{
 				Main.NewText($"[c/00ff00:The Extra Explosives Mod has an update available!]");
 				Main.NewText($"[c/AB40FF:Current Version Installed: ]" + $"[c/FF0000:{ExtraExplosives.ModVersion}]"); 
-				Main.NewText($"[c/AB40FF:The Mod Browser Version: ]"  + $"[c/00ff00:{ExtraExplosives.CurrentVersion}]");
+				Main.NewText($"[c/AB40FF:The Mod Browser Version: ]" + $"[c/00ff00:{ExtraExplosives.CurrentVersion}]");
 				Main.NewText($"[c/FF5349:You can find the latest version in the TML mod browser.]");
 			}
 
