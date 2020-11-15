@@ -28,7 +28,7 @@ namespace ExtraExplosives.NPCs
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Captain Explosive");
+			DisplayName.SetDefault("Captain Of Explosive");
 			Main.npcFrameCount[npc.type] = 25; //npc defines how many frames the npc sprite sheet has
 			NPCID.Sets.ExtraFramesCount[npc.type] = 9;
 			NPCID.Sets.AttackFrameCount[npc.type] = 4;
@@ -119,7 +119,7 @@ namespace ExtraExplosives.NPCs
 			CreateDust(npc.Center, 100);
 
 			//Create Bomb Damage
-			ExplosionDamageEnemy(12f * 1.5f, npc.Center, 1000, 40, Main.myPlayer);
+			ExplosionDamageEnemy(25, npc.Center, 1000, npc.whoAmI);
 
 			//Create Bomb Explosion
 			CreateExplosion(npc.Center, 12);

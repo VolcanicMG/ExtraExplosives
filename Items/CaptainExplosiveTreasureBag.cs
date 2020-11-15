@@ -7,6 +7,10 @@ using ExtraExplosives.NPCs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ExtraExplosives.Items.Armors;
+using ExtraExplosives.Items.Armors.Vanity.Bombforged;
+using ExtraExplosives.Items.Armors.Vanity.TNTSUIT;
+using ExtraExplosives.Items.Armors.Vanity.Explonin;
 
 namespace ExtraExplosives.Items
 {
@@ -14,6 +18,8 @@ namespace ExtraExplosives.Items
     {
 
         private int[] items = new int[3];
+
+        private int[][] Vanity = new int[3][];
 
         private int[] bombs = new int[27];
         
@@ -53,6 +59,17 @@ namespace ExtraExplosives.Items
                     player.QuickSpawnItem(item, 1);    // add hooks for special items here
                 }
             }
+
+            if(Main.rand.NextFloat() < .5f)
+            {
+                int VanityDrop = Main.rand.Next(3);
+
+                //Find the place on the array give the rest of the set
+                for(int i = 0; i < Vanity[VanityDrop].Length; i++)
+                {
+                    player.QuickSpawnItem(Vanity[VanityDrop][i], 1);
+                }
+            }
             
         }
 
@@ -64,7 +81,14 @@ namespace ExtraExplosives.Items
                 ModContent.ItemType<BombHat>(),
                 ModContent.ItemType<BombCloak>()
             };
-            
+
+            Vanity = new int[][]    // Item array, add boss specific drops here
+            {
+                new int[] { ModContent.ItemType<Bombforged_B>(), ModContent.ItemType<Bombforged_H>(), ModContent.ItemType<Bombforged_L>() },
+                new int[] { ModContent.ItemType<TNTSUIT_B>(), ModContent.ItemType<TNTSUIT_H>(), ModContent.ItemType<TNTSUIT_L>() },
+                new int[] { ModContent.ItemType<Explonin_B>(), ModContent.ItemType<Explonin_H>(), ModContent.ItemType<Explonin_L>() },
+            };
+
             bombs = new int[]        // List of bombs which should drop from CE boss bag,
             {
                 ModContent.ItemType<BasicExplosiveItem>(),
@@ -95,6 +119,9 @@ namespace ExtraExplosives.Items
                 ModContent.ItemType<RainboomItem>(),
                 //ModContent.ItemType<HotPotatoItem>()
             };
+
+
+
             base.AddRecipes();
         }
 

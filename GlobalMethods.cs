@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -82,22 +83,41 @@ namespace ExtraExplosives
 		}
 
 		/// <summary>
-		/// This function spawns in mini-projectiles that are used to "damage" entites when an explosion happens
+		/// This function deals damage within an area to the player when an explosion happens
 		/// </summary>
 		/// <param name="DamageRadius"> Determines the radius of the damage projectiles explosion </param>
 		/// <param name="DamagePosition"> Determines the center point of the damage projectiles explosion </param>
 		/// <param name="Damage"> Stores the damage projectiles damage amount </param>
-		/// <param name="Knockback"> Stores the damage projectiles knockback amount </param>
-		/// <param name="ProjectileOwner"> Stores the owner who called the damage projectile </param>
-		public static void ExplosionDamageEnemy(float DamageRadius, Vector2 DamagePosition, int Damage, float Knockback, int ProjectileOwner)
+		/// <param name="npc"> Stores the npc who spawned the projectile </param>
+		public static void ExplosionDamageEnemy(int DamageRadius, Vector2 DamagePosition, int Damage, int npc)
 		{
-			ExplosionDamageProjectile.DamageRadius = DamageRadius; //Sets the radius of the explosion
-			Projectile.NewProjectile(DamagePosition, Vector2.Zero, ProjectileType<ExplosionDamageProjectileEnemy>(), Damage, Knockback, ProjectileOwner, 0.0f, 0); //Spawns the damage projectile
+			foreach (Player player in Main.player)
+			{
+				if (player == null || player.whoAmI == 255 || !player.active) return;
+				if (player.EE().BlastShielding &&
+					player.EE().BlastShieldingActive) continue;
+				float dist = Vector2.Distance(player.Center, DamagePosition);
+				int dir = (dist > 0) ? 1 : -1;
+				if (dist / 16f <= DamageRadius && Main.netMode == NetmodeID.SinglePlayer)
+				{
+					player.Hurt(PlayerDeathReason.ByNPC(npc), Damage, dir);
+					player.hurtCooldowns[0] += 15;
+				}
+				else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= DamageRadius)
+				{
+					NetMessage.SendPlayerHurt(Main.myPlayer, PlayerDeathReason.ByNPC(npc), Damage, dir, false, pvp: true, 0);
+				}
+			}
 		}
 
-		//from CosmivengeonMod:
-		//spawns in a Projectile that is synced with the server
-		public static void SpawnProjectileSynced(Vector2 position, Vector2 velocity, int type, int damage, float knockback, float ai0 = 0f, float ai1 = 0f, int owner = 255)
+        private static void PlayerDeathReason_ByCustomReason(MonoMod.Cil.ILContext il)
+        {
+            throw new NotImplementedException();
+        }
+
+        //from CosmivengeonMod:
+        //spawns in a Projectile that is synced with the server
+        public static void SpawnProjectileSynced(Vector2 position, Vector2 velocity, int type, int damage, float knockback, float ai0 = 0f, float ai1 = 0f, int owner = 255)
 		{
 			if (owner == 255)
 				owner = Main.myPlayer;

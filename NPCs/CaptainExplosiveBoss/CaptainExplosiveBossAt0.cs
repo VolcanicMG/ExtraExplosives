@@ -251,7 +251,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 						CreateExplosion(npc.Center, 25);
 					}
 
-					ExplosionDamageEnemy(10f * 2f, npc.Center, 1000, 30, Main.myPlayer);
+					//call the explostion at the end and check for damage
+					ExplosionDamageEnemy(25, npc.Center, 1000, npc.whoAmI);
 
 					//Main.NewText("I only run once");
 

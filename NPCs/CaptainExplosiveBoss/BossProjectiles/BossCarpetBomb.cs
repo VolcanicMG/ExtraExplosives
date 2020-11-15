@@ -95,7 +95,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
 			//Create Bomb Damage
-			ExplosionDamageEnemy(10f, projectile.Center, projectile.damage, 20f, projectile.owner);
+			ExplosionDamageEnemy(25, projectile.Center, projectile.damage, ModContent.NPCType<CaptainExplosiveBoss>());
 
 			//Create Bomb Explosion
 			//CreateExplosion(projectile.Center, 2);
