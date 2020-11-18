@@ -2,6 +2,7 @@
 using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
 using ExtraExplosives.Projectiles;
 using ExtraExplosives.Projectiles.Rockets;
+using ExtraExplosives.Projectiles.Testing;
 using ExtraExplosives.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -15,8 +16,8 @@ namespace ExtraExplosives.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Projectile Tester");
-			Tooltip.SetDefault("For testing purposes");
+			DisplayName.SetDefault("Dev Item");
+			Tooltip.SetDefault("'For testing purposes'");
 		}
 
 		public override void SetDefaults()
@@ -35,7 +36,7 @@ namespace ExtraExplosives.Items
 			item.noUseGraphic = true;
 			item.noMelee = true;	  //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
 			item.noMelee = true;	  //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damage
-			item.shoot = ModContent.ProjectileType<Rocket0Point5Projectile>(); //This defines what type of projectile this item will shoot
+			item.shoot = ModContent.ProjectileType<TestingExplosive>(); //This defines what type of projectile this item will shoot
 			item.shootSpeed = 5f; //This defines the projectile speed when shot
 			//item.createTile = ModContent.TileType<ExplosiveTile>();
 			//item.createTile = mod.TileType("ExplosiveTile");
@@ -52,9 +53,9 @@ namespace ExtraExplosives.Items
 		{
 			if (cooldown > 0) return false;
 			cooldown = 30;
-			Projectile projectile = Projectile.NewProjectileDirect(Main.player[item.owner].position, Vector2.Zero, ModContent.ProjectileType<BossArmorBreakBombProjectile>(), 10, 0, Main.myPlayer);
-			projectile.hostile = true;
-			return false;
+            //Projectile projectile = Projectile.NewProjectileDirect(Main.player[item.owner].position, Vector2.Zero, ModContent.ProjectileType<TestingExplosive>(), 0, 0, Main.myPlayer);
+            //projectile.hostile = true;
+            return false;
 		}
 	}
 }

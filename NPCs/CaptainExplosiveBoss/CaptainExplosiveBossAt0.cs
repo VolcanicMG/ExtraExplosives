@@ -58,7 +58,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 			npc.knockBackResist = 0f;
 			npc.width = 200;
 			npc.height = 200;
-			npc.value = Item.buyPrice(0, 20, 0, 0);
+			npc.value = Item.buyPrice(0, 7, 0, 0);
 			npc.npcSlots = 15f;
 			npc.boss = true;
 			npc.lavaImmune = true;
@@ -287,6 +287,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 				int drop = Main.rand.NextBool() ? ItemType<BombardierEmblem>() : ItemType<RandomFuel>();   // which item will 100% drop
 				int dropChance = drop == ItemType<BombardierEmblem>() ? ItemType<RandomFuel>() : ItemType<BombardierEmblem>();    // find the other item
 				npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), drop);  // drop the confirmed item
+				npc.DropItemInstanced(npc.position, new Vector2(npc.width, npc.height), ItemID.GoldCoin, 7);
 
 				//A litte over 50% boost if check break is true
 				if (ExtraExplosives.CheckBossBreak)
