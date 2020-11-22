@@ -112,7 +112,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public virtual void ExplosionDamage()
         {
-            float radius = 15f;
+            float radius = 7f;
             foreach (NPC npcID in Main.npc)
             {
                 float dist = Vector2.Distance(npcID.Center, npc.Center);

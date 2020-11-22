@@ -1,5 +1,7 @@
-﻿using ExtraExplosives.Projectiles;
+﻿using ExtraExplosives.Dusts;
+using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -308,7 +310,7 @@ namespace ExtraExplosives
             Vector2 fastBlast = startpoint;
 
             Vector2 startpoint2 = new Vector2(0f, -1f);
-            startpoint2 *= 20;
+            startpoint2 *= 15 + (Radius / 6);
             startpoint2 = startpoint2.RotatedByRandom(MathHelper.Pi);
 
             //SPARKEL------------------------------------------------------------------------------------------------------------
@@ -350,27 +352,76 @@ namespace ExtraExplosives
                 fastBlast = fastBlast.RotatedBy(MathHelper.ToRadians(360 / dustAmount));
             }
 
-            //More circular (Has issues on smaller explosives)
-            for (int i = 0; i < dustAmount + (Radius / 2); i++)
+            if (Radius >= 15)
             {
-                Dust dust;
-                if (i % 2 == 0)
+                //More circular (Has issues on smaller explosives)
+                for (int i = 0; i < dustAmount + (Radius / 2); i++)
                 {
-                    dust = Dust.NewDustPerfect(Center, 6, startpoint2, newColor: color, Scale: scale * .8f);
-                }
-                else
-                {
-                    dust = Dust.NewDustPerfect(Center, 6, new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(360)), newColor: color, Scale: scale * .5f);
-                    dust.velocity *= Main.rand.NextFloat(8);
-                }
+                    Dust dust;
+                    Dust dust2;
+                    if (i % 2 == 0)
+                    {
+                        dust = Dust.NewDustPerfect(Center, 6, startpoint2, newColor: color, Scale: scale * .8f);
+                    }
+                    else
+                    {
+                        dust = Dust.NewDustPerfect(Center, 6, new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(360)), newColor: color, Scale: scale * .5f);
+                        dust.velocity *= Main.rand.NextFloat(8);
+                    }
 
-                dust.noGravity = true;
-                dust.fadeIn = .01f;
+                    dust2 = Dust.NewDustPerfect(Center, 6, startpoint2, newColor: color, Scale: scale * .5f);
+                    dust2.noGravity = true;
+                    dust2.velocity /= 2;
 
-                startpoint2 = startpoint2.RotatedBy(MathHelper.ToRadians(360 / dustAmount - 20));
+                    dust.noGravity = true;
+                    dust.fadeIn = .01f;
+
+                    startpoint2 = startpoint2.RotatedBy(MathHelper.ToRadians(360 / dustAmount - 20));
+                }
             }
             //SPARKEL-------------------------------------------------------------------------------------------------------------
 
+            //GORE----------------------------------------------------------------------------------------------------------------
+            for (int num837 = 1; num837 <= (Radius / 3) + 3; num837++)
+            {
+                for (int num838 = -1; num838 <= 1; num838 += 2)
+                {
+                    for (int num839 = -1; num839 <= 1; num839 += 2)
+                    {
+                        Gore gore10 = Gore.NewGoreDirect(Center, Vector2.Zero, Main.rand.Next(61, 64), scale * .3f);
+                        Gore gore = gore10;
+                        gore.velocity *= (float)num837 / 3f * (Radius / 12);
+                        gore = gore10;
+                        gore.velocity += new Vector2(num838, num839) * (Radius / 12);
+                    }
+                }
+            }
+            //GORE----------------------------------------------------------------------------------------------------------------
+
+            //Black Smoke---------------------------------------------------------------------------------------------------------------------------
+
+
+
+            //Black Smoke---------------------------------------------------------------------------------------------------------------------------
+
+
+            //Debris---------------------------------------------------------------------------------------------------------------------------------------------------
+            for (int i = 0; i < 5 + Main.rand.Next(Radius / 3); i++)
+            {
+                Vector2 explosionTop = RandomVector2(-MathHelper.Pi, 0);
+                float speed = (Radius / 3) + Main.rand.NextFloat(2f);
+
+                Dust dust = Dust.NewDustPerfect(Center, DustType<DebrisDust>(), explosionTop * speed, newColor: default(Color), Scale: scale); //starting color
+                dust.noGravity = false;
+            }
+            //Debris---------------------------------------------------------------------------------------------------------------------------------------------------
+
+        }
+
+        public static Vector2 RandomVector2(float angle, float angleMin)
+        {
+            float random = Main.rand.NextFloat() * angle + angleMin;
+            return new Vector2((float)Math.Cos(random), (float)Math.Sin(random));
         }
 
     }
