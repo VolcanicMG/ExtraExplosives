@@ -31,14 +31,14 @@ namespace ExtraExplosives.Dusts
             lifeTime--;
 
             //Every 3rd tick change the frame of the dust
-            if (lifeTime % 4 == 0)
+            if (lifeTime % 10 == 0)
             {
                 DebrisDust.frame = new Rectangle(0, 10 * Main.rand.Next(3), 10, 10);
             }
 
 
             //Shrink the dust slowly
-            if (lifeTime % 5 == 0)
+            if (lifeTime % 6 == 0)
             {
                 DebrisDust.scale -= DebrisDust.scale * 0.1f;
 
@@ -50,7 +50,8 @@ namespace ExtraExplosives.Dusts
             Lighting.maxY = 3;
 
             //Once it touches the ground stop moving
-            if (!WorldGen.TileEmpty((int)(DebrisDust.position.X / 16f), (int)(DebrisDust.position.Y / 16f)))
+            Tile tile = Framing.GetTileSafely((int)(DebrisDust.position.X / 16f), (int)(DebrisDust.position.Y / 16f));
+            if (!WorldGen.TileEmpty((int)(DebrisDust.position.X / 16f), (int)(DebrisDust.position.Y / 16f)) && tile.type != Terraria.ID.TileID.Trees)
             {
                 DebrisDust.velocity = Vector2.Zero;
             }

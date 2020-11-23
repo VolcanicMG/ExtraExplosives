@@ -155,7 +155,7 @@ namespace ExtraExplosives.NPCs
 				nextSlot++;
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<BombardsPouch>());
 
-				if (NPC.downedSlimeKing)
+				if (NPC.downedSlimeKing || NPC.downedBoss1)
 				{
 					nextSlot++;
 					shop.item[nextSlot].SetDefaults(ModContent.ItemType<Unhinged_Letter>());

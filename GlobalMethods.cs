@@ -118,7 +118,6 @@ namespace ExtraExplosives
         /// <param name="type"> The type of dust effect, 1 = Standard, 2 = Rocket, 3 = Special, Default = 1, anything other than 1, 2, 3 will default to 1.</param>
         /// <param name="color"> Color of main part of the dusts </param>
         /// <param name="lightingColor"> Color of light when produced from an explosion </param>
-        //Tie in more effects bases off of the radius?
         public static void ExplosionDust(int Radius, Vector2 Center, int type = 1, Color color = default, Color lightingColor = default)
         {
             //Check to see if the type is 1, 2 or 3, else default to 1
@@ -381,8 +380,8 @@ namespace ExtraExplosives
             }
             //SPARKEL-------------------------------------------------------------------------------------------------------------
 
-            //GORE----------------------------------------------------------------------------------------------------------------
-            for (int num837 = 1; num837 <= (Radius / 3) + 3; num837++)
+            //GORE---------------------------------------------------------------------------------------------------------------- (adjust for small and large explosions)
+            for (int num837 = 1; num837 <= (Radius / 5) + 5; num837++)
             {
                 for (int num838 = -1; num838 <= 1; num838 += 2)
                 {
@@ -390,9 +389,9 @@ namespace ExtraExplosives
                     {
                         Gore gore10 = Gore.NewGoreDirect(Center, Vector2.Zero, Main.rand.Next(61, 64), scale * .3f);
                         Gore gore = gore10;
-                        gore.velocity *= (float)num837 / 3f * (Radius / 12);
+                        gore.velocity *= (float)num837 / 3f + (Radius / 8);
                         gore = gore10;
-                        gore.velocity += new Vector2(num838, num839) * (Radius / 12);
+                        gore.velocity += new Vector2(num838, num839);
                     }
                 }
             }
@@ -408,7 +407,18 @@ namespace ExtraExplosives
             //Debris---------------------------------------------------------------------------------------------------------------------------------------------------
             for (int i = 0; i < 5 + Main.rand.Next(Radius / 3); i++)
             {
-                Vector2 explosionTop = RandomVector2(-MathHelper.Pi, 0);
+                Vector2 explosionTop;
+
+                if (i % 2 == 0) //Right side
+                {
+                    explosionTop = RandomVector2(-MathHelper.Pi / 4, 0); //choose a random angle based off of 180
+                }
+                else //left side
+                {
+                    explosionTop = RandomVector2(-MathHelper.Pi, (7 * MathHelper.Pi) / 4); //choose a random angle based off of 180
+                    
+                }
+
                 float speed = (Radius / 3) + Main.rand.NextFloat(2f);
 
                 Dust dust = Dust.NewDustPerfect(Center, DustType<DebrisDust>(), explosionTop * speed, newColor: default(Color), Scale: scale); //starting color
@@ -418,6 +428,11 @@ namespace ExtraExplosives
 
         }
 
+        /// <summary>
+        /// This function converts a vector2 to an angle and puts it back as a vector2 at a random point between the two values.
+        /// </summary>
+        /// <param name="angle"> Starting angle </param>
+        /// <param name="angleMin"> Minimum angle </param>
         public static Vector2 RandomVector2(float angle, float angleMin)
         {
             float random = Main.rand.NextFloat() * angle + angleMin;
