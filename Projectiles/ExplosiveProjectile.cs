@@ -135,10 +135,11 @@ namespace ExtraExplosives.Projectiles
 
                             else
                             {
-                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type))
+                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type) && Main.tile[i, j - 1].type != 26)
                                 {
                                     tile.ClearTile();
                                     tile.active(false);
+                                    
                                 }
 
                                 if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)

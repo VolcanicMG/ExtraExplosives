@@ -199,7 +199,11 @@ namespace ExtraExplosives
 
         //============================================================================\\
 
-        //check if the tile can be broken or not
+        /// <summary>
+        /// This function determines whether or not to break a tile. Overrides: -1 = Destroy anything, -2 = Don't break anything
+        /// </summary>
+        /// <param name="tileId"> The Id of the tile </param>
+        /// <param name="pickPower"> pick power of the bomb </param>
         public static bool CanBreakTile(int tileId, int pickPower)
         {
             // Dynamic mod tile functionality at the bottom
@@ -207,6 +211,10 @@ namespace ExtraExplosives
                 return true; // Override so an item can be set to ignore pickaxe power and destory everything
             if (pickPower <= -2)
                 return false; // Override so an item can be set to not damage anything ever also catches invalid garbage
+            if(tileId == TileID.Ebonstone || tileId == TileID.Crimstone)
+            {
+                return true;
+            }
             if (tileId < 470)
             {
                 // this is for all blocks which can be destroyed by any pickaxe

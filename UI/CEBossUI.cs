@@ -44,6 +44,7 @@ namespace ExtraExplosives.UI
 		private float ScreenWidth = 1920f; //Resolution for the average monitor and what the UI was build for
 		private float FocusedScreenWidth = 0f;
 		private float ScreenAdjustments = 0f;
+		private float ScaleUI = Main.UIScale;
 
 		private int DrawPosY = 220;
 
@@ -59,42 +60,44 @@ namespace ExtraExplosives.UI
 			ScreenAdjustments = FocusedScreenWidth / ScreenWidth;
 
 			panel = new UIPanel();
-			panel.Height.Set(200 * ScreenAdjustments, 0);
-			panel.Width.Set(400 * ScreenAdjustments, 0);
-			panel.Left.Set((ScreenWidth / 10) * ScreenAdjustments, 0);
+			panel.Height.Set(200 * ScreenAdjustments / ScaleUI, 0);
+			panel.Width.Set(400 * ScreenAdjustments / ScaleUI, 0);
+			panel.Left.Set((ScreenWidth / 10) * ScreenAdjustments / ScaleUI, 0);
 			//panel.HAlign = .2f;
 			panel.VAlign = .85f;
 			panel.BackgroundColor = new Color(192, 192, 192, 0);
+			panel.Recalculate();
 			Append(panel);
 
 			//Skin for the panel
 			PanelSkin = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/ReforgeUI"));
-			PanelSkin.ImageScale = 2.2f * ScreenAdjustments;
+			PanelSkin.ImageScale = 2.2f * ScreenAdjustments / ScaleUI;
 			PanelSkin.HAlign = .5f;
 			PanelSkin.VAlign = .5f;
 			panel.Append(PanelSkin);
 
 			panel2 = new UIPanel();
-			panel2.Height.Set(200 * ScreenAdjustments, 0);
-			panel2.Width.Set(400 * ScreenAdjustments, 0);
+			panel2.Height.Set(200 * ScreenAdjustments / ScaleUI, 0);
+			panel2.Width.Set(400 * ScreenAdjustments / ScaleUI, 0);
 
 			float Find = (FocusedScreenWidth < ScreenWidth) ? .9f : 1f;
-			panel2.Left.Set((ScreenWidth - panel.Left.Pixels - panel2.Width.Pixels) * Math.Abs(ScreenAdjustments * Find), 0);
+			panel2.Left.Set((ScreenWidth - panel.Left.Pixels - panel2.Width.Pixels) * Math.Abs(ScreenAdjustments * Find) / ScaleUI, 0);
 			panel2.VAlign = .85f;
 			panel2.BackgroundColor = new Color(192, 192, 192, 0);
+			panel2.Recalculate();
 			Append(panel2);
 
 			//Skin for the second panel
 			Panel2Skin = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/ReforgeUI"));
-			Panel2Skin.ImageScale = 2.2f * ScreenAdjustments;
+			Panel2Skin.ImageScale = 2.2f * ScreenAdjustments / ScaleUI;
 			Panel2Skin.HAlign = .5f;
 			Panel2Skin.VAlign = .5f;
 			panel2.Append(Panel2Skin);
 
 			//The green button
 			ImageButtonYes = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/YesButton"));
-			ImageButtonYes.Width.Set(150, 0f);
-			ImageButtonYes.Height.Set(150, 0f);
+			ImageButtonYes.Width.Set(150 / ScaleUI, 0f);
+			ImageButtonYes.Height.Set(150 / ScaleUI, 0f);
 			ImageButtonYes.Left.Set((panel.Left.Pixels + panel.Width.Pixels + 50), 0);
 			ImageButtonYes.VAlign = .86f;
 			ImageButtonYes.OnClick += new MouseEvent(ButtonClickedYes);
@@ -102,8 +105,8 @@ namespace ExtraExplosives.UI
 
 			//The red button
 			ImageButtonNo = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/NoButton"));
-            ImageButtonNo.Width.Set(150, 0f);
-            ImageButtonNo.Height.Set(150, 0f);
+            ImageButtonNo.Width.Set(150 / ScaleUI, 0f);
+            ImageButtonNo.Height.Set(150 / ScaleUI, 0f);
 			ImageButtonNo.VAlign = .86f;
 			ImageButtonNo.Left.Set((panel2.Left.Pixels - 190), 0f);
 			ImageButtonNo.OnClick += new MouseEvent(ButtonClickedNo);
