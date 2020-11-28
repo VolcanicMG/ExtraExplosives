@@ -121,10 +121,11 @@ namespace ExtraExplosives.Projectiles
 						}
 						else //Breakable
 						{
-							if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type))
+							if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type) && Main.tile[xPosition, yPosition - 1].type != 26)
 							{
 								tile.ClearTile();
 								tile.active(false);
+
 							}
 
 							if (Main.netMode == NetmodeID.MultiplayerClient)

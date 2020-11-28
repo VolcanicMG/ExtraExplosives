@@ -85,9 +85,7 @@ namespace ExtraExplosives.Projectiles
 								}
 								else //Breakable
 								{
-									WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-																								  //Doesnt make sense for the heavy bomb to break walls, commented for now
-																								  //if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
+									WorldGen.KillTile(xPosition, yPosition, false, false, false); 
 								}
 							}
 						}

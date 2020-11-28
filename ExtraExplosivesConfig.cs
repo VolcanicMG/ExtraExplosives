@@ -25,15 +25,15 @@ namespace ExtraExplosives
 	[Label("ExtraExplosives Server Config")]
 	public class ExtraExplosivesServerConfig : ModConfig
 	{
-		public override ConfigScope Mode => ConfigScope.ServerSide; //Change to client to make it only applicable to the client side
+		public override ConfigScope Mode => ConfigScope.ServerSide;
 
 		[Header("Explosives Wall Settings")]
 		[Label("Toggle Wall Breaking")]
 		[DefaultValue(true)]
 		public bool CanBreakWalls;
 
-		[Header("Explosives Block Settings")]
-		[Label("Toggle Block Breaking for the C4, Da Bomb, and Captain Explosive")]
+		[Header("Explosive Block-Breaking")]
+		[Label("Toggle Block Breaking for Captain Explosive (Town NPC)")]
 		[DefaultValue(true)]
 		public bool CanBreakTiles;
 

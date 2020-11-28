@@ -97,10 +97,11 @@ namespace ExtraExplosives.Projectiles
 						}
 						else //Breakable
 						{
-							if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type))
+							if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type) && Main.tile[i, j - 1].type != 26)
 							{
 								tile.ClearTile();
 								tile.active(false);
+
 							}
 							if (CanBreakWalls) WorldGen.KillWall(i, j, false); //This destroys Walls
 							if (CanBreakWalls && y - 1 != height) WorldGen.KillWall(i + 1, j + 1, false); //Break the last bit of wall

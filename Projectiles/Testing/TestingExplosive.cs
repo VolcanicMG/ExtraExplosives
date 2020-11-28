@@ -37,6 +37,8 @@ namespace ExtraExplosives.Projectiles.Testing
 			//Create Bomb Sound
 			Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
+			Explosion();
+
 			//Create Bomb Dust
 			ExplosionDust(radius, projectile.Center, 1, new Color(255,255,255), new Color(189, 24, 22));
 

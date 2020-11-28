@@ -71,7 +71,7 @@ namespace ExtraExplosives.Projectiles
         /// <summary>
         /// Takes the projectiles radius attribute in place of passing variables
         /// Creates a circular explosion in the radius defined
-        /// Efficient but most blocks dont drop due to optimization methods (WIP)
+        /// Efficient but most blocks dont drop due to optimization methods
         /// </summary>
         public virtual void Explosion()
         {
@@ -106,7 +106,7 @@ namespace ExtraExplosives.Projectiles
                         if (!WorldGen.TileEmpty(i, j) && tile.active())
                         {
                             if (!CanBreakTile(tile.type, pickPower)) continue;
-                            if (!CanBreakTiles) continue;
+                            //if (!CanBreakTiles) continue;
                             // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
                             // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
                             if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.type])

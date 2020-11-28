@@ -544,37 +544,53 @@ namespace ExtraExplosives
 								if (!WorldGen.TileEmpty(i, j) && tile.active())
 								{
 									if (!CanBreakTile(tile.type, pickPower)) continue;
-									if (!CanBreakTiles) continue;
+									//if (!CanBreakTiles) continue;
 									// Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
 									// But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
 									if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.type])
 									{
-										int typeOre = tile.type;
+										int typeTile = tile.type;
 										WorldGen.KillTile((int)(i), (int)(j), false, false, false);
+
+										if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
+										{
+											WorldGen.SquareTileFrame(i, j, true); //Updates Area
+											NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+										}
 
 										if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
 										{
-											WorldGen.PlaceTile(i, j, typeOre);
+											WorldGen.PlaceTile(i, j, typeTile);
 											WorldGen.KillTile((int)(i), (int)(j), false, false, false);
+
+											if (Main.netMode == NetmodeID.MultiplayerClient)
+											{
+												WorldGen.SquareTileFrame(i, j, true); //Updates Area
+												NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+											}
 										}
 									}
 
 									else
 									{
-										tile.ClearTile();
-										tile.active(false);
+										if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type) && Main.tile[i, j - 1].type != 26)
+										{
+											tile.ClearTile();
+											tile.active(false);
+
+										}
 
 										if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
 										{
 											WorldGen.SquareTileFrame(i, j, true);
 										}
+
 									}
-									//
 								}
 
 								if (CanBreakWalls)
 								{
-									//WorldGen.KillWall((int) (i), (int) (j));
+									WorldGen.KillWall((int) (i), (int) (j));
 								}
 							}
 						}
