@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
-using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader.IO;
 
 namespace ExtraExplosives.Items
 {
@@ -12,20 +10,29 @@ namespace ExtraExplosives.Items
     {
         public override bool CloneNewInstances { get; } = true;
 
+        /// <summary>
+        /// If this is true then the mod will add this item to the disclaimer list. Returns false by default
+        /// </summary>
+        public bool toolTipDisclamer = false;
+
+        /// <summary>
+        /// If this is true then the mod will add this item to the Bombard tooltip list. Returns false by default
+        /// </summary>
+        public bool BombardTag = false;
+
         public ModItem ModItem
         {
             get;
             internal set;
         }
 
-        // Made readonly since any use of ExplosiveItem over ModItem would be to allow for explosive damage
         public bool Explosive = true;
 
         public virtual void SafeSetDefaults()
         {
 
         }
-        
+
         public sealed override void SetDefaults()
         {
             SafeSetDefaults();
@@ -39,6 +46,7 @@ namespace ExtraExplosives.Items
 
         public virtual void DangerousSetDefaults()
         {
+
         }
 
         public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
@@ -67,6 +75,14 @@ namespace ExtraExplosives.Items
                 string damageWord = split.Last();
                 stats.text = damageValue + " explosive " + damageWord;
             }
+        }
+
+        public override void Load(TagCompound tag)
+        {
+            base.Load(tag);
+            //Used to add the tooltip without manually adding it in the main mod class
+            if (toolTipDisclamer) ExtraExplosives.disclaimerTooltip.Add(this.item.type);
+            if (BombardTag) ExtraExplosives._tooltipWhitelist.Add(this.item.type);
         }
     }
 }

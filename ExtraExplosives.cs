@@ -43,7 +43,7 @@ namespace ExtraExplosives
 {
 	public class ExtraExplosives : Mod
 	{
-		//move the first 4 over to player????
+		//Hotkeys
 		internal static ModHotKey TriggerExplosion;
 		internal static ModHotKey TriggerUIReforge;
 		internal static ModHotKey ToggleCookbookUI;
@@ -51,47 +51,61 @@ namespace ExtraExplosives
 		internal static ModHotKey TriggerNovaBomb;
 		internal static ModHotKey TriggerLizhard;
 
+		//nuke
 		public static bool NukeActivated;
 		public static bool NukeActive;
 		public static Vector2 NukePos;
 		public static bool NukeHit;
 
+		//boss
 		public static int bossDropDynamite;
 
+		//dust
 		internal static float dustAmount;
+
+		//UI
 		internal UserInterface ExtraExplosivesUserInterface;
 		internal UserInterface ExtraExplosivesReforgeBombInterface;
 		internal UserInterface CEBossInterface;
 		internal UserInterface CEBossInterfaceNonOwner;
 
+		//Mod instance
 		public static Mod Instance;
 
+		//Boss checks
 		public static int CheckUIBoss = 0;
 		public static bool CheckBossBreak;
 		public static bool firstTick;
 		public static float bossDirection;
 		public static bool removeUIElements;
+
+		//Github
 		public static string GithubUserName => "VolcanicMG";
 		public static string GithubProjectName => "ExtraExplosives";
 
+		//Mod version checking
 		public static string ModVersion;
 		public static string CurrentVersion;
 
+		//Cookbook ui
 		internal UserInterface cookbookInterface;
 		internal UserInterface buttonInterface;
 		internal ButtonUI ButtonUI;
 		internal CookbookUI CookbookUI;
 
+		//config
 		internal static ExtraExplosivesConfig EEConfig;
 
+		//Boombox
 		public static bool boomBoxMusic = false;
 		public static int randomMusicID = 0;
 		public static int boomBoxTimer = 0;
 
-		internal static int[] avoidList = new int[25];
+		//Arrays and Lists
+		internal static List<int> avoidList;
 		internal static int[] _doNotDuplicate;
-		internal static int[] _tooltipWhitelist;
-		internal static int[] disclaimerTooltip;
+		internal static List<int> _tooltipWhitelist;
+		internal static List<int> disclaimerTooltip;
 
 		// Create the item to item id reference (used with cpt explosive) Needs to stay loaded
 		public ExtraExplosives()
@@ -259,7 +273,7 @@ namespace ExtraExplosives
 				// If you localize your mod, pass in a localized string instead of just English.
 				// Additional lines for additional town npc that your mod adds
 				// Simpler example:
-				censusMod.Call("TownNPCCondition", NPCType("CaptainExplosive"), $"Kill King Slime or use an [i:{ModContent.ItemType<Unhinged_Letter>()}]"); 
+				censusMod.Call("TownNPCCondition", NPCType("CaptainExplosive"), $"Kill King Slime or Eye Of Cthulhu, then you can buy the[i:{ModContent.ItemType<Unhinged_Letter>()}] from the demolitionist"); 
 			}
 
 			if (bossChecklist != null)
@@ -268,8 +282,8 @@ namespace ExtraExplosives
 				bossChecklist.Call("AddBoss", 6, ModContent.NPCType<CaptainExplosiveBoss>(), this, "Captain Explosive", (Func<bool>)(() => ExtraExplosivesPlayer.BossCheckDead), ModContent.ItemType<Unhinged_Letter>(), ModContent.ItemType<BombHat>(), ModContent.ItemType<CaptainExplosiveTreasureBag>(), $"Kill King Slime or use an [i:{ModContent.ItemType<Unhinged_Letter>()}]");
 			}
 
-			_tooltipWhitelist = new int[] //Whitelist for the (Bombard Item) tag at the end of bombard items.
-            {
+			_tooltipWhitelist = new List<int> //Whitelist for the (Bombard Item) tag at the end of bombard items.
+			{
                 //armors
                 ModContent.ItemType<AsteroidMiner_B>(),
 				ModContent.ItemType<AsteroidMiner_B_O>(),
@@ -377,7 +391,7 @@ namespace ExtraExplosives
 				ModContent.ProjectileType<AtomBombProjectile>()
 			};
 
-			avoidList = new int[]
+			avoidList = new List<int>
 			{
 						ModContent.ProjectileType<BossArmorBreakBombProjectile>(),
 						ModContent.ProjectileType<BossChillBombProjectile>(),
@@ -443,10 +457,11 @@ namespace ExtraExplosives
 						ModContent.ProjectileType<HealBombProjectile>(),
 						ModContent.ProjectileType<BiomeCleanerProjectile>(),
 						ModContent.ProjectileType<HotPotatoProjectile>(),
-						ModContent.ProjectileType<TrashCannonProjectile>()
+						ModContent.ProjectileType<TrashCannonProjectile>(),
+						//ModContent.ProjectileType<WallBombProjectile>()
 			};
 
-			disclaimerTooltip = new int[]
+			disclaimerTooltip = new List<int>
 			{ 
 				ModContent.ItemType<HouseBombItem>(),
 				ModContent.ItemType<CritterBombItem>(),
@@ -471,7 +486,8 @@ namespace ExtraExplosives
 				ModContent.ItemType<DeliquidifierItem>(),
 				ModContent.ItemType<BulletBoomItem>(),
 				ModContent.ItemType<HealBomb>(),
-				ModContent.ItemType<BiomeCleanerItem>()
+				ModContent.ItemType<BiomeCleanerItem>(),
+				//ModContent.ItemType<WallBombItem>()
 			};
 
 			base.PostSetupContent();

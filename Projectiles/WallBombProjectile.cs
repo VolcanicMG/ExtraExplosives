@@ -26,6 +26,7 @@ namespace ExtraExplosives.Projectiles
 
 		public override void SafeSetDefaults()
 		{
+			IgnoreTrinkets = true;
 			pickPower = -2;
 			radius = 30;
 			projectile.tileCollide = true; //checks to see if the projectile can go through tiles

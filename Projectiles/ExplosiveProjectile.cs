@@ -12,7 +12,10 @@ namespace ExtraExplosives.Projectiles
 {
     public abstract class ExplosiveProjectile : ModProjectile
     {
-        public bool IgnoreTrinkets; //not set up
+        /// <summary>
+        /// If this is true then the mod will add this projectile to the trinket avoid list. Returns false by default
+        /// </summary>
+        public bool IgnoreTrinkets = false;
 
         public bool InflictDamageSelf = true;
         public readonly bool Explosive = true;              // This marks the item as part of the explosive class
@@ -24,6 +27,7 @@ namespace ExtraExplosives.Projectiles
         protected abstract string goreFileLoc { get; }      // Where the explosion gore sprites are located (relative to project dir)
 
         private bool firstTick;
+        private bool firstTickPreAI;
         public virtual void SafeSetDefaults()
         {
         }
@@ -44,7 +48,21 @@ namespace ExtraExplosives.Projectiles
 
         public override void AI()
         {
-            if(!firstTick && Main.netMode != NetmodeID.MultiplayerClient) NetMessage.SendData(MessageID.SyncProjectile, number: projectile.whoAmI);
+            if (!firstTick && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                NetMessage.SendData(MessageID.SyncProjectile, number: projectile.whoAmI);
+                firstTick = true;
+            }
+        }
+
+        public override bool PreAI()
+        {
+            if (IgnoreTrinkets && !firstTickPreAI)
+            {
+                ExtraExplosives.avoidList.Add(this.projectile.type);
+                firstTickPreAI = true;
+            }
+            return base.PreAI();
         }
 
         public virtual void DangerousSetDefaults()

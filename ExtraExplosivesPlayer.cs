@@ -1,5 +1,6 @@
 using ExtraExplosives.Buffs;
 using ExtraExplosives.Items.Accessories;
+using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Projectiles;
 using ExtraExplosives.UI.AnarchistCookbookUI;
 using Microsoft.Xna.Framework;

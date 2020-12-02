@@ -15,6 +15,8 @@ namespace ExtraExplosives.Items.Explosives
 
 		public override void SafeSetDefaults()
 		{
+			toolTipDisclamer = true;
+
 			item.damage = 0;	 //The damage stat for the Weapon.
 			item.width = 20;	//sprite width
 			item.height = 20;   //sprite height
@@ -43,5 +45,5 @@ namespace ExtraExplosives.Items.Explosives
 			recipe.SetResult(this, 50);
 			recipe.AddRecipe();
 		}
-	}
+    }
 }
