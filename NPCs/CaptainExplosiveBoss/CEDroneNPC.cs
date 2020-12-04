@@ -1,12 +1,9 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
-using NPC = IL.Terraria.NPC;
 
 namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 {
@@ -32,14 +29,14 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         private bool alert = true;
 
         private int testTimer = 0;
-        
+
         private float[] direction = new float[]    // Direction the drone will drift in during its targeting phase
         {
             Main.rand.NextFloat(-0.1f,0.1f),
             Main.rand.NextFloat(-0.01f, -0.1f)
         };
-        
-        
+
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[npc.type] = 6;
@@ -49,7 +46,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         {
             npc.width = 15;
             npc.height = 15;
-            npc.Hitbox = new Rectangle(0,0,32,32);
+            npc.Hitbox = new Rectangle(0, 0, 32, 32);
             npc.damage = 0;
             npc.defense = 5;
             npc.lifeMax = 40;
@@ -59,7 +56,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             npc.frame.Width = 22;
             npc.noGravity = false;
             npc.aiStyle = -1;
-            npc.Center = new Vector2(11,11);
+            npc.Center = new Vector2(11, 11);
             npc.rotation = Main.rand.Next(360);
             drawOffsetY = -5f;
         }
@@ -82,7 +79,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 if (_targetAquired) npc.frame.Y += (frameHeight * 3);    // switches the frame set used 
             }
         }
-        
+
         /*    // IGNORE this is all stuff i tried to get working but couldnt, not deleting for reference
         public override bool PreAI()
         {
@@ -192,7 +189,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             if (_target == null)
             {
                 npc.TargetClosest();
-               // Main.NewText($"The target is {npc.HasPlayerTarget}");
+                // Main.NewText($"The target is {npc.HasPlayerTarget}");
                 _target = Main.player[npc.target];
                 npc.velocity.Y -= 16 / Vector2.Distance(npc.position, _target.position) / 16f;
             }
@@ -207,10 +204,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 _targetingFrames--;
                 if (npc.position.Y > (_target.position.Y + _cordOffset[1]) - 256)        // catch in case the drone is below the player, somehow
                 {
-                    npc.velocity.Y -= 0.5f;   
+                    npc.velocity.Y -= 0.5f;
                 }
 
-                
+
                 //else if (dist < 32)    // Raises / Lowers the drone so it is comfortably above the player
                 //{
                 //    npc.velocity.Y -= Math.Abs(_target.velocity.Y)/8f;    // changes the y value so it stays near the player
@@ -225,13 +222,13 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 }
                 //Vector2 direction = (_target.Center - npc.Center).SafeNormalize(Vector2.UnitX);
                 //if (npc.position.X > _target.position.X)
-               // {
-                    npc.velocity.X += ((_target.Center - npc.Center).SafeNormalize(Vector2.UnitX).X + (_cordOffset[0]/10)) * speedX;
+                // {
+                npc.velocity.X += ((_target.Center - npc.Center).SafeNormalize(Vector2.UnitX).X + (_cordOffset[0] / 10)) * speedX;
                 //}
                 //else
-               // {
-                   // npc.position.X -= direction.X * speedX;
-               // }
+                // {
+                // npc.position.X -= direction.X * speedX;
+                // }
             }
 
             if (_targetingFrames <= 0)
@@ -245,19 +242,19 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void AI()
         {
-            if(_target.position.Y < npc.position.Y && Vector2.Distance(npc.position, _target.position)/16f < 8) Kill();
+            if (_target.position.Y < npc.position.Y && Vector2.Distance(npc.position, _target.position) / 16f < 8) Kill();
             Vector2 direction = Vector2.Normalize(npc.position - _endTarget);
-            if (_targetingFrames > 0)    
+            if (_targetingFrames > 0)
             {
                 _targetingFrames--;
-                npc.velocity.X += direction.X * 8; 
+                npc.velocity.X += direction.X * 8;
                 if (_target.position.Y < npc.position.Y)
                 {
-                    npc.velocity.Y += direction.Y/20f;
+                    npc.velocity.Y += direction.Y / 20f;
                 }
                 else
                 {
-                    npc.velocity.Y += Vector2.Subtract(Vector2.Zero, direction).Y/20f;
+                    npc.velocity.Y += Vector2.Subtract(Vector2.Zero, direction).Y / 20f;
                 }
             }
 
@@ -270,14 +267,14 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             if (_targetingFrames < 0)    // Accelerate the first step for a more 'energetic' attack
             {
                 npc.damage = 40;
-                npc.velocity.X += direction.X * 8;        
+                npc.velocity.X += direction.X * 8;
                 if (_target.position.Y < npc.position.Y)
                 {
-                    npc.velocity.Y += direction.Y/3f;
+                    npc.velocity.Y += direction.Y / 3f;
                 }
                 else
                 {
-                    npc.velocity.Y -= Vector2.Subtract(Vector2.Zero, direction).Y/3f;
+                    npc.velocity.Y -= Vector2.Subtract(Vector2.Zero, direction).Y / 3f;
                 }
             }
         }
@@ -287,22 +284,22 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             npc.FindFrame();
             if (spawnTimer <= 0) return;
             float rotation = npc.rotation % 360;
-            
-            
+
+
             if (rotation != 0)
             {
                 if (rotation > 90 && rotation < 270) // rotated between 1 and 180 degrees
                 {
-                   // Main.NewText($"Rotating: {(float)Math.Cos(npc.rotation/180 * 2 * Math.PI)/10}");
-                    npc.rotation -= (float)Math.Cos(npc.rotation/180 * 2 * Math.PI)/5;
+                    // Main.NewText($"Rotating: {(float)Math.Cos(npc.rotation/180 * 2 * Math.PI)/10}");
+                    npc.rotation -= (float)Math.Cos(npc.rotation / 180 * 2 * Math.PI) / 5;
                 }
                 else  // rotated between 180 and 359 degrees
                 {
-                   // Main.NewText($"Rotating: {(float)Math.Sin(npc.rotation/180 * 2 * Math.PI)/10}");
-                    npc.rotation += (float)Math.Sin(npc.rotation/180 * 2 * Math.PI)/5;
+                    // Main.NewText($"Rotating: {(float)Math.Sin(npc.rotation/180 * 2 * Math.PI)/10}");
+                    npc.rotation += (float)Math.Sin(npc.rotation / 180 * 2 * Math.PI) / 5;
                 }
             }
-            
+
             //Main.NewText($"Rotation: {npc.rotation}", Color.Aquamarine);
         }
 
@@ -362,7 +359,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 }
             }
         }
-        
+
         private void CreateDust(Vector2 position, int amount)
         {
             Dust dust;
@@ -431,7 +428,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 Main.NewText($"Distance found to be: {dist} which is X{distX}, Y:{distY}", Color.Purple);
             }
         }*/
-        
+
         /// <summary>
         /// Uses linear interpolation to find the y intercept of a line which passes through 2 points a and b
         /// </summary>
@@ -443,10 +440,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         {
             return new Vector2(((b.Y - y) * a.X + (y - a.Y) * b.X) / (b.Y - a.Y), y);
         }
-        
+
         // Assumes the vector is normalized, returns the distance the point is from the origin
-        private Func<Vector2, double> _getDist = z => Math.Sqrt(Math.Pow(z.X,2) + Math.Pow(z.Y,2));    
+        private Func<Vector2, double> _getDist = z => Math.Sqrt(Math.Pow(z.X, 2) + Math.Pow(z.Y, 2));
         // Assumes the vector is normalized, returns the rotation the point is around the origin
-        private Func<Vector2, double> _getRotation = z => Math.Atan(z.Y / z.X);    
+        private Func<Vector2, double> _getRotation = z => Math.Atan(z.Y / z.X);
     }
 }

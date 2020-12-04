@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
-using Terraria.Graphics;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -13,7 +11,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
         public int value { get; internal set; }
         private static Texture2D texture = ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/UI/HUDSliderBar");
         private Slider _slider;
-        
+
         public SliderBar(string name)// : base(texture)
         {
         }
@@ -52,7 +50,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
         private Vector2 offset;
         public bool dragging;
         private static Texture2D texture = ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/UI/HUDSlider");
-        
+
         public Slider()
         {
         }
@@ -85,7 +83,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
             Vector2 end = evt.MousePosition;
             dragging = false;
             Left.Set(end.X - offset.X, 0f);
-            
+
             Recalculate();
         }
 

@@ -1,7 +1,5 @@
-using IL.Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using ProjectileID = Terraria.ID.ProjectileID;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -35,7 +33,7 @@ namespace ExtraExplosives.Projectiles
             {
                 projectile.Kill();
             }
-            
+
             // Does nothing, just float, will add code to emulate the Vanilla NPC
         }
 
@@ -52,7 +50,7 @@ namespace ExtraExplosives.Projectiles
 
         //public override void Kill(int timeLeft)
         //{
-            
+
         //}
     }
 }

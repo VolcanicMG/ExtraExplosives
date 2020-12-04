@@ -1,12 +1,7 @@
 using ExtraExplosives.Tiles.Furniture;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
 
 namespace ExtraExplosives.Items.Tiles.Furniture
@@ -18,7 +13,7 @@ namespace ExtraExplosives.Items.Tiles.Furniture
             DisplayName.SetDefault("Bomb Banner");
         }
 
-        public override void SetDefaults() 
+        public override void SetDefaults()
         {
             item.width = 10;
             item.height = 24;

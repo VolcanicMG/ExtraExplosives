@@ -1,7 +1,7 @@
-using System;
 using ExtraExplosives.UI.AnarchistCookbookUI.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
@@ -9,7 +9,7 @@ using Terraria.UI;
 
 namespace ExtraExplosives.UI.AnarchistCookbookUI
 {
-    
+
     //Controls the Random fuel and Short Fuze
     // Will allow for control over the effect used and fuze time
     // Fuze time can only be lowered to 1/2 the original to 2 times the total
@@ -40,18 +40,18 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
         public override void OnInitialize()
         {
             base.OnInitialize();    // Leave this or it wont work
-            
+
             CookbookHeader RandomFuelHeader = new CookbookHeader("Random Fuel");
             RandomFuelHeader.HAlign = 0.6f;
             RandomFuelHeader.Top.Pixels = -20;
             RandomFuelHeader.TextColor = Color.LightGray;
-            
+
             UIText RandomFuelFlavorText = new UIText("Kerosene and Nitroglycerin");
             RandomFuelFlavorText.HAlign = 0.5f;
             RandomFuelFlavorText.Top.Pixels = 30;
             RandomFuelFlavorText.TextColor = Color.Yellow;
             RandomFuelHeader.Append(RandomFuelFlavorText);
-            
+
             UIText RandomFuelDescription = new UIText("Explosives will duplicate before\n" +
                                                             "going off, causing two explosions");
             RandomFuelDescription.Top.Pixels = 40;
@@ -65,13 +65,13 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ShortFuzeHeader.HAlign = 0.65f;
             ShortFuzeHeader.Top.Pixels = -20;
             ShortFuzeHeader.TextColor = Color.LightGray;
-            
+
             UIText ShortFuzeFlavorText = new UIText("As short as my temper");
             ShortFuzeFlavorText.HAlign = 0.5f;
             ShortFuzeFlavorText.Top.Pixels = 30;
             ShortFuzeFlavorText.TextColor = Color.Orange;
             ShortFuzeHeader.Append(ShortFuzeFlavorText);
-            
+
             UIText ShortFuzeDescription = new UIText("Allows for changing the fuse\n" +
                                                            "length for most explosives\n");
             ShortFuzeDescription.Top.Pixels = 40;
@@ -80,23 +80,23 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ShortFuzeDescription.TextColor = Color.LightGray;
             rightPage.Append(ShortFuzeDescription);
             rightPage.Append(ShortFuzeHeader);
-            
+
             CaptainExplosiveBossBox = new UIPanel();
             CaptainExplosiveBossBox.Height.Pixels = 140;
             CaptainExplosiveBossBox.Width.Pixels = 200;
             CaptainExplosiveBossBox.Top.Pixels = 330;
             CaptainExplosiveBossBox.HAlign = 0.5f;
             CaptainExplosiveBossBox.Left.Pixels = -20;
-            CaptainExplosiveBossBox.BackgroundColor = new Color(0,0,0,50);
-            CaptainExplosiveBossBox.BorderColor = new Color(0,0,0,75);
+            CaptainExplosiveBossBox.BackgroundColor = new Color(0, 0, 0, 50);
+            CaptainExplosiveBossBox.BorderColor = new Color(0, 0, 0, 75);
             leftPage.Append(CaptainExplosiveBossBox);
-            
+
             UIText foundRF = new UIText("    Dropped by: \nCaptain Explosive");
             foundRF.TextColor = Color.LightGray;
             foundRF.HAlign = 0.5f;
             foundRF.Top.Pixels = -60;
             CaptainExplosiveBossBox.Append(foundRF);
-            
+
             UIText foundCEB = new UIText("13.33% Chance");
             foundCEB.TextColor = Color.LightGray;
             foundCEB.HAlign = 0.5f;
@@ -109,23 +109,23 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             CaptainExplosiveBossAnimated.Height.Pixels = 140;
             CaptainExplosiveBossAnimated.Width.Pixels = 200;
             CaptainExplosiveBossBox.Append(CaptainExplosiveBossAnimated);
-            
+
             CaptainExplosiveNPCBox = new UIPanel();
             CaptainExplosiveNPCBox.Height.Pixels = 112;
             CaptainExplosiveNPCBox.Width.Pixels = 80;
             CaptainExplosiveNPCBox.Top.Pixels = 330;
             CaptainExplosiveNPCBox.HAlign = 0.5f;
             CaptainExplosiveNPCBox.Left.Pixels = 10;
-            CaptainExplosiveNPCBox.BackgroundColor = new Color(0,0,0,50);
-            CaptainExplosiveNPCBox.BorderColor = new Color(0,0,0,75);
+            CaptainExplosiveNPCBox.BackgroundColor = new Color(0, 0, 0, 50);
+            CaptainExplosiveNPCBox.BorderColor = new Color(0, 0, 0, 75);
             rightPage.Append(CaptainExplosiveNPCBox);
-            
+
             UIText foundSF = new UIText("     Sold By:\nCaptain Explosive");
             foundSF.TextColor = Color.LightGray;
             foundSF.HAlign = 0.5f;
             foundSF.Top.Pixels = -60;
             CaptainExplosiveNPCBox.Append(foundSF);
-            
+
             UIText foundCENPC = new UIText("Always");
             foundCENPC.TextColor = Color.LightGray;
             foundCENPC.HAlign = 0.5f;
@@ -138,17 +138,17 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             CaptainExplosiveNPCAnimated.Height.Pixels = 112;
             CaptainExplosiveNPCAnimated.Width.Pixels = 80;
             CaptainExplosiveNPCBox.Append(CaptainExplosiveNPCAnimated);
-            
+
             ToggleRandomFuel = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-                RandomFuel = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/RandomFuel"));
-                RandomFuel.VAlign = 0.5f;
-                RandomFuel.HAlign = 0.5f;
-                ToggleRandomFuel.Append(RandomFuel);    // Image of Random fuel for labeling
+            RandomFuel = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/RandomFuel"));
+            RandomFuel.VAlign = 0.5f;
+            RandomFuel.HAlign = 0.5f;
+            ToggleRandomFuel.Append(RandomFuel);    // Image of Random fuel for labeling
             ToggleRandomFuel.Left.Pixels = 25;
-            ToggleRandomFuel.Top.Pixels = rightPage.Height.Pixels/2 - 100;
+            ToggleRandomFuel.Top.Pixels = rightPage.Height.Pixels / 2 - 100;
             ToggleRandomFuel.OnClick += new MouseEvent(RandomFuelToggle);
             leftPage.Append(ToggleRandomFuel);
-            
+
             /*ToggleOnFire = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
                 OnFire = new UIImage(ModContent.GetTexture("Terraria/Buff_24"));
                 OnFire.VAlign = 0.5f;
@@ -178,53 +178,53 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleConfused.Top.Pixels = leftPage.Height.Pixels/2 - 75;
             ToggleConfused.OnClick += new MouseEvent(ConfusedToggle);
             leftPage.Append(ToggleConfused);*/
-            
+
             ToggleShortFuze = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-                ShortFuze = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/ShortFuse"));
-                ShortFuze.VAlign = 0.5f;
-                ShortFuze.HAlign = 0.5f;
-                ToggleShortFuze.Append(ShortFuze);    // Image of Random fuel for labeling
+            ShortFuze = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/ShortFuse"));
+            ShortFuze.VAlign = 0.5f;
+            ShortFuze.HAlign = 0.5f;
+            ToggleShortFuze.Append(ShortFuze);    // Image of Random fuel for labeling
             ToggleShortFuze.Left.Pixels = 50;
-            ToggleShortFuze.Top.Pixels = rightPage.Height.Pixels/2 - 100;
+            ToggleShortFuze.Top.Pixels = rightPage.Height.Pixels / 2 - 100;
             ToggleShortFuze.OnClick += new MouseEvent(ShortFuzeToggle);
             rightPage.Append(ToggleShortFuze);
-            
+
             FuseSliderBar = new SliderBar("Fuze Length");
             FuseSliderBar.HAlign = 0.1f;
             FuseSliderBar.VAlign = 0.5f;
             FuseSliderBar.Left.Pixels = 200;
-            FuseSliderBar.Top.Pixels = rightPage.Height.Pixels/2 - 325;
+            FuseSliderBar.Top.Pixels = rightPage.Height.Pixels / 2 - 325;
             FuseSliderBar.Width.Pixels = 220;
             FuseSliderBar.Height.Pixels = 20;
             rightPage.Append(FuseSliderBar);
-            
+
             FuseOut = new UIText("null");
             FuseOut.VAlign = 1;
             FuseOut.HAlign = 0.5f;
             FuseOut.Top.Pixels = 25;
             FuseSliderBar.Append(FuseOut);
-            
+
             RandomFuelImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/RandomFuel"));
             RandomFuelImage.Left.Pixels = 0;
             RandomFuelImage.Top.Pixels = 0;
             RandomFuelImage.ImageScale = 0.8f;
             RandomFuelImage.OnClick += new MouseEvent(RandomFuelToggle);
             leftPage.Append(RandomFuelImage);
-            
+
             ShortFuzeImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ShortFuse"));
             ShortFuzeImage.Left.Pixels = 20;
             ShortFuzeImage.Top.Pixels = -16;
             ShortFuzeImage.ImageScale = 0.7f;
             ShortFuzeImage.OnClick += new MouseEvent(ShortFuzeToggle);
             rightPage.Append(ShortFuzeImage);
-            
+
             RandomFuel_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/RandomFuel_Greyscale"));
             RandomFuel_GreyscaleImage.Left.Pixels = 0;
             RandomFuel_GreyscaleImage.Top.Pixels = 0;
             RandomFuel_GreyscaleImage.ImageScale = 0.8f;
             RandomFuel_GreyscaleImage.OnClick += new MouseEvent(RandomFuelToggle);
             leftPage.Append(RandomFuel_GreyscaleImage);
-            
+
             ShortFuze_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ShortFuse_Greyscale"));
             ShortFuze_GreyscaleImage.Left.Pixels = 20;
             ShortFuze_GreyscaleImage.Top.Pixels = -16;
@@ -287,7 +287,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                     rightPage.Append(ShortFuze_GreyscaleImage);
                     ToggleShortFuze.Append(new Inactive());
                 }
-                if(Main.LocalPlayer.EE().ShortFuseTime != Single.NaN && Main.LocalPlayer.EE().ShortFuseTime != null) FuseSliderBar.SetSlider((int)(Main.LocalPlayer.EE().ShortFuseTime));
+                if (Main.LocalPlayer.EE().ShortFuseTime != Single.NaN && Main.LocalPlayer.EE().ShortFuseTime != null) FuseSliderBar.SetSlider((int)(Main.LocalPlayer.EE().ShortFuseTime));
                 else
                 {
                     Main.NewText("Something went wrong while setting up UI values");
@@ -317,14 +317,14 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                 //FuseSliderBar.SetSlider(1);
             }
             base.Update(gameTime);
-            
+
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             base.DrawSelf(spriteBatch);
         }
-        
+
         public void RandomFuelToggle(UIMouseEvent evt, UIElement listeningElement)
         {
             ExtraExplosivesPlayer mp = Main.LocalPlayer.EE();
@@ -336,8 +336,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleRandomFuel.Append(RandomFuel);
             ToggleRandomFuel.Append((mp.RandomFuelActive) ? (UIText)(new Active()) : (UIText)(new Inactive()));
         }
-        
-        
+
+
         public void OnFireToggle(UIMouseEvent evt, UIElement listeningElement)
         {
             ExtraExplosivesPlayer mp = Main.LocalPlayer.EE();
@@ -346,7 +346,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleOnFire.Append(OnFire);
             ToggleOnFire.Append((mp.RandomFuelOnFire) ? (UIText)(new Active()) : (UIText)(new Inactive()));
         }
-        
+
         public void FrostburnToggle(UIMouseEvent evt, UIElement listeningElement)
         {
             ExtraExplosivesPlayer mp = Main.LocalPlayer.EE();
@@ -355,7 +355,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleFrostburn.Append(Frostburn);
             ToggleFrostburn.Append((mp.RandomFuelFrostburn) ? (UIText)(new Active()) : (UIText)(new Inactive()));
         }
-        
+
         public void ConfusedToggle(UIMouseEvent evt, UIElement listeningElement)
         {
             ExtraExplosivesPlayer mp = Main.LocalPlayer.EE();

@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,7 +15,7 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
                                "but this sure is.'\n" +
                                "Bombs light enemies on fire");
         }
-        
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (Main.player[item.owner].EE().AnarchistCookbook)
@@ -25,7 +25,7 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
                 tooltips.Add(synergyTooltipLine);
             }
         }
-        
+
         public override void SetDefaults()
         {
             item.width = 28;
@@ -35,7 +35,7 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
             item.rare = ItemRarityID.Yellow;
             item.accessory = true;
         }
-        
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.EE().LihzahrdFuzeset = true;

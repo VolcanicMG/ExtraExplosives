@@ -1,4 +1,3 @@
-using ExtraExplosives.Tiles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
@@ -157,14 +156,14 @@ namespace ExtraExplosives.Projectiles
                                 {
                                     tile.ClearTile();
                                     tile.active(false);
-                                    
+
                                 }
 
                                 if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
                                 {
                                     WorldGen.SquareTileFrame(i, j, true);
                                 }
-                                
+
                             }
                         }
                     }

@@ -1,9 +1,5 @@
-using ExtraExplosives.Items.Tiles.Furniture;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -23,24 +19,27 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.CoordinatePadding = 2;
             animationFrameHeight = 36;
             TileObjectData.addTile(Type);
-            
-            Lighting.AddLight(Vector2.Zero, 210,140,100);
+
+            Lighting.AddLight(Vector2.Zero, 210, 140, 100);
             Lighting.brightness = 100;
-            
+
             drop = mod.ItemType("BombFireplaceItem");
             AddMapEntry(new Color(255, 55, 55));
         }
-	    
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) {
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
             Tile tile = Main.tile[i, j];
-            if (tile.frameX < 66) {
+            if (tile.frameX < 66)
+            {
                 r = 0.9f;
                 g = 0.9f;
                 b = 0.9f;
             }
         }
-	    
-        public override void AnimateTile(ref int frame, ref int frameCounter) {
+
+        public override void AnimateTile(ref int frame, ref int frameCounter)
+        {
             // Spend 9 ticks on each of 6 frames, looping
             frameCounter++;
             if (++frameCounter >= 17)	// Time spent on each frame
@@ -49,8 +48,9 @@ namespace ExtraExplosives.Tiles.Furniture
                 frame = ++frame % 5;	// How many framesa
             }
         }
-        
-        public override void KillMultiTile(int i, int j, int frameX, int frameY) {
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
             Item.NewItem(i * 16, j * 16, 64, 32, ModContent.ItemType<Items.Tiles.Furniture.BombFireplaceItem>());
         }
     }

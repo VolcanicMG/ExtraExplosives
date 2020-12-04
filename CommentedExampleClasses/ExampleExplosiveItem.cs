@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using ExtraExplosives.Items;
+﻿using ExtraExplosives.Items;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,7 +8,7 @@ namespace ExtraExplosives.CommentedExampleClasses
     public class ExampleExplosiveItem : ExplosiveItem
     {
         public override bool Autoload(ref string _) => false;    // Stops tML from auto loading this class
-        
+
         /* This class is used to demonstrate the differences between Explosive and Mod Items,
         *     and the changes necessary to convert one to the other
         *  This class should also serve as reference for how the additions made by ExplosiveItem
@@ -50,11 +50,11 @@ namespace ExtraExplosives.CommentedExampleClasses
         // However the following methods are available for overriding if needed
         //    KEEP IN MIND HOWEVER, that changes the following methods may causes strange functionality and should be tested thoroughly
 
-        
-        
+
+
         // Functionality of damage, knockback, and crit chance is handled elsewhere so errors should only arise from balance issues
         // Changes are advised against in order to keep damage profiles consistent and aid in balancing
-        
+
         /// <summary>
         /// Allows temporary changing of an items damage
         /// If changes are made remember to use += for add and flat and = for mult

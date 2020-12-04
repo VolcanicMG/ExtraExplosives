@@ -1,9 +1,9 @@
-﻿using ExtraExplosives.Items.Weapons;
+﻿using ExtraExplosives.Items.Rockets;
+using ExtraExplosives.Items.Weapons;
 using Microsoft.Xna.Framework;
-using Terraria.ID;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using ExtraExplosives.Items.Rockets;
 
 namespace ExtraExplosives.Tiles
 {
@@ -22,7 +22,7 @@ namespace ExtraExplosives.Tiles
                     cntr = 0;
                     return false;
                 }
-                if(cntr <= 5)
+                if (cntr <= 5)
                 {
                     cntr = 0;
                 }

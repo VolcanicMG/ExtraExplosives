@@ -12,11 +12,11 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
             Tooltip.SetDefault("'Certification that you are trained in the art of Demolition.'\n" +
                 "50% Increased area of effect for explosives");
         }
-        
+
         public override void SetDefaults()
         {
             item.accessory = true;
-            item.value = Item.buyPrice(1,0,0,0);
+            item.value = Item.buyPrice(1, 0, 0, 0);
             item.rare = ItemRarityID.Orange;
             item.consumable = false;
         }

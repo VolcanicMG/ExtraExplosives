@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -38,7 +38,7 @@ namespace ExtraExplosives.Items.Weapons
             item.value = Item.buyPrice(0, 15, 0, 50);
             item.knockBack = 4f;
             item.rare = ItemRarityID.Yellow;
-            
+
             PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = new LegacySoundStyle[4];
 
@@ -61,7 +61,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void HoldItem(Player player)
         {
-            
+
             base.HoldItem(player);
         }
 
@@ -92,12 +92,12 @@ namespace ExtraExplosives.Items.Weapons
             {
                 case 97:    // Bullet
                     Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                        (int) player.position.X, (int) player.position.Y);
+                        (int)player.position.X, (int)player.position.Y);
                     Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI);
                     break;
                 case 771:    // Rocket
                     Main.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
-                        (int)player.position.X, (int) player.position.Y);
+                        (int)player.position.X, (int)player.position.Y);
                     Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.Grenade, damage, knockBack, player.whoAmI);
                     break;
                 default:

@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -23,11 +22,11 @@ namespace ExtraExplosives.Dusts
             Lighting.AddLight(glowingDust.position, new Vector3(57f / 255f, 255f / 255f, 20f / 255f));//new Vector3(57, 255, 20)
 
             lifeTime--;
-            if(WorldGen.TileEmpty((int)(glowingDust.position.X/16f), (int)(glowingDust.position.Y/16f)))
+            if (WorldGen.TileEmpty((int)(glowingDust.position.X / 16f), (int)(glowingDust.position.Y / 16f)))
             {
                 glowingDust.position += glowingDust.velocity;
-                if (glowingDust.velocity.Y < 0.01f)glowingDust.velocity.Y *= 1.005f;
-                if (glowingDust.velocity.X > 0.01f)glowingDust.velocity.X = 1.005f;
+                if (glowingDust.velocity.Y < 0.01f) glowingDust.velocity.Y *= 1.005f;
+                if (glowingDust.velocity.X > 0.01f) glowingDust.velocity.X = 1.005f;
             }
             else
             {

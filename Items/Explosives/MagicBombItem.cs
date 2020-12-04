@@ -1,11 +1,8 @@
-using System.Collections.Generic;
 using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
-using On.Terraria;
-using Terraria.Graphics.Effects;
+using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Main = Terraria.Main;
 using Player = Terraria.Player;
 using Projectile = Terraria.Projectile;
 
@@ -17,7 +14,7 @@ namespace ExtraExplosives.Items.Explosives
         private int timeLeft = 0;
 
         public override bool CloneNewInstances => true;
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Magic Bomb");

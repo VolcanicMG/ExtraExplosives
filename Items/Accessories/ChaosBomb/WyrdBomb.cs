@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +14,7 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
             Tooltip.SetDefault("'Truly a strange specimen'\n" +
                                "Bombs inflict Venom & Shadowflame");
         }
-        
+
         public override void SetDefaults()
         {
             item.width = 28;
@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
             item.rare = ItemRarityID.Yellow;
             item.accessory = true;
         }
-        
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (Main.player[item.owner].EE().AnarchistCookbook)
@@ -36,7 +36,7 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
                 tooltips.Add(synergyTooltipLine);
             }
         }
-        
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.EE().Bombshroom = true;

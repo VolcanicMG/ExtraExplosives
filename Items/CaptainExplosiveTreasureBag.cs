@@ -1,16 +1,13 @@
 using ExtraExplosives.Items.Accessories;
-using ExtraExplosives.Items.Accessories.AnarchistCookbook;
 using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
+using ExtraExplosives.Items.Armors.Vanity.Bombforged;
+using ExtraExplosives.Items.Armors.Vanity.Explonin;
+using ExtraExplosives.Items.Armors.Vanity.TNTSUIT;
 using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Items.Pets;
 using ExtraExplosives.NPCs;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using ExtraExplosives.Items.Armors;
-using ExtraExplosives.Items.Armors.Vanity.Bombforged;
-using ExtraExplosives.Items.Armors.Vanity.TNTSUIT;
-using ExtraExplosives.Items.Armors.Vanity.Explonin;
 
 namespace ExtraExplosives.Items
 {
@@ -22,7 +19,7 @@ namespace ExtraExplosives.Items
         private int[][] Vanity = new int[3][];
 
         private int[] bombs = new int[27];
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Captain Explosive Treasure Bag");    // Name, (change if you want idk)
@@ -37,7 +34,7 @@ namespace ExtraExplosives.Items
             item.height = 32;
             item.expert = true;
         }
-        
+
 
         public override bool CanRightClick() => true;    // always able to right click so hijack the code to return true
 
@@ -60,17 +57,17 @@ namespace ExtraExplosives.Items
                 }
             }
 
-            if(Main.rand.NextFloat() < .5f)
+            if (Main.rand.NextFloat() < .5f)
             {
                 int VanityDrop = Main.rand.Next(3);
 
                 //Find the place on the array give the rest of the set
-                for(int i = 0; i < Vanity[VanityDrop].Length; i++)
+                for (int i = 0; i < Vanity[VanityDrop].Length; i++)
                 {
                     player.QuickSpawnItem(Vanity[VanityDrop][i], 1);
                 }
             }
-            
+
         }
 
         public override void AddRecipes()

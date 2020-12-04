@@ -7,12 +7,12 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
     internal class Inactive : UIText
     {
         private static string text = "Inactive";
-    
+
         public Inactive() : base(text)
         {
             OnInitialize();
         }
-    
+
         public override void OnInitialize()
         {
             base.OnInitialize();

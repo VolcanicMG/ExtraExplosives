@@ -1,33 +1,28 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles.Weapons
 {
     public class MineFlailProjectile : ModProjectile
     {
-	    private const string ChainTexturePath = "ExtraExplosives/Projectiles/Weapons/MineFlailChain";
+        private const string ChainTexturePath = "ExtraExplosives/Projectiles/Weapons/MineFlailChain";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mine Flail");
         }
-        
-        public override void SetDefaults()
-		{
-			projectile.width = 22;
-			projectile.height = 22;
-			projectile.friendly = true;
-			projectile.penetrate = -1; // Make the flail infinitely penetrate like other flails
-			projectile.melee = true;
-			projectile.aiStyle = 15; // The vanilla flails all use aiStyle 15, but we must not use it since we want to customize the range and behavior.
-		}
 
-		// This AI code is adapted from the aiStyle 15. We need to re-implement this to customize the behavior of our flail
-		/*public override void AI()
+        public override void SetDefaults()
+        {
+            projectile.width = 22;
+            projectile.height = 22;
+            projectile.friendly = true;
+            projectile.penetrate = -1; // Make the flail infinitely penetrate like other flails
+            projectile.melee = true;
+            projectile.aiStyle = 15; // The vanilla flails all use aiStyle 15, but we must not use it since we want to customize the range and behavior.
+        }
+
+        // This AI code is adapted from the aiStyle 15. We need to re-implement this to customize the behavior of our flail
+        /*public override void AI()
 		{
 			// Spawn some dust visuals
 			var dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 172, projectile.velocity.X * 0.4f, projectile.velocity.Y * 0.4f, 100, default, 1.5f);

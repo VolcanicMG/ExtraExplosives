@@ -43,7 +43,7 @@ namespace ExtraExplosives.CommentedExampleClasses
              */
             PrimarySounds = new LegacySoundStyle[1];    // How to initialize the array when used
             SecondarySounds = null;                     // How to nullify the array when not used
-            
+
             // This for loop shows the most common way of populating the sound arrays
             for (int n = 1; n <= PrimarySounds.Length; n++)    // n is initialized to 1 instead of 0 to allow for proper name spacing and readability
             {
@@ -77,11 +77,11 @@ namespace ExtraExplosives.CommentedExampleClasses
         {
             // To call a sound you do the following
             Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                (int) player.position.X, (int) player.position.Y);
+                (int)player.position.X, (int)player.position.Y);
             // Unless specific sounds should be more common than others, this exact line can be used for all PrimarySounds calls
             //     and changing PrimarySounds to SecondarySounds allows it to be used with SecondarySounds as well
-            
-            
+
+
             return true;    // Ignore
         }
     }

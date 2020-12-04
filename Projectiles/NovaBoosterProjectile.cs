@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -18,7 +17,7 @@ namespace ExtraExplosives.Projectiles
             foreach (NPC npc in Main.npc)
             {
                 float dist = Vector2.Distance(npc.Center, projectile.Center);
-                if (dist/16f <= radius)
+                if (dist / 16f <= radius)
                 {
                     int dir = (dist > 0) ? 1 : -1;
                     npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);

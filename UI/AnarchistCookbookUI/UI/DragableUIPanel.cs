@@ -32,10 +32,10 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
         {
             Vector2 end = evt.MousePosition;
             dragging = false;
-            
+
             Left.Set(end.X - offset.X, 0f);
             Top.Set(end.Y - offset.Y, 0f);
-            
+
             Recalculate();
         }
 
@@ -55,13 +55,13 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
 
                 Recalculate();
             }
-            
+
             var parent = Parent.GetDimensions().ToRectangle();
             if (!GetDimensions().ToRectangle().Intersects(parent))
             {
                 Left.Pixels = Utils.Clamp(Left.Pixels, 0, parent.Right - Width.Pixels);
                 Top.Pixels = Utils.Clamp(Top.Pixels, 0, parent.Bottom - Height.Pixels);
-                
+
                 Recalculate();
             }
         }

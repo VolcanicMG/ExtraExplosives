@@ -27,18 +27,18 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
         public override void OnInitialize()
         {
             base.OnInitialize();
-            
+
             CookbookHeader BlastShieldHeader = new CookbookHeader("Blast Shielding");
             BlastShieldHeader.HAlign = 0.6f;
             BlastShieldHeader.Top.Pixels = -20;
             BlastShieldHeader.TextColor = Color.LightGray;
-            
+
             UIText BlastShieldFlavorText = new UIText("Caution: Radioactive");
             BlastShieldFlavorText.HAlign = 0.5f;
             BlastShieldFlavorText.Top.Pixels = 30;
             BlastShieldFlavorText.TextColor = Color.OliveDrab;
             BlastShieldHeader.Append(BlastShieldFlavorText);
-            
+
             UIText BlastShieldDescription = new UIText("Prevents the user from taking\n" +
                                                              "damage from their own explosives");
             BlastShieldDescription.Top.Pixels = 40;
@@ -53,16 +53,16 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             SkeletonCommandoBox.Top.Pixels = 330;
             SkeletonCommandoBox.HAlign = 0.5f;
             SkeletonCommandoBox.Left.Pixels = -10;
-            SkeletonCommandoBox.BackgroundColor = new Color(0,0,0,50);
-            SkeletonCommandoBox.BorderColor = new Color(0,0,0,75);
+            SkeletonCommandoBox.BackgroundColor = new Color(0, 0, 0, 50);
+            SkeletonCommandoBox.BorderColor = new Color(0, 0, 0, 75);
             leftPage.Append(SkeletonCommandoBox);
-            
+
             UIText foundBS = new UIText("     Dropped by:\nSkeleton Commandos");
             foundBS.TextColor = Color.LightGray;
             foundBS.HAlign = 0.5f;
             foundBS.Top.Pixels = -60;
             SkeletonCommandoBox.Append(foundBS);
-            
+
             UIText foundSC = new UIText("1% Chance");
             foundSC.TextColor = Color.LightGray;
             foundSC.HAlign = 0.5f;
@@ -75,22 +75,22 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             SkeletonCommandoAnimated.Height.Pixels = 100;
             SkeletonCommandoAnimated.Width.Pixels = 100;
             SkeletonCommandoBox.Append(SkeletonCommandoAnimated);
-            
+
             TacticalSkeletonBox = new UIPanel();
             TacticalSkeletonBox.Height.Pixels = 100;
             TacticalSkeletonBox.Width.Pixels = 100;
             TacticalSkeletonBox.Top.Pixels = 330;
             TacticalSkeletonBox.HAlign = 0.5f;
-            TacticalSkeletonBox.BackgroundColor = new Color(0,0,0,50);
-            TacticalSkeletonBox.BorderColor = new Color(0,0,0,75);
+            TacticalSkeletonBox.BackgroundColor = new Color(0, 0, 0, 50);
+            TacticalSkeletonBox.BorderColor = new Color(0, 0, 0, 75);
             rightPage.Append(TacticalSkeletonBox);
-            
+
             UIText foundRP = new UIText("    Dropped by: \nTactical Skeletons");
             foundRP.TextColor = Color.LightGray;
             foundRP.HAlign = 0.5f;
             foundRP.Top.Pixels = -60;
             TacticalSkeletonBox.Append(foundRP);
-            
+
             UIText foundTS = new UIText("1% Chance");
             foundTS.TextColor = Color.LightGray;
             foundTS.HAlign = 0.5f;
@@ -103,18 +103,18 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             TacticalSkeletonAnimated.Height.Pixels = 100;
             TacticalSkeletonAnimated.Width.Pixels = 100;
             TacticalSkeletonBox.Append(TacticalSkeletonAnimated);
-            
+
             CookbookHeader ReactivePlatingHeader = new CookbookHeader("Reactive Plating");
             ReactivePlatingHeader.HAlign = 0.75f;
             ReactivePlatingHeader.Top.Pixels = -20;
             ReactivePlatingHeader.TextColor = Color.LightGray;
-            
+
             UIText ReactivePlatingFlavorText = new UIText("Made of Depleted Uranium");
             ReactivePlatingFlavorText.HAlign = 0.5f;
             ReactivePlatingFlavorText.Top.Pixels = 30;
             ReactivePlatingFlavorText.TextColor = Color.Crimson;
             ReactivePlatingHeader.Append(ReactivePlatingFlavorText);
-            
+
             UIText ReactivePlatingDescription = new UIText("Increases damage output\n" +
                                                                  "Decreases  damage taken");
             ReactivePlatingDescription.Top.Pixels = 40;
@@ -123,27 +123,27 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ReactivePlatingDescription.TextColor = Color.LightGray;
             rightPage.Append(ReactivePlatingDescription);
             rightPage.Append(ReactivePlatingHeader);
-            
+
             ToggleBlastShielding = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-                BlastShielding = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/BlastShielding"));
-                BlastShielding.VAlign = 0.5f;
-                BlastShielding.HAlign = 0.5f;
-                ToggleBlastShielding.Append(BlastShielding);    
+            BlastShielding = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/BlastShielding"));
+            BlastShielding.VAlign = 0.5f;
+            BlastShielding.HAlign = 0.5f;
+            ToggleBlastShielding.Append(BlastShielding);
             ToggleBlastShielding.Left.Pixels = 25;
-            ToggleBlastShielding.Top.Pixels = leftPage.Height.Pixels/2 - 100;
+            ToggleBlastShielding.Top.Pixels = leftPage.Height.Pixels / 2 - 100;
             ToggleBlastShielding.OnClick += new MouseEvent(BlastShieldingToggle);
             leftPage.Append(ToggleBlastShielding);
-            
+
             ToggleReactivePlating = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-                ReactivePlating = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/ReactivePlating"));
-                ReactivePlating.VAlign = 0.5f;
-                ReactivePlating.HAlign = 0.5f;
-                ToggleReactivePlating.Append(ReactivePlating);   
+            ReactivePlating = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/ReactivePlating"));
+            ReactivePlating.VAlign = 0.5f;
+            ReactivePlating.HAlign = 0.5f;
+            ToggleReactivePlating.Append(ReactivePlating);
             ToggleReactivePlating.Left.Pixels = 50;
-            ToggleReactivePlating.Top.Pixels = rightPage.Height.Pixels/2 - 100;
+            ToggleReactivePlating.Top.Pixels = rightPage.Height.Pixels / 2 - 100;
             ToggleReactivePlating.OnClick += new MouseEvent(ReactivePlatingToggle);
             rightPage.Append(ToggleReactivePlating);
-            
+
             BlastShieldingImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/BlastShielding"));
             BlastShieldingImage.Left.Pixels = 0;
             BlastShieldingImage.Top.Pixels = 0;
@@ -173,7 +173,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
+
             if (!startUpFlag)
             {
                 if (Main.LocalPlayer.EE().ReactivePlatingActive)
@@ -215,7 +215,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleBlastShielding.Append(BlastShielding);
             ToggleBlastShielding.Append((mp.BlastShieldingActive) ? (UIText)new Active() : (UIText)new Inactive());
         }
-        
+
         public void ReactivePlatingToggle(UIMouseEvent evt, UIElement listeningElement)
         {
             ExtraExplosivesPlayer mp = Main.LocalPlayer.EE();

@@ -1,4 +1,3 @@
-using ExtraExplosives.Items.Accessories.AnarchistCookbook;
 using ExtraExplosives.UI.AnarchistCookbookUI.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,18 +28,18 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
         public override void OnInitialize()
         {
             base.OnInitialize();
-            
+
             CookbookHeader CrossedWiresHeader = new CookbookHeader("Crossed Wires");
             CrossedWiresHeader.HAlign = 0.6f;
             CrossedWiresHeader.Top.Pixels = -20;
             CrossedWiresHeader.TextColor = Color.LightGray;
-            
+
             UIText CrossedWiresFlavorText = new UIText("Min-Maxing has never been so fun");
             CrossedWiresFlavorText.HAlign = 0.5f;
             CrossedWiresFlavorText.Top.Pixels = 30;
             CrossedWiresFlavorText.TextColor = Color.Gold;
             CrossedWiresHeader.Append(CrossedWiresFlavorText);
-            
+
             UIText CrossedWiresDescription = new UIText("Increases explosive damage by 15%");
             CrossedWiresDescription.Top.Pixels = 40;
             CrossedWiresDescription.HAlign = 0.7f;
@@ -52,36 +51,36 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             GlowingCompoundHeader.HAlign = 0.75f;
             GlowingCompoundHeader.Top.Pixels = -20;
             GlowingCompoundHeader.TextColor = Color.LightGray;
-            
+
             UIText GlowingCompoundFlavorText = new UIText("Signs of something more to come...");
             GlowingCompoundFlavorText.HAlign = 0.5f;
             GlowingCompoundFlavorText.Top.Pixels = 30;
             GlowingCompoundFlavorText.TextColor = Color.Chartreuse;
             GlowingCompoundHeader.Append(GlowingCompoundFlavorText);
-            
+
             UIText GlowingCompoundDescription = new UIText("Bombs leave behind a glowing aura");
             GlowingCompoundDescription.Top.Pixels = 40;
             GlowingCompoundDescription.HAlign = 0.95f;
             GlowingCompoundDescription.TextColor = Color.LightGray;
             rightPage.Append(GlowingCompoundDescription);
             rightPage.Append(GlowingCompoundHeader);
-            
+
             GlowingCrystalBox = new UIPanel();
             GlowingCrystalBox.Height.Pixels = 72;
             GlowingCrystalBox.Width.Pixels = 72;
             GlowingCrystalBox.Top.Pixels = 330;
             GlowingCrystalBox.HAlign = 0.5f;
             GlowingCrystalBox.Left.Pixels = 10;
-            GlowingCrystalBox.BackgroundColor = new Color(0,0,0,50);
-            GlowingCrystalBox.BorderColor = new Color(0,0,0,75);
+            GlowingCrystalBox.BackgroundColor = new Color(0, 0, 0, 50);
+            GlowingCrystalBox.BorderColor = new Color(0, 0, 0, 75);
             rightPage.Append(GlowingCrystalBox);
-            
+
             UIText foundGC = new UIText("   Found In: The Hallow");
             foundGC.TextColor = Color.LightGray;
             foundGC.HAlign = 0.5f;
             foundGC.Top.Pixels = -60;
             GlowingCrystalBox.Append(foundGC);
-            
+
             UIText foundRH = new UIText("When the radiation finds\n  its way into the crystals\nwhich naturally grow there");
             foundRH.TextColor = Color.LightGray;
             foundRH.HAlign = 0.5f;
@@ -101,8 +100,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             CrossedWiresBox1.Top.Pixels = 340;
             CrossedWiresBox1.HAlign = 0.5f;
             CrossedWiresBox1.Left.Pixels = -140;
-            CrossedWiresBox1.BackgroundColor = new Color(0,0,0,50);
-            CrossedWiresBox1.BorderColor = new Color(0,0,0,75);
+            CrossedWiresBox1.BackgroundColor = new Color(0, 0, 0, 50);
+            CrossedWiresBox1.BorderColor = new Color(0, 0, 0, 75);
             leftPage.Append(CrossedWiresBox1);
 
             CrossedWiresAnimated1 = new AnimatedImage("ExtraExplosives/UI/AnarchistCookbookUI/Animations/CrossedWires/CrossedWires", 2, 120);
@@ -111,17 +110,17 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             CrossedWiresAnimated1.Height.Pixels = 72;
             CrossedWiresAnimated1.Width.Pixels = 90;
             CrossedWiresBox1.Append(CrossedWiresAnimated1);
-            
+
             CrossedWiresBox2 = new UIPanel();
             CrossedWiresBox2.Height.Pixels = 100;
             CrossedWiresBox2.Width.Pixels = 100;
             CrossedWiresBox2.Top.Pixels = 330;
             CrossedWiresBox2.HAlign = 0.5f;
             CrossedWiresBox2.Left.Pixels = 90;
-            CrossedWiresBox2.BackgroundColor = new Color(0,0,0,50);
-            CrossedWiresBox2.BorderColor = new Color(0,0,0,75);
+            CrossedWiresBox2.BackgroundColor = new Color(0, 0, 0, 50);
+            CrossedWiresBox2.BorderColor = new Color(0, 0, 0, 75);
             leftPage.Append(CrossedWiresBox2);
-            
+
             UIText foundCW2 = new UIText("                        Crafted with:\n" +
                                         "      Copper or Tin     and           Gel");
             foundCW2.TextColor = Color.LightGray;
@@ -129,7 +128,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             foundCW2.Top.Pixels = -60;
             foundCW2.Left.Pixels = -150;
             CrossedWiresBox2.Append(foundCW2);
-            
+
             UIText foundMat = new UIText("At any Anvil");
             foundMat.TextColor = Color.LightGray;
             foundMat.HAlign = 0.5f;
@@ -145,25 +144,25 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             CrossedWiresBox2.Append(CrossedWiresAnimated2);
 
             ToggleCrossedWires = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-                CrossedWires = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/CrossedWires"));
-                CrossedWires.VAlign = 0.5f;
-                CrossedWires.HAlign = 0.5f;
-                ToggleCrossedWires.Append(CrossedWires);    // Image of bomb bag for labeling
+            CrossedWires = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/CrossedWires"));
+            CrossedWires.VAlign = 0.5f;
+            CrossedWires.HAlign = 0.5f;
+            ToggleCrossedWires.Append(CrossedWires);    // Image of bomb bag for labeling
             ToggleCrossedWires.Left.Pixels = 25;
-            ToggleCrossedWires.Top.Pixels = leftPage.Height.Pixels/2 - 100;
+            ToggleCrossedWires.Top.Pixels = leftPage.Height.Pixels / 2 - 100;
             ToggleCrossedWires.OnClick += new MouseEvent(CrossedWiresToggle);
             leftPage.Append(ToggleCrossedWires);
-            
+
             ToggleGlowingCompound = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-                GlowingCompound = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/GlowingCompound"));
-                GlowingCompound.VAlign = 0.5f;
-                GlowingCompound.HAlign = 0.5f;
-                ToggleGlowingCompound.Append(GlowingCompound);    // Image of bomb bag for labeling
+            GlowingCompound = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/GlowingCompound"));
+            GlowingCompound.VAlign = 0.5f;
+            GlowingCompound.HAlign = 0.5f;
+            ToggleGlowingCompound.Append(GlowingCompound);    // Image of bomb bag for labeling
             ToggleGlowingCompound.Left.Pixels = 50;
-            ToggleGlowingCompound.Top.Pixels = leftPage.Height.Pixels/2 - 100;
+            ToggleGlowingCompound.Top.Pixels = leftPage.Height.Pixels / 2 - 100;
             ToggleGlowingCompound.OnClick += new MouseEvent(GlowingCompoundToggle);
             rightPage.Append(ToggleGlowingCompound);
-            
+
             CrossedWiresImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/CrossedWires"));
             CrossedWiresImage.Left.Pixels = 0;
             CrossedWiresImage.Top.Pixels = 0;
@@ -193,7 +192,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
+
             if (!startUpFlag)
             {
                 if (Main.LocalPlayer.EE().CrossedWiresActive)
@@ -225,7 +224,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
         {
             base.DrawSelf(spriteBatch);
         }
-        
+
         public void CrossedWiresToggle(UIMouseEvent evt, UIElement listeningElement)
         {
             ExtraExplosivesPlayer mp = Main.LocalPlayer.EE();
@@ -237,7 +236,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleCrossedWires.Append(CrossedWires);
             ToggleCrossedWires.Append((mp.CrossedWiresActive) ? (UIText)new Active() : (UIText)new Inactive());
         }
-        
+
         public void GlowingCompoundToggle(UIMouseEvent evt, UIElement listeningElement)
         {
             ExtraExplosivesPlayer mp = Main.LocalPlayer.EE();

@@ -1,11 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
@@ -53,16 +49,16 @@ namespace ExtraExplosives.Projectiles
             if (Main.netMode != NetmodeID.Server && Filters.Scene["BurningScreen"].IsActive() && !_thrown && Main.myPlayer == projectile.owner)
             {
                 float progress = (projectile.timeLeft) / 60f;
-                Filters.Scene["BurningScreen"].GetShader().UseProgress((_lifeTime/60f) - (_lifeTime - projectile.localAI[0])/60f);
+                Filters.Scene["BurningScreen"].GetShader().UseProgress((_lifeTime / 60f) - (_lifeTime - projectile.localAI[0]) / 60f);
             }
-            
+
             if (_thrown) return true;
-            
+
             projectile.localAI[0]++;
             if (player.releaseUseItem || projectile.localAI[0] >= _lifeTime - _fuze)
             {
                 _thrown = true;
-                change = ((_lifeTime - projectile.localAI[0])/60f)/(_lifeTime - projectile.localAI[0]);
+                change = ((_lifeTime - projectile.localAI[0]) / 60f) / (_lifeTime - projectile.localAI[0]);
                 changeTotal = 0;
                 projectile.alpha = 0;
                 projectile.localAI[1] = projectile.localAI[0];
@@ -70,11 +66,11 @@ namespace ExtraExplosives.Projectiles
                 {
                     float modifier = 0.075f;
                     float screenW = Main.screenWidth;
-                    float mouseX = Main.MouseScreen.X - (screenW/2);
+                    float mouseX = Main.MouseScreen.X - (screenW / 2);
                     float screenH = Main.screenHeight;
-                    float mouseY = Main.MouseScreen.Y - (screenH/2);
-                    projectile.velocity.X = projectile.localAI[0] /_lifeTime * mouseX * modifier;
-                    projectile.velocity.Y = projectile.localAI[0] /_lifeTime * mouseY * modifier;
+                    float mouseY = Main.MouseScreen.Y - (screenH / 2);
+                    projectile.velocity.X = projectile.localAI[0] / _lifeTime * mouseX * modifier;
+                    projectile.velocity.Y = projectile.localAI[0] / _lifeTime * mouseY * modifier;
                 }
                 else
                 {
@@ -85,8 +81,8 @@ namespace ExtraExplosives.Projectiles
             {
                 projectile.position = player.position;
                 int type = Main.rand.Next(2) + 270;
-                if(Main.rand.Next(100) < 10){Dust dust = Main.dust[Terraria.Dust.NewDust(projectile.position, 70, 70, type, 0f, 0f, 154, new Color(255, 255, 255), 1.55f)];}
-                
+                if (Main.rand.Next(100) < 10) { Dust dust = Main.dust[Terraria.Dust.NewDust(projectile.position, 70, 70, type, 0f, 0f, 154, new Color(255, 255, 255), 1.55f)]; }
+
             }
             return _thrown;
         }
@@ -125,30 +121,30 @@ namespace ExtraExplosives.Projectiles
             {
                 Filters.Scene["BurningScreen"].Deactivate();
             }
-            
+
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int) projectile.Center.X, (int) projectile.Center.Y);
-            
+            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+
             //Since these values change as the timer ticks down, they need to be set immedietly before an explosion
             // To ensure they are accurate
             projectile.damage = (int)projectile.localAI[0];
-            projectile.knockBack = (int) projectile.localAI[0] / 4f;
-            radius = (int) projectile.localAI[0] / 12;
+            projectile.knockBack = (int)projectile.localAI[0] / 4f;
+            radius = (int)projectile.localAI[0] / 12;
             //Main.NewText($"Damage: {projectile.damage}, Knockback: {projectile.knockBack}, radius: {radius}");
             Explosion();
             ExplosionDamage();
-            CreateDust(projectile.Center, (int) projectile.localAI[0] * 2);
+            CreateDust(projectile.Center, (int)projectile.localAI[0] * 2);
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(2f, 2f);
             Vector2 gVel2 = new Vector2(-2f, -1f);
             Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
             Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
-            
+
             projectile.timeLeft = 0;
             base.Kill(0);
         }
-        
+
         private void CreateDust(Vector2 position, int amount)    // TODO UPDATE DUST CODE THIS BIT ACTS STRANGE
         {
             Dust dust;

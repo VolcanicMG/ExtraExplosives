@@ -14,12 +14,12 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// For a more detailed explanation see CommentedExplosiveWeapon or reference other ExplosiveWeapons or ExplosiveProjectiles
         /// </summary>
         protected override string explodeSoundsLoc => null;
-        
+
         /// <summary>
         /// Same as above except for gore locations
         /// </summary>
         protected override string goreFileLoc => "Gores/Explosives/atom_gore";
-        
+
         /// <summary>
         /// Replacement for SetDefaults, functions identically to other SafeSetDefaults
         /// See CommentedExplosiveItem for more info
@@ -42,7 +42,7 @@ namespace ExtraExplosives.CommentedExampleClasses
          * These functions only change what the bomb does when it physically collides
          * Disabled in most cases to avoid projectile death after hitting an npc or player
          */
-        
+
         /// <summary>
         /// How the projectile acts when it hits a player in a non-pvp context
         /// </summary>
@@ -74,7 +74,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
         }
-        
+
         /// <summary>
         /// The Explosion function dictates the behavior of the projectiles explosion (not the damage however)
         /// Predefined in the base class is a basic explosion function (WIP) which causes a circular explosion
@@ -89,7 +89,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         public override void Explosion()
         {
         }
-        
+
         /// <summary>
         /// Used to inflict damage on players and npcs
         /// The current base implementation cycles through the player and npc arrays in Main and checks distance

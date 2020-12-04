@@ -1,9 +1,6 @@
 using ExtraExplosives.Items.Tiles.Furniture;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -18,7 +15,7 @@ namespace ExtraExplosives.Tiles.Furniture
             Main.tileLavaDeath[Type] = true;
             TileID.Sets.FramesOnKillWall[Type] = true; // Necessary since Style3x3Wall uses AnchorWall
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
-            TileObjectData.newTile.CoordinateHeights = new int[]{16,16,18};
+            TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 18 };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.addTile(Type);
@@ -27,9 +24,9 @@ namespace ExtraExplosives.Tiles.Furniture
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Cpt Postrait");
             AddMapEntry(new Color(120, 85, 60), name);
-            
+
         }
-        
+
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(i * 16, j * 16, 48, 50, ModContent.ItemType<CptExplosivePortraitItem>());

@@ -32,22 +32,22 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
         internal UIText VelocityOut;
         internal UIImageButton ToggleLightweightBombshells;
         internal UIImageButton ToggleStickyGunpowder;
-        
+
         public override void OnInitialize()
         {
             base.OnInitialize();
-            
+
             CookbookHeader StickyGunpowderHeader = new CookbookHeader("Sticky Gunpowder");
             StickyGunpowderHeader.HAlign = 0.6f;
             StickyGunpowderHeader.Top.Pixels = -20;
             StickyGunpowderHeader.TextColor = Color.LightGray;
-            
+
             UIText StickyGunpowderFlavorText = new UIText("Gorillas and Ducks");
             StickyGunpowderFlavorText.HAlign = 0.5f;
             StickyGunpowderFlavorText.Top.Pixels = 30;
             StickyGunpowderFlavorText.TextColor = Color.AliceBlue;
             StickyGunpowderHeader.Append(StickyGunpowderFlavorText);
-            
+
             UIText StickyGunpowderDescription = new UIText("   Explosives stick to surfaces\n" +
                                                                  "Works with bombs and grenades");
             StickyGunpowderDescription.Top.Pixels = 40;
@@ -60,13 +60,13 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             LightweightBombshellsHeader.HAlign = 0.75f;
             LightweightBombshellsHeader.Top.Pixels = -20;
             LightweightBombshellsHeader.TextColor = Color.LightGray;
-            
+
             UIText LightweightBombshellsFlavorText = new UIText("100% more helium");
             LightweightBombshellsFlavorText.HAlign = 0.5f;
             LightweightBombshellsFlavorText.Top.Pixels = 30;
             LightweightBombshellsFlavorText.TextColor = Color.DarkGray;
             LightweightBombshellsHeader.Append(LightweightBombshellsFlavorText);
-            
+
             UIText LightweightBombshellsDescription = new UIText("Allows you to throw explosives\n" +
                                                                        " further than ever before.");
             LightweightBombshellsDescription.Top.Pixels = 40;
@@ -74,15 +74,15 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             LightweightBombshellsDescription.TextColor = Color.LightGray;
             rightPage.Append(LightweightBombshellsDescription);
             rightPage.Append(LightweightBombshellsHeader);
-            
+
             StickyGunpowderBox1 = new UIPanel();
             StickyGunpowderBox1.Height.Pixels = 100;
             StickyGunpowderBox1.Width.Pixels = 100;
             StickyGunpowderBox1.Top.Pixels = 340;
             StickyGunpowderBox1.HAlign = 0.5f;
             StickyGunpowderBox1.Left.Pixels = -140;
-            StickyGunpowderBox1.BackgroundColor = new Color(0,0,0,50);
-            StickyGunpowderBox1.BorderColor = new Color(0,0,0,75);
+            StickyGunpowderBox1.BackgroundColor = new Color(0, 0, 0, 50);
+            StickyGunpowderBox1.BorderColor = new Color(0, 0, 0, 75);
             leftPage.Append(StickyGunpowderBox1);
 
             StickyGunpowderAnimated1 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Animations/StickyGunpowder/Gel"));
@@ -92,17 +92,17 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             StickyGunpowderAnimated1.Height.Pixels = 54;
             StickyGunpowderAnimated1.Width.Pixels = 78;
             StickyGunpowderBox1.Append(StickyGunpowderAnimated1);
-            
+
             StickyGunpowderBox2 = new UIPanel();
             StickyGunpowderBox2.Height.Pixels = 100;
             StickyGunpowderBox2.Width.Pixels = 100;
             StickyGunpowderBox2.Top.Pixels = 330;
             StickyGunpowderBox2.HAlign = 0.5f;
             StickyGunpowderBox2.Left.Pixels = 90;
-            StickyGunpowderBox2.BackgroundColor = new Color(0,0,0,50);
-            StickyGunpowderBox2.BorderColor = new Color(0,0,0,75);
+            StickyGunpowderBox2.BackgroundColor = new Color(0, 0, 0, 50);
+            StickyGunpowderBox2.BorderColor = new Color(0, 0, 0, 75);
             leftPage.Append(StickyGunpowderBox2);
-            
+
             UIText foundCW2 = new UIText("               Crafted with:\n" +
                                         "    Gel           and       Explosive Powder");
             foundCW2.TextColor = Color.LightGray;
@@ -110,7 +110,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             foundCW2.Left.Pixels = -100;
             foundCW2.Top.Pixels = -60;
             StickyGunpowderBox2.Append(foundCW2);
-            
+
             UIText foundMat = new UIText("At any Anvil");
             foundMat.TextColor = Color.LightGray;
             foundMat.HAlign = 0.5f;
@@ -125,23 +125,23 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             StickyGunpowderAnimated2.Height.Pixels = 100;
             StickyGunpowderAnimated2.Width.Pixels = 100;
             StickyGunpowderBox2.Append(StickyGunpowderAnimated2);
-            
+
             CaptainExplosiveNPCBox = new UIPanel();
             CaptainExplosiveNPCBox.Height.Pixels = 112;
             CaptainExplosiveNPCBox.Width.Pixels = 80;
             CaptainExplosiveNPCBox.Top.Pixels = 330;
             CaptainExplosiveNPCBox.HAlign = 0.5f;
             CaptainExplosiveNPCBox.Left.Pixels = 10;
-            CaptainExplosiveNPCBox.BackgroundColor = new Color(0,0,0,50);
-            CaptainExplosiveNPCBox.BorderColor = new Color(0,0,0,75);
+            CaptainExplosiveNPCBox.BackgroundColor = new Color(0, 0, 0, 50);
+            CaptainExplosiveNPCBox.BorderColor = new Color(0, 0, 0, 75);
             rightPage.Append(CaptainExplosiveNPCBox);
-            
+
             UIText foundLB = new UIText("     Sold By:\nCaptain Explosive");
             foundLB.TextColor = Color.LightGray;
             foundLB.HAlign = 0.5f;
             foundLB.Top.Pixels = -60;
             CaptainExplosiveNPCBox.Append(foundLB);
-            
+
             UIText foundCENPC = new UIText("Always");
             foundCENPC.TextColor = Color.LightGray;
             foundCENPC.HAlign = 0.5f;
@@ -156,22 +156,22 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             CaptainExplosiveNPCBox.Append(CaptainExplosiveNPCAnimated);
 
             ToggleStickyGunpowder = new UIHoverImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"), "Sticky Gunpowder");
-                StickyGunpowder = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/StickyGunpowder"));
-                StickyGunpowder.VAlign = 0.5f;
-                StickyGunpowder.HAlign = 0.5f;
-                ToggleStickyGunpowder.Append(StickyGunpowder);    // Image of Sticky Gunpowder for labeling
+            StickyGunpowder = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/StickyGunpowder"));
+            StickyGunpowder.VAlign = 0.5f;
+            StickyGunpowder.HAlign = 0.5f;
+            ToggleStickyGunpowder.Append(StickyGunpowder);    // Image of Sticky Gunpowder for labeling
             ToggleStickyGunpowder.Left.Pixels = 25;
-            ToggleStickyGunpowder.Top.Pixels = leftPage.Height.Pixels/2 - 100;
+            ToggleStickyGunpowder.Top.Pixels = leftPage.Height.Pixels / 2 - 100;
             ToggleStickyGunpowder.OnClick += new MouseEvent(StickyGunpowderToggle);
             leftPage.Append(ToggleStickyGunpowder);
-            
+
             ToggleLightweightBombshells = new UIHoverImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"), "Lightweight Bombshells");
-                LightweightBombshells = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/LightweightBombshells"));
-                LightweightBombshells.VAlign = 0.5f;
-                LightweightBombshells.HAlign = 0.5f;
-                ToggleLightweightBombshells.Append(LightweightBombshells);    // Image of Sticky Gunpowder for labeling
+            LightweightBombshells = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/LightweightBombshells"));
+            LightweightBombshells.VAlign = 0.5f;
+            LightweightBombshells.HAlign = 0.5f;
+            ToggleLightweightBombshells.Append(LightweightBombshells);    // Image of Sticky Gunpowder for labeling
             ToggleLightweightBombshells.Left.Pixels = 50;
-            ToggleLightweightBombshells.Top.Pixels = rightPage.Height.Pixels/2 - 100;
+            ToggleLightweightBombshells.Top.Pixels = rightPage.Height.Pixels / 2 - 100;
             ToggleLightweightBombshells.OnClick += new MouseEvent(LightweightBombshellsToggle);
             rightPage.Append(ToggleLightweightBombshells);
 
@@ -179,17 +179,17 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             VelocitySliderBar.HAlign = 0.1f;
             VelocitySliderBar.VAlign = 0.5f;
             VelocitySliderBar.Left.Pixels = 200;
-            VelocitySliderBar.Top.Pixels = rightPage.Height.Pixels/2 - 325;
+            VelocitySliderBar.Top.Pixels = rightPage.Height.Pixels / 2 - 325;
             VelocitySliderBar.Width.Pixels = 220;
             VelocitySliderBar.Height.Pixels = 20;
             rightPage.Append(VelocitySliderBar);
-            
+
             VelocityOut = new UIText("null");
             VelocityOut.VAlign = 1;
             VelocityOut.HAlign = 0.5f;
             VelocityOut.Top.Pixels = 25;
             VelocitySliderBar.Append(VelocityOut);
-            
+
             StickyGunpowderImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/StickyGunpowder"));
             StickyGunpowderImage.Left.Pixels = 0;
             StickyGunpowderImage.Top.Pixels = 0;
@@ -218,7 +218,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
 
         public override void Update(GameTime gameTime)
         {
-            if(!startUpFlag)
+            if (!startUpFlag)
             {
                 if (Main.LocalPlayer.EE().StickyGunpowderActive)
                 {
@@ -265,11 +265,11 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
         {
             base.DrawSelf(spriteBatch);
         }
-        
+
         public void StickyGunpowderToggle(UIMouseEvent evt, UIElement listeningElement)
         {
             ExtraExplosivesPlayer mp = Main.LocalPlayer.EE();
-            mp.StickyGunpowderActive = !mp.StickyGunpowderActive; 
+            mp.StickyGunpowderActive = !mp.StickyGunpowderActive;
             ToggleStickyGunpowder.RemoveAllChildren();
             leftPage.RemoveChild(StickyGunpowderImage);
             leftPage.RemoveChild(StickyGunpowder_GreyscaleImage);
@@ -277,7 +277,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleStickyGunpowder.Append(StickyGunpowder);
             ToggleStickyGunpowder.Append(mp.StickyGunpowderActive ? (UIText)new Active() : (UIText)new Inactive());
         }
-        
+
         public void LightweightBombshellsToggle(UIMouseEvent evt, UIElement listeningElement)
         {
             ExtraExplosivesPlayer mp = Main.LocalPlayer.EE();

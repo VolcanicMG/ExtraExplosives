@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -45,7 +43,7 @@ namespace ExtraExplosives.Dusts
             }
 
             //lighting
-            Lighting.AddLight(DebrisDust.position, new Vector3(89f/255f, 35f/255f, 13f/255f));
+            Lighting.AddLight(DebrisDust.position, new Vector3(89f / 255f, 35f / 255f, 13f / 255f));
             Lighting.maxX = 3;
             Lighting.maxY = 3;
 

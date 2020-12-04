@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,7 +10,7 @@ namespace ExtraExplosives.Items.Weapons
     public class Blunderboom : ExplosiveWeapon
     {
         private int swapCooldown = 0;
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Blunderboom");
@@ -36,7 +35,7 @@ namespace ExtraExplosives.Items.Weapons
             item.shoot = ProjectileID.Bullet;
             item.shootSpeed = 11;
             item.useAmmo = AmmoID.Bullet;
-            
+
             PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = new LegacySoundStyle[4];
 
@@ -74,7 +73,7 @@ namespace ExtraExplosives.Items.Weapons
                 string damageWord = split.Last();
                 stats.text = damageValue + "x7 ranged " + damageWord;
             }*/
-            
+
             string firemode = (item.useAmmo == AmmoID.Bullet ? "Shotgun" : "Explosive");
             var fireModeUseTip = new TooltipLine(mod, "Firemode", $"Fire Mode: {firemode}");
             fireModeUseTip.overrideColor = Color.Tan;
@@ -98,20 +97,20 @@ namespace ExtraExplosives.Items.Weapons
             {
                 case 97:    // Bullet
                     Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                        (int) player.position.X, (int) player.position.Y);
+                        (int)player.position.X, (int)player.position.Y);
                     int numberProjectiles = 7;
                     for (int i = 0; i < numberProjectiles; i++)
                     {
                         Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30)); // 30 degree spread.
                         // If you want to randomize the speed to stagger the projectiles
                         float scale = 1f - (Main.rand.NextFloat() * .3f);
-                        perturbedSpeed = perturbedSpeed * scale; 
+                        perturbedSpeed = perturbedSpeed * scale;
                         Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
                     }
                     return false; // return false because we don't want tmodloader to shoot projectile
                 case 771:    // Rocket
                     Main.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
-                        (int)player.position.X, (int) player.position.Y);
+                        (int)player.position.X, (int)player.position.Y);
                     Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.GrenadeIII, damage, knockBack, player.whoAmI);
                     break;
             }

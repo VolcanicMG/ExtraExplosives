@@ -1,17 +1,14 @@
-using System;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
     public class DebugBombProjectile : ExplosiveProjectile
     {
         public override string Texture => "ExtraExplosives/Projectiles/SmallExplosiveProjectile";
-		protected override string explodeSoundsLoc => "n/a";
-		protected override string goreFileLoc => "n/a";
+        protected override string explodeSoundsLoc => "n/a";
+        protected override string goreFileLoc => "n/a";
 
-		public override void SetStaticDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("DebugBombProjectile");
         }
@@ -28,8 +25,8 @@ namespace ExtraExplosives.Projectiles
 
         public override void ExplosionDamage()
         {
-	        radius++;
-	        base.ExplosionDamage();
+            radius++;
+            base.ExplosionDamage();
         }
 
         public override void Kill(int timeLeft)
@@ -38,20 +35,20 @@ namespace ExtraExplosives.Projectiles
             this.Explosion();
             this.ExplosionDamage();
         }
-        
+
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-	        return;
+            return;
         }
 
         public override void OnHitPvp(Player target, int damage, bool crit)
         {
-	        return;
+            return;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-	        return;
+            return;
         }
 
         /*public override void AI()

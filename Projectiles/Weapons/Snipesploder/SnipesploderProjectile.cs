@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
             get => projectile.ai[0];
             set => projectile.ai[0] = value;
         }
-        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Snipesploder");
@@ -24,7 +24,7 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
         {
             projectile.aiStyle = 1;
             projectile.timeLeft = 31;
-            projectile.rotation = (float) Math.Atan(projectile.velocity.Y / projectile.velocity.X);
+            projectile.rotation = (float)Math.Atan(projectile.velocity.Y / projectile.velocity.X);
         }
 
         public override bool PreAI()
@@ -43,19 +43,20 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
             if ((int)LifeTime == 5)
             {
                 projectile.frame++;
-                
+
                 Player player = Main.player[projectile.owner];
                 Vector2 playerHandPos = player.RotatedRelativePoint(player.MountedCenter, true);
                 Vector2 aim = Vector2.Normalize(Main.MouseWorld - playerHandPos);
-                if (aim.HasNaNs()) {
+                if (aim.HasNaNs())
+                {
                     aim = -Vector2.UnitY;
                 }
-                
+
                 Main.NewText("Spawned from projectile");
                 Projectile.NewProjectile(projectile.Center, aim * 10, ProjectileID.Dynamite, 0, 0, 255);
             }
 
-            if ((int) LifeTime > 30)
+            if ((int)LifeTime > 30)
             {
                 projectile.Kill();
             }

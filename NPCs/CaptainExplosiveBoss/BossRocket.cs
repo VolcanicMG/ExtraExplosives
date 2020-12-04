@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
 using ExtraExplosives.Dusts;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -80,7 +78,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             npc.life = 0;
             npc.active = false;
         }
-        
+
         public void Kill(int timeLeft)
         {
             for (int i = 80; i > 0; i--)
@@ -213,7 +211,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 }
             }
         }
-        
+
         private void CreateDust(Vector2 position, int amount)
         {
             Dust dust;
@@ -279,6 +277,6 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
             }
         }
-        
+
     }
 }

@@ -37,7 +37,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<ExtraExplosivesPlayer>().StickyGunpowder = true;
-            if(player.EE().LightweightBombshellsActive)player.EE().LightweightBombshells = true;
+            if (player.EE().LightweightBombshellsActive) player.EE().LightweightBombshells = true;
         }
     }
 }

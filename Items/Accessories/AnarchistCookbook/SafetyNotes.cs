@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +12,7 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             Tooltip.SetDefault("Prevents self damage from friendly explosives\n" +
                                "Increased damage output by 10%");
         }
-        
+
 
         public override void SetDefaults()
         {

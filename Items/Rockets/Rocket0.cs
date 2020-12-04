@@ -1,10 +1,7 @@
-﻿using Terraria;
+﻿using ExtraExplosives.Projectiles.Rockets;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ExtraExplosives.Projectiles;
-using static Terraria.ModLoader.ModContent;
-using ExtraExplosives.Projectiles.Rockets;
-using Microsoft.Xna.Framework;
 
 namespace ExtraExplosives.Items.Rockets
 {

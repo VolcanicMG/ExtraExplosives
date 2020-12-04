@@ -15,19 +15,19 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
         internal UIImage leftDivider;
         internal UIImage rightDivider;
         internal int padding = 25;
-        internal Color color = new Color(0,0,0,0);
+        internal Color color = new Color(0, 0, 0, 0);
 
         public Pages()
         {
         }
-        
+
         public override void OnInitialize()
         {
             VAlign = 0.5f;
             HAlign = 0.5f;
             Width.Pixels = Main.screenWidth / 2 + padding * 4 - 60;
             Height.Pixels = Main.screenHeight / 2 + padding * 4 - 44;
-            BackgroundColor = new Color(0,0,0,0);
+            BackgroundColor = new Color(0, 0, 0, 0);
             BorderColor = color;
 
             leftPage = new UIPanel();
@@ -40,13 +40,13 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             leftPage.BackgroundColor = color;
             leftPage.BorderColor = color;
             Append(leftPage);
-            
+
             leftDivider = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Divider"));
             leftDivider.VAlign = 0.5f;
             leftDivider.HAlign = 0.5f;
             //leftDivider.Left.Pixels = -10;
             leftPage.Append(leftDivider);
-            
+
             rightPage = new UIPanel();
             rightPage.HAlign = 0.95f;
             //rightPage.Left.Pixels = Width.Pixels / 2 + padding;
@@ -57,7 +57,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             rightPage.BackgroundColor = color;
             rightPage.BorderColor = color;
             Append(rightPage);
-            
+
             rightDivider = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Divider"));
             rightDivider.VAlign = 0.5f;
             rightDivider.HAlign = 0.5f;

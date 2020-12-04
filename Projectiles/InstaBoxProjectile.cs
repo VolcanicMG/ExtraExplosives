@@ -1,24 +1,8 @@
-﻿using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
-using Terraria.Graphics.Effects;
 using Terraria.ID;
-using Terraria.Localization;
-using Microsoft.Xna.Framework.Graphics;
-using System.IO;
-using Microsoft.Xna.Framework.Input;
-using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
-using ExtraExplosives;
+using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
-using ExtraExplosives.Buffs;
-using ExtraExplosives.Tiles;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -68,7 +52,7 @@ namespace ExtraExplosives.Projectiles
 
                     if (WorldGen.TileEmpty(xPosition, yPosition)) //Runs when a tile is empty
                     {
-                        if(x == -radius || x == radius) //Left and Right
+                        if (x == -radius || x == radius) //Left and Right
                         {
                             WorldGen.PlaceTile(xPosition, yPosition, TileID.Dirt);
                         }
@@ -101,7 +85,7 @@ namespace ExtraExplosives.Projectiles
                         {
                             dust.noGravity = true;
                             dust.fadeIn = 0f;
-                            dust.noLight = true;   
+                            dust.noLight = true;
                         }
                     }
                     //------------

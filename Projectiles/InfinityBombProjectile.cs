@@ -1,8 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles
@@ -12,17 +11,17 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreFileLoc => "n/a";
         private const int OriginalDamage = 250;
-	    private int _multiplier = 1;
-	    public override void SetStaticDefaults()
+        private int _multiplier = 1;
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Infinity Bomb");
         }
 
         public override void SafeSetDefaults()
         {
-	        pickPower = 50;
-	        radius = 7;
-	        projectile.timeLeft = 300;
+            pickPower = 50;
+            radius = 7;
+            projectile.timeLeft = 300;
             //projectile.CloneDefaults(29);
             projectile.aiStyle = 16;
             projectile.timeLeft = 120;
@@ -34,7 +33,7 @@ namespace ExtraExplosives.Projectiles
         }
         public override void Kill(int timeLeft)
         {
-	        _multiplier *= projectile.damage / OriginalDamage;
+            _multiplier *= projectile.damage / OriginalDamage;
             //Create Bomb Sound
             Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
@@ -43,9 +42,9 @@ namespace ExtraExplosives.Projectiles
             //projectile.knockBack = (int) Math.Ceiling(20 * projectile.localAI[0]);
             //Create Bomb Damage
             ExplosionDamage();
-            radius = (int) (radius * _multiplier);
+            radius = (int)(radius * _multiplier);
             //Create Bomb Explosion
-            
+
             //Main.NewText($"Damage {projectile.damage}, Knockback {projectile.knockBack}, Radius {radius}, multiplier {_multiplier}");
             Explosion();
             //Main.NewText(projectile.localAI[0]);
@@ -53,10 +52,10 @@ namespace ExtraExplosives.Projectiles
             CreateDust(projectile.Center, 50 + radius);
 
         }
-        
+
         public override void Explosion()
         {
-            
+
             // x and y are the tile offset of the current tile relative to the player
             // i and j are the true tile cords relative to 0,0 in the world
             Player player = Main.player[projectile.owner];
@@ -66,9 +65,9 @@ namespace ExtraExplosives.Projectiles
             Vector2 position = new Vector2(projectile.Center.X / 16f, projectile.Center.Y / 16f);    // Converts to tile cords for convenience
 
             radius = (int)((radius + player.EE().RadiusBonus) * player.EE().RadiusMulti);
-            
+
             //Main.NewText(radius);
-            
+
             for (int x = -radius;
                 x <= radius;
                 x++)
@@ -77,8 +76,8 @@ namespace ExtraExplosives.Projectiles
                     y <= radius;
                     y++)
                 {
-                    int i = (int) (x + position.X);
-                    int j = (int) (y + position.Y);
+                    int i = (int)(x + position.X);
+                    int j = (int)(y + position.Y);
                     if (!WorldGen.InWorld(i, j)) continue;
                     double dist = Math.Sqrt(x * x + y * y);
                     if (dist <= radius + 0.5) //Circle
@@ -89,71 +88,71 @@ namespace ExtraExplosives.Projectiles
                             if (!CanBreakTiles) continue;
                             // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
                             // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
-                            if (dist <= radius - 0.5) Main.tile[i,j].ClearTile();
-                            else WorldGen.KillTile((int) (i), (int) (j), false, false, false);	
+                            if (dist <= radius - 0.5) Main.tile[i, j].ClearTile();
+                            else WorldGen.KillTile((int)(i), (int)(j), false, false, false);
                         }
-                        
+
                         if (CanBreakWalls)
                         {
-                            WorldGen.KillWall((int) (i), (int) (j));
+                            WorldGen.KillWall((int)(i), (int)(j));
                         }
                     }
                 }
             }
         }
-        
+
         private void CreateDust(Vector2 position, int amount)
         {
-        	Dust dust;
-        	Vector2 updatedPosition;
+            Dust dust;
+            Vector2 updatedPosition;
 
-        	for (int i = 0; i <= amount; i++)
-        	{
-        		if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
-        		{
-        			//Dust 1
-        			if (Main.rand.NextFloat() < 0.9f)
-        			{
-        				updatedPosition = new Vector2(position.X - 100 + radius / 2, position.Y - 100 - radius / 2);
+            for (int i = 0; i <= amount; i++)
+            {
+                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
+                {
+                    //Dust 1
+                    if (Main.rand.NextFloat() < 0.9f)
+                    {
+                        updatedPosition = new Vector2(position.X - 100 + radius / 2, position.Y - 100 - radius / 2);
 
-        				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100 + radius, 100 + radius, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100 + radius, 100 + radius, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
                         if (Vector2.Distance(dust.position, projectile.Center) > 39) dust.active = false;
                         else
                         {
-	                        dust.noGravity = true;
-	                        dust.fadeIn = 2.5f;
+                            dust.noGravity = true;
+                            dust.fadeIn = 2.5f;
                         }
                     }
 
-        			//Dust 2
-        			if (Main.rand.NextFloat() < 0.6f)
-        			{
-        				updatedPosition = new Vector2(position.X - 100 + radius / 2, position.Y - 100 - radius / 2);
+                    //Dust 2
+                    if (Main.rand.NextFloat() < 0.6f)
+                    {
+                        updatedPosition = new Vector2(position.X - 100 + radius / 2, position.Y - 100 - radius / 2);
 
-        				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100 + radius, 100 + radius, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100 + radius, 100 + radius, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
                         if (Vector2.Distance(dust.position, projectile.Center) > 39) dust.active = false;
                         else
                         {
-	                        dust.noGravity = true;
-	                        dust.noLight = true;
+                            dust.noGravity = true;
+                            dust.noLight = true;
                         }
                     }
 
-        			//Dust 3
-        			if (Main.rand.NextFloat() < 0.3f)
-        			{
-        				updatedPosition = new Vector2(position.X - 130 + radius / 2, position.Y - 130 - radius / 2);
+                    //Dust 3
+                    if (Main.rand.NextFloat() < 0.3f)
+                    {
+                        updatedPosition = new Vector2(position.X - 130 + radius / 2, position.Y - 130 - radius / 2);
 
-        				dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 130 + radius, 130 + radius, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
+                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 130 + radius, 130 + radius, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
                         if (Vector2.Distance(dust.position, projectile.Center) > 50) dust.active = false;
                         else
                         {
-	                        dust.noGravity = true;
-	                        dust.noLight = true;
+                            dust.noGravity = true;
+                            dust.noLight = true;
                         }
                     }
-        		}
-        	}
+                }
+            }
         }
     }
 }

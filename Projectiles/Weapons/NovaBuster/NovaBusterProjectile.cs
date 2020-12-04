@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -42,7 +41,7 @@ namespace ExtraExplosives.Projectiles.Weapons.NovaBuster
 
         public override void AI()
         {
-            
+
         }
 
         /// <summary>

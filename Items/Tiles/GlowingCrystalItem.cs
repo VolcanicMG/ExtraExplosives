@@ -1,5 +1,4 @@
 using ExtraExplosives.Tiles;
-using ExtraExplosives.Tiles.Furniture;
 using Terraria.ID;
 using Terraria.ModLoader;
 

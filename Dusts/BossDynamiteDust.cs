@@ -22,6 +22,6 @@ namespace ExtraExplosives.Dusts
             }
             return false;
         }
-        
+
     }
 }

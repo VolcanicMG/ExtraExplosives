@@ -1,6 +1,6 @@
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -18,7 +18,7 @@ namespace ExtraExplosives.Items.Weapons
         }
 
         protected override string SoundLocation { get; } = "Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";
-        
+
         public override void SafeSetDefaults()
         {
             item.damage = 25;
@@ -33,10 +33,10 @@ namespace ExtraExplosives.Items.Weapons
             item.value = 10000;
             item.rare = ItemRarityID.Yellow;
             item.autoReuse = true;
-            item.shoot = ProjectileID.GrenadeI; 
+            item.shoot = ProjectileID.GrenadeI;
             item.shootSpeed = 10;
             item.useAmmo = AmmoID.Rocket;
-            
+
             PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = null;
 
@@ -46,7 +46,7 @@ namespace ExtraExplosives.Items.Weapons
                     mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
             }
         }
-        
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
@@ -58,7 +58,7 @@ namespace ExtraExplosives.Items.Weapons
                 stats.text = damageValue + "x5 explosive " + damageWord;
             }
         }
-        
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-16, 0);
@@ -67,8 +67,8 @@ namespace ExtraExplosives.Items.Weapons
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                (int) player.position.X, (int) player.position.Y);
-            
+                (int)player.position.X, (int)player.position.Y);
+
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {

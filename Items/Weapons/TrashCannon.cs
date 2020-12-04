@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using ExtraExplosives.Projectiles.Weapons.TrashCannon;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -36,7 +36,7 @@ namespace ExtraExplosives.Items.Weapons
             item.shoot = 10;
             item.shootSpeed = 15;
             item.useAmmo = AmmoID.Rocket;
-            
+
             PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = null;
 
@@ -63,12 +63,12 @@ namespace ExtraExplosives.Items.Weapons
         {
             return new Vector2(-7, 1);
         }
-        
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                (int) player.position.X, (int) player.position.Y);
-            
+                (int)player.position.X, (int)player.position.Y);
+
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {

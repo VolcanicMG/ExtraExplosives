@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -60,20 +59,20 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
             modRecipe.SetResult(this);
             modRecipe.AddRecipe();
         }
-        
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             ExtraExplosivesPlayer mp = player.EE();
-            if(mp.BlastShieldingActive)mp.BlastShielding = true;
-            if(mp.BombBagActive)mp.BombBag = true;
-            if(mp.CrossedWiresActive)mp.CrossedWires = true;
-            if(mp.GlowingCompoundActive)mp.GlowingCompound = true;
-            if(mp.LightweightBombshellsActive)mp.LightweightBombshells = true;
-            if(mp.MysteryBombActive)mp.MysteryBomb = true;
-            if(mp.RandomFuelActive)mp.RandomFuel = true;
-            if(mp.ReactivePlatingActive)mp.ReactivePlating = true;
-            if(mp.ShortFuseActive)mp.ShortFuse = true;
-            if(mp.StickyGunpowderActive)mp.StickyGunpowder = true;
+            if (mp.BlastShieldingActive) mp.BlastShielding = true;
+            if (mp.BombBagActive) mp.BombBag = true;
+            if (mp.CrossedWiresActive) mp.CrossedWires = true;
+            if (mp.GlowingCompoundActive) mp.GlowingCompound = true;
+            if (mp.LightweightBombshellsActive) mp.LightweightBombshells = true;
+            if (mp.MysteryBombActive) mp.MysteryBomb = true;
+            if (mp.RandomFuelActive) mp.RandomFuel = true;
+            if (mp.ReactivePlatingActive) mp.ReactivePlating = true;
+            if (mp.ShortFuseActive) mp.ShortFuse = true;
+            if (mp.StickyGunpowderActive) mp.StickyGunpowder = true;
             player.EE().AnarchistCookbook = true;
         }
     }

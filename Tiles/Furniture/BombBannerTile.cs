@@ -1,4 +1,3 @@
-using ExtraExplosives.Items.Tiles.Furniture;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -11,7 +10,7 @@ namespace ExtraExplosives.Tiles.Furniture
 {
     public class BombBannerTile : ModTile
     {
-        public override void SetDefaults() 
+        public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
@@ -29,15 +28,16 @@ namespace ExtraExplosives.Tiles.Furniture
             name.SetDefault("Banner");
             AddMapEntry(new Color(13, 88, 130), name);
         }
-        public override void KillMultiTile(int i, int j, int frameX, int frameY) 
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             int style = frameX / 18;
             Item.NewItem(i * 16, j * 16, 16, 48, mod.ItemType("BombBannerItem"));
         }
 
-        public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects) 
+        public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
-            if (i % 2 == 1) {
+            if (i % 2 == 1)
+            {
                 spriteEffects = SpriteEffects.FlipHorizontally;
             }
         }

@@ -38,7 +38,7 @@ namespace ExtraExplosives.Items.Misc
             recipe.SetResult(this);
             recipe.AddTile(TileID.WorkBenches);
             recipe.AddRecipe();
-            
+
         }
     }
 }

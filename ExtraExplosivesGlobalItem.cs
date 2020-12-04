@@ -1,21 +1,5 @@
 using ExtraExplosives.Items;
-using ExtraExplosives.Items.Accessories;
-using ExtraExplosives.Items.Accessories.AnarchistCookbook;
-using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
-using ExtraExplosives.Items.Accessories.ChaosBomb;
-using ExtraExplosives.Items.Armors.Asteroid;
-using ExtraExplosives.Items.Armors.CorruptedAnarchy;
-using ExtraExplosives.Items.Armors.CrimsonAnarchy;
-using ExtraExplosives.Items.Armors.DungeonBombard;
-using ExtraExplosives.Items.Armors.Hazard;
-using ExtraExplosives.Items.Armors.HeavyAutomated;
-using ExtraExplosives.Items.Armors.Lizhard;
-using ExtraExplosives.Items.Armors.Meltbomber;
-using ExtraExplosives.Items.Armors.Nova;
-using ExtraExplosives.Items.Armors.SpaceDemolisher;
-using ExtraExplosives.Items.Armors.TunnelRat;
 using ExtraExplosives.Items.Explosives;
-using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -122,13 +106,13 @@ namespace ExtraExplosives
                 tooltips.Insert(1, Dis);
 
             }
-            else if(Disclaimer != null && ExtraExplosives.disclaimerTooltip.Contains<int>(item.type))
+            else if (Disclaimer != null && ExtraExplosives.disclaimerTooltip.Contains<int>(item.type))
             {
                 var Dis = new TooltipLine(mod, "", "(Doesn't work with Extra Explosive trinkets)");
                 Dis.overrideColor = Color.Red;
                 tooltips.Add(Dis);
             }
-            
+
         }
 
         public override void AddRecipes()

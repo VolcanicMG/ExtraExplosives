@@ -1,12 +1,9 @@
 using ExtraExplosives.Items;
-using ExtraExplosives.Items.Accessories.AnarchistCookbook;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 using TileObjectData = Terraria.ObjectData.TileObjectData;
 
 namespace ExtraExplosives.Tiles
@@ -14,7 +11,7 @@ namespace ExtraExplosives.Tiles
     public class GlowingCrystal : ModTile        // Tile counterpart to GlowingCompound
     {
         private string dustString = "GreenCrystalDust";
-        
+
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = false;
@@ -23,8 +20,8 @@ namespace ExtraExplosives.Tiles
             Main.tileNoFail[Type] = true;
             dustType = mod.DustType(dustString);
             drop = ModContent.ItemType<GlowingCrystalItem>();
-            AddMapEntry(new Color(148,134,48));
-            
+            AddMapEntry(new Color(148, 134, 48));
+
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.newTile.StyleHorizontal = true;
             /*TileObjectData.newTile.Height = 1;

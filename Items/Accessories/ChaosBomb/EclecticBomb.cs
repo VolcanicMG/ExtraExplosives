@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +14,7 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
             Tooltip.SetDefault("'Antiquity and modernity combined'\n" +
                                "Bombs light enemies on fire & confuse them");
         }
-        
+
         public override void SetDefaults()
         {
             item.width = 28;
@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
             item.rare = ItemRarityID.Yellow;
             item.accessory = true;
         }
-        
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (Main.player[item.owner].EE().AnarchistCookbook)
@@ -36,13 +36,13 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
                 tooltips.Add(synergyTooltipLine);
             }
         }
-        
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.EE().LihzahrdFuzeset = true;
             player.EE().AlienExplosive = true;
         }
-        
+
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

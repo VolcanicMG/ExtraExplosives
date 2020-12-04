@@ -1,7 +1,5 @@
-using System;
 using ExtraExplosives.UI.AnarchistCookbookUI.UI;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
@@ -38,14 +36,14 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
         //internal UIImage UtilityNotesImg;
         //
         private bool originalDrawUpdate = false;
-        
+
 
         //public static bool Visible;
 
         public override void OnInitialize()
         {
             //Visible = false;
-            
+
             /*
             baseLayer = new UIPanel();
             baseLayer.HAlign = 0.5f;
@@ -63,15 +61,15 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             cookbookSkin.Top.Pixels = Main.screenHeight / 2 - cookbookSkin.Height.Pixels / 2;
             //cookbookSkin.ImageScale = horizontalScale;
             //baseLayer.Append(cookbookSkin);
-            
-            
+
+
             tabs = new UIElement();
             tabs.Width.Pixels = 300;
             tabs.Height.Pixels = cookbookSkin.Width.Pixels;
-                test = new UIPanel();
-                test.BackgroundColor = Color.Black;
-                test.Width = tabs.Width;
-                test.Height = tabs.Height;
+            test = new UIPanel();
+            test.BackgroundColor = Color.Black;
+            test.Width = tabs.Width;
+            test.Height = tabs.Height;
             tabs.VAlign = 0.5f;
             //tabs.Top.Pixels = -32 * verticalScale;
             tabs.Left.Pixels = cookbookSkin.Width.Pixels - 180;
@@ -79,7 +77,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             //tabs.Left.Pixels = (cookbookSkin.Width.Pixels - 180) * horizontalScale;
             //tabs.Left.Pixels = Main.screenWidth / 2;// + cookbookSkin.Width.Pixels / 2;
             //cookbookSkin.Append(tabs);
-            
+
             handyNotesPages = new HandyNotesPages();
             handyNotesPages.BackgroundColor = new Color(100, 100, 100);
             cookbookSkin.Append(handyNotesPages);
@@ -87,61 +85,61 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             randomNotesPages = new RandomNotesPages();
             randomNotesPages.BackgroundColor = new Color(100, 100, 100);
             cookbookSkin.Append(randomNotesPages);
-            
+
             resourcefulNotesPages = new ResourcefulNotesPages();
             resourcefulNotesPages.BackgroundColor = new Color(100, 100, 100);
             cookbookSkin.Append(resourcefulNotesPages);
-            
+
             safetyNotesPages = new SafetyNotesPages();
             safetyNotesPages.BackgroundColor = new Color(100, 100, 100);
             cookbookSkin.Append(safetyNotesPages);
-            
+
             utilityNotesPages = new UtilityNotesPages();
             utilityNotesPages.BackgroundColor = new Color(100, 100, 100);
             cookbookSkin.Append(utilityNotesPages);
 
             HandyNotes = new UIHoverImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/HandyNotesTab"), "Handy Notes");
             HandyNotes.Left.Set(8, 0);
-            HandyNotes.Top.Set(-24,0);
+            HandyNotes.Top.Set(-24, 0);
             HandyNotes.VAlign = 1 / 6f;
-            HandyNotes.Width.Set(60 * horizontalScale,0);
-            HandyNotes.Height.Set(100 * verticalScale,0);
+            HandyNotes.Width.Set(60 * horizontalScale, 0);
+            HandyNotes.Height.Set(100 * verticalScale, 0);
             HandyNotes.OnClick += new MouseEvent(MoveToHandyNotesPage);
             tabs.Append(HandyNotes);
-            
+
             RandomNotes = new UIHoverImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/RandomNotesTab"), "Random Notes");
             RandomNotes.Left.Set(0, 0);
-            RandomNotes.Top.Set(-12,0);
-            RandomNotes.VAlign = 2/6f;
-            RandomNotes.Width.Set(60 * horizontalScale,0);
-            RandomNotes.Height.Set(100 * verticalScale,0);
+            RandomNotes.Top.Set(-12, 0);
+            RandomNotes.VAlign = 2 / 6f;
+            RandomNotes.Width.Set(60 * horizontalScale, 0);
+            RandomNotes.Height.Set(100 * verticalScale, 0);
             RandomNotes.OnClick += new MouseEvent(MoveToRandomNotesPage);
             tabs.Append(RandomNotes);
 
             ResourcefulNotes = new UIHoverImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/ResourcefulNotesTab"), "Resourceful Notes");
             ResourcefulNotes.Left.Set(4, 0);
-            ResourcefulNotes.Top.Set(0,0);
-            ResourcefulNotes.VAlign = 3/6f;
-            ResourcefulNotes.Width.Set(60 * horizontalScale,0);
-            ResourcefulNotes.Height.Set(100 * verticalScale,0);
+            ResourcefulNotes.Top.Set(0, 0);
+            ResourcefulNotes.VAlign = 3 / 6f;
+            ResourcefulNotes.Width.Set(60 * horizontalScale, 0);
+            ResourcefulNotes.Height.Set(100 * verticalScale, 0);
             ResourcefulNotes.OnClick += new MouseEvent(MoveToResourcefulNotesPage);
             tabs.Append(ResourcefulNotes);
 
             SafetyNotes = new UIHoverImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/SafetyNotesTab"), "Safety Notes");
             SafetyNotes.Left.Set(16, 0);
-            SafetyNotes.Top.Set(12,0);
-            SafetyNotes.VAlign = 4/6f;
-            SafetyNotes.Width.Set(60 * horizontalScale,0);
-            SafetyNotes.Height.Set(100 * verticalScale,0);
+            SafetyNotes.Top.Set(12, 0);
+            SafetyNotes.VAlign = 4 / 6f;
+            SafetyNotes.Width.Set(60 * horizontalScale, 0);
+            SafetyNotes.Height.Set(100 * verticalScale, 0);
             SafetyNotes.OnClick += new MouseEvent(MoveToSafetyNotesPage);
             tabs.Append(SafetyNotes);
 
             UtilityNotes = new UIHoverImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/UtilityNotesTab"), "Utility Notes");
             UtilityNotes.Left.Set(12, 0);
-            UtilityNotes.Top.Set(24,0);
-            UtilityNotes.VAlign = 5/6f;
-            UtilityNotes.Width.Set(60 * horizontalScale,0);
-            UtilityNotes.Height.Set(100 * verticalScale,0);
+            UtilityNotes.Top.Set(24, 0);
+            UtilityNotes.VAlign = 5 / 6f;
+            UtilityNotes.Width.Set(60 * horizontalScale, 0);
+            UtilityNotes.Height.Set(100 * verticalScale, 0);
             UtilityNotes.OnClick += new MouseEvent(MoveToUtilityNotesPage);
             tabs.Append(UtilityNotes);
             Append(cookbookSkin);
@@ -157,7 +155,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
 
             horizontalScale = Main.screenWidth / 1920f;
             verticalScale = Main.screenHeight / 1017f;
-            
+
             // Cookbook texture alignment
             //cookbookSkin.ImageScale = horizontalScale;
             //Main.NewText(cookbookSkin.Width.Pixels + " " + cookbookSkin.Height.Pixels);
@@ -166,11 +164,11 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             cookbookSkin.Left.Pixels = (Main.screenWidth / 2 - cookbookSkin.Width.Pixels / 2);// * horizontalScale;
             //cookbookSkin.Left.Pixels = (1920 / 2 - cookbookSkin.Width.Pixels / 2);// * horizontalScale;
             cookbookSkin.Top.Pixels = (Main.screenHeight / 2 - cookbookSkin.Height.Pixels / 2);// * verticalScale;
-            //cookbookSkin.Top.Pixels = (1017 / 2 - cookbookSkin.Height.Pixels / 2);// * verticalScale;
-            //cookbookSkin.ImageScale = horizontalScale;
-            //Main.NewText($"{cookbookSkin.Width.Pixels}, {cookbookSkin.Height.Pixels}");
-            
-            
+                                                                                               //cookbookSkin.Top.Pixels = (1017 / 2 - cookbookSkin.Height.Pixels / 2);// * verticalScale;
+                                                                                               //cookbookSkin.ImageScale = horizontalScale;
+                                                                                               //Main.NewText($"{cookbookSkin.Width.Pixels}, {cookbookSkin.Height.Pixels}");
+
+
             // Tabs alignment
             //tabs.HAlign = 1.1f;
             //tabs.Left.Pixels = Main.screenWidth * 0.62f;
@@ -179,7 +177,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             //tabs.Width.Pixels = 300 * horizontalScale;
             //tabs.Height.Pixels = cookbookSkin.Height.Pixels;// * verticalScale;
             //tabs.Height.Pixels = cookbookSkin.Width.Pixels * 2;
-            
+
             test.Width = tabs.Width;
             test.Height = tabs.Height;
             /*cookbookSkin.ImageScale = horizontalScale;
@@ -197,25 +195,25 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             //cookbookSkin.Top.Pixels = baseLayer.Height.Pixels/2;
             //cookbookSkin.Height.Pixels = 648 * verticalScale;
             //cookbookSkin.Width.Pixels = 1358 * horizontalScale;
-            
+
             //HandyNotes.ImageScale = verticalScale;
             //RandomNotes.ImageScale = verticalScale;
             //ResourcefulNotes.ImageScale = verticalScale;
             //SafetyNotes.ImageScale = verticalScale;
             //UtilityNotes.ImageScale = verticalScale;
-            
+
             /*HandyNotes.Top.Set(((cookbookSkin.Height.Pixels/12) * 1),0);
             RandomNotes.Top.Set(((cookbookSkin.Height.Pixels/12) * 3),0);
             ResourcefulNotes.Top.Set(((cookbookSkin.Height.Pixels/12) * 5),0);
             SafetyNotes.Top.Set(((cookbookSkin.Height.Pixels/12) * 7),0);
             UtilityNotes.Top.Set(((cookbookSkin.Height.Pixels/12) * 9),0);*/
-            
-            HandyNotes.VAlign = 1/6f;
-            RandomNotes.VAlign = 2/6f;
-            ResourcefulNotes.VAlign = 3/6f;
-            SafetyNotes.VAlign = 4/6f;
-            UtilityNotes.VAlign = 5/6f;
-            
+
+            HandyNotes.VAlign = 1 / 6f;
+            RandomNotes.VAlign = 2 / 6f;
+            ResourcefulNotes.VAlign = 3 / 6f;
+            SafetyNotes.VAlign = 4 / 6f;
+            UtilityNotes.VAlign = 5 / 6f;
+
             if (!originalDrawUpdate)
             {
                 originalDrawUpdate = true;
@@ -225,19 +223,19 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                 handyNotesPages.MakeVisible();
             }
 
-            
+
             //tabs.Left.Pixels = cookbookSkin.Width.Pixels - 180;
-            
+
             //--------------------------------------------------------------------------------- Look into this if we need to change how the UI state is set.
 
             if (cookbookSkin.ContainsPoint(Main.MouseScreen))
             {
                 Main.LocalPlayer.mouseInterface = true;
             }
-            
+
             base.Update(gameTime);
         }
-        
+
         public void MoveToHandyNotesPage(UIMouseEvent evt, UIElement listeningElement)
         {
             cookbookSkin.RemoveAllChildren();
@@ -252,7 +250,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             cookbookSkin.Append(tabs);
             randomNotesPages.MakeVisible();
         }
-        
+
         public void MoveToResourcefulNotesPage(UIMouseEvent evt, UIElement listeningElement)
         {
             cookbookSkin.RemoveAllChildren();
@@ -260,7 +258,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             cookbookSkin.Append(tabs);
             resourcefulNotesPages.MakeVisible();
         }
-        
+
         public void MoveToSafetyNotesPage(UIMouseEvent evt, UIElement listeningElement)
         {
             cookbookSkin.RemoveAllChildren();
@@ -268,7 +266,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             cookbookSkin.Append(tabs);
             safetyNotesPages.MakeVisible();
         }
-        
+
         public void MoveToUtilityNotesPage(UIMouseEvent evt, UIElement listeningElement)
         {
             cookbookSkin.RemoveAllChildren();

@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.UI;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -60,7 +58,7 @@ namespace ExtraExplosives.Items.Accessories
 
         public override bool WingUpdate(Player player, bool inUse)
         {
-            if(inUse)
+            if (inUse)
             {
                 if (EngineSoundInstance == null)
                     EngineSoundInstance = Main.PlaySound(EngineSound, (int)player.Center.X, (int)player.Center.Y);
@@ -76,7 +74,7 @@ namespace ExtraExplosives.Items.Accessories
                 if (EngineSoundInstance != null && EngineSoundInstance.State == SoundState.Playing)
                     EngineSoundInstance.Stop();
 
-                if(justUsed)
+                if (justUsed)
                 {
                     if (EndSoundInstance == null)
                         EndSoundInstance = Main.PlaySound(EndSound, (int)player.Center.X, (int)player.Center.Y);
@@ -113,7 +111,7 @@ namespace ExtraExplosives.Items.Accessories
             speed = 12; //12 is max without messing with dashing
             acceleration *= 3f;
 
-            if(acceleration >= 50)
+            if (acceleration >= 50)
             {
                 acceleration = 50;
             }
@@ -122,7 +120,7 @@ namespace ExtraExplosives.Items.Accessories
         public void CreateEngineDust(Player player)
         {
             //create dust for the bottom
-            if(player.direction < 0)
+            if (player.direction < 0)
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
@@ -148,7 +146,7 @@ namespace ExtraExplosives.Items.Accessories
                 dust = Main.dust[Terraria.Dust.NewDust(position, 8, 8, 6, 10f, 0f, 0, new Color(255, 176, 0), Main.rand.NextFloat(.8f, 1.5f))];
                 dust.noGravity = true;
             }
-            else if(player.velocity.X > 5)
+            else if (player.velocity.X > 5)
             {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.

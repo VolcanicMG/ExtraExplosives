@@ -19,8 +19,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
             this.timePerFrame = timePerFrame;
             this.filePath = filePath;
             Texture2D tempTexture = ModContent.GetTexture(filePath + 1);
-           //Height.Pixels = tempTexture.Height;
-           // Width.Pixels = tempTexture.Width;
+            //Height.Pixels = tempTexture.Height;
+            // Width.Pixels = tempTexture.Width;
         }
 
         public override void OnInitialize()
@@ -41,8 +41,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
                 frame++;
                 if (frame > frameCount) frame = 1;
             }
-            
-            Texture2D currentFrame = ModContent.GetTexture(filePath +""+ frame);
+
+            Texture2D currentFrame = ModContent.GetTexture(filePath + "" + frame);
             CalculatedStyle dimensions = base.GetInnerDimensions();
             Rectangle rectangle = dimensions.ToRectangle();
             spriteBatch.Draw(currentFrame, rectangle, Color.White);

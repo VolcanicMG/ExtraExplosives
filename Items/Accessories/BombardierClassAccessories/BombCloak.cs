@@ -24,6 +24,6 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
         {
             player.EE().BombCloak = true;
         }
-        
+
     }
 }

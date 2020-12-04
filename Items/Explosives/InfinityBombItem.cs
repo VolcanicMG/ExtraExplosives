@@ -1,8 +1,8 @@
+using ExtraExplosives.Projectiles;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using ExtraExplosives.Projectiles;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +25,7 @@ namespace ExtraExplosives.Items.Explosives
             DisplayName.SetDefault("Infinity Bomb");
             Tooltip.SetDefault("'No wait it gets better'\n" +
                                "Right Click to disable its growth");
-            
+
         }
 
         public override void SafeSetDefaults()
@@ -54,7 +54,7 @@ namespace ExtraExplosives.Items.Explosives
             ref float knockBack)
         {
             damage = (int)(damage * multiplier);
-            knockBack = (int) (knockBack * multiplier);
+            knockBack = (int)(knockBack * multiplier);
             //Main.NewText(multiplier);
             return true;
         }
@@ -93,7 +93,7 @@ namespace ExtraExplosives.Items.Explosives
                 enableGrowth = (enableGrowth) ? false : true;
                 growing = (enableGrowth) ? "" : "not ";
                 Main.NewText($"[c/FF00000:{growing}growing]");
-    }
+            }
             return false;
         }
 

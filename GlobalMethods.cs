@@ -211,7 +211,7 @@ namespace ExtraExplosives
                 return true; // Override so an item can be set to ignore pickaxe power and destory everything
             if (pickPower <= -2)
                 return false; // Override so an item can be set to not damage anything ever also catches invalid garbage
-            if(tileId == TileID.Ebonstone || tileId == TileID.Crimstone)
+            if (tileId == TileID.Ebonstone || tileId == TileID.Crimstone)
             {
                 return true;
             }
@@ -339,7 +339,7 @@ namespace ExtraExplosives
                 dustTrail.velocity.Y -= 3f * 0.5f;
             }
 
-            //smaller faster
+            //smaller faster circle
             for (int i = 0; i < dustAmount + (Radius / 2); i++)
             {
                 Dust dust;
@@ -361,7 +361,7 @@ namespace ExtraExplosives
 
             if (Radius >= 15)
             {
-                //More circular (Has issues on smaller explosives)
+                //More circular
                 for (int i = 0; i < dustAmount + (Radius / 2); i++)
                 {
                     Dust dust;
@@ -386,6 +386,31 @@ namespace ExtraExplosives
                     startpoint2 = startpoint2.RotatedBy(MathHelper.ToRadians(360 / dustAmount - 20));
                 }
             }
+
+            //Sparkle shoot out
+            int num833 = 0;
+            for (int num834 = 1; num834 <= (Radius / 5) + 3; num834++)
+            {
+                float num835 = (float)Math.PI * 2f * Main.rand.NextFloat();
+                for (float num836 = 0f; num836 < 1f; num836 += 0.09090909f)
+                {
+                    float f = (float)Math.PI * 2f * num836 + num835;
+                    Vector2 spinningpoint2 = f.ToRotationVector2();
+                    spinningpoint2 *= new Vector2(1f, 0.4f);
+                    spinningpoint2 = spinningpoint2.RotatedBy((float)num833 - (float)Math.PI);
+                    Vector2 value30 = ((float)num833 - (float)Math.PI / 2f).ToRotationVector2();
+                    Vector2 position10 = Center + value30 * 16f * 0f;
+                    Dust dust53 = Dust.NewDustPerfect(position10, 6, spinningpoint2, Scale: scale * .3f);
+                    dust53.fadeIn = 1.8f;
+                    dust53.noGravity = true;
+                    Dust dust = dust53;
+                    dust.velocity *= (float)num834 * (Main.rand.NextFloat() * 2f + 0.2f);
+                    dust = dust53;
+                    dust.velocity += value30 * 0.8f * num834;
+                    dust = dust53;
+                    dust.velocity *= 2f;
+                }
+            }
             //SPARKEL-------------------------------------------------------------------------------------------------------------
 
             //GORE---------------------------------------------------------------------------------------------------------------- (adjust for small and large explosions)
@@ -406,8 +431,21 @@ namespace ExtraExplosives
             //GORE----------------------------------------------------------------------------------------------------------------
 
             //Black Smoke---------------------------------------------------------------------------------------------------------------------------
-
-
+            float num830 = 3f;
+            for (int num831 = 0; num831 < (Radius / 2) + 10; num831++)
+            {
+                Dust dust51 = Dust.NewDustDirect(Center, 1, 1, 31, 0f, 0f, 100, default(Color), scale * .8f);
+                Dust dust = dust51;
+                dust.velocity *= 2f + (float)Main.rand.Next(Radius / 3) * 0.1f;
+                dust51.velocity.Y -= num830 * 0.5f;
+                dust51.color = Color.Black * 0.9f;
+                if (Main.rand.Next(2) == 0)
+                {
+                    dust51.scale = 0.5f + Radius / 10;
+                    dust51.fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    dust51.color = Color.Black * 0.8f;
+                }
+            }
 
             //Black Smoke---------------------------------------------------------------------------------------------------------------------------
 
@@ -424,7 +462,7 @@ namespace ExtraExplosives
                 else //left side
                 {
                     explosionTop = RandomVector2(-MathHelper.Pi, (7 * MathHelper.Pi) / 4); //choose a random angle based off of 180
-                    
+
                 }
 
                 float speed = (Radius / 3) + Main.rand.NextFloat(2f);

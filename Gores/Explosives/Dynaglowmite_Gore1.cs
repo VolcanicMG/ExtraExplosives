@@ -1,10 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Gores.Explosives
 {
-    class Dynaglowmite_Gore1: ModGore
+    class Dynaglowmite_Gore1 : ModGore
     {
         public override void OnSpawn(Gore gore)
         {

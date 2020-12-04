@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ExtraExplosives.Projectiles;
-using ExtraExplosives.Projectiles.Weapons.NovaBuster;
+﻿using ExtraExplosives.Projectiles.Weapons.NovaBuster;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -42,7 +41,7 @@ namespace ExtraExplosives.Items.Weapons
             TooltipLine ColoredTooltip = new TooltipLine(mod, "ExtraTooltip", $"'The death of a star compressed into a single weapon'");
             ColoredTooltip.overrideColor = Color.Chartreuse;
             tooltips.Add(ColoredTooltip);
-            
+
             TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
             if (stats != null)
             {
@@ -57,7 +56,7 @@ namespace ExtraExplosives.Items.Weapons
         {
             return new Vector2(-16, 0);
         }
-        
+
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
@@ -66,7 +65,7 @@ namespace ExtraExplosives.Items.Weapons
                 position += muzzleOffset;
             }
 
-            if(Main.rand.NextFloat() < .2f)
+            if (Main.rand.NextFloat() < .2f)
             {
                 Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti) * 2, knockBack, player.whoAmI);
             }
