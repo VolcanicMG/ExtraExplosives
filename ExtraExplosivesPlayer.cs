@@ -282,8 +282,6 @@ namespace ExtraExplosives
         internal bool InventoryOpen { get; set; }
         private bool InvFlag { get; set; }
 
-        public static bool BossCheckDead;
-
         public Vector2 cookbBookPos;
 
         /// <summary>
@@ -515,7 +513,7 @@ namespace ExtraExplosives
 
                 novaBombRecharge = 0;
 
-                CreateDust(player.Center, 100);
+                ExplosionDust(15, player.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
 
                 foreach (NPC npc in Main.npc)
                 {
@@ -849,62 +847,6 @@ namespace ExtraExplosives
         {
         }
 
-        private void CreateDust(Vector2 position, int amount)
-        {
-            Dust dust;
-            Vector2 updatedPosition;
-
-            for (int i = 0; i <= amount; i++)
-            {
-                if (Main.rand.NextFloat() < DustAmount)
-                {
-                    //---Dust 1---
-                    if (Main.rand.NextFloat() < 0.2f)
-                    {
-                        updatedPosition = new Vector2(position.X - 550 / 2, position.Y - 550 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 550, 550, 6, 0f, 0.5263162f, 0, Scale: 10)];
-                        if (Vector2.Distance(dust.position, player.Center) > 275) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.fadeIn = 2.5f;
-                        }
-                    }
-                    //------------
-
-                    //---Dust 2---
-                    if (Main.rand.NextFloat() < 0.2f)
-                    {
-                        updatedPosition = new Vector2(position.X - 550 / 2, position.Y - 550 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 550, 550, 203, 0f, 0f, 0, Scale: 10)];
-                        if (Vector2.Distance(dust.position, player.Center) > 275) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
-                        }
-                    }
-                    //------------
-
-                    //---Dust 3---
-                    if (Main.rand.NextFloat() < 0.2f)
-                    {
-                        updatedPosition = new Vector2(position.X - 550 / 2, position.Y - 550 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 550, 550, 31, 0f, 0f, 0, Scale: 10)];
-                        if (Vector2.Distance(dust.position, player.Center) > 275) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
-                        }
-                    }
-                    //------------
-                }
-            }
-        }
         public override TagCompound Save()
         {
             return new TagCompound  // save tag, leave whats here add more as needed
@@ -925,8 +867,6 @@ namespace ExtraExplosives
                 [nameof(LightweightBombshellVelocity)] = LightweightBombshellVelocity,
                 [nameof(ShortFuseTime)] = ShortFuseTime,
 
-                //Boss
-                [nameof(BossCheckDead)] = BossCheckDead
             };
         }
 
@@ -947,9 +887,6 @@ namespace ExtraExplosives
             // Lesser tag loading
             LightweightBombshellVelocity = tag.GetFloat(nameof(LightweightBombshellVelocity));
             ShortFuseTime = tag.GetFloat(nameof(ShortFuseTime));
-
-            //Boss tag loading
-            BossCheckDead = tag.GetBool(nameof(BossCheckDead));
         }
     }
 }

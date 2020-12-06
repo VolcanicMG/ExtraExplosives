@@ -3,9 +3,11 @@ using ExtraExplosives.Items.Weapons;
 using ExtraExplosives.Tiles;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
 using ItemID = Terraria.ID.ItemID;
 using TileID = Terraria.ID.TileID;
@@ -14,12 +16,14 @@ namespace ExtraExplosives
 {
     public class ExtraExplosivesWorld : ModWorld
     {
-        //internal int[,] originalWorldState;
+        public static bool BossCheckDead;
 
-        //public int GetState(int i, int j)
-        //{
-        //    return originalWorldState[i, j];
-        //}
+        public override void Initialize()
+        {
+            BossCheckDead = false;
+            base.Initialize();
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
             //tasks.Add(new PassLegacy("archivingValues", delegate(GenerationProgress progress)
@@ -101,24 +105,20 @@ namespace ExtraExplosives
             }
         }
 
-        /*public override TagCompound Save()
+        public override TagCompound Save()
         {
-            string worldName = Main.worldName;
-            string path = @"%username%\Documents\My Games\Terraria\Worlds\" + worldName + ".save";
-            if (!File.Exists(path))
+            return new TagCompound
             {
-                using (StreamWriter sw = File.CreateText(path))
-                {
-                    sw.WriteLine($"[worldName]:{Main.worldName}");
-                    sw.Write("[tileID]:");
-                    foreach (int tileID in originalWorldState)
-                    {
-                        sw.Write(tileID + ",");
-                    }
-                }
-            }
+                //Boss
+                [nameof(BossCheckDead)] = BossCheckDead
+            };
+        }
 
-            return base.Save();
-        }*/
+        public override void Load(TagCompound tag)
+        {
+            //Boss tag loading
+            BossCheckDead = tag.GetBool(nameof(BossCheckDead));
+            base.Load(tag);
+        }
     }
 }

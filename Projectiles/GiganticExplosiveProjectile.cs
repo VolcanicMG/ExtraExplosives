@@ -76,75 +76,13 @@ namespace ExtraExplosives.Projectiles
 
             Explosion();
             ExplosionDamage();
-            CreateDust(projectile.Center, 1000);
-            //Create Bomb Damage
-            //ExplosionDamage(80f * 1.5f, projectile.Center, 1000, 100, projectile.owner);
-
-            //Create Bomb Explosion
-            //CreateExplosion(projectile.Center, 80);
+            DustEffects();
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0f, 3f);
             Vector2 gVel2 = new Vector2(-3f, -3f);
             Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
             Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
-        }
-
-        private void CreateDust(Vector2 position, int amount)
-        {
-            Dust dust;
-            Vector2 updatedPosition;
-
-            for (int i = 0; i <= amount; i++)
-            {
-                if (Main.rand.NextFloat() < DustAmount)
-                {
-                    //---Dust 1---
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
-
-                        dust = Main.dust[Dust.NewDust(updatedPosition, radius * 16, radius * 16, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 5)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.fadeIn = 2.486842f;
-                        }
-                    }
-                    //------------
-
-                    //---Dust 2---
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
-
-                        dust = Main.dust[Dust.NewDust(updatedPosition, radius * 16, radius * 16, 203, 0f, 0f, 0, new Color(255, 255, 255), 5)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
-                        }
-                    }
-                    //------------
-
-                    //---Dust 3---
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
-
-                        dust = Main.dust[Dust.NewDust(updatedPosition, radius * 16, radius * 16, 31, 0f, 0f, 0, new Color(255, 255, 255), 5)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
-                        }
-                    }
-                    //------------
-                }
-            }
         }
     }
 }

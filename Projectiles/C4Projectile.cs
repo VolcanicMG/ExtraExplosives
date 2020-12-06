@@ -128,7 +128,7 @@ namespace ExtraExplosives.Projectiles
             Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 550);
+            DustEffects();
 
             Explosion();
 
@@ -173,81 +173,6 @@ namespace ExtraExplosives.Projectiles
                             }
                         }
                     }
-                }
-            }
-        }
-
-        private void CreateDust(Vector2 position, int amount)
-        {
-            Dust dust;
-            Vector2 updatedPosition;
-
-            for (int i = 0; i <= amount; i++)
-            {
-                if (Main.rand.NextFloat() < DustAmount)
-                {
-                    //---Dust 1---
-                    if (Main.rand.NextFloat() < 0.3f)
-                    {
-                        updatedPosition = new Vector2(position.X - 360 / 2, position.Y - 360 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 360, 360, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 360 / 2) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
-                            dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
-                        }
-                    }
-                    //------------
-
-                    //---Dust 2---
-                    if (Main.rand.NextFloat() < 0.3f)
-                    {
-                        updatedPosition = new Vector2(position.X - 642 / 2, position.Y - 642 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 642, 642, 56, 0f, 0f, 0, new Color(255, 255, 255), 3f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 642 / 2) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
-                            dust.shader = GameShaders.Armor.GetSecondaryShader(91, Main.LocalPlayer);
-                        }
-                    }
-                    //------------
-
-                    //---Dust 3---
-                    if (Main.rand.NextFloat() < 0.3f)
-                    {
-                        updatedPosition = new Vector2(position.X - 560 / 2, position.Y - 560 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 560, 560, 6, 0f, 0.5263162f, 0, new Color(255, 150, 0), 5f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 560 / 2) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
-                            dust.fadeIn = 3f;
-                        }
-                    }
-                    //------------
-
-                    //---Dust 4---
-                    if (Main.rand.NextFloat() < 0.3f)
-                    {
-                        updatedPosition = new Vector2(position.X - 157 / 2, position.Y - 157 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 157, 157, 55, 0f, 0f, 0, new Color(255, 100, 0), 3.552631f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 157 / 2) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.shader = GameShaders.Armor.GetSecondaryShader(116, Main.LocalPlayer);
-                        }
-                    }
-                    //------------
                 }
             }
         }

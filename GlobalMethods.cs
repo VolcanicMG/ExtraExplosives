@@ -118,7 +118,7 @@ namespace ExtraExplosives
         /// <param name="type"> The type of dust effect, 1 = Standard, 2 = Rocket, 3 = Special, Default = 1, anything other than 1, 2, 3 will default to 1.</param>
         /// <param name="color"> Color of main part of the dusts </param>
         /// <param name="lightingColor"> Color of light when produced from an explosion </param>
-        public static void ExplosionDust(int Radius, Vector2 Center, int type = 1, Color color = default, Color lightingColor = default)
+        public static void ExplosionDust(int Radius, Vector2 Center, Color color = default, Color lightingColor = default, int type = 1)
         {
             //Check to see if the type is 1, 2 or 3, else default to 1
             List<int> types = new List<int> { 1, 2, 3 };

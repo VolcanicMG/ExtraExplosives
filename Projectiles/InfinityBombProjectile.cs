@@ -49,7 +49,7 @@ namespace ExtraExplosives.Projectiles
             Explosion();
             //Main.NewText(projectile.localAI[0]);
             //Create Bomb Dust
-            CreateDust(projectile.Center, 50 + radius);
+            DustEffects();
 
         }
 
@@ -95,60 +95,6 @@ namespace ExtraExplosives.Projectiles
                         if (CanBreakWalls)
                         {
                             WorldGen.KillWall((int)(i), (int)(j));
-                        }
-                    }
-                }
-            }
-        }
-
-        private void CreateDust(Vector2 position, int amount)
-        {
-            Dust dust;
-            Vector2 updatedPosition;
-
-            for (int i = 0; i <= amount; i++)
-            {
-                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
-                {
-                    //Dust 1
-                    if (Main.rand.NextFloat() < 0.9f)
-                    {
-                        updatedPosition = new Vector2(position.X - 100 + radius / 2, position.Y - 100 - radius / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100 + radius, 100 + radius, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 39) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.fadeIn = 2.5f;
-                        }
-                    }
-
-                    //Dust 2
-                    if (Main.rand.NextFloat() < 0.6f)
-                    {
-                        updatedPosition = new Vector2(position.X - 100 + radius / 2, position.Y - 100 - radius / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100 + radius, 100 + radius, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 39) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
-                        }
-                    }
-
-                    //Dust 3
-                    if (Main.rand.NextFloat() < 0.3f)
-                    {
-                        updatedPosition = new Vector2(position.X - 130 + radius / 2, position.Y - 130 - radius / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 130 + radius, 130 + radius, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 50) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
                         }
                     }
                 }

@@ -48,7 +48,7 @@ namespace ExtraExplosives.Projectiles
 
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 50);
+            DustEffects();
 
             ExplosionDamage();
 
@@ -72,38 +72,38 @@ namespace ExtraExplosives.Projectiles
                 }
 
                 //Create Bomb Dust
-                CreateDust(projectile.Center, 10);
+                DustEffects();
 
                 projectile.Kill();
             }
         }
 
-        private void CreateDust(Vector2 position, int amount)
-        {
-            Dust dust;
-            Vector2 updatedPosition;
+        //private void CreateDust(Vector2 position, int amount)
+        //{
+        //    Dust dust;
+        //    Vector2 updatedPosition;
 
-            for (int i = 0; i <= amount; i++)
-            {
-                if (Main.rand.NextFloat() < DustAmount)
-                {
-                    //---Dust 1---
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
+        //    for (int i = 0; i <= amount; i++)
+        //    {
+        //        if (Main.rand.NextFloat() < DustAmount)
+        //        {
+        //            //---Dust 1---
+        //            if (Main.rand.NextFloat() < 1f)
+        //            {
+        //                updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
 
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 6, 0f, 0.5f, 0, new Color(255, 0, 0), 4f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.fadeIn = 0f;
-                            dust.noLight = true;
-                        }
-                    }
-                    //------------
-                }
-            }
-        }
+        //                dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 6, 0f, 0.5f, 0, new Color(255, 0, 0), 4f)];
+        //                if (Vector2.Distance(dust.position, projectile.Center) > radius * 8) dust.active = false;
+        //                else
+        //                {
+        //                    dust.noGravity = true;
+        //                    dust.fadeIn = 0f;
+        //                    dust.noLight = true;
+        //                }
+        //            }
+        //            //------------
+        //        }
+        //    }
+        //}
     }
 }

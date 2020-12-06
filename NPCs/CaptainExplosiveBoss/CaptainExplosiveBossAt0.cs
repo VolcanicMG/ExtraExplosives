@@ -196,7 +196,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             {
 
                 NPCLoot();
-                ExtraExplosivesPlayer.BossCheckDead = true;
+                ExtraExplosivesWorld.BossCheckDead = true;
                 Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/CaptainExplosion")); //sound
 
                 npc.immortal = false;

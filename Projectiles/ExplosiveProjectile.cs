@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -59,10 +60,12 @@ namespace ExtraExplosives.Projectiles
             if (IgnoreTrinkets && !firstTickPreAI)
             {
                 ExtraExplosives.avoidList.Add(this.projectile.type);
+                ExtraExplosives.avoidList.Distinct().ToList(); //Get rid of dupes because this will add one each time. (Need to find a spot after it gets it's id while loading)
                 firstTickPreAI = true;
             }
             return base.PreAI();
         }
+
 
         public virtual void DangerousSetDefaults()
         {
@@ -85,10 +88,29 @@ namespace ExtraExplosives.Projectiles
             return;
         }
 
+        //Dusts 
+        #region Dusts
+
+        /// <summary>
+        ///  Produces dust in a shape depending on the type. Default 1 (Basic Explosion)
+        /// </summary>
+        /// <param name="type"> The type of shape. Default 1 (Basic Explosion) </param>
+        /// <param name="color"> Color of main part of the dusts </param>
+        /// <param name="color2"> Color of light when produced from an explosion </param>
+        public virtual void DustEffects(Color color = default, Color color2 = default, int type = 1)
+        {
+            ExplosionDust(radius, projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), type);
+        }
+
+
+        #endregion
+
+        //Explosion
+        #region Explosion
         /// <summary>
         /// Takes the projectiles radius attribute in place of passing variables
         /// Creates a circular explosion in the radius defined
-        /// Efficient but most blocks dont drop due to optimization methods
+        /// Efficient but most blocks don't drop due to optimization methods
         /// </summary>
         public virtual void Explosion()
         {
@@ -212,5 +234,6 @@ namespace ExtraExplosives.Projectiles
             }
 
         }
+        #endregion
     }
 }

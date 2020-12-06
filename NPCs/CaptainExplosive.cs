@@ -57,7 +57,7 @@ namespace ExtraExplosives.NPCs
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money) //Whether or not the conditions have been met for npc town NPC to be able to move into town.
         {
-            if (ExtraExplosivesPlayer.BossCheckDead) return true;
+            if (ExtraExplosivesWorld.BossCheckDead) return true;
             return false;
 
         }

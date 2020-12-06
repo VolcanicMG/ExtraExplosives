@@ -96,7 +96,7 @@ namespace ExtraExplosives.Projectiles
             //Main.NewText("Dust");
             //SpawnDust(49);
             //SpawnDust(155);
-            CreateDust(projectile.Center, 500);
+            DustEffects();
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0.0f, 3.0f);
@@ -105,31 +105,7 @@ namespace ExtraExplosives.Projectiles
             Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
         }
 
-        /*private void CreateExplosion(Vector2 position, int radius)
-		{
-			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
-			{
-				for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
-				{
-					int xPosition = (int)(x + position.X / 16.0f);
-					int yPosition = (int)(y + position.Y / 16.0f);
-
-					if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
-					{
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
-						{
-						}
-						else //Breakable
-						{
-							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
-						}
-					}
-				}
-			}
-		}*/
-
+        //Using to create a custom one 
         private void CreateDust(Vector2 position, int amount)
         {
             //Vector2 updatedPosition;

@@ -9,6 +9,7 @@ namespace ExtraExplosives.Projectiles
     internal class NPCProjectile : ModProjectile    // This is only used by CE as an attack, ignoring
     {
         private const int PickPower = 0;
+        private int Radius = 6;
 
         public override void SetStaticDefaults()
         {
@@ -68,7 +69,7 @@ namespace ExtraExplosives.Projectiles
             projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 50);
+            ExplosionDust(Radius, projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
         }
 
         /*private void CreateExplosion(Vector2 position, int radius)
@@ -93,50 +94,5 @@ namespace ExtraExplosives.Projectiles
 				}
 			}
 		}*/
-
-        private void CreateDust(Vector2 position, int amount)
-        {
-            Dust dust;
-            Vector2 updatedPosition;
-
-            for (int i = 0; i <= amount; i++)
-            {
-                if (Main.rand.NextFloat() < DustAmount)
-                {
-                    //---Dust 1---
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 5f)];
-                        dust.noGravity = true;
-                        dust.fadeIn = 2.486842f;
-                    }
-                    //------------
-
-                    //---Dust 2---
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 203, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                        dust.noGravity = true;
-                        dust.noLight = true;
-                    }
-                    //------------
-
-                    //---Dust 3---
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                        dust.noGravity = true;
-                        dust.noLight = true;
-                    }
-                    //------------
-                }
-            }
-        }
     }
 }

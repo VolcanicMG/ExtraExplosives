@@ -101,10 +101,10 @@ namespace ExtraExplosives
         public static int boomBoxTimer = 0;
 
         //Arrays and Lists
-        internal static List<int> avoidList;
+        internal static HashSet<int> avoidList;
         internal static int[] _doNotDuplicate;
-        internal static List<int> _tooltipWhitelist;
-        internal static List<int> disclaimerTooltip;
+        internal static HashSet<int> _tooltipWhitelist;
+        internal static HashSet<int> disclaimerTooltip;
 
         // Create the item to item id reference (used with cpt explosive) Needs to stay loaded
         public ExtraExplosives()
@@ -278,10 +278,10 @@ namespace ExtraExplosives
             if (bossChecklist != null)
             {
                 // AddBoss, bossname, order or value in terms of vanilla bosses, inline method for retrieving downed value.
-                bossChecklist.Call("AddBoss", 6, ModContent.NPCType<CaptainExplosiveBoss>(), this, "Captain Explosive", (Func<bool>)(() => ExtraExplosivesPlayer.BossCheckDead), ModContent.ItemType<Unhinged_Letter>(), ModContent.ItemType<BombHat>(), ModContent.ItemType<CaptainExplosiveTreasureBag>(), $"Kill King Slime or use an [i:{ModContent.ItemType<Unhinged_Letter>()}]");
+                bossChecklist.Call("AddBoss", 6, ModContent.NPCType<CaptainExplosiveBoss>(), this, "Captain Explosive", (Func<bool>)(() => ExtraExplosivesWorld.BossCheckDead), ModContent.ItemType<Unhinged_Letter>(), ModContent.ItemType<BombHat>(), ModContent.ItemType<CaptainExplosiveTreasureBag>(), $"Kill King Slime or Eye Of Cthulhu, then you can buy the[i:{ModContent.ItemType<Unhinged_Letter>()}] from the demolitionist");
             }
 
-            _tooltipWhitelist = new List<int> //Whitelist for the (Bombard Item) tag at the end of bombard items.
+            _tooltipWhitelist = new HashSet<int> //Whitelist for the (Bombard Item) tag at the end of bombard items.
 			{
                 //armors
                 ModContent.ItemType<AsteroidMiner_B>(),
@@ -390,7 +390,7 @@ namespace ExtraExplosives
                 ModContent.ProjectileType<AtomBombProjectile>()
             };
 
-            avoidList = new List<int>
+            avoidList = new HashSet<int>
             {
                         ModContent.ProjectileType<BossArmorBreakBombProjectile>(),
                         ModContent.ProjectileType<BossChillBombProjectile>(),
@@ -460,7 +460,7 @@ namespace ExtraExplosives
 						//ModContent.ProjectileType<WallBombProjectile>()
 			};
 
-            disclaimerTooltip = new List<int>
+            disclaimerTooltip = new HashSet<int>
             {
                 ModContent.ItemType<HouseBombItem>(),
                 ModContent.ItemType<CritterBombItem>(),

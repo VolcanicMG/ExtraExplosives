@@ -100,38 +100,7 @@ namespace ExtraExplosives.Projectiles
                 }
             }
 
-            Vector2 updatedPosition;
-            Dust dust1;
-            Dust dust2;
-            // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
-            for (int i = 0; i < 100; i++)
-            {
-                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
-                {
-                    updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
-                    dust1 = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 0, 0f, 0f, 171, new Color(33, 0, 255), 4.0f)];
-                    if (Vector2.Distance(dust1.position, projectile.Center) > radius * 8) dust1.active = false;
-                    else
-                    {
-                        dust1.noGravity = true;
-                        dust1.noLight = true;
-                    }
-                }
-            }
-
-            for (int i = 0; i < 100; i++)
-            {
-                if (Main.rand.NextFloat() < ExtraExplosives.dustAmount)
-                {
-                    updatedPosition = new Vector2(position.X - radius * 8, position.Y - radius * 8);
-                    dust2 = Main.dust[Terraria.Dust.NewDust(updatedPosition, radius * 16, radius * 16, 6/*35*/, 0f, 0f, 0, new Color(240, 240, 240), 4.0f)];
-                    if (Vector2.Distance(dust2.position, projectile.Center) > radius * 8) dust2.active = false;
-                    else
-                    {
-                        dust2.noGravity = true;
-                    }
-                }
-            }
+            DustEffects();
         }
     }
 }
