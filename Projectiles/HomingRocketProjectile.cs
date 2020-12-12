@@ -182,64 +182,7 @@ namespace ExtraExplosives.Projectiles
                                         //ExplosionDamage();
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 100);
-        }
-
-        private void CreateDust(Vector2 position, int amount)
-        {
-            Dust dust;
-            Vector2 updatedPosition;
-
-            for (int i = 0; i <= amount; i++)
-            {
-                if (Main.rand.NextFloat() < DustAmount)
-                {
-                    //---Dust 1---
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - 180 / 2, position.Y - 180 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 180, 180, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 90) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.fadeIn = 2.5f;
-                        }
-                    }
-                    //------------
-
-                    //---Dust 2---
-                    if (Main.rand.NextFloat() < 0.48f)
-                    {
-                        updatedPosition = new Vector2(position.X - 180 / 2, position.Y - 180 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 180, 180, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 90) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
-                        }
-                    }
-                    //------------
-
-                    //---Dust 3---
-                    if (Main.rand.NextFloat() < 0.8f)
-                    {
-                        updatedPosition = new Vector2(position.X - 180 / 2, position.Y - 180 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 180, 180, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 90) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.noLight = true;
-                        }
-                    }
-                    //------------
-                }
-            }
+            DustEffectsRockets(projectile.oldVelocity);
         }
     }
 }

@@ -428,7 +428,8 @@ namespace ExtraExplosives
             // Bombard Emblem stuff (I think? IDK, I didn't write this code. -- V8_Ninja)
             int type = projectile.type; // Dont only so i didnt have to rename the variables below (copied from vanilla dont @ me), inefficient but who cares
             if (type == ProjectileID.Bomb || type == ProjectileID.Dynamite || type == ProjectileID.StickyBomb ||
-                type == ProjectileID.Explosives || type == ProjectileID.GrenadeII || type == ProjectileID.RocketII ||
+                type == ProjectileID.Explosives || type == ProjectileID.GrenadeII || type == ProjectileID.RocketII || type == ProjectileID.RocketI ||
+                type == ProjectileID.RocketIII ||
                 type == ProjectileID.ProximityMineII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV ||
                 type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanII || type == ProjectileID.RocketSnowmanIV ||
                 type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyBomb || type == ProjectileID.Grenade ||
@@ -601,11 +602,14 @@ namespace ExtraExplosives
                 //Create Bomb Sound
                 Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
+                //Dust type
+                if (tileDamage) ExplosionDust((int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15), projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
+                else ExplosionDust((int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15), projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 2, projectile.oldVelocity);
+
+
                 ExplosionDamage();
 
                 if (tileDamage && !Main.player[projectile.owner].EE().BombardEmblem) Explosion();
-
-                ExplosionDust((int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15), projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
 
                 if (playerRad.EE().Anarchy || playerRad.EE().HeavyBombard)
                 {

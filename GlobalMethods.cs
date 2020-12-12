@@ -25,6 +25,9 @@ namespace ExtraExplosives
             NPCID.EaterofWorldsBody,
             NPCID.EaterofWorldsHead,
             NPCID.EaterofWorldsTail,
+            NPCID.TheDestroyer,
+            NPCID.TheDestroyerBody,
+            NPCID.TheDestroyerTail
 
         };
 
@@ -118,7 +121,7 @@ namespace ExtraExplosives
         /// <param name="type"> The type of dust effect, 1 = Standard, 2 = Rocket, 3 = Special, Default = 1, anything other than 1, 2, 3 will default to 1.</param>
         /// <param name="color"> Color of main part of the dusts </param>
         /// <param name="lightingColor"> Color of light when produced from an explosion </param>
-        public static void ExplosionDust(int Radius, Vector2 Center, Color color = default, Color lightingColor = default, int type = 1)
+        public static void ExplosionDust(int Radius, Vector2 Center, Color color = default, Color lightingColor = default, int type = 1, Vector2 Direction = default)
         {
             //Check to see if the type is 1, 2 or 3, else default to 1
             List<int> types = new List<int> { 1, 2, 3 };
@@ -135,7 +138,7 @@ namespace ExtraExplosives
                     Type1Dust(Radius, Center, color, lightingColor);
                     break;
                 case 2:
-
+                    Type2Dust(Radius, Center, color, lightingColor, Direction);
                     break;
                 case 3:
 
@@ -145,7 +148,16 @@ namespace ExtraExplosives
                     break;
             }
 
+            //lighting - brief flash
+            Lighting.AddLight(Center, new Vector3(1f / Radius, 1f / Radius, 1f / Radius));
+            Lighting.maxX = 2;
+            Lighting.maxY = 2;
 
+            //shake 
+            if (Radius >= 15 && type != 2)
+            {
+                Main.LocalPlayer.EE().shake = true;
+            }
         }
 
         //from CosmivengeonMod:
@@ -321,14 +333,14 @@ namespace ExtraExplosives
             startpoint2 = startpoint2.RotatedByRandom(MathHelper.Pi);
 
             //SPARKEL------------------------------------------------------------------------------------------------------------
-            for (int i = 0; i < dustAmount + Radius; i++)
+            for (int i = 0; i < dustAmount + Radius; i++) //Main large outward part
             {
                 Dust dust = Dust.NewDustPerfect(Center, 6, startpoint, newColor: color, Scale: scale);
                 Dust dustTrail = Dust.NewDustPerfect(Center, 6, startpoint, newColor: color, Scale: scale / 1.9f);
                 dust.noGravity = true;
                 dustTrail.noGravity = true;
-                dust.velocity *= Main.rand.NextFloat((Radius / 6f) + 1);
-                dustTrail.velocity *= Main.rand.NextFloat((Radius / 6f) + .5f);
+                dust.velocity *= Main.rand.NextFloat((Radius / 10f) + 1);
+                dustTrail.velocity *= Main.rand.NextFloat((Radius / 10f) + .5f);
                 dust.velocity.SafeNormalize(Center);
 
                 startpoint = startpoint.RotatedBy(MathHelper.ToRadians(360 / dustAmount));
@@ -361,7 +373,7 @@ namespace ExtraExplosives
 
             if (Radius >= 15)
             {
-                //More circular
+                //Circular sparkle
                 for (int i = 0; i < dustAmount + (Radius / 2); i++)
                 {
                     Dust dust;
@@ -387,7 +399,7 @@ namespace ExtraExplosives
                 }
             }
 
-            //Sparkle shoot out
+            //Sparkle shoot
             int num833 = 0;
             for (int num834 = 1; num834 <= (Radius / 5) + 3; num834++)
             {
@@ -420,7 +432,7 @@ namespace ExtraExplosives
                 {
                     for (int num839 = -1; num839 <= 1; num839 += 2)
                     {
-                        Gore gore10 = Gore.NewGoreDirect(Center, Vector2.Zero, Main.rand.Next(61, 64), scale * .3f);
+                        Gore gore10 = Gore.NewGoreDirect(Center, Vector2.Zero, Main.rand.Next(61, 64), scale * .5f);
                         Gore gore = gore10;
                         gore.velocity *= (float)num837 / 3f + (Radius / 8);
                         gore = gore10;
@@ -474,6 +486,171 @@ namespace ExtraExplosives
 
         }
 
+        //Same as type one but for rockets and wont go through the ground
+        private static void Type2Dust(int Radius, Vector2 Center, Color color = default, Color lightingColor = default, Vector2 Direction = default)
+        {
+            int dustAmount = (int)(Radius * 7);
+            if (dustAmount > 40) dustAmount = 40;
+            float scale = (100f / Radius) + (Radius / 100f);
+            scale = scale / 10 + (Radius / 4);
+
+            Vector2 startpoint = new Vector2(0, -1); //Change to the direction of the rocket
+            startpoint *= 6; //How fast they all shoot out
+            startpoint = startpoint.RotatedByRandom(MathHelper.Pi); //circle
+            Vector2 fastBlast = startpoint;
+
+            Vector2 startpoint2 = new Vector2(0, -1);
+            startpoint2 *= 8 + (Radius / 6);
+            startpoint2 = startpoint2.RotatedByRandom(MathHelper.Pi);
+
+            //SPARKEL------------------------------------------------------------------------------------------------------------
+            //for (int i = 0; i < dustAmount + Radius; i++) //Main large outward part
+            //{
+            //    Dust dust = Dust.NewDustPerfect(Center, 6, startpoint, newColor: color, Scale: scale);
+            //    Dust dustTrail = Dust.NewDustPerfect(Center, 6, startpoint, newColor: color, Scale: scale / 1.9f);
+
+            //    dust.noGravity = true;
+            //    dustTrail.noGravity = true;
+            //    dust.velocity *= Main.rand.NextFloat((Radius / 10f) + 1);
+            //    dustTrail.velocity *= Main.rand.NextFloat((Radius / 10f) + .5f);
+            //    dust.velocity.SafeNormalize(Center);
+
+            //    startpoint = startpoint.RotatedBy(MathHelper.ToRadians(360 / dustAmount));
+            //    dust.fadeIn = .8f;
+            //    dustTrail.fadeIn = .4f;
+
+            //    dust.velocity.Y -= 3f * 0.5f;
+            //    dustTrail.velocity.Y -= 3f * 0.5f;
+            //}
+
+            //smaller faster circle
+            for (int i = 0; i < dustAmount + (Radius / 2); i++)
+            {
+                Dust dust;
+                if (i % 2 == 0)
+                {
+                    dust = Dust.NewDustPerfect(Center, 6, fastBlast, newColor: color, Scale: scale / 3);
+                }
+                else
+                {
+                    dust = Dust.NewDustPerfect(Center, 6, new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(360)), newColor: color, Scale: scale / 3);
+                }
+
+                dust.noGravity = true;
+                dust.velocity *= Main.rand.NextFloat(10);
+                dust.fadeIn = .2f;
+
+                fastBlast = fastBlast.RotatedBy(MathHelper.ToRadians(360 / dustAmount));
+            }
+
+            //Circular sparkle
+            for (int i = 0; i < dustAmount + (Radius / 2); i++)
+            {
+                Dust dust;
+                Dust dust2;
+                if (i % 2 == 0)
+                {
+                    dust = Dust.NewDustPerfect(Center, 6, startpoint2, newColor: color, Scale: scale * .8f);
+                }
+                else
+                {
+                    dust = Dust.NewDustPerfect(Center, 6, new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(360)), newColor: color, Scale: scale * .3f);
+                    dust.velocity *= Main.rand.NextFloat(8);
+                }
+
+                dust2 = Dust.NewDustPerfect(Center, 6, startpoint2, newColor: color, Scale: scale * .5f);
+                dust2.noGravity = true;
+                dust2.velocity /= 3;
+
+                dust.noGravity = true;
+                dust.fadeIn = .01f;
+                dust.velocity /= 3;
+
+                startpoint2 = startpoint2.RotatedBy(MathHelper.ToRadians(360 / dustAmount - 20));
+            }
+
+
+            //Sparkle shoot
+            for (int num834 = 1; num834 <= (Radius / 5) + 4; num834++)
+            {
+                for (float num836 = 0f; num836 < 1f; num836 += 0.09090909f)
+                {
+                    Vector2 dir = -Direction.RotatedByRandom(1.6);
+                    Dust dust53 = Dust.NewDustPerfect(Center, 6, dir / 15, Scale: scale * .3f);
+                    dust53.fadeIn = 1.8f;
+                    dust53.noGravity = true;
+                    Dust dust = dust53;
+                    dust.velocity *= (float)num834 * (Main.rand.NextFloat() * 2f + 0.2f);
+                    dust = dust53;
+                    dust.velocity *= 2f;
+
+                }
+            }
+            //SPARKEL-------------------------------------------------------------------------------------------------------------
+
+            //GORE---------------------------------------------------------------------------------------------------------------- (adjusted for small and large explosions)
+            for (int num837 = 1; num837 <= (Radius / 5) + 2; num837++)
+            {
+                for (int num838 = -1; num838 <= 1; num838 += 2)
+                {
+                    for (int num839 = -1; num839 <= 1; num839 += 2)
+                    {
+                        Vector2 dir = -Direction.RotatedByRandom(1.2);
+                        Gore gore10 = Gore.NewGoreDirect(Center, dir / 15, Main.rand.Next(61, 64), scale * .3f);
+                        Gore gore = gore10;
+                        gore.velocity *= (float)num837 / 3f + (Radius / 8);
+                        gore = gore10;
+                        gore.velocity += new Vector2(num838, num839);
+                    }
+                }
+            }
+            //GORE----------------------------------------------------------------------------------------------------------------
+
+            //Black Smoke---------------------------------------------------------------------------------------------------------------------------
+            float num830 = 3f;
+            for (int num831 = 0; num831 < (Radius / 5) + 6; num831++)
+            {
+                Vector2 dir = -Direction.RotatedByRandom(1.2);
+                dir = dir / 13;
+                Dust dust51 = Dust.NewDustDirect(Center, 1, 1, 31, dir.X, dir.Y, 100, default(Color), scale * .8f);
+                Dust dust = dust51;
+                dust.velocity *= 2f + (float)Main.rand.Next(Radius / 3) * 0.1f;
+                dust51.velocity.Y -= num830 * 0.5f;
+                dust51.color = Color.Black * 0.9f;
+                if (Main.rand.Next(2) == 0)
+                {
+                    dust51.scale = 0.5f + Radius / 10;
+                    dust51.fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    dust51.color = Color.Black * 0.8f;
+                }
+            }
+
+            //Black Smoke---------------------------------------------------------------------------------------------------------------------------
+
+
+            //Debris---------------------------------------------------------------------------------------------------------------------------------------------------
+            //for (int i = 0; i < 5 + Main.rand.Next(Radius / 3); i++)
+            //{
+            //    Vector2 explosionTop;
+
+            //    if (i % 2 == 0) //Right side
+            //    {
+            //        explosionTop = RandomVector2(-MathHelper.Pi / 4, 0); //choose a random angle based off of 180
+            //    }
+            //    else //left side
+            //    {
+            //        explosionTop = RandomVector2(-MathHelper.Pi, (7 * MathHelper.Pi) / 4); //choose a random angle based off of 180
+
+            //    }
+
+            //    float speed = (Radius / 3) + Main.rand.NextFloat(2f);
+
+            //    Dust dust = Dust.NewDustPerfect(Center, DustType<DebrisDust>(), explosionTop * speed, newColor: default(Color), Scale: scale); //starting color
+            //    dust.noGravity = false;
+            //}
+            //Debris---------------------------------------------------------------------------------------------------------------------------------------------------
+        }
+
         /// <summary>
         /// This function converts a vector2 to an angle and puts it back as a vector2 at a random point between the two values.
         /// </summary>
@@ -483,6 +660,18 @@ namespace ExtraExplosives
         {
             float random = Main.rand.NextFloat() * angle + angleMin;
             return new Vector2((float)Math.Cos(random), (float)Math.Sin(random));
+        }
+
+        public static float Angle(Vector2 p_vector2)
+        {
+            if (p_vector2.X < 0)
+            {
+                return (float)(360 - (Math.Atan2(p_vector2.X, p_vector2.Y) * (Math.PI / 180) * -1));
+            }
+            else
+            {
+                return (float)(Math.Atan2(p_vector2.X, p_vector2.Y) * (Math.PI / 180));
+            }
         }
 
     }

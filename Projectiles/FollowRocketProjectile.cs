@@ -11,6 +11,7 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreFileLoc => "n/a";
         private float reference;
+        private bool dust2;
 
         public override void SetStaticDefaults()
         {
@@ -25,7 +26,7 @@ namespace ExtraExplosives.Projectiles
             InflictDamageSelf = false;
             projectile.knockBack = 20;
             projectile.tileCollide = true;
-            projectile.width = 46;
+            projectile.width = 18;
             projectile.height = 18;
             projectile.aiStyle = -1;
             projectile.friendly = true;
@@ -148,6 +149,7 @@ namespace ExtraExplosives.Projectiles
 
                     if (projectile.velocity.X == 0f && projectile.velocity.Y == 0f)
                     {
+                        dust2 = true;
                         projectile.Kill();
                     }
 
@@ -217,8 +219,11 @@ namespace ExtraExplosives.Projectiles
 
             //Explosion();
             ExplosionDamage();
+
             //Create Bomb Dust
-            CreateDust(projectile.Center, 100);
+            if(dust2) DustEffects();
+            else DustEffectsRockets(projectile.oldVelocity);
+            
         }
 
         private void CreateDust(Vector2 position, int amount)

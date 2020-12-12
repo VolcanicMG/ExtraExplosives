@@ -634,6 +634,11 @@ namespace ExtraExplosives
                 //Bomb shader
                 Ref<Effect> bombShader = new Ref<Effect>(GetEffect("Effects/bombshader"));
                 GameShaders.Misc["bombshader"] = new MiscShaderData(bombShader, "BombShader");
+
+                //shockwave
+                Ref<Effect> screenRef3 = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect")); // The path to the compiled shader file.
+                Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef3, "Shockwave"), EffectPriority.High);
+                Filters.Scene["Shockwave"].Load();
             }
 
             ModVersion = "v" + Version.ToString().Trim();

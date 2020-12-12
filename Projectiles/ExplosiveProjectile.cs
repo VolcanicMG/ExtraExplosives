@@ -4,6 +4,8 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Shaders;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -28,6 +30,7 @@ namespace ExtraExplosives.Projectiles
 
         private bool firstTick;
         private bool firstTickPreAI;
+
         public virtual void SafeSetDefaults()
         {
         }
@@ -100,6 +103,15 @@ namespace ExtraExplosives.Projectiles
         public virtual void DustEffects(Color color = default, Color color2 = default, int type = 1)
         {
             ExplosionDust(radius, projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), type);
+
+        }
+
+        /// <summary>
+        ///  Produces dust in a shape depending on the type. Default 2 (Rocket Explosion)
+        /// </summary>
+        public virtual void DustEffectsRockets(Vector2 Direction, Color color = default, Color color2 = default, int type = 2)
+        {
+            ExplosionDust(radius, projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), type, Direction);
         }
 
 

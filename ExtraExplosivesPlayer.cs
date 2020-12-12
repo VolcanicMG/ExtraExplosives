@@ -339,6 +339,10 @@ namespace ExtraExplosives
         internal bool lizhardLaunch;
         private int delayLizhard = 0;
 
+        //Shake
+        internal bool shake;
+        private int shakeCntr;
+
         public override void ResetEffects()
         {
             RadiatedDebuff = false;
@@ -602,6 +606,23 @@ namespace ExtraExplosives
 
         }
 
+        //public void UpdateShaderShockwave(Vector2 center, //----------------------------------------------------------------
+        // int rippleCount = 3,
+        // int rippleSize = 5,
+        // int rippleSpeed = 15,
+        // float distortStrength = 100f)
+        //{
+        //    int cntr = 60;
+
+        //    //Set the ripple shader
+        //    if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
+        //    {
+        //        Filters.Scene.Activate("Shockwave", center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(center);
+        //        float progress = (180f - cntr) / 60f; // Will range from -3 to 3, 0 being the point where the bomb explodes.
+        //        Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
+        //    }
+        //}
+
         public override void PostUpdate()
         {
 
@@ -766,6 +787,19 @@ namespace ExtraExplosives
                 Lighting.maxX = 400;
                 Lighting.maxY = 400;
                 //NukeHit = false;
+            }
+
+            if(shake)
+            {
+                //shake
+                Main.screenPosition += Utils.RandomVector2(Main.rand, Main.rand.Next(-5, 5), Main.rand.Next(-5, 5));
+
+                shakeCntr++;
+                if(shakeCntr >= 40)
+                {
+                    shake = false;
+                    shakeCntr = 0;
+                }
             }
         }
 
