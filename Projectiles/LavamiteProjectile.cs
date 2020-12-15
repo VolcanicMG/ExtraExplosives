@@ -53,7 +53,7 @@ namespace ExtraExplosives.Projectiles
             Explosion();
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 100);
+            DustEffects(type: 3, shake: false, dustType: 185, color: new Color(255, 0, 0), shader: GameShaders.Armor.GetSecondaryShader(58, Main.LocalPlayer));
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-2f, -2f);
@@ -83,34 +83,7 @@ namespace ExtraExplosives.Projectiles
                     }
                 }
             }
-        }
-
-        private void CreateDust(Vector2 position, int amount)
-        {
-            Dust dust;
-            Vector2 updatedPosition;
-
-            for (int i = 0; i <= amount; i++)
-            {
-                if (Main.rand.NextFloat() < DustAmount)
-                {
-                    //---Dust 1---
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - 168 / 2, position.Y - 168 / 2);
-
-                        dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 168, 168, 185, 0.2631581f, 0f, 0, new Color(255, 0, 0), 3.815789f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 84) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.shader = GameShaders.Armor.GetSecondaryShader(58, Main.LocalPlayer);
-                        }
-                    }
-                    //------------
-                }
-            }
-        }
+        }   
     }
 }
 

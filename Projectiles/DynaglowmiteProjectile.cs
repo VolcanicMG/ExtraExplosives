@@ -20,7 +20,7 @@ namespace ExtraExplosives.Projectiles
         public override void SafeSetDefaults()
         {
             pickPower = -2;
-            radius = 0;
+            radius = 10;
             projectile.tileCollide = true;
             projectile.width = 16;
             projectile.height = 32;
@@ -59,7 +59,7 @@ namespace ExtraExplosives.Projectiles
             Explosion();
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 100);
+            DustEffects(type: 1, shake: false, dustType: 91, color: new Color(0, 67, 255));
 
             //Create Bomb Gore
             int goreType = Main.rand.Next(2);
@@ -113,49 +113,6 @@ namespace ExtraExplosives.Projectiles
                 speedX = -22f; //Reset X Velocity
                 xCntr = 1;
                 yCntr++;
-            }
-        }
-
-        private void CreateDust(Vector2 position, int amount)
-        {
-            Dust dust;
-            Vector2 updatedPosition;
-
-            for (int i = 0; i <= amount; i++)
-            {
-                if (Main.rand.NextFloat() < DustAmount)
-                {
-                    //---Dust 1---
-                    if (Main.rand.NextFloat() < 1f)
-                    {
-                        updatedPosition = new Vector2(position.X - 400 / 2, position.Y - 400 / 2);
-
-                        dust = Terraria.Dust.NewDustDirect(updatedPosition, 400, 400, 91, 0f, 0f, 157, new Color(0, 142, 255), 2.565789f);
-                        if (Vector2.Distance(dust.position, projectile.Center) > 200) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.fadeIn = 1.460526f;
-                        }
-                    }
-                    //------------
-
-                    //---Dust 2---
-                    if (Main.rand.NextFloat() < 0.5f)
-                    {
-                        updatedPosition = new Vector2(position.X - 80 / 2, position.Y - 80 / 2);
-
-                        dust = Terraria.Dust.NewDustDirect(updatedPosition, 80, 80, 197, 0f, 0f, 157, new Color(0, 67, 255), 2.565789f);
-                        if (Vector2.Distance(dust.position, projectile.Center) > 40) dust.active = false;
-                        else
-                        {
-                            dust.noGravity = true;
-                            dust.fadeIn = 2.486842f;
-                        }
-
-                        //------------
-                    }
-                }
             }
         }
     }

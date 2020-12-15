@@ -12,7 +12,7 @@ namespace ExtraExplosives.Projectiles
     public class HolyHandGrenadeProjectile : ExplosiveProjectile
     {
 
-        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Large_Explosive_";
+        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Holy_Hand_Granade_";
         protected override string goreFileLoc => "Gores/Explosives/basic-explosive_gore";
 
         private int rippleCount = 2;

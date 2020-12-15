@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Shaders;
 using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -97,12 +98,12 @@ namespace ExtraExplosives.Projectiles
         /// <summary>
         ///  Produces dust in a shape depending on the type. Default 1 (Basic Explosion)
         /// </summary>
-        /// <param name="type"> The type of shape. Default 1 (Basic Explosion) </param>
+        /// <param name="type"> The type of dust from the new system. Default 1 (Basic Explosion) </param>
         /// <param name="color"> Color of main part of the dusts </param>
         /// <param name="color2"> Color of light when produced from an explosion </param>
-        public virtual void DustEffects(Color color = default, Color color2 = default, int type = 1)
+        public virtual void DustEffects(Color color = default, Color color2 = default, int type = 1, bool shake = true, int dustType = 6, ArmorShaderData shader = null)
         {
-            ExplosionDust(radius, projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), type);
+            ExplosionDust(radius, projectile.Center, color, color2, type, shake: shake, dustType: dustType, shader: shader);
 
         }
 
@@ -111,7 +112,7 @@ namespace ExtraExplosives.Projectiles
         /// </summary>
         public virtual void DustEffectsRockets(Vector2 Direction, Color color = default, Color color2 = default, int type = 2)
         {
-            ExplosionDust(radius, projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), type, Direction);
+            ExplosionDust(radius, projectile.Center, color, color2, type, Direction);
         }
 
 

@@ -2,7 +2,7 @@
 [c/00FF00:The Overhaul and Content Update!]
 Over that past few months, we totally redesigned the old and boring explosives that remained in the game. Our team decided to give a little love to old bombs and explosives, with this new update you can now manage how some bombs work! We incorporated a class within the mod that takes explosions to a whole new level. Check it out! 
 
-[c/00FF00:New Key Features:]
+[c/00FF00:Key Features:]
 [c/ff00ff:• 1 New Class!] (Lots of fun if you like blowing things up)
 [c/ff00ff:• Explosion Revamp! ] (Little to no lag so you can enjoy those big explosions without hurting your PC :D )
 [c/ff00ff:• An Explosive Boss With Interesting Mechanics] (Captain Explosive)
@@ -12,6 +12,7 @@ Over that past few months, we totally redesigned the old and boring explosives t
 [c/ff00ff:• Bomb Modification through the Anarchist Cookbook] (Zero gravity bombs, lifesteal, etc...)
 [c/ff00ff:• All New Explosive Weapons]
 [c/ff00ff:• Aesthetics, Including Furniture]
+[c/ff00ff:• New bomb dust system!]
 [c/ff00ff:• And Of Course, New Explosives And Many Bug Fixes!]
 
 Check out the changelog for a full list of changes and additions.

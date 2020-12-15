@@ -7,6 +7,7 @@ using Terraria.Enums;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ExtraExplosives.GlobalMethods;
 
 namespace ExtraExplosives.Projectiles.PrismBomb
 {
@@ -111,6 +112,10 @@ namespace ExtraExplosives.Projectiles.PrismBomb
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.immune[projectile.owner] = 5;
+            if(DamageReducedNps.Contains(target.type))
+            {
+               damage = damage / 2;
+            }
         }
 
 

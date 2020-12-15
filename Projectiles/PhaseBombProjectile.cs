@@ -96,7 +96,7 @@ namespace ExtraExplosives.Projectiles
             //Main.NewText("Dust");
             //SpawnDust(49);
             //SpawnDust(155);
-            DustEffects();
+            DustEffects(type: 3, shake: false, dustType: 155, shader: GameShaders.Armor.GetSecondaryShader(105, Main.LocalPlayer));
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0.0f, 3.0f);
