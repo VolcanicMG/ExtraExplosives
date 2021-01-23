@@ -834,7 +834,7 @@ namespace ExtraExplosives
 
         }
 
-        #region Methods
+
         /// <summary>
         /// This function converts a vector2 to an angle and puts it back as a vector2 at a random point between the two values.
         /// </summary>
@@ -845,6 +845,5 @@ namespace ExtraExplosives
             float random = Main.rand.NextFloat() * angle + angleMin;
             return new Vector2((float)Math.Cos(random), (float)Math.Sin(random));
         }
-        #endregion
     }
 }

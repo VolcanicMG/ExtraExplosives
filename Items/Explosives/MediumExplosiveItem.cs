@@ -38,8 +38,6 @@ namespace ExtraExplosives.Items.Explosives
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ModContent.ItemType<SmallExplosiveItem>(), 1);
             recipe.AddIngredient(ItemID.Dynamite, 1);
-            recipe.AddIngredient(ItemID.Gel, 5);
-            recipe.AddIngredient(ItemID.StoneBlock, 5);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();

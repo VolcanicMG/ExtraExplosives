@@ -41,9 +41,7 @@ namespace ExtraExplosives.Items.Explosives
             recipe.AddIngredient(ModContent.ItemType<MediumExplosiveItem>(), 1);
             recipe.AddIngredient(ModContent.ItemType<SmallExplosiveItem>(), 1);
             recipe.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 1);
-            recipe.AddIngredient(ItemID.HellstoneBar, 14);
-            recipe.AddIngredient(ItemID.Gel, 100);
-            recipe.AddIngredient(ItemID.IronBar, 14);
+            recipe.AddIngredient(ItemID.HellstoneBar, 7);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -649,10 +649,18 @@ namespace ExtraExplosives
                 if (CheckForInternetConnection())
                 {
                     //Parsing the data we need
-                    var json = client.DownloadString("https://raw.githubusercontent.com/VolcanicMG/ExtraExplosives/master/Version.txt");
-                    json.ToString().Trim();
-                    CurrentVersion = "v" + json;
-                    client.Dispose();
+                    try
+                    {
+                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                        var json = client.DownloadString("https://raw.githubusercontent.com/VolcanicMG/ExtraExplosives/master/Version.txt");
+                        json.ToString().Trim();
+                        CurrentVersion = "v" + json;
+                        client.Dispose();
+                    }
+                    catch(Exception e)
+                    {
+                        Logger.Warn(e);
+                    }
                 }
             }
 
