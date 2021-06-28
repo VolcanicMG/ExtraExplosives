@@ -192,6 +192,11 @@ namespace ExtraExplosives.Projectiles
                                     tile.ClearTile();
                                     tile.active(false);
 
+                                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                                    {
+                                        WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                        NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                    }
                                 }
 
                                 if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)

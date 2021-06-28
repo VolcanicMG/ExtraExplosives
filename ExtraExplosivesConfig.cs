@@ -37,6 +37,11 @@ namespace ExtraExplosives
         [DefaultValue(true)]
         public bool CanBreakTiles;
 
+        [Header("Revert Vanilla Bombs Back To Default")]
+        [Label("Toggle")]
+        [DefaultValue(false)]
+        public bool RevertVanillaBombs;
+
         [Header("Explosives Dust/Particle Settings")]
         [Label("Set Dust/Particle amount; Current Amount")]
         [Tooltip("0 = No Dust; 1 = Lots of Dust")]
@@ -51,6 +56,7 @@ namespace ExtraExplosives
             GlobalMethods.CanBreakWalls = CanBreakWalls;
             GlobalMethods.CanBreakTiles = CanBreakTiles;
             GlobalMethods.DustAmount = dustAmount;
+            GlobalMethods.RevertVanillaBombs = RevertVanillaBombs;
 
             TheLevelerProjectile.CanBreakWalls = CanBreakWalls;
             //SmallExplosiveProjectile.CanBreakWalls = CanBreakWalls;

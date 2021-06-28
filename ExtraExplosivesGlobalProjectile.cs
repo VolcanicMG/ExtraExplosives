@@ -424,248 +424,256 @@ namespace ExtraExplosives
                 }
             }
 
-
-            // Bombard Emblem stuff (I think? IDK, I didn't write this code. -- V8_Ninja)
-            int type = projectile.type; // Dont only so i didnt have to rename the variables below (copied from vanilla dont @ me), inefficient but who cares
-            if (type == ProjectileID.Bomb || type == ProjectileID.Dynamite || type == ProjectileID.StickyBomb ||
-                type == ProjectileID.Explosives || type == ProjectileID.GrenadeII || type == ProjectileID.RocketII || type == ProjectileID.RocketI ||
-                type == ProjectileID.RocketIII ||
-                type == ProjectileID.ProximityMineII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV ||
-                type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanII || type == ProjectileID.RocketSnowmanIV ||
-                type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyBomb || type == ProjectileID.Grenade ||
-                type == ProjectileID.BombFish || type == ProjectileID.BouncyDynamite || type == ProjectileID.ExplosiveBullet)
+            if (!RevertVanillaBombs)
             {
-                //Three varables to make sure everything works as intended
-                int pickPower = 1;
-                int radius = 4;
-                bool tileDamage = true;
-                bool doubleDamage = true;
-
-                //set the defaults for the vanilla bombs
-                if (type == ProjectileID.Bomb || type == ProjectileID.StickyBomb || type == ProjectileID.BouncyBomb || type == ProjectileID.BombFish)
+                // Bombard Emblem stuff (I think? IDK, I didn't write this code. -- V8_Ninja)
+                int type = projectile.type; // Dont only so i didnt have to rename the variables below (copied from vanilla dont @ me), inefficient but who cares
+                if (type == ProjectileID.Bomb || type == ProjectileID.Dynamite || type == ProjectileID.StickyBomb ||
+                    type == ProjectileID.Explosives || type == ProjectileID.GrenadeII || type == ProjectileID.RocketII || type == ProjectileID.RocketI ||
+                    type == ProjectileID.RocketIII ||
+                    type == ProjectileID.ProximityMineII || type == ProjectileID.GrenadeIV || type == ProjectileID.RocketIV ||
+                    type == ProjectileID.ProximityMineIV || type == ProjectileID.RocketSnowmanII || type == ProjectileID.RocketSnowmanIV ||
+                    type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyBomb || type == ProjectileID.Grenade ||
+                    type == ProjectileID.BombFish || type == ProjectileID.BouncyDynamite || type == ProjectileID.ExplosiveBullet)
                 {
-                    radius = 5;
-                    pickPower = 45;
-                }
+                    //Three varables to make sure everything works as intended
+                    int pickPower = 1;
+                    int radius = 4;
+                    bool tileDamage = true;
+                    bool doubleDamage = true;
 
-                if (type == ProjectileID.Dynamite || type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyDynamite)
-                {
-                    radius = 7;
-                    pickPower = 50;
-                }
-
-                if (type == ProjectileID.GrenadeIII || type == ProjectileID.GrenadeI || type == ProjectileID.Grenade || type == ProjectileID.GrenadeII || type == ProjectileID.GrenadeIV ||
-                    type == ProjectileID.RocketIII || type == ProjectileID.RocketI ||
-                    type == ProjectileID.ProximityMineIV || type == ProjectileID.ProximityMineI || type == ProjectileID.ProximityMineII || type == ProjectileID.ProximityMineIII)
-                {
-                    radius = 5;
-                    tileDamage = false;
-                    doubleDamage = false;
-                }
-
-                if (type == ProjectileID.ExplosiveBullet)
-                {
-                    radius = 3;
-                    tileDamage = false;
-                }
-
-                if (type == ProjectileID.Explosives)
-                {
-                    radius = 10;
-                    pickPower = 50;
-                }
-
-                void ExplosionDamage()
-                {
-                    bool crit = Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101);
-                    foreach (NPC npc in Main.npc)
+                    //set the defaults for the vanilla bombs
+                    if (type == ProjectileID.Bomb || type == ProjectileID.StickyBomb || type == ProjectileID.BouncyBomb || type == ProjectileID.BombFish)
                     {
-                        float dist = Vector2.Distance(npc.Center, projectile.Center);
-                        if (dist / 16f <= radius)
-                        {
-                            int dir = (dist > 0) ? 1 : -1;
-                            if (!DamageReducedNps.Contains(npc.type))
-                            {
-                                npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
-                            }
-                            else npc.StrikeNPC(projectile.damage - (int)(projectile.damage * .8f), projectile.knockBack, dir, crit);
-                        }
+                        radius = 5;
+                        pickPower = 45;
                     }
 
-                    foreach (Player player in Main.player)
+                    if (type == ProjectileID.Dynamite || type == ProjectileID.StickyDynamite || type == ProjectileID.BouncyDynamite)
                     {
-                        if (player == null || player.whoAmI == 255 || !player.active) continue;
-                        if (!CanHitPlayer(projectile, player)) continue;
-                        if (player.EE().BlastShielding &&
-                            player.EE().BlastShieldingActive) continue;
-                        float dist = Vector2.Distance(player.Center, projectile.Center);
-                        int dir = (dist > 0) ? 1 : -1;
-                        if (dist / 16f <= radius)
-                        {
-                            player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
-                            player.hurtCooldowns[0] += 15;
-                        }
-                        if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius)
-                        {
-                            NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
-                        }
+                        radius = 7;
+                        pickPower = 50;
                     }
-                }
 
-                void Explosion()
-                {
-                    // x and y are the tile offset of the current tile relative to the player
-                    // i and j are the true tile cords relative to 0,0 in the world
-                    Player player = Main.player[projectile.owner];
-
-                    if (pickPower < -1) return;
-                    if (player.EE().BombardEmblem) return;
-
-                    Vector2 position = new Vector2(projectile.Center.X / 16f, projectile.Center.Y / 16f);    // Converts to tile cords for convenience
-
-                    radius = (int)((radius + player.EE().RadiusBonus) * player.EE().RadiusMulti);
-                    for (int x = -radius;
-                        x <= radius;
-                        x++)
+                    if (type == ProjectileID.GrenadeIII || type == ProjectileID.GrenadeI || type == ProjectileID.Grenade || type == ProjectileID.GrenadeII || type == ProjectileID.GrenadeIV ||
+                        type == ProjectileID.RocketIII || type == ProjectileID.RocketI ||
+                        type == ProjectileID.ProximityMineIV || type == ProjectileID.ProximityMineI || type == ProjectileID.ProximityMineII || type == ProjectileID.ProximityMineIII)
                     {
-                        //int x = (int)(i + position.X);
-                        for (int y = -radius;
-                            y <= radius;
-                            y++)
-                        {
-                            //int y = (int)(j + position.Y);
-                            int i = (int)(x + position.X);
-                            int j = (int)(y + position.Y);
-                            if (!WorldGen.InWorld(i, j)) continue;
-                            if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
-                            {
-                                Tile tile = Framing.GetTileSafely(i, j);
+                        radius = 5;
+                        tileDamage = false;
+                        doubleDamage = false;
+                    }
 
-                                if (!WorldGen.TileEmpty(i, j) && tile.active())
+                    if (type == ProjectileID.ExplosiveBullet)
+                    {
+                        radius = 3;
+                        tileDamage = false;
+                    }
+
+                    if (type == ProjectileID.Explosives)
+                    {
+                        radius = 10;
+                        pickPower = 50;
+                    }
+
+                    void ExplosionDamage()
+                    {
+                        bool crit = Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101);
+                        foreach (NPC npc in Main.npc)
+                        {
+                            float dist = Vector2.Distance(npc.Center, projectile.Center);
+                            if (dist / 16f <= radius)
+                            {
+                                int dir = (dist > 0) ? 1 : -1;
+                                if (!DamageReducedNps.Contains(npc.type))
                                 {
-                                    if (!CanBreakTile(tile.type, pickPower)) continue;
-                                    //if (!CanBreakTiles) continue;
-                                    // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
-                                    // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
-                                    if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.type])
+                                    npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+                                }
+                                else npc.StrikeNPC(projectile.damage - (int)(projectile.damage * .8f), projectile.knockBack, dir, crit);
+                            }
+                        }
+
+                        foreach (Player player in Main.player)
+                        {
+                            if (player == null || player.whoAmI == 255 || !player.active) continue;
+                            if (!CanHitPlayer(projectile, player)) continue;
+                            if (player.EE().BlastShielding &&
+                                player.EE().BlastShieldingActive) continue;
+                            float dist = Vector2.Distance(player.Center, projectile.Center);
+                            int dir = (dist > 0) ? 1 : -1;
+                            if (dist / 16f <= radius)
+                            {
+                                player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
+                                player.hurtCooldowns[0] += 15;
+                            }
+                            if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius)
+                            {
+                                NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                            }
+                        }
+                    }
+
+                    void Explosion()
+                    {
+                        // x and y are the tile offset of the current tile relative to the player
+                        // i and j are the true tile cords relative to 0,0 in the world
+                        Player player = Main.player[projectile.owner];
+
+                        if (pickPower < -1) return;
+                        if (player.EE().BombardEmblem) return;
+
+                        Vector2 position = new Vector2(projectile.Center.X / 16f, projectile.Center.Y / 16f);    // Converts to tile cords for convenience
+
+                        radius = (int)((radius + player.EE().RadiusBonus) * player.EE().RadiusMulti);
+                        for (int x = -radius;
+                            x <= radius;
+                            x++)
+                        {
+                            //int x = (int)(i + position.X);
+                            for (int y = -radius;
+                                y <= radius;
+                                y++)
+                            {
+                                //int y = (int)(j + position.Y);
+                                int i = (int)(x + position.X);
+                                int j = (int)(y + position.Y);
+                                if (!WorldGen.InWorld(i, j)) continue;
+                                if (Math.Sqrt(x * x + y * y) <= radius + 0.5) //Circle
+                                {
+                                    Tile tile = Framing.GetTileSafely(i, j);
+
+                                    if (!WorldGen.TileEmpty(i, j) && tile.active())
                                     {
-                                        int typeTile = tile.type;
-                                        WorldGen.KillTile((int)(i), (int)(j), false, false, false);
-
-                                        if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
+                                        if (!CanBreakTile(tile.type, pickPower)) continue;
+                                        //if (!CanBreakTiles) continue;
+                                        // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
+                                        // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
+                                        if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.type])
                                         {
-                                            WorldGen.SquareTileFrame(i, j, true); //Updates Area
-                                            NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
-                                        }
-
-                                        if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
-                                        {
-                                            WorldGen.PlaceTile(i, j, typeTile);
+                                            int typeTile = tile.type;
                                             WorldGen.KillTile((int)(i), (int)(j), false, false, false);
 
-                                            if (Main.netMode == NetmodeID.MultiplayerClient)
+                                            if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
                                             {
                                                 WorldGen.SquareTileFrame(i, j, true); //Updates Area
                                                 NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                             }
+
+                                            if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
+                                            {
+                                                WorldGen.PlaceTile(i, j, typeTile);
+                                                WorldGen.KillTile((int)(i), (int)(j), false, false, false);
+
+                                                if (Main.netMode == NetmodeID.MultiplayerClient)
+                                                {
+                                                    WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                                    NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                                }
+                                            }
+                                        }
+
+                                        else
+                                        {
+                                            if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type) && Main.tile[i, j - 1].type != 26)
+                                            {
+                                                tile.ClearTile();
+                                                tile.active(false);
+
+                                                if (Main.netMode == NetmodeID.MultiplayerClient)
+                                                {
+                                                    WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                                    NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                                }
+                                            }
+
+                                            if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
+                                            {
+                                                WorldGen.SquareTileFrame(i, j, true);
+                                            }
+
                                         }
                                     }
 
+                                    if (CanBreakWalls)
+                                    {
+                                        WorldGen.KillWall((int)(i), (int)(j));
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Player playerRad = Main.player[projectile.owner];
+
+                    //Create Bomb Sound
+                    Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+
+                    //Dust type
+                    if (tileDamage) ExplosionDust((int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15), projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
+                    else ExplosionDust((int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15), projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 2, projectile.oldVelocity);
+
+
+                    ExplosionDamage();
+
+                    if (tileDamage && !Main.player[projectile.owner].EE().BombardEmblem) Explosion();
+
+                    if (playerRad.EE().Anarchy || playerRad.EE().HeavyBombard)
+                    {
+                        Vector2 position = projectile.Center;
+                        int proj = 0;
+                        int CustomDamage = 0;
+
+                        if (playerRad.EE().Anarchy)
+                        {
+                            proj = ModContent.ProjectileType<Spike_Anarchy>();
+                            CustomDamage = 12;
+                        }
+                        else if (playerRad.EE().HeavyBombard)
+                        {
+                            proj = ProjectileID.RubyBolt;
+                            CustomDamage = 60;
+                        }
+
+                        Vector2 vel;
+                        int spedX;
+                        int spedY;
+                        int cntr = 0;
+
+                        for (int x = -15; x <= 15; x++)
+                        {
+                            for (int y = -15; y <= 15; y++)
+                            {
+                                int xPosition = (int)(x + position.X / 16.0f);
+                                int yPosition = (int)(y + position.Y / 16.0f);
+
+                                if (Math.Sqrt(x * x + y * y) <= 15 + 0.5)
+                                {
+                                    //mod.Logger.Debug(projectile.damage);
+                                    if (WorldGen.TileEmpty(xPosition, yPosition))
+                                    {
+                                        spedX = Main.rand.Next(15) - 7;
+                                        spedY = Main.rand.Next(15) - 7;
+                                        if (spedX == 0) spedX = 1;
+                                        if (spedY == 0) spedY = 1;
+                                        //if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 20, projectile.owner, 0.0f, 0);
+                                        if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((playerRad.EE().DamageBonus + CustomDamage) * playerRad.EE().DamageMulti), 2, projectile.owner, 0.0f, 0);
+                                    }
                                     else
                                     {
-                                        if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type) && Main.tile[i, j - 1].type != 26)
-                                        {
-                                            tile.ClearTile();
-                                            tile.active(false);
-
-                                        }
-
-                                        if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
-                                        {
-                                            WorldGen.SquareTileFrame(i, j, true);
-                                        }
-
+                                        spedX = Main.rand.Next(15) - 7;
+                                        spedY = Main.rand.Next(15) - 7;
+                                        if (spedX == 0) spedX = 1;
+                                        if (spedY == 0) spedY = 1;
+                                        if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((playerRad.EE().DamageBonus + CustomDamage) * playerRad.EE().DamageMulti), 2, projectile.owner, 0.0f, 0);
                                     }
                                 }
-
-                                if (CanBreakWalls)
-                                {
-                                    WorldGen.KillWall((int)(i), (int)(j));
-                                }
                             }
                         }
                     }
+
+                    return false;
                 }
 
-                Player playerRad = Main.player[projectile.owner];
-
-                //Create Bomb Sound
-                Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
-
-                //Dust type
-                if (tileDamage) ExplosionDust((int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15), projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
-                else ExplosionDust((int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15), projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 2, projectile.oldVelocity);
-
-
-                ExplosionDamage();
-
-                if (tileDamage && !Main.player[projectile.owner].EE().BombardEmblem) Explosion();
-
-                if (playerRad.EE().Anarchy || playerRad.EE().HeavyBombard)
-                {
-                    Vector2 position = projectile.Center;
-                    int proj = 0;
-                    int CustomDamage = 0;
-
-                    if (playerRad.EE().Anarchy)
-                    {
-                        proj = ModContent.ProjectileType<Spike_Anarchy>();
-                        CustomDamage = 12;
-                    }
-                    else if (playerRad.EE().HeavyBombard)
-                    {
-                        proj = ProjectileID.RubyBolt;
-                        CustomDamage = 60;
-                    }
-
-                    Vector2 vel;
-                    int spedX;
-                    int spedY;
-                    int cntr = 0;
-
-                    for (int x = -15; x <= 15; x++)
-                    {
-                        for (int y = -15; y <= 15; y++)
-                        {
-                            int xPosition = (int)(x + position.X / 16.0f);
-                            int yPosition = (int)(y + position.Y / 16.0f);
-
-                            if (Math.Sqrt(x * x + y * y) <= 15 + 0.5)
-                            {
-                                //mod.Logger.Debug(projectile.damage);
-                                if (WorldGen.TileEmpty(xPosition, yPosition))
-                                {
-                                    spedX = Main.rand.Next(15) - 7;
-                                    spedY = Main.rand.Next(15) - 7;
-                                    if (spedX == 0) spedX = 1;
-                                    if (spedY == 0) spedY = 1;
-                                    //if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 20, projectile.owner, 0.0f, 0);
-                                    if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((playerRad.EE().DamageBonus + CustomDamage) * playerRad.EE().DamageMulti), 2, projectile.owner, 0.0f, 0);
-                                }
-                                else
-                                {
-                                    spedX = Main.rand.Next(15) - 7;
-                                    spedY = Main.rand.Next(15) - 7;
-                                    if (spedX == 0) spedX = 1;
-                                    if (spedY == 0) spedY = 1;
-                                    if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((playerRad.EE().DamageBonus + CustomDamage) * playerRad.EE().DamageMulti), 2, projectile.owner, 0.0f, 0);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                return false;
             }
 
             return base.PreKill(projectile, timeLeft);

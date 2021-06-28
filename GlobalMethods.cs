@@ -67,6 +67,8 @@ namespace ExtraExplosives
         /// </summary>
         public static float DustAmount;
 
+        public static bool RevertVanillaBombs;
+
         //====================================================================\\
 
 
