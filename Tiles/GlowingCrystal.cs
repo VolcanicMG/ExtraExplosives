@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ModLoader;
 using TileObjectData = Terraria.ObjectData.TileObjectData;
+using ExtraExplosives.Items.Accessories.AnarchistCookbook;
 
 namespace ExtraExplosives.Tiles
 {
@@ -19,7 +20,7 @@ namespace ExtraExplosives.Tiles
             Main.tileFrameImportant[Type] = true;
             Main.tileNoFail[Type] = true;
             dustType = mod.DustType(dustString);
-            drop = ModContent.ItemType<GlowingCrystalItem>();
+            drop = ModContent.ItemType<GlowingCompound>();
             AddMapEntry(new Color(148, 134, 48));
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);

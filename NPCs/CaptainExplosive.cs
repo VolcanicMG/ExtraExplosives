@@ -1,3 +1,4 @@
+using ExtraExplosives.Items.Accessories.AnarchistCookbook;
 using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Items.Pets;
 using Microsoft.Xna.Framework;
@@ -305,6 +306,12 @@ namespace ExtraExplosives.NPCs
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<MeteoriteBusterItem>());
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<HellavatorItem>());
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BombBag>());
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<ShortFuse>());
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<LightweightBombshells>());
             nextSlot++;
         }
 
