@@ -83,17 +83,17 @@ namespace ExtraExplosives.NPCs
 
                 // NPCs
                 case NPCID.SkeletonCommando:
-                    if (Main.rand.Next(100) == 0)
+                    if (Main.rand.Next(75) == 0)
                     {
-                        Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BlastShielding>(), 1);
+                        Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<ReactivePlating>(), 1);
                     }
                     break;
                 case NPCID.TacticalSkeleton:
-                    if (Main.rand.Next(100) == 0)
+                    if (Main.rand.Next(75) == 0)
                     {
                         Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BlastShielding>(), 1);
                     }
-                    if (Main.rand.Next(100) == 0)
+                    if (Main.rand.Next(75) == 0)
                     {
                         Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<TacticalBonerifle>(), 1);
                     }

@@ -29,3 +29,5 @@ Found an issue or a bug? Let us know on discord, our homepage, or through Mod He
 
 [c/1cac78:CHANGELOG:]
 Moved to the Homepage, click the homepage button down below to check it out.
+
+This mod is no longer being updated due to the lack of help. If interested contact Volcanic#4527 on disord if interested in contributing.
