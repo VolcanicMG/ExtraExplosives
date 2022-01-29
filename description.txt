@@ -1,0 +1,33 @@
+[c/FF4500:EXTRA EXPLOSIVES]
+[c/00FF00:The Overhaul and Content Update!]
+Over that past few months, we totally redesigned the old and boring explosives that remained in the game. Our team decided to give a little love to old bombs and explosives, with this new update you can now manage how some bombs work! We incorporated a class within the mod that takes explosions to a whole new level. Check it out! 
+
+[c/00FF00:Key Features:]
+[c/ff00ff:• 1 New Class!] (Lots of fun if you like blowing things up)
+[c/ff00ff:• Explosion Revamp! ] (Little to no lag so you can enjoy those big explosions without hurting your PC :D )
+[c/ff00ff:• An Explosive Boss With Interesting Mechanics] (Captain Explosive)
+[c/ff00ff:• An Overhaul On Most Explosive Items ] (Gore, dust, and more)
+[c/ff00ff:• New Sounds For Almost All Explosives]
+[c/ff00ff:• 14 Armor Sets With Unique Abilities]
+[c/ff00ff:• Bomb Modification through the Anarchist Cookbook] (Zero gravity bombs, lifesteal, etc...)
+[c/ff00ff:• All New Explosive Weapons]
+[c/ff00ff:• Aesthetics, Including Furniture]
+[c/ff00ff:• New bomb dust system!]
+[c/ff00ff:• And Of Course, New Explosives And Many Bug Fixes!]
+
+Check out the changelog for a full list of changes and additions.
+
+[c/FF1234:Content:]
+-[c/cd2345:1 New Interesting Boss]
+-[c/aF8923:1 New Crazy Class]
+-[c/Fc9023:Multiple New Exciting Mechanics]
+-[c/FF4500:160 EXPLOSIVE ITEMS WITH UNIQUE ABILITIES]
+(∞ possibilities with the bullet boom) 
+
+Found an issue or a bug? Let us know on discord, our homepage, or through Mod Helper!
+[c/FF4578:Discord: https://discord.gg/UvwEDJ]
+
+[c/1cac78:CHANGELOG:]
+Moved to the Homepage, click the homepage button down below to check it out.
+
+This mod is no longer producing new content due to the lack of help. If interested contact Volcanic#4527 on disord if interested in contributing.
