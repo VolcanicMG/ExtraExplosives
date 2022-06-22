@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,51 +19,51 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 66;
+            Main.npcFrameCount[NPC.type] = 66;
         }
 
 
         public override void SetDefaults()
         {
-            npc.width = 28;
-            npc.height = 92;
-            npc.Hitbox = new Rectangle(0, 0, 28, 72);
-            npc.lifeMax = 200;
-            npc.defense = 0;
-            npc.frame.Height = 92;
-            npc.frame.Width = 28;
-            npc.hide = true;
-            drawOffsetY = 30;
-            npc.noGravity = false;
-            npc.knockBackResist = 0f;
+            NPC.width = 28;
+            NPC.height = 92;
+            NPC.Hitbox = new Rectangle(0, 0, 28, 72);
+            NPC.lifeMax = 200;
+            NPC.defense = 0;
+            NPC.frame.Height = 92;
+            NPC.frame.Width = 28;
+            NPC.hide = true;
+            DrawOffsetY = 30;
+            NPC.noGravity = false;
+            NPC.knockBackResist = 0f;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax += 100;
+            NPC.lifeMax += 100;
             base.ScaleExpertStats(numPlayers, bossLifeScale);
         }
 
         public override void FindFrame(int frameHeight)
         {
-            npc.frameCounter++;
-            if (npc.frameCounter > 5)    //<--- updates per frame
+            NPC.frameCounter++;
+            if (NPC.frameCounter > 5)    //<--- updates per frame
             {
-                npc.frameCounter = 0;
-                npc.frame.Y += frameHeight;
-                if (npc.frame.Y > 8052) Explode();
+                NPC.frameCounter = 0;
+                NPC.frame.Y += frameHeight;
+                if (NPC.frame.Y > 8052) Explode();
                 //npc.frame.Y = (frameHeight * 66);    //<----- number of frames (3 not 6 since only 3 are ever used at one time)
             }
         }
 
-        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             FindFrame(122);
-            Texture2D glow = (npc.direction == -1) ? mod.GetTexture("NPCs/CaptainExplosiveBoss/BossDynamiteNPC_Glowmask") : mod.GetTexture("NPCs/CaptainExplosiveBoss/BossDynamiteNPC_GlowmaskRev");
-            Vector2 pos = npc.position - Main.screenPosition;
+            Texture2D glow = (NPC.direction == -1) ? Mod.GetTexture("NPCs/CaptainExplosiveBoss/BossDynamiteNPC_Glowmask") : Mod.GetTexture("NPCs/CaptainExplosiveBoss/BossDynamiteNPC_GlowmaskRev");
+            Vector2 pos = NPC.position - Main.screenPosition;
             pos.Y -= 16;
-            Rectangle frame = new Rectangle(0, (int)(npc.frame.Y + 122), glow.Width, glow.Height / 66);
-            spriteBatch.Draw(glow, pos, frame, Color.White, npc.rotation, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            Rectangle frame = new Rectangle(0, (int)(NPC.frame.Y + 122), glow.Width, glow.Height / 66);
+            spriteBatch.Draw(glow, pos, frame, Color.White, NPC.rotation, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
 
@@ -74,23 +75,23 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public void Explode()
         {
-            Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BigDynamite")); //sound
+            SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BigDynamite")); //sound
             Kill(0);
-            npc.life = 0;
-            npc.active = false;
+            NPC.life = 0;
+            NPC.active = false;
         }
 
         public void Kill(int timeLeft)
         {
             for (int i = 80; i > 0; i--)
             {
-                Dust.NewDust(npc.position, 4, 4, ModContent.DustType<BossDynamiteDust>());
+                Dust.NewDust(NPC.position, 4, 4, ModContent.DustType<BossDynamiteDust>());
             }
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)npc.Center.X, (int)npc.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)NPC.Center.X, (int)NPC.Center.Y);
 
             //Create Bomb Dust
-            CreateDust(npc.Center, 85);
+            CreateDust(NPC.Center, 85);
 
             //Create Bomb Damage
             //ExplosionDamage(15f, npc.Center, 120, 20, Main.myPlayer);
@@ -99,7 +100,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             //Create Bomb Explosion
             if (ExtraExplosives.CheckBossBreak)
             {
-                CreateExplosion(npc.Center, 10);
+                CreateExplosion(NPC.Center, 10);
             }
         }
 
@@ -114,7 +115,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             float radius = 8f;
             foreach (NPC npcID in Main.npc)
             {
-                float dist = Vector2.Distance(npcID.Center, npc.Center);
+                float dist = Vector2.Distance(npcID.Center, NPC.Center);
                 if (dist / 16f <= radius && !npcID.boss)
                 {
                     int dir = (dist > 0) ? 1 : -1;
@@ -128,17 +129,17 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 //if (!CanHitPlayer(player)) continue;
                 if (player.EE().BlastShielding &&
                     player.EE().BlastShieldingActive) continue;
-                float dist = Vector2.Distance(player.Center, npc.Center);
+                float dist = Vector2.Distance(player.Center, NPC.Center);
                 int dir = (dist > 0) ? 1 : -1;
                 if (dist / 16f <= radius)
                 {
                     //Main.NewText("Hit");
-                    player.Hurt(PlayerDeathReason.ByNPC(npc.whoAmI), 120, dir);
+                    player.Hurt(PlayerDeathReason.ByNPC(NPC.whoAmI), 120, dir);
                     player.hurtCooldowns[0] += 15;
                 }
                 if (Main.netMode != 0)
                 {
-                    NetMessage.SendPlayerHurt(player.whoAmI, PlayerDeathReason.ByNPC(npc.whoAmI), 120, dir, false, pvp: false, 0);
+                    NetMessage.SendPlayerHurt(player.whoAmI, PlayerDeathReason.ByNPC(NPC.whoAmI), 120, dir, false, pvp: false, 0);
                 }
             }
 
@@ -147,23 +148,23 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void AI()
         {
-            npc.velocity.Y *= 1.05f;
-            npc.velocity.X *= 0.98f;
+            NPC.velocity.Y *= 1.05f;
+            NPC.velocity.X *= 0.98f;
             fuzeTimer--;
             if (fuzeTimer <= 0) Explode();
         }
 
         public override void PostAI()
         {
-            if (!WorldGen.TileEmpty((int)(npc.position.X / 16f), (int)(npc.position.Y / 16f) + 4) && !collide)
+            if (!WorldGen.TileEmpty((int)(NPC.position.X / 16f), (int)(NPC.position.Y / 16f) + 4) && !collide)
             {
                 collide = true;
-                Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BombLanding")); //sound
+                SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BombLanding")); //sound
                 for (int i = 3; i > 0; i--)
                 {
-                    WorldGen.KillTile((int)(npc.position.X / 16f) + 1, (int)(npc.position.Y / 16f) + 4, true, true);
-                    WorldGen.KillTile((int)(npc.position.X / 16f) + 1, (int)(npc.position.Y / 16f) + 5, true, true);
-                    WorldGen.KillTile((int)(npc.position.X / 16f) + 1, (int)(npc.position.Y / 16f) + 6, true, true);
+                    WorldGen.KillTile((int)(NPC.position.X / 16f) + 1, (int)(NPC.position.Y / 16f) + 4, true, true);
+                    WorldGen.KillTile((int)(NPC.position.X / 16f) + 1, (int)(NPC.position.Y / 16f) + 5, true, true);
+                    WorldGen.KillTile((int)(NPC.position.X / 16f) + 1, (int)(NPC.position.Y / 16f) + 6, true, true);
                 }
             }
         }
@@ -180,7 +181,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        ushort tile = Main.tile[xPosition, yPosition].TileType;
                         if (!CanBreakTile(tile, _pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                         }
@@ -242,19 +243,19 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             //gore
             for (int g = 0; g < 10; g++)
             {
-                int goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                int goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
                 Main.gore[goreIndex].scale = 1.5f;
                 Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-                goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
                 Main.gore[goreIndex].scale = 1.5f;
                 Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-                goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
                 Main.gore[goreIndex].scale = 1.5f;
                 Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
-                goreIndex = Gore.NewGore(new Vector2(npc.position.X + (float)(npc.width / 2) - 24f, npc.position.Y + (float)(npc.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
                 Main.gore[goreIndex].scale = 1.5f;
                 Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;

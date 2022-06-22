@@ -26,39 +26,39 @@ namespace ExtraExplosives.Projectiles
             IgnoreTrinkets = true;
             pickPower = -2;
             radius = 30;
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 10;   //This defines the hitbox width
-            projectile.height = 10; //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 80; //The amount of time the projectile is alive for
-            projectile.damage = 0;
+            Projectile.tileCollide = true; //checks to see if the projectile can go through tiles
+            Projectile.width = 10;   //This defines the hitbox width
+            Projectile.height = 10; //This defines the hitbox height
+            Projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
+            Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
+            Projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
+            Projectile.timeLeft = 80; //The amount of time the projectile is alive for
+            Projectile.damage = 0;
 
-            drawOffsetX = -15;
-            drawOriginOffsetY = -15;
+            DrawOffsetX = -15;
+            DrawOriginOffsetY = -15;
             explodeSounds = new LegacySoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
         public override void AI()
         {
-            projectile.rotation = 0;
+            Projectile.rotation = 0;
         }
 
         public override bool OnTileCollide(Vector2 old)
         {
-            projectile.Kill();
+            Projectile.Kill();
             return true;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 
@@ -81,15 +81,15 @@ namespace ExtraExplosives.Projectiles
             Vector2 gVel1 = new Vector2(4.0f, 4.0f);
             Vector2 gVel2 = new Vector2(0.0f, -4.0f);
             Vector2 gVel3 = new Vector2(-4.0f, 0.0f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel3), gVel3.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel3), gVel3.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         public override void Explosion()
         {
-            Player player = Main.player[projectile.owner];
-            Vector2 position = new Vector2(projectile.Center.X / 16f, projectile.Center.Y / 16f);    // Converts to tile cords for convenience
+            Player player = Main.player[Projectile.owner];
+            Vector2 position = new Vector2(Projectile.Center.X / 16f, Projectile.Center.Y / 16f);    // Converts to tile cords for convenience
 
             radius = (int)((radius + player.EE().RadiusBonus) * player.EE().RadiusMulti);
             for (int x = -radius;

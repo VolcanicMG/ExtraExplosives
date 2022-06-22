@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -18,42 +19,42 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true;
-            projectile.width = 10;
-            projectile.height = 32;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 100;
-            projectile.damage = 150;
+            Projectile.tileCollide = true;
+            Projectile.width = 10;
+            Projectile.height = 32;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 100;
+            Projectile.damage = 150;
         }
 
         public override void AI()
         {
-            if (projectile.timeLeft <= 3)
+            if (Projectile.timeLeft <= 3)
             {
-                projectile.tileCollide = false;
+                Projectile.tileCollide = false;
                 // Set to transparent. This projectile technically lives as  transparent for about 3 frames
-                projectile.alpha = 255;
+                Projectile.alpha = 255;
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
-                projectile.position = projectile.Center;
+                Projectile.position = Projectile.Center;
                 //projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
                 //projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-                projectile.width = 250;
-                projectile.height = 250;
-                projectile.Center = projectile.position;
+                Projectile.width = 250;
+                Projectile.height = 250;
+                Projectile.Center = Projectile.position;
                 //projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
                 //projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
-                projectile.damage = 150;
-                projectile.knockBack = 10f;
+                Projectile.damage = 150;
+                Projectile.knockBack = 10f;
             }
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Damage
             //ExplosionDamage(5f * 2f, projectile.Center, 150, 40, projectile.owner);
@@ -61,15 +62,15 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Explosion
             //CreateExplosion(projectile.Center, 5);
 
-            projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-            projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-            projectile.width = 10;
-            projectile.height = 10;
-            projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-            projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+            Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
+            Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
+            Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 
             //Create Bomb Dust
-            ExplosionDust(Radius, projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
+            ExplosionDust(Radius, Projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
         }
 
         /*private void CreateExplosion(Vector2 position, int radius)

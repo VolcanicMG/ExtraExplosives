@@ -13,14 +13,14 @@ namespace ExtraExplosives.Tiles
     {
         private string dustString = "GreenCrystalDust";
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = false;
             Main.tileNoAttach[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoFail[Type] = true;
-            dustType = mod.DustType(dustString);
-            drop = ModContent.ItemType<GlowingCompound>();
+            DustType = Mod.Find<ModDust>(dustString).Type;
+            ItemDrop = ModContent.ItemType<GlowingCompound>();
             AddMapEntry(new Color(148, 134, 48));
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);

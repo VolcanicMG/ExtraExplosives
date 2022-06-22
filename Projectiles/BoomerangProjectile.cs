@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using static ExtraExplosives.GlobalMethods;
@@ -20,17 +21,17 @@ namespace ExtraExplosives.Projectiles
         public override void DangerousSetDefaults()
         {
             radius = 5;
-            projectile.CloneDefaults(ProjectileID.EnchantedBoomerang);
-            projectile.damage = 46;
-            projectile.melee = false;
-            projectile.ranged = false;
-            projectile.magic = false;
-            projectile.thrown = false;
-            projectile.minion = false;
-            projectile.penetrate = -1;
-            projectile.friendly = true;
-            projectile.hostile = false;
-            aiType = ProjectileID.EnchantedBoomerang;
+            Projectile.CloneDefaults(ProjectileID.EnchantedBoomerang);
+            Projectile.damage = 46;
+            Projectile.melee = false;
+            Projectile.ranged = false;
+            Projectile.magic = false;
+            Projectile.thrown = false;
+            Projectile.minion = false;
+            Projectile.penetrate = -1;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            AIType = ProjectileID.EnchantedBoomerang;
         }
 
         //public override bool OnTileCollide(Vector2 oldVelocity)
@@ -44,7 +45,7 @@ namespace ExtraExplosives.Projectiles
             HitSomeThing = true;
 
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
 
             //Create Bomb Dust
@@ -57,24 +58,24 @@ namespace ExtraExplosives.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
             if (Main.rand.NextFloat() < .2f && HitSomeThing == false)
             {
                 //Create Bomb Sound
-                Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+                SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
                 //Create Bomb Damage
                 if (!player.EE().BlastShielding &&
                     !player.EE().BlastShieldingActive)
                 {
-                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), projectile.direction);
+                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), Projectile.direction);
                 }
 
                 //Create Bomb Dust
                 DustEffects();
 
-                projectile.Kill();
+                Projectile.Kill();
             }
         }
 

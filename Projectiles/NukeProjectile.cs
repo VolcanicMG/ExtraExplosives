@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
@@ -26,47 +27,47 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = false;
-            projectile.width = 66;
-            projectile.height = 112;
-            projectile.aiStyle = 1;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 10000;
-            projectile.netImportant = true;
+            Projectile.tileCollide = false;
+            Projectile.width = 66;
+            Projectile.height = 112;
+            Projectile.aiStyle = 1;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 10000;
+            Projectile.netImportant = true;
             //projectile.scale = 1.5f;
         }
 
         public override void AI()
         {
             //send the projectiles position to the player's camera and set NukeActive to true
-            ExtraExplosives.NukePos = projectile.Center;
+            ExtraExplosives.NukePos = Projectile.Center;
 
             if (!firstTick)
             {
                 if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
                 {
-                    sound = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/wizz"));
+                    sound = SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/wizz"));
                 }
 
                 firstTick = true;
             }
 
-            if ((projectile.position.Y / 16) > Main.maxTilesY - 100) //check and see if the projectile is in the underworld if so destroy at maxtilesy - 100
+            if ((Projectile.position.Y / 16) > Main.maxTilesY - 100) //check and see if the projectile is in the underworld if so destroy at maxtilesy - 100
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
 
-            if ((projectile.position.Y / 16) > Main.worldSurface * 0.35) //Once the nuke drops bellow the amount turn tile collide on
+            if ((Projectile.position.Y / 16) > Main.worldSurface * 0.35) //Once the nuke drops bellow the amount turn tile collide on
             {
                 //Main.NewText("Set");
-                projectile.tileCollide = true;
+                Projectile.tileCollide = true;
             }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            projectile.Kill();
+            Projectile.Kill();
             return base.OnTileCollide(oldVelocity);
         }
 
@@ -90,7 +91,7 @@ namespace ExtraExplosives.Projectiles
             {
                 if (npc.active)
                 {
-                    npc.StrikeNPC(10000, projectile.knockBack, 1, false);
+                    npc.StrikeNPC(10000, Projectile.knockBack, 1, false);
                 }
             }
 
@@ -99,7 +100,7 @@ namespace ExtraExplosives.Projectiles
 
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
-                ModPacket myPacket = mod.GetPacket();
+                ModPacket myPacket = Mod.GetPacket();
                 myPacket.Write((byte)ExtraExplosives.EEMessageTypes.nukeHit);
                 myPacket.Send();
             }
@@ -117,7 +118,7 @@ namespace ExtraExplosives.Projectiles
 
             }
 
-            Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Explosion"));
+            SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Explosion"));
 
             //deactivate shaders and stuff
             ExtraExplosives.NukeActive = false;
@@ -125,11 +126,11 @@ namespace ExtraExplosives.Projectiles
 
             if (Main.netMode != NetmodeID.SinglePlayer)
             {
-                ModPacket myPacket = mod.GetPacket();
+                ModPacket myPacket = Mod.GetPacket();
                 myPacket.Write((byte)ExtraExplosives.EEMessageTypes.nukeNotActive);
                 myPacket.Send();
 
-                ModPacket myPacket2 = mod.GetPacket();
+                ModPacket myPacket2 = Mod.GetPacket();
                 myPacket2.Write((byte)ExtraExplosives.EEMessageTypes.nukeDeactivate);
                 myPacket2.Send();
             }
@@ -138,7 +139,7 @@ namespace ExtraExplosives.Projectiles
 
 
             //Create Bomb Explosion
-            CreateExplosion(projectile.Center, 160);
+            CreateExplosion(Projectile.Center, 160);
         }
 
         private void CreateExplosion(Vector2 position, int radius)
@@ -163,9 +164,9 @@ namespace ExtraExplosives.Projectiles
                     {
                         Tile tile = Framing.GetTileSafely(i, j);
 
-                        if (!WorldGen.TileEmpty(i, j) && tile.active())
+                        if (!WorldGen.TileEmpty(i, j) && tile.HasTile)
                         {
-                            if (!CanBreakTile(tile.type, pickPower)) continue;
+                            if (!CanBreakTile(tile.TileType, pickPower)) continue;
                             if (!CanBreakTiles) continue;
                             // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
                             // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
@@ -176,15 +177,15 @@ namespace ExtraExplosives.Projectiles
                             }
                             else
                             {
-                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type))
+                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType))
                                 {
                                     tile.ClearTile();
-                                    tile.active(false);
+                                    tile.HasTile = false;
                                 }
 
-                                if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
+                                if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
                                 {
-                                    Main.tile[i, j].liquid = Tile.Liquid_Water;
+                                    Main.tile[i, j].LiquidAmount = LiquidID.Water;
                                     WorldGen.SquareTileFrame(i, j, true);
                                 }
                             }
@@ -214,25 +215,25 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius - 1 + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
+                        Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
                     }
                     else if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
+                        Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
-                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        ushort tile = Main.tile[xPosition, yPosition].TileType;
                         if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                             if (!WorldGen.TileEmpty(xPosition, yPosition)) //Runs when a tile is not equal empty
                             {
                                 if (Main.rand.Next(10) < spawnChance)
                                 {
-                                    if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type))
+                                    if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType))
                                     {
                                         Main.tile[xPosition, yPosition].ClearTile();
-                                        Main.tile[xPosition, yPosition].active(false);
+                                        Main.tile[xPosition, yPosition].HasTile = false;
                                     }
                                     if (WorldGen.TileEmpty(xPosition + 1, yPosition) || WorldGen.TileEmpty(xPosition - 1, yPosition) || WorldGen.TileEmpty(xPosition, yPosition + 1) || WorldGen.TileEmpty(xPosition, yPosition - 1))
                                     {
@@ -252,10 +253,10 @@ namespace ExtraExplosives.Projectiles
                             {
                                 if (Main.rand.Next(10) < spawnChance)
                                 {
-                                    if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type))
+                                    if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType))
                                     {
                                         Main.tile[xPosition, yPosition].ClearTile();
-                                        Main.tile[xPosition, yPosition].active(false);
+                                        Main.tile[xPosition, yPosition].HasTile = false;
                                     }
                                     if (WorldGen.TileEmpty(xPosition + 1, yPosition) || WorldGen.TileEmpty(xPosition - 1, yPosition) || WorldGen.TileEmpty(xPosition, yPosition + 1) || WorldGen.TileEmpty(xPosition, yPosition - 1))
                                     {

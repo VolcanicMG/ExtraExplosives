@@ -12,26 +12,26 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true;
-            projectile.width = 18;
-            projectile.height = 14;
-            projectile.aiStyle = 0;
-            projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.penetrate = 1;
-            projectile.timeLeft = 100;
-            projectile.damage = 20;
+            Projectile.tileCollide = true;
+            Projectile.width = 18;
+            Projectile.height = 14;
+            Projectile.aiStyle = 0;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 100;
+            Projectile.damage = 20;
         }
 
         public override void AI()
         {
-            projectile.rotation = projectile.velocity.ToRotation();
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
         public override void Kill(int timeLeft)
         {
             Dust dust;
-            dust = Main.dust[Terraria.Dust.NewDust(projectile.Center, 2, 2, 6, 0f, 0, 0, Scale: 1.5f)];
+            dust = Main.dust[Terraria.Dust.NewDust(Projectile.Center, 2, 2, 6, 0f, 0, 0, Scale: 1.5f)];
         }
     }
 }

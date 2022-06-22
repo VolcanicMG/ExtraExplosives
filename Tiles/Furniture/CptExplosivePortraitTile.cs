@@ -9,7 +9,7 @@ namespace ExtraExplosives.Tiles.Furniture
 {
     public class CptExplosivePortraitTile : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileLavaDeath[Type] = true;
@@ -19,7 +19,7 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.addTile(Type);
-            dustType = 7;
+            DustType = 7;
             disableSmartCursor = true;
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Cpt Postrait");

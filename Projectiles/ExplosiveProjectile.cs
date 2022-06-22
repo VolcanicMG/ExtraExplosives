@@ -40,12 +40,12 @@ namespace ExtraExplosives.Projectiles
         {
             //constants throughout all bombs
             SafeSetDefaults();
-            projectile.melee = false;
-            projectile.ranged = false;
-            projectile.magic = false;
-            projectile.thrown = false;
-            projectile.minion = false;
-            projectile.netUpdate = true;
+            Projectile.melee = false;
+            Projectile.ranged = false;
+            Projectile.magic = false;
+            Projectile.thrown = false;
+            Projectile.minion = false;
+            Projectile.netUpdate = true;
             DangerousSetDefaults();
 
         }
@@ -54,7 +54,7 @@ namespace ExtraExplosives.Projectiles
         {
             if (!firstTick && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                NetMessage.SendData(MessageID.SyncProjectile, number: projectile.whoAmI);
+                NetMessage.SendData(MessageID.SyncProjectile, number: Projectile.whoAmI);
                 firstTick = true;
             }
         }
@@ -63,7 +63,7 @@ namespace ExtraExplosives.Projectiles
         {
             if (IgnoreTrinkets && !firstTickPreAI)
             {
-                ExtraExplosives.avoidList.Add(this.projectile.type);
+                ExtraExplosives.avoidList.Add(this.Projectile.type);
                 ExtraExplosives.avoidList.Distinct().ToList(); //Get rid of dupes because this will add one each time. (Need to find a spot after it gets it's id while loading)
                 firstTickPreAI = true;
             }
@@ -103,7 +103,7 @@ namespace ExtraExplosives.Projectiles
         /// <param name="color2"> Color of light when produced from an explosion </param>
         public virtual void DustEffects(Color color = default, Color color2 = default, int type = 1, bool shake = true, int dustType = 6, ArmorShaderData shader = null)
         {
-            ExplosionDust(radius, projectile.Center, color, color2, type, shake: shake, dustType: dustType, shader: shader);
+            ExplosionDust(radius, Projectile.Center, color, color2, type, shake: shake, dustType: dustType, shader: shader);
 
         }
 
@@ -112,7 +112,7 @@ namespace ExtraExplosives.Projectiles
         /// </summary>
         public virtual void DustEffectsRockets(Vector2 Direction, Color color = default, Color color2 = default, int type = 2)
         {
-            ExplosionDust(radius, projectile.Center, color, color2, type, Direction);
+            ExplosionDust(radius, Projectile.Center, color, color2, type, Direction);
         }
 
 
@@ -130,12 +130,12 @@ namespace ExtraExplosives.Projectiles
 
             // x and y are the tile offset of the current tile relative to the player
             // i and j are the true tile cords relative to 0,0 in the world
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
             if (pickPower < -1) return;
             if (player.EE().BombardEmblem) return;
 
-            Vector2 position = new Vector2(projectile.Center.X / 16f, projectile.Center.Y / 16f);    // Converts to tile cords for convenience
+            Vector2 position = new Vector2(Projectile.Center.X / 16f, Projectile.Center.Y / 16f);    // Converts to tile cords for convenience
 
             radius = (int)((radius + player.EE().RadiusBonus) * player.EE().RadiusMulti);
             for (int x = -radius;
@@ -155,15 +155,15 @@ namespace ExtraExplosives.Projectiles
                     {
                         Tile tile = Framing.GetTileSafely(i, j);
 
-                        if (!WorldGen.TileEmpty(i, j) && tile.active())
+                        if (!WorldGen.TileEmpty(i, j) && tile.HasTile)
                         {
-                            if (!CanBreakTile(tile.type, pickPower)) continue;
+                            if (!CanBreakTile(tile.TileType, pickPower)) continue;
                             //if (!CanBreakTiles) continue;
                             // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
                             // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
-                            if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.type])
+                            if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.TileType])
                             {
-                                int type = tile.type;
+                                int type = tile.TileType;
                                 WorldGen.KillTile((int)(i), (int)(j), false, false, false);
 
                                 if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
@@ -187,10 +187,10 @@ namespace ExtraExplosives.Projectiles
 
                             else
                             {
-                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type) && Main.tile[i, j - 1].type != 26)
+                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType) && Main.tile[i, j - 1].TileType != 26)
                                 {
                                     tile.ClearTile();
-                                    tile.active(false);
+                                    tile.HasTile = false;
 
                                     if (Main.netMode == NetmodeID.MultiplayerClient)
                                     {
@@ -199,7 +199,7 @@ namespace ExtraExplosives.Projectiles
                                     }
                                 }
 
-                                if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
+                                if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
                                 {
                                     WorldGen.SquareTileFrame(i, j, true);
                                 }
@@ -217,18 +217,18 @@ namespace ExtraExplosives.Projectiles
         /// </summary>
         public virtual void ExplosionDamage()
         {
-            if (Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
+            if (Main.player[Projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
             foreach (NPC npc in Main.npc)
             {
-                float dist = Vector2.Distance(npc.Center, projectile.Center);
+                float dist = Vector2.Distance(npc.Center, Projectile.Center);
                 if (dist / 16f <= radius)
                 {
                     int dir = (dist > 0) ? 1 : -1;
                     if (!DamageReducedNps.Contains(npc.type))
                     {
-                        npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+                        npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
                     }
-                    else npc.StrikeNPC(projectile.damage - (int)(projectile.damage * .5f), projectile.knockBack, dir, crit);
+                    else npc.StrikeNPC(Projectile.damage - (int)(Projectile.damage * .5f), Projectile.knockBack, dir, crit);
                 }
             }
 
@@ -238,16 +238,16 @@ namespace ExtraExplosives.Projectiles
                 if (!CanHitPlayer(player)) continue;
                 if (player.EE().BlastShielding &&
                     player.EE().BlastShieldingActive) continue;
-                float dist = Vector2.Distance(player.Center, projectile.Center);
+                float dist = Vector2.Distance(player.Center, Projectile.Center);
                 int dir = (dist > 0) ? 1 : -1;
                 if (dist / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer && InflictDamageSelf)
                 {
-                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
+                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir);
                     player.hurtCooldowns[0] += 15;
                 }
-                else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == projectile.owner && InflictDamageSelf)
+                else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == Projectile.owner && InflictDamageSelf)
                 {
-                    NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                    NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
 

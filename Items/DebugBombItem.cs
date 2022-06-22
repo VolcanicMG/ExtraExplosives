@@ -19,11 +19,11 @@ namespace ExtraExplosives.Items
 
         public override void SafeSetDefaults()
         {
-            item.CloneDefaults(167);
-            item.shoot = ModContent.ProjectileType<DebugBombProjectile>();
-            item.damage = 100;
-            item.knockBack = 100;
-            item.crit = 100;
+            Item.CloneDefaults(167);
+            Item.shoot = ModContent.ProjectileType<DebugBombProjectile>();
+            Item.damage = 100;
+            Item.knockBack = 100;
+            Item.crit = 100;
         }
 
         public override bool AltFunctionUse(Player player)

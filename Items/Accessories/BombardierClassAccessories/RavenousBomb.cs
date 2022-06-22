@@ -15,10 +15,10 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
 
         public override void SetDefaults()
         {
-            item.accessory = true;
-            item.value = 5000;
-            item.rare = ItemRarityID.Orange;
-            item.consumable = false;
+            Item.accessory = true;
+            Item.value = 5000;
+            Item.rare = ItemRarityID.Orange;
+            Item.consumable = false;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -27,12 +27,11 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<FleshyBlastingCaps>(), 1);
             recipe.AddIngredient(ItemID.PlanteraMask, 1);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

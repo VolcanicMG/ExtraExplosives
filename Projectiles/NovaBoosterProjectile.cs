@@ -13,14 +13,14 @@ namespace ExtraExplosives.Projectiles
 
         public override void ExplosionDamage()
         {
-            if (Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
+            if (Main.player[Projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
             foreach (NPC npc in Main.npc)
             {
-                float dist = Vector2.Distance(npc.Center, projectile.Center);
+                float dist = Vector2.Distance(npc.Center, Projectile.Center);
                 if (dist / 16f <= radius)
                 {
                     int dir = (dist > 0) ? 1 : -1;
-                    npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+                    npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
                 }
             }
         }

@@ -15,11 +15,11 @@ namespace ExtraExplosives.Projectiles
 
         public override void SafeSetDefaults()
         {
-            projectile.CloneDefaults(29);
-            projectile.timeLeft = 120;
-            projectile.penetrate = -1;
-            projectile.friendly = false;
-            projectile.hostile = false;
+            Projectile.CloneDefaults(29);
+            Projectile.timeLeft = 120;
+            Projectile.penetrate = -1;
+            Projectile.friendly = false;
+            Projectile.hostile = false;
             radius = 15;
         }
 

@@ -18,11 +18,11 @@ namespace ExtraExplosives.Items.Armors.Nova
 
         public override void SetDefaults()
         {
-            item.height = 18;
-            item.width = 18;
-            item.value = Item.buyPrice(0, 0, 0, 50);
-            item.rare = ItemRarityID.Red;
-            item.defense = 26;
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 0, 0, 50);
+            Item.rare = ItemRarityID.Red;
+            Item.defense = 26;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -52,13 +52,12 @@ namespace ExtraExplosives.Items.Armors.Nova
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.FragmentSolar, 10);
             recipe.AddIngredient(ItemID.LihzahrdPowerCell, 2);
             recipe.AddIngredient(ItemID.LunarBar, 10);
             recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
     }

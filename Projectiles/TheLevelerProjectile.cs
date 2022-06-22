@@ -27,39 +27,39 @@ namespace ExtraExplosives.Projectiles
         {
             pickPower = 64;
             radius = 20;
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 10;   //This defines the hitbox width
-            projectile.height = 10; //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 120; //The amount of time the projectile is alive for
-            projectile.damage = 0;
+            Projectile.tileCollide = true; //checks to see if the projectile can go through tiles
+            Projectile.width = 10;   //This defines the hitbox width
+            Projectile.height = 10; //This defines the hitbox height
+            Projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
+            Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
+            Projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
+            Projectile.timeLeft = 120; //The amount of time the projectile is alive for
+            Projectile.damage = 0;
 
-            drawOffsetX = -15;
-            drawOriginOffsetY = -15;
+            DrawOffsetX = -15;
+            DrawOriginOffsetY = -15;
             explodeSounds = new LegacySoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
         public override void AI()
         {
-            projectile.rotation = 0;
+            Projectile.rotation = 0;
         }
 
         public override bool OnTileCollide(Vector2 old)
         {
-            projectile.Kill();
+            Projectile.Kill();
             return true;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 
@@ -76,7 +76,7 @@ namespace ExtraExplosives.Projectiles
 			 */
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 700);
+            CreateDust(Projectile.Center, 700);
 
             //Create Bomb Damage
             //ExplosionDamage(20f * 2f, projectile.Center, 450, 40, projectile.owner);
@@ -88,14 +88,14 @@ namespace ExtraExplosives.Projectiles
             Vector2 gVel1 = new Vector2(4.0f, 4.0f);
             Vector2 gVel2 = new Vector2(0.0f, -4.0f);
             Vector2 gVel3 = new Vector2(-4.0f, 0.0f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel3), gVel3.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel3), gVel3.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         public override void Explosion()
         {
-            Vector2 position = projectile.Center;
+            Vector2 position = Projectile.Center;
 
             int x = 0;
             int y = 0;
@@ -114,21 +114,21 @@ namespace ExtraExplosives.Projectiles
 
                     Tile tile = Framing.GetTileSafely(xPosition, yPosition);
 
-                    if (WorldGen.InWorld(xPosition, yPosition) && tile.active()) //Circle
+                    if (WorldGen.InWorld(xPosition, yPosition) && tile.HasTile) //Circle
                     {
-                        if (!CanBreakTile(tile.type, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+                        if (!CanBreakTile(tile.TileType, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                         }
                         else //Breakable
                         {
-                            if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type) && Main.tile[xPosition, yPosition - 1].type != 26)
+                            if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType) && Main.tile[xPosition, yPosition - 1].TileType != 26)
                             {
                                 tile.ClearTile();
-                                tile.active(false);
+                                tile.HasTile = false;
 
                             }
 
-                            if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
+                            if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
                             {
                                 WorldGen.SquareTileFrame(xPosition, yPosition, true);
                             }
@@ -167,7 +167,7 @@ namespace ExtraExplosives.Projectiles
 
                         updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 320);
                         dust1 = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 320, 0, 0f, 0f, 171, new Color(33, 0, 255), 5.0f)];
-                        if (Vector2.Distance(dust1.position, projectile.Center) > 1000) dust1.active = false;
+                        if (Vector2.Distance(dust1.position, Projectile.Center) > 1000) dust1.active = false;
                         else
                         {
                             dust1.noLight = true;
@@ -176,7 +176,7 @@ namespace ExtraExplosives.Projectiles
                         }
                         updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 320);
                         dust2 = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 320, 148, 0f, 0.2631581f, 120, new Color(255, 226, 0), 2.039474f)];
-                        if (Vector2.Distance(dust2.position, projectile.Center) > 1000)
+                        if (Vector2.Distance(dust2.position, Projectile.Center) > 1000)
                         {
                             dust2.active = false;
                             continue;

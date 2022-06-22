@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -17,32 +19,32 @@ namespace ExtraExplosives.Projectiles
 
         public override void SafeSetDefaults()
         {
-            projectile.tileCollide = true;
-            projectile.width = 40;
-            projectile.height = 28;
-            projectile.aiStyle = 16;
-            projectile.friendly = false;
-            projectile.hostile = false;
+            Projectile.tileCollide = true;
+            Projectile.width = 40;
+            Projectile.height = 28;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = false;
+            Projectile.hostile = false;
             //projectile.penetrate = -1;
-            projectile.timeLeft = 150;
-            projectile.timeLeft = 10000000;
+            Projectile.timeLeft = 150;
+            Projectile.timeLeft = 10000000;
         }
         public override void AI()
         {
             if (!ExtraExplosives.boomBoxMusic && setToTrue)
             {
-                projectile.active = false;
+                Projectile.active = false;
                 //Create Bomb Sound
-                Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+                SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
                 //Create Bomb Dust
-                CreateDust(projectile.Center, 10);
+                CreateDust(Projectile.Center, 10);
 
                 //Create Bomb Gore
                 Vector2 gVel1 = new Vector2(-1f, 0f);
                 Vector2 gVel2 = new Vector2(0f, -1f);
-                Gore.NewGore(projectile.position, gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-                Gore.NewGore(projectile.position, gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+                Gore.NewGore(Projectile.position, gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+                Gore.NewGore(Projectile.position, gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -70,9 +72,9 @@ namespace ExtraExplosives.Projectiles
                     {
                         //updatedPosition = new Vector2(position.X, position.Y);
 
-                        updatedPosition = projectile.Center;
+                        updatedPosition = Projectile.Center;
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 6, 0f, 0.5263162f, 0, new Color(255, 0, 0), 4.539474f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > radius * 16) dust.active = false;
                         else
                         {
                             dust.noGravity = true;
@@ -85,9 +87,9 @@ namespace ExtraExplosives.Projectiles
                     {
                         //updatedPosition = new Vector2(position.X - 78 / 2, position.Y - 78 / 2);
 
-                        updatedPosition = projectile.Center;
+                        updatedPosition = Projectile.Center;
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 78, 78, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > radius * 16) dust.active = false;
                         else
                         {
                             dust.noGravity = true;
@@ -99,9 +101,9 @@ namespace ExtraExplosives.Projectiles
                     if (Main.rand.NextFloat() < 0.3f)
                     {
                         //updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
-                        updatedPosition = projectile.Center;
+                        updatedPosition = Projectile.Center;
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > radius * 16) dust.active = false;
                         else
                         {
                             dust.noGravity = true;

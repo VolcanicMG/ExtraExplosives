@@ -22,21 +22,21 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            item.damage = 40;
-            item.ranged = true;
-            item.width = 54;
-            item.height = 28;
-            item.useTime = 40;
-            item.useAnimation = 40;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true; //so the item's animation doesn't do damage
-            item.knockBack = 4;
-            item.value = 10000;
-            item.rare = ItemRarityID.LightRed;
-            item.autoReuse = true;
-            item.shoot = 134; //idk why but all the guns in the vanilla source have this
-            item.shootSpeed = 24;
-            item.useAmmo = AmmoID.Rocket;
+            Item.damage = 40;
+            Item.ranged = true;
+            Item.width = 54;
+            Item.height = 28;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true; //so the item's animation doesn't do damage
+            Item.knockBack = 4;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.LightRed;
+            Item.autoReuse = true;
+            Item.shoot = 134; //idk why but all the guns in the vanilla source have this
+            Item.shootSpeed = 24;
+            Item.useAmmo = AmmoID.Rocket;
 
             PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = null;
@@ -44,19 +44,19 @@ namespace ExtraExplosives.Items.Weapons
             for (int n = 1; n <= PrimarySounds.Length; n++)
             {
                 PrimarySounds[n - 1] =
-                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
             }
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.Mod == "Terraria");
             if (stats != null)
             {
-                string[] split = stats.text.Split(' ');
+                string[] split = stats.Text.Split(' ');
                 string damageValue = split.First();
                 string damageWord = split.Last();
-                stats.text = damageValue + " explosive " + damageWord;
+                stats.Text = damageValue + " explosive " + damageWord;
             }
         }
 
@@ -67,7 +67,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+            SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                 (int)player.position.X, (int)player.position.Y);
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;

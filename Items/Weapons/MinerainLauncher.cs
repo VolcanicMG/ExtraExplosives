@@ -1,11 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-    public class MinerainLauncher : ModItem
+    public class MinerainLauncher : ExplosiveWeapon
     {
         public override void SetStaticDefaults()
         {
@@ -13,36 +15,38 @@ namespace ExtraExplosives.Items.Weapons
             Tooltip.SetDefault("'Today's Forcast; Cloudy with a chance of death from above'");
         }
 
-        public override void SetDefaults()
+        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";
+
+        public override void SafeSetDefaults()
         {
-            item.damage = 25;
-            item.width = 56;
-            item.height = 40;
-            item.useTime = 60;
-            item.useAnimation = 60;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true; //so the item's animation doesn't do damage
-            item.knockBack = 4;
-            item.value = 10000;
-            item.rare = ItemRarityID.Orange;
-            item.UseSound = SoundID.Item11;
-            item.autoReuse = true;
-            item.shoot = 134; //idk why but all the guns in the vanilla source have this
-            item.shootSpeed = 10;
-            item.useAmmo = AmmoID.Rocket;
+            Item.damage = 25;
+            Item.width = 56;
+            Item.height = 40;
+            Item.useTime = 60;
+            Item.useAnimation = 60;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true; //so the item's animation doesn't do damage
+            Item.knockBack = 4;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.Orange;
+            Item.UseSound = SoundID.Item11;
+            Item.autoReuse = true;
+            Item.shoot = 134; //idk why but all the guns in the vanilla source have this
+            Item.shootSpeed = 10;
+            Item.useAmmo = AmmoID.Rocket;
         }
 
-        //public override void ModifyTooltips(List<TooltipLine> tooltips)
-        //{
-        //    TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
-        //    if (stats != null)
-        //    {
-        //        string[] split = stats.text.Split(' ');
-        //        string damageValue = split.First();
-        //        string damageWord = split.Last();
-        //        stats.text = damageValue + "x3 explosive " + damageWord;
-        //    }
-        //}
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.Mod == "Terraria");
+            if (stats != null)
+            {
+                string[] split = stats.Text.Split(' ');
+                string damageValue = split.First();
+                string damageWord = split.Last();
+                stats.Text = damageValue + " Explosive " + damageWord;
+            }
+        }
 
         public override Vector2? HoldoutOffset()
         {

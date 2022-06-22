@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -23,37 +24,37 @@ namespace ExtraExplosives.NPCs
         public override bool Autoload(ref string name)
         {
             name = "CaptainExplosive";
-            return mod.Properties.Autoload;
+            return Mod.Properties.Autoload;
         }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Captain Of Explosives");
-            Main.npcFrameCount[npc.type] = 25; //npc defines how many frames the npc sprite sheet has
-            NPCID.Sets.ExtraFramesCount[npc.type] = 9;
-            NPCID.Sets.AttackFrameCount[npc.type] = 4;
-            NPCID.Sets.DangerDetectRange[npc.type] = 750; //150 //npc defines the npc danger detect range
-            NPCID.Sets.AttackType[npc.type] = 0; //npc is the attack type,  0 (throwing), 1 (shooting), or 2 (magic). 3 (melee)
-            NPCID.Sets.AttackTime[npc.type] = 50; //npc defines the npc attack speed
-            NPCID.Sets.AttackAverageChance[npc.type] = 20;//npc defines the npc atack chance
-            NPCID.Sets.HatOffsetY[npc.type] = 4; //npc defines the party hat position
+            Main.npcFrameCount[NPC.type] = 25; //npc defines how many frames the npc sprite sheet has
+            NPCID.Sets.ExtraFramesCount[NPC.type] = 9;
+            NPCID.Sets.AttackFrameCount[NPC.type] = 4;
+            NPCID.Sets.DangerDetectRange[NPC.type] = 750; //150 //npc defines the npc danger detect range
+            NPCID.Sets.AttackType[NPC.type] = 0; //npc is the attack type,  0 (throwing), 1 (shooting), or 2 (magic). 3 (melee)
+            NPCID.Sets.AttackTime[NPC.type] = 50; //npc defines the npc attack speed
+            NPCID.Sets.AttackAverageChance[NPC.type] = 20;//npc defines the npc atack chance
+            NPCID.Sets.HatOffsetY[NPC.type] = 4; //npc defines the party hat position
         }
 
         public override void SetDefaults()
         {
             //npc.name = "Custom Town NPC";   //the name displayed when hovering over the npc ingame.
-            npc.townNPC = true; //npc defines if the npc is a town Npc or not
-            npc.friendly = true;  //npc defines if the npc can hur you or not()
-            npc.width = 40; //the npc sprite width
-            npc.height = 56;  //the npc sprite height
-            npc.aiStyle = 7; //npc is the npc ai style, 7 is Pasive Ai
-            npc.defense = 25;  //the npc defense
-            npc.lifeMax = 600;// the npc life
-            npc.HitSound = SoundID.NPCHit1;  //the npc sound when is hit
-            npc.DeathSound = SoundID.NPCDeath1;  //the npc sound when he dies
-            npc.knockBackResist = 0.5f;  //the npc knockback resistance
-            npc.boss = false;
-            animationType = NPCID.Guide;  //npc copy the guide animation
+            NPC.townNPC = true; //npc defines if the npc is a town Npc or not
+            NPC.friendly = true;  //npc defines if the npc can hur you or not()
+            NPC.width = 40; //the npc sprite width
+            NPC.height = 56;  //the npc sprite height
+            NPC.aiStyle = 7; //npc is the npc ai style, 7 is Pasive Ai
+            NPC.defense = 25;  //the npc defense
+            NPC.lifeMax = 600;// the npc life
+            NPC.HitSound = SoundID.NPCHit1;  //the npc sound when is hit
+            NPC.DeathSound = SoundID.NPCDeath1;  //the npc sound when he dies
+            NPC.knockBackResist = 0.5f;  //the npc knockback resistance
+            NPC.boss = false;
+            AnimationType = NPCID.Guide;  //npc copy the guide animation
         }
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money) //Whether or not the conditions have been met for npc town NPC to be able to move into town.
@@ -65,11 +66,11 @@ namespace ExtraExplosives.NPCs
 
         public override bool CheckActive()
         {
-            Vector2 position = npc.Center;
+            Vector2 position = NPC.Center;
             CaptianIsDed = false;
             Dust dust;
 
-            if (Main.rand.NextFloat() < 0.131579f && npc.direction == -1)
+            if (Main.rand.NextFloat() < 0.131579f && NPC.direction == -1)
             {
                 Vector2 position1 = new Vector2(position.X + 3, position.Y - 20);
 
@@ -77,7 +78,7 @@ namespace ExtraExplosives.NPCs
                 dust.noGravity = true;
                 dust.noLight = false;
             }
-            else if (Main.rand.NextFloat() < 0.131579f && npc.direction == 1)
+            else if (Main.rand.NextFloat() < 0.131579f && NPC.direction == 1)
             {
                 Vector2 position1 = new Vector2(position.X - 3, position.Y - 20);
 
@@ -113,16 +114,16 @@ namespace ExtraExplosives.NPCs
             CaptianIsDed = true;
 
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)npc.Center.X, (int)npc.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)NPC.Center.X, (int)NPC.Center.Y);
 
             //Create Bomb Dust
-            CreateDust(npc.Center, 100);
+            CreateDust(NPC.Center, 100);
 
             //Create Bomb Damage
-            ExplosionDamageEnemy(25, npc.Center, 1000, npc.whoAmI);
+            ExplosionDamageEnemy(25, NPC.Center, 1000, NPC.whoAmI);
 
             //Create Bomb Explosion
-            if (CanBreakTiles) CreateExplosion(npc.Center, 12);
+            if (CanBreakTiles) CreateExplosion(NPC.Center, 12);
 
             return base.CheckDead();
         }
@@ -138,7 +139,7 @@ namespace ExtraExplosives.NPCs
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        ushort tile = Main.tile[xPosition, yPosition].TileType;
                         if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                         }
@@ -400,7 +401,7 @@ namespace ExtraExplosives.NPCs
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)//Allows you to determine the projectile type of npc town NPC's attack, and how long it takes for the projectile to actually appear
         {
-            projType = mod.ProjectileType("NPCProjectile");
+            projType = Mod.Find<ModProjectile>("NPCProjectile").Type;
             attackDelay = 1;
         }
 

@@ -13,9 +13,9 @@ namespace ExtraExplosives.Items.Tiles.Furniture
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.WoodenTable);
-            item.createTile = ModContent.TileType<BombTableTile>();
-            item.placeStyle = 0;
+            Item.CloneDefaults(ItemID.WoodenTable);
+            Item.createTile = ModContent.TileType<BombTableTile>();
+            Item.placeStyle = 0;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace ExtraExplosives.Tiles.Furniture
 {
     public class BombCandleTile : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileLighted[Type] = true;
             Main.tileLavaDeath[Type] = true;
@@ -23,10 +23,10 @@ namespace ExtraExplosives.Tiles.Furniture
 
             TileObjectData.addTile(Type);
 
-            animationFrameHeight = 20;
+            AnimationFrameHeight = 20;
 
-            dustType = DustID.FlameBurst;
-            drop = mod.ItemType("BombCandleItem");
+            DustType = DustID.FlameBurst;
+            ItemDrop = Mod.Find<ModItem>("BombCandleItem").Type;
             AddMapEntry(new Color(255, 55, 55));
 
             Lighting.AddLight(Vector2.Zero, 210, 140, 100);
@@ -38,7 +38,7 @@ namespace ExtraExplosives.Tiles.Furniture
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             Tile tile = Main.tile[i, j];
-            if (tile.frameX < 66)
+            if (tile.TileFrameX < 66)
             {
                 r = 0.9f;
                 g = 0.9f;

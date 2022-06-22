@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -18,20 +20,20 @@ namespace ExtraExplosives.Projectiles
         {
             pickPower = 40;
             radius = 3;
-            projectile.tileCollide = true;
-            projectile.width = 26;
-            projectile.height = 22;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.width = 26;
+            Projectile.height = 22;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
             //projectile.hostile = false;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 150;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 150;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Dust
             DustEffects();
@@ -45,8 +47,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-1f, 0f);
             Vector2 gVel2 = new Vector2(0f, -1f);
-            Gore.NewGore(projectile.position, gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-            Gore.NewGore(projectile.position, gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            Gore.NewGore(Projectile.position, gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position, gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
     }
 }

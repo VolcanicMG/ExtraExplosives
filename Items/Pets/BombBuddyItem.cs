@@ -1,5 +1,6 @@
 using ExtraExplosives.Buffs;
 using ExtraExplosives.Pets;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,19 +17,19 @@ namespace ExtraExplosives.Items.Pets
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.Carrot);
-            item.shoot = ModContent.ProjectileType<BombBuddy>();
-            item.value = Item.buyPrice(1, 0, 0, 0);
-            item.rare = 9;
-            item.buffType = ModContent.BuffType<BombBuddyBuff>();
-            item.maxStack = 1;
+            Item.CloneDefaults(ItemID.Carrot);
+            Item.shoot = ModContent.ProjectileType<BombBuddy>();
+            Item.value = Item.buyPrice(1, 0, 0, 0);
+            Item.rare = 9;
+            Item.buffType = ModContent.BuffType<BombBuddyBuff>();
+            Item.maxStack = 1;
         }
 
-        public override void UseStyle(Player player)
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
             {
-                player.AddBuff(item.buffType, 3600, true);
+                player.AddBuff(Item.buffType, 3600, true);
             }
         }
     }

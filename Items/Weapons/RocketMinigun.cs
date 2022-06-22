@@ -17,24 +17,24 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.useStyle = 5;
-            item.autoReuse = true;
-            item.useAnimation = fireSpeed;
-            item.useTime = fireSpeed;
-            item.useAmmo = AmmoID.Rocket;
-            item.crit = 15;
-            item.width = 66;
-            item.height = 36;
-            item.shoot = 134;
-            item.UseSound = SoundID.Item11;
-            item.channel = true;
-            item.damage = 200;
-            item.shootSpeed = 10f;
-            item.noMelee = true;
-            item.value = Item.buyPrice(0, 15, 0, 50);
-            item.knockBack = 4f;
-            item.rare = 10;
-            item.ranged = true;
+            Item.useStyle = 5;
+            Item.autoReuse = true;
+            Item.useAnimation = fireSpeed;
+            Item.useTime = fireSpeed;
+            Item.useAmmo = AmmoID.Rocket;
+            Item.crit = 15;
+            Item.width = 66;
+            Item.height = 36;
+            Item.shoot = 134;
+            Item.UseSound = SoundID.Item11;
+            Item.channel = true;
+            Item.damage = 200;
+            Item.shootSpeed = 10f;
+            Item.noMelee = true;
+            Item.value = Item.buyPrice(0, 15, 0, 50);
+            Item.knockBack = 4f;
+            Item.rare = 10;
+            Item.ranged = true;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -61,14 +61,14 @@ namespace ExtraExplosives.Items.Weapons
         {
             if (player.channel == true)
             {
-                item.useTime = fireSpeed;
-                item.useAnimation = fireSpeed;
+                Item.useTime = fireSpeed;
+                Item.useAnimation = fireSpeed;
             }
             else if (player.channel == false)
             {
                 fireSpeed = 15;
-                item.useTime = fireSpeed;
-                item.useAnimation = fireSpeed;
+                Item.useTime = fireSpeed;
+                Item.useAnimation = fireSpeed;
             }
 
             base.HoldItem(player);
@@ -81,12 +81,11 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.RocketLauncher, 1);
             recipe.AddIngredient(ItemID.ChainGun, 1);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

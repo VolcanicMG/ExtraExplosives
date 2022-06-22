@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -20,25 +21,25 @@ namespace ExtraExplosives.Projectiles
         {
             pickPower = 65;
             radius = 40;
-            projectile.tileCollide = true;
-            projectile.width = 32;
-            projectile.height = 38;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.width = 32;
+            Projectile.height = 38;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
             //projectile.hostile = false;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 500;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 500;
             explodeSounds = new LegacySoundStyle[2];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 
@@ -63,12 +64,12 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(4.0f, 0.0f);
             Vector2 gVel2 = new Vector2(0.0f, -4.0f);
-            gVel1 = gVel1.RotatedBy(projectile.rotation);
-            gVel2 = gVel2.RotatedBy(projectile.rotation);
+            gVel1 = gVel1.RotatedBy(Projectile.rotation);
+            gVel2 = gVel2.RotatedBy(Projectile.rotation);
             for (int num = 0; num < 4; num++)
             {
-                Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1, mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale * 1.5f);
-                Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2, mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale * 1.5f);
+                Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1, Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale * 1.5f);
+                Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2, Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale * 1.5f);
                 gVel1 = gVel1.RotatedBy(Math.PI / 4);
                 gVel2 = gVel2.RotatedBy(Math.PI / 4);
             }

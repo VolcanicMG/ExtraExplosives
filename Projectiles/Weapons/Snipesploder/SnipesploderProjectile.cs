@@ -10,29 +10,29 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
     {
         private float LifeTime    // Tracks how long the projectile has been alive
         {
-            get => projectile.ai[0];
-            set => projectile.ai[0] = value;
+            get => Projectile.ai[0];
+            set => Projectile.ai[0] = value;
         }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Snipesploder");
-            Main.projFrames[projectile.type] = 2;
+            Main.projFrames[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            projectile.aiStyle = 1;
-            projectile.timeLeft = 31;
-            projectile.rotation = (float)Math.Atan(projectile.velocity.Y / projectile.velocity.X);
+            Projectile.aiStyle = 1;
+            Projectile.timeLeft = 31;
+            Projectile.rotation = (float)Math.Atan(Projectile.velocity.Y / Projectile.velocity.X);
         }
 
         public override bool PreAI()
         {
             LifeTime++;
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
             Vector2 playerHandPos = player.RotatedRelativePoint(player.MountedCenter, true);
-            projectile.Center = playerHandPos;
+            Projectile.Center = playerHandPos;
             //float angle = (float) Math.Acos(1 / Vector2.Distance(player.Center, projectile.Center));
             //Main.NewText(angle + " " + Vector2.Distance(player.Center, projectile.Center));
             return true;
@@ -42,9 +42,9 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
         {
             if ((int)LifeTime == 5)
             {
-                projectile.frame++;
+                Projectile.frame++;
 
-                Player player = Main.player[projectile.owner];
+                Player player = Main.player[Projectile.owner];
                 Vector2 playerHandPos = player.RotatedRelativePoint(player.MountedCenter, true);
                 Vector2 aim = Vector2.Normalize(Main.MouseWorld - playerHandPos);
                 if (aim.HasNaNs())
@@ -53,12 +53,12 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
                 }
 
                 Main.NewText("Spawned from projectile");
-                Projectile.NewProjectile(projectile.Center, aim * 10, ProjectileID.Dynamite, 0, 0, 255);
+                Projectile.NewProjectile(Projectile.Center, aim * 10, ProjectileID.Dynamite, 0, 0, 255);
             }
 
             if ((int)LifeTime > 30)
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
         }
     }

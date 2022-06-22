@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.Audio;
 using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -21,15 +22,15 @@ namespace ExtraExplosives.Projectiles
         {
             pickPower = 70;
             radius = 80;
-            projectile.tileCollide = true;
-            projectile.width = 40;
-            projectile.height = 40;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 800;
+            Projectile.tileCollide = true;
+            Projectile.width = 40;
+            Projectile.height = 40;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 800;
             //projectile.scale = 1.5f;
-            fuseSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + "Wick");
+            fuseSound = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + "Wick");
             if (!Main.dedServ)
             {
                 fuseSound = fuseSound.WithVolume(0.5f);
@@ -37,7 +38,7 @@ namespace ExtraExplosives.Projectiles
             explodeSounds = new LegacySoundStyle[2];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
@@ -45,16 +46,16 @@ namespace ExtraExplosives.Projectiles
         {
             if (!fusePlayed)
             {
-                Main.PlaySound(fuseSound, (int)projectile.Center.X, (int)projectile.Center.Y);
+                SoundEngine.PlaySound(fuseSound, (int)Projectile.Center.X, (int)Projectile.Center.Y);
                 fusePlayed = true;
             }
-            projectile.rotation = 0;
+            Projectile.rotation = 0;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 
@@ -81,8 +82,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0f, 3f);
             Vector2 gVel2 = new Vector2(-3f, -3f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
     }
 }

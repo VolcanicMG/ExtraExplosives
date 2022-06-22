@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.Graphics.Effects;
@@ -408,13 +409,13 @@ namespace ExtraExplosives
         {
             if (RadiatedDebuff)
             {
-                if (player.lifeRegen > 0)
+                if (Player.lifeRegen > 0)
                 {
-                    player.lifeRegen = 0;
+                    Player.lifeRegen = 0;
                 }
-                player.lifeRegenTime = 0;
+                Player.lifeRegenTime = 0;
                 // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
-                player.lifeRegen -= 30;
+                Player.lifeRegen -= 30;
             }
         }
 
@@ -477,7 +478,7 @@ namespace ExtraExplosives
             if (novaBoostRechargeDelay > 0)
             {
                 novaBoostRechargeDelay--; // if it needs to recharge, let it recharge
-                if (player.wingTime > 0 || boosting)    // Can only boost if there is 'fuel' (wingTime) left in the novaBooster	(ignore wingtime if already boosting)
+                if (Player.wingTime > 0 || boosting)    // Can only boost if there is 'fuel' (wingTime) left in the novaBooster	(ignore wingtime if already boosting)
                 {
                     switch (novaBoostRechargeDelay)
                     {
@@ -485,14 +486,14 @@ namespace ExtraExplosives
                         case 250:
                         case 200:
                             Projectile projectile = Projectile.NewProjectileDirect(
-                                new Vector2(player.Center.X, player.Center.Y), Vector2.Zero,
-                                ModContent.ProjectileType<NovaBoosterProjectile>(), 200, 1f, player.whoAmI);
+                                new Vector2(Player.Center.X, Player.Center.Y), Vector2.Zero,
+                                ModContent.ProjectileType<NovaBoosterProjectile>(), 200, 1f, Player.whoAmI);
                             projectile.timeLeft = 0;
                             projectile.friendly = true;
                             projectile.Kill();
                             break;
                         default:
-                            Vector2 dustPos = new Vector2(player.Center.X - 100, player.Center.Y - 100);
+                            Vector2 dustPos = new Vector2(Player.Center.X - 100, Player.Center.Y - 100);
                             Dust dust = Dust.NewDustDirect(dustPos, 200, 200, 57);
                             dust.noGravity = true;
                             dust.fadeIn = 1.2f;
@@ -502,10 +503,10 @@ namespace ExtraExplosives
             }
             else if (novaBooster &&
                 ExtraExplosives.TriggerBoost.JustPressed &&
-                player.velocity.Y != 0)
+                Player.velocity.Y != 0)
             {
                 novaBoostRechargeDelay = 300;
-                player.velocity *= 2.2f;
+                Player.velocity *= 2.2f;
                 boosting = true;
             }
 
@@ -513,15 +514,15 @@ namespace ExtraExplosives
             if (Nova && ExtraExplosives.TriggerNovaBomb.JustPressed && (novaBombRecharge >= 600))
             {
                 //Create Bomb Sound
-                Main.PlaySound(SoundID.Item14, (int)player.Center.X, (int)player.Center.Y);
+                SoundEngine.PlaySound(SoundID.Item14, (int)Player.Center.X, (int)Player.Center.Y);
 
                 novaBombRecharge = 0;
 
-                ExplosionDust(15, player.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
+                ExplosionDust(15, Player.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
 
                 foreach (NPC npc in Main.npc)
                 {
-                    float dist = Vector2.Distance(npc.Center, player.Center);
+                    float dist = Vector2.Distance(npc.Center, Player.Center);
                     if (dist / 16f <= 15)
                     {
                         int dir = (dist > 0) ? 1 : -1;
@@ -554,10 +555,10 @@ namespace ExtraExplosives
 
                 if (delayLizhard % 15 == 0)
                 {
-                    Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Hellfire"), (int)player.Center.X, (int)player.Center.Y);
+                    SoundEngine.PlaySound(Mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Hellfire"), (int)Player.Center.X, (int)Player.Center.Y);
 
                     Vector2 perturbedSpeed = new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(35)); //set spread
-                    Projectile.NewProjectileDirect(new Vector2(player.Center.X, player.Center.Y - player.height + 10), perturbedSpeed, ModContent.ProjectileType<SunRocket>(), (int)((DamageBonus + 120) * DamageMulti), 1, player.whoAmI);
+                    Projectile.NewProjectileDirect(new Vector2(Player.Center.X, Player.Center.Y - Player.height + 10), perturbedSpeed, ModContent.ProjectileType<SunRocket>(), (int)((DamageBonus + 120) * DamageMulti), 1, Player.whoAmI);
                 }
                 else if (delayLizhard >= 90)
                 {
@@ -588,9 +589,9 @@ namespace ExtraExplosives
             }
 
             //Dungeon bombard dodge
-            if (player == Main.player[player.whoAmI] && DungeonBombard && Main.rand.Next(10) == 0)
+            if (Player == Main.player[Player.whoAmI] && DungeonBombard && Main.rand.Next(10) == 0)
             {
-                player.NinjaDodge();
+                Player.NinjaDodge();
                 return false;
             }
 
@@ -601,7 +602,7 @@ namespace ExtraExplosives
         {
             if (BombCloak)
             {
-                Projectile.NewProjectileDirect(player.position, Vector2.Zero, ProjectileType<BombCloakProjectile>(), (int)((100 + DamageBonus) * DamageMulti), 10, player.whoAmI).timeLeft = 1;
+                Projectile.NewProjectileDirect(Player.position, Vector2.Zero, ProjectileType<BombCloakProjectile>(), (int)((100 + DamageBonus) * DamageMulti), 10, Player.whoAmI).timeLeft = 1;
             }
 
         }
@@ -626,7 +627,7 @@ namespace ExtraExplosives
         public override void PostUpdate()
         {
 
-            if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
+            if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !Player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
             {
                 Filters.Scene["Bang"].Deactivate();
             }
@@ -663,19 +664,19 @@ namespace ExtraExplosives
                 tickCheck = 1;
             }
 
-            if (MeltbomberFire && (player.velocity.X > 1 || player.velocity.X < -1)) //dust for the meltbomber
+            if (MeltbomberFire && (Player.velocity.X > 1 || Player.velocity.X < -1)) //dust for the meltbomber
             {
-                if (player.direction == 1 && Main.rand.NextFloat() < 0.6f)
+                if (Player.direction == 1 && Main.rand.NextFloat() < 0.6f)
                 {
 
-                    Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(player.BottomLeft.X - 5, player.BottomLeft.Y - 5), 2, 2, 6, 0f, 0f, 0, Scale: 2)];
+                    Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(Player.BottomLeft.X - 5, Player.BottomLeft.Y - 5), 2, 2, 6, 0f, 0f, 0, Scale: 2)];
                     dust.noGravity = true;
                     dust.noLight = false;
 
                 }
-                else if (player.direction == -1 && Main.rand.NextFloat() < 0.6f)
+                else if (Player.direction == -1 && Main.rand.NextFloat() < 0.6f)
                 {
-                    Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(player.BottomRight.X - 5, player.BottomRight.Y - 5), 2, 2, 6, 0f, 0f, 0, Scale: 2)];
+                    Dust dust = Main.dust[Terraria.Dust.NewDust(new Vector2(Player.BottomRight.X - 5, Player.BottomRight.Y - 5), 2, 2, 6, 0f, 0f, 0, Scale: 2)];
                     dust.noGravity = true;
                     dust.noLight = false;
                 }
@@ -698,7 +699,7 @@ namespace ExtraExplosives
 
             if (novaBooster)
             {
-                Lighting.AddLight(player.position, new Vector3(1f, 1f, 1f));
+                Lighting.AddLight(Player.position, new Vector3(1f, 1f, 1f));
                 Lighting.maxX = 1;
                 Lighting.maxY = 1;
             }
@@ -735,11 +736,11 @@ namespace ExtraExplosives
                 {
                     mp.wingFrameCounter = 0;
                     mp.wingFrame++;
-                    if (mp.wingFrame > 2 && mp.player.velocity.Y > 0)
+                    if (mp.wingFrame > 2 && mp.Player.velocity.Y > 0)
                     {
                         mp.wingFrame = 0;
                     }
-                    else if (mp.wingFrame > 5 && mp.player.velocity.Y < 0)
+                    else if (mp.wingFrame > 5 && mp.Player.velocity.Y < 0)
                     {
                         mp.wingFrame = 0;
                     }
@@ -757,12 +758,12 @@ namespace ExtraExplosives
                         mp.boosting = false;
                     }
                 }
-                DrawData data = new DrawData((mp.boosting ? BoosterHigh : Booster), new Vector2(drawX + mp.offset, drawY), new Rectangle(0, (mp.player.velocity.Y == 0 ? 6 * 44 : 44 * mp.wingFrame), 46, 44), new Microsoft.Xna.Framework.Color(255, 255, 255), 0f, new Vector2(Booster.Width / 2f, Booster.Height / 4f - 60), 1f, mp.effect, 0);
+                DrawData data = new DrawData((mp.boosting ? BoosterHigh : Booster), new Vector2(drawX + mp.offset, drawY), new Rectangle(0, (mp.Player.velocity.Y == 0 ? 6 * 44 : 44 * mp.wingFrame), 46, 44), new Microsoft.Xna.Framework.Color(255, 255, 255), 0f, new Vector2(Booster.Width / 2f, Booster.Height / 4f - 60), 1f, mp.effect, 0);
                 Main.playerDrawData.Add(data);
             });
         public override void ModifyDrawLayers(List<Terraria.ModLoader.PlayerLayer> layers) //Make the players invisable
         {
-            if (novaBooster && !player.dead)
+            if (novaBooster && !Player.dead)
             {
                 //layers.RemoveAt(5);
                 layers.Insert(5, Wings);
@@ -856,15 +857,15 @@ namespace ExtraExplosives
             if (ExtraExplosives.NukeActive == true)
             {
                 // Removed so i dont have to close the game each time i test the nuke
-                player.controlUseItem = false;
-                player.noBuilding = true;
-                player.controlUseTile = false;
+                Player.controlUseItem = false;
+                Player.noBuilding = true;
+                Player.controlUseTile = false;
                 if (Main.playerInventory)
                 {
-                    player.ToggleInv();
+                    Player.ToggleInv();
                 }
-                player.controlInv = false;
-                player.controlMap = false;
+                Player.controlInv = false;
+                Player.controlMap = false;
             }
         }
 
@@ -881,7 +882,7 @@ namespace ExtraExplosives
         {
         }
 
-        public override TagCompound Save()
+        public override void SaveData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound */
         {
             return new TagCompound  // save tag, leave whats here add more as needed
             {
@@ -904,7 +905,7 @@ namespace ExtraExplosives
             };
         }
 
-        public override void Load(TagCompound tag)
+        public override void LoadData(TagCompound tag)
         {
             // Main tag loading
             BlastShieldingActive = tag.GetBool(nameof(BlastShieldingActive));

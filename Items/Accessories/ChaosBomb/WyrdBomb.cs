@@ -17,22 +17,22 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
 
         public override void SetDefaults()
         {
-            item.width = 28;
-            item.height = 30;
-            item.value = 10000;
-            item.maxStack = 1;
-            item.rare = ItemRarityID.Yellow;
-            item.accessory = true;
+            Item.width = 28;
+            Item.height = 30;
+            Item.value = 10000;
+            Item.maxStack = 1;
+            Item.rare = ItemRarityID.Yellow;
+            Item.accessory = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            if (Main.player[item.owner].EE().AnarchistCookbook)
+            if (Main.player[Item.playerIndexTheItemIsReservedFor].EE().AnarchistCookbook)
             {
-                var synergyTooltipLine = new TooltipLine(mod, "synergyTooltipLine", $"Cookbook Synergies:\n" +
+                var synergyTooltipLine = new TooltipLine(Mod, "synergyTooltipLine", $"Cookbook Synergies:\n" +
                                                                                     $"Explosions spawn damaging spores\n" +
                                                                                     $"Bombs home in on enemies");
-                synergyTooltipLine.overrideColor = Color.LightCyan;
+                synergyTooltipLine.OverrideColor = Color.LightCyan;
                 tooltips.Add(synergyTooltipLine);
             }
         }
@@ -45,12 +45,11 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<Bombshroom>());
             recipe.AddIngredient(ModContent.ItemType<SupernaturalBomb>());
             recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

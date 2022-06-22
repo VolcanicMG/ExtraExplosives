@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -39,44 +40,44 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 6;
+            Main.npcFrameCount[NPC.type] = 6;
         }
 
         public override void SetDefaults()
         {
-            npc.width = 15;
-            npc.height = 15;
-            npc.Hitbox = new Rectangle(0, 0, 32, 32);
-            npc.damage = 0;
-            npc.defense = 5;
-            npc.lifeMax = 40;
-            npc.knockBackResist = 0f;
-            npc.noTileCollide = true;
-            npc.frame.Height = 22;
-            npc.frame.Width = 22;
-            npc.noGravity = false;
-            npc.aiStyle = -1;
-            npc.Center = new Vector2(11, 11);
-            npc.rotation = Main.rand.Next(360);
-            drawOffsetY = -5f;
+            NPC.width = 15;
+            NPC.height = 15;
+            NPC.Hitbox = new Rectangle(0, 0, 32, 32);
+            NPC.damage = 0;
+            NPC.defense = 5;
+            NPC.lifeMax = 40;
+            NPC.knockBackResist = 0f;
+            NPC.noTileCollide = true;
+            NPC.frame.Height = 22;
+            NPC.frame.Width = 22;
+            NPC.noGravity = false;
+            NPC.aiStyle = -1;
+            NPC.Center = new Vector2(11, 11);
+            NPC.rotation = Main.rand.Next(360);
+            DrawOffsetY = -5f;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax += 20;
-            npc.damage = (int)(npc.damage * 0.6f);
+            NPC.lifeMax += 20;
+            NPC.damage = (int)(NPC.damage * 0.6f);
         }
 
         // Animation code do not touch
         public override void FindFrame(int frameHeight)
         {
-            npc.frameCounter++;
-            if (npc.frameCounter > 10)    //<--- updates per frame
+            NPC.frameCounter++;
+            if (NPC.frameCounter > 10)    //<--- updates per frame
             {
-                npc.frameCounter = 0;
-                npc.frame.Y += frameHeight;
-                npc.frame.Y %= (frameHeight * 3);    //<----- number of frames (3 not 6 since only 3 are ever used at one time)
-                if (_targetAquired) npc.frame.Y += (frameHeight * 3);    // switches the frame set used 
+                NPC.frameCounter = 0;
+                NPC.frame.Y += frameHeight;
+                NPC.frame.Y %= (frameHeight * 3);    //<----- number of frames (3 not 6 since only 3 are ever used at one time)
+                if (_targetAquired) NPC.frame.Y += (frameHeight * 3);    // switches the frame set used 
             }
         }
 
@@ -159,7 +160,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override bool PreAI()
         {
-            npc.spriteDirection = npc.velocity.X > 0 ? 1 : -1;    // NPC will face the direction its moving
+            NPC.spriteDirection = NPC.velocity.X > 0 ? 1 : -1;    // NPC will face the direction its moving
             // if (Keyboard.GetState().PressingShift() && testTimer <= 0)
             //{
 
@@ -172,26 +173,26 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             }
             else if (spawnTimer-- > 0)
             {
-                npc.velocity.Y -= 0.05f;
+                NPC.velocity.Y -= 0.05f;
                 //npc.velocity.X += (npc.ai[0] - 1) * 3;
                 return false;
             }
             else if (spawnTimer-- == 0)
             {
                 //Main.NewText("Gravity", Color.Cyan);
-                npc.noGravity = true;
-                npc.velocity.Y = 0;
-                npc.rotation = 0;
+                NPC.noGravity = true;
+                NPC.velocity.Y = 0;
+                NPC.rotation = 0;
             }
 
-            npc.velocity.X *= 0.37f;
-            npc.rotation = npc.velocity.X / 15f;    // Rotate the sprite based on x velocity (makes movement seem convincing)
+            NPC.velocity.X *= 0.37f;
+            NPC.rotation = NPC.velocity.X / 15f;    // Rotate the sprite based on x velocity (makes movement seem convincing)
             if (_target == null)
             {
-                npc.TargetClosest();
+                NPC.TargetClosest();
                 // Main.NewText($"The target is {npc.HasPlayerTarget}");
-                _target = Main.player[npc.target];
-                npc.velocity.Y -= 16 / Vector2.Distance(npc.position, _target.position) / 16f;
+                _target = Main.player[NPC.target];
+                NPC.velocity.Y -= 16 / Vector2.Distance(NPC.position, _target.position) / 16f;
             }
             if (_targetAquired)     // The drone has found a target, skip to main AI
             {
@@ -200,11 +201,11 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
             if (_targetingFrames > 0)    // Targeting frames, the drone just hovers and locks in on the player
             {
-                float dist = npc.position.Y - (_target.position.Y + _cordOffset[1]);
+                float dist = NPC.position.Y - (_target.position.Y + _cordOffset[1]);
                 _targetingFrames--;
-                if (npc.position.Y > (_target.position.Y + _cordOffset[1]) - 256)        // catch in case the drone is below the player, somehow
+                if (NPC.position.Y > (_target.position.Y + _cordOffset[1]) - 256)        // catch in case the drone is below the player, somehow
                 {
-                    npc.velocity.Y -= 0.5f;
+                    NPC.velocity.Y -= 0.5f;
                 }
 
 
@@ -214,16 +215,16 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 //}
                 else if (dist > 60)
                 {
-                    npc.velocity.Y += 0.09f; // changes the y value so it stays near the player
+                    NPC.velocity.Y += 0.09f; // changes the y value so it stays near the player
                 }
                 else
                 {
-                    npc.velocity.Y *= 0.75f;    // if its above the player by the set amount slowly lower the y velocity
+                    NPC.velocity.Y *= 0.75f;    // if its above the player by the set amount slowly lower the y velocity
                 }
                 //Vector2 direction = (_target.Center - npc.Center).SafeNormalize(Vector2.UnitX);
                 //if (npc.position.X > _target.position.X)
                 // {
-                npc.velocity.X += ((_target.Center - npc.Center).SafeNormalize(Vector2.UnitX).X + (_cordOffset[0] / 10)) * speedX;
+                NPC.velocity.X += ((_target.Center - NPC.Center).SafeNormalize(Vector2.UnitX).X + (_cordOffset[0] / 10)) * speedX;
                 //}
                 //else
                 // {
@@ -233,7 +234,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
             if (_targetingFrames <= 0)
             {
-                _endTarget = _linearInterpolation(_target.position, npc.position);    // gets the cords of its target point
+                _endTarget = _linearInterpolation(_target.position, NPC.position);    // gets the cords of its target point
                 _targetAquired = true;
                 _targetingFrames = 30;
             }
@@ -242,48 +243,48 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void AI()
         {
-            if (_target.position.Y < npc.position.Y && Vector2.Distance(npc.position, _target.position) / 16f < 8) Kill();
-            Vector2 direction = Vector2.Normalize(npc.position - _endTarget);
+            if (_target.position.Y < NPC.position.Y && Vector2.Distance(NPC.position, _target.position) / 16f < 8) Kill();
+            Vector2 direction = Vector2.Normalize(NPC.position - _endTarget);
             if (_targetingFrames > 0)
             {
                 _targetingFrames--;
-                npc.velocity.X += direction.X * 8;
-                if (_target.position.Y < npc.position.Y)
+                NPC.velocity.X += direction.X * 8;
+                if (_target.position.Y < NPC.position.Y)
                 {
-                    npc.velocity.Y += direction.Y / 20f;
+                    NPC.velocity.Y += direction.Y / 20f;
                 }
                 else
                 {
-                    npc.velocity.Y += Vector2.Subtract(Vector2.Zero, direction).Y / 20f;
+                    NPC.velocity.Y += Vector2.Subtract(Vector2.Zero, direction).Y / 20f;
                 }
             }
 
             if (_targetingFrames == 0)
             {
                 _targetingFrames = -1;
-                _endTarget = _linearInterpolation(_target.position, npc.position);    // reaquire the target for better accuracy
+                _endTarget = _linearInterpolation(_target.position, NPC.position);    // reaquire the target for better accuracy
             }
 
             if (_targetingFrames < 0)    // Accelerate the first step for a more 'energetic' attack
             {
-                npc.damage = 40;
-                npc.velocity.X += direction.X * 8;
-                if (_target.position.Y < npc.position.Y)
+                NPC.damage = 40;
+                NPC.velocity.X += direction.X * 8;
+                if (_target.position.Y < NPC.position.Y)
                 {
-                    npc.velocity.Y += direction.Y / 3f;
+                    NPC.velocity.Y += direction.Y / 3f;
                 }
                 else
                 {
-                    npc.velocity.Y -= Vector2.Subtract(Vector2.Zero, direction).Y / 3f;
+                    NPC.velocity.Y -= Vector2.Subtract(Vector2.Zero, direction).Y / 3f;
                 }
             }
         }
 
         public override void PostAI()
         {
-            npc.FindFrame();
+            NPC.FindFrame();
             if (spawnTimer <= 0) return;
-            float rotation = npc.rotation % 360;
+            float rotation = NPC.rotation % 360;
 
 
             if (rotation != 0)
@@ -291,12 +292,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 if (rotation > 90 && rotation < 270) // rotated between 1 and 180 degrees
                 {
                     // Main.NewText($"Rotating: {(float)Math.Cos(npc.rotation/180 * 2 * Math.PI)/10}");
-                    npc.rotation -= (float)Math.Cos(npc.rotation / 180 * 2 * Math.PI) / 5;
+                    NPC.rotation -= (float)Math.Cos(NPC.rotation / 180 * 2 * Math.PI) / 5;
                 }
                 else  // rotated between 180 and 359 degrees
                 {
                     // Main.NewText($"Rotating: {(float)Math.Sin(npc.rotation/180 * 2 * Math.PI)/10}");
-                    npc.rotation += (float)Math.Sin(npc.rotation / 180 * 2 * Math.PI) / 5;
+                    NPC.rotation += (float)Math.Sin(NPC.rotation / 180 * 2 * Math.PI) / 5;
                 }
             }
 
@@ -317,15 +318,15 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             // Explode
             if (ExtraExplosives.CheckBossBreak)
             {
-                CreateExplosion(npc.position, 4);
+                CreateExplosion(NPC.position, 4);
             }
 
-            Main.PlaySound(SoundID.Item14, (int)npc.position.X, (int)npc.position.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)NPC.position.X, (int)NPC.position.Y);
 
-            CreateDust(npc.Center, 50);
-            ExplosionDamageEnemy(4, npc.Center, npc.damage, ModContent.NPCType<CaptainExplosiveBoss>());
+            CreateDust(NPC.Center, 50);
+            ExplosionDamageEnemy(4, NPC.Center, NPC.damage, ModContent.NPCType<CaptainExplosiveBoss>());
             // kill the drone
-            npc.life = 0;
+            NPC.life = 0;
         }
 
         public override bool CheckDead()
@@ -345,7 +346,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        ushort tile = Main.tile[xPosition, yPosition].TileType;
                         if (!CanBreakTile(tile, 0)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                         }
@@ -405,9 +406,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             }
         }
 
-        public override void NPCLoot()
+        public override void OnKill()
         {
-            base.NPCLoot();
+            base.OnKill();
         }
 
         /*private void _moveEvent(int playerId)

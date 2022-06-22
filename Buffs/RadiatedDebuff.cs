@@ -7,7 +7,7 @@ namespace ExtraExplosives.Buffs
 {
     public class RadiatedDebuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Radiated");
             Description.SetDefault("Your flesh is deteriorating");

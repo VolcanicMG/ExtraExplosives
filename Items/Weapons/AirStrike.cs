@@ -16,23 +16,23 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.useStyle = 5;
-            item.autoReuse = true;
-            item.useAnimation = 140;
-            item.useTime = 140;
-            item.useAmmo = AmmoID.Rocket;
-            item.width = 66;
-            item.height = 36;
-            item.shoot = ProjectileID.RocketI;
-            item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/AirStrike_Call");
+            Item.useStyle = 5;
+            Item.autoReuse = true;
+            Item.useAnimation = 140;
+            Item.useTime = 140;
+            Item.useAmmo = AmmoID.Rocket;
+            Item.width = 66;
+            Item.height = 36;
+            Item.shoot = ProjectileID.RocketI;
+            Item.UseSound = Mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/AirStrike_Call");
             //item.channel = true;
-            item.damage = 200;
-            item.shootSpeed = 10f;
-            item.noMelee = true;
-            item.value = Item.buyPrice(0, 30, 0, 50);
-            item.knockBack = 4f;
-            item.rare = 9;
-            item.ranged = true;
+            Item.damage = 200;
+            Item.shootSpeed = 10f;
+            Item.noMelee = true;
+            Item.value = Item.buyPrice(0, 30, 0, 50);
+            Item.knockBack = 4f;
+            Item.rare = 9;
+            Item.ranged = true;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -48,7 +48,7 @@ namespace ExtraExplosives.Items.Weapons
                 if ((double)num13 < 0.0) num13 *= -1f;
                 if ((double)num13 < 20.0) num13 = 20f;
                 float num14 = (float)Math.Sqrt((double)num12 * (double)num12 + (double)num13 * (double)num13);
-                float num15 = item.shootSpeed / num14;
+                float num15 = Item.shootSpeed / num14;
                 float num16 = num12 * num15;
                 float num17 = num13 * num15;
                 float SpeedX = num16 + (float)Main.rand.Next(-40, 41) * 0.02f; //change the Main.rand.Next here to, for example, (-10, 11) to reduce the spread. Change this to 0 to remove it altogether
@@ -77,12 +77,11 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.RocketLauncher, 1);
             recipe.AddIngredient(ItemID.DaedalusStormbow, 1);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

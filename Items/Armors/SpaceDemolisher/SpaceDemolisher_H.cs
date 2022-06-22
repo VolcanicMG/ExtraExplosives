@@ -16,11 +16,11 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
 
         public override void SetDefaults()
         {
-            item.height = 18;
-            item.width = 18;
-            item.value = Item.buyPrice(0, 0, 60, 50);
-            item.rare = ItemRarityID.LightRed;
-            item.defense = 11;
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 0, 60, 50);
+            Item.rare = ItemRarityID.LightRed;
+            Item.defense = 11;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -52,11 +52,10 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.PalladiumBar, 10);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
     }

@@ -39,11 +39,11 @@ namespace ExtraExplosives.NPCs
             }
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void OnKill(NPC npc)
         {
             if (npc.boss && Main.expertMode)
             {
-                if (Main.rand.NextFloat() < 0.10210526f && npc.type != mod.NPCType("CaptainExplosive"))
+                if (Main.rand.NextFloat() < 0.10210526f && npc.type != Mod.Find<ModNPC>("CaptainExplosive").Type)
                 {
                     Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BreakenTheBankenItem>(), 1);
                 }

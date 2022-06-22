@@ -20,28 +20,28 @@ namespace ExtraExplosives.Projectiles
 
         public override void SafeSetDefaults()
         {
-            projectile.tileCollide = false;
-            projectile.width = 20;
-            projectile.height = 20;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 5;
-            projectile.Opacity = 0f;
-            projectile.ranged = true;
-            projectile.scale = DamageRadius; //DamageRadius
+            Projectile.tileCollide = false;
+            Projectile.width = 20;
+            Projectile.height = 20;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 5;
+            Projectile.Opacity = 0f;
+            Projectile.ranged = true;
+            Projectile.scale = DamageRadius; //DamageRadius
                                              //projectile.scale = 5;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (!crit && Main.player[projectile.owner].GetModPlayer<ExtraExplosivesPlayer>().CrossedWires &&
+            if (!crit && Main.player[Projectile.owner].GetModPlayer<ExtraExplosivesPlayer>().CrossedWires &&
                 Main.rand.Next(5) == 0)
             {
                 crit = true;
             }
-            Main.NewText((int)((damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti));
-            base.OnHitPlayer(target, (int)((damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), crit);
+            Main.NewText((int)((damage + Main.player[Projectile.owner].EE().DamageBonus) * Main.player[Projectile.owner].EE().DamageMulti));
+            base.OnHitPlayer(target, (int)((damage + Main.player[Projectile.owner].EE().DamageBonus) * Main.player[Projectile.owner].EE().DamageMulti), crit);
         }
 
         public override bool? CanHitNPC(NPC target)

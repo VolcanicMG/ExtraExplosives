@@ -8,7 +8,7 @@ namespace ExtraExplosives.Tiles.Furniture
 {
     public class NukePosterTile : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             TileID.Sets.FramesOnKillWall[Type] = true;
@@ -23,7 +23,7 @@ namespace ExtraExplosives.Tiles.Furniture
             name.SetDefault("Bomb Chair");
             AddMapEntry(new Color(200, 200, 200), name);
             disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Tables };
+            AdjTiles = new int[] { TileID.Tables };
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
         {

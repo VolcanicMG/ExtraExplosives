@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -321,7 +322,7 @@ namespace ExtraExplosives.UI
                         Main.hoverItemName = "Combine";
                         if (!tickPlayed)
                         {
-                            Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+                            SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
                         }
                         tickPlayed = true;
                         Main.LocalPlayer.mouseInterface = true;
@@ -341,12 +342,12 @@ namespace ExtraExplosives.UI
                                     {
                                         if (checkItem.type == ModContent.ItemType<BulletBoomItem>())
                                         {
-                                            BulletBoomItem modCheckItem = (BulletBoomItem)checkItem.modItem;
-                                            if (modCheckItem.item.shoot == _vanillaItemSlot2.Item.shoot && modCheckItem.overStack <= 998)
+                                            BulletBoomItem modCheckItem = (BulletBoomItem)checkItem.ModItem;
+                                            if (modCheckItem.Item.shoot == _vanillaItemSlot2.Item.shoot && modCheckItem.overStack <= 998)
                                             {
 
                                                 modCheckItem.overStack++;
-                                                ItemText.NewText(modCheckItem.item, modCheckItem.overStack, true, false);
+                                                ItemText.NewText(modCheckItem.Item, modCheckItem.overStack, true, false);
                                                 flag = true;
                                             }
                                         }
@@ -367,7 +368,7 @@ namespace ExtraExplosives.UI
                                         Main.item[itemInt]
                                             .SetNameOverride(sb.ToString() + " Bullet Boom");
                                         Main.item[itemInt].damage = _vanillaItemSlot2.Item.damage;
-                                        BulletBoomItem tmp = (BulletBoomItem)Main.item[itemInt].modItem;
+                                        BulletBoomItem tmp = (BulletBoomItem)Main.item[itemInt].ModItem;
                                         tmp.bulletType = _vanillaItemSlot2.Item.Name;
                                         tmp.overStack++;
                                     }
@@ -385,7 +386,7 @@ namespace ExtraExplosives.UI
 
                                 //ItemLoader.PostReforge(_vanillaItemSlot.Item);
                                 //ItemLoader.PostReforge(_vanillaItemSlot2.Item);
-                                Main.PlaySound(SoundID.Item37, -1, -1);
+                                SoundEngine.PlaySound(SoundID.Item37, -1, -1);
                             }
                         }
                     }
@@ -395,7 +396,7 @@ namespace ExtraExplosives.UI
                         Main.hoverItemName = "Combine Ten";
                         if (!tickPlayed)
                         {
-                            Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+                            SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
                         }
                         tickPlayed = true;
                         Main.LocalPlayer.mouseInterface = true;
@@ -415,12 +416,12 @@ namespace ExtraExplosives.UI
                                     {
                                         if (checkItem.type == ModContent.ItemType<BulletBoomItem>())
                                         {
-                                            BulletBoomItem modCheckItem = (BulletBoomItem)checkItem.modItem;
-                                            if (modCheckItem.item.shoot == _vanillaItemSlot2.Item.shoot && modCheckItem.overStack <= 998)
+                                            BulletBoomItem modCheckItem = (BulletBoomItem)checkItem.ModItem;
+                                            if (modCheckItem.Item.shoot == _vanillaItemSlot2.Item.shoot && modCheckItem.overStack <= 998)
                                             {
 
                                                 modCheckItem.overStack += 10;
-                                                ItemText.NewText(modCheckItem.item, modCheckItem.overStack, true, false);
+                                                ItemText.NewText(modCheckItem.Item, modCheckItem.overStack, true, false);
                                                 flag = true;
                                             }
                                         }
@@ -441,7 +442,7 @@ namespace ExtraExplosives.UI
                                         Main.item[itemInt]
                                             .SetNameOverride(sb.ToString() + " Bullet Boom");
                                         Main.item[itemInt].damage = _vanillaItemSlot2.Item.damage;
-                                        BulletBoomItem tmp = (BulletBoomItem)Main.item[itemInt].modItem;
+                                        BulletBoomItem tmp = (BulletBoomItem)Main.item[itemInt].ModItem;
                                         tmp.bulletType = _vanillaItemSlot2.Item.Name;
                                         tmp.overStack += 10;
                                     }
@@ -459,7 +460,7 @@ namespace ExtraExplosives.UI
 
                                 //ItemLoader.PostReforge(_vanillaItemSlot.Item);
                                 //ItemLoader.PostReforge(_vanillaItemSlot2.Item);
-                                Main.PlaySound(SoundID.Item37, -1, -1);
+                                SoundEngine.PlaySound(SoundID.Item37, -1, -1);
                             }
                         }
                     }

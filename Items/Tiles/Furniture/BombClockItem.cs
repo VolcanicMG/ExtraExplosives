@@ -13,10 +13,10 @@ namespace ExtraExplosives.Items.Tiles.Furniture
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.GrandfatherClock);
-            item.width = 32;
-            item.height = 96;
-            item.createTile = ModContent.TileType<BombClockTile>();
+            Item.CloneDefaults(ItemID.GrandfatherClock);
+            Item.width = 32;
+            Item.height = 96;
+            Item.createTile = ModContent.TileType<BombClockTile>();
         }
     }
 }

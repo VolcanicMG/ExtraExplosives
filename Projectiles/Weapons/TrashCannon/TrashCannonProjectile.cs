@@ -13,26 +13,26 @@ namespace ExtraExplosives.Projectiles.Weapons.TrashCannon
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Garbage");    // Name used in death messages
-            Main.projFrames[projectile.type] = 12;
+            Main.projFrames[Projectile.type] = 12;
         }
 
         public override void SafeSetDefaults()
         {
             radius = 2;
             pickPower = -2;    // No blocks broken
-            projectile.height = 11;
-            projectile.width = 11;
-            projectile.aiStyle = 16;
-            projectile.timeLeft = 300;
-            projectile.friendly = true;
-            projectile.tileCollide = true;
-            projectile.penetrate = 1;
-            projectile.frame = Main.rand.Next(13);
+            Projectile.height = 11;
+            Projectile.width = 11;
+            Projectile.aiStyle = 16;
+            Projectile.timeLeft = 300;
+            Projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.penetrate = 1;
+            Projectile.frame = Main.rand.Next(13);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            projectile.Kill();
+            Projectile.Kill();
             return true;
         }
 
@@ -40,7 +40,7 @@ namespace ExtraExplosives.Projectiles.Weapons.TrashCannon
         {
             Explosion();
             ExplosionDamage();
-            ExplosionDust(radius, projectile.Center, shake: false);
+            ExplosionDust(radius, Projectile.Center, shake: false);
             base.Kill(timeLeft);
         } 
     }

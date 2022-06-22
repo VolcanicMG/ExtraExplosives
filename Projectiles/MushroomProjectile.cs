@@ -12,26 +12,26 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.width = 12;
-            projectile.height = 18;
-            projectile.timeLeft = 3000;
-            projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.light = .8f;
-            projectile.tileCollide = false;
-            projectile.damage = 100;
+            Projectile.width = 12;
+            Projectile.height = 18;
+            Projectile.timeLeft = 3000;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.light = .8f;
+            Projectile.tileCollide = false;
+            Projectile.damage = 100;
         }
 
         public override void AI()
         {
-            if (Main.myPlayer != projectile.owner) return;
-            Player player = Main.player[projectile.owner];
-            if (projectile.position.X < player.Center.X - Main.screenWidth / 2 ||
-                projectile.position.X > player.Center.X + Main.screenWidth / 2 ||
-                projectile.position.Y < player.Center.Y - Main.screenHeight / 2 ||
-                projectile.position.Y > player.Center.Y + Main.screenHeight / 2)
+            if (Main.myPlayer != Projectile.owner) return;
+            Player player = Main.player[Projectile.owner];
+            if (Projectile.position.X < player.Center.X - Main.screenWidth / 2 ||
+                Projectile.position.X > player.Center.X + Main.screenWidth / 2 ||
+                Projectile.position.Y < player.Center.Y - Main.screenHeight / 2 ||
+                Projectile.position.Y > player.Center.Y + Main.screenHeight / 2)
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
 
             // Does nothing, just float, will add code to emulate the Vanilla NPC

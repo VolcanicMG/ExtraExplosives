@@ -7,7 +7,7 @@ namespace ExtraExplosives.Tiles.Furniture
 {
     public class BombFireplaceTile : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileLighted[Type] = true;
             Main.tileLavaDeath[Type] = true;
@@ -17,20 +17,20 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.CopyFrom(TileObjectData.Style4x2);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
             TileObjectData.newTile.CoordinatePadding = 2;
-            animationFrameHeight = 36;
+            AnimationFrameHeight = 36;
             TileObjectData.addTile(Type);
 
             Lighting.AddLight(Vector2.Zero, 210, 140, 100);
             Lighting.brightness = 100;
 
-            drop = mod.ItemType("BombFireplaceItem");
+            ItemDrop = Mod.Find<ModItem>("BombFireplaceItem").Type;
             AddMapEntry(new Color(255, 55, 55));
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             Tile tile = Main.tile[i, j];
-            if (tile.frameX < 66)
+            if (tile.TileFrameX < 66)
             {
                 r = 0.9f;
                 g = 0.9f;

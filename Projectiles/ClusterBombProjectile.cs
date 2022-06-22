@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -26,19 +27,19 @@ namespace ExtraExplosives.Projectiles
         {
             pickPower = 50;
             radius = 14;
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 40;   //This defines the hitbox width
-            projectile.height = 40; //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 150; //The amount of time the projectile is alive for
+            Projectile.tileCollide = true; //checks to see if the projectile can go through tiles
+            Projectile.width = 40;   //This defines the hitbox width
+            Projectile.height = 40; //This defines the hitbox height
+            Projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
+            Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
+            Projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
+            Projectile.timeLeft = 150; //The amount of time the projectile is alive for
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Dust
             DustEffects();
@@ -50,16 +51,16 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-3f, 0f);
             Vector2 gVel2 = new Vector2(1f, -3f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
 
         }
 
         public override void Explosion()
         {
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
-            Vector2 position = projectile.Center;
+            Vector2 position = Projectile.Center;
             for (int x = -radius; x <= radius; x++)
             {
                 for (int y = -radius; y <= radius; y++)
@@ -69,15 +70,15 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(i, j))) //Circle
                     {
-                        ushort tile = Main.tile[i, j].type;
+                        ushort tile = Main.tile[i, j].TileType;
                         if (!CanBreakTile(tile, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                         }
                         else //Breakable
                         {
-                            if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[Main.tile[i, j].type])
+                            if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[Main.tile[i, j].TileType])
                             {
-                                int type = Main.tile[i, j].type;
+                                int type = Main.tile[i, j].TileType;
                                 WorldGen.KillTile((int)(i), (int)(j), false, false, false);
 
                                 if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
@@ -101,8 +102,8 @@ namespace ExtraExplosives.Projectiles
                             else
                             {
 
-                                if (Main.rand.Next(100) == 1) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<ClusterBombChildProjectile>(), 150, 10, projectile.owner);
-                                if (Main.player[projectile.owner].EE().BombardEmblem) continue;
+                                if (Main.rand.Next(100) == 1) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<ClusterBombChildProjectile>(), 150, 10, Projectile.owner);
+                                if (Main.player[Projectile.owner].EE().BombardEmblem) continue;
                                 Main.tile[i, j].ClearTile();
                                 //WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
                                 if (CanBreakWalls) WorldGen.KillWall(i, j, false); //This destroys Walls

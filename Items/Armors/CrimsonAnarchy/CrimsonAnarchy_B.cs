@@ -15,11 +15,11 @@ namespace ExtraExplosives.Items.Armors.CrimsonAnarchy
 
         public override void SetDefaults()
         {
-            item.height = 18;
-            item.width = 18;
-            item.value = Item.buyPrice(0, 0, 1, 50);
-            item.rare = ItemRarityID.Blue;
-            item.defense = 7;
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 0, 1, 50);
+            Item.rare = ItemRarityID.Blue;
+            Item.defense = 7;
         }
 
         public override void UpdateEquip(Player player)
@@ -29,12 +29,11 @@ namespace ExtraExplosives.Items.Armors.CrimsonAnarchy
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.CrimtaneBar, 19);
             recipe.AddIngredient(ItemID.TissueSample, 15);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
     }

@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.GameContent.ObjectInteractions;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -13,7 +15,7 @@ namespace ExtraExplosives.Tiles.Furniture
     public class BombDresserTile : ModTile
     {
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
@@ -37,38 +39,38 @@ namespace ExtraExplosives.Tiles.Furniture
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Bomb Dresser");
             AddMapEntry(new Color(200, 200, 200), name);
-            dustType = 119;
+            DustType = 119;
             disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Dressers };
+            AdjTiles = new int[] { TileID.Dressers };
             dresser = "Bomb Dresser";
-            dresserDrop = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
+            DresserDrop = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
         }
-        public override bool HasSmartInteract()
+        public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
         {
             return true;
         }
 
-        public override bool NewRightClick(int i, int j)
+        public override bool RightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
-            if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameY == 0)
+            if (Main.tile[Player.tileTargetX, Player.tileTargetY].TileFrameY == 0)
             {
                 Main.CancelClothesWindow(true);
                 Main.mouseRightRelease = false;
-                int left = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18);
+                int left = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].TileFrameX / 18);
                 left %= 3;
                 left = Player.tileTargetX - left;
-                int top = Player.tileTargetY - (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18);
+                int top = Player.tileTargetY - (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].TileFrameY / 18);
                 if (player.sign > -1)
                 {
-                    Main.PlaySound(SoundID.MenuClose);
+                    SoundEngine.PlaySound(SoundID.MenuClose);
                     player.sign = -1;
                     Main.editSign = false;
                     Main.npcChatText = string.Empty;
                 }
                 if (Main.editChest)
                 {
-                    Main.PlaySound(SoundID.MenuTick);
+                    SoundEngine.PlaySound(SoundID.MenuTick);
                     Main.editChest = false;
                     Main.npcChatText = string.Empty;
                 }
@@ -83,7 +85,7 @@ namespace ExtraExplosives.Tiles.Furniture
                     {
                         player.chest = -1;
                         Recipe.FindRecipes();
-                        Main.PlaySound(SoundID.MenuClose);
+                        SoundEngine.PlaySound(SoundID.MenuClose);
                     }
                     else
                     {
@@ -102,14 +104,14 @@ namespace ExtraExplosives.Tiles.Furniture
                         {
                             player.chest = -1;
                             Recipe.FindRecipes();
-                            Main.PlaySound(SoundID.MenuClose);
+                            SoundEngine.PlaySound(SoundID.MenuClose);
                         }
                         else if (num213 != player.chest && player.chest == -1)
                         {
                             player.chest = num213;
                             Main.playerInventory = true;
                             Main.recBigList = false;
-                            Main.PlaySound(SoundID.MenuOpen);
+                            SoundEngine.PlaySound(SoundID.MenuOpen);
                             player.chestX = left;
                             player.chestY = top;
                         }
@@ -118,7 +120,7 @@ namespace ExtraExplosives.Tiles.Furniture
                             player.chest = num213;
                             Main.playerInventory = true;
                             Main.recBigList = false;
-                            Main.PlaySound(SoundID.MenuTick);
+                            SoundEngine.PlaySound(SoundID.MenuTick);
                             player.chestX = left;
                             player.chestY = top;
                         }
@@ -131,8 +133,8 @@ namespace ExtraExplosives.Tiles.Furniture
                 Main.playerInventory = false;
                 player.chest = -1;
                 Recipe.FindRecipes();
-                Main.dresserX = Player.tileTargetX;
-                Main.dresserY = Player.tileTargetY;
+                Main.interactedDresserTopLeftX = Player.tileTargetX;
+                Main.interactedDresserTopLeftY = Player.tileTargetY;
                 Main.OpenClothesWindow();
             }
             return true;
@@ -144,39 +146,39 @@ namespace ExtraExplosives.Tiles.Furniture
             Tile tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
             int left = Player.tileTargetX;
             int top = Player.tileTargetY;
-            left -= (int)(tile.frameX % 54 / 18);
-            if (tile.frameY % 36 != 0)
+            left -= (int)(tile.TileFrameX % 54 / 18);
+            if (tile.TileFrameY % 36 != 0)
             {
                 top--;
             }
             int chestIndex = Chest.FindChest(left, top);
-            player.showItemIcon2 = -1;
+            player.cursorItemIconID = -1;
             if (chestIndex < 0)
             {
-                player.showItemIconText = Language.GetTextValue("LegacyDresserType.0");
+                player.cursorItemIconText = Language.GetTextValue("LegacyDresserType.0");
             }
             else
             {
                 if (Main.chest[chestIndex].name != "")
                 {
-                    player.showItemIconText = Main.chest[chestIndex].name;
+                    player.cursorItemIconText = Main.chest[chestIndex].name;
                 }
                 else
                 {
-                    player.showItemIconText = chest;
+                    player.cursorItemIconText = chest;
                 }
-                if (player.showItemIconText == chest)
+                if (player.cursorItemIconText == chest)
                 {
-                    player.showItemIcon2 = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
-                    player.showItemIconText = "";
+                    player.cursorItemIconID = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
+                    player.cursorItemIconText = "";
                 }
             }
             player.noThrow = 2;
-            player.showItemIcon = true;
-            if (player.showItemIconText == "")
+            player.cursorItemIconEnabled = true;
+            if (player.cursorItemIconText == "")
             {
-                player.showItemIcon = false;
-                player.showItemIcon2 = 0;
+                player.cursorItemIconEnabled = false;
+                player.cursorItemIconID = 0;
             }
         }
 
@@ -186,38 +188,38 @@ namespace ExtraExplosives.Tiles.Furniture
             Tile tile = Main.tile[Player.tileTargetX, Player.tileTargetY];
             int left = Player.tileTargetX;
             int top = Player.tileTargetY;
-            left -= (int)(tile.frameX % 54 / 18);
-            if (tile.frameY % 36 != 0)
+            left -= (int)(tile.TileFrameX % 54 / 18);
+            if (tile.TileFrameY % 36 != 0)
             {
                 top--;
             }
             int num138 = Chest.FindChest(left, top);
-            player.showItemIcon2 = -1;
+            player.cursorItemIconID = -1;
             if (num138 < 0)
             {
-                player.showItemIconText = Language.GetTextValue("LegacyDresserType.0");
+                player.cursorItemIconText = Language.GetTextValue("LegacyDresserType.0");
             }
             else
             {
                 if (Main.chest[num138].name != "")
                 {
-                    player.showItemIconText = Main.chest[num138].name;
+                    player.cursorItemIconText = Main.chest[num138].name;
                 }
                 else
                 {
-                    player.showItemIconText = chest;
+                    player.cursorItemIconText = chest;
                 }
-                if (player.showItemIconText == chest)
+                if (player.cursorItemIconText == chest)
                 {
-                    player.showItemIcon2 = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
-                    player.showItemIconText = "";
+                    player.cursorItemIconID = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
+                    player.cursorItemIconText = "";
                 }
             }
             player.noThrow = 2;
-            player.showItemIcon = true;
-            if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameY > 0)
+            player.cursorItemIconEnabled = true;
+            if (Main.tile[Player.tileTargetX, Player.tileTargetY].TileFrameY > 0)
             {
-                player.showItemIcon2 = ItemID.FamiliarShirt;
+                player.cursorItemIconID = ItemID.FamiliarShirt;
             }
         }
 
@@ -228,7 +230,7 @@ namespace ExtraExplosives.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 32, dresserDrop);
+            Item.NewItem(i * 16, j * 16, 48, 32, DresserDrop);
             Chest.DestroyChest(i, j);
         }
     }

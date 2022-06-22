@@ -8,7 +8,7 @@ namespace ExtraExplosives.Tiles.Furniture
 {
     public class BombClockTile : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
@@ -21,11 +21,11 @@ namespace ExtraExplosives.Tiles.Furniture
             ModTranslation name = CreateMapEntryName();
             // name.SetDefault("Example Clock"); // Automatic from .lang files
             AddMapEntry(new Color(200, 200, 200), name);
-            dustType = DustID.Smoke;
-            adjTiles = new int[] { TileID.GrandfatherClocks };
+            DustType = DustID.Smoke;
+            AdjTiles = new int[] { TileID.GrandfatherClocks };
         }
 
-        public override bool NewRightClick(int x, int y)
+        public override bool RightClick(int x, int y)
         {
             string text = "AM";
             //Get current weird time
@@ -80,7 +80,7 @@ namespace ExtraExplosives.Tiles.Furniture
         {
             if (closer)
             {
-                Main.clock = true;
+                Main.SceneMetrics.HasClock = true;
             }
         }
 

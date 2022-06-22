@@ -13,12 +13,12 @@ namespace ExtraExplosives.Projectiles.Weapons
 
         public override void SetDefaults()
         {
-            projectile.width = 22;
-            projectile.height = 22;
-            projectile.friendly = true;
-            projectile.penetrate = -1; // Make the flail infinitely penetrate like other flails
-            projectile.melee = true;
-            projectile.aiStyle = 15; // The vanilla flails all use aiStyle 15, but we must not use it since we want to customize the range and behavior.
+            Projectile.width = 22;
+            Projectile.height = 22;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1; // Make the flail infinitely penetrate like other flails
+            Projectile.melee = true;
+            Projectile.aiStyle = 15; // The vanilla flails all use aiStyle 15, but we must not use it since we want to customize the range and behavior.
         }
 
         // This AI code is adapted from the aiStyle 15. We need to re-implement this to customize the behavior of our flail

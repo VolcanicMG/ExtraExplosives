@@ -16,11 +16,11 @@ namespace ExtraExplosives.Items.Armors.Meltbomber
 
         public override void SetDefaults()
         {
-            item.height = 18;
-            item.width = 18;
-            item.value = Item.buyPrice(0, 0, 10, 50);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 7;
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 0, 10, 50);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 7;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -47,11 +47,10 @@ namespace ExtraExplosives.Items.Armors.Meltbomber
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.HellstoneBar, 10);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
     }

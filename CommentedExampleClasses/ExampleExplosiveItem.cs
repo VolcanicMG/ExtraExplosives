@@ -65,7 +65,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// <param name="add"></param>
         /// <param name="mult"></param>
         /// <param name="flat"></param>
-        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
         }
 
@@ -75,7 +75,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// </summary>
         /// <param name="player"></param>
         /// <param name="knockback"></param>
-        public override void GetWeaponKnockback(Player player, ref float knockback)
+        public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)
         {
         }
 
@@ -85,7 +85,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// </summary>
         /// <param name="player"></param>
         /// <param name="crit"></param>
-        public override void GetWeaponCrit(Player player, ref int crit)
+        public override void ModifyWeaponCrit(Player player, ref float crit)
         {
         }
 

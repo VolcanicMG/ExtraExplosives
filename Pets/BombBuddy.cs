@@ -13,17 +13,17 @@ namespace ExtraExplosives.Pets
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bomb Buddy");
-            Main.projFrames[projectile.type] = 10;
-            Main.projPet[projectile.type] = true;
+            Main.projFrames[Projectile.type] = 10;
+            Main.projPet[Projectile.type] = true;
         }
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.CursedSapling);
-            aiType = ProjectileID.Bunny;
-            projectile.netImportant = true;
-            projectile.width = 38;
-            projectile.height = 40;
+            Projectile.CloneDefaults(ProjectileID.CursedSapling);
+            AIType = ProjectileID.Bunny;
+            Projectile.netImportant = true;
+            Projectile.width = 38;
+            Projectile.height = 40;
         }
 
         //public override bool PreAI()
@@ -35,19 +35,19 @@ namespace ExtraExplosives.Pets
 
         public override void AI()
         {
-            Vector2 position = projectile.position;
-            Player player = Main.player[projectile.owner];
+            Vector2 position = Projectile.position;
+            Player player = Main.player[Projectile.owner];
             ExtraExplosivesPlayer modPlayer = player.GetModPlayer<ExtraExplosivesPlayer>();
 
             if (!firstTick)
             {
                 //Main.NewText(firstTick);
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, projectile.owner);
+                Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, Projectile.owner);
                 firstTick = true;
             }
             else if (player.ownedProjectileCounts[ModContent.ProjectileType<BombBuddyDetector>()] == 0 && player.HasBuff(ModContent.BuffType<BombBuddyBuff>()))
             {
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, projectile.owner);
+                Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, Projectile.owner);
             }
 
             if (player.dead)
@@ -56,7 +56,7 @@ namespace ExtraExplosives.Pets
             }
             if (modPlayer.BombBuddy)
             {
-                projectile.timeLeft = 2;
+                Projectile.timeLeft = 2;
             }
 
             if (!player.HasBuff(ModContent.BuffType<BombBuddyBuff>()))

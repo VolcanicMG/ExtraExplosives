@@ -43,12 +43,12 @@ namespace ExtraExplosives
     public class ExtraExplosives : Mod
     {
         //Hotkeys
-        internal static ModHotKey TriggerExplosion;
-        internal static ModHotKey TriggerUIReforge;
-        internal static ModHotKey ToggleCookbookUI;
-        internal static ModHotKey TriggerBoost;
-        internal static ModHotKey TriggerNovaBomb;
-        internal static ModHotKey TriggerLizhard;
+        internal static ModKeybind TriggerExplosion;
+        internal static ModKeybind TriggerUIReforge;
+        internal static ModKeybind ToggleCookbookUI;
+        internal static ModKeybind TriggerBoost;
+        internal static ModKeybind TriggerNovaBomb;
+        internal static ModKeybind TriggerLizhard;
 
         //nuke
         public static bool NukeActivated;
@@ -272,7 +272,7 @@ namespace ExtraExplosives
                 // If you localize your mod, pass in a localized string instead of just English.
                 // Additional lines for additional town npc that your mod adds
                 // Simpler example:
-                censusMod.Call("TownNPCCondition", NPCType("CaptainExplosive"), $"Kill King Slime or Eye Of Cthulhu, then you can buy the[i:{ModContent.ItemType<Unhinged_Letter>()}] from the demolitionist");
+                censusMod.Call("TownNPCCondition", Find<ModNPC>("CaptainExplosive").Type, $"Kill King Slime or Eye Of Cthulhu, then you can buy the[i:{ModContent.ItemType<Unhinged_Letter>()}] from the demolitionist");
             }
 
             if (bossChecklist != null)
@@ -693,7 +693,7 @@ namespace ExtraExplosives
                 return false;
             }
         }
-        public override void UpdateMusic(ref int music, ref MusicPriority priority)
+        public override void UpdateMusic(ref int music, ref SceneEffectPriority priority)
         {
             if (boomBoxMusic)
             {
@@ -702,7 +702,7 @@ namespace ExtraExplosives
                     return;
                 }
                 music = randomMusicID;
-                priority = MusicPriority.BossHigh;
+                priority = SceneEffectPriority.BossHigh;
             }
         }
 
@@ -730,14 +730,13 @@ namespace ExtraExplosives
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(Instance);
+            Recipe recipe = Instance.CreateRecipe(ItemID.AvengerEmblem);
             recipe.AddIngredient(ModContent.ItemType<BombardierEmblem>(), 1);
             recipe.AddIngredient(ItemID.SoulofMight, 5);
             recipe.AddIngredient(ItemID.SoulofSight, 5);
             recipe.AddIngredient(ItemID.SoulofFright, 5);
             recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.SetResult(ItemID.AvengerEmblem);
-            recipe.AddRecipe();
+            recipe.Register();
             base.AddRecipes();
         }
     }

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,24 +26,24 @@ namespace ExtraExplosives.Projectiles
             IgnoreTrinkets = true;
             pickPower = 50;
             radius = 20;
-            projectile.tileCollide = true;
-            projectile.width = 22;
-            projectile.height = 42;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = 20;
-            projectile.timeLeft = 400;
+            Projectile.tileCollide = true;
+            Projectile.width = 22;
+            Projectile.height = 42;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = 20;
+            Projectile.timeLeft = 400;
 
             buffActive = true;
         }
 
         public override void PostAI()
         {
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
             if (buffActive == true)
             {
-                player.AddBuff(mod.BuffType("ExtraExplosivesDaBombBuff"), 50, false);
+                player.AddBuff(Mod.Find<ModBuff>("ExtraExplosivesDaBombBuff").Type, 50, false);
             }
 
             base.PostAI();
@@ -50,10 +51,10 @@ namespace ExtraExplosives.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Dust
             ExplosionDust(radius, player.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
@@ -67,16 +68,16 @@ namespace ExtraExplosives.Projectiles
 
         public override void ExplosionDamage()
         {
-            Player playerO = Main.player[projectile.owner];
+            Player playerO = Main.player[Projectile.owner];
 
-            if (Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
+            if (Main.player[Projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
             foreach (NPC npc in Main.npc)
             {
                 float dist = Vector2.Distance(npc.Center, playerO.Center);
                 if (dist / 16f <= radius)
                 {
                     int dir = (dist > 0) ? 1 : -1;
-                    npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+                    npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
                 }
             }
 
@@ -90,12 +91,12 @@ namespace ExtraExplosives.Projectiles
                 int dir = (dist > 0) ? 1 : -1;
                 if (dist / 16f <= radius)
                 {
-                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
+                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir);
                     player.hurtCooldowns[0] += 15;
                 }
                 if (Main.netMode != 0)
                 {
-                    NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                    NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
 
@@ -106,7 +107,7 @@ namespace ExtraExplosives.Projectiles
 
             // x and y are the tile offset of the current tile relative to the player
             // i and j are the true tile cords relative to 0,0 in the world
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
             if (pickPower < -1) return;
             if (player.EE().BombardEmblem) return;
 
@@ -133,7 +134,7 @@ namespace ExtraExplosives.Projectiles
                         //dust.noGravity = true;
                         if (!WorldGen.TileEmpty(i, j))
                         {
-                            if (!CanBreakTile(Main.tile[i, j].type, pickPower)) continue;
+                            if (!CanBreakTile(Main.tile[i, j].TileType, pickPower)) continue;
                             if (!CanBreakTiles) continue;
                             // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
                             // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
@@ -141,10 +142,10 @@ namespace ExtraExplosives.Projectiles
                                 WorldGen.KillTile((int)(i), (int)(j), false, false, false);
                             else
                             {
-                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type))
+                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType))
                                 {
                                     Main.tile[i, j].ClearTile();
-                                    Main.tile[i, j].active(false);
+                                    Main.tile[i, j].HasTile = false;
                                 }
                             }
                             //

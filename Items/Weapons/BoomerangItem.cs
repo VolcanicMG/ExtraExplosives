@@ -17,13 +17,13 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            item.CloneDefaults(ItemID.EnchantedBoomerang);
-            item.shoot = ModContent.ProjectileType<BoomerangProjectile>();
-            item.damage = 50;
-            item.knockBack = 20;
-            item.rare = ItemRarityID.Green;
-            item.value = Item.buyPrice(0, 1, 0, 0);
-            item.crit = 15;
+            Item.CloneDefaults(ItemID.EnchantedBoomerang);
+            Item.shoot = ModContent.ProjectileType<BoomerangProjectile>();
+            Item.damage = 50;
+            Item.knockBack = 20;
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(0, 1, 0, 0);
+            Item.crit = 15;
         }
 
         public override Vector2? HoldoutOffset()
@@ -33,18 +33,17 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Flamarang, 1);
             recipe.AddIngredient(ItemID.Dynamite, 2);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
         public override bool CanUseItem(Player player)
         {
             // Ensures no more than one spear can be thrown out, use this when using autoReuse
-            return player.ownedProjectileCounts[item.shoot] < 1;
+            return player.ownedProjectileCounts[Item.shoot] < 1;
         }
     }
 }

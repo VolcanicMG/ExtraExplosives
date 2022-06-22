@@ -31,23 +31,23 @@ namespace ExtraExplosives.Items.Explosives
         public override void SafeSetDefaults()
         {
             //item.CloneDefaults(167);
-            item.useStyle = 1;
-            item.shootSpeed = 4f;
-            item.width = 8;
-            item.height = 28;
-            item.UseSound = SoundID.Item1;
-            item.useAnimation = 40;
-            item.useTime = 40;
-            item.noUseGraphic = true;
-            item.noMelee = true;
-            item.damage = 250;
-            item.knockBack = 2;
-            item.consumable = false;
-            item.shoot = ModContent.ProjectileType<InfinityBombProjectile>();
-            item.autoReuse = false;
-            item.value = 200000;
-            item.maxStack = 1;
-            item.rare = ItemRarityID.Green;
+            Item.useStyle = 1;
+            Item.shootSpeed = 4f;
+            Item.width = 8;
+            Item.height = 28;
+            Item.UseSound = SoundID.Item1;
+            Item.useAnimation = 40;
+            Item.useTime = 40;
+            Item.noUseGraphic = true;
+            Item.noMelee = true;
+            Item.damage = 250;
+            Item.knockBack = 2;
+            Item.consumable = false;
+            Item.shoot = ModContent.ProjectileType<InfinityBombProjectile>();
+            Item.autoReuse = false;
+            Item.value = 200000;
+            Item.maxStack = 1;
+            Item.rare = ItemRarityID.Green;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
@@ -61,9 +61,9 @@ namespace ExtraExplosives.Items.Explosives
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var multiplerTooltip = new TooltipLine(mod, "Multiplier", $"It has become {multiplier} times more powerful\n" +
+            var multiplerTooltip = new TooltipLine(Mod, "Multiplier", $"It has become {multiplier} times more powerful\n" +
                                                                       $"It is {growing}currently growing");
-            multiplerTooltip.overrideColor = Color.Crimson;
+            multiplerTooltip.OverrideColor = Color.Crimson;
             tooltips.Add(multiplerTooltip);
         }
 
@@ -79,11 +79,10 @@ namespace ExtraExplosives.Items.Explosives
 
         public override void AddRecipes()
         {
-            ModRecipe modRecipe = new ModRecipe(mod);
+            Recipe modRecipe = CreateRecipe();
             modRecipe.AddIngredient(Terraria.ID.ItemID.Dynamite, 3996);
             modRecipe.AddTile(TileID.CrystalBall);
-            modRecipe.SetResult(this);
-            modRecipe.AddRecipe();
+            modRecipe.Register();
         }
 
         public override bool AltFunctionUse(Player player)
@@ -97,7 +96,7 @@ namespace ExtraExplosives.Items.Explosives
             return false;
         }
 
-        public override TagCompound Save()
+        public override void SaveData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound */
         {
             return new TagCompound
             {
@@ -106,7 +105,7 @@ namespace ExtraExplosives.Items.Explosives
             };
         }
 
-        public override void Load(TagCompound tag)
+        public override void LoadData(TagCompound tag)
         {
             multiplier = tag.GetDouble(nameof(multiplier));
             enableGrowth = tag.GetBool(nameof(enableGrowth));
@@ -118,7 +117,7 @@ namespace ExtraExplosives.Items.Explosives
             writer.Write(enableGrowth);
         }
 
-        public override void NetRecieve(BinaryReader reader)
+        public override void NetReceive(BinaryReader reader)
         {
             multiplier = reader.ReadDouble();
             enableGrowth = reader.ReadBoolean();

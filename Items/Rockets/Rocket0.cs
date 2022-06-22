@@ -15,29 +15,28 @@ namespace ExtraExplosives.Items.Rockets
 
         public override void SafeSetDefaults()
         {
-            item.CloneDefaults(ItemID.RocketI);
-            item.width = 26;
-            item.height = 14;
-            item.value = Item.buyPrice(0, 0, 0, 15);
-            item.rare = ItemRarityID.Blue;
-            item.damage = 20;
-            item.shoot = ModContent.ProjectileType<Rocket0Projectile>();
+            Item.CloneDefaults(ItemID.RocketI);
+            Item.width = 26;
+            Item.height = 14;
+            Item.value = Item.buyPrice(0, 0, 0, 15);
+            Item.rare = ItemRarityID.Blue;
+            Item.damage = 20;
+            Item.shoot = ModContent.ProjectileType<Rocket0Projectile>();
         }
 
         public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
         {
-            type = item.shoot;
+            type = Item.shoot;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe modRecipe = new ModRecipe(mod);
+            Recipe modRecipe = CreateRecipe(25);
             modRecipe.AddIngredient(ItemID.IronBar, 1);
             modRecipe.AddIngredient(ItemID.Gel, 10);
             modRecipe.AddTile(TileID.WorkBenches);
             modRecipe.anyIronBar = true;
-            modRecipe.SetResult(this, 25);
-            modRecipe.AddRecipe();
+            modRecipe.Register();
         }
     }
 }

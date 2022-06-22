@@ -8,7 +8,7 @@ namespace ExtraExplosives.Tiles.Furniture
 {
     public class BombStatueTile : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileObsidianKill[Type] = true;
@@ -18,7 +18,7 @@ namespace ExtraExplosives.Tiles.Furniture
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Bomb Statue");
             AddMapEntry(new Color(144, 148, 144), name);
-            dustType = 11;
+            DustType = 11;
             disableSmartCursor = true;
         }
 

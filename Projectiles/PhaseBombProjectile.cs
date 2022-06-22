@@ -23,21 +23,21 @@ namespace ExtraExplosives.Projectiles
         {
             DisplayName.SetDefault("PhaseBomb");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
-            Main.projFrames[projectile.type] = 10;
+            Main.projFrames[Projectile.type] = 10;
         }
 
         public override void SafeSetDefaults()
         {
             pickPower = 50;
             radius = 20;
-            projectile.tileCollide = false; //checks to see if the projectile can go through tiles
-            projectile.width = 22;   //This defines the hitbox width
-            projectile.height = 22; //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 1000; //The amount of time the projectile is alive for
-            phaseSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Phase_Bomb");
+            Projectile.tileCollide = false; //checks to see if the projectile can go through tiles
+            Projectile.width = 22;   //This defines the hitbox width
+            Projectile.height = 22; //This defines the hitbox height
+            Projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
+            Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
+            Projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
+            Projectile.timeLeft = 1000; //The amount of time the projectile is alive for
+            phaseSound = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Phase_Bomb");
             if (!Main.dedServ)
             {
                 phaseSound = phaseSound.WithVolume(0.5f);
@@ -45,7 +45,7 @@ namespace ExtraExplosives.Projectiles
             explodeSounds = new LegacySoundStyle[3];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
@@ -59,27 +59,27 @@ namespace ExtraExplosives.Projectiles
             //projectile.tileCollide = false;
 
             if (phaseSoundInstance == null)
-                phaseSoundInstance = Main.PlaySound(phaseSound, (int)projectile.Center.X, (int)projectile.Center.Y);
+                phaseSoundInstance = SoundEngine.PlaySound(phaseSound, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             if (phaseSoundInstance.State != SoundState.Playing)
                 phaseSoundInstance.Play();
 
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
 
-            if (!Main.mouseLeft && projectile.timeLeft <= 940)
+            if (!Main.mouseLeft && Projectile.timeLeft <= 940)
             {
                 phaseSoundInstance.Stop(true);
-                projectile.Kill();
+                Projectile.Kill();
             }
 
 
-            if (++projectile.frameCounter >= 5)
+            if (++Projectile.frameCounter >= 5)
             {
-                projectile.frameCounter = 0;
+                Projectile.frameCounter = 0;
                 //projectile.frame = ++projectile.frame % Main.projFrames[projectile.type];
-                if (++projectile.frame >= 10)
+                if (++Projectile.frame >= 10)
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
         }
@@ -87,7 +87,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
             //Create Bomb Explosion
             Explosion();
             //Create Bomb Damage
@@ -101,8 +101,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0.0f, 3.0f);
             Vector2 gVel2 = new Vector2(0.0f, -3.0f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         //Using to create a custom one 
@@ -120,7 +120,7 @@ namespace ExtraExplosives.Projectiles
                         Vector2 position1 = new Vector2(position.X - 600 / 2, position.Y - 600 / 2);
                         // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                         Dust dust1 = Main.dust[Terraria.Dust.NewDust(position1, 600, 600, 155, 0f, 0f, 0, new Color(255, 255, 255), 2)];
-                        if (Vector2.Distance(dust1.position, projectile.Center) > 300) dust1.active = false;
+                        if (Vector2.Distance(dust1.position, Projectile.Center) > 300) dust1.active = false;
                         else
                         {
                             dust1.noGravity = true;
@@ -131,7 +131,7 @@ namespace ExtraExplosives.Projectiles
                         Dust dust2 = Main.dust[Terraria.Dust.NewDust(position2, 650, 650, 49, 0f, 0f, 0, new Color(255, 255, 255), 2)];
                         //dust2.position.X += Main.rand.NextFloat(-0.5f, 0.5f); 
                         //dust2.position.Y += Main.rand.NextFloat(-0.5f, 0.5f); 
-                        if (Vector2.Distance(dust2.position, projectile.Center) > 325)
+                        if (Vector2.Distance(dust2.position, Projectile.Center) > 325)
                         {
                             dust2.active = false;
                             continue;

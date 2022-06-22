@@ -15,23 +15,22 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
 
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 30;
-            item.value = 10000;
-            item.maxStack = 1;
-            item.rare = ItemRarityID.Yellow;
-            item.accessory = true;
-            item.social = false;
+            Item.width = 30;
+            Item.height = 30;
+            Item.value = 10000;
+            Item.maxStack = 1;
+            Item.rare = ItemRarityID.Yellow;
+            Item.accessory = true;
+            Item.social = false;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe modRecipe = new ModRecipe(mod);
+            Recipe modRecipe = CreateRecipe();
             modRecipe.AddIngredient(ModContent.ItemType<RandomFuel>());
             modRecipe.AddIngredient(ModContent.ItemType<ShortFuse>());
             modRecipe.AddTile(TileID.TinkerersWorkbench);
-            modRecipe.SetResult(this);
-            modRecipe.AddRecipe();
+            modRecipe.Register();
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

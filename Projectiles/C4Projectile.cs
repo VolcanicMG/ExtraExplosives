@@ -39,17 +39,17 @@ namespace ExtraExplosives.Projectiles
         {
             pickPower = 70;
             radius = 20;
-            projectile.tileCollide = true;
-            projectile.width = 32;
-            projectile.height = 40;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = Int32.MaxValue;
+            Projectile.tileCollide = true;
+            Projectile.width = 32;
+            Projectile.height = 40;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = Int32.MaxValue;
             //projectile.extraUpdates = 1;
             Terraria.ModLoader.SoundType customType = Terraria.ModLoader.SoundType.Custom;
-            indicatorSound = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "timer");
-            primedSound = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "time_to_explode");
+            indicatorSound = Mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "timer");
+            primedSound = Mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "time_to_explode");
             if (!Main.dedServ && indicatorSound != null || primedSound != null) //Checking for nulls might fix the error
             {
                 indicatorSound = indicatorSound.WithPitchVariance(0f).WithVolume(0.5f);
@@ -57,13 +57,13 @@ namespace ExtraExplosives.Projectiles
             }
             else if (indicatorSound != null || primedSound != null)
             {
-                indicatorSound = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "timer");
-                primedSound = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "time_to_explode");
+                indicatorSound = Mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "timer");
+                primedSound = Mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "time_to_explode");
             }
             explodeSounds = new LegacySoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "Bomb_" + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "Bomb_" + num);
             }
         }
 
@@ -74,11 +74,11 @@ namespace ExtraExplosives.Projectiles
             {
                 // freeze = true;
                 projState = C4State.Frozen;
-                positionToFreeze = new Vector2(projectile.position.X, projectile.position.Y);
-                projectile.position.X = positionToFreeze.X;
-                projectile.position.Y = positionToFreeze.Y;
-                projectile.velocity.X = 0;
-                projectile.velocity.Y = 0;
+                positionToFreeze = new Vector2(Projectile.position.X, Projectile.position.Y);
+                Projectile.position.X = positionToFreeze.X;
+                Projectile.position.Y = positionToFreeze.Y;
+                Projectile.velocity.X = 0;
+                Projectile.velocity.Y = 0;
                 //projectile.rotation = 0;
             }
 
@@ -90,34 +90,34 @@ namespace ExtraExplosives.Projectiles
             switch (projState)
             {
                 case C4State.Airborne:
-                    if (projectile.owner == Main.myPlayer && c4Owner == null)
+                    if (Projectile.owner == Main.myPlayer && c4Owner == null)
                     {
-                        c4Owner = Main.player[projectile.owner].GetModPlayer<ExtraExplosivesPlayer>();
+                        c4Owner = Main.player[Projectile.owner].GetModPlayer<ExtraExplosivesPlayer>();
                     }
                     break;
                 case C4State.Frozen:
-                    projectile.position = positionToFreeze;
-                    projectile.velocity = Vector2.Zero;
+                    Projectile.position = positionToFreeze;
+                    Projectile.velocity = Vector2.Zero;
                     if (indicatorSoundInstance == null)
-                        indicatorSoundInstance = Main.PlaySound(indicatorSound, (int)projectile.Center.X, (int)projectile.Center.Y);
+                        indicatorSoundInstance = SoundEngine.PlaySound(indicatorSound, (int)Projectile.Center.X, (int)Projectile.Center.Y);
                     else if (indicatorSoundInstance.State != SoundState.Playing)    // else if needed to avoid a NullReferenceException
                         indicatorSoundInstance.Play();
                     if (c4Owner != null && c4Owner.detonate)
                     {
                         projState = C4State.Primed;
-                        projectile.ai[1] = 55;
-                        Main.PlaySound(primedSound, (int)projectile.position.X, (int)projectile.position.Y);
+                        Projectile.ai[1] = 55;
+                        SoundEngine.PlaySound(primedSound, (int)Projectile.position.X, (int)Projectile.position.Y);
                     }
                     break;
                 case C4State.Primed:
-                    projectile.ai[1]--;
-                    if (projectile.ai[1] < 1)
+                    Projectile.ai[1]--;
+                    if (Projectile.ai[1] < 1)
                     {
                         projState = C4State.Exploding;
                     }
                     break;
                 case C4State.Exploding:
-                    projectile.Kill();
+                    Projectile.Kill();
                     break;
             }
         }
@@ -125,7 +125,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Dust
             DustEffects();
@@ -137,14 +137,14 @@ namespace ExtraExplosives.Projectiles
             //Creating Bomb Gore
             Vector2 gVel1 = new Vector2(-4f, -4f);
             Vector2 gVel2 = new Vector2(4f, -4f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         public override void Explosion()
         {
-            if (Main.player[projectile.owner].EE().BombardEmblem) return;
-            Vector2 position = projectile.Center;
+            if (Main.player[Projectile.owner].EE().BombardEmblem) return;
+            Vector2 position = Projectile.Center;
             for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
             {
                 for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
@@ -156,7 +156,7 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        ushort tileP = tile.type;
+                        ushort tileP = tile.TileType;
                         if (!CanBreakTile(tileP, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                         }
@@ -164,10 +164,10 @@ namespace ExtraExplosives.Projectiles
                         {
                             if (CanBreakTiles) //User preferences dictates if bombs can break tiles
                             {
-                                if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type))
+                                if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType))
                                 {
                                     tile.ClearTile();
-                                    tile.active(false);
+                                    tile.HasTile = false;
                                 }
                                 if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
                             }

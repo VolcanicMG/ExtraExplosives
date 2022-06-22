@@ -1,0 +1,64 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ExtraExplosives.Items.Armors.Asteroid
+{
+    [AutoloadEquip(EquipType.Head)]
+    public class AsteroidMiner_H_O : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Orichalcum Asteroid Miner Helm");
+            Tooltip.SetDefault("\n" +
+                "5% Increased bomb Damage and " +
+                "6% Blast Radius");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 0, 70, 50);
+            Item.rare = ItemRarityID.LightRed;
+            Item.defense = 13;
+        }
+
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == ModContent.ItemType<AsteroidMiner_B_O>() && legs.type == ModContent.ItemType<AsteroidMiner_L_O>();
+        }
+
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = "\n" +
+                "6% Increased Bomb Damage\n" +
+                "6% Increased Blast Radius\n" +
+                "5% Increased Damage\n" +
+                "3% Increased Critical Strike Chance\n" +
+                "20% chance to drop ores twice on bomb explosion";
+            player.EE().RadiusMulti += .06f;
+            player.EE().DamageMulti += .06f;
+            player.allDamage += .05f;
+            player.EE().ExplosiveCrit += 3;
+            player.EE().DropOresTwice = true;
+            player.EE().dropChanceOre = .2f;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.EE().RadiusMulti += .06f;
+            player.EE().DamageMulti += .05f;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = new Recipe(Mod);
+            recipe.AddIngredient(ItemID.OrichalcumBar, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.Register();
+        }
+
+    }
+}

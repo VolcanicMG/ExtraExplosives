@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,45 +17,45 @@ namespace ExtraExplosives.Projectiles.PrismBomb //Namespace is set this way as p
         private bool resetBatchInPost;
         public override void SetDefaults()
         {
-            projectile.aiStyle = -1;
-            projectile.height = 64;
-            projectile.width = 64;
+            Projectile.aiStyle = -1;
+            Projectile.height = 64;
+            Projectile.width = 64;
             laser1 = -1;
             laser2 = -1;
             laser3 = -1;
             laser4 = -1;
-            projectile.timeLeft = 400;
-            projectile.tileCollide = false;
+            Projectile.timeLeft = 400;
+            Projectile.tileCollide = false;
 
         }
         public override void AI()
         {
             if (soundDelay > 0) { soundDelay -= 1; }
-            projectile.ai[1] += 1;
-            if (projectile.ai[0] <= 80) { projectile.velocity.Y = -3f; projectile.velocity.X = 0; projectile.ai[0] += 1; }
-            else if (projectile.ai[0] > 80) { projectile.velocity.Y = 0; projectile.velocity.X = 0; projectile.rotation += 0.02f; if (soundDelay <= 0) { Main.PlaySound(SoundID.Item15, projectile.Center); soundDelay = 20; } }
-            if (laser1 == -1 && projectile.ai[0] > 80)
+            Projectile.ai[1] += 1;
+            if (Projectile.ai[0] <= 80) { Projectile.velocity.Y = -3f; Projectile.velocity.X = 0; Projectile.ai[0] += 1; }
+            else if (Projectile.ai[0] > 80) { Projectile.velocity.Y = 0; Projectile.velocity.X = 0; Projectile.rotation += 0.02f; if (soundDelay <= 0) { SoundEngine.PlaySound(SoundID.Item15, Projectile.Center); soundDelay = 20; } }
+            if (laser1 == -1 && Projectile.ai[0] > 80)
             {
 
-                laser1 = Projectile.NewProjectile(projectile.Center, new Vector2(-14, 0), mod.ProjectileType("PrismLaser"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
-                laser2 = Projectile.NewProjectile(projectile.Center, new Vector2(14, 0), mod.ProjectileType("PrismLaser"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
-                laser3 = Projectile.NewProjectile(projectile.Center, new Vector2(0, 14), mod.ProjectileType("PrismLaser"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
-                laser4 = Projectile.NewProjectile(projectile.Center, new Vector2(0, -14), mod.ProjectileType("PrismLaser"), projectile.damage, projectile.knockBack, projectile.owner, projectile.whoAmI);
+                laser1 = Projectile.NewProjectile(Projectile.Center, new Vector2(-14, 0), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
+                laser2 = Projectile.NewProjectile(Projectile.Center, new Vector2(14, 0), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
+                laser3 = Projectile.NewProjectile(Projectile.Center, new Vector2(0, 14), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
+                laser4 = Projectile.NewProjectile(Projectile.Center, new Vector2(0, -14), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
 
             }
 
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             resetBatchInPost = true;
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-            GameShaders.Armor.GetShaderFromItemId(ItemID.LivingRainbowDye).Apply(projectile);
+            GameShaders.Armor.GetShaderFromItemId(ItemID.LivingRainbowDye).Apply(Projectile);
 
             return true;
         }
-        public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override void PostDraw(Color lightColor)
         {
             if (resetBatchInPost)
             {

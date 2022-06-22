@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 
 namespace ExtraExplosives.Projectiles
@@ -30,39 +31,39 @@ namespace ExtraExplosives.Projectiles
         public override void SafeSetDefaults()
         {
             radius = 5;
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 22;   //This defines the hitbox width
-            projectile.height = 22; //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = 1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 40; //The amsadount of time the projectile is alive for
-            projectile.knockBack = _projectileID;
+            Projectile.tileCollide = true; //checks to see if the projectile can go through tiles
+            Projectile.width = 22;   //This defines the hitbox width
+            Projectile.height = 22; //This defines the hitbox height
+            Projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
+            Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
+            Projectile.penetrate = 1; //Tells the game how many enemies it can hit before being destroyed
+            Projectile.timeLeft = 40; //The amsadount of time the projectile is alive for
+            Projectile.knockBack = _projectileID;
         }
 
         public override bool OnTileCollide(Vector2 old)
         {
-            projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-            projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-            projectile.width = 20;
-            projectile.height = 64;
-            projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-            projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+            Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
+            Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
+            Projectile.width = 20;
+            Projectile.height = 64;
+            Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
+            Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 
-            projectile.velocity.X = 0;
-            projectile.velocity.Y = 0;
-            projectile.aiStyle = 0;
+            Projectile.velocity.X = 0;
+            Projectile.velocity.Y = 0;
+            Projectile.aiStyle = 0;
             return true;
         }
 
         public override void Kill(int timeLeft)
         {
-            _projectileID = projectile.damage;
+            _projectileID = Projectile.damage;
 
-            ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
+            ExtraExplosivesPlayer mp = Main.player[Projectile.owner].EE();
 
-            Vector2 position = projectile.Center;
-            Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            Vector2 position = Projectile.Center;
+            SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
 
             Vector2 vel;
             int spedX;
@@ -86,7 +87,7 @@ namespace ExtraExplosives.Projectiles
                             if (spedX == 0) spedX = 1;
                             if (spedY == 0) spedY = 1;
                             //if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 20, projectile.owner, 0.0f, 0);
-                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + mp.DamageBonus) * mp.DamageMulti), 20, projectile.owner, 0.0f, 0);
+                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)Projectile.knockBack, (int)((Projectile.damage + mp.DamageBonus) * mp.DamageMulti), 20, Projectile.owner, 0.0f, 0);
                         }
                         else
                         {
@@ -94,7 +95,7 @@ namespace ExtraExplosives.Projectiles
                             spedY = Main.rand.Next(15) - 7;
                             if (spedX == 0) spedX = 1;
                             if (spedY == 0) spedY = 1;
-                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + mp.DamageBonus) * mp.DamageMulti), 20, projectile.owner, 0.0f, 0);
+                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)Projectile.knockBack, (int)((Projectile.damage + mp.DamageBonus) * mp.DamageMulti), 20, Projectile.owner, 0.0f, 0);
                         }
                     }
                 }

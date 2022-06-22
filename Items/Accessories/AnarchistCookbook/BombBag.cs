@@ -15,13 +15,13 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
 
         public override void SetDefaults()
         {
-            item.width = 26;
-            item.height = 34;
-            item.value = 20000;
-            item.maxStack = 1;
-            item.rare = ItemRarityID.Pink;
-            item.accessory = true;
-            item.social = false;
+            Item.width = 26;
+            Item.height = 34;
+            Item.value = 20000;
+            Item.maxStack = 1;
+            Item.rare = ItemRarityID.Pink;
+            Item.accessory = true;
+            Item.social = false;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

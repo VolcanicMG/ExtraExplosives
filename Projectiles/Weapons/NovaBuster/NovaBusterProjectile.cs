@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,25 +19,25 @@ namespace ExtraExplosives.Projectiles.Weapons.NovaBuster
 
         public override void SetDefaults()
         {
-            projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.height = 20;
-            projectile.width = 12;
-            projectile.tileCollide = true;
-            projectile.aiStyle = 16;
-            projectile.timeLeft = 200;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.height = 20;
+            Projectile.width = 12;
+            Projectile.tileCollide = true;
+            Projectile.aiStyle = 16;
+            Projectile.timeLeft = 200;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            projectile.Kill();
+            Projectile.Kill();
         }
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
-            ExplosionDust(radius, projectile.Center, shake: false);
+            ExplosionDust(radius, Projectile.Center, shake: false);
             ExplosionDamage();
         }
 
@@ -51,14 +52,14 @@ namespace ExtraExplosives.Projectiles.Weapons.NovaBuster
         /// </summary>
         public virtual void ExplosionDamage()
         {
-            if (Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
+            if (Main.player[Projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
             foreach (NPC npc in Main.npc)
             {
-                float dist = Vector2.Distance(npc.Center, projectile.Center);
+                float dist = Vector2.Distance(npc.Center, Projectile.Center);
                 if (dist / 16f <= radius && !npc.friendly)
                 {
                     int dir = (dist > 0) ? 1 : -1;
-                    npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+                    npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
                 }
             }
 
@@ -68,16 +69,16 @@ namespace ExtraExplosives.Projectiles.Weapons.NovaBuster
                 if (!CanHitPlayer(player)) continue;
                 if (player.EE().BlastShielding &&
                     player.EE().BlastShieldingActive) continue;
-                float dist = Vector2.Distance(player.Center, projectile.Center);
+                float dist = Vector2.Distance(player.Center, Projectile.Center);
                 int dir = (dist > 0) ? 1 : -1;
                 if (dist / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer)
                 {
-                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
+                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir);
                     player.hurtCooldowns[0] += 15;
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius)
                 {
-                    NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                    NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
 

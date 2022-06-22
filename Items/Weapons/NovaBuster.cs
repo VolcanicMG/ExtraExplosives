@@ -18,37 +18,37 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.autoReuse = true;
-            item.useTime = 10;
-            item.useAnimation = 10;
-            item.useAmmo = AmmoID.Rocket;
-            item.width = 94;
-            item.height = 34;
-            item.shoot = 134;
-            item.UseSound = SoundID.Item11;
-            item.damage = 350;
-            item.shootSpeed = 16f;
-            item.noMelee = true;
-            item.value = Item.buyPrice(0, 15, 0, 50);
-            item.knockBack = 8;
-            item.rare = ItemRarityID.Red;
-            item.ranged = true;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.autoReuse = true;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+            Item.useAmmo = AmmoID.Rocket;
+            Item.width = 94;
+            Item.height = 34;
+            Item.shoot = 134;
+            Item.UseSound = SoundID.Item11;
+            Item.damage = 350;
+            Item.shootSpeed = 16f;
+            Item.noMelee = true;
+            Item.value = Item.buyPrice(0, 15, 0, 50);
+            Item.knockBack = 8;
+            Item.rare = ItemRarityID.Red;
+            Item.ranged = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine ColoredTooltip = new TooltipLine(mod, "ExtraTooltip", $"'The death of a star compressed into a single weapon'");
-            ColoredTooltip.overrideColor = Color.Chartreuse;
+            TooltipLine ColoredTooltip = new TooltipLine(Mod, "ExtraTooltip", $"'The death of a star compressed into a single weapon'");
+            ColoredTooltip.OverrideColor = Color.Chartreuse;
             tooltips.Add(ColoredTooltip);
 
-            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.Mod == "Terraria");
             if (stats != null)
             {
-                string[] split = stats.text.Split(' ');
+                string[] split = stats.Text.Split(' ');
                 string damageValue = split.First();
                 string damageWord = split.Last();
-                stats.text = damageValue + " explosive " + damageWord;
+                stats.Text = damageValue + " explosive " + damageWord;
             }
         }
 
@@ -82,13 +82,12 @@ namespace ExtraExplosives.Items.Weapons
             /*
              * TODO Might be good to add a post LC or ML recipe for power cells to avoid having to farm lihzahrds 
              */
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.LunarBar, 12);
             recipe.AddIngredient(ItemID.FragmentSolar, 10);
             recipe.AddIngredient(ItemID.LihzahrdPowerCell, 2);
             recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

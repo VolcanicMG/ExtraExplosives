@@ -56,7 +56,7 @@ namespace ExtraExplosives.CommentedExampleClasses
                     // The sounds filepath should have the same type as its original subfolder (the folder under Sounds)
                     // If additional clarification is needed either reference existing ExplosiveWeapons and ExplosivesProjectiles (and their sound locations)
                     // Or ask in the discord\
-                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
             }
             // If SecondarySounds is also used, a second for loop will be needed
         }
@@ -76,7 +76,7 @@ namespace ExtraExplosives.CommentedExampleClasses
             ref float knockBack)
         {
             // To call a sound you do the following
-            Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+            SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                 (int)player.position.X, (int)player.position.Y);
             // Unless specific sounds should be more common than others, this exact line can be used for all PrimarySounds calls
             //     and changing PrimarySounds to SecondarySounds allows it to be used with SecondarySounds as well

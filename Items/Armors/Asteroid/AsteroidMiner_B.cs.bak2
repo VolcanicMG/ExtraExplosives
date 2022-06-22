@@ -1,0 +1,43 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ExtraExplosives.Items.Armors.Asteroid
+{
+    [AutoloadEquip(EquipType.Body)]
+    public class AsteroidMiner_B : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Mythril Asteroid Miner Body");
+            Tooltip.SetDefault("\n" +
+                "3% Increased Bomb Damage and " +
+                "6% Blast Radius");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 0, 70, 50);
+            Item.rare = ItemRarityID.LightRed;
+            Item.defense = 16;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.EE().RadiusMulti += .06f;
+            player.EE().DamageMulti += .03f;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = new Recipe(Mod);
+            recipe.AddIngredient(ItemID.MythrilBar, 15);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
+
+    }
+}

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -14,50 +15,50 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Rocket");
-            Main.projFrames[projectile.type] = 3;
+            Main.projFrames[Projectile.type] = 3;
         }
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true;
-            projectile.width = 46;
-            projectile.height = 18;
-            projectile.aiStyle = -1;
-            projectile.friendly = false;
-            projectile.hostile = true;
-            projectile.penetrate = 1;
-            projectile.timeLeft = 550;
-            projectile.ranged = true;
-            projectile.scale = 1.2f;
+            Projectile.tileCollide = true;
+            Projectile.width = 46;
+            Projectile.height = 18;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 550;
+            Projectile.ranged = true;
+            Projectile.scale = 1.2f;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            projectile.Kill();
+            Projectile.Kill();
 
             return false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            projectile.Kill();
+            Projectile.Kill();
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            projectile.Kill();
+            Projectile.Kill();
         }
 
         public override void AI()
         {
             //anim
-            if (++projectile.frameCounter >= 5)
+            if (++Projectile.frameCounter >= 5)
             {
-                projectile.frameCounter = 0;
+                Projectile.frameCounter = 0;
                 //projectile.frame = ++projectile.frame % Main.projFrames[projectile.type];
-                if (++projectile.frame >= 3)
+                if (++Projectile.frame >= 3)
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
 
@@ -65,9 +66,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
             float num248 = 0f;
             float num249 = 0f;
 
-            Vector2 position71 = new Vector2(projectile.position.X + 3f + num248, projectile.position.Y + 3f + num249) - projectile.velocity * 0.5f;
-            int width67 = projectile.width - 8;
-            int height67 = projectile.height - 8;
+            Vector2 position71 = new Vector2(Projectile.position.X + 3f + num248, Projectile.position.Y + 3f + num249) - Projectile.velocity * 0.5f;
+            int width67 = Projectile.width - 8;
+            int height67 = Projectile.height - 8;
             Color newColor = default(Color);
             int num250 = Dust.NewDust(position71, width67, height67, 6, 0f, 0f, 100, newColor, 1f);
             Dust dust3 = Main.dust[num250];
@@ -75,9 +76,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
             dust3 = Main.dust[num250];
             dust3.velocity *= 0.2f;
             Main.dust[num250].noGravity = true;
-            Vector2 position72 = new Vector2(projectile.position.X + 3f + num248, projectile.position.Y + 3f + num249) - projectile.velocity * 0.5f;
-            int width68 = projectile.width - 8;
-            int height68 = projectile.height - 8;
+            Vector2 position72 = new Vector2(Projectile.position.X + 3f + num248, Projectile.position.Y + 3f + num249) - Projectile.velocity * 0.5f;
+            int width68 = Projectile.width - 8;
+            int height68 = Projectile.height - 8;
             newColor = default(Color);
             num250 = Dust.NewDust(position72, width68, height68, 31, 0f, 0f, 100, newColor, 0.5f);
             Main.dust[num250].fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
@@ -85,22 +86,22 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
             dust3.velocity *= 0.05f;
 
 
-            projectile.rotation = projectile.velocity.ToRotation();
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Damage
-            ExplosionDamageEnemy(25, projectile.Center, projectile.damage, ModContent.NPCType<CaptainExplosiveBoss>());
+            ExplosionDamageEnemy(25, Projectile.Center, Projectile.damage, ModContent.NPCType<CaptainExplosiveBoss>());
 
             //Create Bomb Explosion
             //CreateExplosion(projectile.Center, 2);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 100);
+            CreateDust(Projectile.Center, 100);
         }
 
         private void CreateDust(Vector2 position, int amount)

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using static ExtraExplosives.GlobalMethods;
 
@@ -20,28 +21,28 @@ namespace ExtraExplosives.Projectiles
         public override void SafeSetDefaults()
         {
             pickPower = 0;
-            projectile.tileCollide = true;
-            projectile.width = 20;
-            projectile.height = 20;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 2000;
+            Projectile.tileCollide = true;
+            Projectile.width = 20;
+            Projectile.height = 20;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 2000;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            projectile.velocity.X = 0;
-            projectile.rotation = 0f;
-            projectile.velocity.Y = -7;
+            Projectile.velocity.X = 0;
+            Projectile.rotation = 0f;
+            Projectile.velocity.Y = -7;
 
             return false;
         }
 
         public override void PostAI()
         {
-            projectile.velocity.X = 0;
-            projectile.rotation = 0f;
+            Projectile.velocity.X = 0;
+            Projectile.rotation = 0f;
 
             base.PostAI();
         }
@@ -49,7 +50,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
@@ -58,7 +59,7 @@ namespace ExtraExplosives.Projectiles
             //CreateExplosion(projectile.Center, 2);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 100);
+            CreateDust(Projectile.Center, 100);
         }
 
         /*private void CreateExplosion(Vector2 position, int radius)
@@ -99,7 +100,7 @@ namespace ExtraExplosives.Projectiles
                         updatedPosition = new Vector2(position.X - 70 / 2, position.Y - 70 / 2);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 70, 70, 4, 0f, 0f, 154, new Color(255, 255, 255), 3.55f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 35) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > 35) dust.active = false;
                         else
                         {
                             dust.noGravity = true;

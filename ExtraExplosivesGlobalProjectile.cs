@@ -3,6 +3,7 @@ using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -135,10 +136,10 @@ namespace ExtraExplosives
                         {
                             for (int currentY = maxY; currentY < minY; currentY++)  // cycle through y cords
                             {
-                                if (Main.tile[currentX, currentY] != null && Main.tile[currentX, currentY].nactive() && // isnt null and is nactive and
-                                    (Main.tileSolid[Main.tile[currentX, currentY].type] ||      // (is solid
-                                     (Main.tileSolidTop[Main.tile[currentX, currentY].type] &&  //  or (has a solid top and
-                                      Main.tile[currentX, currentY].frameY == 0))) // has a frameY of 0))
+                                if (Main.tile[currentX, currentY] != null && Main.tile[currentX, currentY].HasUnactuatedTile && // isnt null and is nactive and
+                                    (Main.tileSolid[Main.tile[currentX, currentY].TileType] ||      // (is solid
+                                     (Main.tileSolidTop[Main.tile[currentX, currentY].TileType] &&  //  or (has a solid top and
+                                      Main.tile[currentX, currentY].TileFrameY == 0))) // has a frameY of 0))
                                 {
 
                                     collisionPoint.X = currentX * 16;   // get the point in world cords from tile cords
@@ -195,10 +196,10 @@ namespace ExtraExplosives
                         {
                             for (int currentY = maxY; currentY < minY; currentY++)  // cycle through y cords
                             {
-                                if (Main.tile[currentX, currentY] != null && Main.tile[currentX, currentY].nactive() && // isnt null and is nactive and
-                                    (Main.tileSolid[Main.tile[currentX, currentY].type] ||      // (is solid
-                                     (Main.tileSolidTop[Main.tile[currentX, currentY].type] &&  //  or (has a solid top and
-                                      Main.tile[currentX, currentY].frameY == 0))) // has a frameY of 0))
+                                if (Main.tile[currentX, currentY] != null && Main.tile[currentX, currentY].HasUnactuatedTile && // isnt null and is nactive and
+                                    (Main.tileSolid[Main.tile[currentX, currentY].TileType] ||      // (is solid
+                                     (Main.tileSolidTop[Main.tile[currentX, currentY].TileType] &&  //  or (has a solid top and
+                                      Main.tile[currentX, currentY].TileFrameY == 0))) // has a frameY of 0))
                                 {
 
                                     collisionPoint.X = currentX * 16;   // get the point in world cords from tile cords
@@ -542,15 +543,15 @@ namespace ExtraExplosives
                                 {
                                     Tile tile = Framing.GetTileSafely(i, j);
 
-                                    if (!WorldGen.TileEmpty(i, j) && tile.active())
+                                    if (!WorldGen.TileEmpty(i, j) && tile.HasTile)
                                     {
-                                        if (!CanBreakTile(tile.type, pickPower)) continue;
+                                        if (!CanBreakTile(tile.TileType, pickPower)) continue;
                                         //if (!CanBreakTiles) continue;
                                         // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
                                         // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
-                                        if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.type])
+                                        if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.TileType])
                                         {
-                                            int typeTile = tile.type;
+                                            int typeTile = tile.TileType;
                                             WorldGen.KillTile((int)(i), (int)(j), false, false, false);
 
                                             if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
@@ -574,10 +575,10 @@ namespace ExtraExplosives
 
                                         else
                                         {
-                                            if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].type] && !TileLoader.IsDresser(Main.tile[i, j - 1].type) && Main.tile[i, j - 1].type != 26)
+                                            if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType) && Main.tile[i, j - 1].TileType != 26)
                                             {
                                                 tile.ClearTile();
-                                                tile.active(false);
+                                                tile.HasTile = false;
 
                                                 if (Main.netMode == NetmodeID.MultiplayerClient)
                                                 {
@@ -586,7 +587,7 @@ namespace ExtraExplosives
                                                 }
                                             }
 
-                                            if (tile.liquid == Tile.Liquid_Water || tile.liquid == Tile.Liquid_Lava || tile.liquid == Tile.Liquid_Honey)
+                                            if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
                                             {
                                                 WorldGen.SquareTileFrame(i, j, true);
                                             }
@@ -606,7 +607,7 @@ namespace ExtraExplosives
                     Player playerRad = Main.player[projectile.owner];
 
                     //Create Bomb Sound
-                    Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+                    SoundEngine.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
 
                     //Dust type
                     if (tileDamage) ExplosionDust((int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15), projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
@@ -871,9 +872,9 @@ namespace ExtraExplosives
                     radius = 10;
                     break;
                 default:
-                    if (projectile.modProjectile is ExplosiveProjectile)
+                    if (projectile.ModProjectile is ExplosiveProjectile)
                     {
-                        ExplosiveProjectile exp = (ExplosiveProjectile)projectile.modProjectile;
+                        ExplosiveProjectile exp = (ExplosiveProjectile)projectile.ModProjectile;
                         radius = exp.radius;
                     }
                     break;

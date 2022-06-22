@@ -15,10 +15,10 @@ namespace ExtraExplosives.Items.Accessories
         {
             //item.social = true;
             //item.accessory = true;
-            item.value = 5000;
-            item.rare = ItemRarityID.Orange;
-            item.consumable = false;
-            item.expert = true;
+            Item.value = 5000;
+            Item.rare = ItemRarityID.Orange;
+            Item.consumable = false;
+            Item.expert = true;
         }
 
         public override bool DrawHead() => false;
