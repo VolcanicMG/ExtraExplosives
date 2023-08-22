@@ -12,17 +12,17 @@
 
         public override void SafeSetDefaults()
         {
-            projectile.height = 10;
-            projectile.width = 10;
-            projectile.damage = 40;
-            projectile.knockBack = 2;
-            projectile.tileCollide = true;
-            projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.aiStyle = 16;
-            projectile.timeLeft = 1000;
-            projectile.scale = 0.5f;
-            projectile.penetrate = 8;
+            Projectile.height = 10;
+            Projectile.width = 10;
+            Projectile.damage = 40;
+            Projectile.knockBack = 2;
+            Projectile.tileCollide = true;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.aiStyle = 16;
+            Projectile.timeLeft = 1000;
+            Projectile.scale = 0.5f;
+            Projectile.penetrate = 8;
         }
     }
 }

@@ -15,22 +15,22 @@ namespace ExtraExplosives.Items
 
         public override void SetDefaults()
         {
-            item.damage = 0;     //The damage stat for the Weapon.
-            item.width = 20;    //sprite width
-            item.height = 20;   //sprite height
-            item.maxStack = 1;   //This defines the items max stack
-            item.consumable = false;  //Tells the game that this should be used up once fired
-            item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example
-            item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example	
-            item.rare = 11;  //The color the title of your item when hovering over it ingame
-            item.UseSound = SoundID.Item1; //The sound played when using this item
-            item.useAnimation = 20;  //How long the item is used for.
-            item.useTime = 20;
-            item.noUseGraphic = true;
-            item.noMelee = true;      //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
-            item.noMelee = true;      //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damage
-            item.shoot = ModContent.ProjectileType<TestingExplosive>(); //This defines what type of projectile this item will shoot
-            item.shootSpeed = 5f; //This defines the projectile speed when shot
+            Item.damage = 0;     //The damage stat for the Weapon.
+            Item.width = 20;    //sprite width
+            Item.height = 20;   //sprite height
+            Item.maxStack = 1;   //This defines the items max stack
+            Item.consumable = false;  //Tells the game that this should be used up once fired
+            Item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example
+            Item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example	
+            Item.rare = 11;  //The color the title of your item when hovering over it ingame
+            Item.UseSound = SoundID.Item1; //The sound played when using this item
+            Item.useAnimation = 20;  //How long the item is used for.
+            Item.useTime = 20;
+            Item.noUseGraphic = true;
+            Item.noMelee = true;      //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
+            Item.noMelee = true;      //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damage
+            Item.shoot = ModContent.ProjectileType<TestingExplosive>(); //This defines what type of projectile this item will shoot
+            Item.shootSpeed = 5f; //This defines the projectile speed when shot
                                   //item.createTile = ModContent.TileType<ExplosiveTile>();
                                   //item.createTile = mod.TileType("ExplosiveTile");
         }

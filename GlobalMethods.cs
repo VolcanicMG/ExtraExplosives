@@ -67,6 +67,8 @@ namespace ExtraExplosives
         /// </summary>
         public static float DustAmount;
 
+        public static bool RevertVanillaBombs;
+
         //====================================================================\\
 
 
@@ -80,7 +82,7 @@ namespace ExtraExplosives
         /// <param name="Damage"> Stores the damage projectiles damage amount </param>
         /// <param name="Knockback"> Stores the damage projectiles knockback amount </param>
         /// <param name="ProjectileOwner"> Stores the owner who called the damage projectile </param>
-        public static void ExplosionDamage(float DamageRadius, Vector2 DamagePosition, int Damage, float Knockback, int ProjectileOwner)
+        public static void ExplosionDamage(float DamageRadius, Vector2 DamagePosition, int Damage, float Knockback, int ProjectileOwner) //Outdated*****
         {
             ExplosionDamageProjectile.DamageRadius = DamageRadius; //Sets the radius of the explosion
             Projectile.NewProjectile(DamagePosition, Vector2.Zero, ProjectileType<ExplosionDamageProjectile>(), Damage, Knockback, ProjectileOwner, 0.0f, 0); //Spawns the damage projectile
@@ -317,7 +319,7 @@ namespace ExtraExplosives
             // If the tile is modded, will need updating when tml is updated
             if (tileId > 469)
             {
-                int tileResistance = GetModTile(tileId).minPick;
+                int tileResistance = GetModTile(tileId).MinPick;
                 if (tileResistance <= pickPower) return true;
                 return false;
             }
@@ -834,7 +836,7 @@ namespace ExtraExplosives
 
         }
 
-        #region Methods
+
         /// <summary>
         /// This function converts a vector2 to an angle and puts it back as a vector2 at a random point between the two values.
         /// </summary>
@@ -845,6 +847,5 @@ namespace ExtraExplosives
             float random = Main.rand.NextFloat() * angle + angleMin;
             return new Vector2((float)Math.Cos(random), (float)Math.Sin(random));
         }
-        #endregion
     }
 }

@@ -22,22 +22,22 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            item.autoReuse = true;
-            item.useTime = 10;
-            item.useAnimation = 10;
-            item.useAmmo = AmmoID.Bullet;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.crit = 15;
-            item.width = 66;
-            item.height = 36;
-            item.shoot = 10;
+            Item.autoReuse = true;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+            Item.useAmmo = AmmoID.Bullet;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.crit = 15;
+            Item.width = 66;
+            Item.height = 36;
+            Item.shoot = 10;
             //item.UseSound = SoundID.Item11;
-            item.damage = 33;
-            item.shootSpeed = 10f;
-            item.noMelee = true;
-            item.value = Item.buyPrice(0, 15, 0, 50);
-            item.knockBack = 4f;
-            item.rare = ItemRarityID.Yellow;
+            Item.damage = 33;
+            Item.shootSpeed = 10f;
+            Item.noMelee = true;
+            Item.value = Item.buyPrice(0, 15, 0, 50);
+            Item.knockBack = 4f;
+            Item.rare = ItemRarityID.Yellow;
 
             PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = new LegacySoundStyle[4];
@@ -45,18 +45,18 @@ namespace ExtraExplosives.Items.Weapons
             for (int n = 1; n <= PrimarySounds.Length; n++)
             {
                 PrimarySounds[n - 1] =
-                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Primary" + n);
+                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Primary" + n);
             }
             for (int n = 1; n <= SecondarySounds.Length; n++)
             {
                 SecondarySounds[n - 1] =
-                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Secondary" + n);
+                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Secondary" + n);
             }
         }
 
         public override void DangerousSetDefaults()
         {
-            item.ranged = true;
+            Item.ranged = true;
         }
 
         public override void HoldItem(Player player)
@@ -75,9 +75,9 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            string firemode = (item.useAmmo == AmmoID.Bullet ? "Bone Rifle" : "Bone Launcher");
-            var fireModeUseTip = new TooltipLine(mod, "Multiplier", $"Fire Mode: {firemode}");
-            fireModeUseTip.overrideColor = Color.Tan;
+            string firemode = (Item.useAmmo == AmmoID.Bullet ? "Bone Rifle" : "Bone Launcher");
+            var fireModeUseTip = new TooltipLine(Mod, "Multiplier", $"Fire Mode: {firemode}");
+            fireModeUseTip.OverrideColor = Color.Tan;
             tooltips.Add(fireModeUseTip);
         }
 
@@ -88,20 +88,20 @@ namespace ExtraExplosives.Items.Weapons
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            switch (item.useAmmo)
+            switch (Item.useAmmo)
             {
                 case 97:    // Bullet
-                    Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                    SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                         (int)player.position.X, (int)player.position.Y);
                     Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI);
                     break;
                 case 771:    // Rocket
-                    Main.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
+                    SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
                         (int)player.position.X, (int)player.position.Y);
                     Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.Grenade, damage, knockBack, player.whoAmI);
                     break;
                 default:
-                    mod.Logger.InfoFormat("Something went wrong {0}", item.useAmmo);
+                    Mod.Logger.InfoFormat("Something went wrong {0}", Item.useAmmo);
                     break;
             }
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 10f;
@@ -124,29 +124,29 @@ namespace ExtraExplosives.Items.Weapons
             //     instead of just hotswapping stats
             if (swapCooldown != 0) return false;
             swapCooldown = 60;
-            if (item.useAmmo == AmmoID.Bullet)
+            if (Item.useAmmo == AmmoID.Bullet)
             {
-                item.shoot = 133;
-                item.useAmmo = AmmoID.Rocket;
-                item.useAnimation = 90;
-                item.useTime = 90;
-                item.shootSpeed = 10;
-                item.damage = 40;
-                item.knockBack = 7;
+                Item.shoot = 133;
+                Item.useAmmo = AmmoID.Rocket;
+                Item.useAnimation = 90;
+                Item.useTime = 90;
+                Item.shootSpeed = 10;
+                Item.damage = 40;
+                Item.knockBack = 7;
                 //Main.NewText("Bone Launcher");
-                Main.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
             else
             {
-                item.shoot = 10;
-                item.useAmmo = AmmoID.Bullet;
-                item.useTime = 10;
-                item.useAnimation = 10;
-                item.shootSpeed = 13;
-                item.damage = 35;
-                item.knockBack = 3.5f;
+                Item.shoot = 10;
+                Item.useAmmo = AmmoID.Bullet;
+                Item.useTime = 10;
+                Item.useAnimation = 10;
+                Item.shootSpeed = 13;
+                Item.damage = 35;
+                Item.knockBack = 3.5f;
                 // Main.NewText("Bone Rifle");
-                Main.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
 
             return false;

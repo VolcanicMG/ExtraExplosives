@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -19,19 +21,19 @@ namespace ExtraExplosives.Projectiles
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;
-            projectile.tileCollide = true;
-            projectile.width = 10;
-            projectile.height = 32;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 80;
+            Projectile.tileCollide = true;
+            Projectile.width = 10;
+            Projectile.height = 32;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 80;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
@@ -40,18 +42,18 @@ namespace ExtraExplosives.Projectiles
             Explosion();
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 50);
+            CreateDust(Projectile.Center, 50);
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-3f, -3f);
             Vector2 gVel2 = new Vector2(3f, 3f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         public override void Explosion()    // custom explosive
         {
-            Vector2 position = projectile.Center;
+            Vector2 position = Projectile.Center;
 
             int bunnies = 200;
 
@@ -76,7 +78,7 @@ namespace ExtraExplosives.Projectiles
                         updatedPosition = new Vector2(position.X - 400, position.Y - 50);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 800, 100, 112, 0f, 0f, 0, new Color(255, 0, 0), 1.447368f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 400) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > 400) dust.active = false;
                         {
                             dust.shader = GameShaders.Armor.GetSecondaryShader(36, Main.LocalPlayer);
                             dust.fadeIn = 1.144737f;

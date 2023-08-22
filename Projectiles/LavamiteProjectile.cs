@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.Shaders;
 using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -20,23 +21,23 @@ namespace ExtraExplosives.Projectiles
         public override void SafeSetDefaults()
         {
             radius = 10;
-            projectile.tileCollide = true;
-            projectile.width = 10;
-            projectile.height = 32;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 100;
+            Projectile.tileCollide = true;
+            Projectile.width = 10;
+            Projectile.height = 32;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 100;
             explodeSounds = new LegacySoundStyle[3];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
         public override void PostAI()
         {
-            Lighting.AddLight(projectile.position, new Vector3(2.2f, 1f, .1f));
+            Lighting.AddLight(Projectile.position, new Vector3(2.2f, 1f, .1f));
             Lighting.maxX = 10;
             Lighting.maxY = 10;
         }
@@ -44,7 +45,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
@@ -58,13 +59,13 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-2f, -2f);
             Vector2 gVel2 = new Vector2(0f, 2f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         public override void Explosion()
         {
-            Vector2 position = projectile.Center;
+            Vector2 position = Projectile.Center;
             for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
             {
                 for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
@@ -76,8 +77,8 @@ namespace ExtraExplosives.Projectiles
                     {
                         if (WorldGen.TileEmpty((int)(x + position.X / 16.0f), (int)(y + position.Y / 16.0f)))
                         {
-                            Main.tile[xPosition, yPosition].liquidType(1);
-                            Main.tile[xPosition, yPosition].liquid = 128;
+                            Main.tile[xPosition, yPosition].LiquidType = 1;
+                            Main.tile[xPosition, yPosition].LiquidAmount = 128;
                             WorldGen.SquareTileFrame(xPosition, yPosition, true);
                         }
                     }

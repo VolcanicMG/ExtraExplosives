@@ -2,6 +2,7 @@ using ExtraExplosives.Buffs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,7 +10,7 @@ namespace ExtraExplosives.Tiles
 {
     public class NuclearWasteSurfaceTile : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
             //Main.tileSolidTop[Type] = true;
@@ -21,7 +22,7 @@ namespace ExtraExplosives.Tiles
             Main.tileNoAttach[Type] = true;
             //Main.tileShine[Type] = 2;
             //Main.shine(new Color(124f, 252f, 0f), 100);
-            dustType = DustID.GreenBlood;
+            DustType = DustID.GreenBlood;
             AddMapEntry(new Color(124, 252, 0));
             Main.tileBlendAll[Type] = true;
             //drop = ModContent.ItemType<BasicExplosiveItem>();
@@ -43,7 +44,7 @@ namespace ExtraExplosives.Tiles
             return base.PreDraw(i, j, spriteBatch);
         }
 
-        public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref Color drawColor, ref int nextSpecialDrawIndex)
+        public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
         {
             if (!Main.gamePaused && Main.instance.IsActive)
             {

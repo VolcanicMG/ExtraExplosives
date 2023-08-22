@@ -15,18 +15,18 @@ namespace ExtraExplosives.Items.Rockets
 
         public override void SafeSetDefaults()
         {
-            item.CloneDefaults(ItemID.RocketI);
-            item.width = 26;
-            item.height = 14;
-            item.value = Item.buyPrice(0, 0, 0, 25);
-            item.rare = ItemRarityID.Blue;
-            item.damage = 30;
-            item.shoot = ModContent.ProjectileType<Rocket0Point5Projectile>();
+            Item.CloneDefaults(ItemID.RocketI);
+            Item.width = 26;
+            Item.height = 14;
+            Item.value = Item.buyPrice(0, 0, 0, 25);
+            Item.rare = ItemRarityID.Blue;
+            Item.damage = 30;
+            Item.shoot = ModContent.ProjectileType<Rocket0Point5Projectile>();
         }
 
         public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
         {
-            type = item.shoot;
+            type = Item.shoot;
         }
     }
 }

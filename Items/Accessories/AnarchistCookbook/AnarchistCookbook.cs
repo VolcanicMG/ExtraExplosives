@@ -17,47 +17,46 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            ExtraExplosivesPlayer mp = Main.player[item.owner].EE();
+            ExtraExplosivesPlayer mp = Main.player[Item.playerIndexTheItemIsReservedFor].EE();
             if (!mp.AlienExplosive &&
                 !mp.LihzahrdFuzeset &&
                 !mp.Bombshroom &&
                 !mp.SupernaturalBomb)
             {
-                var hintTooltipLine = new TooltipLine(mod, "", $"There still seem to be pages missing");
-                hintTooltipLine.overrideColor = Color.LightSkyBlue;
+                var hintTooltipLine = new TooltipLine(Mod, "", $"There still seem to be pages missing");
+                hintTooltipLine.OverrideColor = Color.LightSkyBlue;
                 //tooltips.Add(hintTooltipLine);
                 tooltips.Insert(tooltips.Count - 1, hintTooltipLine);
 
             }
 
-            var extraTooltip = new TooltipLine(mod, "", $"Its more than just the sum of its parts");
-            extraTooltip.overrideColor = Color.MediumVioletRed;
+            var extraTooltip = new TooltipLine(Mod, "", $"Its more than just the sum of its parts");
+            extraTooltip.OverrideColor = Color.MediumVioletRed;
             //tooltips.Add(extraTooltip);
             tooltips.Insert(tooltips.Count - 1, extraTooltip);
         }
 
         public override void SetDefaults()
         {
-            item.width = 28;
-            item.height = 30;
-            item.value = 100000;
-            item.maxStack = 1;
-            item.rare = ItemRarityID.Lime;
-            item.accessory = true;
-            item.social = false;
+            Item.width = 28;
+            Item.height = 30;
+            Item.value = 100000;
+            Item.maxStack = 1;
+            Item.rare = ItemRarityID.Lime;
+            Item.accessory = true;
+            Item.social = false;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe modRecipe = new ModRecipe(mod);
+            Recipe modRecipe = CreateRecipe();
             modRecipe.AddIngredient(ModContent.ItemType<HandyNotes>());
             modRecipe.AddIngredient(ModContent.ItemType<RandomNotes>());
             modRecipe.AddIngredient(ModContent.ItemType<ResourcefulNotes>());
             modRecipe.AddIngredient(ModContent.ItemType<SafetyNotes>());
             modRecipe.AddIngredient(ModContent.ItemType<UtilityNotes>());
             modRecipe.AddTile(TileID.TinkerersWorkbench);
-            modRecipe.SetResult(this);
-            modRecipe.AddRecipe();
+            modRecipe.Register();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

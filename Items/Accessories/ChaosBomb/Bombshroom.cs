@@ -17,22 +17,22 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            if (Main.player[item.owner].EE().AnarchistCookbook)
+            if (Main.player[Item.playerIndexTheItemIsReservedFor].EE().AnarchistCookbook)
             {
-                var synergyTooltipLine = new TooltipLine(mod, "synergyTooltipLine", $"Cookbook Synergy: Explosions spawn damaging spores");
-                synergyTooltipLine.overrideColor = Color.LightCyan;
+                var synergyTooltipLine = new TooltipLine(Mod, "synergyTooltipLine", $"Cookbook Synergy: Explosions spawn damaging spores");
+                synergyTooltipLine.OverrideColor = Color.LightCyan;
                 tooltips.Add(synergyTooltipLine);
             }
         }
 
         public override void SetDefaults()
         {
-            item.width = 28;
-            item.height = 30;
-            item.value = 10000;
-            item.maxStack = 1;
-            item.rare = ItemRarityID.LightRed;
-            item.accessory = true;
+            Item.width = 28;
+            Item.height = 30;
+            Item.value = 10000;
+            Item.maxStack = 1;
+            Item.rare = ItemRarityID.LightRed;
+            Item.accessory = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

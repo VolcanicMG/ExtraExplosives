@@ -73,7 +73,7 @@ namespace ExtraExplosives
                         {
                             Projectile proj = Projectile.NewProjectileDirect(position,
                                 new Vector2(speedX + 0.1f, speedY + 0.1f), item.shoot, damage,
-                                knockBack, item.owner);
+                                knockBack, item.playerIndexTheItemIsReservedFor);
                             proj.position.X += 5;
                             proj.position.Y += 5;
                         }
@@ -94,22 +94,22 @@ namespace ExtraExplosives
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            TooltipLine Info = tooltips.FirstOrDefault(t => t.mod == "Terraria");
-            TooltipLine Disclaimer = tooltips.LastOrDefault(t => t.mod == "Terraria");
+            TooltipLine Info = tooltips.FirstOrDefault(t => t.Mod == "Terraria");
+            TooltipLine Disclaimer = tooltips.LastOrDefault(t => t.Mod == "Terraria");
 
             if (Info != null && ExtraExplosives._tooltipWhitelist.Contains<int>(item.type))
             {
                 //Info.text += "[c/AB40FF: (Bombard Item)]";
-                var Dis = new TooltipLine(mod, "ItemName", "(Bombard Item)");
-                Dis.overrideColor = Color.Purple;
+                var Dis = new TooltipLine(Mod, "ItemName", "(Bombard Item)");
+                Dis.OverrideColor = Color.Purple;
                 //tooltips.Add(Dis);
                 tooltips.Insert(1, Dis);
 
             }
             else if (Disclaimer != null && ExtraExplosives.disclaimerTooltip.Contains<int>(item.type))
             {
-                var Dis = new TooltipLine(mod, "", "(Doesn't work with Extra Explosive trinkets)");
-                Dis.overrideColor = Color.Red;
+                var Dis = new TooltipLine(Mod, "", "(Doesn't work with Extra Explosive trinkets)");
+                Dis.OverrideColor = Color.Red;
                 tooltips.Add(Dis);
             }
 
@@ -118,21 +118,19 @@ namespace ExtraExplosives
         public override void AddRecipes()
         {
 
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = Mod.CreateRecipe(ItemID.Dynamite);
             recipe.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 3);
             recipe.AddIngredient(ItemID.Gel, 5);
             recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(ItemID.Dynamite);
-            recipe.AddRecipe();
+            recipe.Register();
             base.AddRecipes();
 
-            ModRecipe recipe2 = new ModRecipe(mod);
+            Recipe recipe2 = Mod.CreateRecipe(ItemID.Bomb);
             recipe2.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 1);
             recipe2.AddIngredient(ItemID.Grenade, 1);
             recipe2.AddIngredient(ItemID.Gel, 5);
             recipe2.AddTile(TileID.WorkBenches);
-            recipe2.SetResult(ItemID.Bomb);
-            recipe2.AddRecipe();
+            recipe2.Register();
             base.AddRecipes();
 
         }

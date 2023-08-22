@@ -16,11 +16,11 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
         public override void SetDefaults()
         {
             //item.social = true;
-            item.accessory = true;
-            item.value = Item.buyPrice(0, 30, 0, 0);
-            item.rare = ItemRarityID.Orange;
-            item.consumable = false;
-            item.expert = true;
+            Item.accessory = true;
+            Item.value = Item.buyPrice(0, 30, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.consumable = false;
+            Item.expert = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

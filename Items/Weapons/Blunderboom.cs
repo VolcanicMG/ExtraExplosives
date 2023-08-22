@@ -21,20 +21,20 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            item.damage = 26;
-            item.width = 78;
-            item.height = 32;
-            item.useTime = 45;
-            item.useAnimation = 45;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true; //so the item's animation doesn't do damage
-            item.knockBack = 2.5f;
-            item.value = 10000;
-            item.rare = ItemRarityID.LightRed;
-            item.autoReuse = true;
-            item.shoot = ProjectileID.Bullet;
-            item.shootSpeed = 11;
-            item.useAmmo = AmmoID.Bullet;
+            Item.damage = 26;
+            Item.width = 78;
+            Item.height = 32;
+            Item.useTime = 45;
+            Item.useAnimation = 45;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true; //so the item's animation doesn't do damage
+            Item.knockBack = 2.5f;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.LightRed;
+            Item.autoReuse = true;
+            Item.shoot = ProjectileID.Bullet;
+            Item.shootSpeed = 11;
+            Item.useAmmo = AmmoID.Bullet;
 
             PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = new LegacySoundStyle[4];
@@ -42,18 +42,18 @@ namespace ExtraExplosives.Items.Weapons
             for (int n = 1; n <= PrimarySounds.Length; n++)
             {
                 PrimarySounds[n - 1] =
-                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Primary" + n);
+                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Primary" + n);
             }
             for (int n = 1; n <= SecondarySounds.Length; n++)
             {
                 SecondarySounds[n - 1] =
-                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Secondary" + n);
+                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Secondary" + n);
             }
         }
 
         public override void DangerousSetDefaults()
         {
-            item.ranged = true;
+            Item.ranged = true;
             Explosive = false;
         }
 
@@ -74,9 +74,9 @@ namespace ExtraExplosives.Items.Weapons
                 stats.text = damageValue + "x7 ranged " + damageWord;
             }*/
 
-            string firemode = (item.useAmmo == AmmoID.Bullet ? "Shotgun" : "Explosive");
-            var fireModeUseTip = new TooltipLine(mod, "Firemode", $"Fire Mode: {firemode}");
-            fireModeUseTip.overrideColor = Color.Tan;
+            string firemode = (Item.useAmmo == AmmoID.Bullet ? "Shotgun" : "Explosive");
+            var fireModeUseTip = new TooltipLine(Mod, "Firemode", $"Fire Mode: {firemode}");
+            fireModeUseTip.OverrideColor = Color.Tan;
             tooltips.Add(fireModeUseTip);
         }
 
@@ -93,10 +93,10 @@ namespace ExtraExplosives.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            switch (item.useAmmo)
+            switch (Item.useAmmo)
             {
                 case 97:    // Bullet
-                    Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                    SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                         (int)player.position.X, (int)player.position.Y);
                     int numberProjectiles = 7;
                     for (int i = 0; i < numberProjectiles; i++)
@@ -109,7 +109,7 @@ namespace ExtraExplosives.Items.Weapons
                     }
                     return false; // return false because we don't want tmodloader to shoot projectile
                 case 771:    // Rocket
-                    Main.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
+                    SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
                         (int)player.position.X, (int)player.position.Y);
                     Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.GrenadeIII, damage, knockBack, player.whoAmI);
                     break;
@@ -121,33 +121,33 @@ namespace ExtraExplosives.Items.Weapons
         {
             if (swapCooldown != 0) return false;
             swapCooldown = 60;
-            if (item.useAmmo == AmmoID.Bullet)
+            if (Item.useAmmo == AmmoID.Bullet)
             {
-                item.shoot = 133;
-                item.useAmmo = AmmoID.Rocket;
-                item.useAnimation = 50;
-                item.useTime = 50;
-                item.shootSpeed = 5;
-                item.damage = 40;
-                item.knockBack = 7;
-                item.ranged = false;
+                Item.shoot = 133;
+                Item.useAmmo = AmmoID.Rocket;
+                Item.useAnimation = 50;
+                Item.useTime = 50;
+                Item.shootSpeed = 5;
+                Item.damage = 40;
+                Item.knockBack = 7;
+                Item.ranged = false;
                 Explosive = true;
                 //Main.NewText("Loaded with gunpowder");
-                Main.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
             else
             {
-                item.shoot = ProjectileID.Bullet;
-                item.useAmmo = AmmoID.Bullet;
-                item.useTime = 45;
-                item.useAnimation = 45;
-                item.shootSpeed = 11;
-                item.damage = 26;
-                item.knockBack = 2.5f;
-                item.ranged = true;
+                Item.shoot = ProjectileID.Bullet;
+                Item.useAmmo = AmmoID.Bullet;
+                Item.useTime = 45;
+                Item.useAnimation = 45;
+                Item.shootSpeed = 11;
+                Item.damage = 26;
+                Item.knockBack = 2.5f;
+                Item.ranged = true;
                 Explosive = false;
                 // Main.NewText("Loaded with shrapnel");
-                Main.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
 
             }
             return false;

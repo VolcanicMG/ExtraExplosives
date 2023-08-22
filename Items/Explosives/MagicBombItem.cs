@@ -24,30 +24,30 @@ namespace ExtraExplosives.Items.Explosives
 
         public override void SafeSetDefaults()
         {
-            item.damage = 100;
-            item.knockBack = 25;
-            item.useTurn = true;
-            item.height = 20;
-            item.width = 20;
-            item.shoot = ModContent.ProjectileType<MagicBombProjectile>();
-            item.shootSpeed = 10f;
-            item.consumable = true;
-            item.rare = ItemRarityID.Orange;
-            item.value = 1000;
-            item.maxStack = 99;
-            item.useAnimation = 40;
-            item.useTime = 40;
-            item.useStyle = 4;
+            Item.damage = 100;
+            Item.knockBack = 25;
+            Item.useTurn = true;
+            Item.height = 20;
+            Item.width = 20;
+            Item.shoot = ModContent.ProjectileType<MagicBombProjectile>();
+            Item.shootSpeed = 10f;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Orange;
+            Item.value = 1000;
+            Item.maxStack = 99;
+            Item.useAnimation = 40;
+            Item.useTime = 40;
+            Item.useStyle = 4;
             //item.mana = 10;
-            item.channel = true;
+            Item.channel = true;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
             ref float knockBack)
         {
             Projectile.NewProjectile(position, new Vector2(speedX, speedY),
-                ModContent.ProjectileType<SmallExplosiveProjectile>(), item.damage, item.knockBack);   //ModContent.ProjectileType<MagicBombProjectile>()
-            item.damage = 100;
+                ModContent.ProjectileType<SmallExplosiveProjectile>(), Item.damage, Item.knockBack);   //ModContent.ProjectileType<MagicBombProjectile>()
+            Item.damage = 100;
             return false;
         }
 
@@ -60,8 +60,8 @@ namespace ExtraExplosives.Items.Explosives
 
         public override bool AltFunctionUse(Player player)
         {
-            if (player.statMana < 20 || timeLeft != 0 || item.damage >= 1000) return false;
-            item.damage += 30;    // TODO add indicator showing failed or successful mana addition
+            if (player.statMana < 20 || timeLeft != 0 || Item.damage >= 1000) return false;
+            Item.damage += 30;    // TODO add indicator showing failed or successful mana addition
             player.statMana -= 20;
             timeLeft = 30;
             return false;
@@ -69,8 +69,8 @@ namespace ExtraExplosives.Items.Explosives
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var currentDamageTooltip = new TooltipLine(mod, "CurrentDamage", $"Its damage has been increased by {item.damage - 40}");
-            currentDamageTooltip.overrideColor = Color.Aquamarine;
+            var currentDamageTooltip = new TooltipLine(Mod, "CurrentDamage", $"Its damage has been increased by {Item.damage - 40}");
+            currentDamageTooltip.OverrideColor = Color.Aquamarine;
             tooltips.Add(currentDamageTooltip);
         }
     }

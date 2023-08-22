@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -15,29 +16,29 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true;
-            projectile.width = 20;
-            projectile.height = 20;
-            projectile.aiStyle = 0;
-            projectile.friendly = false;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 0;
-            projectile.damage = 0;
+            Projectile.tileCollide = true;
+            Projectile.width = 20;
+            Projectile.height = 20;
+            Projectile.aiStyle = 0;
+            Projectile.friendly = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 0;
+            Projectile.damage = 0;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
             //Create Bomb Explosion
-            CreateExplosion(projectile.Center, 4);
+            CreateExplosion(Projectile.Center, 4);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 10);
+            CreateDust(Projectile.Center, 10);
 
         }
 
@@ -80,7 +81,7 @@ namespace ExtraExplosives.Projectiles
                         updatedPosition = new Vector2(position.X - 100 / 2, position.Y - 100 / 2);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 100, 100, 6, 0f, 0.5f, 0, new Color(255, 0, 0), 4f)];
-                        if (Vector2.Distance(dust.position, projectile.position) > 50) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.position) > 50) dust.active = false;
                         else
                         {
                             dust.noGravity = true;

@@ -14,30 +14,30 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            item.damage = 250;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.useAnimation = 16;
-            item.useTime = 22;
-            item.shootSpeed = 15f;
-            item.knockBack = 6.5f;
-            item.width = 30;
-            item.height = 36;
-            item.maxStack = 99;
-            item.scale = 1f;
-            item.rare = ItemRarityID.Yellow;
-            item.value = Item.buyPrice(0, 1, 0, 50);
-            item.consumable = true;
+            Item.damage = 250;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useAnimation = 16;
+            Item.useTime = 22;
+            Item.shootSpeed = 15f;
+            Item.knockBack = 6.5f;
+            Item.width = 30;
+            Item.height = 36;
+            Item.maxStack = 99;
+            Item.scale = 1f;
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.buyPrice(0, 1, 0, 50);
+            Item.consumable = true;
 
-            item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
-            item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
-            item.autoReuse = false; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
+            Item.noMelee = true; // Important because the spear is actually a projectile instead of an item. This prevents the melee hitbox of this item.
+            Item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
+            Item.autoReuse = false; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 
-            item.shoot = mod.ProjectileType("PrismBomb");
+            Item.shoot = Mod.Find<ModProjectile>("PrismBomb").Type;
         }
 
         public override void AddRecipes()//whatever the recipe is
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.LargeDiamond, 1);
             recipe.AddIngredient(ItemID.LargeAmethyst, 1);
             recipe.AddIngredient(ItemID.LargeEmerald, 1);
@@ -45,8 +45,7 @@ namespace ExtraExplosives.Items.Weapons
             recipe.AddIngredient(ItemID.FallenStar, 10);
             recipe.AddIngredient(ModContent.ItemType<MediumExplosiveItem>(), 1);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

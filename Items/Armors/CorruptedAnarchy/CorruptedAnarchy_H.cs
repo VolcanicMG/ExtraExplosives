@@ -15,11 +15,11 @@ namespace ExtraExplosives.Items.Armors.CorruptedAnarchy
 
         public override void SetDefaults()
         {
-            item.height = 18;
-            item.width = 18;
-            item.value = Item.buyPrice(0, 0, 1, 50);
-            item.rare = ItemRarityID.Blue;
-            item.defense = 6;
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 0, 1, 50);
+            Item.rare = ItemRarityID.Blue;
+            Item.defense = 6;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -45,12 +45,11 @@ namespace ExtraExplosives.Items.Armors.CorruptedAnarchy
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.DemoniteBar, 10);
             recipe.AddIngredient(ItemID.ShadowScale, 10);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
     }

@@ -21,21 +21,21 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            item.damage = 25;
-            item.width = 46;
-            item.height = 36;
-            item.useTime = 50;
-            item.useAnimation = 50;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true; //so the item's animation doesn't do damage
-            item.knockBack = 7;
-            item.crit = 11;
-            item.value = 10000;
-            item.rare = ItemRarityID.Green;
-            item.autoReuse = true;
-            item.shoot = 10;
-            item.shootSpeed = 15;
-            item.useAmmo = AmmoID.Rocket;
+            Item.damage = 18;
+            Item.width = 46;
+            Item.height = 36;
+            Item.useTime = 50;
+            Item.useAnimation = 50;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true; //so the item's animation doesn't do damage
+            Item.knockBack = 7;
+            Item.crit = 11;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.Green;
+            Item.autoReuse = true;
+            Item.shoot = 10;
+            Item.shootSpeed = 15;
+            Item.useAmmo = AmmoID.Rocket;
 
             PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = null;
@@ -43,19 +43,19 @@ namespace ExtraExplosives.Items.Weapons
             for (int n = 1; n <= PrimarySounds.Length; n++)
             {
                 PrimarySounds[n - 1] =
-                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
             }
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.Mod == "Terraria");
             if (stats != null)
             {
-                string[] split = stats.text.Split(' ');
+                string[] split = stats.Text.Split(' ');
                 string damageValue = split.First();
                 string damageWord = split.Last();
-                stats.text = damageValue + " explosive " + damageWord;
+                stats.Text = damageValue + " explosive " + damageWord;
             }
         }
 
@@ -66,7 +66,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+            SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                 (int)player.position.X, (int)player.position.Y);
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;

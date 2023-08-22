@@ -16,11 +16,11 @@ namespace ExtraExplosives.Items.Armors.Vanity.Explonin
 
         public override void SetDefaults()
         {
-            item.height = 40;
-            item.width = 40;
-            item.value = Item.buyPrice(0, 0, 0, 55);
-            item.rare = ItemRarityID.Blue;
-            item.expert = true;
+            Item.height = 40;
+            Item.width = 40;
+            Item.value = Item.buyPrice(0, 0, 0, 55);
+            Item.rare = ItemRarityID.Blue;
+            Item.expert = true;
         }
 
     }

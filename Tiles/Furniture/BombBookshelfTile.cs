@@ -8,7 +8,7 @@ namespace ExtraExplosives.Tiles.Furniture
 {
     public class BombBookshelfTile : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
@@ -25,7 +25,7 @@ namespace ExtraExplosives.Tiles.Furniture
             name.SetDefault("Bomb Bookcase");
             AddMapEntry(new Color(200, 200, 200), name);
             disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Bookcases };
+            AdjTiles = new int[] { TileID.Bookcases };
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

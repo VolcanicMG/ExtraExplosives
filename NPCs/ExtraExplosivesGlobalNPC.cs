@@ -39,11 +39,11 @@ namespace ExtraExplosives.NPCs
             }
         }
 
-        public override void NPCLoot(NPC npc)
+        public override void OnKill(NPC npc)
         {
             if (npc.boss && Main.expertMode)
             {
-                if (Main.rand.NextFloat() < 0.10210526f && npc.type != mod.NPCType("CaptainExplosive"))
+                if (Main.rand.NextFloat() < 0.10210526f && npc.type != Mod.Find<ModNPC>("CaptainExplosive").Type)
                 {
                     Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BreakenTheBankenItem>(), 1);
                 }
@@ -82,50 +82,86 @@ namespace ExtraExplosives.NPCs
                     break;
 
                 // NPCs
-                case NPCID.SkeletonCommando:
-                    if (Main.rand.Next(100) == 0)
+                case NPCID.DD2KoboldFlyerT2:
+                    if (Main.rand.NextFloat() < 0.25f)
                     {
-                        Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BlastShielding>(), 1);
+                        Item.NewItem(npc.position, ModContent.ItemType<MysteryBomb>(), 1);
+                    }
+                    break;
+                case NPCID.DD2KoboldFlyerT3:
+                    if (Main.rand.NextFloat() < 0.25f)
+                    {
+                        Item.NewItem(npc.position, ModContent.ItemType<MysteryBomb>(), 1);
+                    }
+                    break;
+                case NPCID.DD2KoboldWalkerT2:
+                    if (Main.rand.NextFloat() < 0.25f)
+                    {
+                        Item.NewItem(npc.position, ModContent.ItemType<MysteryBomb>(), 1);
+                    }
+                    break;
+                case NPCID.DD2KoboldWalkerT3:
+                    if (Main.rand.NextFloat() < 0.25f)
+                    {
+                        Item.NewItem(npc.position, ModContent.ItemType<MysteryBomb>(), 1);
+                    }
+                    break;
+                case NPCID.SkeletonCommando:
+                    if (Main.rand.NextFloat() < 0.15f)
+                    {
+                        Item.NewItem(npc.position, ModContent.ItemType<ReactivePlating>(), 1);
                     }
                     break;
                 case NPCID.TacticalSkeleton:
-                    if (Main.rand.Next(100) == 0)
+                    if (Main.rand.NextFloat() < 0.15f)
                     {
-                        Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BlastShielding>(), 1);
+                        Item.NewItem(npc.position, ModContent.ItemType<BlastShielding>(), 1);
                     }
-                    if (Main.rand.Next(100) == 0)
+                    if (Main.rand.NextFloat() < 0.15f)
                     {
-                        Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<TacticalBonerifle>(), 1);
+                        Item.NewItem(npc.position, ModContent.ItemType<TacticalBonerifle>(), 1);
                     }
                     break;
                 case NPCID.GoblinPeon:
-                    if (Main.rand.Next(100) == 0)
+                    if (Main.rand.NextFloat() < 0.15f)
                     {
-                        Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<TrashCannon>(), 1);
+                        Item.NewItem(npc.position, ModContent.ItemType<TrashCannon>(), 1);
                     }
                     break;
                 case NPCID.PirateDeadeye:
-                    if (Main.rand.Next(100) == 0)
+                    if (Main.rand.NextFloat() < 0.15f)
                     {
-                        Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<Blunderboom>(), 1);
+                        Item.NewItem(npc.position, ModContent.ItemType<Blunderboom>(), 1);
                     }
                     break;
                 case NPCID.Golem:
-                    if (Main.rand.NextFloat() < 0.15021f)
+                    if (Main.rand.NextFloat() < 0.15f)
                     {
-                        Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<LihzahrdFuzeset>(), 1);
+                        Item.NewItem(npc.position, ModContent.ItemType<LihzahrdFuzeset>(), 1);
                     }
                     break;
                 case NPCID.MartianSaucer:
-                    if (Main.rand.NextFloat() < 0.15021f)
+                    if (Main.rand.NextFloat() < 0.15f)
                     {
-                        Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<AlienExplosive>(), 1);
+                        Item.NewItem(npc.position, ModContent.ItemType<AlienExplosive>(), 1);
                     }
                     break;
                 case NPCID.DungeonSpirit:
-                    if (Main.rand.NextFloat() < 0.15021f)
+                    if (Main.rand.NextFloat() < 0.15f)
                     {
-                        Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<SupernaturalBomb>(), 1);
+                        Item.NewItem(npc.position, ModContent.ItemType<SupernaturalBomb>(), 1);
+                    }
+                    break;
+                case NPCID.FungiBulb:
+                    if (Main.rand.NextFloat() < 0.15f)
+                    {
+                        Item.NewItem(npc.position, ModContent.ItemType<Bombshroom>(), 1);
+                    }
+                    break;
+                case NPCID.GiantFungiBulb:
+                    if (Main.rand.NextFloat() < 0.20f)
+                    {
+                        Item.NewItem(npc.position, ModContent.ItemType<Bombshroom>(), 1);
                     }
                     break;
                 //case NPCID.RayGunner:

@@ -1,11 +1,12 @@
 ﻿using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Gores.Explosives
 {
     class Dynaglowmite_Gore2 : ModGore
     {
-        public override void OnSpawn(Gore gore)
+        public override void OnSpawn(Gore gore, IEntitySource source)
         {
             gore.sticky = true;
             gore.timeLeft = 60 * 8;

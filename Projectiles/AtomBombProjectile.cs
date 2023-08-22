@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -20,22 +22,22 @@ namespace ExtraExplosives.Projectiles
         {
             pickPower = -1; // Can destroy anything
             radius = 1;
-            projectile.tileCollide = true;
-            projectile.width = 10;
-            projectile.height = 10;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 600;
+            Projectile.tileCollide = true;
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 600;
 
-            drawOffsetX = -15;
-            drawOriginOffsetY = -15;
+            DrawOffsetX = -15;
+            DrawOriginOffsetY = -15;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Damage
             //ExplosionDamage(1, projectile.Center, 5000, 1.0f, projectile.owner);
@@ -51,21 +53,21 @@ namespace ExtraExplosives.Projectiles
             DustEffects();
 
             //Create Bomb Gore
-            Vector2 gVel1 = Vector2.One.RotatedBy(projectile.rotation);
-            int gore1ID = mod.GetGoreSlot(goreFileLoc + "1");
+            Vector2 gVel1 = Vector2.One.RotatedBy(Projectile.rotation);
+            int gore1ID = Mod.Find<ModGore>(goreFileLoc + "1").Type;
             for (int num = 0; num < 4; num++)
             {
-                Gore.NewGore(projectile.position + gVel1, gVel1, gore1ID, projectile.scale);
+                Gore.NewGore(Projectile.position + gVel1, gVel1, gore1ID, Projectile.scale);
                 gVel1 = gVel1.RotatedBy(Math.PI / 2.0);
             }
             Vector2 gVel2 = Vector2.One.RotatedBy(Math.PI / 4.0);
-            Gore.NewGore(projectile.position + gVel2, gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+            Gore.NewGore(Projectile.position + gVel2, gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         public override void Explosion()    // Special (more efficient) explosion, leaving it
         {
-            int xPosition = (int)(projectile.Bottom.X / 16.0f);
-            int yPosition = (int)(projectile.Bottom.Y / 16.0f);
+            int xPosition = (int)(Projectile.Bottom.X / 16.0f);
+            int yPosition = (int)(Projectile.Bottom.Y / 16.0f);
             WorldGen.KillTile(xPosition, yPosition, false, false, true);  //this make the explosion destroy tiles
         }
         

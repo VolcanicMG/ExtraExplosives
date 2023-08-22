@@ -8,20 +8,20 @@ using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.World.Generation;
 using ItemID = Terraria.ID.ItemID;
 using TileID = Terraria.ID.TileID;
+using Terraria.WorldBuilding;
 
 namespace ExtraExplosives
 {
-    public class ExtraExplosivesWorld : ModWorld
+    public class ExtraExplosivesWorld : ModSystem
     {
         public static bool BossCheckDead;
 
-        public override void Initialize()
+        public override void OnWorldLoad()
         {
             BossCheckDead = false;
-            base.Initialize();
+            base.OnWorldLoad();
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
@@ -56,7 +56,7 @@ namespace ExtraExplosives
             }
         }
 
-        public override void PreUpdate()
+        public override void PreUpdateWorld()
         {
             GenCrystals();    // once a tick, try to generate a crystal
         }
@@ -68,11 +68,11 @@ namespace ExtraExplosives
             {    // Tries the location and if its air and touches pearlstone (type == 117) then it will spawn
                 int x = WorldGen.genRand.Next(10, Main.maxTilesX - 10);
                 int y = WorldGen.genRand.Next((int)WorldGen.worldSurfaceLow, Main.maxTilesY - 10);
-                if (Main.tile[x, y].type == TileID.DemonAltar) return;    // Avoid breaking demon alters since this blesses the world with hm ores
-                if ((WorldGen.SolidTile(x - 1, y) && Main.tile[x - 1, y].type == 117) ||
-                    (WorldGen.SolidTile(x + 1, y) && Main.tile[x + 1, y].type == 117) ||
-                    (WorldGen.SolidTile(x, y - 1) && Main.tile[x, y - 1].type == 117) ||
-                    (WorldGen.SolidTile(x, y + 1) && Main.tile[x, y + 1].type == 117))
+                if (Main.tile[x, y].TileType == TileID.DemonAltar) return;    // Avoid breaking demon alters since this blesses the world with hm ores
+                if ((WorldGen.SolidTile(x - 1, y) && Main.tile[x - 1, y].TileType == 117) ||
+                    (WorldGen.SolidTile(x + 1, y) && Main.tile[x + 1, y].TileType == 117) ||
+                    (WorldGen.SolidTile(x, y - 1) && Main.tile[x, y - 1].TileType == 117) ||
+                    (WorldGen.SolidTile(x, y + 1) && Main.tile[x, y + 1].TileType == 117))
                 {
                     WorldGen.PlaceTile(x, y, ModContent.TileType<GlowingCrystal>(), false, false, -1,
                         Main.rand.Next(18));    // Random style between 0-17, rotation is done automatically
@@ -87,8 +87,8 @@ namespace ExtraExplosives
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
             {
                 Chest chest = Main.chest[chestIndex];
-                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers &&
-                    Main.tile[chest.x, chest.y].frameX == 17 * 36 && Main.rand.NextFloat() < 0.2f)
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers &&
+                    Main.tile[chest.x, chest.y].TileFrameX == 17 * 36 && Main.rand.NextFloat() < 0.2f)
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
@@ -105,7 +105,7 @@ namespace ExtraExplosives
             }
         }
 
-        public override TagCompound Save()
+        public override void SaveWorldData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound */
         {
             return new TagCompound
             {
@@ -114,11 +114,11 @@ namespace ExtraExplosives
             };
         }
 
-        public override void Load(TagCompound tag)
+        public override void LoadWorldData(TagCompound tag)
         {
             //Boss tag loading
             BossCheckDead = tag.GetBool(nameof(BossCheckDead));
-            base.Load(tag);
+            base.LoadWorldData(tag);
         }
     }
 }

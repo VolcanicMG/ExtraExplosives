@@ -9,7 +9,7 @@ namespace ExtraExplosives.Buffs
 {
     public class ExtraExplosivesStunnedBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Stunned");
             Description.SetDefault("You can't move, attack, or place blocks");

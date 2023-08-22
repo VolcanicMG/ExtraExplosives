@@ -6,7 +6,7 @@ namespace ExtraExplosives.Buffs
 {
     public class BombBuddyBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bomb Buddy");
             Description.SetDefault("It's a walking bomb!!");

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -15,7 +16,7 @@ namespace ExtraExplosives.Tiles
 
         //}
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = false;
             Main.tileSolidTop[Type] = false;
@@ -42,7 +43,7 @@ namespace ExtraExplosives.Tiles
         //	}
         //}
 
-        public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref Color drawColor, ref int nextSpecialDrawIndex)
+        public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
         {
             if (!Main.gamePaused && Main.instance.IsActive)
             {
@@ -81,7 +82,7 @@ namespace ExtraExplosives.Tiles
         {
             Tile tile = Framing.GetTileSafely(i, j);
             tile.ClearTile();
-            tile.active(false);
+            tile.HasTile = false;
         }
 
 

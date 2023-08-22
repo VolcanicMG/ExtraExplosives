@@ -1,4 +1,5 @@
 using ExtraExplosives.Tiles.Furniture;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,27 +14,26 @@ namespace ExtraExplosives.Items.Tiles.Furniture
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 28;
-            item.maxStack = 99;
-            item.value = 500;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.useAnimation = 15;
-            item.useTime = 15;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.consumable = true;
-            item.createTile = ModContent.TileType<BombChestTile>();
+            Item.width = 32;
+            Item.height = 28;
+            Item.maxStack = 99;
+            Item.value = 500;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 15;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.createTile = ModContent.TileType<BombChestTile>();
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Dynamite, 10);
             recipe.AddIngredient(ItemID.Chest);
             recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

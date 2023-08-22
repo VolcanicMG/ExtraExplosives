@@ -10,7 +10,7 @@ namespace ExtraExplosives.Tiles.Furniture
     public class BombChairTile : ModTile
     {
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
@@ -31,7 +31,7 @@ namespace ExtraExplosives.Tiles.Furniture
             name.SetDefault("Bomb Chair");
             AddMapEntry(new Color(200, 200, 200), name);
             disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Chairs };
+            AdjTiles = new int[] { TileID.Chairs };
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
         {

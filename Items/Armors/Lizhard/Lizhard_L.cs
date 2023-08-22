@@ -17,11 +17,11 @@ namespace ExtraExplosives.Items.Armors.Lizhard
 
         public override void SetDefaults()
         {
-            item.height = 18;
-            item.width = 18;
-            item.value = Item.buyPrice(0, 1, 0, 50);
-            item.rare = ItemRarityID.Lime;
-            item.defense = 16;
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 1, 0, 50);
+            Item.rare = ItemRarityID.Lime;
+            Item.defense = 16;
         }
 
         public override void UpdateEquip(Player player)
@@ -33,11 +33,10 @@ namespace ExtraExplosives.Items.Armors.Lizhard
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
     }

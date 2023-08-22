@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -274,7 +275,7 @@ namespace ExtraExplosives.UI
                         _vanillaItemSlot.Item.stack = stack;
                         ItemLoader.PostReforge(_vanillaItemSlot.Item);
                         ItemText.NewText(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack, true, false);
-                        Main.PlaySound(SoundID.Item37, -1, -1);
+                        SoundEngine.PlaySound(SoundID.Item37, -1, -1);
                     }
                 }
 
@@ -296,7 +297,7 @@ namespace ExtraExplosives.UI
                         _vanillaItemSlot2.Item.stack = stack;
                         ItemLoader.PostReforge(_vanillaItemSlot2.Item);
                         ItemText.NewText(_vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack, true, false);
-                        Main.PlaySound(SoundID.Item37, -1, -1);
+                        SoundEngine.PlaySound(SoundID.Item37, -1, -1);
                     }
                 }
 
@@ -318,7 +319,7 @@ namespace ExtraExplosives.UI
                         _vanillaItemSlot3.Item.stack = stack;
                         ItemLoader.PostReforge(_vanillaItemSlot3.Item);
                         ItemText.NewText(_vanillaItemSlot3.Item, _vanillaItemSlot3.Item.stack, true, false);
-                        Main.PlaySound(SoundID.Item37, -1, -1);
+                        SoundEngine.PlaySound(SoundID.Item37, -1, -1);
                     }
                 }
 

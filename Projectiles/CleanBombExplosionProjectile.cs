@@ -18,16 +18,16 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = false;
-            projectile.width = 1;
-            projectile.height = 1;
-            projectile.aiStyle = 0;
-            projectile.friendly = true;
-            projectile.hostile = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 10;
-            projectile.Opacity = 0f;
-            projectile.scale = CleanBombProjectile.Radius;      // Damage Radius
+            Projectile.tileCollide = false;
+            Projectile.width = 1;
+            Projectile.height = 1;
+            Projectile.aiStyle = 0;
+            Projectile.friendly = true;
+            Projectile.hostile = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 10;
+            Projectile.Opacity = 0f;
+            Projectile.scale = CleanBombProjectile.Radius;      // Damage Radius
 
             //Defining the buff removal exceptions
             buffExceptions.Add(BuffID.PotionSickness);

@@ -17,19 +17,19 @@ namespace ExtraExplosives.Projectiles
 
         public override void SafeSetDefaults()
         {
-            projectile.width = 10;
-            projectile.height = 10;
-            projectile.aiStyle = -1;
-            projectile.timeLeft = 10;
-            projectile.Opacity = 0f;
-            projectile.scale = 45 * 2; //DamageRadius
-            projectile.tileCollide = false;
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.aiStyle = -1;
+            Projectile.timeLeft = 10;
+            Projectile.Opacity = 0f;
+            Projectile.scale = 45 * 2; //DamageRadius
+            Projectile.tileCollide = false;
         }
 
         public override void DangerousSetDefaults()
         {
-            projectile.friendly = true; // have to put these here because they are set to false by the explosive projectile for various reasons
-            projectile.hostile = true;
+            Projectile.friendly = true; // have to put these here because they are set to false by the explosive projectile for various reasons
+            Projectile.hostile = true;
         }
 
         public override string Texture => "ExtraExplosives/Projectiles/FlashbangProjectile";
@@ -43,7 +43,7 @@ namespace ExtraExplosives.Projectiles
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             //Main.NewText($"{target.direction} {projectile.Center.X} {target.Center.X} {projectile.Center.X - target.Center.X}");
-            if (target.whoAmI == projectile.owner && target.direction * (projectile.Center.X - target.Center.X) > 0)
+            if (target.whoAmI == Projectile.owner && target.direction * (Projectile.Center.X - target.Center.X) > 0)
             {
                 target.AddBuff(BuffID.Confused, 300);
                 target.AddBuff(BuffID.Dazed, 300);
@@ -53,7 +53,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void OnHitPvp(Player target, int damage, bool crit)
         {
-            if (target.direction * (projectile.Center.X - target.Center.X) > 0)
+            if (target.direction * (Projectile.Center.X - target.Center.X) > 0)
             {
                 target.AddBuff(BuffID.Confused, 300);
                 target.AddBuff(BuffID.Dazed, 300);

@@ -21,21 +21,21 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            item.damage = 25;
-            item.ranged = true;
-            item.width = 40;
-            item.height = 20;
-            item.useTime = 23;
-            item.useAnimation = 23;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.noMelee = true;
-            item.knockBack = 7;
-            item.value = 10000;
-            item.rare = ItemRarityID.Yellow;
-            item.autoReuse = true;
-            item.shoot = ProjectileID.GrenadeI;
-            item.shootSpeed = 10;
-            item.useAmmo = AmmoID.Rocket;
+            Item.damage = 65;
+            Item.ranged = true;
+            Item.width = 40;
+            Item.height = 20;
+            Item.useTime = 23;
+            Item.useAnimation = 23;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 7;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.Yellow;
+            Item.autoReuse = true;
+            Item.shoot = ProjectileID.GrenadeI;
+            Item.shootSpeed = 10;
+            Item.useAmmo = AmmoID.Rocket;
 
             PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = null;
@@ -43,19 +43,19 @@ namespace ExtraExplosives.Items.Weapons
             for (int n = 1; n <= PrimarySounds.Length; n++)
             {
                 PrimarySounds[n - 1] =
-                    mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
             }
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.Mod == "Terraria");
             if (stats != null)
             {
-                string[] split = stats.text.Split(' ');
+                string[] split = stats.Text.Split(' ');
                 string damageValue = split.First();
                 string damageWord = split.Last();
-                stats.text = damageValue + "x5 explosive " + damageWord;
+                stats.Text = damageValue + " Explosive " + damageWord;
             }
         }
 
@@ -66,7 +66,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            Main.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+            SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                 (int)player.position.X, (int)player.position.Y);
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
@@ -74,7 +74,7 @@ namespace ExtraExplosives.Items.Weapons
             {
                 position += muzzleOffset;
             }
-            int numberProjectiles = 5; // 4 or 5 shots
+            int numberProjectiles = 7;
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30)); // 30 degree spread.

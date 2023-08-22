@@ -17,11 +17,11 @@ namespace ExtraExplosives.Items.Armors.Hazard
 
         public override void SetDefaults()
         {
-            item.height = 18;
-            item.width = 18;
-            item.value = Item.buyPrice(0, 0, 80, 50);
-            item.rare = ItemRarityID.LightRed;
-            item.defense = 13;
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 0, 80, 50);
+            Item.rare = ItemRarityID.LightRed;
+            Item.defense = 13;
         }
 
         public override void UpdateEquip(Player player)
@@ -33,11 +33,10 @@ namespace ExtraExplosives.Items.Armors.Hazard
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.AdamantiteBar, 10);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
     }

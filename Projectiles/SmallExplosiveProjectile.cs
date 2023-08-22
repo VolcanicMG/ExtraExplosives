@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -19,19 +21,19 @@ namespace ExtraExplosives.Projectiles
         {
             pickPower = 35;
             radius = 5;
-            projectile.tileCollide = true;
-            projectile.width = 26;
-            projectile.height = 28;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 200;
+            Projectile.tileCollide = true;
+            Projectile.width = 26;
+            Projectile.height = 28;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 200;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             DustEffects();
 
@@ -42,8 +44,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(1.0f, 0.0f);
             Vector2 gVel2 = new Vector2(0.0f, -1.0f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale * 0.75f);
-            Gore.NewGore(projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale * 0.75f);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale * 0.75f);
+            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale * 0.75f);
         }
 
     }

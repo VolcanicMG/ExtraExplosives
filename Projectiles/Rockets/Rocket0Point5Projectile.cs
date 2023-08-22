@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -15,14 +16,14 @@ namespace ExtraExplosives.Projectiles.Rockets
 
         public override void SetDefaults()
         {
-            projectile.width = 20;
-            projectile.height = 14;
-            projectile.friendly = true;
-            projectile.hostile = false;
-            projectile.ranged = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = true;
-            aiType = ProjectileID.RocketI;
+            Projectile.width = 20;
+            Projectile.height = 14;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.ranged = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = true;
+            AIType = ProjectileID.RocketI;
         }
 
         public override void AI()
@@ -32,9 +33,9 @@ namespace ExtraExplosives.Projectiles.Rockets
             float num248 = 0f;
             float num249 = 0f;
 
-            Vector2 position71 = new Vector2(projectile.position.X + 3f + num248, projectile.position.Y + 3f + num249) - projectile.velocity * 0.5f;
-            int width67 = projectile.width - 8;
-            int height67 = projectile.height - 8;
+            Vector2 position71 = new Vector2(Projectile.position.X + 3f + num248, Projectile.position.Y + 3f + num249) - Projectile.velocity * 0.5f;
+            int width67 = Projectile.width - 8;
+            int height67 = Projectile.height - 8;
             Color newColor = default(Color);
             int num250 = Dust.NewDust(position71, width67, height67, 6, 0f, 0f, 100, newColor, 1f);
             Dust dust3 = Main.dust[num250];
@@ -42,27 +43,27 @@ namespace ExtraExplosives.Projectiles.Rockets
             dust3 = Main.dust[num250];
             dust3.velocity *= 0.2f;
             Main.dust[num250].noGravity = true;
-            Vector2 position72 = new Vector2(projectile.position.X + 3f + num248, projectile.position.Y + 3f + num249) - projectile.velocity * 0.5f;
-            int width68 = projectile.width - 8;
-            int height68 = projectile.height - 8;
+            Vector2 position72 = new Vector2(Projectile.position.X + 3f + num248, Projectile.position.Y + 3f + num249) - Projectile.velocity * 0.5f;
+            int width68 = Projectile.width - 8;
+            int height68 = Projectile.height - 8;
             newColor = default(Color);
             num250 = Dust.NewDust(position72, width68, height68, 31, 0f, 0f, 100, newColor, 0.5f);
             Main.dust[num250].fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
             dust3 = Main.dust[num250];
             dust3.velocity *= 0.05f;
 
-            projectile.rotation = projectile.velocity.ToRotation();
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
-            projectile.knockBack = 2;  // Since no calling item exists, knockback must be set internally	(Set in Hellfire Rocket Battery)
+            Projectile.knockBack = 2;  // Since no calling item exists, knockback must be set internally	(Set in Hellfire Rocket Battery)
 
             //Create Bomb Dust
-            ExplosionDust(5, projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 2, projectile.oldVelocity);
+            ExplosionDust(5, Projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 2, Projectile.oldVelocity);
         }
     }
 }

@@ -2,6 +2,7 @@
 using ExtraExplosives.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,16 +18,16 @@ namespace ExtraExplosives.Pets
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = false;
-            projectile.width = 30;   //This defines the hitbox width
-            projectile.height = 40; //This defines the hitbox height
-            projectile.aiStyle = 0;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 50000; //The amount of time the projectile is alive for
-            projectile.width = 38;
-            projectile.height = 40;
-            projectile.Opacity = 0f;
+            Projectile.tileCollide = false;
+            Projectile.width = 30;   //This defines the hitbox width
+            Projectile.height = 40; //This defines the hitbox height
+            Projectile.aiStyle = 0;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
+            Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
+            Projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
+            Projectile.timeLeft = 50000; //The amount of time the projectile is alive for
+            Projectile.width = 38;
+            Projectile.height = 40;
+            Projectile.Opacity = 0f;
         }
 
         public override string Texture => "ExtraExplosives/Projectiles/BulletBoomProjectile";
@@ -40,27 +41,27 @@ namespace ExtraExplosives.Pets
 
         public override void AI()
         {
-            projectile.timeLeft = 5;
-            Player player = Main.player[projectile.owner];
+            Projectile.timeLeft = 5;
+            Player player = Main.player[Projectile.owner];
             ExtraExplosivesPlayer modPlayer = player.GetModPlayer<ExtraExplosivesPlayer>();
-            projectile.position = modPlayer.BuddyPos;
+            Projectile.position = modPlayer.BuddyPos;
             //Main.NewText(projectile.position);
 
             if (!player.HasBuff(ModContent.BuffType<BombBuddyBuff>()))
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
 
             //check for a hit
             if (hit)
             {
-                projectile.ai[1]++;
+                Projectile.ai[1]++;
             }
 
             //check for the end of the delay
-            if (projectile.ai[1] >= 60)
+            if (Projectile.ai[1] >= 60)
             {
-                projectile.Kill();
+                Projectile.Kill();
             }
         }
 
@@ -70,12 +71,12 @@ namespace ExtraExplosives.Pets
             {
                 hit = true;
 
-                Vector2 position = projectile.Center;
-                Main.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+                Vector2 position = Projectile.Center;
+                SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
                 int radius = 5;  //this is the explosion radius, the highter is the value the bigger is the explosion
 
                 ExplosionDamageProjectile.DamageRadius = (float)(radius * 1.5f);
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, mod.ProjectileType("ExplosionDamageProjectile"), 100, 40, projectile.owner, 0.0f, 0);
+                Projectile.NewProjectile(position.X, position.Y, 0, 0, Mod.Find<ModProjectile>("ExplosionDamageProjectile").Type, 100, 40, Projectile.owner, 0.0f, 0);
 
                 for (int i = 0; i <= 10; i++)
                 {

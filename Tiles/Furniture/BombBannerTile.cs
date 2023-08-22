@@ -10,7 +10,7 @@ namespace ExtraExplosives.Tiles.Furniture
 {
     public class BombBannerTile : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
@@ -22,7 +22,7 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            dustType = -1;
+            DustType = -1;
             disableSmartCursor = true;
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Banner");
@@ -31,7 +31,7 @@ namespace ExtraExplosives.Tiles.Furniture
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             int style = frameX / 18;
-            Item.NewItem(i * 16, j * 16, 16, 48, mod.ItemType("BombBannerItem"));
+            Item.NewItem(i * 16, j * 16, 16, 48, Mod.Find<ModItem>("BombBannerItem").Type);
         }
 
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)

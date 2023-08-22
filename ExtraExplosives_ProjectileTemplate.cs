@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -19,28 +20,28 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true;
-            projectile.width = 20;
-            projectile.height = 20;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 150;
+            Projectile.tileCollide = true;
+            Projectile.width = 20;
+            Projectile.height = 20;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 150;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Damage
-            ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
+            ExplosionDamage(5f, Projectile.Center, 70, 20, Projectile.owner);
 
             //Create Bomb Explosion
-            CreateExplosion(projectile.Center, 2);
+            CreateExplosion(Projectile.Center, 2);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 10);
+            CreateDust(Projectile.Center, 10);
         }
 
         private void CreateExplosion(Vector2 position, int radius)
@@ -54,7 +55,7 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        ushort tile = Main.tile[xPosition, yPosition].TileType;
                         if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                         }

@@ -25,26 +25,26 @@ namespace ExtraExplosives.Projectiles
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 22;   //This defines the hitbox width
-            projectile.height = 22; //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 100; //The amount of time the projectile is alive for
+            Projectile.tileCollide = true; //checks to see if the projectile can go through tiles
+            Projectile.width = 22;   //This defines the hitbox width
+            Projectile.height = 22; //This defines the hitbox height
+            Projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
+            Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
+            Projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
+            Projectile.timeLeft = 100; //The amount of time the projectile is alive for
             explodeSounds = new LegacySoundStyle[2];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
         public override void Kill(int timeLeft)
         {
-            var player = Main.player[projectile.owner].GetModPlayer<ExtraExplosivesPlayer>();
-            Vector2 position = projectile.Center;
+            var player = Main.player[Projectile.owner].GetModPlayer<ExtraExplosivesPlayer>();
+            Vector2 position = Projectile.Center;
 
-            if (projectile.owner == Main.myPlayer)
+            if (Projectile.owner == Main.myPlayer)
             {
                 player.reforge = true;
             }
@@ -59,7 +59,7 @@ namespace ExtraExplosives.Projectiles
             }
             //Item.NewItem(position, new Vector2(20, 20), ItemID.GoldAxe, 1, false, -2);
 
-            Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)position.X, (int)position.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)position.X, (int)position.Y);
 
             for (int i = 0; i < 100; i++) //spawn dust
             {
@@ -73,7 +73,7 @@ namespace ExtraExplosives.Projectiles
                         Dust dust;
                         Vector2 position2 = new Vector2(position.X - 105 / 2, position.Y - 105 / 2);
                         dust = Main.dust[Terraria.Dust.NewDust(position2, 105, 105, 1, 0f, 0f, 0, new Color(255, 255, 255), 1.4f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 52) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > 52) dust.active = false;
                         else
                         {
                             dust.noGravity = true;
@@ -84,7 +84,7 @@ namespace ExtraExplosives.Projectiles
                         // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                         Vector2 position3 = new Vector2(position.X - 131 / 2, position.Y - 131 / 2);
                         dust2 = Main.dust[Terraria.Dust.NewDust(position3, 131, 131, 6, 0f, 0f, 0, new Color(255, 255, 255), 2.565789f)];
-                        if (Vector2.Distance(dust2.position, projectile.Center) > 115) dust2.active = false;
+                        if (Vector2.Distance(dust2.position, Projectile.Center) > 115) dust2.active = false;
                         else
                         {
                             dust2.noGravity = true;

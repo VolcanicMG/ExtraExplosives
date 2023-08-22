@@ -32,17 +32,17 @@ namespace ExtraExplosives.Projectiles
         {
             pickPower = 50;
             radius = 20;
-            projectile.tileCollide = true;
-            projectile.width = 32;
-            projectile.height = 38;
-            projectile.aiStyle = 16;
-            projectile.friendly = false;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 400;
+            Projectile.tileCollide = true;
+            Projectile.width = 32;
+            Projectile.height = 38;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 400;
             explodeSounds = new LegacySoundStyle[3];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
@@ -52,19 +52,19 @@ namespace ExtraExplosives.Projectiles
             // 0 = unexploded
             // 1 = exploded
 
-            if (projectile.timeLeft <= timeLeft)
+            if (Projectile.timeLeft <= timeLeft)
             {
                 if (Main.netMode != NetmodeID.Server && !Filters.Scene["Shockwave"].IsActive())
                 {
-                    Filters.Scene.Activate("Shockwave", projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(projectile.Center);
+                    Filters.Scene.Activate("Shockwave", Projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(Projectile.Center);
                 }
 
                 if (!triggered) //So it only runs once while in AI()
                 {
-                    projectile.alpha = 255; // Make the projectile invisible.
+                    Projectile.alpha = 255; // Make the projectile invisible.
 
                     //Create Bomb Sound
-                    Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+                    SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
                     //Create Bomb Dust
                     DustEffects();
@@ -78,7 +78,7 @@ namespace ExtraExplosives.Projectiles
 
                 if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
                 {
-                    float progress = (timeLeft - projectile.timeLeft) / 60f;
+                    float progress = (timeLeft - Projectile.timeLeft) / 60f;
                     Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
                 }
             }
@@ -94,19 +94,19 @@ namespace ExtraExplosives.Projectiles
 
         public override void ExplosionDamage()
         {
-            if (Main.player[projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
+            if (Main.player[Projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
             foreach (NPC npc in Main.npc)
             {
-                float dist = Vector2.Distance(npc.Center, projectile.Center);
+                float dist = Vector2.Distance(npc.Center, Projectile.Center);
                 if (dist / 16f <= radius)
                 {
                     int dir = (dist > 0) ? 1 : -1;
                     if (DamageReducedNps.Contains(npc.type))
                     {
-                        npc.StrikeNPC((int)(projectile.damage * .5f), projectile.knockBack, dir, crit);
+                        npc.StrikeNPC((int)(Projectile.damage * .5f), Projectile.knockBack, dir, crit);
                     }
-                    else if(npc.boss && !DamageReducedNps.Contains(npc.type)) npc.StrikeNPC(projectile.damage * 2, projectile.knockBack, dir, crit);
-                    else npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+                    else if(npc.boss && !DamageReducedNps.Contains(npc.type)) npc.StrikeNPC(Projectile.damage * 2, Projectile.knockBack, dir, crit);
+                    else npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
                 }
             }
 
@@ -116,16 +116,16 @@ namespace ExtraExplosives.Projectiles
                 if (!CanHitPlayer(player)) continue;
                 if (player.EE().BlastShielding &&
                     player.EE().BlastShieldingActive) continue;
-                float dist = Vector2.Distance(player.Center, projectile.Center);
+                float dist = Vector2.Distance(player.Center, Projectile.Center);
                 int dir = (dist > 0) ? 1 : -1;
                 if (dist / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer && InflictDamageSelf)
                 {
-                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir);
+                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir);
                     player.hurtCooldowns[0] += 15;
                 }
-                else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == projectile.owner && InflictDamageSelf)
+                else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == Projectile.owner && InflictDamageSelf)
                 {
-                    NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                    NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
         }

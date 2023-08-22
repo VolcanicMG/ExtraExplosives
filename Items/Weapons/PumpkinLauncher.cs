@@ -1,53 +1,56 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Weapons
 {
-    public class PumpkinLauncher : ModItem
+    public class PumpkinLauncher : ExplosiveWeapon
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bombkin 3000");
+            DisplayName.SetDefault("Bombkin 2000");
             Tooltip.SetDefault("These pumpkins are NOT safe around open flames\n" +
                                "Launches three rockets in quick succession\n" +
                                "Consumes one rocket per burst");
         }
 
-        public override void SetDefaults()
+        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";
+
+        public override void SafeSetDefaults()
         {
-            item.useStyle = 5;
-            item.autoReuse = true;
-            item.useAnimation = 12;
-            item.useTime = 4;
-            item.reuseDelay = 14;
-            item.useAmmo = AmmoID.Rocket;
-            item.width = 66;
-            item.height = 34;
-            item.shoot = 134;
-            item.UseSound = SoundID.Item11;
-            item.channel = true;
-            item.damage = 30;
-            item.shootSpeed = 7;
-            item.noMelee = true;
-            item.value = Item.buyPrice(0, 15, 0, 50);
-            item.knockBack = 4f;
-            item.rare = ItemRarityID.Yellow;
-            item.ranged = true;
+            Item.useStyle = 5;
+            Item.autoReuse = true;
+            Item.useAnimation = 12;
+            Item.useTime = 4;
+            Item.reuseDelay = 14;
+            Item.useAmmo = AmmoID.Rocket;
+            Item.width = 66;
+            Item.height = 34;
+            Item.shoot = 134;
+            Item.UseSound = SoundID.Item11;
+            Item.channel = true;
+            Item.damage = 30;
+            Item.shootSpeed = 7;
+            Item.noMelee = true;
+            Item.value = Item.buyPrice(0, 15, 0, 50);
+            Item.knockBack = 4f;
+            Item.rare = ItemRarityID.Yellow;
         }
 
-        //public override void ModifyTooltips(List<TooltipLine> tooltips)
-        //{
-        //    TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
-        //    if (stats != null)
-        //    {
-        //        string[] split = stats.text.Split(' ');
-        //        string damageValue = split.First();
-        //        string damageWord = split.Last();
-        //        stats.text = damageValue + "x3 explosive " + damageWord;
-        //    }
-        //}
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.Mod == "Terraria");
+            if (stats != null)
+            {
+                string[] split = stats.Text.Split(' ');
+                string damageValue = split.First();
+                string damageWord = split.Last();
+                stats.Text = damageValue + " Explosive " + damageWord;
+            }
+        }
 
         public override Vector2? HoldoutOffset()
         {
@@ -69,7 +72,7 @@ namespace ExtraExplosives.Items.Weapons
         {
             // Because of how the game works, player.itemAnimation will be 11, 7, and finally 3. (UseAmination - 1, then - useTime until less than 0.) 
             // We can get the Clockwork Assault Riffle Effect by not consuming ammo when itemAnimation is lower than the first shot.
-            return !(player.itemAnimation < item.useAnimation - 2);
+            return !(player.itemAnimation < Item.useAnimation - 2);
         }
     }
 }

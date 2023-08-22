@@ -1,4 +1,5 @@
 using ExtraExplosives.Tiles.Furniture;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,20 +14,19 @@ namespace ExtraExplosives.Items.Tiles.Furniture
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.Bookcase);
-            item.width = 12;
-            item.height = 20;
-            item.createTile = ModContent.TileType<BombBookshelfTile>();
+            Item.CloneDefaults(ItemID.Bookcase);
+            Item.width = 12;
+            Item.height = 20;
+            Item.createTile = ModContent.TileType<BombBookshelfTile>();
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Bomb, 10);
             recipe.AddIngredient(ItemID.Bookcase);
             recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

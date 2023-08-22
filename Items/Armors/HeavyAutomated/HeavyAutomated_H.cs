@@ -16,11 +16,11 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
 
         public override void SetDefaults()
         {
-            item.height = 18;
-            item.width = 18;
-            item.value = Item.buyPrice(0, 0, 90, 50);
-            item.rare = ItemRarityID.Pink;
-            item.defense = 14;
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 0, 90, 50);
+            Item.rare = ItemRarityID.Pink;
+            Item.defense = 14;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -51,11 +51,10 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.HallowedBar, 10);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
     }

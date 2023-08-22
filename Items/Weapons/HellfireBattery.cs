@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,40 +27,40 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            item.useStyle = 5;
-            item.autoReuse = true;
-            item.useAnimation = fireSpeed;
-            item.useTime = fireSpeed;
-            item.useAmmo = AmmoID.Rocket;
-            item.width = 78;
-            item.crit = 35;
-            item.height = 42;
-            item.shoot = 134;
-            item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Hellfire");
-            item.channel = true;
-            item.damage = 250;
-            item.shootSpeed = 13f;
-            item.noMelee = true;
-            item.value = Item.buyPrice(10, 1, 0, 50);
-            item.knockBack = 4f;
-            item.rare = 11;
-            item.ranged = true;
+            Item.useStyle = 5;
+            Item.autoReuse = true;
+            Item.useAnimation = fireSpeed;
+            Item.useTime = fireSpeed;
+            Item.useAmmo = AmmoID.Rocket;
+            Item.width = 78;
+            Item.crit = 35;
+            Item.height = 42;
+            Item.shoot = 134;
+            Item.UseSound = Mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Hellfire");
+            Item.channel = true;
+            Item.damage = 250;
+            Item.shootSpeed = 13f;
+            Item.noMelee = true;
+            Item.value = Item.buyPrice(10, 1, 0, 50);
+            Item.knockBack = 4f;
+            Item.rare = 11;
+            Item.ranged = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.Mod == "Terraria");
             if (stats != null)
             {
-                string[] split = stats.text.Split(' ');
+                string[] split = stats.Text.Split(' ');
                 string damageValue = split.First();
                 string damageWord = split.Last();
-                stats.text = damageValue + " explosive " + damageWord;
+                stats.Text = damageValue + " explosive " + damageWord;
 
             }
 
-            var fireModeUseTip = new TooltipLine(mod, "Multiplier", $"Fire Mode: {firemode}");
-            fireModeUseTip.overrideColor = Color.Tan;
+            var fireModeUseTip = new TooltipLine(Mod, "Multiplier", $"Fire Mode: {firemode}");
+            fireModeUseTip.OverrideColor = Color.Tan;
             tooltips.Add(fireModeUseTip);
         }
 
@@ -99,15 +100,15 @@ namespace ExtraExplosives.Items.Weapons
         {
             if (Main.mouseRight && Main.mouseRightRelease)
             {
-                Main.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
                 mode++;
 
                 if (mode == 1)
                 {
                     //Main.NewText("[c/AC7988:Precision Mode]");
 
-                    item.useAnimation = 50;
-                    item.useTime = 50;
+                    Item.useAnimation = 50;
+                    Item.useTime = 50;
                     firemode = "Precision";
                 }
 
@@ -115,8 +116,8 @@ namespace ExtraExplosives.Items.Weapons
                 {
                     //Main.NewText("[c/AC7988:Spread Mode]");
 
-                    item.useAnimation = 6;
-                    item.useTime = 6;
+                    Item.useAnimation = 6;
+                    Item.useTime = 6;
                     firemode = "Spread";
                     mode = 0;
                 }
@@ -125,8 +126,8 @@ namespace ExtraExplosives.Items.Weapons
                 {
                     //Main.NewText("[c/AC7988:Homing Mode]");
 
-                    item.useAnimation = 12;
-                    item.useTime = 12;
+                    Item.useAnimation = 12;
+                    Item.useTime = 12;
                     firemode = "Homing";
 
                 }
@@ -155,7 +156,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<RocketMinigun>(), 1);
             recipe.AddIngredient(ModContent.ItemType<NovaBuster>(), 1);
             recipe.AddIngredient(ItemID.FragmentSolar, 25);
@@ -163,8 +164,7 @@ namespace ExtraExplosives.Items.Weapons
             recipe.AddIngredient(ItemID.FragmentStardust, 25);
             recipe.AddIngredient(ItemID.FragmentVortex, 25);
             recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

@@ -1,6 +1,6 @@
 displayName = Extra Explosives [c/FF4500:(The Bomb Mod)]
-author = Volcanic, Charlie, and the Dev team
-version = 3.2
+author = Volcanic, Charlie, Kranot, and Codeloquence
+version = 3.2.0.5
 homepage = https://forums.terraria.org/index.php?threads/extra-explosives.87772/
 hideCode = true
 hideResources = true

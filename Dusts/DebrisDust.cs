@@ -49,7 +49,7 @@ namespace ExtraExplosives.Dusts
 
             //Once it touches the ground stop moving
             Tile tile = Framing.GetTileSafely((int)(DebrisDust.position.X / 16f), (int)(DebrisDust.position.Y / 16f));
-            if (!WorldGen.TileEmpty((int)(DebrisDust.position.X / 16f), (int)(DebrisDust.position.Y / 16f)) && tile.type != Terraria.ID.TileID.Trees)
+            if (!WorldGen.TileEmpty((int)(DebrisDust.position.X / 16f), (int)(DebrisDust.position.Y / 16f)) && tile.TileType != Terraria.ID.TileID.Trees)
             {
                 DebrisDust.velocity = Vector2.Zero;
             }

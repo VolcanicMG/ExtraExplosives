@@ -16,11 +16,11 @@ namespace ExtraExplosives.Items.Armors.TunnelRat
 
         public override void SetDefaults()
         {
-            item.height = 40;
-            item.width = 40;
-            item.value = Item.buyPrice(0, 0, 0, 55); ;
-            item.rare = ItemRarityID.Blue;
-            item.defense = 4;
+            Item.height = 40;
+            Item.width = 40;
+            Item.value = Item.buyPrice(0, 0, 0, 55); ;
+            Item.rare = ItemRarityID.Blue;
+            Item.defense = 4;
         }
 
 
@@ -31,13 +31,12 @@ namespace ExtraExplosives.Items.Armors.TunnelRat
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.IronBar, 35);
             recipe.AddIngredient(ItemID.Silk, 5);
             recipe.anyIronBar = true;
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
     }

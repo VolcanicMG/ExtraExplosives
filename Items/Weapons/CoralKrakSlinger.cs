@@ -17,32 +17,32 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.useStyle = 5;
-            item.autoReuse = true;
-            item.useAnimation = 21;
-            item.useTime = 21;
-            item.useAmmo = AmmoID.Rocket;
-            item.width = 26;
-            item.height = 38;
-            item.shoot = ProjectileID.Grenade;
-            item.UseSound = SoundID.Item11;
-            item.damage = 12;
-            item.shootSpeed = 5;
-            item.noMelee = true;
-            item.value = Item.buyPrice(0, 15, 0, 50);
-            item.knockBack = 4f;
-            item.rare = ItemRarityID.Blue;
+            Item.useStyle = 5;
+            Item.autoReuse = true;
+            Item.useAnimation = 21;
+            Item.useTime = 21;
+            Item.useAmmo = AmmoID.Rocket;
+            Item.width = 26;
+            Item.height = 38;
+            Item.shoot = ProjectileID.Grenade;
+            Item.UseSound = SoundID.Item11;
+            Item.damage = 12;
+            Item.shootSpeed = 5;
+            Item.noMelee = true;
+            Item.value = Item.buyPrice(0, 15, 0, 50);
+            Item.knockBack = 4f;
+            Item.rare = ItemRarityID.Blue;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.Mod == "Terraria");
             if (stats != null)
             {
-                string[] split = stats.text.Split(' ');
+                string[] split = stats.Text.Split(' ');
                 string damageValue = split.First();
                 string damageWord = split.Last();
-                stats.text = damageValue + " explosive " + damageWord;
+                stats.Text = damageValue + " explosive " + damageWord;
             }
         }
 
@@ -65,12 +65,11 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Coral, 6);
             recipe.AddIngredient(ItemID.Gel, 5);
             recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

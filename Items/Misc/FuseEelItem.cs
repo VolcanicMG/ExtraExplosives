@@ -12,10 +12,10 @@ namespace ExtraExplosives.Items.Misc
 
         public override void SetDefaults()
         {
-            item.maxStack = 99;
-            item.width = 40;
-            item.height = 40;
-            item.rare = ItemRarityID.Blue;
+            Item.maxStack = 99;
+            Item.width = 40;
+            Item.height = 40;
+            Item.rare = ItemRarityID.Blue;
         }
 
         public override void CaughtFishStack(ref int stack)

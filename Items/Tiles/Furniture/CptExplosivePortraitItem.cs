@@ -13,17 +13,17 @@ namespace ExtraExplosives.Items.Tiles.Furniture
 
         public override void SetDefaults()
         {
-            item.useTurn = true;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.useAnimation = 15;
-            item.useTime = 15;
-            item.autoReuse = true;
-            item.maxStack = 99;
-            item.consumable = true;
-            item.value = 1000;
-            item.width = 48;
-            item.height = 50;
-            item.createTile = ModContent.TileType<CptExplosivePortraitTile>();
+            Item.useTurn = true;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useAnimation = 15;
+            Item.useTime = 15;
+            Item.autoReuse = true;
+            Item.maxStack = 99;
+            Item.consumable = true;
+            Item.value = 1000;
+            Item.width = 48;
+            Item.height = 50;
+            Item.createTile = ModContent.TileType<CptExplosivePortraitTile>();
         }
     }
 }

@@ -25,39 +25,39 @@ namespace ExtraExplosives.Projectiles
             IgnoreTrinkets = true;
             pickPower = 70;
             radius = 0;
-            projectile.tileCollide = true;
-            projectile.width = 5;
-            projectile.height = 5;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 100;
+            Projectile.tileCollide = true;
+            Projectile.width = 5;
+            Projectile.height = 5;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 100;
             explodeSounds = new LegacySoundStyle[2];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
         public override bool OnTileCollide(Vector2 old)
         {
-            projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-            projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-            projectile.width = 5;
-            projectile.height = 5;
-            projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-            projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+            Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
+            Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
+            Projectile.width = 5;
+            Projectile.height = 5;
+            Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
+            Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 
-            projectile.velocity.X = 0;
-            projectile.velocity.Y = 0;
-            projectile.aiStyle = 0;
+            Projectile.velocity.X = 0;
+            Projectile.velocity.Y = 0;
+            Projectile.aiStyle = 0;
             return true;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 
@@ -82,7 +82,7 @@ namespace ExtraExplosives.Projectiles
             Explosion();
 
             //Create Bomb Dust dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(159, 0, 255), 5f)];
-            CreateDust(projectile.Center, 500);
+            CreateDust(Projectile.Center, 500);
         }
 
         public override void ExplosionDamage()
@@ -93,7 +93,7 @@ namespace ExtraExplosives.Projectiles
         public override void Explosion()    // This is a special explosive, ignored
         {
             //if (Main.player[projectile.owner].EE().BombardEmblem) return;
-            Vector2 position = projectile.position;
+            Vector2 position = Projectile.position;
             int width = 240; //Width of arena
             int height = 120; //Height of arena
 
@@ -113,17 +113,17 @@ namespace ExtraExplosives.Projectiles
 
                     Tile tile = Framing.GetTileSafely(xPosition, yPosition);
 
-                    if (WorldGen.InWorld(xPosition, yPosition) && tile.active())
+                    if (WorldGen.InWorld(xPosition, yPosition) && tile.HasTile)
                     {
-                        if (!CanBreakTile(tile.type, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+                        if (!CanBreakTile(tile.TileType, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
                         {
                         }
                         else //Breakable
                         {
-                            if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].type] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].type) && Main.tile[xPosition, yPosition - 1].type != 26)
+                            if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType) && Main.tile[xPosition, yPosition - 1].TileType != 26)
                             {
                                 tile.ClearTile();
-                                tile.active(false);
+                                tile.HasTile = false;
 
                             }
 
@@ -141,7 +141,7 @@ namespace ExtraExplosives.Projectiles
                     if (!OutOfBounds(xPosition, yPosition))
                     {
                         //Breaks Liquid
-                        Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
+                        Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
                         //Place Arena Outline
@@ -346,7 +346,7 @@ namespace ExtraExplosives.Projectiles
                         updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(159, 0, 255), 5f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > radius * 16) dust.active = false;
                         else
                         {
                             dust.noGravity = true;
@@ -361,7 +361,7 @@ namespace ExtraExplosives.Projectiles
                         updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(0, 17, 255), 5f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > radius * 16) dust.active = false;
                         else
                         {
                             dust.noGravity = true;
@@ -376,7 +376,7 @@ namespace ExtraExplosives.Projectiles
                         updatedPosition = new Vector2(position.X - 2000 / 2, position.Y - 2000 / 2);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(255, 0, 150), 5f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > radius * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > radius * 16) dust.active = false;
                         else
                         {
                             dust.noGravity = true;

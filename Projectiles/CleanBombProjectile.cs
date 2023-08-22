@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
 
@@ -22,14 +23,14 @@ namespace ExtraExplosives.Projectiles
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;
-            projectile.tileCollide = true;
-            projectile.width = 22;
-            projectile.height = 38;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = int.MaxValue - 1;
-            projectile.damage = 0;
+            Projectile.tileCollide = true;
+            Projectile.width = 22;
+            Projectile.height = 38;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = int.MaxValue - 1;
+            Projectile.damage = 0;
 
             //Defining the dusts to spawn
             dustsToSpawn = new int[] {
@@ -43,28 +44,28 @@ namespace ExtraExplosives.Projectiles
             explodeSounds = new Terraria.Audio.LegacySoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
         public override bool OnTileCollide(Vector2 old)
         {
-            projectile.Kill();
+            Projectile.Kill();
             return true;
         }
 
         public override void Kill(int timeLeft)
         {
-            Vector2 center = projectile.Center;
+            Vector2 center = Projectile.Center;
 
             //Create bomb sound
-            Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)center.X, (int)center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)center.X, (int)center.Y);
 
             //Create bomb dust
             CreateDust(center, (int)(Radius / 3f));
 
             //Spawning the explosion projectile (actually removes buffs)
-            Projectile.NewProjectile(center, Vector2.Zero, ModContent.ProjectileType<CleanBombExplosionProjectile>(), 1, 0, projectile.owner, 0, 0);
+            Projectile.NewProjectile(center, Vector2.Zero, ModContent.ProjectileType<CleanBombExplosionProjectile>(), 1, 0, Projectile.owner, 0, 0);
         }
 
         private void CreateDust(Vector2 position, int amount)

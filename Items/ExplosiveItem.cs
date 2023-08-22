@@ -36,11 +36,11 @@ namespace ExtraExplosives.Items
         public sealed override void SetDefaults()
         {
             SafeSetDefaults();
-            item.melee = false;
-            item.ranged = false;
-            item.magic = false;
-            item.summon = false;
-            item.thrown = false;
+            Item.melee = false;
+            Item.ranged = false;
+            Item.magic = false;
+            Item.summon = false;
+            Item.thrown = false;
             DangerousSetDefaults();
         }
 
@@ -49,40 +49,40 @@ namespace ExtraExplosives.Items
 
         }
 
-        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
             mult = player.EE().DamageMulti;
             add += player.EE().DamageBonus;
         }
 
-        public override void GetWeaponKnockback(Player player, ref float knockback)
+        public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)
         {
             knockback = (knockback + player.EE().KnockbackBonus) * player.EE().KnockbackMulti;
         }
 
-        public override void GetWeaponCrit(Player player, ref int crit)
+        public override void ModifyWeaponCrit(Player player, ref float crit)
         {
             if (Explosive) crit += player.EE().ExplosiveCrit;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.mod == "Terraria");
+            TooltipLine stats = tooltips.FirstOrDefault(t => t.Name == "Damage" && t.Mod == "Terraria");
             if (stats != null)
             {
-                string[] split = stats.text.Split(' ');
+                string[] split = stats.Text.Split(' ');
                 string damageValue = split.First();
                 string damageWord = split.Last();
-                stats.text = damageValue + " explosive " + damageWord;
+                stats.Text = damageValue + " explosive " + damageWord;
             }
         }
 
-        public override void Load(TagCompound tag)
+        public override void LoadData(TagCompound tag)
         {
-            base.Load(tag);
+            base.LoadData(tag);
             //Used to add the tooltip without manually adding it in the main mod class
-            if (toolTipDisclamer) ExtraExplosives.disclaimerTooltip.Add(this.item.type);
-            if (BombardTag) ExtraExplosives._tooltipWhitelist.Add(this.item.type);
+            if (toolTipDisclamer) ExtraExplosives.disclaimerTooltip.Add(this.Item.type);
+            if (BombardTag) ExtraExplosives._tooltipWhitelist.Add(this.Item.type);
         }
     }
 }

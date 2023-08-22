@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -21,26 +22,26 @@ namespace ExtraExplosives.Projectiles
         {
             pickPower = -2;
             radius = 10;
-            projectile.tileCollide = true;
-            projectile.width = 16;
-            projectile.height = 32;
-            projectile.aiStyle = 16;
-            projectile.friendly = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 45;
-            projectile.damage = 0;
+            Projectile.tileCollide = true;
+            Projectile.width = 16;
+            Projectile.height = 32;
+            Projectile.aiStyle = 16;
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 45;
+            Projectile.damage = 0;
             //projectile.light = .9f;
             //projectile.glowMask = 2;
             explodeSounds = new LegacySoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
             }
         }
 
         public override void PostAI()
         {
-            Lighting.AddLight(projectile.position, new Vector3(.1f, 1f, 2.2f));
+            Lighting.AddLight(Projectile.position, new Vector3(.1f, 1f, 2.2f));
             Lighting.maxX = 10;
             Lighting.maxY = 10;
         }
@@ -48,7 +49,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
@@ -67,17 +68,17 @@ namespace ExtraExplosives.Projectiles
             if (goreType == 0)
                 for (int num = 0; num < 2; num++)
                 {
-                    Gore.NewGore(projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "1"), projectile.scale);
+                    Gore.NewGore(Projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
                     gVel = gVel.RotatedByRandom(Math.PI * 2);
                 }
             else
-                Gore.NewGore(projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(projectile.rotation), mod.GetGoreSlot(goreFileLoc + "2"), projectile.scale);
+                Gore.NewGore(Projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
 
         }
 
         public override void Explosion()
         {
-            Vector2 position = projectile.Center;
+            Vector2 position = Projectile.Center;
             float x = 0;
             float y = 0;
             float speedX = -22f;
@@ -99,10 +100,10 @@ namespace ExtraExplosives.Projectiles
                         speedX += z[Main.rand.Next(7)];
 
                     if (yCntr == 1 || yCntr == 7)
-                        Projectile.NewProjectile(x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
+                        Projectile.NewProjectile(x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, Projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
 
                     if ((xCntr == 1 || xCntr == 7) && (yCntr != 1 || yCntr != 7))
-                        Projectile.NewProjectile(x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
+                        Projectile.NewProjectile(x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, Projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
 
                     x = x + 20;
                     xCntr++;

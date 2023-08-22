@@ -5,7 +5,7 @@ namespace ExtraExplosives.Buffs
 {
     public class ExtraExplosivesDaBombBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("You DA BOMB!");
             Description.SetDefault("You feel like you could explode\n" +

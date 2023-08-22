@@ -5,7 +5,7 @@ namespace ExtraExplosives.Buffs
 {
     public class ExtraExplosivesSurstrommingBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fuse-Eel Surstromming");
             Description.SetDefault("Explosive damage up!");

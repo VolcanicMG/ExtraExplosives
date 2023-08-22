@@ -30,25 +30,25 @@ namespace ExtraExplosives.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine Info = tooltips.LastOrDefault(t => t.mod == "Terraria");
+            TooltipLine Info = tooltips.LastOrDefault(t => t.Mod == "Terraria");
 
             if (Info != null)
             {
-                Info.text += "[c/FF0000: Press " + ExtraExplosives.TriggerBoost.GetAssignedKeys(InputMode.Keyboard)[0] + " to boost. 5s cooldown]";
+                Info.Text += "[c/FF0000: Press " + ExtraExplosives.TriggerBoost.GetAssignedKeys(InputMode.Keyboard)[0] + " to boost. 5s cooldown]";
             }
         }
 
         public override void SetDefaults()
         {
 
-            item.width = 38;
-            item.height = 38;
-            item.value = 10000;
-            item.rare = ItemRarityID.Cyan;
-            item.accessory = true;
+            Item.width = 38;
+            Item.height = 38;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.Cyan;
+            Item.accessory = true;
 
-            EndSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Novabooster/NovaboosterEnd");
-            EngineSound = mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Novabooster/Novabooster");
+            EndSound = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Novabooster/NovaboosterEnd");
+            EngineSound = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Novabooster/Novabooster");
             if (!Main.dedServ && EngineSound != null && EndSound != null)
             {
                 EngineSound = EngineSound.WithVolume(0.3f);
@@ -61,7 +61,7 @@ namespace ExtraExplosives.Items.Accessories
             if (inUse)
             {
                 if (EngineSoundInstance == null)
-                    EngineSoundInstance = Main.PlaySound(EngineSound, (int)player.Center.X, (int)player.Center.Y);
+                    EngineSoundInstance = SoundEngine.PlaySound(EngineSound, (int)player.Center.X, (int)player.Center.Y);
 
                 if (EngineSoundInstance.State != SoundState.Playing)
                     EngineSoundInstance.Play();
@@ -77,7 +77,7 @@ namespace ExtraExplosives.Items.Accessories
                 if (justUsed)
                 {
                     if (EndSoundInstance == null)
-                        EndSoundInstance = Main.PlaySound(EndSound, (int)player.Center.X, (int)player.Center.Y);
+                        EndSoundInstance = SoundEngine.PlaySound(EndSound, (int)player.Center.X, (int)player.Center.Y);
 
                     if (EndSoundInstance.State != SoundState.Playing)
                         EndSoundInstance.Play();
@@ -158,14 +158,13 @@ namespace ExtraExplosives.Items.Accessories
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.FragmentSolar, 15);
             recipe.AddIngredient(ItemID.LihzahrdPowerCell, 3);
             recipe.AddIngredient(ItemID.LunarBar, 15);
             recipe.AddIngredient(ItemID.WingsVortex, 1);
             recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
 
     }

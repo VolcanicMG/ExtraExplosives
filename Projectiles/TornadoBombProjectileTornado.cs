@@ -12,27 +12,27 @@ namespace ExtraExplosives.Projectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tornado");
-            Main.projFrames[projectile.type] = 6;
+            Main.projFrames[Projectile.type] = 6;
         }
 
         public override void DangerousSetDefaults()
         {
-            projectile.CloneDefaults(386);
+            Projectile.CloneDefaults(386);
             //projectile.tileCollide = true;
             //projectile.width = 162;
             //projectile.height = 42;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.hostile = true;
-            projectile.melee = false;
-            projectile.ranged = false;
-            projectile.magic = false;
-            projectile.thrown = false;
-            projectile.minion = false;
-            projectile.penetrate = -1;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.hostile = true;
+            Projectile.melee = false;
+            Projectile.ranged = false;
+            Projectile.magic = false;
+            Projectile.thrown = false;
+            Projectile.minion = false;
+            Projectile.penetrate = -1;
             //projectile.penetrate = -1;
-            projectile.timeLeft = 560;
-            projectile.damage = 20;
+            Projectile.timeLeft = 560;
+            Projectile.damage = 20;
         }
 
         public override void AI()
@@ -43,51 +43,51 @@ namespace ExtraExplosives.Projectiles
             int num615 = 150;
             int num616 = 42;
 
-            projectile.damage = 20;
+            Projectile.damage = 20;
             //if (projectile.type == 386)
             //{
             //	num612 = 16;
             //	num613 = 16;
             //	num614 = 1.5f;
             //}
-            if (projectile.velocity.X != 0f)
+            if (Projectile.velocity.X != 0f)
             {
-                projectile.direction = (projectile.spriteDirection = -Math.Sign(projectile.velocity.X));
+                Projectile.direction = (Projectile.spriteDirection = -Math.Sign(Projectile.velocity.X));
             }
-            projectile.frameCounter++;
-            if (projectile.frameCounter > 2)
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter > 2)
             {
-                projectile.frame++;
-                projectile.frameCounter = 0;
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
             }
-            if (projectile.frame >= 6)
+            if (Projectile.frame >= 6)
             {
-                projectile.frame = 0;
+                Projectile.frame = 0;
             }
-            if (projectile.localAI[0] == 0f && Main.myPlayer == projectile.owner)
+            if (Projectile.localAI[0] == 0f && Main.myPlayer == Projectile.owner)
             {
-                projectile.localAI[0] = 1f;
-                projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-                projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-                projectile.scale = ((float)(num612 + num613) - projectile.ai[1]) * num614 / (float)(num613 + num612);
-                projectile.width = (int)((float)num615 * projectile.scale);
-                projectile.height = (int)((float)num616 * projectile.scale);
-                projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-                projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
-                projectile.netUpdate = true;
+                Projectile.localAI[0] = 1f;
+                Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
+                Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
+                Projectile.scale = ((float)(num612 + num613) - Projectile.ai[1]) * num614 / (float)(num613 + num612);
+                Projectile.width = (int)((float)num615 * Projectile.scale);
+                Projectile.height = (int)((float)num616 * Projectile.scale);
+                Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
+                Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
+                Projectile.netUpdate = true;
             }
-            if (projectile.ai[1] != -1f)
+            if (Projectile.ai[1] != -1f)
             {
-                projectile.scale = ((float)(num612 + num613) - projectile.ai[1]) * num614 / (float)(num613 + num612);
-                projectile.width = (int)((float)num615 * projectile.scale);
-                projectile.height = (int)((float)num616 * projectile.scale);
+                Projectile.scale = ((float)(num612 + num613) - Projectile.ai[1]) * num614 / (float)(num613 + num612);
+                Projectile.width = (int)((float)num615 * Projectile.scale);
+                Projectile.height = (int)((float)num616 * Projectile.scale);
             }
-            if (!Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
+            if (!Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
             {
-                projectile.alpha -= 30;
-                if (projectile.alpha < 60)
+                Projectile.alpha -= 30;
+                if (Projectile.alpha < 60)
                 {
-                    projectile.alpha = 60;
+                    Projectile.alpha = 60;
                 }
                 //if (projectile.type == 386 && projectile.alpha < 100)
                 //{
@@ -96,31 +96,31 @@ namespace ExtraExplosives.Projectiles
             }
             else
             {
-                projectile.alpha += 30;
-                if (projectile.alpha > 150)
+                Projectile.alpha += 30;
+                if (Projectile.alpha > 150)
                 {
-                    projectile.alpha = 150;
+                    Projectile.alpha = 150;
                 }
             }
-            if (projectile.ai[0] > 0f)
+            if (Projectile.ai[0] > 0f)
             {
-                projectile.ai[0] -= 1f;
+                Projectile.ai[0] -= 1f;
             }
-            if (projectile.ai[0] == 1f && projectile.ai[1] > 0f && projectile.owner == Main.myPlayer)
+            if (Projectile.ai[0] == 1f && Projectile.ai[1] > 0f && Projectile.owner == Main.myPlayer)
             {
-                projectile.netUpdate = true;
-                Vector2 center4 = projectile.Center;
-                center4.Y -= (float)num616 * projectile.scale / 2f;
-                float num617 = ((float)(num612 + num613) - projectile.ai[1] + 1f) * num614 / (float)(num613 + num612);
+                Projectile.netUpdate = true;
+                Vector2 center4 = Projectile.Center;
+                center4.Y -= (float)num616 * Projectile.scale / 2f;
+                float num617 = ((float)(num612 + num613) - Projectile.ai[1] + 1f) * num614 / (float)(num613 + num612);
                 center4.Y -= (float)num616 * num617 / 2f;
                 center4.Y += 2f;
-                Projectile.NewProjectile(center4.X, center4.Y, projectile.velocity.X, projectile.velocity.Y, projectile.type, 20, projectile.knockBack, projectile.owner, 10f, projectile.ai[1] - 1f);
+                Projectile.NewProjectile(center4.X, center4.Y, Projectile.velocity.X, Projectile.velocity.Y, Projectile.type, 20, Projectile.knockBack, Projectile.owner, 10f, Projectile.ai[1] - 1f);
                 int num618 = 4;
                 //if (projectile.type == 386)
                 //{
                 //	num618 = 2;
                 //}
-                if ((int)projectile.ai[1] % num618 == 0 && projectile.ai[1] != 0f)
+                if ((int)Projectile.ai[1] % num618 == 0 && Projectile.ai[1] != 0f)
                 {
                     int num619 = 372;
                     //if (projectile.type == 386)
@@ -137,19 +137,19 @@ namespace ExtraExplosives.Projectiles
                     //}
                 }
             }
-            if (projectile.ai[0] <= 0f)
+            if (Projectile.ai[0] <= 0f)
             {
                 float num621 = 0.104719758f;
-                float num622 = (float)projectile.width / 5f;
+                float num622 = (float)Projectile.width / 5f;
                 //if (projectile.type == 386)
                 //{
                 //	num622 *= 2f;
                 //}
-                float num623 = (float)(Math.Cos((double)num621 * (0.0 - (double)projectile.ai[0])) - 0.5) * num622;
-                projectile.position.X = projectile.position.X - num623 * (0f - (float)projectile.direction);
-                projectile.ai[0] -= 1f;
-                num623 = (float)(Math.Cos((double)num621 * (0.0 - (double)projectile.ai[0])) - 0.5) * num622;
-                projectile.position.X = projectile.position.X + num623 * (0f - (float)projectile.direction);
+                float num623 = (float)(Math.Cos((double)num621 * (0.0 - (double)Projectile.ai[0])) - 0.5) * num622;
+                Projectile.position.X = Projectile.position.X - num623 * (0f - (float)Projectile.direction);
+                Projectile.ai[0] -= 1f;
+                num623 = (float)(Math.Cos((double)num621 * (0.0 - (double)Projectile.ai[0])) - 0.5) * num622;
+                Projectile.position.X = Projectile.position.X + num623 * (0f - (float)Projectile.direction);
             }
 
             //The tornado pull effect
@@ -158,11 +158,11 @@ namespace ExtraExplosives.Projectiles
             //Player
             if (!player.EE().BlastShielding)
             {
-                if ((projectile.position.X / 16) <= ((player.position.X + 700) / 16) &&
-                    (projectile.position.X / 16) >= ((player.position.X - 700) / 16))
+                if ((Projectile.position.X / 16) <= ((player.position.X + 700) / 16) &&
+                    (Projectile.position.X / 16) >= ((player.position.X - 700) / 16))
                 {
                     //X
-                    if (player.position.X <= (projectile.position.X + 30))
+                    if (player.position.X <= (Projectile.position.X + 30))
                     {
                         //player.velocity.X = 2;
                         player.velocity.X = player.velocity.X + 0.3f;
@@ -174,7 +174,7 @@ namespace ExtraExplosives.Projectiles
                     }
 
                     //Y
-                    if (player.position.Y <= (projectile.position.Y - 200))
+                    if (player.position.Y <= (Projectile.position.Y - 200))
                     {
                         //player.velocity.Y = 2;
                         player.velocity.Y = player.velocity.Y + .5f;
@@ -190,14 +190,14 @@ namespace ExtraExplosives.Projectiles
             //NPCS
             for (int i = 0; i < Main.npc.Length; i++)
             {
-                if ((projectile.position.X / 16) <= ((Main.npc[i].position.X + 700) / 16) && (projectile.position.X / 16) >= ((Main.npc[i].position.X - 700) / 16) && !Main.npc[i].boss && Main.npc[i].type != 488)
+                if ((Projectile.position.X / 16) <= ((Main.npc[i].position.X + 700) / 16) && (Projectile.position.X / 16) >= ((Main.npc[i].position.X - 700) / 16) && !Main.npc[i].boss && Main.npc[i].type != 488)
                 {
                     Main.npc[i].netUpdate = true;
 
-                    Main.npc[i].rotation += projectile.velocity.X * 0.8f;
+                    Main.npc[i].rotation += Projectile.velocity.X * 0.8f;
 
                     //X
-                    if (Main.npc[i].position.X <= (projectile.position.X + 37))
+                    if (Main.npc[i].position.X <= (Projectile.position.X + 37))
                     {
                         //Main.npc[i].velocity.X = 2;
                         Main.npc[i].velocity.X = Main.npc[i].velocity.X + 0.3f;
@@ -209,7 +209,7 @@ namespace ExtraExplosives.Projectiles
                     }
 
                     //Y
-                    if (Main.npc[i].position.Y <= (projectile.position.Y - 250))
+                    if (Main.npc[i].position.Y <= (Projectile.position.Y - 250))
                     {
                         //Main.npc[i].velocity.Y = 2;
                         Main.npc[i].velocity.Y = Main.npc[i].velocity.Y + .5f;
@@ -229,10 +229,10 @@ namespace ExtraExplosives.Projectiles
             //Items
             for (int v = 0; v < Main.item.Length; v++)
             {
-                if ((projectile.position.X / 16) <= ((Main.item[v].position.X + 700) / 16) && (projectile.position.X / 16) >= ((Main.item[v].position.X - 700) / 16))
+                if ((Projectile.position.X / 16) <= ((Main.item[v].position.X + 700) / 16) && (Projectile.position.X / 16) >= ((Main.item[v].position.X - 700) / 16))
                 {
                     //X
-                    if (Main.item[v].position.X <= (projectile.position.X + 37))
+                    if (Main.item[v].position.X <= (Projectile.position.X + 37))
                     {
                         //Main.npc[i].velocity.X = 2;
                         Main.item[v].velocity.X = Main.item[v].velocity.X + 0.3f;
@@ -244,7 +244,7 @@ namespace ExtraExplosives.Projectiles
                     }
 
                     //Y
-                    if (Main.item[v].position.Y <= (projectile.position.Y - 200))
+                    if (Main.item[v].position.Y <= (Projectile.position.Y - 200))
                     {
                         //Main.npc[i].velocity.Y = 2;
                         Main.item[v].velocity.Y = Main.item[v].velocity.Y + .5f;

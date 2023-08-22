@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static ExtraExplosives.GlobalMethods;
@@ -23,43 +24,43 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
         public override void SetDefaults()
         {
             //Checks to see if the projectile can go through tiles
-            projectile.tileCollide = true;
+            Projectile.tileCollide = true;
 
             //This defines the hitbox width
-            projectile.width = 20;
+            Projectile.width = 20;
 
             //This defines the hitbox height
-            projectile.height = 20;
+            Projectile.height = 20;
 
             //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.aiStyle = 16;
+            Projectile.aiStyle = 16;
 
             //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.friendly = true;
+            Projectile.friendly = true;
 
             //Tells the game how many enemies it can hit before being destroyed, -1 means unlimited
-            projectile.penetrate = -1;
+            Projectile.penetrate = -1;
 
             //The amount of time in ticks the projectile is alive for
-            projectile.timeLeft = 150;
+            Projectile.timeLeft = 150;
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
             //SoundID.Item14 is the default bomb sound
 
             //Create Bomb Damage
-            ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
+            ExplosionDamage(5f, Projectile.Center, 70, 20, Projectile.owner);
             //float Radius, Vector2 damagePosition, int Damage, float knockback, int projectileOwner
 
             //Create Bomb Explosion
-            CreateExplosion(projectile.Center, 2);
+            CreateExplosion(Projectile.Center, 2);
             //Vector2 explosionPosition, int Radius
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 10);
+            CreateDust(Projectile.Center, 10);
             //Vector2 dustPosition, int dustAmount
         }
 
@@ -82,7 +83,7 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition)))
                     {
                         //Make sure to check for unbreakable tiles
-                        ushort tile = Main.tile[xPosition, yPosition].type;
+                        ushort tile = Main.tile[xPosition, yPosition].TileType;
                         if (!CanBreakTile(tile, PickPower)) //Unbreakable
                         {
                         }
@@ -101,7 +102,7 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
 
                             //Demo for Liquid Breaking
                             //This makes the explosion destroy liquids of any kind
-                            Main.tile[xPosition, yPosition].liquid = Tile.Liquid_Water;
+                            Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                             //Used to update the liquid
                             WorldGen.SquareTileFrame(xPosition, yPosition, true);
                         }

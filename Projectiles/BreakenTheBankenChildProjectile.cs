@@ -14,21 +14,21 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.GoldCoin);
-            projectile.tileCollide = true;
-            projectile.width = 5;
-            projectile.height = 5;
-            projectile.aiStyle = 1;
-            projectile.friendly = true;
-            projectile.penetrate = 20;
-            projectile.timeLeft = 200;
+            Projectile.CloneDefaults(ProjectileID.GoldCoin);
+            Projectile.tileCollide = true;
+            Projectile.width = 5;
+            Projectile.height = 5;
+            Projectile.aiStyle = 1;
+            Projectile.friendly = true;
+            Projectile.penetrate = 20;
+            Projectile.timeLeft = 200;
         }
 
         public override string Texture => "Terraria/Projectile_" + ProjectileID.GoldCoin;
 
         public override void Kill(int timeLeft)
         {
-            Item.NewItem(projectile.Center, new Vector2(10, 10), ItemID.GoldCoin);
+            Item.NewItem(Projectile.Center, new Vector2(10, 10), ItemID.GoldCoin);
         }
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -149,7 +150,7 @@ namespace ExtraExplosives.UI
         //When the button it clicked do this
         private void ButtonClickedYes(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(SoundID.Coins);
+            SoundEngine.PlaySound(SoundID.Coins);
             ExtraExplosives.CheckUIBoss = 2;
             ExtraExplosives.CheckBossBreak = true;
             Main.NewText("You selected 'Yes'");
@@ -172,7 +173,7 @@ namespace ExtraExplosives.UI
 
         private void ButtonClickedNo(UIMouseEvent evt, UIElement listeningElement)
         {
-            Main.PlaySound(SoundID.Coins);
+            SoundEngine.PlaySound(SoundID.Coins);
             ExtraExplosives.CheckUIBoss = 2;
             ExtraExplosives.CheckBossBreak = false;
             Main.NewText("You selected 'No'");

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,55 +14,55 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Chill Bomb");
-            Main.projFrames[projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 4;
         }
 
         public override void SetDefaults()
         {
-            projectile.tileCollide = true; //checks to see if the projectile can go through tiles
-            projectile.width = 28;   //This defines the hitbox width
-            projectile.height = 44; //This defines the hitbox height
-            projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
-            projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
-            projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
-            projectile.timeLeft = 150; //The amount of time the projectile is alive for
+            Projectile.tileCollide = true; //checks to see if the projectile can go through tiles
+            Projectile.width = 28;   //This defines the hitbox width
+            Projectile.height = 44; //This defines the hitbox height
+            Projectile.aiStyle = 16;  //How the projectile works, 16 is the aistyle Used for: Grenades, Dynamite, Bombs, Sticky Bomb.
+            Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
+            Projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
+            Projectile.timeLeft = 150; //The amount of time the projectile is alive for
         }
 
         public override void AI()
         {
-            if (++projectile.frameCounter >= 8)
+            if (++Projectile.frameCounter >= 8)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 4)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 4)
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
 
-            if (projectile.timeLeft <= 3)
+            if (Projectile.timeLeft <= 3)
             {
-                projectile.hostile = true;
-                projectile.friendly = false;
-                projectile.tileCollide = false;
+                Projectile.hostile = true;
+                Projectile.friendly = false;
+                Projectile.tileCollide = false;
                 // Set to transparent. This projectile technically lives as  transparent for about 3 frames
-                projectile.alpha = 255;
+                Projectile.alpha = 255;
                 // change the hitbox size, centered about the original projectile center. This makes the projectile damage enemies during the explosion.
-                projectile.position = projectile.Center;
+                Projectile.position = Projectile.Center;
                 //projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
                 //projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-                projectile.width = 450;
-                projectile.height = 450;
-                projectile.Center = projectile.position;
+                Projectile.width = 450;
+                Projectile.height = 450;
+                Projectile.Center = Projectile.position;
                 //projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
                 //projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
-                projectile.damage = 25;
-                projectile.knockBack = 10f;
+                Projectile.damage = 25;
+                Projectile.knockBack = 10f;
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (projectile.timeLeft <= 3)
+            if (Projectile.timeLeft <= 3)
             {
                 target.AddBuff(BuffID.Chilled, 500);
             }
@@ -70,17 +71,17 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            Main.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
 
             //Create Bomb Dust
-            CreateDust(projectile.Center, 500);
+            CreateDust(Projectile.Center, 500);
 
-            projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
-            projectile.position.Y = projectile.position.Y + (float)(projectile.height / 2);
-            projectile.width = 10;
-            projectile.height = 10;
-            projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
-            projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
+            Projectile.position.X = Projectile.position.X + (float)(Projectile.width / 2);
+            Projectile.position.Y = Projectile.position.Y + (float)(Projectile.height / 2);
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.position.X = Projectile.position.X - (float)(Projectile.width / 2);
+            Projectile.position.Y = Projectile.position.Y - (float)(Projectile.height / 2);
 
         }
 
@@ -100,7 +101,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
                         updatedPosition = new Vector2(position.X - 500 / 2, position.Y - 500 / 2);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 500, 500, 76, 0f, 0.5263162f, 0, new Color(255, 255, 255), 4.539474f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 15 * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > 15 * 16) dust.active = false;
                         else
                         {
                             dust.noGravity = true;
@@ -114,7 +115,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
                         updatedPosition = new Vector2(position.X - 500 / 2, position.Y - 500 / 2);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 500, 500, 203, 0f, 0f, 0, new Color(255, 255, 255), 3.026316f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 15 * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > 15 * 16) dust.active = false;
                         else
                         {
                             dust.noGravity = true;
@@ -128,7 +129,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
                         updatedPosition = new Vector2(position.X - 500 / 2, position.Y - 500 / 2);
 
                         dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 500, 500, 31, 0f, 0f, 0, new Color(255, 255, 255), 5f)];
-                        if (Vector2.Distance(dust.position, projectile.Center) > 15 * 16) dust.active = false;
+                        if (Vector2.Distance(dust.position, Projectile.Center) > 15 * 16) dust.active = false;
                         else
                         {
                             dust.noGravity = true;
