@@ -34,8 +34,8 @@ namespace ExtraExplosives.Projectiles
 
             DrawOffsetX = -15;
             DrawOriginOffsetY = -15;
-            explodeSounds = new LegacySoundStyle[] {
-                Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc)
+            explodeSounds = new SoundStyle[] {
+                new SoundStyle(explodeSoundsLoc)
             };
         }
 
@@ -49,7 +49,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[0], (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[0]);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
@@ -66,8 +66,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-2f, 2f);
             Vector2 gVel2 = new Vector2(2f, -2f);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         public override void Explosion()
@@ -98,12 +98,12 @@ namespace ExtraExplosives.Projectiles
                         }
                         else //Breakable
                         {
-                            if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType) && Main.tile[i, j - 1].TileType != 26)
+                            /*if TODO (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType) && Main.tile[i, j - 1].TileType != 26)
                             {
                                 tile.ClearTile();
                                 tile.HasTile = false;
 
-                            }
+                            }*/
                             if (CanBreakWalls) WorldGen.KillWall(i, j, false); //This destroys Walls
                             if (CanBreakWalls && y - 1 != height) WorldGen.KillWall(i + 1, j + 1, false); //Break the last bit of wall
                             NetMessage.SendTileSquare(-1, i, j, 1);

@@ -38,7 +38,7 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
                 "Fire out bolts of fire after every explosion";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .06f;
-            player.allDamage += .07f;
+            //player.allDamage += .07f;
             player.EE().ExplosiveCrit += 8;
             player.EE().HeavyBombard = true;
         }

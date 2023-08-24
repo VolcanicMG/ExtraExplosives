@@ -32,11 +32,11 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 100;
-            explodeSounds = new LegacySoundStyle[2];
+            /*explodeSounds = new LegacySoundStyle[2]; // TODO
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
                 explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
-            }
+            }*/
         }
 
         public override bool OnTileCollide(Vector2 old)
@@ -57,7 +57,8 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 
@@ -120,12 +121,13 @@ namespace ExtraExplosives.Projectiles
                         }
                         else //Breakable
                         {
-                            if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType) && Main.tile[xPosition, yPosition - 1].TileType != 26)
+                            // TODO no clue but needs fixing probably
+                            /*if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType) && Main.tile[xPosition, yPosition - 1].TileType != 26)
                             {
                                 tile.ClearTile();
                                 tile.HasTile = false;
 
-                            }
+                            }*/
 
                             if (Main.netMode == NetmodeID.MultiplayerClient)
                             {

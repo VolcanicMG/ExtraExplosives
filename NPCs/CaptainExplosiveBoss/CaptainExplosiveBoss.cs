@@ -92,7 +92,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.buffImmune[24] = true;
-            Music = Mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
+            //Music = Mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
             //bossBag = ItemType<CaptainExplosiveTreasureBag>();
 
             DrawOffsetY = 50f;
@@ -110,24 +110,24 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             }
         }
 
-        public override bool CheckDead()
+        public override bool CheckDead() // TODO
         {
             Player player = Main.player[NPC.target];
 
             for (int k = 0; k < 12; k++)
             {
                 Vector2 pos = NPC.position + new Vector2(Main.rand.Next(NPC.width - 8), Main.rand.Next(NPC.height / 2));
-                Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), Mod.Find<ModGore>("Gores/CaptainExplosiveBoss/gore2").Type, 1.2f);
+                //Gore.NewGore(new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), Mod.Find<ModGore>("Gores/CaptainExplosiveBoss/gore2").Type, 1.2f);
             }
             for (int k = 0; k < 12; k++)
             {
                 Vector2 pos = NPC.position + new Vector2(Main.rand.Next(NPC.width - 8), Main.rand.Next(NPC.height / 2));
-                Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), Mod.Find<ModGore>("Gores/CaptainExplosiveBoss/gore1").Type, 1.2f);
+                //Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), Mod.Find<ModGore>("Gores/CaptainExplosiveBoss/gore1").Type, 1.2f);
             }
 
-            int Boss0 = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y + 50, NPCType<CaptainExplosiveBossAt0>(), 0, 0, 0, 0, 0, player.whoAmI);
+            /*int Boss0 = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y + 50, NPCType<CaptainExplosiveBossAt0>(), 0, 0, 0, 0, 0, player.whoAmI);
             Main.npc[Boss0].netUpdate = true;
-            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, Boss0);
+            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, Boss0);*/
 
             ExtraExplosives.CheckUIBoss = 3;
 
@@ -483,7 +483,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 Dust.NewDust(NPC.position, NPC.width, NPC.height, 31, hitDirection, -1f, 0, new Color(255, 255, 255), 2.5f);
             }
 
-            SoundEngine.PlaySound(SoundID.NPCHit4, (int)NPC.position.X, (int)NPC.position.Y);
+            SoundEngine.PlaySound(SoundID.NPCHit4, NPC.position);
         }
 
 
@@ -500,11 +500,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         {
             int spawnCase = Main.rand.Next(3);  // gets the side the drone will spawn from
             Vector2 spawnCord = new Vector2(NPC.position.X + (spawnCase * 100), NPC.position.Y + (spawnCase == 1 ? 60 : 0) + 180);  // calculates the cords of the spawn loc
-            int drone = NPC.NewNPC((int)spawnCord.X, (int)spawnCord.Y, NPCType<CEDroneNPC>(), 0, spawnCase, 0, 0, 0, this.NPC.type);    // spawns the drone at those cords
-            SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/DronePlop")); //sound
+            //int drone = NPC.NewNPC((int)spawnCord.X, (int)spawnCord.Y, NPCType<CEDroneNPC>(), 0, spawnCase, 0, 0, 0, this.NPC.type);    // spawns the drone at those cords
+            //SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/DronePlop")); //sound
+            SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/DronePlop"));
                                                                                                                                 //Dust.NewDust(spawnCord, 8, 8, Main.rand.Next(250)); // spawns dust
-            Main.npc[drone].netUpdate = true;
-            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, drone);
+            /*Main.npc[drone].netUpdate = true;
+            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, drone);*/
         }
 
         public void chooseBomb(int direction)
@@ -539,22 +540,22 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             switch (choose)
             {
                 case 0:
-                    Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossGooBombProjectile>(), 0, 3f, Main.myPlayer);
+                    //Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossGooBombProjectile>(), 0, 3f, Main.myPlayer);
                     break;
                 case 1:
-                    Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossArmorBreakBombProjectile>(), 0, 3f, Main.myPlayer);
+                    //Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossArmorBreakBombProjectile>(), 0, 3f, Main.myPlayer);
                     break;
                 case 2:
-                    Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossChillBombProjectile>(), 0, 3f, Main.myPlayer);
+                    //Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossChillBombProjectile>(), 0, 3f, Main.myPlayer);
                     break;
                 case 3:
-                    Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossFireBombProjectile>(), 0, 3f, Main.myPlayer);
+                    //Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossFireBombProjectile>(), 0, 3f, Main.myPlayer);
                     break;
                 case 4:
-                    Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossDazedBombProjectile>(), 0, 3f, Main.myPlayer);
+                    //Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossDazedBombProjectile>(), 0, 3f, Main.myPlayer);
                     break;
                 default:
-                    Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossFireBombProjectile>(), 0, 3f, Main.myPlayer);
+                    //Projectile.NewProjectile(NPC.position.X + x, NPC.position.Y + y, delta.X, delta.Y, ProjectileType<BossFireBombProjectile>(), 0, 3f, Main.myPlayer);
                     break;
             }
 
@@ -684,7 +685,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             {
                 if (_carpetBombingValues[2]-- <= 0) // if rocket cooldown is done
                 {
-                    Projectile.NewProjectileDirect(new Vector2(NPC.position.X + 100, NPC.position.Y + 240), new Vector2(0, 15), ModContent.ProjectileType<BossCarpetBomb>(), 30, 20);
+                    //Projectile.NewProjectileDirect(new Vector2(NPC.position.X + 100, NPC.position.Y + 240), new Vector2(0, 15), ModContent.ProjectileType<BossCarpetBomb>(), 30, 20);
                     _carpetBombingValues[1]--;  // one less rocket
                     _carpetBombingValues[2] = 4;    // time between rocket drop
                                                     //Main.NewText(_carpetBombingValues[1]);	//debug
@@ -744,7 +745,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             {
                 if (_carpetBombingValues[2]-- <= 0)
                 {
-                    Projectile.NewProjectileDirect(new Vector2(NPC.position.X + 100, NPC.position.Y + 240), new Vector2(0, 15), ModContent.ProjectileType<BossCarpetBomb>(), 30, 20);
+                    //Projectile.NewProjectileDirect(new Vector2(NPC.position.X + 100, NPC.position.Y + 240), new Vector2(0, 15), ModContent.ProjectileType<BossCarpetBomb>(), 30, 20);
                     _carpetBombingValues[1]--;
                     _carpetBombingValues[2] = 4;
                     //Main.NewText(_carpetBombingValues[1]);
@@ -799,7 +800,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
                 ModPacket myPacket = Mod.GetPacket();
                 myPacket.Write((byte)ExtraExplosives.EEMessageTypes.BossCheckDynamite);
-                myPacket.WriteVarInt(rand);
+                //myPacket.WriteVarInt(rand);
                 myPacket.Send();
 
                 rand = ExtraExplosives.bossDropDynamite;
@@ -809,7 +810,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
             if (rand == 0 && Vector2.Distance(NPC.velocity, Vector2.Zero) < 0.1f && attackCool >= 200)
             {
-                int drop = NPC.NewNPC((int)(NPC.position.X + 100), (int)(NPC.position.Y + 240), ModContent.NPCType<BossDynamiteNPC>());
+                int drop = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(NPC.position.X + 100), (int)(NPC.position.Y + 240), ModContent.NPCType<BossDynamiteNPC>());
                 Main.npc[drop].netUpdate = true;
                 _dropDynamite = false;
                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, drop);
@@ -832,7 +833,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
                 ModPacket myPacket = Mod.GetPacket();
                 myPacket.Write((byte)ExtraExplosives.EEMessageTypes.bossCheckRocket);
-                myPacket.WriteVarInt(rand);
+                myPacket.Write7BitEncodedInt(rand);
                 myPacket.Send();
 
                 rand = ExtraExplosives.bossDropDynamite;
@@ -842,7 +843,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
             if (rand == 0 && Vector2.Distance(NPC.velocity, Vector2.Zero) < 0.1f && attackCool >= 200)
             {
-                int drop = NPC.NewNPC((int)(NPC.position.X + 100), (int)(NPC.position.Y + 240), ModContent.NPCType<BossRocket>());
+                int drop = NPC.NewNPC(NPC.GetSource_FromAI(), (int)(NPC.position.X + 100), (int)(NPC.position.Y + 240), ModContent.NPCType<BossRocket>());
                 Main.npc[drop].netUpdate = true;
                 _dropDynamite = false;
                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, drop);

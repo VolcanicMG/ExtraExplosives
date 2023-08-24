@@ -28,7 +28,7 @@ namespace ExtraExplosives.Items
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Cobweb, 15);
             recipe.AddIngredient(ItemID.Wood, 1);
-            recipe.anyWood = true;
+            //recipe.anyWood = true;
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
         }

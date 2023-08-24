@@ -7,7 +7,7 @@ namespace ExtraExplosives.CommentedExampleClasses
     {
         // This first line is only meant to stop tML from loading this class (and failing because no assets are connected to it
         // It can be ignored
-        public override bool Autoload(ref string _) => false;
+        public bool Autoload(ref string _) => false;
 
         /// <summary>
         /// This represents the filepath of the sounds which should be played when the projectile explodes

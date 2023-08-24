@@ -25,7 +25,7 @@ namespace ExtraExplosives.Projectiles
         public int radius = 0;                                  // Radius of the explosion
         public int pickPower = 0;                           // Strength of the explosion
         internal bool crit = false;                         // If it crits (dont edit this it is used internally Left internal so other bombs can edit the crit chances 
-        protected LegacySoundStyle[] explodeSounds;         // The sounds that are played as the bomb explodes
+        protected SoundStyle[] explodeSounds;         // The sounds that are played as the bomb explodes
         protected abstract string explodeSoundsLoc { get; } // Where the explosion sound files are located (relative to project dir)
         protected abstract string goreFileLoc { get; }      // Where the explosion gore sprites are located (relative to project dir)
 
@@ -40,10 +40,7 @@ namespace ExtraExplosives.Projectiles
         {
             //constants throughout all bombs
             SafeSetDefaults();
-            Projectile.melee = false;
-            Projectile.ranged = false;
-            Projectile.magic = false;
-            Projectile.thrown = false;
+            Projectile.DamageType = DamageClass.Generic/* tModPorter Suggestion: Remove. See Item.DamageType */;
             Projectile.minion = false;
             Projectile.netUpdate = true;
             DangerousSetDefaults();
@@ -187,7 +184,7 @@ namespace ExtraExplosives.Projectiles
 
                             else
                             {
-                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType) && Main.tile[i, j - 1].TileType != 26)
+                                /* TODO Fix if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType) && Main.tile[i, j - 1].TileType != 26)
                                 {
                                     tile.ClearTile();
                                     tile.HasTile = false;
@@ -197,7 +194,7 @@ namespace ExtraExplosives.Projectiles
                                         WorldGen.SquareTileFrame(i, j, true); //Updates Area
                                         NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                     }
-                                }
+                                }*/
 
                                 if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
                                 {

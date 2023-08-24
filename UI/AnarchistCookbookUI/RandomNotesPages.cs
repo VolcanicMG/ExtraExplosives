@@ -139,8 +139,9 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             CaptainExplosiveNPCAnimated.Width.Pixels = 80;
             CaptainExplosiveNPCBox.Append(CaptainExplosiveNPCAnimated);
 
-            ToggleRandomFuel = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-            RandomFuel = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/RandomFuel"));
+            // TODO These are accepting a raw Texture2D but i dont believe they should, look into it
+            ToggleRandomFuel = new UIImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
+            RandomFuel = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/RandomFuel"));
             RandomFuel.VAlign = 0.5f;
             RandomFuel.HAlign = 0.5f;
             ToggleRandomFuel.Append(RandomFuel);    // Image of Random fuel for labeling
@@ -179,8 +180,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleConfused.OnClick += new MouseEvent(ConfusedToggle);
             leftPage.Append(ToggleConfused);*/
 
-            ToggleShortFuze = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-            ShortFuze = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/ShortFuse"));
+            ToggleShortFuze = new UIImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
+            ShortFuze = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/ShortFuse"));
             ShortFuze.VAlign = 0.5f;
             ShortFuze.HAlign = 0.5f;
             ToggleShortFuze.Append(ShortFuze);    // Image of Random fuel for labeling
@@ -204,28 +205,28 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             FuseOut.Top.Pixels = 25;
             FuseSliderBar.Append(FuseOut);
 
-            RandomFuelImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/RandomFuel"));
+            RandomFuelImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/RandomFuel"));
             RandomFuelImage.Left.Pixels = 0;
             RandomFuelImage.Top.Pixels = 0;
             RandomFuelImage.ImageScale = 0.8f;
             RandomFuelImage.OnClick += new MouseEvent(RandomFuelToggle);
             leftPage.Append(RandomFuelImage);
 
-            ShortFuzeImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ShortFuse"));
+            ShortFuzeImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ShortFuse"));
             ShortFuzeImage.Left.Pixels = 20;
             ShortFuzeImage.Top.Pixels = -16;
             ShortFuzeImage.ImageScale = 0.7f;
             ShortFuzeImage.OnClick += new MouseEvent(ShortFuzeToggle);
             rightPage.Append(ShortFuzeImage);
 
-            RandomFuel_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/RandomFuel_Greyscale"));
+            RandomFuel_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/RandomFuel_Greyscale"));
             RandomFuel_GreyscaleImage.Left.Pixels = 0;
             RandomFuel_GreyscaleImage.Top.Pixels = 0;
             RandomFuel_GreyscaleImage.ImageScale = 0.8f;
             RandomFuel_GreyscaleImage.OnClick += new MouseEvent(RandomFuelToggle);
             leftPage.Append(RandomFuel_GreyscaleImage);
 
-            ShortFuze_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ShortFuse_Greyscale"));
+            ShortFuze_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ShortFuse_Greyscale"));
             ShortFuze_GreyscaleImage.Left.Pixels = 20;
             ShortFuze_GreyscaleImage.Top.Pixels = -16;
             ShortFuze_GreyscaleImage.ImageScale = 0.7f;

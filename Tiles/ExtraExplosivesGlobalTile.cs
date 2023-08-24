@@ -17,8 +17,8 @@ namespace ExtraExplosives.Tiles
                 cntr++;
                 if (Main.rand.NextFloat() <= .15f && cntr == 5)
                 {
-                    Item.NewItem(new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.ItemType<TwinDetonator>());
-                    Item.NewItem(new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.ItemType<Rocket0Point5>(), 30);
+                    Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j), new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.ItemType<TwinDetonator>());
+                    Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j), new Vector2(i * 16, j * 16), new Vector2(0, 0), ModContent.ItemType<Rocket0Point5>(), 30);
                     cntr = 0;
                     return false;
                 }

@@ -12,7 +12,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
     {
         internal string HoverText;
 
-        public UIHoverImageButton(Texture2D texture, string hoverText) : base(texture)
+        public UIHoverImageButton(Texture2D texture, string hoverText) : base(null) // TODO This should be texture but it doesnt accept a Texture2D, fix later
         {
             HoverText = hoverText;
         }

@@ -24,13 +24,13 @@ namespace ExtraExplosives.Tiles.Furniture
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Bomb Bookcase");
             AddMapEntry(new Color(200, 200, 200), name);
-            disableSmartCursor = true;
+            TileID.Sets.DisableSmartCursor[Type] = true;
             AdjTiles = new int[] { TileID.Bookcases };
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 64, ModContent.ItemType<Items.Tiles.Furniture.BombBookshelfItem>());
+            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 32, 64, ModContent.ItemType<Items.Tiles.Furniture.BombBookshelfItem>());
         }
     }
 }

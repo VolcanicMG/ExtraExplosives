@@ -9,7 +9,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
     public class SliderBar : UIElement
     {
         public int value { get; internal set; }
-        private static Texture2D texture = ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/UI/HUDSliderBar");
+        private static Texture2D texture = ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/UI/HUDSliderBar").Value;
         private Slider _slider;
 
         public SliderBar(string name)// : base(texture)
@@ -49,7 +49,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI.UI
     {
         private Vector2 offset;
         public bool dragging;
-        private static Texture2D texture = ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/UI/HUDSlider");
+        private static Texture2D texture = ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/UI/HUDSlider").Value;
 
         public Slider()
         {

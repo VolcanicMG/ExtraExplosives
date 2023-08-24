@@ -41,10 +41,10 @@ namespace ExtraExplosives.Projectiles
             };
 
             //Retrieving the explosion sounds
-            explodeSounds = new Terraria.Audio.LegacySoundStyle[4];
+            explodeSounds = new SoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
             }
         }
 
@@ -59,13 +59,13 @@ namespace ExtraExplosives.Projectiles
             Vector2 center = Projectile.Center;
 
             //Create bomb sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)center.X, (int)center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create bomb dust
             CreateDust(center, (int)(Radius / 3f));
 
             //Spawning the explosion projectile (actually removes buffs)
-            Projectile.NewProjectile(center, Vector2.Zero, ModContent.ProjectileType<CleanBombExplosionProjectile>(), 1, 0, Projectile.owner, 0, 0);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), center, Vector2.Zero, ModContent.ProjectileType<CleanBombExplosionProjectile>(), 1, 0, Projectile.owner, 0, 0);
         }
 
         private void CreateDust(Vector2 position, int amount)

@@ -1,3 +1,4 @@
+/*
 using Microsoft.Xna.Framework.Audio;
 using Terraria.ModLoader;
 
@@ -15,4 +16,7 @@ namespace ExtraExplosives.Sounds.Item
         }
     }
 }
+*/
+
+// Depricated, kept for now incase reference is needed
 

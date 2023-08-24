@@ -37,14 +37,14 @@ namespace ExtraExplosives.Items.Weapons
             Item.shootSpeed = 15;
             Item.useAmmo = AmmoID.Rocket;
 
-            PrimarySounds = new LegacySoundStyle[4];
+            /*PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = null;
 
             for (int n = 1; n <= PrimarySounds.Length; n++)
             {
                 PrimarySounds[n - 1] =
                     Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
-            }
+            }*/
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -64,7 +64,7 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-7, 1);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                 (int)player.position.X, (int)player.position.Y);
@@ -84,6 +84,6 @@ namespace ExtraExplosives.Items.Weapons
                 Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<TrashCannonProjectile>(), damage, knockBack, player.whoAmI);
             }
             return false; // return false because we don't want tmodloader to shoot projectile
-        }
+        }*/
     }
 }

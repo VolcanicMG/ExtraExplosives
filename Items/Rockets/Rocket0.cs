@@ -24,10 +24,10 @@ namespace ExtraExplosives.Items.Rockets
             Item.shoot = ModContent.ProjectileType<Rocket0Projectile>();
         }
 
-        public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
+        /*public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
         {
             type = Item.shoot;
-        }
+        }*/
 
         public override void AddRecipes()
         {
@@ -35,7 +35,7 @@ namespace ExtraExplosives.Items.Rockets
             modRecipe.AddIngredient(ItemID.IronBar, 1);
             modRecipe.AddIngredient(ItemID.Gel, 10);
             modRecipe.AddTile(TileID.WorkBenches);
-            modRecipe.anyIronBar = true;
+            //modRecipe.anyIronBar = true;
             modRecipe.Register();
         }
     }

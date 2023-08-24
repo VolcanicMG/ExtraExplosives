@@ -28,8 +28,8 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16 };
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.DrawYOffset = 2;
-            TileObjectData.newTile.HookCheck = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.FindEmptyChest), -1, 0, true);
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.AfterPlacement_Hook), -1, 0, false);
+            /* TODO TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.FindEmptyChest), -1, 0, true);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.AfterPlacement_Hook), -1, 0, false);*/
             TileObjectData.newTile.AnchorInvalidTiles = new[] { 127 };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.LavaDeath = false;
@@ -40,9 +40,10 @@ namespace ExtraExplosives.Tiles.Furniture
             name.SetDefault("Bomb Dresser");
             AddMapEntry(new Color(200, 200, 200), name);
             DustType = 119;
-            disableSmartCursor = true;
+            TileID.Sets.DisableSmartCursor[Type] = true;
             AdjTiles = new int[] { TileID.Dressers };
-            dresser = "Bomb Dresser";
+            ContainerName.SetDefault("Bomb Dresser");
+            TileID.Sets.BasicDresser[Type] = true;
             DresserDrop = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
         }
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
@@ -95,7 +96,8 @@ namespace ExtraExplosives.Tiles.Furniture
                 }
                 else
                 {
-                    player.flyingPigChest = -1;
+                    //player.flyingPigChest = -1;
+                    player.piggyBankProjTracker.Clear();
                     int num213 = Chest.FindChest(left, top);
                     if (num213 != -1)
                     {
@@ -165,9 +167,10 @@ namespace ExtraExplosives.Tiles.Furniture
                 }
                 else
                 {
-                    player.cursorItemIconText = chest;
+                    //player.cursorItemIconText = chest/* tModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */;
+                    player.cursorItemIconText = Name;
                 }
-                if (player.cursorItemIconText == chest)
+                if (player.cursorItemIconText == Name/* tModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */)
                 {
                     player.cursorItemIconID = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
                     player.cursorItemIconText = "";
@@ -207,9 +210,10 @@ namespace ExtraExplosives.Tiles.Furniture
                 }
                 else
                 {
-                    player.cursorItemIconText = chest;
+                    //player.cursorItemIconText = chest/* tModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */;
+                    player.cursorItemIconText = Name;
                 }
-                if (player.cursorItemIconText == chest)
+                if (player.cursorItemIconText == Name/* tModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */)
                 {
                     player.cursorItemIconID = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
                     player.cursorItemIconText = "";
@@ -230,7 +234,7 @@ namespace ExtraExplosives.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 32, DresserDrop);
+            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 48, 32, DresserDrop);
             Chest.DestroyChest(i, j);
         }
     }

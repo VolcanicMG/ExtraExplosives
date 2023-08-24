@@ -124,8 +124,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             rightPage.Append(ReactivePlatingDescription);
             rightPage.Append(ReactivePlatingHeader);
 
-            ToggleBlastShielding = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-            BlastShielding = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/BlastShielding"));
+            ToggleBlastShielding = new UIImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
+            BlastShielding = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/BlastShielding"));
             BlastShielding.VAlign = 0.5f;
             BlastShielding.HAlign = 0.5f;
             ToggleBlastShielding.Append(BlastShielding);
@@ -134,8 +134,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleBlastShielding.OnClick += new MouseEvent(BlastShieldingToggle);
             leftPage.Append(ToggleBlastShielding);
 
-            ToggleReactivePlating = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-            ReactivePlating = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/ReactivePlating"));
+            ToggleReactivePlating = new UIImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
+            ReactivePlating = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/ReactivePlating"));
             ReactivePlating.VAlign = 0.5f;
             ReactivePlating.HAlign = 0.5f;
             ToggleReactivePlating.Append(ReactivePlating);
@@ -144,25 +144,25 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleReactivePlating.OnClick += new MouseEvent(ReactivePlatingToggle);
             rightPage.Append(ToggleReactivePlating);
 
-            BlastShieldingImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/BlastShielding"));
+            BlastShieldingImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/BlastShielding"));
             BlastShieldingImage.Left.Pixels = 0;
             BlastShieldingImage.Top.Pixels = 0;
             BlastShieldingImage.ImageScale = 0.8f;
             BlastShieldingImage.OnClick += new MouseEvent(BlastShieldingToggle);
             //leftPage.Append(BlastShieldingImage);
-            ReactivePlatingImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ReactivePlating"));
+            ReactivePlatingImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ReactivePlating"));
             ReactivePlatingImage.Left.Pixels = 20;
             ReactivePlatingImage.Top.Pixels = -16;
             ReactivePlatingImage.ImageScale = 0.7f;
             ReactivePlatingImage.OnClick += new MouseEvent(ReactivePlatingToggle);
             //rightPage.Append(ReactivePlatingImage);
-            BlastShielding_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/BlastShielding_Greyscale"));
+            BlastShielding_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/BlastShielding_Greyscale"));
             BlastShielding_GreyscaleImage.Left.Pixels = 0;
             BlastShielding_GreyscaleImage.Top.Pixels = 0;
             BlastShielding_GreyscaleImage.ImageScale = 0.8f;
             BlastShielding_GreyscaleImage.OnClick += new MouseEvent(BlastShieldingToggle);
             //leftPage.Append(BlastShielding_GreyscaleImage);
-            ReactivePlating_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ReactivePlating_Greyscale"));
+            ReactivePlating_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ReactivePlating_Greyscale"));
             ReactivePlating_GreyscaleImage.Left.Pixels = 20;
             ReactivePlating_GreyscaleImage.Top.Pixels = -16;
             ReactivePlating_GreyscaleImage.ImageScale = 0.7f;

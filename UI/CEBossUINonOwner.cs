@@ -86,7 +86,7 @@ namespace ExtraExplosives.UI
             {
                 ExtraExplosives.removeUIElements = false;
 
-                ModContent.GetInstance<ExtraExplosives>().CEBossInterfaceNonOwner.SetState(null);
+                ModContent.GetInstance<ExtraExplosivesSystem>().CEBossInterfaceNonOwner.SetState(null);
             }
 
 
@@ -94,7 +94,7 @@ namespace ExtraExplosives.UI
             if (cntr >= 1500)
             {
                 Main.NewText("The server owner didn't select anything, defaulting to 'NO'.");
-                ModContent.GetInstance<ExtraExplosives>().CEBossInterfaceNonOwner.SetState(null);
+                ModContent.GetInstance<ExtraExplosivesSystem>().CEBossInterfaceNonOwner.SetState(null);
 
             }
         }
@@ -104,17 +104,17 @@ namespace ExtraExplosives.UI
             base.DrawSelf(spriteBatch);
 
             // This will hide the crafting menu similar to the reforge menu. For best results this UI is placed before "Vanilla: Inventory" to prevent 1 frame of the craft menu showing.
-            Main.HidePlayerCraftingMenu = true;
+            Main.hidePlayerCraftingMenu = true;
 
             Main.LocalPlayer.mouseInterface = true;
 
             //draw the line
-            spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/Background"), new Rectangle(0, screenY - 50 + DrawPosY, Main.screenWidth, 250), new Color(192, 192, 192, 30));
+            spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/Background").Value, new Rectangle(0, screenY - 50 + DrawPosY, Main.screenWidth, 250), new Color(192, 192, 192, 30));
 
             //draw the warning sign
-            spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/Warning_Sign"), new Rectangle(screenX - 75, screenY + DrawPosY, 150, 150), new Color(255, 255, 255, opacity));
-            spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/Warning_Sign"), new Rectangle(screenX - 475, screenY + DrawPosY, 150, 150), new Color(255, 255, 255, opacity));
-            spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/Warning_Sign"), new Rectangle(screenX + 325, screenY + DrawPosY, 150, 150), new Color(255, 255, 255, opacity));
+            spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/Warning_Sign").Value, new Rectangle(screenX - 75, screenY + DrawPosY, 150, 150), new Color(255, 255, 255, opacity));
+            spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/Warning_Sign").Value, new Rectangle(screenX - 475, screenY + DrawPosY, 150, 150), new Color(255, 255, 255, opacity));
+            spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/Warning_Sign").Value, new Rectangle(screenX + 325, screenY + DrawPosY, 150, 150), new Color(255, 255, 255, opacity));
 
             //group 1
             for (int i = 0; i < Main.screenWidth / 222 + 20; i++)
@@ -123,12 +123,12 @@ namespace ExtraExplosives.UI
                 //draw the lines and make them blink
                 if (cntr % 100 >= 0 && cntr % 100 <= 50) //50 is the amount of time between each frame
                 {
-                    spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/Warning_Line2"), new Rectangle(amount2 + cntr, screenY + 150 + DrawPosY, 222, 34), new Color(255, 255, 255, opacity));
+                    spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/Warning_Line2").Value, new Rectangle(amount2 + cntr, screenY + 150 + DrawPosY, 222, 34), new Color(255, 255, 255, opacity));
 
                 }
                 else
                 {
-                    spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/Warning_Line1"), new Rectangle(amount2 + cntr, screenY + 150 + DrawPosY, 222, 34), new Color(255, 255, 255, opacity)); //screenX - DrawPosX
+                    spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/Warning_Line1").Value, new Rectangle(amount2 + cntr, screenY + 150 + DrawPosY, 222, 34), new Color(255, 255, 255, opacity)); //screenX - DrawPosX
                 }
 
                 amount2 += 222; //spacing
@@ -147,12 +147,12 @@ namespace ExtraExplosives.UI
                 //draw the lines and make them blink
                 if (cntr % 100 >= 0 && cntr % 100 <= 50) //50 is about the amount of frames
                 {
-                    spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/Warning_Line2"), new Rectangle(amount - cntr, screenY - 30 + DrawPosY, 222, 34), new Color(255, 255, 255, opacity));
+                    spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/Warning_Line2").Value, new Rectangle(amount - cntr, screenY - 30 + DrawPosY, 222, 34), new Color(255, 255, 255, opacity));
 
                 }
                 else
                 {
-                    spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/Warning_Line1"), new Rectangle(amount - cntr, screenY - 30 + DrawPosY, 222, 34), new Color(255, 255, 255, opacity)); //screenX - DrawPosX
+                    spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/Warning_Line1").Value, new Rectangle(amount - cntr, screenY - 30 + DrawPosY, 222, 34), new Color(255, 255, 255, opacity)); //screenX - DrawPosX
                 }
 
                 amount -= 222; //spacing
@@ -211,8 +211,8 @@ namespace ExtraExplosives.UI
             {
                 BossText.SetText($"You have {-((cntr / 60) - 25)} seconds left");
                 Append(BossText);
-                spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/ProgressBar"), new Rectangle(screenX - 375, 50, 750 - minus, 15), new Color(255, 255, 255, opacity));
-                spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/TimeLeft"), new Rectangle(screenX - 375, 50, 752, 17), new Color(255, 255, 255));
+                spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/ProgressBar").Value, new Rectangle(screenX - 375, 50, 750 - minus, 15), new Color(255, 255, 255, opacity));
+                spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/TimeLeft").Value, new Rectangle(screenX - 375, 50, 752, 17), new Color(255, 255, 255));
                 minus++;
             }
             //Main.NewText(cntr);

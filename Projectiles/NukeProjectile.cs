@@ -18,7 +18,7 @@ namespace ExtraExplosives.Projectiles
         private bool firstTick;
 
         private const int pickPower = 250;
-        private SoundEffectInstance sound;
+        private ReLogic.Utilities.SlotId sound;
 
         public override void SetStaticDefaults()
         {
@@ -47,7 +47,9 @@ namespace ExtraExplosives.Projectiles
             {
                 if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
                 {
-                    sound = SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/wizz"));
+                    // TODO this works but is wrong
+                    sound = SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/wizz"));
+                    
                 }
 
                 firstTick = true;
@@ -79,7 +81,7 @@ namespace ExtraExplosives.Projectiles
             if (Main.netMode != NetmodeID.Server &&  // This all needs to happen client-side!
                 sound != null)                       // If the sound is null (the game is muted) just skip this step to avoid a crash
             {
-                sound.Stop();
+                ; // TODO make the sound stop here, no idea how tho
             }
 
             //Deal 10k damage to everything in the game
@@ -118,7 +120,7 @@ namespace ExtraExplosives.Projectiles
 
             }
 
-            SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Explosion"));
+            SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/Explosion"));
 
             //deactivate shaders and stuff
             ExtraExplosives.NukeActive = false;
@@ -177,11 +179,11 @@ namespace ExtraExplosives.Projectiles
                             }
                             else
                             {
-                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType))
+                                /* TODO if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType))
                                 {
                                     tile.ClearTile();
                                     tile.HasTile = false;
-                                }
+                                }*/
 
                                 if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
                                 {
@@ -230,11 +232,11 @@ namespace ExtraExplosives.Projectiles
                             {
                                 if (Main.rand.Next(10) < spawnChance)
                                 {
-                                    if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType))
+                                    /* TODO if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType))
                                     {
                                         Main.tile[xPosition, yPosition].ClearTile();
                                         Main.tile[xPosition, yPosition].HasTile = false;
-                                    }
+                                    }*/
                                     if (WorldGen.TileEmpty(xPosition + 1, yPosition) || WorldGen.TileEmpty(xPosition - 1, yPosition) || WorldGen.TileEmpty(xPosition, yPosition + 1) || WorldGen.TileEmpty(xPosition, yPosition - 1))
                                     {
                                         WorldGen.PlaceTile(xPosition, yPosition, surfaceTile);
@@ -253,11 +255,11 @@ namespace ExtraExplosives.Projectiles
                             {
                                 if (Main.rand.Next(10) < spawnChance)
                                 {
-                                    if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType))
+                                    /* TODO if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType))
                                     {
                                         Main.tile[xPosition, yPosition].ClearTile();
                                         Main.tile[xPosition, yPosition].HasTile = false;
-                                    }
+                                    }*/
                                     if (WorldGen.TileEmpty(xPosition + 1, yPosition) || WorldGen.TileEmpty(xPosition - 1, yPosition) || WorldGen.TileEmpty(xPosition, yPosition + 1) || WorldGen.TileEmpty(xPosition, yPosition - 1))
                                     {
                                         WorldGen.PlaceTile(xPosition, yPosition, surfaceTile);

@@ -7,7 +7,7 @@ namespace ExtraExplosives.CommentedExampleClasses
 {
     public class ExampleExplosiveItem : ExplosiveItem
     {
-        public override bool Autoload(ref string _) => false;    // Stops tML from auto loading this class
+        public bool Autoload(ref string _) => false;    // Stops tML from auto loading this class
 
         /* This class is used to demonstrate the differences between Explosive and Mod Items,
         *     and the changes necessary to convert one to the other

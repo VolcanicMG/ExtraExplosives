@@ -4,6 +4,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -23,10 +24,7 @@ namespace ExtraExplosives.Projectiles
             radius = 5;
             Projectile.CloneDefaults(ProjectileID.EnchantedBoomerang);
             Projectile.damage = 46;
-            Projectile.melee = false;
-            Projectile.ranged = false;
-            Projectile.magic = false;
-            Projectile.thrown = false;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.minion = false;
             Projectile.penetrate = -1;
             Projectile.friendly = true;
@@ -45,7 +43,7 @@ namespace ExtraExplosives.Projectiles
             HitSomeThing = true;
 
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
 
             //Create Bomb Dust
@@ -63,7 +61,7 @@ namespace ExtraExplosives.Projectiles
             if (Main.rand.NextFloat() < .2f && HitSomeThing == false)
             {
                 //Create Bomb Sound
-                SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
                 //Create Bomb Damage
                 if (!player.EE().BlastShielding &&

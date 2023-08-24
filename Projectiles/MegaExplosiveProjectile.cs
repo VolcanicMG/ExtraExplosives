@@ -29,17 +29,17 @@ namespace ExtraExplosives.Projectiles
             //projectile.hostile = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 500;
-            explodeSounds = new LegacySoundStyle[2];
+            explodeSounds = new SoundStyle[2];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
             }
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 
@@ -68,8 +68,8 @@ namespace ExtraExplosives.Projectiles
             gVel2 = gVel2.RotatedBy(Projectile.rotation);
             for (int num = 0; num < 4; num++)
             {
-                Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1, Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale * 1.5f);
-                Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2, Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale * 1.5f);
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1, Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale * 1.5f);
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2, Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale * 1.5f);
                 gVel1 = gVel1.RotatedBy(Math.PI / 4);
                 gVel2 = gVel2.RotatedBy(Math.PI / 4);
             }

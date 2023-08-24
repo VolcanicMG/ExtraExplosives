@@ -12,8 +12,8 @@ namespace ExtraExplosives.Projectiles
     {
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreFileLoc => "Gores/Explosives/cluster_gore";
-        private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+        //private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
+        //private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
         internal static bool CanBreakWalls;
 
@@ -39,7 +39,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Dust
             DustEffects();
@@ -51,8 +51,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-3f, 0f);
             Vector2 gVel2 = new Vector2(1f, -3f);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
 
         }
 
@@ -102,7 +102,7 @@ namespace ExtraExplosives.Projectiles
                             else
                             {
 
-                                if (Main.rand.Next(100) == 1) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<ClusterBombChildProjectile>(), 150, 10, Projectile.owner);
+                                if (Main.rand.Next(100) == 1) Projectile.NewProjectile(Projectile.GetSource_FromThis(), position.X + x, position.Y + y, Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, 5), ModContent.ProjectileType<ClusterBombChildProjectile>(), 150, 10, Projectile.owner);
                                 if (Main.player[Projectile.owner].EE().BombardEmblem) continue;
                                 Main.tile[i, j].ClearTile();
                                 //WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles

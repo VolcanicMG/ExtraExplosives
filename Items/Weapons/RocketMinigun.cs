@@ -34,10 +34,10 @@ namespace ExtraExplosives.Items.Weapons
             Item.value = Item.buyPrice(0, 15, 0, 50);
             Item.knockBack = 4f;
             Item.rare = 10;
-            Item.ranged = true;
+            //Item.ranged = true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             if (fireSpeed > 5) //change the firespeed
             {
@@ -55,7 +55,7 @@ namespace ExtraExplosives.Items.Weapons
             speedY = perturbedSpeed.Y;
 
             return true;
-        }
+        }*/
 
         public override void HoldItem(Player player)
         {

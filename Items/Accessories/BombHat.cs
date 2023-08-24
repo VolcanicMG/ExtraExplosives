@@ -21,6 +21,6 @@ namespace ExtraExplosives.Items.Accessories
             Item.expert = true;
         }
 
-        public override bool DrawHead() => false;
+        //public override bool DrawHead() => false;
     }
 }

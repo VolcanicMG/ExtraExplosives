@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -56,7 +57,7 @@ namespace ExtraExplosives.UI
             //images
             int ImageWidth = 24;
             int ImageHeight = 24;
-            Image5 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/ReforgeUI"));
+            Image5 = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/ReforgeUI"));
             //Image5.Width.Set(ImageWidth, 0f);
             //Image5.Height.Set(ImageHeight, 0f);
             Image5.HAlign = .503f;
@@ -65,7 +66,7 @@ namespace ExtraExplosives.UI
             Image5.ImageScale = 1.2f;
             Append(Image5);
 
-            Image = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+            Image = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckRed"));
             //Image.Width.Set(ImageWidth, 0f);
             //Image.Height.Set(ImageHeight, 0f);
             Image.HAlign = .5f;
@@ -74,7 +75,7 @@ namespace ExtraExplosives.UI
             Image.ImageScale = 1.5f;
             Append(Image);
 
-            Image2 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+            Image2 = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckRed"));
             //Image2.Width.Set(ImageWidth, 0f);
             //Image2.Height.Set(ImageHeight, 0f);
             Image2.HAlign = .47f;
@@ -83,7 +84,7 @@ namespace ExtraExplosives.UI
             Image2.ImageScale = 1.5f;
             Append(Image2);
 
-            Image3 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+            Image3 = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckRed"));
             //Image3.Width.Set(ImageWidth, 0f);
             //Image3.Height.Set(ImageHeight, 0f);
             Image3.HAlign = .53f;
@@ -92,7 +93,7 @@ namespace ExtraExplosives.UI
             Image3.ImageScale = 1.5f;
             Append(Image3);
 
-            Image4 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/Reforge"));
+            Image4 = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/Reforge"));
             Image4.HAlign = .5f;
             //Image4.Left.Set(screenX - (Image5.Width.Pixels / 2), 0f);
             Image4.Top.Set(screenY - (Image5.Height.Pixels / 1.6f), 0f);
@@ -139,13 +140,14 @@ namespace ExtraExplosives.UI
         }
 
         public override void OnDeactivate()
+        // TODO the new EntitySource_Parent is likely wrong
         {
             if (!_vanillaItemSlot.Item.IsAir)
             {
                 // QuickSpawnClonedItem will preserve mod data of the item. QuickSpawnItem will just spawn a fresh version of the item, losing the prefix.
                 //Main.LocalPlayer.QuickSpawnClonedItem(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
-                Main.LocalPlayer.QuickSpawnClonedItem(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack);
+                Main.LocalPlayer.QuickSpawnClonedItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot.Item, _vanillaItemSlot.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                 _vanillaItemSlot.Item.TurnToAir();
             }
@@ -153,7 +155,7 @@ namespace ExtraExplosives.UI
             if (!_vanillaItemSlot2.Item.IsAir)
             {
                 // QuickSpawnClonedItem will preserve mod data of the item. QuickSpawnItem will just spawn a fresh version of the item, losing the prefix.
-                Main.LocalPlayer.QuickSpawnClonedItem(_vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack);
+                Main.LocalPlayer.QuickSpawnClonedItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                 _vanillaItemSlot2.Item.TurnToAir();
             }
@@ -161,7 +163,7 @@ namespace ExtraExplosives.UI
             if (!_vanillaItemSlot3.Item.IsAir)
             {
                 // QuickSpawnClonedItem will preserve mod data of the item. QuickSpawnItem will just spawn a fresh version of the item, losing the prefix.
-                Main.LocalPlayer.QuickSpawnClonedItem(_vanillaItemSlot3.Item, _vanillaItemSlot3.Item.stack);
+                Main.LocalPlayer.QuickSpawnClonedItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot3.Item, _vanillaItemSlot3.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                 _vanillaItemSlot3.Item.TurnToAir();
             }
@@ -185,7 +187,7 @@ namespace ExtraExplosives.UI
             base.DrawSelf(spriteBatch);
 
             // This will hide the crafting menu similar to the reforge menu. For best results this UI is placed before "Vanilla: Inventory" to prevent 1 frame of the craft menu showing.
-            Main.HidePlayerCraftingMenu = true;
+            Main.hidePlayerCraftingMenu = true;
 
             // Here we have a lot of code. This code is mainly adapted from the vanilla code for the reforge option.
             // This code draws "Place an item here" when no item is in the slot and draws the reforge cost and a reforge button when an item is in the slot.
@@ -199,43 +201,43 @@ namespace ExtraExplosives.UI
             //image 1
             if (!_vanillaItemSlot.Item.IsAir && reforgeCheck == false)
             {
-                Image.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckEmpty"));
+                Image.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckEmpty"));
             }
             else if (_vanillaItemSlot.Item.IsAir && reforgeCheck == false)
             {
-                Image.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+                Image.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckRed"));
             }
             else if (!_vanillaItemSlot.Item.IsAir && reforgeCheck == true)
             {
-                Image.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckGreen"));
+                Image.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckGreen"));
             }
 
             //image 2
             if (!_vanillaItemSlot2.Item.IsAir && reforgeCheck2 == false)
             {
-                Image2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckEmpty"));
+                Image2.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckEmpty"));
             }
             else if (_vanillaItemSlot2.Item.IsAir && reforgeCheck2 == false)
             {
-                Image2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+                Image2.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckRed"));
             }
             else if (!_vanillaItemSlot2.Item.IsAir && reforgeCheck2 == true)
             {
-                Image2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckGreen"));
+                Image2.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckGreen"));
             }
 
             //image 3
             if (!_vanillaItemSlot3.Item.IsAir && reforgeCheck3 == false)
             {
-                Image3.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckEmpty"));
+                Image3.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckEmpty"));
             }
             else if (_vanillaItemSlot3.Item.IsAir && reforgeCheck3 == false)
             {
-                Image3.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckRed"));
+                Image3.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckRed"));
             }
             else if (!_vanillaItemSlot3.Item.IsAir && reforgeCheck3 == true)
             {
-                Image3.SetImage(ModContent.GetTexture("ExtraExplosives/UI/UICheckGreen"));
+                Image3.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/UICheckGreen"));
             }
 
             if (_vanillaItemSlot.Item.IsAir && reforgeCheck == true)
@@ -274,8 +276,8 @@ namespace ExtraExplosives.UI
                         _vanillaItemSlot.Item.favorited = favorited;
                         _vanillaItemSlot.Item.stack = stack;
                         ItemLoader.PostReforge(_vanillaItemSlot.Item);
-                        ItemText.NewText(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack, true, false);
-                        SoundEngine.PlaySound(SoundID.Item37, -1, -1);
+                        PopupText.NewText(PopupTextContext.ItemReforge /* TODO This might be the wrong context */, _vanillaItemSlot.Item, _vanillaItemSlot.Item.stack, true, false);
+                        SoundEngine.PlaySound(SoundID.Item37);
                     }
                 }
 
@@ -296,8 +298,9 @@ namespace ExtraExplosives.UI
                         _vanillaItemSlot2.Item.favorited = favorited;
                         _vanillaItemSlot2.Item.stack = stack;
                         ItemLoader.PostReforge(_vanillaItemSlot2.Item);
-                        ItemText.NewText(_vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack, true, false);
-                        SoundEngine.PlaySound(SoundID.Item37, -1, -1);
+                        // TODO
+                        PopupText.NewText(PopupTextContext.ItemReforge, _vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack, true, false);
+                        SoundEngine.PlaySound(SoundID.Item37);
                     }
                 }
 
@@ -318,8 +321,9 @@ namespace ExtraExplosives.UI
                         _vanillaItemSlot3.Item.favorited = favorited;
                         _vanillaItemSlot3.Item.stack = stack;
                         ItemLoader.PostReforge(_vanillaItemSlot3.Item);
-                        ItemText.NewText(_vanillaItemSlot3.Item, _vanillaItemSlot3.Item.stack, true, false);
-                        SoundEngine.PlaySound(SoundID.Item37, -1, -1);
+                        // TODO
+                        PopupText.NewText(PopupTextContext.ItemReforge, _vanillaItemSlot3.Item, _vanillaItemSlot3.Item.stack, true, false);
+                        SoundEngine.PlaySound(SoundID.Item37);
                     }
                 }
 

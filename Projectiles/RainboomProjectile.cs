@@ -28,17 +28,17 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 15;
-            explodeSounds = new LegacySoundStyle[4];
+            explodeSounds = new SoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
             }
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], new Vector2(Projectile.Center.X, Projectile.Center.Y));
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
@@ -54,8 +54,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(2.0f, -2.0f);
             Vector2 gVel2 = new Vector2(0.0f, 2.0f);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
 
             //Buff
             Player player = Main.player[Projectile.owner];
@@ -83,8 +83,8 @@ namespace ExtraExplosives.Projectiles
                     updatedPosition = new Vector2(xPosition * 16.0f, yPosition * 16.0f);
 
                     Lighting.AddLight(new Vector2(xPosition * 16.0f, yPosition * 16.0f), new Vector3(.9f, 9f, 9f));
-                    Lighting.maxX = 1;
-                    Lighting.maxY = 1;
+                    /* TODO Lighting.maxX = 1;
+                    Lighting.maxY = 1;*/
 
                     if (WorldGen.TileEmpty(xPosition, yPosition)) //Runs when a tile is empty
                     {

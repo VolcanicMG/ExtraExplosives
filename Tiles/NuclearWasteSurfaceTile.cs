@@ -38,8 +38,8 @@ namespace ExtraExplosives.Tiles
         {
             //add lighting
             Lighting.AddLight(new Vector2(i, j) * 16, new Vector3(124f / 255f, 252f / 255f, 0f / 255f));
-            Lighting.maxX = 50;
-            Lighting.maxY = 50;
+            /* TODO Lighting.maxX = 50;
+            Lighting.maxY = 50;*/
 
             return base.PreDraw(i, j, spriteBatch);
         }

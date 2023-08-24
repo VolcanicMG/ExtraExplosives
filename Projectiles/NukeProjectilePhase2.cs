@@ -55,7 +55,7 @@ namespace ExtraExplosives.Projectiles
 
             if (!firstTick)
             {
-                SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/air-raid"));
+                SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/air-raid"));
 
                 FirstPos = Projectile.position;
 

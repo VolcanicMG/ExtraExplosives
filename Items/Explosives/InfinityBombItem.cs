@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Explosives
 {
     public class InfinityBombItem : ExplosiveItem
     {
-        public override bool CloneNewInstances => true;
+        protected override bool CloneNewInstances => true;
 
         public double multiplier = 1;    // Starts at one, each instance will slowly grow
 
@@ -50,7 +50,7 @@ namespace ExtraExplosives.Items.Explosives
             Item.rare = ItemRarityID.Green;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
             ref float knockBack)
         {
             damage = (int)(damage * multiplier);
@@ -58,6 +58,7 @@ namespace ExtraExplosives.Items.Explosives
             //Main.NewText(multiplier);
             return true;
         }
+        */
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -96,14 +97,14 @@ namespace ExtraExplosives.Items.Explosives
             return false;
         }
 
-        public override void SaveData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound */
+        /*public override void SaveData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound #1#
         {
             return new TagCompound
             {
                 [nameof(multiplier)] = multiplier,
                 [nameof(growing)] = growing,
             };
-        }
+        }*/
 
         public override void LoadData(TagCompound tag)
         {

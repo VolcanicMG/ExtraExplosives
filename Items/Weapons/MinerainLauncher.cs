@@ -53,7 +53,7 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-10, -4);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -69,6 +69,6 @@ namespace ExtraExplosives.Items.Weapons
                 Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileID.ProximityMineI, damage, knockBack, player.whoAmI);
             }
             return false; // return false because we don't want tmodloader to shoot projectile
-        }
+        }*/
     }
 }

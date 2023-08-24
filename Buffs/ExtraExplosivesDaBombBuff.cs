@@ -13,7 +13,8 @@ namespace ExtraExplosives.Buffs
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
-            canBeCleared = false;
+            
+            //canBeCleared = false;
         }
 
         public override void Update(Player player, ref int buffIndex)

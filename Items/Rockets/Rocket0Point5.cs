@@ -24,10 +24,10 @@ namespace ExtraExplosives.Items.Rockets
             Item.shoot = ModContent.ProjectileType<Rocket0Point5Projectile>();
         }
 
-        public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
+        /*public override void PickAmmo(Item weapon, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
         {
             type = Item.shoot;
-        }
+        }*/
     }
 }
 

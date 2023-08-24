@@ -28,7 +28,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void Kill(int timeLeft)
         {
-            Item.NewItem(Projectile.Center, new Vector2(10, 10), ItemID.GoldCoin);
+            Item.NewItem(Projectile.GetSource_DropAsItem(),Projectile.Center, new Vector2(10, 10), ItemID.GoldCoin);
         }
     }
 }

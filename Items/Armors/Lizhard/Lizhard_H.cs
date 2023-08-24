@@ -39,7 +39,7 @@ namespace ExtraExplosives.Items.Armors.Lizhard
                 "Press " + ExtraExplosives.TriggerLizhard.GetAssignedKeys(InputMode.Keyboard)[0] + " to fire a spread of 7 sun rockets \n 10s Cooldown";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .08f;
-            player.allDamage += .07f;
+            //player.allDamage += .07f;
             player.EE().ExplosiveCrit += 8;
             player.EE().Lizhard = true;
         }

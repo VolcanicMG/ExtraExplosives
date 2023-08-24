@@ -32,24 +32,24 @@ namespace ExtraExplosives.Projectiles
             Projectile.damage = 0;
             //projectile.light = .9f;
             //projectile.glowMask = 2;
-            explodeSounds = new LegacySoundStyle[4];
+            explodeSounds = new SoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
             }
         }
 
         public override void PostAI()
         {
             Lighting.AddLight(Projectile.position, new Vector3(.1f, 1f, 2.2f));
-            Lighting.maxX = 10;
-            Lighting.maxY = 10;
+            /* TODO Lighting.maxX = 10;
+            Lighting.maxY = 10;*/
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
@@ -68,11 +68,11 @@ namespace ExtraExplosives.Projectiles
             if (goreType == 0)
                 for (int num = 0; num < 2; num++)
                 {
-                    Gore.NewGore(Projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
                     gVel = gVel.RotatedByRandom(Math.PI * 2);
                 }
             else
-                Gore.NewGore(Projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
 
         }
 
@@ -100,10 +100,10 @@ namespace ExtraExplosives.Projectiles
                         speedX += z[Main.rand.Next(7)];
 
                     if (yCntr == 1 || yCntr == 7)
-                        Projectile.NewProjectile(x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, Projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, Projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
 
                     if ((xCntr == 1 || xCntr == 7) && (yCntr != 1 || yCntr != 7))
-                        Projectile.NewProjectile(x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, Projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), x, y, speedX, speedY, ProjectileID.StickyGlowstick, 0, 0, Projectile.owner, 0.0f, 0); //Spawns in the glowsticks in square
 
                     x = x + 20;
                     xCntr++;

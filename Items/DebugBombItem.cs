@@ -8,7 +8,7 @@ namespace ExtraExplosives.Items
     {
         public override string Texture => "ExtraExplosives/Items/Explosives/SmallExplosiveItem";
 
-        public override bool IgnoreDamageModifiers { get; } = true;
+        //public override bool IgnoreDamageModifiers { get; } = true;
 
         public override void SetStaticDefaults()
         {

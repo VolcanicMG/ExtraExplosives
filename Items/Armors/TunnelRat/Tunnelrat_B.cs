@@ -34,7 +34,7 @@ namespace ExtraExplosives.Items.Armors.TunnelRat
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.IronBar, 35);
             recipe.AddIngredient(ItemID.Silk, 5);
-            recipe.anyIronBar = true;
+            //recipe.anyIronBar = true;
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }

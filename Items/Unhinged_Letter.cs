@@ -31,14 +31,14 @@ namespace ExtraExplosives.Items
 
         public override bool CanUseItem(Player player)
         {
-            if (!NPC.AnyNPCs(ModContent.NPCType<CaptainExplosiveBoss>()))
+            /*if (!NPC.AnyNPCs(ModContent.NPCType<CaptainExplosiveBoss>()))
             {
                 NPC.NewNPC((int)player.position.X, (int)player.position.Y - 600, ModContent.NPCType<CaptainExplosiveBoss>()); //Spawn
                 SoundEngine.PlaySound(SoundID.ForceRoar, player.position, 0);
                 Item.stack--;
 
                 return true;
-            }
+            }*/
 
             return false;
         }

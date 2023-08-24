@@ -30,15 +30,16 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = 20;
             Projectile.timeLeft = 140;
-            explodeSounds = new LegacySoundStyle[4];
+            explodeSounds = new SoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
-                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                //explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
@@ -54,8 +55,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-3f, 3f);
             Vector2 gVel2 = new Vector2(3f, 0f);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         public override void Explosion()
@@ -80,11 +81,11 @@ namespace ExtraExplosives.Projectiles
                         {
                             if (WorldGen.TileEmpty(xPosition, yPosition))
                             {
-                                if (++cntr <= 50) Projectile.NewProjectile(position.X + x, position.Y + y, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, Mod.Find<ModProjectile>("BreakenTheBankenChildProjectile").Type, 100, 20, Projectile.owner, 0.0f, 0);
+                                if (++cntr <= 50) Projectile.NewProjectile(Projectile.GetSource_FromThis(), position.X + x, position.Y + y, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, Mod.Find<ModProjectile>("BreakenTheBankenChildProjectile").Type, 100, 20, Projectile.owner, 0.0f, 0);
                             }
                             else
                             {
-                                if (++cntr <= 50) Projectile.NewProjectile(position.X, position.Y, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, Mod.Find<ModProjectile>("BreakenTheBankenChildProjectile").Type, 100, 20, Projectile.owner, 0.0f, 0);
+                                if (++cntr <= 50) Projectile.NewProjectile(Projectile.GetSource_FromThis(), position.X, position.Y, Main.rand.Next(10) - 5, Main.rand.Next(10) - 5, Mod.Find<ModProjectile>("BreakenTheBankenChildProjectile").Type, 100, 20, Projectile.owner, 0.0f, 0);
                             }
                         }
                     }

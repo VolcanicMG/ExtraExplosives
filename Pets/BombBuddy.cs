@@ -42,12 +42,13 @@ namespace ExtraExplosives.Pets
             if (!firstTick)
             {
                 //Main.NewText(firstTick);
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, Projectile.owner);
+                // TODO Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, Projectile.owner);
                 firstTick = true;
             }
             else if (player.ownedProjectileCounts[ModContent.ProjectileType<BombBuddyDetector>()] == 0 && player.HasBuff(ModContent.BuffType<BombBuddyBuff>()))
             {
-                Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, Projectile.owner);
+                // TODO seems like this should go somewhere else
+                // TODO Projectile.NewProjectile(position.X, position.Y, 0, 0, ModContent.ProjectileType<BombBuddyDetector>(), 50, 0, Projectile.owner);
             }
 
             if (player.dead)

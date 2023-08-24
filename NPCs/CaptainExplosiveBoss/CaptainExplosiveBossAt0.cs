@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using IL.Terraria.GameContent.ItemDropRules;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.Shaders;
@@ -66,12 +67,17 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.buffImmune[24] = true;
-            Music = Mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
+            //Music = Mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
 
-            bossBag = ItemType<CaptainExplosiveTreasureBag>();
+            //bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = ItemType<CaptainExplosiveTreasureBag>();
             NPC.immortal = true;
 
             DrawOffsetY = 50f;
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            // TODO npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CaptainExplosiveTreasureBag>()));
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -196,9 +202,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             if (NPC.ai[3] >= 500)
             {
 
-                NPCLoot();
+                //NPCLoot();
                 ExtraExplosivesWorld.BossCheckDead = true;
-                SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/CaptainExplosion")); //sound
+                //SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/CaptainExplosion")); //sound
+                SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/CaptainExplosion"));
 
                 NPC.immortal = false;
                 NPC.netUpdate = true;
@@ -220,25 +227,25 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                         for (int k = 0; k < 4; k++)
                         {
                             Vector2 pos = NPC.position + new Vector2(Main.rand.Next(NPC.width - 8), Main.rand.Next(NPC.height / 2));
-                            Gore.NewGore(pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), Mod.Find<ModGore>("Gores/CaptainExplosiveBoss/gore" + i).Type, 1.5f);
+                            Gore.NewGore(NPC.GetSource_Death(), pos, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, 10)), Mod.Find<ModGore>("Gores/CaptainExplosiveBoss/gore" + i).Type, 1.5f);
                         }
                     }
 
                     for (int g = 0; g < 15; g++)
                     {
-                        int goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                        int goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
                         Main.gore[goreIndex].scale = 2.5f;
                         Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
                         Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-                        goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                        goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
                         Main.gore[goreIndex].scale = 2.5f;
                         Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
                         Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
-                        goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 64f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                        goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 64f), default(Vector2), Main.rand.Next(61, 64), 1f);
                         Main.gore[goreIndex].scale = 2.5f;
                         Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
                         Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
-                        goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 84f), default(Vector2), Main.rand.Next(61, 64), 1f);
+                        goreIndex = Gore.NewGore(NPC.GetSource_Death(), new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 84f), default(Vector2), Main.rand.Next(61, 64), 1f);
                         Main.gore[goreIndex].scale = 2.5f;
                         Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
                         Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;

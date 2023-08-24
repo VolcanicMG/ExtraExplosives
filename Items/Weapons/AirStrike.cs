@@ -24,7 +24,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.width = 66;
             Item.height = 36;
             Item.shoot = ProjectileID.RocketI;
-            Item.UseSound = Mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/AirStrike_Call");
+            //Item.UseSound = Mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/AirStrike_Call");
             //item.channel = true;
             Item.damage = 200;
             Item.shootSpeed = 10f;
@@ -32,10 +32,10 @@ namespace ExtraExplosives.Items.Weapons
             Item.value = Item.buyPrice(0, 30, 0, 50);
             Item.knockBack = 4f;
             Item.rare = 9;
-            Item.ranged = true;
+            //Item.ranged = true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int numberProjectiles = 15; // shoots 6 projectiles
             for (int index = 0; index < numberProjectiles; ++index)
@@ -56,7 +56,7 @@ namespace ExtraExplosives.Items.Weapons
                 Projectile.NewProjectile(vector2_1.X, vector2_1.Y, SpeedX, SpeedY, type, damage, knockBack, Main.myPlayer, 0.0f, (float)Main.rand.Next(5));
             }
             return false;
-        }
+        }*/
 
         public override void HoldItem(Player player)
         {

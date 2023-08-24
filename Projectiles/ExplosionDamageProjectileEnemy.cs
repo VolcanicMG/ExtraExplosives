@@ -28,7 +28,7 @@ namespace ExtraExplosives.Projectiles
             Projectile.penetrate = -1;
             Projectile.timeLeft = 5;
             Projectile.Opacity = 0f;
-            Projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.scale = DamageRadius; //DamageRadius
                                              //projectile.scale = 5;
         }

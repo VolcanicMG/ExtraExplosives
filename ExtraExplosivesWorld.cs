@@ -107,11 +107,8 @@ namespace ExtraExplosives
 
         public override void SaveWorldData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound */
         {
-            return new TagCompound
-            {
                 //Boss
-                [nameof(BossCheckDead)] = BossCheckDead
-            };
+                tag.Add(nameof(BossCheckDead), BossCheckDead);
         }
 
         public override void LoadWorldData(TagCompound tag)

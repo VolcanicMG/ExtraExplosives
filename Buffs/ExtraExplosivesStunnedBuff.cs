@@ -16,7 +16,7 @@ namespace ExtraExplosives.Buffs
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = false;
-            canBeCleared = false;
+            //canBeCleared = false;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
@@ -54,8 +54,8 @@ namespace ExtraExplosives.Buffs
 
             //add lighting
             Lighting.AddLight(player.position, new Vector3(255f, 255f, 255f));
-            Lighting.maxX = 5;
-            Lighting.maxY = 5;
+            //Lighting.maxX = 5;
+            //Lighting.maxY = 5;
 
             //spawn dust
             Dust dust1;

@@ -53,7 +53,7 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
                 }
 
                 Main.NewText("Spawned from projectile");
-                Projectile.NewProjectile(Projectile.Center, aim * 10, ProjectileID.Dynamite, 0, 0, 255);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, aim * 10, ProjectileID.Dynamite, 0, 0, 255);
             }
 
             if ((int)LifeTime > 30)

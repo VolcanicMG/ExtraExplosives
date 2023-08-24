@@ -22,7 +22,7 @@ namespace ExtraExplosives.Items.Weapons
         public override void SafeSetDefaults()
         {
             Item.damage = 65;
-            Item.ranged = true;
+            //Item.ranged = true;
             Item.width = 40;
             Item.height = 20;
             Item.useTime = 23;
@@ -37,14 +37,14 @@ namespace ExtraExplosives.Items.Weapons
             Item.shootSpeed = 10;
             Item.useAmmo = AmmoID.Rocket;
 
-            PrimarySounds = new LegacySoundStyle[4];
-            SecondarySounds = null;
+            //PrimarySounds = new LegacySoundStyle[4];
+            //SecondarySounds = null;
 
-            for (int n = 1; n <= PrimarySounds.Length; n++)
+            /*for (int n = 1; n <= PrimarySounds.Length; n++)
             {
-                PrimarySounds[n - 1] =
-                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
-            }
+                //PrimarySounds[n - 1] =
+                    //Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+            }*/
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -64,7 +64,7 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-16, 0);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                 (int)player.position.X, (int)player.position.Y);
@@ -84,6 +84,6 @@ namespace ExtraExplosives.Items.Weapons
                 Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileID.GrenadeII, damage, knockBack, player.whoAmI);
             }
             return false;
-        }
+        }*/
     }
 }

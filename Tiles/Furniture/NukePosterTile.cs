@@ -22,7 +22,7 @@ namespace ExtraExplosives.Tiles.Furniture
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Bomb Chair");
             AddMapEntry(new Color(200, 200, 200), name);
-            disableSmartCursor = true;
+            TileID.Sets.DisableSmartCursor[Type] = true;
             AdjTiles = new int[] { TileID.Tables };
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
@@ -32,7 +32,7 @@ namespace ExtraExplosives.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Tiles.Furniture.NukePosterItem>());
+            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 48, 64, ModContent.ItemType<Items.Tiles.Furniture.NukePosterItem>());
         }
     }
 }

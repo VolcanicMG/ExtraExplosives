@@ -47,13 +47,13 @@ namespace ExtraExplosives.Items
             }
 
             int drop = Main.rand.Next(3);    // get the item which will 100% drop
-            player.QuickSpawnItem(items[drop], 1);    // spawn it
+            //player.QuickSpawnItem(items[drop], 1);    // spawn it
             items[drop] = bombs[Main.rand.Next(bombs.Length - 1)];    //Main.NewText(ModContent.GetModItem(.Name);    // to avoid double drops replace it with a pre-hardmode bomb
             foreach (int item in items)    // try to spawn each item left in the array
             {
                 if (Main.rand.Next(3) == 0)
                 {
-                    player.QuickSpawnItem(item, 1);    // add hooks for special items here
+                    //player.QuickSpawnItem(item, 1);    // add hooks for special items here
                 }
             }
 
@@ -64,7 +64,7 @@ namespace ExtraExplosives.Items
                 //Find the place on the array give the rest of the set
                 for (int i = 0; i < Vanity[VanityDrop].Length; i++)
                 {
-                    player.QuickSpawnItem(Vanity[VanityDrop][i], 1);
+                    //player.QuickSpawnItem(Vanity[VanityDrop][i], 1);
                 }
             }
 

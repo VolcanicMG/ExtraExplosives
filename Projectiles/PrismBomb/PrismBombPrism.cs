@@ -36,11 +36,11 @@ namespace ExtraExplosives.Projectiles.PrismBomb //Namespace is set this way as p
             else if (Projectile.ai[0] > 80) { Projectile.velocity.Y = 0; Projectile.velocity.X = 0; Projectile.rotation += 0.02f; if (soundDelay <= 0) { SoundEngine.PlaySound(SoundID.Item15, Projectile.Center); soundDelay = 20; } }
             if (laser1 == -1 && Projectile.ai[0] > 80)
             {
-
-                laser1 = Projectile.NewProjectile(Projectile.Center, new Vector2(-14, 0), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
+                // TODO fix
+                /*laser1 = Projectile.NewProjectile(Projectile.Center, new Vector2(-14, 0), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
                 laser2 = Projectile.NewProjectile(Projectile.Center, new Vector2(14, 0), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
                 laser3 = Projectile.NewProjectile(Projectile.Center, new Vector2(0, 14), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
-                laser4 = Projectile.NewProjectile(Projectile.Center, new Vector2(0, -14), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
+                laser4 = Projectile.NewProjectile(Projectile.Center, new Vector2(0, -14), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);*/
 
             }
 
@@ -49,8 +49,9 @@ namespace ExtraExplosives.Projectiles.PrismBomb //Namespace is set this way as p
         public override bool PreDraw(ref Color lightColor)
         {
             resetBatchInPost = true;
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            // TODO looks like spriteBatch is depricated, fix
+            //spriteBatch.End();
+            //spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
             GameShaders.Armor.GetShaderFromItemId(ItemID.LivingRainbowDye).Apply(Projectile);
 
             return true;
@@ -59,8 +60,8 @@ namespace ExtraExplosives.Projectiles.PrismBomb //Namespace is set this way as p
         {
             if (resetBatchInPost)
             {
-                spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+                /*spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);*/
                 resetBatchInPost = false;
             }
         }

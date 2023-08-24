@@ -5,19 +5,15 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
-
 namespace ExtraExplosives.UI.AnarchistCookbookUI
 {
 	internal class ButtonUI : UIState
 	{
 		public static bool Visible;
-
 		public DragableUIPanel dragablePanel;
-
-		public override void OnInitialize()
+		/*public override void OnInitialize()
 		{
 			Visible = false;
-
 			dragablePanel = new DragableUIPanel();
 			dragablePanel.SetPadding(0);
 			dragablePanel.Left.Set(Main.screenWidth - 300, 0f);
@@ -25,9 +21,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
 			dragablePanel.Width.Set(50, 0);
 			dragablePanel.Height.Set(50, 0f);
 			dragablePanel.BackgroundColor = new Color(0, 0, 0, 0);
-			dragablePanel.BorderColor = new Color(0, 0, 0, 0);
-
-			Texture2D cookbookTexture = ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/AnarchistCookbook");
+			//dragablePanel.BorderColor = new Color(0, 0, 0, 0);
+			Texture2D cookbookTexture = ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/AnarchistCookbook").Value;
 			UIHoverImageButton cookbookButton = new UIHoverImageButton(cookbookTexture, "Anarchist Cookbook");
 			cookbookButton.Left.Set(22, 0f);
 			cookbookButton.Top.Set(22, 0f);
@@ -37,7 +32,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
 			dragablePanel.Append(cookbookButton);
 
 			Append(dragablePanel);
-		}
+		}*/
 
 		private void OpenCookbook(UIMouseEvent evt, UIElement listeningElement)
 		{
@@ -64,7 +59,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
 			if (!Main.LocalPlayer.EE().AnarchistCookbook)
 			{
 
-				spriteBatch.Draw(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/CookbookButtonLocked"), new Vector2(dragablePanel.Left.Pixels + 42, dragablePanel.Top.Pixels + 18), null, Color.White, 0f, Vector2.Zero, .6f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/CookbookButtonLocked").Value, new Vector2(dragablePanel.Left.Pixels + 42, dragablePanel.Top.Pixels + 18), null, Color.White, 0f, Vector2.Zero, .6f, SpriteEffects.None, 0f);
 			}
 
 		}
@@ -76,7 +71,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
 
 		public DragableUIPanel DragablePanel;
 
-		public CookbookButton(Texture2D texture, string type) : base(texture)
+		public CookbookButton(Texture2D texture, string type) : base(null) // Todo this should not be null, it needs to be texture
 		{
 		}
 

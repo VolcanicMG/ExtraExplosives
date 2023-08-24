@@ -8,7 +8,7 @@ namespace ExtraExplosives.Items
 {
     public abstract class ExplosiveItem : ModItem
     {
-        public override bool CloneNewInstances { get; } = true;
+        //public override bool CloneNewInstances { get; } = true;
 
         /// <summary>
         /// If this is true then the mod will add this item to the disclaimer list. Returns false by default
@@ -35,13 +35,13 @@ namespace ExtraExplosives.Items
 
         public sealed override void SetDefaults()
         {
-            SafeSetDefaults();
+            /*SafeSetDefaults();
             Item.melee = false;
             Item.ranged = false;
             Item.magic = false;
             Item.summon = false;
             Item.thrown = false;
-            DangerousSetDefaults();
+            DangerousSetDefaults();*/
         }
 
         public virtual void DangerousSetDefaults()
@@ -51,8 +51,8 @@ namespace ExtraExplosives.Items
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            mult = player.EE().DamageMulti;
-            add += player.EE().DamageBonus;
+            /*mult = player.EE().DamageMulti;
+            add += player.EE().DamageBonus;*/
         }
 
         public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)
