@@ -14,7 +14,7 @@ namespace ExtraExplosives.Projectiles.Testing
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Testing Explosive");
+            // DisplayName.SetDefault("Testing Explosive");
         }
 
         public override void SafeSetDefaults()

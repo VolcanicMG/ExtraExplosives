@@ -7,8 +7,8 @@ namespace ExtraExplosives.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fuse-Eel Surstromming");
-            Description.SetDefault("Explosive damage up!");
+            // DisplayName.SetDefault("Fuse-Eel Surstromming");
+            // Description.SetDefault("Explosive damage up!");
             Main.debuff[Type] = false;
             Main.buffNoSave[Type] = false;
             Main.buffNoTimeDisplay[Type] = false;

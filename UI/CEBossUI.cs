@@ -100,7 +100,7 @@ namespace ExtraExplosives.UI
             ImageButtonYes.Height.Set(150 / ScaleUI, 0f);
             ImageButtonYes.Left.Set((panel.Left.Pixels + panel.Width.Pixels + 50), 0);
             ImageButtonYes.VAlign = .86f;
-            ImageButtonYes.OnClick += new MouseEvent(ButtonClickedYes);
+            ImageButtonYes.OnLeftClick += new MouseEvent(ButtonClickedYes);
             Append(ImageButtonYes);
 
             //The red button
@@ -109,7 +109,7 @@ namespace ExtraExplosives.UI
             ImageButtonNo.Height.Set(150 / ScaleUI, 0f);
             ImageButtonNo.VAlign = .86f;
             ImageButtonNo.Left.Set((panel2.Left.Pixels - 190), 0f);
-            ImageButtonNo.OnClick += new MouseEvent(ButtonClickedNo);
+            ImageButtonNo.OnLeftClick += new MouseEvent(ButtonClickedNo);
             Append(ImageButtonNo);
 
             //Warning = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/Warning_Sign"));

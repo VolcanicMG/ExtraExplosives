@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Boom Box");
-            Tooltip.SetDefault("Plays booming music");
+            // DisplayName.SetDefault("Boom Box");
+            // Tooltip.SetDefault("Plays booming music");
         }
 
         public override void SafeSetDefaults()

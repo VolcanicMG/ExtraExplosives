@@ -36,15 +36,15 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
             TileObjectData.addTile(Type);
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Bomb Dresser");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Bomb Dresser");
             AddMapEntry(new Color(200, 200, 200), name);
             DustType = 119;
             TileID.Sets.DisableSmartCursor[Type] = true;
             AdjTiles = new int[] { TileID.Dressers };
-            ContainerName.SetDefault("Bomb Dresser");
+            ContainerName/* tModPorter Note: Removed. Override DefaultContainerName instead */.SetDefault("Bomb Dresser");
             TileID.Sets.BasicDresser[Type] = true;
-            DresserDrop = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
+            ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */ = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
         }
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
         {
@@ -235,7 +235,7 @@ namespace ExtraExplosives.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 48, 32, DresserDrop);
+            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 48, 32, ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */);
             Chest.DestroyChest(i, j);
         }
     }

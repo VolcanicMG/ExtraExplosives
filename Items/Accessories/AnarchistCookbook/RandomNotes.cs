@@ -8,9 +8,9 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Random Notes");
-            Tooltip.SetDefault("Makes explosives detonate twice\n" +
-                               "Halves fuse length of explosives");
+            // DisplayName.SetDefault("Random Notes");
+            /* Tooltip.SetDefault("Makes explosives detonate twice\n" +
+                               "Halves fuse length of explosives"); */
         }
 
         public override void SetDefaults()

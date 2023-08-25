@@ -22,9 +22,9 @@ namespace ExtraExplosives.Items.Explosives
         // This will either be based on uses or time alive idk yet
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Infinity Bomb");
-            Tooltip.SetDefault("'No wait it gets better'\n" +
-                               "Right Click to disable its growth");
+            // DisplayName.SetDefault("Infinity Bomb");
+            /* Tooltip.SetDefault("'No wait it gets better'\n" +
+                               "Right Click to disable its growth"); */
 
         }
 

@@ -12,7 +12,7 @@ namespace ExtraExplosives.Pets
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomb Buddy");
+            // DisplayName.SetDefault("Bomb Buddy");
             Main.projFrames[Projectile.type] = 10;
             Main.projPet[Projectile.type] = true;
         }

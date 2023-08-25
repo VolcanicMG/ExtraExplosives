@@ -74,17 +74,17 @@ namespace ExtraExplosives.Projectiles
             // Only use if you need to since those values are set to ensure the bombs function as intended
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             return;
         }
 
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPvp(Player target, int damage, bool crit)/* tModPorter Note: Removed. Use OnHitPlayer and check info.PvP */
         {
             return;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             return;
         }
@@ -166,7 +166,7 @@ namespace ExtraExplosives.Projectiles
                                 if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
                                 {
                                     WorldGen.SquareTileFrame(i, j, true); //Updates Area
-                                    NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                 }
 
                                 if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
@@ -177,7 +177,7 @@ namespace ExtraExplosives.Projectiles
                                     if (Main.netMode == NetmodeID.MultiplayerClient)
                                     {
                                         WorldGen.SquareTileFrame(i, j, true); //Updates Area
-                                        NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                     }
                                 }
                             }

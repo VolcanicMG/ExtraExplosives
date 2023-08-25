@@ -13,7 +13,7 @@ namespace ExtraExplosives.Pets
         private bool hit;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomb Buddy Follow");
+            // DisplayName.SetDefault("Bomb Buddy Follow");
         }
 
         public override void SetDefaults()
@@ -65,7 +65,7 @@ namespace ExtraExplosives.Pets
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!hit)
             {

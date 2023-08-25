@@ -16,7 +16,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Deliquidifier");
+            // DisplayName.SetDefault("Deliquidifier");
         }
 
         public override void SafeSetDefaults()

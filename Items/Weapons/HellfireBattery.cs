@@ -20,9 +20,9 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellfire Battery");
-            Tooltip.SetDefault("'The rocket minigun's older bigger brother'\n" +
-                "Right click to swap between 3 different modes");
+            // DisplayName.SetDefault("Hellfire Battery");
+            /* Tooltip.SetDefault("'The rocket minigun's older bigger brother'\n" +
+                "Right click to swap between 3 different modes"); */
         }
 
         public override void SafeSetDefaults()

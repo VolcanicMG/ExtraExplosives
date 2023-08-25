@@ -11,8 +11,8 @@ namespace ExtraExplosives.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Coral Krak-Slinger");
-            Tooltip.SetDefault("'Improvised, but deadly'");
+            // DisplayName.SetDefault("Coral Krak-Slinger");
+            // Tooltip.SetDefault("'Improvised, but deadly'");
         }
 
         public override void SetDefaults()

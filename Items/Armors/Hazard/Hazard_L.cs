@@ -9,10 +9,10 @@ namespace ExtraExplosives.Items.Armors.Hazard
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Adamantite Hazard Demolisher Legs");
-            Tooltip.SetDefault("\n" +
+            // DisplayName.SetDefault("Adamantite Hazard Demolisher Legs");
+            /* Tooltip.SetDefault("\n" +
                 "6% Increased Bomb Damage and Blast Radius\n" +
-                "5% Increased Movement Speed");
+                "5% Increased Movement Speed"); */
         }
 
         public override void SetDefaults()

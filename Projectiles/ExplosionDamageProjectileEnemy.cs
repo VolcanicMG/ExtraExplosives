@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ExplosionDamage");
+            // DisplayName.SetDefault("ExplosionDamage");
         }
 
         public override void SafeSetDefaults()
@@ -33,7 +33,7 @@ namespace ExtraExplosives.Projectiles
                                              //projectile.scale = 5;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (!crit && Main.player[Projectile.owner].GetModPlayer<ExtraExplosivesPlayer>().CrossedWires &&
                 Main.rand.Next(5) == 0)

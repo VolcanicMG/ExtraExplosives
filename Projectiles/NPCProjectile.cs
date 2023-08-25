@@ -14,7 +14,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("NPCProjectile");
+            // DisplayName.SetDefault("NPCProjectile");
         }
 
         public override void SetDefaults()

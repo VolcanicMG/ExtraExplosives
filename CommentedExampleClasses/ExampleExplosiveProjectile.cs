@@ -51,7 +51,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// <param name="target">The player being hit</param>
         /// <param name="damage">The damage to be dealt</param>
         /// <param name="crit">If the hit was a crit</param>
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
         }
 
@@ -61,7 +61,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// <param name="target">The player being hit</param>
         /// <param name="damage">The damage to be dealt</param>
         /// <param name="crit">If the hit was a crit</param>
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPvp(Player target, int damage, bool crit)/* tModPorter Note: Removed. Use OnHitPlayer and check info.PvP */
         {
         }
 
@@ -73,7 +73,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// <param name="damage">The damage to be dealt</param>
         /// <<param name="knockback">The knockback value</param>
         /// <param name="crit">If the hit was a crit</param>
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
         }
 

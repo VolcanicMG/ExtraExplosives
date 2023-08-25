@@ -147,7 +147,7 @@ namespace ExtraExplosives.UI
                 // QuickSpawnClonedItem will preserve mod data of the item. QuickSpawnItem will just spawn a fresh version of the item, losing the prefix.
                 //Main.LocalPlayer.QuickSpawnClonedItem(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
-                Main.LocalPlayer.QuickSpawnClonedItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot.Item, _vanillaItemSlot.Item.stack);
+                Main.LocalPlayer.QuickSpawnItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot.Item, _vanillaItemSlot.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                 _vanillaItemSlot.Item.TurnToAir();
             }
@@ -155,7 +155,7 @@ namespace ExtraExplosives.UI
             if (!_vanillaItemSlot2.Item.IsAir)
             {
                 // QuickSpawnClonedItem will preserve mod data of the item. QuickSpawnItem will just spawn a fresh version of the item, losing the prefix.
-                Main.LocalPlayer.QuickSpawnClonedItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack);
+                Main.LocalPlayer.QuickSpawnItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                 _vanillaItemSlot2.Item.TurnToAir();
             }
@@ -163,7 +163,7 @@ namespace ExtraExplosives.UI
             if (!_vanillaItemSlot3.Item.IsAir)
             {
                 // QuickSpawnClonedItem will preserve mod data of the item. QuickSpawnItem will just spawn a fresh version of the item, losing the prefix.
-                Main.LocalPlayer.QuickSpawnClonedItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot3.Item, _vanillaItemSlot3.Item.stack);
+                Main.LocalPlayer.QuickSpawnItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot3.Item, _vanillaItemSlot3.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                 _vanillaItemSlot3.Item.TurnToAir();
             }
@@ -267,7 +267,7 @@ namespace ExtraExplosives.UI
                         int stack = _vanillaItemSlot.Item.stack;
                         Item reforgeItem = new Item();
                         reforgeItem.netDefaults(_vanillaItemSlot.Item.netID);
-                        reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot.Item);
+                        reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot.Item)/* tModPorter Note: Removed. Use Clone, ResetPrefix or Refresh */;
                         // This is the main effect of this slot. Giving the Awesome prefix 90% of the time and the ReallyAwesome prefix the other 10% of the time. All for a constant 1 gold. Useless, but informative.
                         reforgeItem.Prefix(-2);
                         _vanillaItemSlot.Item = reforgeItem.Clone();
@@ -289,7 +289,7 @@ namespace ExtraExplosives.UI
                         int stack = _vanillaItemSlot2.Item.stack;
                         Item reforgeItem = new Item();
                         reforgeItem.netDefaults(_vanillaItemSlot2.Item.netID);
-                        reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot2.Item);
+                        reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot2.Item)/* tModPorter Note: Removed. Use Clone, ResetPrefix or Refresh */;
                         // This is the main effect of this slot. Giving the Awesome prefix 90% of the time and the ReallyAwesome prefix the other 10% of the time. All for a constant 1 gold. Useless, but informative.
                         reforgeItem.Prefix(-2);
                         _vanillaItemSlot2.Item = reforgeItem.Clone();
@@ -312,7 +312,7 @@ namespace ExtraExplosives.UI
                         int stack = _vanillaItemSlot3.Item.stack;
                         Item reforgeItem = new Item();
                         reforgeItem.netDefaults(_vanillaItemSlot3.Item.netID);
-                        reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot3.Item);
+                        reforgeItem = reforgeItem.CloneWithModdedDataFrom(_vanillaItemSlot3.Item)/* tModPorter Note: Removed. Use Clone, ResetPrefix or Refresh */;
                         // This is the main effect of this slot. Giving the Awesome prefix 90% of the time and the ReallyAwesome prefix the other 10% of the time. All for a constant 1 gold. Useless, but informative.
                         reforgeItem.Prefix(-2);
                         _vanillaItemSlot3.Item = reforgeItem.Clone();

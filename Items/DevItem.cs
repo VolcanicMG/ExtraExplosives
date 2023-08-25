@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dev Item");
-            Tooltip.SetDefault("'For testing purposes'");
+            // DisplayName.SetDefault("Dev Item");
+            // Tooltip.SetDefault("'For testing purposes'");
         }
 
         public override void SetDefaults()

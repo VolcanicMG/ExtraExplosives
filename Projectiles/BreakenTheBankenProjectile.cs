@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BreakenTheBanken");
+            // DisplayName.SetDefault("BreakenTheBanken");
         }
 
         public override void SafeSetDefaults()

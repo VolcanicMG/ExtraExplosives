@@ -12,8 +12,8 @@ namespace ExtraExplosives.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nova Buster");
-            Tooltip.SetDefault("20% Chance to double blast Damage");
+            // DisplayName.SetDefault("Nova Buster");
+            // Tooltip.SetDefault("20% Chance to double blast Damage");
         }
 
         public override void SetDefaults()

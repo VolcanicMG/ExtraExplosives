@@ -9,10 +9,10 @@ namespace ExtraExplosives.Items.Armors.Asteroid
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mythril Asteroid Miner Helm");
-            Tooltip.SetDefault("\n" +
+            // DisplayName.SetDefault("Mythril Asteroid Miner Helm");
+            /* Tooltip.SetDefault("\n" +
                 "3% Increased Bomb Damage and " +
-                "6% Blast Radius");
+                "6% Blast Radius"); */
         }
 
         public override void SetDefaults()

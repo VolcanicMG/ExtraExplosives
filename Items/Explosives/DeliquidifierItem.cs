@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Deliquidifier");
-            Tooltip.SetDefault("Removes water, lava, and honey");
+            // DisplayName.SetDefault("Deliquidifier");
+            // Tooltip.SetDefault("Removes water, lava, and honey");
         }
 
         public override void SafeSetDefaults()

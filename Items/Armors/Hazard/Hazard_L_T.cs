@@ -9,10 +9,10 @@ namespace ExtraExplosives.Items.Armors.Hazard
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Titanium Hazard Demolisher Legs");
-            Tooltip.SetDefault("\n" +
+            // DisplayName.SetDefault("Titanium Hazard Demolisher Legs");
+            /* Tooltip.SetDefault("\n" +
                 "7% Increased Bomb Damage and Blast Radius\n" +
-                "6% Increased Movement Speed");
+                "6% Increased Movement Speed"); */
         }
 
         public override void SetDefaults()

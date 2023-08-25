@@ -7,8 +7,8 @@ namespace ExtraExplosives.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Potato");
-            Tooltip.SetDefault("");
+            // DisplayName.SetDefault("Potato");
+            // Tooltip.SetDefault("");
         }
 
         public override void SetDefaults()

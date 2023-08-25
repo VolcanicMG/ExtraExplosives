@@ -20,7 +20,7 @@ namespace ExtraExplosives.Tiles
             Main.tileFrameImportant[Type] = true;
             Main.tileNoFail[Type] = true;
             //DustType = Mod.Find<ModDust>(dustString).Type;
-            ItemDrop = ModContent.ItemType<GlowingCompound>();
+            ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */ = ModContent.ItemType<GlowingCompound>();
             AddMapEntry(new Color(148, 134, 48));
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);

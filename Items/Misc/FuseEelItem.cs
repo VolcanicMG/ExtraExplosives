@@ -7,7 +7,7 @@ namespace ExtraExplosives.Items.Misc
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fuse Eel");
+            // DisplayName.SetDefault("Fuse Eel");
         }
 
         public override void SetDefaults()

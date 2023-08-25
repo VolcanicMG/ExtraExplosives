@@ -598,7 +598,7 @@ namespace ExtraExplosives
             return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
         }*/
 
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override void OnHurt(Player.HurtInfo info)
         {
             if (BombCloak)
             {
@@ -804,7 +804,7 @@ namespace ExtraExplosives
             }
         }
 
-        public override void OnEnterWorld(Player player) //might need to set to new netmode in case it dosnt work in MP
+        public override void OnEnterWorld() //might need to set to new netmode in case it dosnt work in MP
         {
             //StaticMethods.BuildDoNotHomeList();
             InventoryOpen = false;
@@ -812,8 +812,8 @@ namespace ExtraExplosives
             //ExtraExplosives.NukeActivated = false;
             ExtraExplosives.NukeHit = false;
             //player.ResetEffects();
-            player.ResetEffects();
-            Main.screenPosition = player.Center;
+            Player.ResetEffects();
+            Main.screenPosition = Player.Center;
 
             if (ExtraExplosives.CurrentVersion == null)
             {
@@ -869,7 +869,7 @@ namespace ExtraExplosives
             }
         }
 
-        public override void clientClone(ModPlayer clientClone)
+        public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
         {
             ExtraExplosivesPlayer clone = clientClone as ExtraExplosivesPlayer;
         }

@@ -19,7 +19,7 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ExtraExplosives_DemoProjectileWithComments"); //Projectile's Name, same as class name
+            // DisplayName.SetDefault("ExtraExplosives_DemoProjectileWithComments"); //Projectile's Name, same as class name
         }
 
         public override void SetDefaults()

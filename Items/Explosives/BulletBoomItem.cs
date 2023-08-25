@@ -51,7 +51,7 @@ namespace ExtraExplosives.Items.Explosives
         public override ModItem Clone(Item item)
         {
             ModItem tmp = base.Clone(item);
-            tmp.DisplayName.SetDefault("Base Item");
+            // tmp.DisplayName.SetDefault("Base Item");
             tmp.Item.shoot = item.shoot;
             return tmp;
         }
@@ -76,10 +76,10 @@ namespace ExtraExplosives.Items.Explosives
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault(" Bullet Boom");    // Name
+            // DisplayName.SetDefault(" Bullet Boom");    // Name
 
-            Tooltip.SetDefault("'Who said a gun is the only thing that can shoot a bullet?' \n" +
-                               "Blows up upon touching a block.");
+            /* Tooltip.SetDefault("'Who said a gun is the only thing that can shoot a bullet?' \n" +
+                               "Blows up upon touching a block."); */
         }
 
         public override void SafeSetDefaults()

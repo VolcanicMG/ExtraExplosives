@@ -9,10 +9,10 @@ namespace ExtraExplosives.Items.Armors.Lizhard
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lizhard Bombard Legs");
-            Tooltip.SetDefault("\n" +
+            // DisplayName.SetDefault("Lizhard Bombard Legs");
+            /* Tooltip.SetDefault("\n" +
                 "8% Increased Bomb Damage and Blast Radius\n" +
-                "5% Increased Movement Speed");
+                "5% Increased Movement Speed"); */
         }
 
         public override void SetDefaults()

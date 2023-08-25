@@ -17,7 +17,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ArenaBuilder");
+            // DisplayName.SetDefault("ArenaBuilder");
         }
 
         public override void SafeSetDefaults()
@@ -132,7 +132,7 @@ namespace ExtraExplosives.Projectiles
                             if (Main.netMode == NetmodeID.MultiplayerClient)
                             {
                                 WorldGen.SquareTileFrame(xPosition, yPosition, true); //Updates Area
-                                NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
+                                NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
                             }
 
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls

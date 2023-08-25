@@ -17,7 +17,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Leveler");
+            // DisplayName.SetDefault("The Leveler");
             //Tooltip.SetDefault("");
         }
 

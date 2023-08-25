@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomb Cloak");
-            Tooltip.SetDefault("Explodes when you take damage");
+            // DisplayName.SetDefault("Bomb Cloak");
+            // Tooltip.SetDefault("Explodes when you take damage");
         }
 
         public override void SetDefaults()

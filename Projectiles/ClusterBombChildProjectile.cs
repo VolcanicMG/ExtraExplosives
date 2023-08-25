@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ClusterBomb");
+            // DisplayName.SetDefault("ClusterBomb");
         }
 
         public override void SafeSetDefaults()

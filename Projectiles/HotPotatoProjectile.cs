@@ -22,7 +22,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hot Potato");
+            // DisplayName.SetDefault("Hot Potato");
         }
 
         public override void SafeSetDefaults()

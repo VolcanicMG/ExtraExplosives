@@ -8,7 +8,7 @@ namespace ExtraExplosives.Items.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dynamite Clock");
+            // DisplayName.SetDefault("Dynamite Clock");
         }
 
         public override void SetDefaults()

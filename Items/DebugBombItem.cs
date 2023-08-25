@@ -12,9 +12,9 @@ namespace ExtraExplosives.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Debug Explosive");
-            Tooltip.SetDefault("It could do nothing or destroy the world\n" +
-                               "Just depends on what im testing");
+            // DisplayName.SetDefault("Debug Explosive");
+            /* Tooltip.SetDefault("It could do nothing or destroy the world\n" +
+                               "Just depends on what im testing"); */
         }
 
         public override void SafeSetDefaults()

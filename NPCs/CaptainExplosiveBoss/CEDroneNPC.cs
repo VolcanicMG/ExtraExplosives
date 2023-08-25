@@ -62,7 +62,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             DrawOffsetY = -5f;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax += 20;
             NPC.damage = (int)(NPC.damage * 0.6f);
@@ -304,7 +304,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             //Main.NewText($"Rotation: {npc.rotation}", Color.Aquamarine);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (spawnTimer > 0) return;
             if (_targetingFrames < 0)

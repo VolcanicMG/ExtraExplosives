@@ -10,10 +10,10 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lihzahrd Fuzeset");
-            Tooltip.SetDefault("'Nothing in the temple is flammable...\n" +
+            // DisplayName.SetDefault("Lihzahrd Fuzeset");
+            /* Tooltip.SetDefault("'Nothing in the temple is flammable...\n" +
                                "but this sure is.'\n" +
-                               "Bombs light enemies on fire");
+                               "Bombs light enemies on fire"); */
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

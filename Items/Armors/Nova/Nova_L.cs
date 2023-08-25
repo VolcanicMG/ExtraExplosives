@@ -9,10 +9,10 @@ namespace ExtraExplosives.Items.Armors.Nova
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nova Bombard Legs");
-            Tooltip.SetDefault("\n" +
+            // DisplayName.SetDefault("Nova Bombard Legs");
+            /* Tooltip.SetDefault("\n" +
                 "10% Increased Bomb Damage and Blast Radius\n" +
-                "15% Increased Movement Speed");
+                "15% Increased Movement Speed"); */
         }
 
         public override void SetDefaults()

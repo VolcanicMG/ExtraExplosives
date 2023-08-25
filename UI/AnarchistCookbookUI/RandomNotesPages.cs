@@ -147,7 +147,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleRandomFuel.Append(RandomFuel);    // Image of Random fuel for labeling
             ToggleRandomFuel.Left.Pixels = 25;
             ToggleRandomFuel.Top.Pixels = rightPage.Height.Pixels / 2 - 100;
-            ToggleRandomFuel.OnClick += new MouseEvent(RandomFuelToggle);
+            ToggleRandomFuel.OnLeftClick += new MouseEvent(RandomFuelToggle);
             leftPage.Append(ToggleRandomFuel);
 
             /*ToggleOnFire = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
@@ -187,7 +187,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleShortFuze.Append(ShortFuze);    // Image of Random fuel for labeling
             ToggleShortFuze.Left.Pixels = 50;
             ToggleShortFuze.Top.Pixels = rightPage.Height.Pixels / 2 - 100;
-            ToggleShortFuze.OnClick += new MouseEvent(ShortFuzeToggle);
+            ToggleShortFuze.OnLeftClick += new MouseEvent(ShortFuzeToggle);
             rightPage.Append(ToggleShortFuze);
 
             FuseSliderBar = new SliderBar("Fuze Length");
@@ -209,28 +209,28 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             RandomFuelImage.Left.Pixels = 0;
             RandomFuelImage.Top.Pixels = 0;
             RandomFuelImage.ImageScale = 0.8f;
-            RandomFuelImage.OnClick += new MouseEvent(RandomFuelToggle);
+            RandomFuelImage.OnLeftClick += new MouseEvent(RandomFuelToggle);
             leftPage.Append(RandomFuelImage);
 
             ShortFuzeImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ShortFuse"));
             ShortFuzeImage.Left.Pixels = 20;
             ShortFuzeImage.Top.Pixels = -16;
             ShortFuzeImage.ImageScale = 0.7f;
-            ShortFuzeImage.OnClick += new MouseEvent(ShortFuzeToggle);
+            ShortFuzeImage.OnLeftClick += new MouseEvent(ShortFuzeToggle);
             rightPage.Append(ShortFuzeImage);
 
             RandomFuel_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/RandomFuel_Greyscale"));
             RandomFuel_GreyscaleImage.Left.Pixels = 0;
             RandomFuel_GreyscaleImage.Top.Pixels = 0;
             RandomFuel_GreyscaleImage.ImageScale = 0.8f;
-            RandomFuel_GreyscaleImage.OnClick += new MouseEvent(RandomFuelToggle);
+            RandomFuel_GreyscaleImage.OnLeftClick += new MouseEvent(RandomFuelToggle);
             leftPage.Append(RandomFuel_GreyscaleImage);
 
             ShortFuze_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/ShortFuse_Greyscale"));
             ShortFuze_GreyscaleImage.Left.Pixels = 20;
             ShortFuze_GreyscaleImage.Top.Pixels = -16;
             ShortFuze_GreyscaleImage.ImageScale = 0.7f;
-            ShortFuze_GreyscaleImage.OnClick += new MouseEvent(ShortFuzeToggle);
+            ShortFuze_GreyscaleImage.OnLeftClick += new MouseEvent(ShortFuzeToggle);
             rightPage.Append(ShortFuze_GreyscaleImage);
         }
 

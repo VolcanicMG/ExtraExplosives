@@ -17,9 +17,9 @@ namespace ExtraExplosives.Items.Explosives
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magic Bomb");
-            Tooltip.SetDefault("It can be imbued with mana\n" +    // Not all mages cast spells lol
-                               "Right Click to increase its power");
+            // DisplayName.SetDefault("Magic Bomb");
+            /* Tooltip.SetDefault("It can be imbued with mana\n" +    // Not all mages cast spells lol
+                               "Right Click to increase its power"); */
         }
 
         public override void SafeSetDefaults()

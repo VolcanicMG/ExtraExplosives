@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("LandBridge");
+            // DisplayName.SetDefault("LandBridge");
         }
 
         public override void SafeSetDefaults()

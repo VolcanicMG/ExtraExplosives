@@ -9,10 +9,10 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Atom Bomb");
-            Tooltip.SetDefault("'What power...'\n" +
+            // DisplayName.SetDefault("Atom Bomb");
+            /* Tooltip.SetDefault("'What power...'\n" +
                 "Breaks one block\n" +
-                "[c/AB40FF:Can destroy anything... aside from the immortal chest...]");
+                "[c/AB40FF:Can destroy anything... aside from the immortal chest...]"); */
         }
 
         public override void SafeSetDefaults()

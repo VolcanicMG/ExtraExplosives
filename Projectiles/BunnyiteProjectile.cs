@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bunnyite");
+            // DisplayName.SetDefault("Bunnyite");
         }
 
         public override void SafeSetDefaults()

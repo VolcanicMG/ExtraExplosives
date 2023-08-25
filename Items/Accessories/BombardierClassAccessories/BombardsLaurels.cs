@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bombard's Laurels");
-            Tooltip.SetDefault("Increases Area of Effect of all Explosives by 80%");
+            // DisplayName.SetDefault("Bombard's Laurels");
+            // Tooltip.SetDefault("Increases Area of Effect of all Explosives by 80%");
         }
 
         public override void SetDefaults()

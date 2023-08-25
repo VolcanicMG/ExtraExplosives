@@ -14,7 +14,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("MegaExplosive");
+            // DisplayName.SetDefault("MegaExplosive");
         }
 
         public override void SafeSetDefaults()

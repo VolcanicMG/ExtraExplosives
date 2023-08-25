@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -21,8 +22,8 @@ namespace ExtraExplosives.Tiles.Furniture
             //TileObjectData.newTile.CoordinateWidth = 16;
             //TileObjectData.newTile.StyleHorizontal = false;
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Bomb Bookcase");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Bomb Bookcase");
             AddMapEntry(new Color(200, 200, 200), name);
             TileID.Sets.DisableSmartCursor[Type] = true;
             AdjTiles = new int[] { TileID.Bookcases };

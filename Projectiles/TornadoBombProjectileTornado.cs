@@ -12,7 +12,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tornado");
+            // DisplayName.SetDefault("Tornado");
             Main.projFrames[Projectile.type] = 6;
         }
 

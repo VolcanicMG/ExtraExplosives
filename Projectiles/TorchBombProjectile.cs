@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Torch Bomb");
+            // DisplayName.SetDefault("Torch Bomb");
             //Tooltip.SetDefault("");
         }
 

@@ -557,7 +557,7 @@ namespace ExtraExplosives
                                             if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
                                             {
                                                 WorldGen.SquareTileFrame(i, j, true); //Updates Area
-                                                NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                                NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                             }
 
                                             if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
@@ -568,7 +568,7 @@ namespace ExtraExplosives
                                                 if (Main.netMode == NetmodeID.MultiplayerClient)
                                                 {
                                                     WorldGen.SquareTileFrame(i, j, true); //Updates Area
-                                                    NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                                 }
                                             }
                                         }

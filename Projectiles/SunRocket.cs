@@ -17,7 +17,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sun Rocket");
+            // DisplayName.SetDefault("Sun Rocket");
         }
 
         public override void SafeSetDefaults()
@@ -42,7 +42,7 @@ namespace ExtraExplosives.Projectiles
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.Kill();
         }

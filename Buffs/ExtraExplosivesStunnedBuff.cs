@@ -11,8 +11,8 @@ namespace ExtraExplosives.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stunned");
-            Description.SetDefault("You can't move, attack, or place blocks");
+            // DisplayName.SetDefault("Stunned");
+            // Description.SetDefault("You can't move, attack, or place blocks");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = false;

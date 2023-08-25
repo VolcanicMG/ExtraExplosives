@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Misc
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Fuse Eel Surströmming");
-            Tooltip.SetDefault("Is it edible?");
+            // DisplayName.SetDefault("Fuse Eel Surströmming");
+            // Tooltip.SetDefault("Is it edible?");
         }
 
         public override void SetDefaults()

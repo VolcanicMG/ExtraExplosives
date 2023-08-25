@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rainboom");
+            // DisplayName.SetDefault("Rainboom");
         }
 
         public override void SafeSetDefaults()

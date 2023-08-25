@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomber's Cap");
-            Tooltip.SetDefault("Increases explosives area of effect by 30%");
+            // DisplayName.SetDefault("Bomber's Cap");
+            // Tooltip.SetDefault("Increases explosives area of effect by 30%");
         }
 
         public override void SetDefaults()

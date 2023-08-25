@@ -31,7 +31,7 @@ namespace ExtraExplosives.NPCs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Captain Of Explosives");
+            // DisplayName.SetDefault("Captain Of Explosives");
             Main.npcFrameCount[NPC.type] = 25; //npc defines how many frames the npc sprite sheet has
             NPCID.Sets.ExtraFramesCount[NPC.type] = 9;
             NPCID.Sets.AttackFrameCount[NPC.type] = 4;
@@ -59,7 +59,7 @@ namespace ExtraExplosives.NPCs
             AnimationType = NPCID.Guide;  //npc copy the guide animation
         }
 
-        public override bool CanTownNPCSpawn(int numTownNPCs, int money) //Whether or not the conditions have been met for npc town NPC to be able to move into town.
+        public override bool CanTownNPCSpawn(int numTownNPCs)/* tModPorter Suggestion: Copy the implementation of NPC.SpawnAllowed_Merchant in vanilla if you to count money, and be sure to set a flag when unlocked, so you don't count every tick. */ //Whether or not the conditions have been met for npc town NPC to be able to move into town.
         {
             if (ExtraExplosivesSystem.BossCheckDead) return true;
             return false;
@@ -197,7 +197,7 @@ namespace ExtraExplosives.NPCs
             button2 = "Combine";
         }
 
-        public override void OnChatButtonClicked(bool firstButton, ref bool openShop) //Allows you to make something happen whenever a button is clicked on npc town NPC's chat window. The firstButton parameter tells whether the first button or second button (button and button2 from SetChatButtons) was clicked. Set the shop parameter to true to open npc NPC's shop.
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName) //Allows you to make something happen whenever a button is clicked on npc town NPC's chat window. The firstButton parameter tells whether the first button or second button (button and button2 from SetChatButtons) was clicked. Set the shop parameter to true to open npc NPC's shop.
         {
             if (firstButton)
             {
@@ -212,7 +212,7 @@ namespace ExtraExplosives.NPCs
             }
         }
 
-        public override void SetupShop(Chest shop, ref int nextSlot)       //Allows you to add items to npc town NPC's shop. Add an item by setting the defaults of shop.item[nextSlot] then incrementing nextSlot.
+        public override void ModifyActiveShop(string shopName, Item[] items)       //Allows you to add items to npc town NPC's shop. Add an item by setting the defaults of shop.item[nextSlot] then incrementing nextSlot.
         {
             if (NPC.downedMechBoss1)
             {
@@ -393,7 +393,7 @@ namespace ExtraExplosives.NPCs
             attackDelay = 1;
         }
 
-        public override void DrawTownAttackSwing(ref Texture2D item, ref int itemSize, ref float scale, ref Vector2 offset)
+        public override void DrawTownAttackSwing(ref Texture2D item, ref Rectangle itemFrame, ref int itemSize, ref float scale, ref Vector2 offset)
         {
             scale = .7f; //1f;
             base.DrawTownAttackSwing(ref item, ref itemSize, ref scale, ref offset);

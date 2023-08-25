@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mystery Bomb");
-            Tooltip.SetDefault("20% chance to not consume explosives");
+            // DisplayName.SetDefault("Mystery Bomb");
+            // Tooltip.SetDefault("20% chance to not consume explosives");
         }
 
         public override void SetDefaults()

@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rainboom");
-            Tooltip.SetDefault("'Such a pretty promise'");
+            // DisplayName.SetDefault("Rainboom");
+            // Tooltip.SetDefault("'Such a pretty promise'");
         }
 
         public override void SafeSetDefaults()

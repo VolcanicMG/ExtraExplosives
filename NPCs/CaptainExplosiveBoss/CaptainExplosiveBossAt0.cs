@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
-using IL.Terraria.GameContent.ItemDropRules;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,7 +34,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Captain Explosive");
+            // DisplayName.SetDefault("Captain Explosive");
             Main.npcFrameCount[NPC.type] = 4;
 
         }
@@ -80,7 +80,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             // TODO npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<CaptainExplosiveTreasureBag>()));
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = (int)(NPC.lifeMax * 0.625f * bossLifeScale);
             NPC.damage = (int)(NPC.damage * 0.6f);
@@ -150,7 +150,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                         else //Breakable
                         {
                             WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-                            NetMessage.SendData(MessageID.TileChange, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
+                            NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 0, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
                         }
                     }
                 }

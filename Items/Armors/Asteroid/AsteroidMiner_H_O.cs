@@ -9,10 +9,10 @@ namespace ExtraExplosives.Items.Armors.Asteroid
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Orichalcum Asteroid Miner Helm");
-            Tooltip.SetDefault("\n" +
+            // DisplayName.SetDefault("Orichalcum Asteroid Miner Helm");
+            /* Tooltip.SetDefault("\n" +
                 "5% Increased bomb Damage and " +
-                "6% Blast Radius");
+                "6% Blast Radius"); */
         }
 
         public override void SetDefaults()

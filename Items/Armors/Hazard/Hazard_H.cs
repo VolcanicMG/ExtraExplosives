@@ -9,9 +9,9 @@ namespace ExtraExplosives.Items.Armors.Hazard
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Adamantite Hazard Demolisher Helm");
-            Tooltip.SetDefault("\n" +
-                "6% Increased Bomb Damage and Blast Radius\n");
+            // DisplayName.SetDefault("Adamantite Hazard Demolisher Helm");
+            /* Tooltip.SetDefault("\n" +
+                "6% Increased Bomb Damage and Blast Radius\n"); */
         }
 
         public override void SetDefaults()

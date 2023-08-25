@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wall Bomb");
-            Tooltip.SetDefault("Destroys walls in a 30 tile radius. Blows up immediately");
+            // DisplayName.SetDefault("Wall Bomb");
+            // Tooltip.SetDefault("Destroys walls in a 30 tile radius. Blows up immediately");
         }
 
         public override void SafeSetDefaults()

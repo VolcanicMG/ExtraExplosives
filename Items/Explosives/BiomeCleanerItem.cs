@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Biome Cleaner");
-            Tooltip.SetDefault("Cleans all evil blocks in a very large area");
+            // DisplayName.SetDefault("Biome Cleaner");
+            // Tooltip.SetDefault("Cleans all evil blocks in a very large area");
         }
 
         public override void SafeSetDefaults()

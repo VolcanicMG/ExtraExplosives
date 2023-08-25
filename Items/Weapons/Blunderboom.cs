@@ -13,8 +13,8 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blunderboom");
-            Tooltip.SetDefault("Lead and explosions go well together");
+            // DisplayName.SetDefault("Blunderboom");
+            // Tooltip.SetDefault("Lead and explosions go well together");
         }
 
         protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/Blunderboom/Blunderboom";

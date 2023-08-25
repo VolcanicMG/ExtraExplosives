@@ -13,8 +13,8 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Deepsea Eruption");
-            Tooltip.SetDefault("Wet, yet powerful");
+            // DisplayName.SetDefault("Deepsea Eruption");
+            // Tooltip.SetDefault("Wet, yet powerful");
         }
 
         protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";

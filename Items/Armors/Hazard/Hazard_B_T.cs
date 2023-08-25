@@ -9,9 +9,9 @@ namespace ExtraExplosives.Items.Armors.Hazard
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Titanium Hazard Demolisher Body");
-            Tooltip.SetDefault("\n" +
-                "7% Increased Bomb Damage and Blast Radius\n");
+            // DisplayName.SetDefault("Titanium Hazard Demolisher Body");
+            /* Tooltip.SetDefault("\n" +
+                "7% Increased Bomb Damage and Blast Radius\n"); */
         }
 
         public override void SetDefaults()

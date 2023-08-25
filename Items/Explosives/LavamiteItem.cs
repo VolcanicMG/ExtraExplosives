@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lavamite");
-            Tooltip.SetDefault("Spawns in lava");
+            // DisplayName.SetDefault("Lavamite");
+            // Tooltip.SetDefault("Spawns in lava");
         }
 
         public override void SafeSetDefaults()

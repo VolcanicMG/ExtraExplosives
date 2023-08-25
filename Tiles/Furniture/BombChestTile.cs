@@ -35,19 +35,19 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.LavaDeath = true;
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Bomb Chest");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Bomb Chest");
             AddMapEntry(new Color(200, 200, 200), name, MapChestName);
             name = CreateMapEntryName(Name + "_Locked");
-            name.SetDefault("Locked Bomb Chest");
+            // name.SetDefault("Locked Bomb Chest");
             AddMapEntry(new Color(100, 100, 100), name, MapChestName);
             DustType = 199;
             TileID.Sets.DisableSmartCursor[Type] = true;
             AdjTiles = new int[] { TileID.Containers };
             // TODO chest/* t-ModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */ = "Bomb Chest";
-            ContainerName.SetDefault("Bomb Chest");
+            ContainerName/* tModPorter Note: Removed. Override DefaultContainerName instead */.SetDefault("Bomb Chest");
             TileID.Sets.BasicChest[Type] = true;
-            ChestDrop = ModContent.ItemType<BombChestItem>();
+            ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */ = ModContent.ItemType<BombChestItem>();
         }
 
         public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
@@ -99,7 +99,7 @@ namespace ExtraExplosives.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 32, 32, ChestDrop);
+            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 32, 32, ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */);
             Chest.DestroyChest(i, j);
         }
 
@@ -160,7 +160,7 @@ namespace ExtraExplosives.Tiles.Furniture
                     {
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
-                            NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, (float)left, (float)top);
+                            NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, (float)left, (float)top);
                         }
                     }
                 }

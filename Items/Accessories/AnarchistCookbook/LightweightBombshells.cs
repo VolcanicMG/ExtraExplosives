@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lightweight Bombshells");
-            Tooltip.SetDefault("Doubles the initial velocity of thrown explosives");
+            // DisplayName.SetDefault("Lightweight Bombshells");
+            // Tooltip.SetDefault("Doubles the initial velocity of thrown explosives");
         }
 
         public override void SetDefaults()

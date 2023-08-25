@@ -24,7 +24,7 @@ namespace ExtraExplosives.Tiles.Furniture
             //Lighting.brightness = 100;
             Lighting.Brightness(100, 100);
 
-            ItemDrop = Mod.Find<ModItem>("BombFireplaceItem").Type;
+            ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */ = Mod.Find<ModItem>("BombFireplaceItem").Type;
             AddMapEntry(new Color(255, 55, 55));
         }
 

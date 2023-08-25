@@ -10,8 +10,8 @@ namespace ExtraExplosives.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Unhinged Letter");
-            Tooltip.SetDefault("Used to summon chaos");
+            // DisplayName.SetDefault("Unhinged Letter");
+            // Tooltip.SetDefault("Used to summon chaos");
         }
 
         public override void SetDefaults()

@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bunnyite");
-            Tooltip.SetDefault("Spawns in bunnies");
+            // DisplayName.SetDefault("Bunnyite");
+            // Tooltip.SetDefault("Spawns in bunnies");
         }
 
         public override void SafeSetDefaults()

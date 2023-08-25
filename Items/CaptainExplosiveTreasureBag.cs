@@ -22,8 +22,8 @@ namespace ExtraExplosives.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Captain Explosive Treasure Bag");    // Name, (change if you want idk)
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");    // Boss bag tooltip (dont change)
+            // DisplayName.SetDefault("Captain Explosive Treasure Bag");    // Name, (change if you want idk)
+            // Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");    // Boss bag tooltip (dont change)
         }
 
         public override void SetDefaults()

@@ -9,9 +9,9 @@ namespace ExtraExplosives.Items.Armors.DungeonBombard
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dungeon Bombard Body");
-            Tooltip.SetDefault("\n" +
-                "3% Increased Bomb Damage and Blast Radius");
+            // DisplayName.SetDefault("Dungeon Bombard Body");
+            /* Tooltip.SetDefault("\n" +
+                "3% Increased Bomb Damage and Blast Radius"); */
         }
 
         public override void SetDefaults()

@@ -8,7 +8,7 @@ namespace ExtraExplosives.Items.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Captain Explosive Portrait");
+            // DisplayName.SetDefault("Captain Explosive Portrait");
         }
 
         public override void SetDefaults()

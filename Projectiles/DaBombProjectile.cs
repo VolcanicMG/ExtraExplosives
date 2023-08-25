@@ -18,7 +18,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("DaBomb");
+            // DisplayName.SetDefault("DaBomb");
         }
 
         public override void SafeSetDefaults()

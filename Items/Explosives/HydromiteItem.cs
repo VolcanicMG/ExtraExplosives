@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hydromite");
-            Tooltip.SetDefault("Spawns in water");
+            // DisplayName.SetDefault("Hydromite");
+            // Tooltip.SetDefault("Spawns in water");
         }
 
         public override void SafeSetDefaults()

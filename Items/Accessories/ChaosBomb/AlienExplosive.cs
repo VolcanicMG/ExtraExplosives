@@ -10,8 +10,8 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Alien Explosive");
-            Tooltip.SetDefault("Bombs confuse enemies");
+            // DisplayName.SetDefault("Alien Explosive");
+            // Tooltip.SetDefault("Bombs confuse enemies");
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

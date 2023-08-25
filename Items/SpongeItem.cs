@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sponge");
-            Tooltip.SetDefault("Not very absorbent on its own...");
+            // DisplayName.SetDefault("Sponge");
+            // Tooltip.SetDefault("Not very absorbent on its own...");
         }
 
         public override void SetDefaults()

@@ -8,9 +8,9 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ravenous Bomb");
-            Tooltip.SetDefault("'It looks hungry'\n" +
-                               "Gives explosions lifesteal");
+            // DisplayName.SetDefault("Ravenous Bomb");
+            /* Tooltip.SetDefault("'It looks hungry'\n" +
+                               "Gives explosions lifesteal"); */
         }
 
         public override void SetDefaults()

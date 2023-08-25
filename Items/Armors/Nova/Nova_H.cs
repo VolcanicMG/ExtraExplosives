@@ -11,9 +11,9 @@ namespace ExtraExplosives.Items.Armors.Nova
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nova Bombard Helm");
-            Tooltip.SetDefault("\n" +
-                "10% Increased Bomb Damage and Blast Radius\n");
+            // DisplayName.SetDefault("Nova Bombard Helm");
+            /* Tooltip.SetDefault("\n" +
+                "10% Increased Bomb Damage and Blast Radius\n"); */
         }
 
         public override void SetDefaults()

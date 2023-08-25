@@ -10,7 +10,7 @@ namespace ExtraExplosives.Items.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomb Banner");
+            // DisplayName.SetDefault("Bomb Banner");
         }
 
         public override void SetDefaults()

@@ -10,9 +10,9 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Anarchist Cookbook");
-            Tooltip.SetDefault("Just owning it could get you arrested\n" +
-                               "Allows for modification of most accessories effects");
+            // DisplayName.SetDefault("Anarchist Cookbook");
+            /* Tooltip.SetDefault("Just owning it could get you arrested\n" +
+                               "Allows for modification of most accessories effects"); */
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

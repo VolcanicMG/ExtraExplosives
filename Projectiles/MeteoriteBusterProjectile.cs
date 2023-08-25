@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("MeteoriteBuster");
+            // DisplayName.SetDefault("MeteoriteBuster");
         }
 
         public override void SafeSetDefaults()

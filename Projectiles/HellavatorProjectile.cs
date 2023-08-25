@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellavator Projectile");
+            // DisplayName.SetDefault("Hellavator Projectile");
         }
 
         public override void SafeSetDefaults()

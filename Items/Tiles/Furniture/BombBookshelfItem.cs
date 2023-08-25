@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomb Bookcase");
+            // DisplayName.SetDefault("Bomb Bookcase");
         }
 
         public override void SetDefaults()

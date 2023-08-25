@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
         private int _multiplier = 1;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Infinity Bomb");
+            // DisplayName.SetDefault("Infinity Bomb");
         }
 
         public override void SafeSetDefaults()

@@ -38,10 +38,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             NPC.knockBackResist = 0f;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax += 100;
-            base.ScaleExpertStats(numPlayers, bossLifeScale);
+            base.ApplyDifficultyAndPlayerScaling(numPlayers, bossLifeScale);
         }
 
         public override void FindFrame(int frameHeight)

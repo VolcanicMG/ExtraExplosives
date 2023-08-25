@@ -25,7 +25,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Holy Hand Grenade");
+            // DisplayName.SetDefault("Holy Hand Grenade");
         }
 
         public override void SafeSetDefaults()
