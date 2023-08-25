@@ -34,7 +34,7 @@ namespace ExtraExplosives.Items
             /*if (!NPC.AnyNPCs(ModContent.NPCType<CaptainExplosiveBoss>()))
             {
                 NPC.NewNPC((int)player.position.X, (int)player.position.Y - 600, ModContent.NPCType<CaptainExplosiveBoss>()); //Spawn
-                SoundEngine.PlaySound(SoundID.ForceRoar, player.position, 0);
+                //SoundEngine.PlaySound(SoundID.ForceRoar, player.position, 0);
                 Item.stack--;
 
                 return true;

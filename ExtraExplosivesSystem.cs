@@ -1,104 +1,187 @@
-﻿using ExtraExplosives.Items;
-using ExtraExplosives.Items.Accessories;
-using ExtraExplosives.Items.Accessories.AnarchistCookbook;
-using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
-using ExtraExplosives.Items.Accessories.ChaosBomb;
-using ExtraExplosives.Items.Armors.Asteroid;
-using ExtraExplosives.Items.Armors.CorruptedAnarchy;
-using ExtraExplosives.Items.Armors.CrimsonAnarchy;
-using ExtraExplosives.Items.Armors.DungeonBombard;
-using ExtraExplosives.Items.Armors.Hazard;
-using ExtraExplosives.Items.Armors.HeavyAutomated;
-using ExtraExplosives.Items.Armors.Lizhard;
-using ExtraExplosives.Items.Armors.Meltbomber;
-using ExtraExplosives.Items.Armors.Nova;
-using ExtraExplosives.Items.Armors.SpaceDemolisher;
-using ExtraExplosives.Items.Armors.TunnelRat;
-using ExtraExplosives.Items.Explosives;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss;
-using ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles;
-using ExtraExplosives.Projectiles;
-using ExtraExplosives.Projectiles.Weapons.DutchmansBlaster;
-using ExtraExplosives.Projectiles.Weapons.NovaBuster;
-using ExtraExplosives.Projectiles.Weapons.TrashCannon;
-using ExtraExplosives.UI.AnarchistCookbookUI;
+using ExtraExplosives.Items.Rockets;
+using ExtraExplosives.Items.Weapons;
+using ExtraExplosives.Tiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
+using ExtraExplosives.Items.Accessories;
+using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
+using Microsoft.Xna.Framework.Audio;
 using Terraria;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
+using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
-using ExtraExplosives;
+using ItemID = Terraria.ID.ItemID;
+using TileID = Terraria.ID.TileID;
+using Terraria.WorldBuilding;
 
-namespace ExtraExplosives;
-// TODO i created a new file to extend modsystem since that was the easiest way to get it to work
-// IT is also undoubtedly the wrong way to do this and should be undone as soon as possible
-public class ExtraExplosivesSystem : ModSystem
+namespace ExtraExplosives
 {
-    //UI
-    internal UserInterface ExtraExplosivesUserInterface;
-    internal UserInterface ExtraExplosivesReforgeBombInterface;
-    internal UserInterface CEBossInterface;
-    internal UserInterface CEBossInterfaceNonOwner;
-
-    public override void Load()
+    public class ExtraExplosivesSystem : ModSystem // Here it is
     {
-        base.Load();
-        //UI stuff
-        ExtraExplosivesUserInterface = new UserInterface();
-        ExtraExplosivesReforgeBombInterface = new UserInterface();
-        CEBossInterface = new UserInterface();
-        CEBossInterfaceNonOwner = new UserInterface();
-    }
+        public static bool BossCheckDead;
 
-    public override void Unload()
-    {
-        base.Unload();
-        ExtraExplosivesUserInterface = null;
-    }
+        //UI
+        internal UserInterface ExtraExplosivesUserInterface;
+        internal UserInterface ExtraExplosivesReforgeBombInterface;
+        internal UserInterface CEBossInterface;
+        internal UserInterface CEBossInterfaceNonOwner;
 
-    public override void PostUpdateEverything()/* tModPorter Note: Removed. Use ModSystem.PostUpdateEverything */
-    {
-        /*if (boomBoxMusic)
+        public override void OnWorldLoad()
         {
-            boomBoxTimer++;
-            if (boomBoxTimer > (1200 + Main.rand.Next(600)))
-            {
-                boomBoxMusic = false;
-                boomBoxTimer = 0;
-            }
-        }*/
-
-        //Still needs work and most likely reworked(MP issues)
-        if (Main.LocalPlayer.dead)
-        {
-            if (NovaBooster.EngineSoundInstance != null && NovaBooster.EngineSoundInstance.State == SoundState.Playing)
-                NovaBooster.EngineSoundInstance.Stop();
-            if (NovaBooster.EndSoundInstance != null && NovaBooster.EndSoundInstance.State == SoundState.Playing)
-                NovaBooster.EndSoundInstance.Stop();
+            BossCheckDead = false;
+            base.OnWorldLoad();
         }
-    }
-    
-    public override void UpdateUI(GameTime gameTime)/* tModPorter Note: Removed. Use ModSystem.UpdateUI */
-    {
-        ExtraExplosivesUserInterface?.Update(gameTime);
-        CEBossInterface?.Update(gameTime);
-        CEBossInterfaceNonOwner?.Update(gameTime);
-        //ExtraExplosivesReforgeBombInterface?.Update(gameTime);
 
-        /* TODO buttonInterface?.Update(gameTime);
-        cookbookInterface?.Update(gameTime);*/
-    }
-    
-    public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)/* tModPorter Note: Removed. Use ModSystem.ModifyInterfaceLayers */
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        {
+            //tasks.Add(new PassLegacy("archivingValues", delegate(GenerationProgress progress)
+            //{
+            //    progress.Message = "Archiving Tile Locations";
+            //    originalWorldState = new int[Main.maxTilesX, Main.maxTilesY];
+            //    for(int i = 0; i < Main.maxTilesX; i++)
+            //    {
+            //        for (int j = 0; j < Main.maxTilesY; j++)
+            //        {
+            //            if (WorldGen.TileEmpty(i, j)) originalWorldState[i, j] = -1;
+            //            else originalWorldState[i, j] = Main.tile[i, j].type;
+            //            progress.Message = $"{i},{j} @ {i * j}";
+            //        }
+
+            //        progress.Set(i / Main.maxTilesX);
+            //    }
+            //}));
+        }
+
+        public override void ModifyHardmodeTasks(List<GenPass> list)
+        {
+            int goodIndex = list.FindIndex(genpass => genpass.Name.Equals("Hardmode Good"));
+            if (goodIndex != -1)
+            {
+                list.Add(new PassLegacy("Irradiating the Hallow",
+                    delegate { Main.NewText("The world is leaking radiation", Color.Chartreuse); }));
+            }
+        }
+
+        public override void PreUpdateWorld()
+        {
+            GenCrystals(); // once a tick, try to generate a crystal
+        }
+
+
+        private void GenCrystals()
+        {
+            if (Main.hardMode && Main.rand.Next(400) == 0) // 1 in 400 chance, TODO balance    
+            {
+                // Tries the location and if its air and touches pearlstone (type == 117) then it will spawn
+                int x = WorldGen.genRand.Next(10, Main.maxTilesX - 10);
+                int y = WorldGen.genRand.Next((int)WorldGen.worldSurfaceLow, Main.maxTilesY - 10);
+                if (Main.tile[x, y].TileType == TileID.DemonAltar)
+                    return; // Avoid breaking demon alters since this blesses the world with hm ores
+                if ((WorldGen.SolidTile(x - 1, y) && Main.tile[x - 1, y].TileType == 117) ||
+                    (WorldGen.SolidTile(x + 1, y) && Main.tile[x + 1, y].TileType == 117) ||
+                    (WorldGen.SolidTile(x, y - 1) && Main.tile[x, y - 1].TileType == 117) ||
+                    (WorldGen.SolidTile(x, y + 1) && Main.tile[x, y + 1].TileType == 117))
+                {
+                    WorldGen.PlaceTile(x, y, ModContent.TileType<GlowingCrystal>(), false, false, -1,
+                        Main.rand.Next(18)); // Random style between 0-17, rotation is done automatically
+                }
+            }
+        }
+
+        public override void PostWorldGen()
+        {
+            int[] itemsToPlaceInWaterChests = { ModContent.ItemType<CoralKrakSlinger>() };
+            int itemToPlaceInChestChoice = 0;
+            for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
+            {
+                Chest chest = Main.chest[chestIndex];
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers &&
+                    Main.tile[chest.x, chest.y].TileFrameX == 17 * 36 && Main.rand.NextFloat() < 0.2f)
+                {
+                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                    {
+                        if (chest.item[inventoryIndex].type == ItemID.None)
+                        {
+                            chest.item[inventoryIndex].SetDefaults(itemsToPlaceInWaterChests[itemToPlaceInChestChoice]);
+                            chest.item[inventoryIndex + 1].SetDefaults(ModContent.ItemType<Rocket0>());
+                            chest.item[inventoryIndex + 1].stack = 30;
+                            itemToPlaceInChestChoice =
+                                (itemToPlaceInChestChoice + 1) % itemsToPlaceInWaterChests.Length;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        public override void SaveWorldData(TagCompound tag)
+        {
+            //Boss
+            tag.Add(nameof(BossCheckDead), BossCheckDead);
+        }
+
+        public override void LoadWorldData(TagCompound tag)
+        {
+            //Boss tag loading
+            BossCheckDead = tag.GetBool(nameof(BossCheckDead));
+            base.LoadWorldData(tag);
+        }
+
+
+        public override void Load()
+        {
+            base.Load();
+            //UI stuff
+            ExtraExplosivesUserInterface = new UserInterface();
+            ExtraExplosivesReforgeBombInterface = new UserInterface();
+            CEBossInterface = new UserInterface();
+            CEBossInterfaceNonOwner = new UserInterface();
+        }
+
+        public override void Unload()
+        {
+            base.Unload();
+            ExtraExplosivesUserInterface = null;
+        }
+
+        public override void PostUpdateEverything() /* t-ModPorter Note: Removed. Use ModSystem.PostUpdateEverything */
+        {
+            /*if (boomBoxMusic)
+            {
+                boomBoxTimer++;
+                if (boomBoxTimer > (1200 + Main.rand.Next(600)))
+                {
+                    boomBoxMusic = false;
+                    boomBoxTimer = 0;
+                }
+            }*/
+
+            //Still needs work and most likely reworked(MP issues)
+            /*if (Main.LocalPlayer.dead)
+            {
+                if (NovaBooster.EngineSoundInstance != null &&
+                    NovaBooster.EngineSoundInstance.State == SoundState.Playing)
+                    NovaBooster.EngineSoundInstance.Stop();
+                if (NovaBooster.EndSoundInstance != null && NovaBooster.EndSoundInstance.State == SoundState.Playing)
+                    NovaBooster.EndSoundInstance.Stop();
+            }*/
+        }
+
+        public override void UpdateUI(GameTime gameTime)
+        {
+            ExtraExplosivesUserInterface?.Update(gameTime);
+            CEBossInterface?.Update(gameTime);
+            CEBossInterfaceNonOwner?.Update(gameTime);
+            //ExtraExplosivesReforgeBombInterface?.Update(gameTime);
+
+            //TODO buttonInterface?.Update(gameTime);
+            //cookbookInterface?.Update(gameTime);
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+            // TODO
         {
             int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
 
@@ -147,7 +230,7 @@ public class ExtraExplosivesSystem : ModSystem
                     InterfaceScaleType.UI)
                 );
                 layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
-                "ExtraExplosives: CookbookButton",
+                    "ExtraExplosives: CookbookButton",
                     delegate
                     {
                         /*if (Main.playerInventory)
@@ -177,16 +260,17 @@ public class ExtraExplosivesSystem : ModSystem
 
 
         }
-    
-    public override void AddRecipes()/* tModPorter Note: Removed. Use ModSystem.AddRecipes */
-    {
-        Recipe recipe = Recipe.Create(ItemID.AvengerEmblem);
-        recipe.AddIngredient(ModContent.ItemType<BombardierEmblem>(), 1);
-        recipe.AddIngredient(ItemID.SoulofMight, 5);
-        recipe.AddIngredient(ItemID.SoulofSight, 5);
-        recipe.AddIngredient(ItemID.SoulofFright, 5);
-        recipe.AddTile(TileID.TinkerersWorkbench);
-        recipe.Register();
-        base.AddRecipes();
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = Recipe.Create(ItemID.AvengerEmblem);
+            recipe.AddIngredient(ModContent.ItemType<BombardierEmblem>(), 1);
+            recipe.AddIngredient(ItemID.SoulofMight, 5);
+            recipe.AddIngredient(ItemID.SoulofSight, 5);
+            recipe.AddIngredient(ItemID.SoulofFright, 5);
+            recipe.AddTile(TileID.TinkerersWorkbench);
+            recipe.Register();
+            base.AddRecipes();
+        }
     }
 }

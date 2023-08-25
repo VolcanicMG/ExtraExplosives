@@ -1,0 +1,1189 @@
+
+Mods: {
+	ExtraExplosives: {
+		Buffs: {
+			BombBuddyBuff: {
+				DisplayName: Bomb Buddy
+				Description: It's a walking bomb!!
+			}
+
+			ExtraExplosivesDaBombBuff: {
+				DisplayName: You DA BOMB!
+				Description:
+					'''
+					You feel like you could explode
+					Defense Up
+					'''
+			}
+
+			ExtraExplosivesStunnedBuff: {
+				DisplayName: Stunned
+				Description: You can't move, attack, or place blocks
+			}
+
+			ExtraExplosivesSurstrommingBuff: {
+				DisplayName: Fuse-Eel Surstromming
+				Description: Explosive damage up!
+			}
+
+			RadiatedDebuff: {
+				DisplayName: Radiated
+				Description: Your flesh is deteriorating
+			}
+		}
+
+		Items: {
+			ExampleExplosiveItem.DisplayName: Example Explosive Item
+			ExampleExplosiveWeapon.DisplayName: Example Explosive Weapon
+
+			AnarchistCookbook: {
+				DisplayName: Anarchist Cookbook
+				Tooltip:
+					'''
+					Just owning it could get you arrested
+					Allows for modification of most accessories effects
+					'''
+			}
+
+			BlastShielding: {
+				DisplayName: Blast Shielding
+				Tooltip: Immunity to friendly explosives
+			}
+
+			BombBag: {
+				DisplayName: Bomb Bag
+				Tooltip:
+					'''
+					50% chance to throw a second explosive
+					Does not consume a second item
+					'''
+			}
+
+			CrossedWires: {
+				DisplayName: Crossed Wires
+				Tooltip:
+					'''
+					Increases explosive damage by 15%
+					Increases Explosive Critical chance by 10%
+					'''
+			}
+
+			GlowingCompound: {
+				DisplayName: Glowing Compound
+				Tooltip: Makes your bombs glow
+			}
+
+			HandyNotes: {
+				DisplayName: Handy Notes
+				Tooltip:
+					'''
+					Double the initial velocity of thrown explosives
+					Thrown explosives stick to walls
+					Functions identically to sticky bombs
+					'''
+			}
+
+			LightweightBombshells: {
+				DisplayName: Lightweight Bombshells
+				Tooltip: Doubles the initial velocity of thrown explosives
+			}
+
+			MysteryBomb: {
+				DisplayName: Mystery Bomb
+				Tooltip: 20% chance to not consume explosives
+			}
+
+			RandomFuel: {
+				DisplayName: Random Fuel
+				Tooltip: Makes explosives detonate twice
+			}
+
+			RandomNotes: {
+				DisplayName: Random Notes
+				Tooltip:
+					'''
+					Makes explosives detonate twice
+					Halves fuse length of explosives
+					'''
+			}
+
+			ReactivePlating: {
+				DisplayName: Reactive Plating
+				Tooltip:
+					'''
+					Increases explosive damage by 10%
+					Reduces damage taken by 10%
+					'''
+			}
+
+			ResourcefulNotes: {
+				DisplayName: Resourceful Notes
+				Tooltip:
+					'''
+					50% chance to throw a second explosives
+					Does not consume a second item
+					20% chance to not consume explosives
+					'''
+			}
+
+			SafetyNotes: {
+				DisplayName: Safety Notes
+				Tooltip:
+					'''
+					Prevents self damage from friendly explosives
+					Increased damage output by 10%
+					'''
+			}
+
+			ShortFuse: {
+				DisplayName: Short Fuse
+				Tooltip: Halves fuse length of explosives
+			}
+
+			StickyGunpowder: {
+				DisplayName: Sticky Gunpowder
+				Tooltip:
+					'''
+					Thrown explosives stick to walls
+					Functions identically to sticky bombs
+					'''
+			}
+
+			UtilityNotes: {
+				DisplayName: Utility Notes
+				Tooltip:
+					'''
+					10% Increase to Damage and Crit Chance
+					Explosives leave behind a glowing aura
+					'''
+			}
+
+			BombardierEmblem: {
+				DisplayName: Bombard Emblem
+				Tooltip:
+					'''
+					Disabled block damage from friendly explosives
+					15% increase to explosive damage
+					'''
+			}
+
+			BombardsLaurels: {
+				DisplayName: Bombard's Laurels
+				Tooltip: Increases Area of Effect of all Explosives by 80%
+			}
+
+			BombardsPouch: {
+				DisplayName: Bomber's Pouch
+				Tooltip: 30% chance to not consume explosives
+			}
+
+			BombCloak: {
+				DisplayName: Bomb Cloak
+				Tooltip: Explodes when you take damage
+			}
+
+			BombersCap: {
+				DisplayName: Bomber's Cap
+				Tooltip: Increases explosives area of effect by 30%
+			}
+
+			CertificateOfDemolition: {
+				DisplayName: Certificate of Demolition
+				Tooltip:
+					'''
+					'Certification that you are trained in the art of Demolition.'
+					50% Increased area of effect for explosives
+					'''
+			}
+
+			FleshyBlastingCaps: {
+				DisplayName: Fleshy Blasting Caps
+				Tooltip:
+					'''
+					'Why is it sticky'
+					Bombs gain a small amount of lifesteal
+					'''
+			}
+
+			RavenousBomb: {
+				DisplayName: Ravenous Bomb
+				Tooltip:
+					'''
+					'It looks hungry'
+					Gives explosions lifesteal
+					'''
+			}
+
+			BombHat.DisplayName: Bomb Hat
+
+			AlienExplosive: {
+				DisplayName: Alien Explosive
+				Tooltip: Bombs confuse enemies
+			}
+
+			Bombshroom: {
+				DisplayName: Bombshroom
+				Tooltip:
+					'''
+					'It's an explosive mushroom, what more could you want?'
+					Bombs inflict Venom
+					'''
+			}
+
+			ChaosBomb: {
+				DisplayName: Chaos Bomb
+				Tooltip:
+					'''
+					'This is either a grave mistake or the best idea ever.'
+					Bombs inflict Venom and Shadowflame, ignite enemies, and confuse enemies
+					'''
+			}
+
+			EclecticBomb: {
+				DisplayName: Eclectic Bomb
+				Tooltip:
+					'''
+					'Antiquity and modernity combined'
+					Bombs light enemies on fire & confuse them
+					'''
+			}
+
+			LihzahrdFuzeset: {
+				DisplayName: Lihzahrd Fuzeset
+				Tooltip:
+					'''
+					'Nothing in the temple is flammable...
+					but this sure is.'
+					Bombs light enemies on fire
+					'''
+			}
+
+			SupernaturalBomb: {
+				DisplayName: Supernatural Bomb
+				Tooltip:
+					'''
+					'It whispers to me.'
+					Bombs inflict Shadowflame
+					'''
+			}
+
+			WyrdBomb: {
+				DisplayName: Wyrd Bomb
+				Tooltip:
+					'''
+					'Truly a strange specimen'
+					Bombs inflict Venom & Shadowflame
+					'''
+			}
+
+			DynamiteHat.DisplayName: Dynamite Hat
+
+			AsteroidMiner_B: {
+				DisplayName: Mythril Asteroid Miner Body
+				Tooltip:
+					'''
+
+					3% Increased Bomb Damage and 6% Blast Radius
+					'''
+			}
+
+			AsteroidMiner_B_O: {
+				DisplayName: Orichalcum Asteroid Miner Body
+				Tooltip:
+					'''
+
+					5% Increased Bomb Damage and 6% Blast Radius
+					'''
+			}
+
+			AsteroidMiner_H: {
+				DisplayName: Mythril Asteroid Miner Helm
+				Tooltip:
+					'''
+
+					3% Increased Bomb Damage and 6% Blast Radius
+					'''
+			}
+
+			AsteroidMiner_H_O: {
+				DisplayName: Orichalcum Asteroid Miner Helm
+				Tooltip:
+					'''
+
+					5% Increased bomb Damage and 6% Blast Radius
+					'''
+			}
+
+			AsteroidMiner_L: {
+				DisplayName: Mythril Asteroid Miner Legs
+				Tooltip:
+					'''
+
+					3% Increased Bomb Damage and 6% Blast Radius
+					'''
+			}
+
+			AsteroidMiner_L_O: {
+				DisplayName: Orichalcum Asteroid Miner Legs
+				Tooltip:
+					'''
+
+					5% Increased Bomb Damage and 6% Blast Radius
+					'''
+			}
+
+			CorruptedAnarchy_B: {
+				DisplayName: Corrupted Anarchy Body
+				Tooltip: 2% Increased Bomb Damage
+			}
+
+			CorruptedAnarchy_H: {
+				DisplayName: Corrupted Anarchy Helm
+				Tooltip: 2% Increased Bomb Damage
+			}
+
+			CorruptedAnarchy_L: {
+				DisplayName: Corrupted Anarchy Legs
+				Tooltip: 2% Increased Bomb Damage
+			}
+
+			CrimsonAnarchy_B: {
+				DisplayName: Crimson Anarchy Body
+				Tooltip: 2% Increased Bomb Damage
+			}
+
+			CrimsonAnarchy_H: {
+				DisplayName: Crimson Anarchy Helm
+				Tooltip: 2% Increased Bomb Damage
+			}
+
+			CrimsonAnarchy_L: {
+				DisplayName: Crimson Anarchy Legs
+				Tooltip: 2% Increased Bomb Damage
+			}
+
+			DungeonBombard_B: {
+				DisplayName: Dungeon Bombard Body
+				Tooltip:
+					'''
+
+					3% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			DungeonBombard_H: {
+				DisplayName: Dungeon Bombard Helm
+				Tooltip:
+					'''
+
+					3% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			DungeonBombard_L: {
+				DisplayName: Dungeon Bombard Legs
+				Tooltip:
+					'''
+
+					3% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			Hazard_B: {
+				DisplayName: Adamantite Hazard Demolisher Body
+				Tooltip:
+					'''
+
+					6% Increased Bomb Damage and Blast Radius
+
+					'''
+			}
+
+			Hazard_B_T: {
+				DisplayName: Titanium Hazard Demolisher Body
+				Tooltip:
+					'''
+
+					7% Increased Bomb Damage and Blast Radius
+
+					'''
+			}
+
+			Hazard_H: {
+				DisplayName: Adamantite Hazard Demolisher Helm
+				Tooltip:
+					'''
+
+					6% Increased Bomb Damage and Blast Radius
+
+					'''
+			}
+
+			Hazard_H_T: {
+				DisplayName: Titanium Hazard Demolisher Helm
+				Tooltip:
+					'''
+
+					7% Increased Bomb Damage and Blast Radius
+
+					'''
+			}
+
+			Hazard_L: {
+				DisplayName: Adamantite Hazard Demolisher Legs
+				Tooltip:
+					'''
+
+					6% Increased Bomb Damage and Blast Radius
+					5% Increased Movement Speed
+					'''
+			}
+
+			Hazard_L_T: {
+				DisplayName: Titanium Hazard Demolisher Legs
+				Tooltip:
+					'''
+
+					7% Increased Bomb Damage and Blast Radius
+					6% Increased Movement Speed
+					'''
+			}
+
+			HeavyAutomated_B: {
+				DisplayName: Heavy Automated Bombard Body
+				Tooltip:
+					'''
+
+					7% Increased Bomb Damage and 8% Blast Radius
+
+					'''
+			}
+
+			HeavyAutomated_H: {
+				DisplayName: Heavy Automated Bombard Helm
+				Tooltip:
+					'''
+
+					7% Increased Bomb Damage and 8% Blast Radius
+
+					'''
+			}
+
+			HeavyAutomated_L: {
+				DisplayName: Heavy Automated Bombard Legs
+				Tooltip:
+					'''
+
+					7% Increased Bomb Damage and 8% Blast Radius
+					10% Increased Movement Speed
+					'''
+			}
+
+			Lizhard_B: {
+				DisplayName: Lizhard Bombard Body
+				Tooltip:
+					'''
+
+					8% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			Lizhard_H: {
+				DisplayName: Lizhard Bombard Helm
+				Tooltip:
+					'''
+
+					10% Increased Bomb Damage and 8% Blast Radius
+
+					'''
+			}
+
+			Lizhard_L: {
+				DisplayName: Lizhard Bombard Legs
+				Tooltip:
+					'''
+
+					8% Increased Bomb Damage and Blast Radius
+					5% Increased Movement Speed
+					'''
+			}
+
+			Meltbomber_B: {
+				DisplayName: Meltbomber Body
+				Tooltip:
+					'''
+
+					2.5% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			Meltbomber_H: {
+				DisplayName: Meltbomber Helm
+				Tooltip:
+					'''
+
+					2.5% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			Meltbomber_L: {
+				DisplayName: Meltbomber Legs
+				Tooltip:
+					'''
+
+					2.5% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			Nova_B: {
+				DisplayName: Nova Bombard Body
+				Tooltip:
+					'''
+
+					10% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			Nova_H: {
+				DisplayName: Nova Bombard Helm
+				Tooltip:
+					'''
+
+					10% Increased Bomb Damage and Blast Radius
+
+					'''
+			}
+
+			Nova_L: {
+				DisplayName: Nova Bombard Legs
+				Tooltip:
+					'''
+
+					10% Increased Bomb Damage and Blast Radius
+					15% Increased Movement Speed
+					'''
+			}
+
+			SpaceDemolisher_B: {
+				DisplayName: Palladium Space Demolisher Body
+				Tooltip:
+					'''
+
+					4% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			SpaceDemolisher_B_C: {
+				DisplayName: Cobalt Space Demolisher Body
+				Tooltip:
+					'''
+
+					3% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			SpaceDemolisher_H: {
+				DisplayName: Palladium Space Demolisher Helm
+				Tooltip:
+					'''
+
+					4% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			SpaceDemolisher_H_C: {
+				DisplayName: Cobalt Space Demolisher Helm
+				Tooltip:
+					'''
+
+					3% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			SpaceDemolisher_L: {
+				DisplayName: Palladium Space Demolisher Legs
+				Tooltip:
+					'''
+
+					4% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			SpaceDemolisher_L_C: {
+				DisplayName: Cobalt Space Demolisher Legs
+				Tooltip:
+					'''
+
+					3% Increased Bomb Damage and Blast Radius
+					'''
+			}
+
+			Tunnelrat_B: {
+				DisplayName: Tunnel-rat Body
+				Tooltip: 1% Increased Bomb Damage
+			}
+
+			Tunnelrat_H: {
+				DisplayName: Tunnel-rat Head
+				Tooltip: 1% Increased Bomb Damage
+			}
+
+			Tunnelrat_L: {
+				DisplayName: Tunnel-rat Legs
+				Tooltip: 1% Increased Bomb Damage
+			}
+
+			Bombforged_B.DisplayName: Bomb-forged Body
+			Bombforged_H.DisplayName: Bomb-forged Head
+			Bombforged_L.DisplayName: Bomb-forged Legs
+			Explonin_B.DisplayName: Explonin Body
+			Explonin_H.DisplayName: Explonin Head
+			Explonin_L.DisplayName: Explonin Legs
+			TNTSUIT_B.DisplayName: TNT Suit Body
+			TNTSUIT_H.DisplayName: TNT Suit Head
+			TNTSUIT_L.DisplayName: TNT Suit Legs
+
+			CaptainExplosiveTreasureBag: {
+				DisplayName: Captain Explosive Treasure Bag
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			DebugBombItem: {
+				DisplayName: Debug Explosive
+				Tooltip:
+					'''
+					It could do nothing or destroy the world
+					Just depends on what im testing
+					'''
+			}
+
+			DevItem: {
+				DisplayName: Dev Item
+				Tooltip: "'For testing purposes'"
+			}
+
+			ArenaBuilderItem: {
+				DisplayName: Arena Builder
+				Tooltip: Explodes into a 240 x 120 arena equipped with only the finest of platforms and lights.
+			}
+
+			AtomBombItem: {
+				DisplayName: Atom Bomb
+				Tooltip:
+					'''
+					'What power...'
+					Breaks one block
+					[c/AB40FF:Can destroy anything... aside from the immortal chest...]
+					'''
+			}
+
+			BasicExplosiveItem: {
+				DisplayName: Basic Explosive
+				Tooltip: The most basic explosive
+			}
+
+			BigBouncyDynamiteItem: {
+				DisplayName: Big Bouncy Dynamite
+				Tooltip: Spawns in multiple bouncy dynamite.
+			}
+
+			BiomeCleanerItem: {
+				DisplayName: Biome Cleaner
+				Tooltip: Cleans all evil blocks in a very large area
+			}
+
+			BoomBoxItem: {
+				DisplayName: Boom Box
+				Tooltip: Plays booming music
+			}
+
+			BreakenTheBankenItem: {
+				DisplayName: Breaken The Banken
+				Tooltip: "'Need gold?'"
+			}
+
+			BulletBoomEmptyItem: {
+				DisplayName: Empty Shell
+				Tooltip: "'Let's try putting bullets in it!'"
+			}
+
+			BulletBoomItem: {
+				DisplayName: Base Item
+				Tooltip:
+					'''
+					'Who said a gun is the only thing that can shoot a bullet?' 
+					Blows up upon touching a block.
+					'''
+			}
+
+			BunnyiteItem: {
+				DisplayName: Bunnyite
+				Tooltip: Spawns in bunnies
+			}
+
+			C4Item: {
+				DisplayName: C4
+				Tooltip:
+					'''
+					Make sure to set the explosion button in the settings.
+					[c/AB40FF:Can destroy dungeon bricks and desert fossils]
+					'''
+			}
+
+			CleanBombItem: {
+				DisplayName: CleanBomb
+				Tooltip: Removes most debuffs (and buffs) upon explosion
+			}
+
+			ClusterBombItem: {
+				DisplayName: Cluster Bomb
+				Tooltip: Spawns in multiple bombs
+			}
+
+			CritterBombItem: {
+				DisplayName: Critter Bomb
+				Tooltip: Spawns in golden critters
+			}
+
+			DaBombItem: {
+				DisplayName: Da Bomb
+				Tooltip: "'You are the bomb'"
+			}
+
+			DeliquidifierItem: {
+				DisplayName: Deliquidifier
+				Tooltip: Removes water, lava, and honey
+			}
+
+			DynaglowmiteItem: {
+				DisplayName: Dynaglowmite
+				Tooltip: "'Spawns in a bunch of glow sticks. Great for spelunking!'"
+			}
+
+			FlashbangItem: {
+				DisplayName: Flashbang
+				Tooltip:
+					'''
+					'Don't look at it!!'
+					Stuns enemies and confuses them
+					'''
+			}
+
+			GiganticExplosiveItem: {
+				DisplayName: Gigantic Explosive
+				Tooltip: "[c/AB40FF:Can destroy dungeon bricks and desert fossils]"
+			}
+
+			HealBomb: {
+				DisplayName: Heal Bomb
+				Tooltip: Heals for 25 HP per hit
+			}
+
+			HeavyBombItem: {
+				DisplayName: Heavy Bomb
+				Tooltip: "'This bomb is heavy. How can you even hold it???'"
+			}
+
+			HellavatorItem: {
+				DisplayName: Hellavator
+				Tooltip:
+					'''
+					Tunnels down from your current position to the bottom of the world.
+					[c/AB40FF:Can destroy desert fossils]
+					'''
+			}
+
+			HolyHandGrenadeItem: {
+				DisplayName: Holy Hand Grenade
+				Tooltip:
+					'''
+					'Consult the book of armaments, verses 9-21'
+					Does 2x the damage to bosses
+					'''
+			}
+
+			HouseBombItem: {
+				DisplayName: HouseBomb
+				Tooltip: Creates a small NPC house
+			}
+
+			HydromiteItem: {
+				DisplayName: Hydromite
+				Tooltip: Spawns in water
+			}
+
+			InfinityBombItem: {
+				DisplayName: Infinity Bomb
+				Tooltip:
+					'''
+					'No wait it gets better'
+					Right Click to disable its growth
+					'''
+			}
+
+			LandBridgeItem: {
+				DisplayName: The Land Bridge
+				Tooltip: Explodes into a long bridge across the world
+			}
+
+			LargeExplosiveItem.DisplayName: Large Explosive
+
+			LavamiteItem: {
+				DisplayName: Lavamite
+				Tooltip: Spawns in lava
+			}
+
+			MagicBombItem: {
+				DisplayName: Magic Bomb
+				Tooltip:
+					'''
+					It can be imbued with mana
+					Right Click to increase its power
+					'''
+			}
+
+			MediumExplosiveItem.DisplayName: Medium Explosive
+
+			MegaExplosiveItem: {
+				DisplayName: Mega Explosive
+				Tooltip: "[c/AB40FF:Can destroy desert fossils]"
+			}
+
+			MeteoriteBusterItem: {
+				DisplayName: Meteorite Buster
+				Tooltip: Only targets meteorite
+			}
+
+			PhaseBombItem: {
+				DisplayName: PhaseBomb
+				Tooltip:
+					'''
+					Goes through the ground 
+					Hold left click to phase. Upon release, the bomb will blow up
+					'''
+			}
+
+			RainboomItem: {
+				DisplayName: Rainboom
+				Tooltip: "'Such a pretty promise'"
+			}
+
+			ReforgeBombItem: {
+				DisplayName: Reforge Bomb
+				Tooltip:
+					'''
+					Reforge up to 3 items! 
+					Change/Set the hotkey within the settings. Default p
+					'''
+			}
+
+			SmallExplosiveItem.DisplayName: Small Explosive
+
+			TheLevelerItem: {
+				DisplayName: The Leveler
+				Tooltip:
+					'''
+					Levels a 100 x 20 space. Blows up immediately
+					[c/AB40FF:Can desert fossils]
+					'''
+			}
+
+			TorchBombItem: {
+				DisplayName: Torch Bomb
+				Tooltip:
+					'''
+					Spawns in a bunch of torches. 
+					Make sure you have walls to attach too!
+					'''
+			}
+
+			TornadoBombItem: {
+				DisplayName: Tornado Bomb
+				Tooltip: Spawns in a tornado that sucks up players, enemies, and items
+			}
+
+			TrollBombItem: {
+				DisplayName: Troll Bomb
+				Tooltip: "'For your best friend!'"
+			}
+
+			WallBombItem: {
+				DisplayName: Wall Bomb
+				Tooltip: Destroys walls in a 30 tile radius. Blows up immediately
+			}
+
+			GlowingCrystalItem.DisplayName: Glowing Crystal
+			FuseEelItem.DisplayName: Fuse Eel
+
+			FuseEelSurstrommingItem: {
+				DisplayName: Fuse Eel Surströmming
+				Tooltip: Is it edible?
+			}
+
+			NukeItem: {
+				DisplayName: First Strike Controller
+				Tooltip:
+					'''
+					'OK, buddy, now you've gone too far...'
+					First strike capabilites
+					Summons a nuke
+					[c/AB40FF:Can destroy dungeon bricks, desert fossil, and lihzahrd temple blocks]
+					'''
+			}
+
+			BombBuddyItem: {
+				DisplayName: Cherry Bomb
+				Tooltip: Summons a pet bomb
+			}
+
+			PotatoItem.DisplayName: Potato
+
+			Rocket0: {
+				DisplayName: Rocket 0
+				Tooltip: "'Mildly explosive'"
+			}
+
+			Rocket0Point5: {
+				DisplayName: Rocket 0.5
+				Tooltip: "'Half a rocket?'"
+			}
+
+			SpongeItem: {
+				DisplayName: Sponge
+				Tooltip: Not very absorbent on its own...
+			}
+
+			BombBannerItem.DisplayName: Bomb Banner
+			BombBookshelfItem.DisplayName: Bomb Bookcase
+			BombCandleItem.DisplayName: Bomb Candle
+			BombChairItem.DisplayName: Bomb Chair
+			BombChestItem.DisplayName: Bomb Chest
+			BombClockItem.DisplayName: Dynamite Clock
+			BombDresserItem.DisplayName: Bomb Dresser
+			BombFireplaceItem.DisplayName: Bomb Fireplace
+			BombStatueItem.DisplayName: Captain Explosive Statue
+			BombTableItem.DisplayName: Bomb Table
+			CptExplosivePortraitItem.DisplayName: Captain Explosive Portrait
+			NukePosterItem.DisplayName: Nuke the Corruption Poster
+
+			Unhinged_Letter: {
+				DisplayName: Unhinged Letter
+				Tooltip: Used to summon chaos
+			}
+
+			AirStrike: {
+				DisplayName: Air Strike
+				Tooltip: Send them down!
+			}
+
+			Blunderboom: {
+				DisplayName: Blunderboom
+				Tooltip: Lead and explosions go well together
+			}
+
+			BoomerangItem: {
+				DisplayName: BOOMerang
+				Tooltip:
+					'''
+					It's coming back!!
+					[c/FF0000:Has a 1/5 chance of damaging you if you don't hit an enemy]
+					'''
+			}
+
+			CoralKrakSlinger: {
+				DisplayName: Coral Krak-Slinger
+				Tooltip: "'Improvised, but deadly'"
+			}
+
+			DeepseaEruption: {
+				DisplayName: Deepsea Eruption
+				Tooltip: Wet, yet powerful
+			}
+
+			DutchmansBlaster: {
+				DisplayName: Dutchman's Blaster
+				Tooltip:
+					'''
+					'This belongs on a ship.
+					Sadly, pirates care little for rules.'
+					'''
+			}
+
+			HellfireBattery: {
+				DisplayName: Hellfire Battery
+				Tooltip:
+					'''
+					'The rocket minigun's older bigger brother'
+					Right click to swap between 3 different modes
+					'''
+			}
+
+			MinerainLauncher: {
+				DisplayName: Minerain-Launcher
+				Tooltip: "'Today's Forcast; Cloudy with a chance of death from above'"
+			}
+
+			NovaBuster: {
+				DisplayName: Nova Buster
+				Tooltip: 20% Chance to double blast Damage
+			}
+
+			PrismBomb: {
+				DisplayName: Prism Bomb
+				Tooltip: Explodes into a rainbow prism that damages enemies
+			}
+
+			PumpkinLauncher: {
+				DisplayName: Bombkin 2000
+				Tooltip:
+					'''
+					These pumpkins are NOT safe around open flames
+					Launches three rockets in quick succession
+					Consumes one rocket per burst
+					'''
+			}
+
+			RocketMinigun: {
+				DisplayName: Rocket Minigun
+				Tooltip: Uses up a lot of rockets
+			}
+
+			TacticalBonerifle: {
+				DisplayName: Tactical Bonerifle
+				Tooltip: Doot. Doot. Shoot.
+			}
+
+			TrashCannon: {
+				DisplayName: Trash Cannon
+				Tooltip: "'One man's trash is another's lethal projectile'"
+			}
+
+			TwinDetonator: {
+				DisplayName: Twin Detonator
+				Tooltip:
+					'''
+					'Double the trouble.'
+					Launches a pair of grenades
+					Consumes one rocket per volley
+					'''
+			}
+		}
+
+		Projectiles: {
+			ExampleExplosiveProjectile.DisplayName: Example Explosive Projectile
+			BossArmorBreakBombProjectile.DisplayName: Armor-break Bomb
+			BossCarpetBomb.DisplayName: Rocket
+			BossChillBombProjectile.DisplayName: Chill Bomb
+			BossDazedBombProjectile.DisplayName: Dazed Bomb
+			BossFireBombProjectile.DisplayName: Fire Bomb
+			BossGooBombProjectile.DisplayName: Goo Bomb
+			BombBuddy.DisplayName: Bomb Buddy
+			BombBuddyDetector.DisplayName: Bomb Buddy Follow
+			ArenaBuilderProjectile.DisplayName: ArenaBuilder
+			AtomBombProjectile.DisplayName: Atom Bomb
+			BasicExplosiveProjectile.DisplayName: BasicExplosive
+			BigBouncyDynamiteProjectile.DisplayName: BigBouncyDynamite
+			BiomeCleanerProjectile.DisplayName: Biome Cleaner Projectile
+			BombCloakProjectile.DisplayName: MediumExplosive
+			BoomBoxProjectile.DisplayName: Boom Box
+			BoomerangProjectile.DisplayName: BOOMerang
+			BreakenTheBankenChildProjectile.DisplayName: BreakenTheBankenChild
+			BreakenTheBankenProjectile.DisplayName: BreakenTheBanken
+			BulletBoomProjectile.DisplayName: Bullet Boom
+			BunnyiteProjectile.DisplayName: Bunnyite
+			C4Projectile.DisplayName: C4
+			CleanBombExplosionProjectile.DisplayName: CleanBombExplosionProjectile
+			CleanBombProjectile.DisplayName: CleanBomb
+			ClusterBombChildProjectile.DisplayName: ClusterBomb
+			ClusterBombProjectile.DisplayName: ClusterBomb
+			CritterBombProjectile.DisplayName: CritterBomb
+			DaBombProjectile.DisplayName: DaBomb
+			DebugBombProjectile.DisplayName: DebugBombProjectile
+			DeliquidifierProjectile.DisplayName: Deliquidifier
+			DynaglowmiteProjectile.DisplayName: Dynaglowmite
+			ExplosionDamageProjectile.DisplayName: ExplosionDamage
+			ExplosionDamageProjectileEnemy.DisplayName: ExplosionDamage
+			ExtraExplosives_ProjectileTemplate.DisplayName: ExtraExplosives_ProjectileTemplate
+			FlashbangProjectile.DisplayName: Flashbang
+			FollowRocketProjectile.DisplayName: Follow Rocket
+			GiganticExplosiveProjectile.DisplayName: GiganticExplosive
+			HealBombProjectile.DisplayName: Heal Bomb
+			HeavyBombProjectile.DisplayName: HeavyBomb
+			HellavatorProjectile.DisplayName: Hellavator Projectile
+			HolyHandGrenadeProjectile.DisplayName: Holy Hand Grenade
+			HomingRocketProjectile.DisplayName: Follow Rocket
+			HotPotatoProjectile.DisplayName: Hot Potato
+			HouseBombProjectile.DisplayName: HouseBomb
+			HydromiteProjectile.DisplayName: Hydromite
+			InfinityBombProjectile.DisplayName: Infinity Bomb
+			InstaBoxProjectile.DisplayName: InstaBoxProjectile
+			InvisFlashbangProjectile.DisplayName: InvisFlashbangProjectile
+			LandBridgeProjectile.DisplayName: LandBridge
+			LargeExplosiveProjectile.DisplayName: LargeExplosive
+			LavamiteProjectile.DisplayName: Lavamite
+			MagicBombProjectile.DisplayName: Magic Bomb
+			MediumExplosiveProjectile.DisplayName: MediumExplosive
+			MegaExplosiveProjectile.DisplayName: MegaExplosive
+			MeteoriteBusterProjectile.DisplayName: MeteoriteBuster
+			MushroomProjectile.DisplayName: MushroomProjectile
+			NovaBoosterProjectile.DisplayName: LargeExplosive
+			NPCProjectile.DisplayName: NPCProjectile
+			NukeProjectile.DisplayName: NukeExplosive
+			NukeProjectilePhase2.DisplayName: Plane
+			PhaseBombProjectile.DisplayName: PhaseBomb
+			PrismBomb.DisplayName: Prism Bomb
+			PrismBombPrism.DisplayName: Prism Bomb Prism
+			PrismExplosion.DisplayName: Prism Explosion
+			PrismLaser.DisplayName: Prism Laser
+			RainboomProjectile.DisplayName: Rainboom
+			ReforgeBombProjectile.DisplayName: ReforgeBomb
+			Rocket0Point5Projectile.DisplayName: Rocket 0.5
+			Rocket0Projectile.DisplayName: Rocket 0
+			SmallExplosiveProjectile.DisplayName: SmallExplosive
+			Spike_Anarchy.DisplayName: Spike_Anarchy
+			SunRocket.DisplayName: Sun Rocket
+			TestingExplosive.DisplayName: Testing Explosive
+			TheLevelerProjectile.DisplayName: The Leveler
+			TorchBombProjectile.DisplayName: Torch Bomb
+			TornadoBombProjectile.DisplayName: Tornado
+			TornadoBombProjectileTornado.DisplayName: Tornado
+			TrollBombProjectile.DisplayName: TrollBomb
+			WallBombProjectile.DisplayName: The Leveler
+			DutchmansBlasterProjectile.DisplayName: Cannon Ball
+			MineFlailProjectile.DisplayName: Mine Flail
+			NovaBusterProjectile.DisplayName: NovaBuster
+			SnipesploderProjectile.DisplayName: Snipesploder
+			TrashCannonProjectile.DisplayName: Garbage
+		}
+
+		NPCs: {
+			CaptainExplosive.DisplayName: Captain Of Explosives
+			BossDynamiteNPC.DisplayName: Boss Dynamite N P C
+			BossRocket.DisplayName: Boss Rocket
+			CaptainExplosiveBoss.DisplayName: Captain Explosive
+			CaptainExplosiveBossAt0.DisplayName: Captain Explosive
+			CEDroneNPC.DisplayName: C E Drone N P C
+		}
+
+		Tiles: {
+			BombChestTile: {
+				ContainerName: Bomb Chest
+				MapEntry: Bomb Chest
+			}
+
+			BombDresserTile: {
+				ContainerName: Bomb Dresser
+				MapEntry: Bomb Dresser
+			}
+
+			BombBannerTile.MapEntry: Banner
+			BombBookshelfTile.MapEntry: Bomb Bookcase
+			BombChairTile.MapEntry: Bomb Chair
+			BombChestTile_Locked.MapEntry: Locked Bomb Chest
+			BombClockTile.MapEntry: Mods.ExtraExplosives.MapObject.BombClockTile
+			BombStatueTile.MapEntry: Bomb Statue
+			BombTableTile.MapEntry: Bomb Chair
+			NukePosterTile.MapEntry: Bomb Chair
+		}
+	}
+}

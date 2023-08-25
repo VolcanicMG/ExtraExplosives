@@ -60,7 +60,7 @@ namespace ExtraExplosives.Projectiles
                 Projectile.velocity.Y = -0.8f * old.Y;
                 if (Projectile.velocity.Y > 10) Projectile.velocity.Y = 10;
                 //Create Bomb Sound
-                SoundEngine.PlaySound(SoundID.Item37, Projectile.Center);
+                //SoundEngine.PlaySound(SoundID.Item37, Projectile.Center);
 
                 //Create Bomb Damage
                 ExplosionDamage();
@@ -113,7 +113,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
 
             radius = 20;

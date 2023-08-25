@@ -35,7 +35,7 @@ namespace ExtraExplosives.Projectiles.Testing
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Dust
             DustEffects();

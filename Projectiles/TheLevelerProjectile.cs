@@ -10,7 +10,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class TheLevelerProjectile : ExplosiveProjectile
     {
-        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/The_Leveler_";
+        protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/The_Leveler_";
         protected override string goreFileLoc => "Gores/Explosives/the-leveler_gore";
         //private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
         //private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
@@ -59,7 +59,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], new Vector2(Projectile.Center.X, Projectile.Center.Y));
+            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], new Vector2(Projectile.Center.X, Projectile.Center.Y));
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 

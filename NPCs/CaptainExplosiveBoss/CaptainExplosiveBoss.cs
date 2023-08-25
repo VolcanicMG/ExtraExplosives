@@ -483,7 +483,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 Dust.NewDust(NPC.position, NPC.width, NPC.height, 31, hitDirection, -1f, 0, new Color(255, 255, 255), 2.5f);
             }
 
-            SoundEngine.PlaySound(SoundID.NPCHit4, NPC.position);
+            //SoundEngine.PlaySound(SoundID.NPCHit4);
         }
 
 
@@ -501,8 +501,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             int spawnCase = Main.rand.Next(3);  // gets the side the drone will spawn from
             Vector2 spawnCord = new Vector2(NPC.position.X + (spawnCase * 100), NPC.position.Y + (spawnCase == 1 ? 60 : 0) + 180);  // calculates the cords of the spawn loc
             //int drone = NPC.NewNPC((int)spawnCord.X, (int)spawnCord.Y, NPCType<CEDroneNPC>(), 0, spawnCase, 0, 0, 0, this.NPC.type);    // spawns the drone at those cords
-            //SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/DronePlop")); //sound
-            SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/DronePlop"));
+            ////SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/DronePlop")); //sound
+            //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/DronePlop"));
                                                                                                                                 //Dust.NewDust(spawnCord, 8, 8, Main.rand.Next(250)); // spawns dust
             /*Main.npc[drone].netUpdate = true;
             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, drone);*/

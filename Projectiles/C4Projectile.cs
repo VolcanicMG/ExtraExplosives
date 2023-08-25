@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles
     public class C4Projectile : ExplosiveProjectile
     {
         //Variables
-        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/C4_";
+        protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/C4_";
         protected override string goreFileLoc => "Gores/Explosives/c4_gore";
         private enum C4State
         {
@@ -48,12 +48,12 @@ namespace ExtraExplosives.Projectiles
             Projectile.timeLeft = Int32.MaxValue;
             //projectile.extraUpdates = 1;
             //Terraria.ModLoader.SoundType customType = Terraria.ModLoader.SoundType.Custom;
-            indicatorSound = new SoundStyle(explodeSoundsLoc + "timer");
+            /*indicatorSound = new SoundStyle(explodeSoundsLoc + "timer");
             primedSound = new SoundStyle(explodeSoundsLoc + "time_to_explode");
             if (!Main.dedServ && indicatorSound != null || primedSound != null) //Checking for nulls might fix the error
             {
                 /* TODO not working indicatorSound = indicatorSound.WithPitchVariance(0f).WithVolume(0.5f);
-                primedSound = primedSound.WithPitchVariance(0f).WithVolume(0.5f);*/
+                primedSound = primedSound.WithPitchVariance(0f).WithVolume(0.5f);#1#
             }
             else if (indicatorSound != null || primedSound != null)
             {
@@ -64,7 +64,7 @@ namespace ExtraExplosives.Projectiles
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
                 explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + "Bomb_" + num);
-            }
+            }*/
         }
 
         public override bool OnTileCollide(Vector2 old)
@@ -85,7 +85,7 @@ namespace ExtraExplosives.Projectiles
             return false;
         }
 
-        public override void PostAI()
+        /*public override void PostAI()
         {
             switch (projState)
             {
@@ -99,14 +99,14 @@ namespace ExtraExplosives.Projectiles
                     Projectile.position = positionToFreeze;
                     Projectile.velocity = Vector2.Zero;
                     if (indicatorSoundInstance == null)
-                        /*indicatorSoundInstance = */SoundEngine.PlaySound(indicatorSound);
+                        /*indicatorSoundInstance = #1#//SoundEngine.PlaySound(indicatorSound);
                     else if (indicatorSoundInstance.State != SoundState.Playing)    // else if needed to avoid a NullReferenceException
                         indicatorSoundInstance.Play();
                     if (c4Owner != null && c4Owner.detonate)
                     {
                         projState = C4State.Primed;
                         Projectile.ai[1] = 55;
-                        SoundEngine.PlaySound(primedSound);
+                        //SoundEngine.PlaySound(primedSound);
                     }
                     break;
                 case C4State.Primed:
@@ -120,12 +120,12 @@ namespace ExtraExplosives.Projectiles
                     Projectile.Kill();
                     break;
             }
-        }
+        }*/
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create Bomb Dust
             DustEffects();

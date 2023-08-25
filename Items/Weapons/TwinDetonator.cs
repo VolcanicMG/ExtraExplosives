@@ -15,7 +15,7 @@ namespace ExtraExplosives.Items.Weapons
                                "Consumes one rocket per volley");
         }
 
-        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/TwinDetonator/TwinDetonator";
+        protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/TwinDetonator/TwinDetonator";
 
         public override void SafeSetDefaults()
         {
@@ -63,7 +63,7 @@ namespace ExtraExplosives.Items.Weapons
 
         /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+            //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                 (int)player.position.X, (int)player.position.Y);
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;

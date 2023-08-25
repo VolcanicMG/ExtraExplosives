@@ -12,7 +12,7 @@ namespace ExtraExplosives.Projectiles
     {
         //Mod CalamityMod = ModLoader.GetMod("CalamityMod");
         //Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
-        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Reforge_Bomb_";
+        protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Reforge_Bomb_";
         protected override string goreFileLoc => "n/a";
         internal static bool CanBreakWalls;
 
@@ -59,7 +59,7 @@ namespace ExtraExplosives.Projectiles
             }
             //Item.NewItem(position, new Vector2(20, 20), ItemID.GoldAxe, 1, false, -2);
 
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], new Vector2(position.X, position.Y));
+            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], new Vector2(position.X, position.Y));
 
             for (int i = 0; i < 100; i++) //spawn dust
             {

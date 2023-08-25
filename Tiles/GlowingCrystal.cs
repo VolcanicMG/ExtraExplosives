@@ -11,7 +11,7 @@ namespace ExtraExplosives.Tiles
 {
     public class GlowingCrystal : ModTile        // Tile counterpart to GlowingCompound
     {
-        private string dustString = "GreenCrystalDust";
+        // TODO private string dustString = "GreenCrystalDust";
 
         public override void SetStaticDefaults()
         {
@@ -19,7 +19,7 @@ namespace ExtraExplosives.Tiles
             Main.tileNoAttach[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoFail[Type] = true;
-            DustType = Mod.Find<ModDust>(dustString).Type;
+            //DustType = Mod.Find<ModDust>(dustString).Type;
             ItemDrop = ModContent.ItemType<GlowingCompound>();
             AddMapEntry(new Color(148, 134, 48));
 

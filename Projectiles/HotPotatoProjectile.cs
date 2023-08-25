@@ -125,7 +125,7 @@ namespace ExtraExplosives.Projectiles
             }
 
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Since these values change as the timer ticks down, they need to be set immedietly before an explosion
             // To ensure they are accurate

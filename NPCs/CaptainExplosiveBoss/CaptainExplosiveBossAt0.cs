@@ -69,7 +69,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             NPC.buffImmune[24] = true;
             //Music = Mod.GetSoundSlot(SoundType.Music, "Sounds/Music/CaptainExplosiveMusic");
 
-            //bossBag/* tModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = ItemType<CaptainExplosiveTreasureBag>();
+            //bossBag/* t- ModPorter Note: Removed. Spawn the treasure bag alongside other loot via npcLoot.Add(ItemDropRule.BossBag(type)) */ = ItemType<CaptainExplosiveTreasureBag>();
             NPC.immortal = true;
 
             DrawOffsetY = 50f;
@@ -203,9 +203,9 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             {
 
                 //NPCLoot();
-                ExtraExplosivesWorld.BossCheckDead = true;
-                //SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/CaptainExplosion")); //sound
-                SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/CaptainExplosion"));
+                ExtraExplosivesSystem.BossCheckDead = true;
+                ////SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/CaptainExplosion")); //sound
+                //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/CaptainExplosion"));
 
                 NPC.immortal = false;
                 NPC.netUpdate = true;

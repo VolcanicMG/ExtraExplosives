@@ -12,7 +12,7 @@ namespace ExtraExplosives.Items.Weapons
     {
         private int swapCooldown = 0;
 
-        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/TacticalBonerifle/TacticalBonerifle";
+        protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/TacticalBonerifle/TacticalBonerifle";
 
         public override void SetStaticDefaults()
         {
@@ -91,12 +91,12 @@ namespace ExtraExplosives.Items.Weapons
             switch (Item.useAmmo)
             {
                 case 97:    // Bullet
-                    SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                    //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                         (int)player.position.X, (int)player.position.Y);
                     Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI);
                     break;
                 case 771:    // Rocket
-                    SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
+                    //SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
                         (int)player.position.X, (int)player.position.Y);
                     Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.Grenade, damage, knockBack, player.whoAmI);
                     break;
@@ -134,7 +134,7 @@ namespace ExtraExplosives.Items.Weapons
                 Item.damage = 40;
                 Item.knockBack = 7;
                 //Main.NewText("Bone Launcher");
-                //SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                ////SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
             else
             {
@@ -146,7 +146,7 @@ namespace ExtraExplosives.Items.Weapons
                 Item.damage = 35;
                 Item.knockBack = 3.5f;
                 // Main.NewText("Bone Rifle");
-                //SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                ////SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
 
             return false;

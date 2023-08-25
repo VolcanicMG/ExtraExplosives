@@ -37,7 +37,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Damage
             //ExplosionDamage(1, projectile.Center, 5000, 1.0f, projectile.owner);

@@ -21,11 +21,12 @@ namespace ExtraExplosives.NPCs
         public static bool CaptianIsDed = true;
 
         private const int PickPower = 50;
+        
 
-        /*public override bool IsLoadingEnabled(Mod mod)/* tModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead #1#
+        /* TODO public override bool IsLoadingEnabled(Mod mod)/* t-ModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead #1#
         {
             name = "CaptainExplosive";
-            return Mod.Properties/* tModPorter Note: Removed. Instead, assign the properties directly (ContentAutoloadingEnabled, GoreAutoloadingEnabled, MusicAutoloadingEnabled, and BackgroundAutoloadingEnabled) #1#.Autoload;
+            return Mod.Properties/* t-ModPorter Note: Removed. Instead, assign the properties directly (ContentAutoloadingEnabled, GoreAutoloadingEnabled, MusicAutoloadingEnabled, and BackgroundAutoloadingEnabled) #1#.Autoload;
         }*/
 
         public override void SetStaticDefaults()
@@ -60,7 +61,7 @@ namespace ExtraExplosives.NPCs
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money) //Whether or not the conditions have been met for npc town NPC to be able to move into town.
         {
-            if (ExtraExplosivesWorld.BossCheckDead) return true;
+            if (ExtraExplosivesSystem.BossCheckDead) return true;
             return false;
 
         }
@@ -90,25 +91,10 @@ namespace ExtraExplosives.NPCs
             return base.CheckActive();
         }
 
-        public override List<string> SetNPCNameList()/* tModPorter Suggestion: Return a list of names */     //Allows you to give npc town NPC any name when it spawns
+        // TODO Check
+        public override List<string> SetNPCNameList()//Allows you to give npc town NPC any name when it spawns
         {
-            return new List<string>() { "Alfred" };
-            /*switch (WorldGen.genRand.Next(5))
-            {
-                case 0:
-                    return "Alfred";
-                case 1:
-                    return "Choe";
-                case 2:
-                    return "Robert";
-                case 3:
-                    return "Phineas";
-                case 4:
-                    return "Tarvish";
-
-                default:
-                    return "Unknown";
-            }*/
+            return new List<string>() { "Alfred", "Choe", "Robert", "Phineas", "Tarvish", "Unknown" };
         }
 
         public override bool CheckDead()
@@ -116,7 +102,7 @@ namespace ExtraExplosives.NPCs
             CaptianIsDed = true;
 
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
             //Create Bomb Dust
             CreateDust(NPC.Center, 100);

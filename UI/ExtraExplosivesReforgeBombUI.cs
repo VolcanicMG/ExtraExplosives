@@ -277,7 +277,7 @@ namespace ExtraExplosives.UI
                         _vanillaItemSlot.Item.stack = stack;
                         ItemLoader.PostReforge(_vanillaItemSlot.Item);
                         PopupText.NewText(PopupTextContext.ItemReforge /* TODO This might be the wrong context */, _vanillaItemSlot.Item, _vanillaItemSlot.Item.stack, true, false);
-                        SoundEngine.PlaySound(SoundID.Item37);
+                        //SoundEngine.PlaySound(SoundID.Item37);
                     }
                 }
 
@@ -300,7 +300,7 @@ namespace ExtraExplosives.UI
                         ItemLoader.PostReforge(_vanillaItemSlot2.Item);
                         // TODO
                         PopupText.NewText(PopupTextContext.ItemReforge, _vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack, true, false);
-                        SoundEngine.PlaySound(SoundID.Item37);
+                        //SoundEngine.PlaySound(SoundID.Item37);
                     }
                 }
 
@@ -323,7 +323,7 @@ namespace ExtraExplosives.UI
                         ItemLoader.PostReforge(_vanillaItemSlot3.Item);
                         // TODO
                         PopupText.NewText(PopupTextContext.ItemReforge, _vanillaItemSlot3.Item, _vanillaItemSlot3.Item.stack, true, false);
-                        SoundEngine.PlaySound(SoundID.Item37);
+                        //SoundEngine.PlaySound(SoundID.Item37);
                     }
                 }
 

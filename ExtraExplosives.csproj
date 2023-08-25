@@ -27,4 +27,7 @@
       <HintPath>..\..\..\..\Program Files (x86)\Steam\steamapps\common\tModLoader\tModLoader.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
 </Project>

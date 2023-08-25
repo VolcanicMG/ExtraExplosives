@@ -48,7 +48,7 @@ namespace ExtraExplosives.Projectiles
                 if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
                 {
                     // TODO this works but is wrong
-                    sound = SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/wizz"));
+                    //sound = //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/wizz"));
                     
                 }
 
@@ -120,7 +120,7 @@ namespace ExtraExplosives.Projectiles
 
             }
 
-            SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/Explosion"));
+            //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/Explosion"));
 
             //deactivate shaders and stuff
             ExtraExplosives.NukeActive = false;

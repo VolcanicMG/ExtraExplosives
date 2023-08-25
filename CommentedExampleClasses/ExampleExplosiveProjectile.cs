@@ -1,8 +1,10 @@
 ﻿using ExtraExplosives.Projectiles;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.CommentedExampleClasses
 {
+    [Autoload(false)]
     public class ExampleExplosiveProjectile : ExplosiveProjectile
     {
         // This first line is only meant to stop tML from loading this class (and failing because no assets are connected to it

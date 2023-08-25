@@ -8,7 +8,7 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ExtraExplosives.Items.Accessories
+/*namespace ExtraExplosives.Items.Accessories
 {
     [AutoloadEquip(EquipType.Wings)]
     public class NovaBooster : ModItem
@@ -61,7 +61,7 @@ namespace ExtraExplosives.Items.Accessories
             if (inUse)
             {
                 //if (EngineSoundInstance == null)
-                    //EngineSoundInstance = SoundEngine.PlaySound(EngineSound, (int)player.Center.X, (int)player.Center.Y);
+                    //EngineSoundInstance = //SoundEngine.PlaySound(EngineSound, (int)player.Center.X, (int)player.Center.Y);
 
                 if (EngineSoundInstance.State != SoundState.Playing)
                     EngineSoundInstance.Play();
@@ -77,7 +77,7 @@ namespace ExtraExplosives.Items.Accessories
                 if (justUsed)
                 {
                     //if (EndSoundInstance == null)
-                        //EndSoundInstance = SoundEngine.PlaySound(EndSound, (int)player.Center.X, (int)player.Center.Y);
+                        //EndSoundInstance = //SoundEngine.PlaySound(EndSound, (int)player.Center.X, (int)player.Center.Y);
 
                     if (EndSoundInstance.State != SoundState.Playing)
                         EndSoundInstance.Play();
@@ -168,4 +168,4 @@ namespace ExtraExplosives.Items.Accessories
         }
 
     }
-}
+}*/

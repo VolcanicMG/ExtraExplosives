@@ -43,7 +43,7 @@ namespace ExtraExplosives.Projectiles
             HitSomeThing = true;
 
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
 
             //Create Bomb Dust
@@ -61,7 +61,7 @@ namespace ExtraExplosives.Projectiles
             if (Main.rand.NextFloat() < .2f && HitSomeThing == false)
             {
                 //Create Bomb Sound
-                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+                //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
                 //Create Bomb Damage
                 if (!player.EE().BlastShielding &&

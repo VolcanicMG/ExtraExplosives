@@ -74,8 +74,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public void Explode()
         {
-            //SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BigDynamite")); //sound
-            SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/BigDynamite"));
+            ////SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BigDynamite")); //sound
+            //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/BigDynamite"));
             Kill(0);
             NPC.life = 0;
             NPC.active = false;
@@ -88,7 +88,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 Dust.NewDust(NPC.position, 4, 4, ModContent.DustType<BossDynamiteDust>());
             }
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
             //Create Bomb Dust
             CreateDust(NPC.Center, 85);

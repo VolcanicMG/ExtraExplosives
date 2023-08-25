@@ -607,7 +607,7 @@ namespace ExtraExplosives
                     Player playerRad = Main.player[projectile.owner];
 
                     //Create Bomb Sound
-                    SoundEngine.PlaySound(SoundID.Item14, projectile.Center);
+                    //SoundEngine.PlaySound(SoundID.Item14, projectile.Center);
 
                     //Dust type
                     if (tileDamage) ExplosionDust((int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15), projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);

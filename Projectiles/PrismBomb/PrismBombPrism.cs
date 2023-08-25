@@ -33,16 +33,16 @@ namespace ExtraExplosives.Projectiles.PrismBomb //Namespace is set this way as p
             if (soundDelay > 0) { soundDelay -= 1; }
             Projectile.ai[1] += 1;
             if (Projectile.ai[0] <= 80) { Projectile.velocity.Y = -3f; Projectile.velocity.X = 0; Projectile.ai[0] += 1; }
-            else if (Projectile.ai[0] > 80) { Projectile.velocity.Y = 0; Projectile.velocity.X = 0; Projectile.rotation += 0.02f; if (soundDelay <= 0) { SoundEngine.PlaySound(SoundID.Item15, Projectile.Center); soundDelay = 20; } }
-            if (laser1 == -1 && Projectile.ai[0] > 80)
+            //else if (Projectile.ai[0] > 80) { Projectile.velocity.Y = 0; Projectile.velocity.X = 0; Projectile.rotation += 0.02f; if (soundDelay <= 0) { //SoundEngine.PlaySound(SoundID.Item15, Projectile.Center); soundDelay = 20; } }
+            /* TODO if (laser1 == -1 && Projectile.ai[0] > 80)
             {
                 // TODO fix
                 /*laser1 = Projectile.NewProjectile(Projectile.Center, new Vector2(-14, 0), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
                 laser2 = Projectile.NewProjectile(Projectile.Center, new Vector2(14, 0), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
                 laser3 = Projectile.NewProjectile(Projectile.Center, new Vector2(0, 14), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
-                laser4 = Projectile.NewProjectile(Projectile.Center, new Vector2(0, -14), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);*/
-
-            }
+                laser4 = Projectile.NewProjectile(Projectile.Center, new Vector2(0, -14), Mod.Find<ModProjectile>("PrismLaser").Type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);#1#
+                
+            }*/
 
         }
 

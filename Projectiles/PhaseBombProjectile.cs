@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class PhaseBombProjectile : ExplosiveProjectile
     {
-        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Phase_Bomb_Explode_";
+        protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Phase_Bomb_Explode_";
         protected override string goreFileLoc => "Gores/Explosives/phase_gore";
         //private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
         //private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
@@ -37,7 +37,7 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             Projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
             Projectile.timeLeft = 1000; //The amount of time the projectile is alive for
-            phaseSound = new SoundStyle("Sounds/Custom/Explosives/Phase_Bomb");
+            phaseSound = new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/Explosives/Phase_Bomb");
             if (!Main.dedServ)
             {
                 phaseSound.Volume = 0.5f;
@@ -58,13 +58,13 @@ namespace ExtraExplosives.Projectiles
         {
             //projectile.tileCollide = false;
 
-            if (phaseSoundInstance == null)
-                phaseSoundInstance = SoundEngine.PlaySound(phaseSound);
+            //if (phaseSoundInstance == null)
+                //phaseSoundInstance = //SoundEngine.PlaySound(phaseSound);
 
             /* TODO if (phaseSoundInstance.State != SoundState.Playing)
                 phaseSoundInstance.Play();*/
 
-            Player player = Main.player[Projectile.owner];
+            //Player player = Main.player[Projectile.owner];
 
             /* TODO if (!Main.mouseLeft && Projectile.timeLeft <= 940)
             {
@@ -87,7 +87,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             //Create Bomb Explosion
             Explosion();
             //Create Bomb Damage

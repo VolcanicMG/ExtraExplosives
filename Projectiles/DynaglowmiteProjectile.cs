@@ -10,8 +10,8 @@ namespace ExtraExplosives.Projectiles
 {
     public class DynaglowmiteProjectile : ExplosiveProjectile
     {
-        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Dynaglowmite_";
-        protected override string goreFileLoc => "Gores/Explosives/Dynaglowmite_Gore";
+        protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Dynaglowmite_";
+        protected override string goreFileLoc => "Gores/Explosives/dynaglowmite_gore";
 
         public override void SetStaticDefaults()
         {
@@ -49,7 +49,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

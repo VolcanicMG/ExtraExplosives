@@ -8,7 +8,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class GiganticExplosiveProjectile : ExplosiveProjectile
     {
-        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Gigantic_Explosion_";
+        protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Gigantic_Explosion_";
         protected override string goreFileLoc => "Gores/Explosives/gigantic-explosive_gore";
         private SoundStyle fuseSound;
         private bool fusePlayed = false;
@@ -47,7 +47,7 @@ namespace ExtraExplosives.Projectiles
         {
             if (!fusePlayed)
             {
-                SoundEngine.PlaySound(fuseSound);
+                //SoundEngine.PlaySound(fuseSound);
                 fusePlayed = true;
             }
             Projectile.rotation = 0;
@@ -56,7 +56,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 

@@ -100,7 +100,7 @@ namespace ExtraExplosives.Items.Weapons
         {
             if (Main.mouseRight && Main.mouseRightRelease)
             {
-                //SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                ////SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
                 mode++;
 
                 if (mode == 1)

@@ -58,7 +58,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], new Vector2(Projectile.Center.X, Projectile.Center.Y));
+            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], new Vector2(Projectile.Center.X, Projectile.Center.Y));
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 
