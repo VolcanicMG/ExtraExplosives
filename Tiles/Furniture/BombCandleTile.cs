@@ -30,10 +30,9 @@ namespace ExtraExplosives.Tiles.Furniture
             AddMapEntry(new Color(255, 55, 55));
 
             Lighting.AddLight(Vector2.Zero, 210, 140, 100);
-            //Lighting.brightness = 100;
+            // TODO Check
             Lighting.Brightness(100, 100);
-
-            //torch/* tModPorter Note: Removed. Use TileID.Sets.Torch instead */ = true;
+            
             TileID.Sets.Torch[Type] = true;
         }
 

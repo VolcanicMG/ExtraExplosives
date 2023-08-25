@@ -164,7 +164,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             Projectile.knockBack = 20;  // Since no calling item exists, knockback must be set internally	(Set in Hellfire Rocket Battery)
             ExplosionDamage();

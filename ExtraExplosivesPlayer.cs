@@ -515,7 +515,7 @@ namespace ExtraExplosives
             if (Nova && ExtraExplosives.TriggerNovaBomb.JustPressed && (novaBombRecharge >= 600))
             {
                 //Create Bomb Sound
-                SoundEngine.PlaySound(SoundID.Item14, Player.Center);
+                //SoundEngine.PlaySound(SoundID.Item14, Player.Center);
 
                 novaBombRecharge = 0;
 
@@ -556,7 +556,7 @@ namespace ExtraExplosives
 
                 if (delayLizhard % 15 == 0)
                 {
-                    SoundEngine.PlaySound(new SoundStyle("Sounds/Item/Hellfire"), new Vector2(Player.Center.X, Player.Center.Y));
+                    //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Item/Hellfire"), new Vector2(Player.Center.X, Player.Center.Y));
 
                     Vector2 perturbedSpeed = new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(35)); //set spread
                     Projectile.NewProjectileDirect(Player.GetSource_FromThis(), new Vector2(Player.Center.X, Player.Center.Y - Player.height + 10), perturbedSpeed, ModContent.ProjectileType<SunRocket>(), (int)((DamageBonus + 120) * DamageMulti), 1, Player.whoAmI);
@@ -571,7 +571,7 @@ namespace ExtraExplosives
             //--------------------------------------------------------
         }
 
-        /* TODO tmodporter wont fix this so do it manually later public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        /* TODO t-modporter wont fix this so do it manually later public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
             Projectile projectile = new Projectile();
             projectile.CloneDefaults(damageSource.SourceProjectileType.Value);
@@ -882,7 +882,7 @@ namespace ExtraExplosives
         {
         }
 
-        public override void SaveData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound */
+        public override void SaveData(TagCompound tag)
         {
             
                 // Main Cookbook Integration DO NOT REMOVE

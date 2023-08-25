@@ -15,7 +15,7 @@ namespace ExtraExplosives.Items.Weapons
             Tooltip.SetDefault("'Today's Forcast; Cloudy with a chance of death from above'");
         }
 
-        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";
+        protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";
 
         public override void SafeSetDefaults()
         {

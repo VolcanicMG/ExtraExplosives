@@ -321,7 +321,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 CreateExplosion(NPC.position, 4);
             }
 
-            SoundEngine.PlaySound(SoundID.Item14, NPC.position);
+            //SoundEngine.PlaySound(SoundID.Item14, NPC.position);
 
             CreateDust(NPC.Center, 50);
             ExplosionDamageEnemy(4, NPC.Center, NPC.damage, ModContent.NPCType<CaptainExplosiveBoss>());

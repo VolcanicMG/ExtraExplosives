@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class DeliquidifierProjectile : ExplosiveProjectile
     {
-        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Deliquidefier_";
+        protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Deliquidefier_";
         protected override string goreFileLoc => "Gores/Explosives/deliquifyer_gore";
 
         public override void SetStaticDefaults()
@@ -40,7 +40,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

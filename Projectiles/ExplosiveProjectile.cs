@@ -40,7 +40,7 @@ namespace ExtraExplosives.Projectiles
         {
             //constants throughout all bombs
             SafeSetDefaults();
-            Projectile.DamageType = DamageClass.Generic/* tModPorter Suggestion: Remove. See Item.DamageType */;
+            // TODO Projectile.DamageType = DamageClass.Generic;
             Projectile.minion = false;
             Projectile.netUpdate = true;
             DangerousSetDefaults();

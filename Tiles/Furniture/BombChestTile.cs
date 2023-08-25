@@ -44,7 +44,7 @@ namespace ExtraExplosives.Tiles.Furniture
             DustType = 199;
             TileID.Sets.DisableSmartCursor[Type] = true;
             AdjTiles = new int[] { TileID.Containers };
-            //chest/* tModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */ = "Bomb Chest";
+            // TODO chest/* t-ModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */ = "Bomb Chest";
             ContainerName.SetDefault("Bomb Chest");
             TileID.Sets.BasicChest[Type] = true;
             ChestDrop = ModContent.ItemType<BombChestItem>();
@@ -120,14 +120,14 @@ namespace ExtraExplosives.Tiles.Furniture
             }
             if (player.sign >= 0)
             {
-                SoundEngine.PlaySound(SoundID.MenuClose);
+                //SoundEngine.PlaySound(SoundID.MenuClose);
                 player.sign = -1;
                 Main.editSign = false;
                 Main.npcChatText = "";
             }
             if (Main.editChest)
             {
-                SoundEngine.PlaySound(SoundID.MenuTick);
+                //SoundEngine.PlaySound(SoundID.MenuTick);
                 Main.editChest = false;
                 Main.npcChatText = "";
             }
@@ -143,7 +143,7 @@ namespace ExtraExplosives.Tiles.Furniture
                 {
                     player.chest = -1;
                     Recipe.FindRecipes();
-                    SoundEngine.PlaySound(SoundID.MenuClose);
+                    //SoundEngine.PlaySound(SoundID.MenuClose);
                 }
                 else
                 {
@@ -173,7 +173,7 @@ namespace ExtraExplosives.Tiles.Furniture
                         if (chest == player.chest)
                         {
                             player.chest = -1;
-                            SoundEngine.PlaySound(SoundID.MenuClose);
+                            //SoundEngine.PlaySound(SoundID.MenuClose);
                         }
                         else
                         {
@@ -182,7 +182,7 @@ namespace ExtraExplosives.Tiles.Furniture
                             Main.recBigList = false;
                             player.chestX = left;
                             player.chestY = top;
-                            SoundEngine.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
+                            //SoundEngine.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
                         }
                         Recipe.FindRecipes();
                     }

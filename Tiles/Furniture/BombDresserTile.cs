@@ -64,14 +64,14 @@ namespace ExtraExplosives.Tiles.Furniture
                 int top = Player.tileTargetY - (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].TileFrameY / 18);
                 if (player.sign > -1)
                 {
-                    SoundEngine.PlaySound(SoundID.MenuClose);
+                    //SoundEngine.PlaySound(SoundID.MenuClose);
                     player.sign = -1;
                     Main.editSign = false;
                     Main.npcChatText = string.Empty;
                 }
                 if (Main.editChest)
                 {
-                    SoundEngine.PlaySound(SoundID.MenuTick);
+                    //SoundEngine.PlaySound(SoundID.MenuTick);
                     Main.editChest = false;
                     Main.npcChatText = string.Empty;
                 }
@@ -86,7 +86,7 @@ namespace ExtraExplosives.Tiles.Furniture
                     {
                         player.chest = -1;
                         Recipe.FindRecipes();
-                        SoundEngine.PlaySound(SoundID.MenuClose);
+                        //SoundEngine.PlaySound(SoundID.MenuClose);
                     }
                     else
                     {
@@ -106,14 +106,14 @@ namespace ExtraExplosives.Tiles.Furniture
                         {
                             player.chest = -1;
                             Recipe.FindRecipes();
-                            SoundEngine.PlaySound(SoundID.MenuClose);
+                            //SoundEngine.PlaySound(SoundID.MenuClose);
                         }
                         else if (num213 != player.chest && player.chest == -1)
                         {
                             player.chest = num213;
                             Main.playerInventory = true;
                             Main.recBigList = false;
-                            SoundEngine.PlaySound(SoundID.MenuOpen);
+                            //SoundEngine.PlaySound(SoundID.MenuOpen);
                             player.chestX = left;
                             player.chestY = top;
                         }
@@ -122,7 +122,7 @@ namespace ExtraExplosives.Tiles.Furniture
                             player.chest = num213;
                             Main.playerInventory = true;
                             Main.recBigList = false;
-                            SoundEngine.PlaySound(SoundID.MenuTick);
+                            //SoundEngine.PlaySound(SoundID.MenuTick);
                             player.chestX = left;
                             player.chestY = top;
                         }
@@ -167,10 +167,10 @@ namespace ExtraExplosives.Tiles.Furniture
                 }
                 else
                 {
-                    //player.cursorItemIconText = chest/* tModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */;
+                    // TODO Check
                     player.cursorItemIconText = Name;
                 }
-                if (player.cursorItemIconText == Name/* tModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */)
+                if (player.cursorItemIconText == Name) // TODO Check
                 {
                     player.cursorItemIconID = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
                     player.cursorItemIconText = "";
@@ -210,10 +210,11 @@ namespace ExtraExplosives.Tiles.Furniture
                 }
                 else
                 {
-                    //player.cursorItemIconText = chest/* tModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */;
+                    // TODO Check
                     player.cursorItemIconText = Name;
                 }
-                if (player.cursorItemIconText == Name/* tModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */)
+                // TODO Check
+                if (player.cursorItemIconText == Name)
                 {
                     player.cursorItemIconID = ModContent.ItemType<Items.Tiles.Furniture.BombDresserItem>();
                     player.cursorItemIconText = "";

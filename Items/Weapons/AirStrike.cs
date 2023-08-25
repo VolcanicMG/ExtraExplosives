@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,7 +25,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.width = 66;
             Item.height = 36;
             Item.shoot = ProjectileID.RocketI;
-            //Item.UseSound = Mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/AirStrike_Call");
+            //Item.UseSound = new SoundStyle("ExtraExplosives/Assets/Sounds/Item/AirStrike_Call");
             //item.channel = true;
             Item.damage = 200;
             Item.shootSpeed = 10f;

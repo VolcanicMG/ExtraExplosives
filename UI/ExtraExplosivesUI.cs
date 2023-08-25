@@ -325,7 +325,7 @@ namespace ExtraExplosives.UI
                         Main.hoverItemName = "Combine";
                         if (!tickPlayed)
                         {
-                            SoundEngine.PlaySound(SoundID.MenuTick);
+                            //SoundEngine.PlaySound(SoundID.MenuTick);
                         }
                         tickPlayed = true;
                         Main.LocalPlayer.mouseInterface = true;
@@ -390,7 +390,7 @@ namespace ExtraExplosives.UI
 
                                 //ItemLoader.PostReforge(_vanillaItemSlot.Item);
                                 //ItemLoader.PostReforge(_vanillaItemSlot2.Item);
-                                SoundEngine.PlaySound(SoundID.Item37);
+                                //SoundEngine.PlaySound(SoundID.Item37);
                             }
                         }
                     }
@@ -400,7 +400,7 @@ namespace ExtraExplosives.UI
                         Main.hoverItemName = "Combine Ten";
                         if (!tickPlayed)
                         {
-                            SoundEngine.PlaySound(SoundID.MenuTick);
+                            //SoundEngine.PlaySound(SoundID.MenuTick);
                         }
                         tickPlayed = true;
                         Main.LocalPlayer.mouseInterface = true;
@@ -466,7 +466,7 @@ namespace ExtraExplosives.UI
 
                                 //ItemLoader.PostReforge(_vanillaItemSlot.Item);
                                 //ItemLoader.PostReforge(_vanillaItemSlot2.Item);
-                                SoundEngine.PlaySound(SoundID.Item37);
+                                //SoundEngine.PlaySound(SoundID.Item37);
                             }
                         }
                     }

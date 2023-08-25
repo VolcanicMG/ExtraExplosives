@@ -12,6 +12,7 @@ namespace ExtraExplosives.CommentedExampleClasses
     // It is recommended to look through the CommentedExplosiveItem class before this to ensure you understand what ExplosiveWeapon is built on
     // The additional subclass is mostly here to allow for future functionality and compatibility
     // Alongside that it also stops code repetition without having to null values in every ExplosiveItem
+    [Autoload(false)]
     public class ExampleExplosiveWeapon : ExplosiveWeapon
     {
         // This first line is only meant to stop tML from loading this class (and failing because no assets are connected to it
@@ -78,7 +79,7 @@ namespace ExtraExplosives.CommentedExampleClasses
             ref float knockBack)
         {
             // To call a sound you do the following
-            SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+            //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                 (int)player.position.X, (int)player.position.Y);
             // Unless specific sounds should be more common than others, this exact line can be used for all PrimarySounds calls
             //     and changing PrimarySounds to SecondarySounds allows it to be used with SecondarySounds as well

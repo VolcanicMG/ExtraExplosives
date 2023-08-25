@@ -89,10 +89,10 @@ namespace ExtraExplosives
         //config
         internal static ExtraExplosivesConfig EEConfig;
         
-        //Boombox
+        /*//Boombox
         public static bool boomBoxMusic = false;
         public static int randomMusicID = 0;
-        public static int boomBoxTimer = 0;
+        public static int boomBoxTimer = 0;*/
 
         //Arrays and Lists
         internal static HashSet<int> avoidList;
@@ -285,7 +285,7 @@ namespace ExtraExplosives
             if (bossChecklist != null)
             {
                 // AddBoss, bossname, order or value in terms of vanilla bosses, inline method for retrieving downed value.
-                bossChecklist.Call("AddBoss", 6, ModContent.NPCType<CaptainExplosiveBoss>(), this, "Captain Explosive", (Func<bool>)(() => ExtraExplosivesWorld.BossCheckDead), ModContent.ItemType<Unhinged_Letter>(), ModContent.ItemType<BombHat>(), ModContent.ItemType<CaptainExplosiveTreasureBag>(), $"Kill King Slime or Eye Of Cthulhu, then you can buy the[i:{ModContent.ItemType<Unhinged_Letter>()}] from the demolitionist");
+                bossChecklist.Call("AddBoss", 6, ModContent.NPCType<CaptainExplosiveBoss>(), this, "Captain Explosive", (Func<bool>)(() => ExtraExplosivesSystem.BossCheckDead), ModContent.ItemType<Unhinged_Letter>(), ModContent.ItemType<BombHat>(), ModContent.ItemType<CaptainExplosiveTreasureBag>(), $"Kill King Slime or Eye Of Cthulhu, then you can buy the[i:{ModContent.ItemType<Unhinged_Letter>()}] from the demolitionist");
             }*/
 
             _tooltipWhitelist = new HashSet<int> //Whitelist for the (Bombard Item) tag at the end of bombard items.
@@ -346,7 +346,7 @@ namespace ExtraExplosives
                 ModContent.ItemType<Tunnelrat_L>(),
 
                 //Accessories
-                ModContent.ItemType<NovaBooster>(),
+                //ModContent.ItemType<NovaBooster>(),
                 ModContent.ItemType<BombardierEmblem>(),
                 ModContent.ItemType<BombardsLaurels>(),
                 ModContent.ItemType<BombardsPouch>(),

@@ -26,7 +26,7 @@ namespace ExtraExplosives.Projectiles
         {
             Mod.Logger.DebugFormat("Damage {0}", Projectile.damage);
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Damage
             ExplosionDamage();

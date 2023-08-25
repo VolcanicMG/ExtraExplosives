@@ -12,7 +12,7 @@ namespace ExtraExplosives.Projectiles
     public class HolyHandGrenadeProjectile : ExplosiveProjectile
     {
 
-        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Holy_Hand_Granade_";
+        protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Holy_Hand_Granade_";
         protected override string goreFileLoc => "Gores/Explosives/basic-explosive_gore";
 
         private int rippleCount = 2;
@@ -39,11 +39,11 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 400;
-            explodeSounds = new SoundStyle[3];
-            for (int num = 1; num <= explodeSounds.Length; num++)
+            //explodeSounds = new SoundStyle[3];
+            /*for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
-            }
+                //explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
+            }*/
         }
 
         public override void AI()
@@ -64,7 +64,7 @@ namespace ExtraExplosives.Projectiles
                     Projectile.alpha = 255; // Make the projectile invisible.
 
                     //Create Bomb Sound
-                    SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+                    ////SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
                     //Create Bomb Dust
                     DustEffects();

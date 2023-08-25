@@ -17,7 +17,7 @@ namespace ExtraExplosives.Items.Weapons
                                "Consumes one rocket per burst");
         }
 
-        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";
+        protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";
 
         public override void SafeSetDefaults()
         {

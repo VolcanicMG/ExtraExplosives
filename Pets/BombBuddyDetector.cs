@@ -72,7 +72,7 @@ namespace ExtraExplosives.Pets
                 hit = true;
 
                 Vector2 position = Projectile.Center;
-                SoundEngine.PlaySound(SoundID.Item14, position);
+                //SoundEngine.PlaySound(SoundID.Item14, position);
                 int radius = 5;  //this is the explosion radius, the highter is the value the bigger is the explosion
 
                 ExplosionDamageProjectile.DamageRadius = (float)(radius * 1.5f);

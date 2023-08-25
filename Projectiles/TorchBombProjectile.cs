@@ -32,7 +32,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             Vector2 position = Projectile.Center;
-            SoundEngine.PlaySound(SoundID.Item14, position);
+            //SoundEngine.PlaySound(SoundID.Item14, position);
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0.0f, -2.0f);

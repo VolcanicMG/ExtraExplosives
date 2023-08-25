@@ -17,7 +17,7 @@ namespace ExtraExplosives.Items.Weapons
             Tooltip.SetDefault("Lead and explosions go well together");
         }
 
-        protected override string SoundLocation { get; } = "Sounds/Item/Weapons/Blunderboom/Blunderboom";
+        protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/Blunderboom/Blunderboom";
 
         public override void SafeSetDefaults()
         {
@@ -96,7 +96,7 @@ namespace ExtraExplosives.Items.Weapons
             switch (Item.useAmmo)
             {
                 case 97:    // Bullet
-                    SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                    //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                         (int)player.position.X, (int)player.position.Y);
                     int numberProjectiles = 7;
                     for (int i = 0; i < numberProjectiles; i++)
@@ -109,7 +109,7 @@ namespace ExtraExplosives.Items.Weapons
                     }
                     return false; // return false because we don't want tmodloader to shoot projectile
                 case 771:    // Rocket
-                    SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
+                    //SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
                         (int)player.position.X, (int)player.position.Y);
                     Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.GrenadeIII, damage, knockBack, player.whoAmI);
                     break;
@@ -133,7 +133,7 @@ namespace ExtraExplosives.Items.Weapons
                 //Item.ranged = false;
                 Explosive = true;
                 //Main.NewText("Loaded with gunpowder");
-                //SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                ////SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
             else
             {
@@ -147,7 +147,7 @@ namespace ExtraExplosives.Items.Weapons
                 //Item.ranged = true;
                 Explosive = false;
                 // Main.NewText("Loaded with shrapnel");
-                //SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                ////SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
 
             }
             return false;

@@ -31,11 +31,12 @@ namespace ExtraExplosives.Projectiles
         }
         public override void AI()
         {
-            if (!ExtraExplosives.boomBoxMusic && setToTrue)
+            // Fix to allow loading in tml TODO
+            /*if (!ExtraExplosives.boomBoxMusic && setToTrue)
             {
                 Projectile.active = false;
                 //Create Bomb Sound
-                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+                //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
                 //Create Bomb Dust
                 CreateDust(Projectile.Center, 10);
@@ -45,16 +46,17 @@ namespace ExtraExplosives.Projectiles
                 Vector2 gVel2 = new Vector2(0f, -1f);
                 Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
                 Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
-            }
+            }*/
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (!setToTrue)
+            // TODO
+            /*if (!setToTrue)
             {
                 ExtraExplosives.boomBoxMusic = true;
                 ExtraExplosives.randomMusicID = (Main.rand.Next(41) + 1);
                 setToTrue = true;
-            }
+            }*/
             return true;
         }
 

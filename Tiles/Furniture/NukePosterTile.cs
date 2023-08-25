@@ -10,7 +10,7 @@ namespace ExtraExplosives.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
-            Main.tileFrameImportant[Type] = true;
+            /* TODO Main.tileFrameImportant[Type] = true;
             TileID.Sets.FramesOnKillWall[Type] = true;
             Main.tileLavaDeath[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
@@ -23,7 +23,7 @@ namespace ExtraExplosives.Tiles.Furniture
             name.SetDefault("Bomb Chair");
             AddMapEntry(new Color(200, 200, 200), name);
             TileID.Sets.DisableSmartCursor[Type] = true;
-            AdjTiles = new int[] { TileID.Tables };
+            AdjTiles = new int[] { TileID.Tables };*/
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
         {

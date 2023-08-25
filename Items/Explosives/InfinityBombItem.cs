@@ -97,14 +97,11 @@ namespace ExtraExplosives.Items.Explosives
             return false;
         }
 
-        /*public override void SaveData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound #1#
+        public override void SaveData(TagCompound tag)
         {
-            return new TagCompound
-            {
-                [nameof(multiplier)] = multiplier,
-                [nameof(growing)] = growing,
-            };
-        }*/
+                tag.Add(nameof(multiplier), multiplier);
+                tag.Add(nameof(growing), growing);
+        }
 
         public override void LoadData(TagCompound tag)
         {

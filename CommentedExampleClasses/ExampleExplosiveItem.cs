@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.CommentedExampleClasses
 {
+    [Autoload(false)]
     public class ExampleExplosiveItem : ExplosiveItem
     {
         public bool Autoload(ref string _) => false;    // Stops tML from auto loading this class

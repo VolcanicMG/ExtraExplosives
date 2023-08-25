@@ -36,7 +36,7 @@ namespace ExtraExplosives.Projectiles
         {
             _multiplier *= Projectile.damage / OriginalDamage;
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             // Have to set these before calling explosion damage to ensure proper values of damage and knockback
             //projectile.damage = (int) Math.Ceiling(100 * projectile.localAI[0]);

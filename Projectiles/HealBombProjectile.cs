@@ -36,7 +36,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, Projectile.Center);
+            //SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, Projectile.Center);
 
             //Create Bomb Dust
             CreateDust(Projectile.Center, radius + 50);

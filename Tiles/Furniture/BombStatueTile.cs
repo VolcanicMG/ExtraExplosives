@@ -22,7 +22,6 @@ namespace ExtraExplosives.Tiles.Furniture
             AddMapEntry(new Color(144, 148, 144), name);
             DustType = 11;
             TileID.Sets.DisableSmartCursor = new[] { true };
-            //disableSmartCursor/* tModPorter Note: Removed. Use TileID.Sets.DisableSmartCursor instead */ = true;
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

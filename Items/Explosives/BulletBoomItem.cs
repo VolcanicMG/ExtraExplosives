@@ -119,18 +119,15 @@ namespace ExtraExplosives.Items.Explosives
             Main.projectile[proj].knockBack = Item.shoot;
             Mod.Logger.Debug(Item.damage);
             return false;
-        }
-        public override void SaveData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound #1#
-        {
-            return new TagCompound
-            {
-                [nameof(overStack)] = overStack,
-                [nameof(Item.Name)] = Item.Name,
-                [nameof(Item.shoot)] = Item.shoot,
-                [nameof(Item.damage)] = Item.damage,
-                [nameof(bulletType)] = bulletType,
-            };
         }*/
+        public override void SaveData(TagCompound tag)
+        {
+                tag.Add(nameof(overStack), overStack);
+                tag.Add(nameof(Item.Name), Item.Name);
+                tag.Add(nameof(Item.shoot),Item.shoot);
+                tag.Add(nameof(Item.damage), Item.damage);
+                tag.Add(nameof(bulletType), bulletType);
+        }
 
         public override void LoadData(TagCompound tag)
         {

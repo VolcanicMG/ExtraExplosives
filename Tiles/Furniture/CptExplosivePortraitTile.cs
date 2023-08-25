@@ -11,7 +11,7 @@ namespace ExtraExplosives.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
-            Main.tileFrameImportant[Type] = true;
+            /* TODO Main.tileFrameImportant[Type] = true;
             Main.tileLavaDeath[Type] = true;
             TileID.Sets.FramesOnKillWall[Type] = true; // Necessary since Style3x3Wall uses AnchorWall
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
@@ -23,7 +23,7 @@ namespace ExtraExplosives.Tiles.Furniture
             TileID.Sets.DisableSmartCursor[Type] = true;
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Cpt Postrait");
-            AddMapEntry(new Color(120, 85, 60), name);
+            AddMapEntry(new Color(120, 85, 60), name);*/
 
         }
 

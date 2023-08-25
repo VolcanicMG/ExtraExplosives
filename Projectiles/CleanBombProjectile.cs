@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     {
         //Variables:
         public static float Radius = 400f;      // Used for Dust particles + Damage radius
-        protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Clean_Bomb_";
+        protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Clean_Bomb_";
         protected override string goreFileLoc => "n/a";
         private int[] dustsToSpawn;
 
@@ -59,7 +59,7 @@ namespace ExtraExplosives.Projectiles
             Vector2 center = Projectile.Center;
 
             //Create bomb sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create bomb dust
             CreateDust(center, (int)(Radius / 3f));
