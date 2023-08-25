@@ -64,12 +64,9 @@ namespace ExtraExplosives.Pets
                 Projectile.Kill();
             }
         }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        
+        /* TODO public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (!hit)
-            {
-                hit = true;
 
                 Vector2 position = Projectile.Center;
                 //SoundEngine.PlaySound(SoundID.Item14, position);
@@ -110,7 +107,7 @@ namespace ExtraExplosives.Pets
                         }
                     }
                 }
-            }
-        }
+            
+        }*/
     }
 }
