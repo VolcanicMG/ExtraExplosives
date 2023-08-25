@@ -62,8 +62,6 @@ namespace ExtraExplosives
         //dust
         internal static float dustAmount;
 
-        
-
         //Mod instance
         public static Mod Instance;
 
@@ -107,8 +105,6 @@ namespace ExtraExplosives
         {
 
         }
-        
-        
         
         /* TODO for now we simply wont have music public override void UpdateMusic(ref int music, ref SceneEffectPriority priority)/* tModPorter Note: Removed. Use ModSceneEffect.Music and .Priority, aswell as ModSceneEffect.IsSceneEffectActive #1#
         {
