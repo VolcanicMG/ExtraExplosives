@@ -1,0 +1,58 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ExtraExplosives.Items.Armors.DungeonBombard
+{
+    [AutoloadEquip(EquipType.Head)]
+    public class DungeonBombard_H : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Dungeon Bombard Helm");
+            Tooltip.SetDefault("\n" +
+                "3% Increased Bomb Damage and Blast Radius");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.height = 18;
+            Item.width = 18;
+            Item.value = Item.buyPrice(0, 0, 50, 50);
+            Item.rare = ItemRarityID.LightRed;
+            Item.defense = 4;
+        }
+
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == ModContent.ItemType<DungeonBombard_B>() && legs.type == ModContent.ItemType<DungeonBombard_L>();
+        }
+
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = "\n" +
+                "2.5% Increased Bomb Damage\n" +
+                "7.5% Increased Blast Radius\n" +
+                "10% chance to dodge attacks";
+            player.EE().RadiusMulti += .075f;
+            player.EE().DamageMulti += .025f;
+            player.EE().DungeonBombard = true;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.EE().RadiusMulti += .03f;
+            player.EE().DamageMulti += .03f;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.Bone, 10);
+            recipe.AddIngredient(ItemID.BlueBrick, 10);
+            recipe.AddTile(TileID.Anvils);
+            recipe.Register();
+        }
+
+    }
+}
