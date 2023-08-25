@@ -106,7 +106,7 @@ namespace ExtraExplosives.Projectiles
                         }
 
                         //Destroy water
-                        Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
+                        // TODO Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
                         //Particle Effects

@@ -79,11 +79,6 @@ namespace ExtraExplosives.Projectiles
             return;
         }
 
-        public override void OnHitPvp(Player target, int damage, bool crit)/* tModPorter Note: Removed. Use OnHitPlayer and check info.PvP */
-        {
-            return;
-        }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             return;
@@ -223,9 +218,9 @@ namespace ExtraExplosives.Projectiles
                     int dir = (dist > 0) ? 1 : -1;
                     if (!DamageReducedNps.Contains(npc.type))
                     {
-                        npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
+                        //npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
                     }
-                    else npc.StrikeNPC(Projectile.damage - (int)(Projectile.damage * .5f), Projectile.knockBack, dir, crit);
+                    //else npc.StrikeNPC(Projectile.damage - (int)(Projectile.damage * .5f), Projectile.knockBack, dir, crit);
                 }
             }
 
@@ -244,7 +239,7 @@ namespace ExtraExplosives.Projectiles
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == Projectile.owner && InflictDamageSelf)
                 {
-                    NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                    // TODO NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
 

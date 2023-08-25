@@ -59,7 +59,7 @@ namespace ExtraExplosives.Projectiles.Weapons.NovaBuster
                 if (dist / 16f <= radius && !npc.friendly)
                 {
                     int dir = (dist > 0) ? 1 : -1;
-                    npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
+                    // TODO npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
                 }
             }
 
@@ -78,7 +78,7 @@ namespace ExtraExplosives.Projectiles.Weapons.NovaBuster
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius)
                 {
-                    NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                    // TODO unfamiliar syntax on pvp: true, NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
 

@@ -49,15 +49,12 @@ namespace ExtraExplosives.Projectiles
                 target.AddBuff(BuffID.Dazed, 300);
                 target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
             }
-        }
-
-        public override void OnHitPvp(Player target, int damage, bool crit)/* tModPorter Note: Removed. Use OnHitPlayer and check info.PvP */
-        {
-            if (target.direction * (Projectile.Center.X - target.Center.X) > 0)
+            
+            if (target.direction * (Projectile.Center.X - target.Center.X) > 0 && info.PvP)
             {
-                target.AddBuff(BuffID.Confused, 300);
-                target.AddBuff(BuffID.Dazed, 300);
-                target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
+	            target.AddBuff(BuffID.Confused, 300);
+	            target.AddBuff(BuffID.Dazed, 300);
+	            target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
             }
         }
 

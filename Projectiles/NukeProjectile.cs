@@ -93,7 +93,7 @@ namespace ExtraExplosives.Projectiles
             {
                 if (npc.active)
                 {
-                    npc.StrikeNPC(10000, Projectile.knockBack, 1, false);
+                    // TODO npc.StrikeNPC(10000, Projectile.knockBack, 1, false);
                 }
             }
 
@@ -187,7 +187,7 @@ namespace ExtraExplosives.Projectiles
 
                                 if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
                                 {
-                                    Main.tile[i, j].LiquidAmount = LiquidID.Water;
+                                    // TODO Main.tile[i, j].LiquidAmount = LiquidID.Water;
                                     WorldGen.SquareTileFrame(i, j, true);
                                 }
                             }
@@ -217,12 +217,12 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius - 1 + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
+                        // TODO Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
                     }
                     else if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
+                        // TODO Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
                         ushort tile = Main.tile[xPosition, yPosition].TileType;

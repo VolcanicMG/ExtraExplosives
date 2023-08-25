@@ -40,8 +40,11 @@ namespace ExtraExplosives.Projectiles
             {
                 crit = true;
             }
-            Main.NewText((int)((damage + Main.player[Projectile.owner].EE().DamageBonus) * Main.player[Projectile.owner].EE().DamageMulti));
-            base.OnHitPlayer(target, (int)((damage + Main.player[Projectile.owner].EE().DamageBonus) * Main.player[Projectile.owner].EE().DamageMulti), crit);
+            info.Damage += (int)(Main.player[Projectile.owner].EE().DamageBonus *
+                                 Main.player[Projectile.owner].EE().DamageMulti);
+            base.OnHitPlayer(target, info);
+            Main.NewText(info.Damage);
+            base.OnHitPlayer(target, info);
         }
 
         public override bool? CanHitNPC(NPC target)

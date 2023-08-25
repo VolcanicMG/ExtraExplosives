@@ -115,7 +115,7 @@ namespace ExtraExplosives.Projectiles.PrismBomb
             target.immune[Projectile.owner] = 5;
             if(DamageReducedNps.Contains(target.type))
             {
-               damage = damage / 2;
+                damageDone /= 2;
             }
         }
 
