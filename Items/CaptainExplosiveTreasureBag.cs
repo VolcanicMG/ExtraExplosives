@@ -7,6 +7,8 @@ using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Items.Pets;
 using ExtraExplosives.NPCs;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items
@@ -16,14 +18,14 @@ namespace ExtraExplosives.Items
 
         private int[] items = new int[3];
 
-        private int[][] Vanity = new int[3][];
+        private int[][] vanity = new int[3][];
 
         private int[] bombs = new int[27];
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Captain Explosive Treasure Bag");    // Name, (change if you want idk)
-            // Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");    // Boss bag tooltip (dont change)
+            ItemID.Sets.BossBag[Type] = true;
+            ItemID.Sets.PreHardmodeLikeBossBag[Type] = true; // Dev armor stuff
         }
 
         public override void SetDefaults()
@@ -32,45 +34,14 @@ namespace ExtraExplosives.Items
             Item.consumable = true;
             Item.width = 32;
             Item.height = 32;
+            Item.rare = ItemRarityID.Purple; // Might be wrong rarity
             Item.expert = true;
         }
 
 
         public override bool CanRightClick() => true;    // always able to right click so hijack the code to return true
 
-        public override void OpenBossBag(Player player)
-        {
-            if (Main.hardMode)
-            {
-                //player.TryGettingDevArmor(); // Will attempt to get dev armor if its hardmode
-                //player.TryGettingDevArmor(); // Dev armor only technically drops from hardmode bosses but fuck it
-            }
-
-            int drop = Main.rand.Next(3);    // get the item which will 100% drop
-            //player.QuickSpawnItem(items[drop], 1);    // spawn it
-            items[drop] = bombs[Main.rand.Next(bombs.Length - 1)];    //Main.NewText(ModContent.GetModItem(.Name);    // to avoid double drops replace it with a pre-hardmode bomb
-            foreach (int item in items)    // try to spawn each item left in the array
-            {
-                if (Main.rand.Next(3) == 0)
-                {
-                    //player.QuickSpawnItem(item, 1);    // add hooks for special items here
-                }
-            }
-
-            if (Main.rand.NextFloat() < .5f)
-            {
-                int VanityDrop = Main.rand.Next(3);
-
-                //Find the place on the array give the rest of the set
-                for (int i = 0; i < Vanity[VanityDrop].Length; i++)
-                {
-                    //player.QuickSpawnItem(Vanity[VanityDrop][i], 1);
-                }
-            }
-
-        }
-
-        public override void AddRecipes()
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
             items = new int[]    // Item array, add boss specific drops here
             {
@@ -78,14 +49,14 @@ namespace ExtraExplosives.Items
                 ModContent.ItemType<BombHat>(),
                 ModContent.ItemType<BombCloak>()
             };
-
-            Vanity = new int[][]    // Item array, add boss specific drops here
+            
+            vanity = new int[][]    // Vanity set array, add vanity drops here
             {
                 new int[] { ModContent.ItemType<Bombforged_B>(), ModContent.ItemType<Bombforged_H>(), ModContent.ItemType<Bombforged_L>() },
                 new int[] { ModContent.ItemType<TNTSUIT_B>(), ModContent.ItemType<TNTSUIT_H>(), ModContent.ItemType<TNTSUIT_L>() },
                 new int[] { ModContent.ItemType<Explonin_B>(), ModContent.ItemType<Explonin_H>(), ModContent.ItemType<Explonin_L>() },
             };
-
+            
             bombs = new int[]        // List of bombs which should drop from CE boss bag,
             {
                 ModContent.ItemType<BasicExplosiveItem>(),
@@ -116,12 +87,26 @@ namespace ExtraExplosives.Items
                 ModContent.ItemType<RainboomItem>(),
                 //ModContent.ItemType<HotPotatoItem>()
             };
+            
+            // TODO take a look at drop chance and fine tune if needed
+            foreach ( int item in items )
+            {
+                itemLoot.Add(ItemDropRule.NotScalingWithLuck(item, 3));
+            }
+            
+            // These currently will drop individually, if they should drop as a set a different rule is needed TODO 
+            foreach (int[] set in vanity)
+            {
+                foreach (int setItem in set)
+                {
+                    itemLoot.Add(ItemDropRule.BossBag(setItem));
+                }
+            }
 
-
-
-            base.AddRecipes();
+            for ( int i = 0; i < bombs.Length; i++ )
+            {
+                itemLoot.Add(ItemDropRule.Common(i, 1, 2, 7));
+            }
         }
-
-        public override int BossBagNPC => ModContent.NPCType<CaptainExplosive>();    // does some terraria stuff to make the game know this is a boss bag
     }
 }
