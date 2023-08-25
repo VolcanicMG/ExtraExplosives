@@ -39,7 +39,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.knockBack = 4f;
             Item.rare = ItemRarityID.Yellow;
 
-            PrimarySounds = new LegacySoundStyle[4];
+            /*PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = new LegacySoundStyle[4];
 
             for (int n = 1; n <= PrimarySounds.Length; n++)
@@ -51,12 +51,12 @@ namespace ExtraExplosives.Items.Weapons
             {
                 SecondarySounds[n - 1] =
                     Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Secondary" + n);
-            }
+            }*/
         }
 
         public override void DangerousSetDefaults()
         {
-            Item.ranged = true;
+           // Item.ranged = true;
         }
 
         public override void HoldItem(Player player)
@@ -86,7 +86,7 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-14, -7);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             switch (Item.useAmmo)
             {
@@ -111,7 +111,7 @@ namespace ExtraExplosives.Items.Weapons
                 position.Y -= 6;
             }
             return false;
-        }
+        }*/
 
         public override bool CanUseItem(Player player)
         {
@@ -134,7 +134,7 @@ namespace ExtraExplosives.Items.Weapons
                 Item.damage = 40;
                 Item.knockBack = 7;
                 //Main.NewText("Bone Launcher");
-                SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                //SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
             else
             {
@@ -146,7 +146,7 @@ namespace ExtraExplosives.Items.Weapons
                 Item.damage = 35;
                 Item.knockBack = 3.5f;
                 // Main.NewText("Bone Rifle");
-                SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                //SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
 
             return false;

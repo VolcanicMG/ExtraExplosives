@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.CommentedExampleClasses
 {
@@ -14,7 +16,7 @@ namespace ExtraExplosives.CommentedExampleClasses
     {
         // This first line is only meant to stop tML from loading this class (and failing because no assets are connected to it
         // It can be ignored
-        public override bool Autoload(ref string _) => false;
+        public bool AutoloadAttributes(ref string _) => false;
 
         /// <summary>
         /// The location of the sound this weapon uses when fired
@@ -41,13 +43,13 @@ namespace ExtraExplosives.CommentedExampleClasses
              * The length of the arrays should be equal to the number of unique sounds used by the weapon
              * For readability, PrimarySounds should be used before SecondarySounds and SecondarySounds should be nullified if PrimarySounds is not used
              */
-            PrimarySounds = new LegacySoundStyle[1];    // How to initialize the array when used
-            SecondarySounds = null;                     // How to nullify the array when not used
+            //PrimarySounds = new LegacySoundStyle[1];    // How to initialize the array when used
+            // TODO SecondarySounds = null;                     // How to nullify the array when not used
 
             // This for loop shows the most common way of populating the sound arrays
-            for (int n = 1; n <= PrimarySounds.Length; n++)    // n is initialized to 1 instead of 0 to allow for proper name spacing and readability
+            /* TODO for (int n = 1; n <= PrimarySounds.Length; n++)    // n is initialized to 1 instead of 0 to allow for proper name spacing and readability
             {
-                PrimarySounds[n - 1] =
+                //PrimarySounds[n - 1] =
                     // When populating the array it is important to remember the file path the sounds are located in
                     // The Terraria.ModLoader.SoundType.Type must be the same as the sounds main folder (clarification in a moment)
                     // Failure to do so will causes the sounds to not get loaded and the arrays will be filled with nulls
@@ -56,8 +58,8 @@ namespace ExtraExplosives.CommentedExampleClasses
                     // The sounds filepath should have the same type as its original subfolder (the folder under Sounds)
                     // If additional clarification is needed either reference existing ExplosiveWeapons and ExplosivesProjectiles (and their sound locations)
                     // Or ask in the discord\
-                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
-            }
+                    //Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+            }*/ 
             // If SecondarySounds is also used, a second for loop will be needed
         }
 
@@ -72,7 +74,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// <param name="damage"></param>
         /// <param name="knockBack"></param>
         /// <returns></returns>
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
             ref float knockBack)
         {
             // To call a sound you do the following
@@ -83,6 +85,12 @@ namespace ExtraExplosives.CommentedExampleClasses
 
 
             return true;    // Ignore
+        }*/
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type,
+            int damage, float knockback)
+        {
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }
 }

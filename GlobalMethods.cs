@@ -41,12 +41,12 @@ namespace ExtraExplosives
         /// <summary>
         /// Used Clamaity Mod Integration
         /// </summary>
-        public static Mod CalamityMod = ModLoader.GetMod("CalamityMod");
+        //public static Mod CalamityMod = ModLoader.GetMod("CalamityMod");
 
         /// <summary>
         /// Thorium Mod Integration
         /// </summary>
-        public static Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+        //public static Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
         //====================================================================================\\
 
@@ -81,11 +81,11 @@ namespace ExtraExplosives
         /// <param name="DamagePosition"> Determines the center point of the damage projectiles explosion </param>
         /// <param name="Damage"> Stores the damage projectiles damage amount </param>
         /// <param name="Knockback"> Stores the damage projectiles knockback amount </param>
-        /// <param name="ProjectileOwner"> Stores the owner who called the damage projectile </param>
-        public static void ExplosionDamage(float DamageRadius, Vector2 DamagePosition, int Damage, float Knockback, int ProjectileOwner) //Outdated*****
+        /// <param name="projectileOwner"> Stores the owner who called the damage projectile </param>
+        public static void ExplosionDamage(float DamageRadius, Vector2 DamagePosition, int Damage, float Knockback, int projectileOwner) //Outdated*****
         {
             ExplosionDamageProjectile.DamageRadius = DamageRadius; //Sets the radius of the explosion
-            Projectile.NewProjectile(DamagePosition, Vector2.Zero, ProjectileType<ExplosionDamageProjectile>(), Damage, Knockback, ProjectileOwner, 0.0f, 0); //Spawns the damage projectile
+            Projectile.NewProjectile(Player.GetSource_NaturalSpawn(), Vector2.Zero, Vector2.Zero, ProjectileType<ExplosionDamageProjectile>(), Damage, Knockback, projectileOwner, 0.0f, 0); //Spawns the damage projectile
         }
 
         /// <summary>
@@ -159,8 +159,8 @@ namespace ExtraExplosives
 
             //lighting - brief flash
             Lighting.AddLight(Center, new Vector3(Radius / 2.3f, Radius / 2.3f, Radius / 2.3f));
-            Lighting.maxX = Radius / 10;
-            Lighting.maxY = Radius / 10;
+            /* TODO Lighting.maxX = Radius / 10;
+            Lighting.maxY = Radius / 10;*/
 
             //shake 
             if (Radius >= 15 && type != 2 && shake)
@@ -178,7 +178,8 @@ namespace ExtraExplosives
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                int proj = Projectile.NewProjectile(position, velocity, type, damage, knockback, owner, ai0, ai1);
+                // TODO wrong owner
+                int proj = Projectile.NewProjectile(Player.GetSource_None(), position, velocity, type, damage, knockback, owner, ai0, ai1);
 
                 NetMessage.SendData(MessageID.SyncProjectile, number: proj);
             }
@@ -441,7 +442,8 @@ namespace ExtraExplosives
                 {
                     for (int num839 = -1; num839 <= 1; num839 += 2)
                     {
-                        Gore gore10 = Gore.NewGoreDirect(Center, Vector2.Zero, Main.rand.Next(61, 64), scale * .5f);
+                        // TODO wrong owner
+                        Gore gore10 = Gore.NewGoreDirect(Player.GetSource_None(), Center, Vector2.Zero, Main.rand.Next(61, 64), scale * .5f);
                         Gore gore = gore10;
                         gore.velocity *= (float)num837 / 3f + (Radius / 8);
                         gore = gore10;
@@ -605,7 +607,7 @@ namespace ExtraExplosives
                     for (int num839 = -1; num839 <= 1; num839 += 2)
                     {
                         Vector2 dir = -Direction.RotatedByRandom(1.2);
-                        Gore gore10 = Gore.NewGoreDirect(Center, dir / 15, Main.rand.Next(61, 64), scale * .3f);
+                        Gore gore10 = Gore.NewGoreDirect(Player.GetSource_None(), Center, dir / 15, Main.rand.Next(61, 64), scale * .3f);
                         Gore gore = gore10;
                         gore.velocity *= (float)num837 / 3f + (Radius / 8);
                         gore = gore10;
@@ -781,7 +783,7 @@ namespace ExtraExplosives
                 {
                     for (int num839 = -1; num839 <= 1; num839 += 2)
                     {
-                        Gore gore10 = Gore.NewGoreDirect(Center, Vector2.Zero, Main.rand.Next(61, 64), scale * .5f);
+                        Gore gore10 = Gore.NewGoreDirect(Player.GetSource_None(), Center, Vector2.Zero, Main.rand.Next(61, 64), scale * .5f);
                         Gore gore = gore10;
                         gore.velocity *= (float)num837 / 3f + (Radius / 8);
                         gore = gore10;

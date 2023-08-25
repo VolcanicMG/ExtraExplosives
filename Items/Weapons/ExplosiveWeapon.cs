@@ -10,8 +10,8 @@ namespace ExtraExplosives.Items.Weapons
 
         protected abstract string SoundLocation { get; }
 
-        protected LegacySoundStyle[] PrimarySounds;
-        protected LegacySoundStyle[] SecondarySounds;
+        //protected LegacySoundStyle[] PrimarySounds;
+        //protected LegacySoundStyle[] SecondarySounds;
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {

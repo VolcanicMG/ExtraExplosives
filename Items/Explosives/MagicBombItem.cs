@@ -13,7 +13,7 @@ namespace ExtraExplosives.Items.Explosives
         private int _pickPower = 0;
         private int timeLeft = 0;
 
-        public override bool CloneNewInstances => true;
+        protected override bool CloneNewInstances => true;
 
         public override void SetStaticDefaults()
         {
@@ -42,14 +42,14 @@ namespace ExtraExplosives.Items.Explosives
             Item.channel = true;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
             ref float knockBack)
         {
             Projectile.NewProjectile(position, new Vector2(speedX, speedY),
                 ModContent.ProjectileType<SmallExplosiveProjectile>(), Item.damage, Item.knockBack);   //ModContent.ProjectileType<MagicBombProjectile>()
             Item.damage = 100;
             return false;
-        }
+        }*/
 
         public override void HoldItem(Player player)
         {

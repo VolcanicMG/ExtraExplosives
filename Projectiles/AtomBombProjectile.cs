@@ -37,7 +37,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Damage
             //ExplosionDamage(1, projectile.Center, 5000, 1.0f, projectile.owner);
@@ -57,11 +57,11 @@ namespace ExtraExplosives.Projectiles
             int gore1ID = Mod.Find<ModGore>(goreFileLoc + "1").Type;
             for (int num = 0; num < 4; num++)
             {
-                Gore.NewGore(Projectile.position + gVel1, gVel1, gore1ID, Projectile.scale);
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + gVel1, gVel1, gore1ID, Projectile.scale);
                 gVel1 = gVel1.RotatedBy(Math.PI / 2.0);
             }
             Vector2 gVel2 = Vector2.One.RotatedBy(Math.PI / 4.0);
-            Gore.NewGore(Projectile.position + gVel2, gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + gVel2, gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         public override void Explosion()    // Special (more efficient) explosion, leaving it

@@ -35,7 +35,7 @@ namespace ExtraExplosives.Projectiles.Weapons.NovaBuster
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             ExplosionDust(radius, Projectile.Center, shake: false);
             ExplosionDamage();

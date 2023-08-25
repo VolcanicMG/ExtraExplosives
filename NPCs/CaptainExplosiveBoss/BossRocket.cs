@@ -74,7 +74,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public void Explode()
         {
-            SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BigDynamite")); //sound
+            //SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/BigDynamite")); //sound
+            SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/BigDynamite"));
             Kill(0);
             NPC.life = 0;
             NPC.active = false;
@@ -87,7 +88,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 Dust.NewDust(NPC.position, 4, 4, ModContent.DustType<BossDynamiteDust>());
             }
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)NPC.Center.X, (int)NPC.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
             //Create Bomb Dust
             CreateDust(NPC.Center, 85);
@@ -258,7 +259,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             }
 
             //gore
-            for (int g = 0; g < 10; g++)
+            /* TODO for (int g = 0; g < 10; g++)
             {
                 int goreIndex = Gore.NewGore(new Vector2(NPC.position.X + (float)(NPC.width / 2) - 24f, NPC.position.Y + (float)(NPC.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
                 Main.gore[goreIndex].scale = 1.5f;
@@ -276,7 +277,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 Main.gore[goreIndex].scale = 1.5f;
                 Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
                 Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
-            }
+            }*/
         }
 
     }

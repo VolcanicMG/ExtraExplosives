@@ -54,7 +54,7 @@ namespace ExtraExplosives.Projectiles
             Player player = Main.player[Projectile.owner];
 
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Dust
             ExplosionDust(radius, player.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
@@ -142,11 +142,11 @@ namespace ExtraExplosives.Projectiles
                                 WorldGen.KillTile((int)(i), (int)(j), false, false, false);
                             else
                             {
-                                if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType))
+                                /* TODO if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType))
                                 {
                                     Main.tile[i, j].ClearTile();
                                     Main.tile[i, j].HasTile = false;
-                                }
+                                }*/
                             }
                             //
                         }

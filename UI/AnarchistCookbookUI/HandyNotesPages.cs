@@ -85,7 +85,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             StickyGunpowderBox1.BorderColor = new Color(0, 0, 0, 75);
             leftPage.Append(StickyGunpowderBox1);
 
-            StickyGunpowderAnimated1 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Animations/StickyGunpowder/Gel"));
+            StickyGunpowderAnimated1 = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Animations/StickyGunpowder/Gel"));
             StickyGunpowderAnimated1.HAlign = 0.5f;
             StickyGunpowderAnimated1.VAlign = 0.5f;
             StickyGunpowderAnimated1.Top.Pixels = -10;
@@ -118,7 +118,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             foundMat.Left.Pixels = -115;
             StickyGunpowderBox2.Append(foundMat);
 
-            StickyGunpowderAnimated2 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Animations/StickyGunpowder/ExplosivePowder"));
+            StickyGunpowderAnimated2 = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Animations/StickyGunpowder/ExplosivePowder"));
             StickyGunpowderAnimated2.HAlign = 0.5f;
             StickyGunpowderAnimated2.VAlign = 0.5f;
             StickyGunpowderAnimated2.Top.Pixels = 10;
@@ -155,8 +155,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             CaptainExplosiveNPCAnimated.Width.Pixels = 80;
             CaptainExplosiveNPCBox.Append(CaptainExplosiveNPCAnimated);
 
-            ToggleStickyGunpowder = new UIHoverImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"), "Sticky Gunpowder");
-            StickyGunpowder = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/StickyGunpowder"));
+            ToggleStickyGunpowder = new UIHoverImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box").Value, "Sticky Gunpowder");
+            StickyGunpowder = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/StickyGunpowder"));
             StickyGunpowder.VAlign = 0.5f;
             StickyGunpowder.HAlign = 0.5f;
             ToggleStickyGunpowder.Append(StickyGunpowder);    // Image of Sticky Gunpowder for labeling
@@ -165,8 +165,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleStickyGunpowder.OnClick += new MouseEvent(StickyGunpowderToggle);
             leftPage.Append(ToggleStickyGunpowder);
 
-            ToggleLightweightBombshells = new UIHoverImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"), "Lightweight Bombshells");
-            LightweightBombshells = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/LightweightBombshells"));
+            ToggleLightweightBombshells = new UIHoverImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box").Value, "Lightweight Bombshells");
+            LightweightBombshells = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/LightweightBombshells"));
             LightweightBombshells.VAlign = 0.5f;
             LightweightBombshells.HAlign = 0.5f;
             ToggleLightweightBombshells.Append(LightweightBombshells);    // Image of Sticky Gunpowder for labeling
@@ -190,25 +190,25 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             VelocityOut.Top.Pixels = 25;
             VelocitySliderBar.Append(VelocityOut);
 
-            StickyGunpowderImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/StickyGunpowder"));
+            StickyGunpowderImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/StickyGunpowder"));
             StickyGunpowderImage.Left.Pixels = 0;
             StickyGunpowderImage.Top.Pixels = 0;
             StickyGunpowderImage.ImageScale = 0.8f;
             StickyGunpowderImage.OnClick += new MouseEvent(StickyGunpowderToggle);
             leftPage.Append(StickyGunpowderImage);
-            LightweightBombshellsImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/LightweightBombshells"));
+            LightweightBombshellsImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/LightweightBombshells"));
             LightweightBombshellsImage.Left.Pixels = 20;
             LightweightBombshellsImage.Top.Pixels = -16;
             LightweightBombshellsImage.ImageScale = 0.7f;
             LightweightBombshellsImage.OnClick += new MouseEvent(LightweightBombshellsToggle);
             rightPage.Append(LightweightBombshellsImage);
-            StickyGunpowder_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/StickyGunpowder_Greyscale"));
+            StickyGunpowder_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/StickyGunpowder_Greyscale"));
             StickyGunpowder_GreyscaleImage.Left.Pixels = 0;
             StickyGunpowder_GreyscaleImage.Top.Pixels = 0;
             StickyGunpowder_GreyscaleImage.ImageScale = 0.8f;
             StickyGunpowder_GreyscaleImage.OnClick += new MouseEvent(StickyGunpowderToggle);
             leftPage.Append(StickyGunpowder_GreyscaleImage);
-            LightweightBombshells_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/LightweightBombshells_Greyscale"));
+            LightweightBombshells_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/LightweightBombshells_Greyscale"));
             LightweightBombshells_GreyscaleImage.Left.Pixels = 20;
             LightweightBombshells_GreyscaleImage.Top.Pixels = -16;
             LightweightBombshells_GreyscaleImage.ImageScale = 0.7f;

@@ -26,8 +26,8 @@ namespace ExtraExplosives.Projectiles
         // private bool freeze;
         private ExtraExplosivesPlayer c4Owner;
         private Vector2 positionToFreeze;
-        private LegacySoundStyle indicatorSound;
-        private LegacySoundStyle primedSound;
+        private SoundStyle indicatorSound;
+        private SoundStyle primedSound;
         private SoundEffectInstance indicatorSoundInstance;
 
         public override void SetStaticDefaults()
@@ -47,23 +47,23 @@ namespace ExtraExplosives.Projectiles
             Projectile.penetrate = -1;
             Projectile.timeLeft = Int32.MaxValue;
             //projectile.extraUpdates = 1;
-            Terraria.ModLoader.SoundType customType = Terraria.ModLoader.SoundType.Custom;
-            indicatorSound = Mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "timer");
-            primedSound = Mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "time_to_explode");
+            //Terraria.ModLoader.SoundType customType = Terraria.ModLoader.SoundType.Custom;
+            indicatorSound = new SoundStyle(explodeSoundsLoc + "timer");
+            primedSound = new SoundStyle(explodeSoundsLoc + "time_to_explode");
             if (!Main.dedServ && indicatorSound != null || primedSound != null) //Checking for nulls might fix the error
             {
-                indicatorSound = indicatorSound.WithPitchVariance(0f).WithVolume(0.5f);
-                primedSound = primedSound.WithPitchVariance(0f).WithVolume(0.5f);
+                /* TODO not working indicatorSound = indicatorSound.WithPitchVariance(0f).WithVolume(0.5f);
+                primedSound = primedSound.WithPitchVariance(0f).WithVolume(0.5f);*/
             }
             else if (indicatorSound != null || primedSound != null)
             {
-                indicatorSound = Mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "timer");
-                primedSound = Mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "time_to_explode");
+                indicatorSound = new SoundStyle(explodeSoundsLoc + "timer");
+                primedSound = new SoundStyle(explodeSoundsLoc + "time_to_explode");
             }
-            explodeSounds = new LegacySoundStyle[4];
+            explodeSounds = new SoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(customType, explodeSoundsLoc + "Bomb_" + num);
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + "Bomb_" + num);
             }
         }
 
@@ -99,14 +99,14 @@ namespace ExtraExplosives.Projectiles
                     Projectile.position = positionToFreeze;
                     Projectile.velocity = Vector2.Zero;
                     if (indicatorSoundInstance == null)
-                        indicatorSoundInstance = SoundEngine.PlaySound(indicatorSound, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+                        /*indicatorSoundInstance = */SoundEngine.PlaySound(indicatorSound);
                     else if (indicatorSoundInstance.State != SoundState.Playing)    // else if needed to avoid a NullReferenceException
                         indicatorSoundInstance.Play();
                     if (c4Owner != null && c4Owner.detonate)
                     {
                         projState = C4State.Primed;
                         Projectile.ai[1] = 55;
-                        SoundEngine.PlaySound(primedSound, (int)Projectile.position.X, (int)Projectile.position.Y);
+                        SoundEngine.PlaySound(primedSound);
                     }
                     break;
                 case C4State.Primed:
@@ -125,7 +125,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create Bomb Dust
             DustEffects();
@@ -137,8 +137,8 @@ namespace ExtraExplosives.Projectiles
             //Creating Bomb Gore
             Vector2 gVel1 = new Vector2(-4f, -4f);
             Vector2 gVel2 = new Vector2(4f, -4f);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         public override void Explosion()
@@ -164,11 +164,11 @@ namespace ExtraExplosives.Projectiles
                         {
                             if (CanBreakTiles) //User preferences dictates if bombs can break tiles
                             {
-                                if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType))
+                                /* TODO if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType))
                                 {
                                     tile.ClearTile();
                                     tile.HasTile = false;
-                                }
+                                }*/
                                 if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
                             }
                         }

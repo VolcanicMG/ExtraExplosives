@@ -20,7 +20,7 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.addTile(Type);
             DustType = 7;
-            disableSmartCursor = true;
+            TileID.Sets.DisableSmartCursor[Type] = true;
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Cpt Postrait");
             AddMapEntry(new Color(120, 85, 60), name);
@@ -29,7 +29,7 @@ namespace ExtraExplosives.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 50, ModContent.ItemType<CptExplosivePortraitItem>());
+            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 48, 50, ModContent.ItemType<CptExplosivePortraitItem>());
         }
     }
 }

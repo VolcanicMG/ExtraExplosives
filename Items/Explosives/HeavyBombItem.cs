@@ -39,7 +39,7 @@ namespace ExtraExplosives.Items.Explosives
             recipe.AddIngredient(ModContent.ItemType<LargeExplosiveItem>(), 1);
             recipe.AddIngredient(ItemID.IronAnvil, 1);
             recipe.AddIngredient(ItemID.IronBar, 5);
-            recipe.anyIronBar = true;
+            //recipe.anyIronBar = true;
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }

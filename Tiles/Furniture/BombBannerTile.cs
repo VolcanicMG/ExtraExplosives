@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -23,7 +24,7 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
             DustType = -1;
-            disableSmartCursor = true;
+            TileID.Sets.DisableSmartCursor[Type] = true;
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Banner");
             AddMapEntry(new Color(13, 88, 130), name);
@@ -31,7 +32,7 @@ namespace ExtraExplosives.Tiles.Furniture
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             int style = frameX / 18;
-            Item.NewItem(i * 16, j * 16, 16, 48, Mod.Find<ModItem>("BombBannerItem").Type);
+            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j), i * 16, j * 16, 16, 48, Mod.Find<ModItem>("BombBannerItem").Type);
         }
 
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)

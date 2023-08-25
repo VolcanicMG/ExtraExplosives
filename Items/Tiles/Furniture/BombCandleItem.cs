@@ -33,7 +33,7 @@ namespace ExtraExplosives.Items.Tiles.Furniture
             recipe.AddIngredient(ItemID.Dynamite, 10);
             recipe.AddIngredient(ItemID.Wood, 10);
             recipe.AddIngredient(ItemID.Gel, 10);
-            recipe.anyWood = true;
+            //recipe.anyWood = true;
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
         }

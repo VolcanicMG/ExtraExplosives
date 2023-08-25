@@ -10,6 +10,7 @@ namespace ExtraExplosives.Buffs
         {
             DisplayName.SetDefault("Bomb Buddy");
             Description.SetDefault("It's a walking bomb!!");
+            
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;
         }
@@ -21,7 +22,7 @@ namespace ExtraExplosives.Buffs
             bool petProjectileNotSpawned = player.ownedProjectileCounts[ProjectileType<Pets.BombBuddy>()] <= 0;
             if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
             {
-                Projectile.NewProjectile(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, ProjectileType<Pets.BombBuddy>(), 0, 0f, player.whoAmI, 0f, 0f);
+                //Projectile.NewProjectile(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, ProjectileType<Pets.BombBuddy>(), 0, 0f, player.whoAmI, 0f, 0f);
             }
         }
     }

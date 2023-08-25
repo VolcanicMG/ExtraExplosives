@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
 {
     public class ExtraExplosives_DemoProjectileWithComments : ModProjectile //Class implements Mod Projectile
     {
-        public override bool Autoload(ref string _) => false;
+        public override bool IsLoadingEnabled(Mod mod)/* tModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead */ => false;
 
         private const int PickPower = 0; //power of the bomb
         public override string Texture => "ExtraExplosives/Projectiles/BulletBoomProjectile"; //This is the texture. You can have the same name as the class be the png in place of the texture override
@@ -48,7 +48,7 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             //SoundID.Item14 is the default bomb sound
 
             //Create Bomb Damage

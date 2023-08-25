@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using static ExtraExplosives.GlobalMethods;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -31,7 +32,7 @@ namespace ExtraExplosives.Projectiles
             Projectile.hostile = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 20000;
-            Projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -163,7 +164,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             Projectile.knockBack = 20;  // Since no calling item exists, knockback must be set internally	(Set in Hellfire Rocket Battery)
             ExplosionDamage();

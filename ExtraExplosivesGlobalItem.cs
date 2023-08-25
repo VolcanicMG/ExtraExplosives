@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 namespace ExtraExplosives
@@ -12,7 +13,7 @@ namespace ExtraExplosives
     public class ExtraExplosivesGlobalItem : GlobalItem
     {
         public override bool InstancePerEntity => true;
-        public override bool CloneNewInstances { get; } = true;
+        protected override bool CloneNewInstances { get; } = true;
 
         private Item instancedItem;
         private bool defaultConsume;
@@ -29,8 +30,7 @@ namespace ExtraExplosives
 
         }
 
-        public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type,
-            ref int damage, ref float knockBack)
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (item.type == ModContent.ItemType<NukeItem>()) return true;
             Projectile projectile = new Projectile();
@@ -71,9 +71,10 @@ namespace ExtraExplosives
                     {                // Some bones shouldnt be duplicated, this does that, for list of bombs check AddRecipes()
                         if (Main.rand.NextBool())
                         {
-                            Projectile proj = Projectile.NewProjectileDirect(position,
-                                new Vector2(speedX + 0.1f, speedY + 0.1f), item.shoot, damage,
-                                knockBack, item.playerIndexTheItemIsReservedFor);
+                            
+                            Projectile proj = Projectile.NewProjectileDirect(player.GetSource_FromThis(), position,
+                                new Vector2(position.X + 0.1f, position.Y + 0.1f), item.shoot, damage,
+                                knockback, item.playerIndexTheItemIsReservedFor);
                             proj.position.X += 5;
                             proj.position.Y += 5;
                         }
@@ -89,7 +90,7 @@ namespace ExtraExplosives
 
                 }
             }
-            return base.Shoot(item, player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+            return base.Shoot(item, player, source, position, velocity, type,  damage,  knockback);
         }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -118,14 +119,14 @@ namespace ExtraExplosives
         public override void AddRecipes()
         {
 
-            Recipe recipe = Mod.CreateRecipe(ItemID.Dynamite);
+            Recipe recipe = Recipe.Create(ItemID.Dynamite);
             recipe.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 3);
             recipe.AddIngredient(ItemID.Gel, 5);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
             base.AddRecipes();
 
-            Recipe recipe2 = Mod.CreateRecipe(ItemID.Bomb);
+            Recipe recipe2 = Recipe.Create(ItemID.Bomb);
             recipe2.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 1);
             recipe2.AddIngredient(ItemID.Grenade, 1);
             recipe2.AddIngredient(ItemID.Gel, 5);

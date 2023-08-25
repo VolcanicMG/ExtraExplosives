@@ -33,7 +33,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.value = Item.buyPrice(0, 15, 0, 50);
             Item.knockBack = 8;
             Item.rare = ItemRarityID.Red;
-            Item.ranged = true;
+            //Item.ranged = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -57,7 +57,7 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-16, 0);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -75,7 +75,7 @@ namespace ExtraExplosives.Items.Weapons
             }
 
             return false;
-        }
+        }*/
 
         public override void AddRecipes()
         {

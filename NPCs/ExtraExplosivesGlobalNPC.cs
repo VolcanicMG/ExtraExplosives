@@ -6,6 +6,7 @@ using ExtraExplosives.Items.Explosives;
 using ExtraExplosives.Items.Rockets;
 using ExtraExplosives.Items.Weapons;
 using Microsoft.Xna.Framework;
+using Terraria.GameContent.ItemDropRules;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -39,13 +40,23 @@ namespace ExtraExplosives.NPCs
             }
         }
 
-        public override void OnKill(NPC npc)
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            switch (npc.type)
+            {
+                case NPCID.WallofFlesh:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MinerainLauncher>(), 20));
+                    break;
+            }
+        }
+        /*public override void OnKill(NPC npc) // TODO swap to ModifyNPCLoot also figure out wtf is up with that magic float, i think its a drop chance but who knows
         {
             if (npc.boss && Main.expertMode)
             {
                 if (Main.rand.NextFloat() < 0.10210526f && npc.type != Mod.Find<ModNPC>("CaptainExplosive").Type)
                 {
-                    Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BreakenTheBankenItem>(), 1);
+                    // TODO Item.NewItem(Main.LocalPlayer.getRect(), ModContent.ItemType<BreakenTheBankenItem>(), 1);
                 }
             }
 
@@ -173,7 +184,7 @@ namespace ExtraExplosives.NPCs
                 default:
                     break;
             }
-        }
+        }*/
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {

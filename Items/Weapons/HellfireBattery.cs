@@ -36,7 +36,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.crit = 35;
             Item.height = 42;
             Item.shoot = 134;
-            Item.UseSound = Mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Hellfire");
+            //Item.UseSound = Mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Hellfire");
             Item.channel = true;
             Item.damage = 250;
             Item.shootSpeed = 13f;
@@ -44,7 +44,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.value = Item.buyPrice(10, 1, 0, 50);
             Item.knockBack = 4f;
             Item.rare = 11;
-            Item.ranged = true;
+            //Item.ranged = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -64,7 +64,7 @@ namespace ExtraExplosives.Items.Weapons
             tooltips.Add(fireModeUseTip);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 56f;
@@ -94,13 +94,13 @@ namespace ExtraExplosives.Items.Weapons
             }
 
             return false;
-        }
+        }*/
 
         public override void HoldItem(Player player)
         {
             if (Main.mouseRight && Main.mouseRightRelease)
             {
-                SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                //SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
                 mode++;
 
                 if (mode == 1)

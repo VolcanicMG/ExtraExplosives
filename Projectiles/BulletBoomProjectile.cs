@@ -8,7 +8,7 @@ namespace ExtraExplosives.Projectiles
 {
     public class BulletBoomProjectile : ExplosiveProjectile	// Will rebuild this file later
     {
-        public override bool CloneNewInstances => true;    // DONT CHANGE
+        protected override bool CloneNewInstances => true;    // DONT CHANGE
         public override string Texture => "ExtraExplosives/Items/Explosives/BulletBoomItem";    // texture, change if needed
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreFileLoc => "n/a";
@@ -63,7 +63,7 @@ namespace ExtraExplosives.Projectiles
             ExtraExplosivesPlayer mp = Main.player[Projectile.owner].EE();
 
             Vector2 position = Projectile.Center;
-            SoundEngine.PlaySound(SoundID.Item14, (int)position.X, (int)position.Y);
+            SoundEngine.PlaySound(SoundID.Item14, position);
 
             Vector2 vel;
             int spedX;
@@ -87,7 +87,7 @@ namespace ExtraExplosives.Projectiles
                             if (spedX == 0) spedX = 1;
                             if (spedY == 0) spedY = 1;
                             //if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 20, projectile.owner, 0.0f, 0);
-                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)Projectile.knockBack, (int)((Projectile.damage + mp.DamageBonus) * mp.DamageMulti), 20, Projectile.owner, 0.0f, 0);
+                            if (++cntr <= 100) Projectile.NewProjectile(Projectile.GetSource_FromThis(), position.X + x, position.Y + y, spedX, spedY, (int)Projectile.knockBack, (int)((Projectile.damage + mp.DamageBonus) * mp.DamageMulti), 20, Projectile.owner, 0.0f, 0);
                         }
                         else
                         {
@@ -95,7 +95,7 @@ namespace ExtraExplosives.Projectiles
                             spedY = Main.rand.Next(15) - 7;
                             if (spedX == 0) spedX = 1;
                             if (spedY == 0) spedY = 1;
-                            if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)Projectile.knockBack, (int)((Projectile.damage + mp.DamageBonus) * mp.DamageMulti), 20, Projectile.owner, 0.0f, 0);
+                            if (++cntr <= 100) Projectile.NewProjectile(Projectile.GetSource_FromThis(), position.X + x, position.Y + y, spedX, spedY, (int)Projectile.knockBack, (int)((Projectile.damage + mp.DamageBonus) * mp.DamageMulti), 20, Projectile.owner, 0.0f, 0);
                         }
                     }
                 }

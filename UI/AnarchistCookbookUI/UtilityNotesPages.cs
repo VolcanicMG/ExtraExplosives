@@ -136,15 +136,15 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             foundMat.Left.Pixels = -120;
             CrossedWiresBox2.Append(foundMat);
 
-            CrossedWiresAnimated2 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Animations/CrossedWires/Gel"));
+            CrossedWiresAnimated2 = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Animations/CrossedWires/Gel"));
             CrossedWiresAnimated2.HAlign = 0.5f;
             CrossedWiresAnimated2.VAlign = 0.5f;
             CrossedWiresAnimated2.Height.Pixels = 100;
             CrossedWiresAnimated2.Width.Pixels = 100;
             CrossedWiresBox2.Append(CrossedWiresAnimated2);
 
-            ToggleCrossedWires = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-            CrossedWires = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/CrossedWires"));
+            ToggleCrossedWires = new UIImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
+            CrossedWires = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/CrossedWires"));
             CrossedWires.VAlign = 0.5f;
             CrossedWires.HAlign = 0.5f;
             ToggleCrossedWires.Append(CrossedWires);    // Image of bomb bag for labeling
@@ -153,8 +153,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleCrossedWires.OnClick += new MouseEvent(CrossedWiresToggle);
             leftPage.Append(ToggleCrossedWires);
 
-            ToggleGlowingCompound = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-            GlowingCompound = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/GlowingCompound"));
+            ToggleGlowingCompound = new UIImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
+            GlowingCompound = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/GlowingCompound"));
             GlowingCompound.VAlign = 0.5f;
             GlowingCompound.HAlign = 0.5f;
             ToggleGlowingCompound.Append(GlowingCompound);    // Image of bomb bag for labeling
@@ -163,25 +163,25 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleGlowingCompound.OnClick += new MouseEvent(GlowingCompoundToggle);
             rightPage.Append(ToggleGlowingCompound);
 
-            CrossedWiresImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/CrossedWires"));
+            CrossedWiresImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/CrossedWires"));
             CrossedWiresImage.Left.Pixels = 0;
             CrossedWiresImage.Top.Pixels = 0;
             CrossedWiresImage.ImageScale = 0.8f;
             CrossedWiresImage.OnClick += new MouseEvent(CrossedWiresToggle);
             leftPage.Append(CrossedWiresImage);
-            GlowingCompoundImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/GlowingCompound"));
+            GlowingCompoundImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/GlowingCompound"));
             GlowingCompoundImage.Left.Pixels = 20;
             GlowingCompoundImage.Top.Pixels = -16;
             GlowingCompoundImage.ImageScale = 0.7f;
             GlowingCompoundImage.OnClick += new MouseEvent(GlowingCompoundToggle);
             rightPage.Append(GlowingCompoundImage);
-            CrossedWires_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/CrossedWires_Greyscale"));
+            CrossedWires_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/CrossedWires_Greyscale"));
             CrossedWires_GreyscaleImage.Left.Pixels = 0;
             CrossedWires_GreyscaleImage.Top.Pixels = 0;
             CrossedWires_GreyscaleImage.ImageScale = 0.8f;
             CrossedWires_GreyscaleImage.OnClick += new MouseEvent(CrossedWiresToggle);
             leftPage.Append(CrossedWires_GreyscaleImage);
-            GlowingCompound_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/GlowingCompound_Greyscale"));
+            GlowingCompound_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/GlowingCompound_Greyscale"));
             GlowingCompound_GreyscaleImage.Left.Pixels = 20;
             GlowingCompound_GreyscaleImage.Top.Pixels = -16;
             GlowingCompound_GreyscaleImage.ImageScale = 0.7f;

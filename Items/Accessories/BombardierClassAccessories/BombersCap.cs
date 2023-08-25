@@ -28,6 +28,6 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
             player.EE().BombersHat = true;
         }
 
-        public override bool DrawHead() => true;
+        //public override bool DrawHead() => true;
     }
 }

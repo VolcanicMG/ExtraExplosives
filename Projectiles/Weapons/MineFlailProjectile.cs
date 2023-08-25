@@ -17,7 +17,7 @@ namespace ExtraExplosives.Projectiles.Weapons
             Projectile.height = 22;
             Projectile.friendly = true;
             Projectile.penetrate = -1; // Make the flail infinitely penetrate like other flails
-            Projectile.melee = true;
+            Projectile.DamageType = DamageClass.Melee;
             Projectile.aiStyle = 15; // The vanilla flails all use aiStyle 15, but we must not use it since we want to customize the range and behavior.
         }
 

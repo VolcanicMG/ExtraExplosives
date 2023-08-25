@@ -39,10 +39,10 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 400;
-            explodeSounds = new LegacySoundStyle[3];
+            explodeSounds = new SoundStyle[3];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
             }
         }
 
@@ -64,7 +64,7 @@ namespace ExtraExplosives.Projectiles
                     Projectile.alpha = 255; // Make the projectile invisible.
 
                     //Create Bomb Sound
-                    SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
+                    SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
                     //Create Bomb Dust
                     DustEffects();

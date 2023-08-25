@@ -62,11 +62,7 @@ namespace ExtraExplosives
         //dust
         internal static float dustAmount;
 
-        //UI
-        internal UserInterface ExtraExplosivesUserInterface;
-        internal UserInterface ExtraExplosivesReforgeBombInterface;
-        internal UserInterface CEBossInterface;
-        internal UserInterface CEBossInterfaceNonOwner;
+        
 
         //Mod instance
         public static Mod Instance;
@@ -94,7 +90,7 @@ namespace ExtraExplosives
 
         //config
         internal static ExtraExplosivesConfig EEConfig;
-
+        
         //Boombox
         public static bool boomBoxMusic = false;
         public static int randomMusicID = 0;
@@ -111,11 +107,26 @@ namespace ExtraExplosives
         {
 
         }
+        
+        
+        
+        /* TODO for now we simply wont have music public override void UpdateMusic(ref int music, ref SceneEffectPriority priority)/* tModPorter Note: Removed. Use ModSceneEffect.Music and .Priority, aswell as ModSceneEffect.IsSceneEffectActive #1#
+        {
+            if (boomBoxMusic)
+            {
+                if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active)
+                {
+                    return;
+                }
+                music = randomMusicID;
+                priority = SceneEffectPriority.BossHigh;
+            }
+        }*/
 
         public override void Unload()
         {
             base.Unload();
-            ExtraExplosivesUserInterface = null;
+            //ExtraExplosivesUserInterface = null;
             ModVersion = null;
             Instance = null;
             CurrentVersion = null;
@@ -198,14 +209,14 @@ namespace ExtraExplosives
 
                 case EEMessageTypes.BossCheckDynamite:
 
-                    int randomNumber = reader.ReadVarInt();
+                    int randomNumber = reader.Read7BitEncodedInt();
 
                     bossDropDynamite = randomNumber;
                     break;
 
                 case EEMessageTypes.bossCheckRocket:
 
-                    int randomNumber2 = reader.ReadVarInt();
+                    int randomNumber2 = reader.Read7BitEncodedInt();
 
                     bossDropDynamite = randomNumber2;
                     break;
@@ -263,7 +274,7 @@ namespace ExtraExplosives
 
         public override void PostSetupContent()
         {
-            Mod censusMod = ModLoader.GetMod("Census");
+            /*Mod censusMod = ModLoader.GetMod("Census");
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
 
             if (censusMod != null)
@@ -279,7 +290,7 @@ namespace ExtraExplosives
             {
                 // AddBoss, bossname, order or value in terms of vanilla bosses, inline method for retrieving downed value.
                 bossChecklist.Call("AddBoss", 6, ModContent.NPCType<CaptainExplosiveBoss>(), this, "Captain Explosive", (Func<bool>)(() => ExtraExplosivesWorld.BossCheckDead), ModContent.ItemType<Unhinged_Letter>(), ModContent.ItemType<BombHat>(), ModContent.ItemType<CaptainExplosiveTreasureBag>(), $"Kill King Slime or Eye Of Cthulhu, then you can buy the[i:{ModContent.ItemType<Unhinged_Letter>()}] from the demolitionist");
-            }
+            }*/
 
             _tooltipWhitelist = new HashSet<int> //Whitelist for the (Bombard Item) tag at the end of bombard items.
 			{
@@ -492,96 +503,9 @@ namespace ExtraExplosives
             base.PostSetupContent();
         }
 
-        public override void UpdateUI(GameTime gameTime)
-        {
-            ExtraExplosivesUserInterface?.Update(gameTime);
-            CEBossInterface?.Update(gameTime);
-            CEBossInterfaceNonOwner?.Update(gameTime);
-            //ExtraExplosivesReforgeBombInterface?.Update(gameTime);
+        
 
-            buttonInterface?.Update(gameTime);
-            cookbookInterface?.Update(gameTime);
-        }
-
-        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-        {
-            int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-
-            int inventoryIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
-
-            if (inventoryIndex != -1)
-            {
-                layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
-                    "ExtraExplosives: UI",
-                    delegate
-                    {
-                        // If the current UIState of the UserInterface is null, nothing will draw. We don't need to track a separate .visible value.
-                        ExtraExplosivesUserInterface.Draw(Main.spriteBatch, new GameTime());
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
-                layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
-                    "ExtraExplosives: ReforgeBombUI",
-                    delegate
-                    {
-                        // If the current UIState of the UserInterface is null, nothing will draw. We don't need to track a separate .visible value.
-                        ExtraExplosivesReforgeBombInterface.Draw(Main.spriteBatch, new GameTime());
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
-                layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
-                    "ExtraExplosives: CEBossUI",
-                    delegate
-                    {
-                        // If the current UIState of the UserInterface is null, nothing will draw. We don't need to track a separate .visible value.
-                        CEBossInterface.Draw(Main.spriteBatch, new GameTime());
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
-                layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
-                    "ExtraExplosives: CEBossUINonOwner",
-                    delegate
-                    {
-                        // If the current UIState of the UserInterface is null, nothing will draw. We don't need to track a separate .visible value.
-                        CEBossInterfaceNonOwner.Draw(Main.spriteBatch, new GameTime());
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
-                layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
-                "ExtraExplosives: CookbookButton",
-                    delegate
-                    {
-                        if (Main.playerInventory)
-                        {
-                            buttonInterface.Draw(Main.spriteBatch, new GameTime());
-                        }
-                        return true;
-                    },
-                    InterfaceScaleType.UI));
-                layers.Insert(inventoryIndex, new LegacyGameInterfaceLayer(
-                    "ExtraExplosives: CookbookUI",
-                    delegate
-                    {
-
-                        cookbookInterface.Draw(Main.spriteBatch, new GameTime());
-
-                        return true;
-
-                    },
-                    InterfaceScaleType.UI));
-            }
-
-            if (mouseTextIndex != -1)
-            {
-
-            }
-
-
-        }
+        
 
         public override void Load()
         {
@@ -590,19 +514,15 @@ namespace ExtraExplosives
             Logger.InfoFormat($"{0} Extra Explosives logger", Name);
 
             //UI stuff
-            ExtraExplosivesUserInterface = new UserInterface();
-            ExtraExplosivesReforgeBombInterface = new UserInterface();
-            CEBossInterface = new UserInterface();
-            CEBossInterfaceNonOwner = new UserInterface();
             cookbookInterface = new UserInterface();
 
             //Hotkey stuff
-            TriggerExplosion = RegisterHotKey("Explode", "Mouse2");
-            TriggerUIReforge = RegisterHotKey("Open Reforge Bomb UI", "P");
-            ToggleCookbookUI = RegisterHotKey("UIToggle", "\\");
-            TriggerBoost = RegisterHotKey("TriggerBoost", "S");
-            TriggerNovaBomb = RegisterHotKey("TriggerNovaSetBonus", "X");
-            TriggerLizhard = RegisterHotKey("TriggerMissleFireLizhard", "Z");
+            TriggerExplosion = KeybindLoader.RegisterKeybind(this, "Explode", "Mouse2");
+            TriggerUIReforge = KeybindLoader.RegisterKeybind(this, "Open Reforge Bomb UI", "P");
+            ToggleCookbookUI = KeybindLoader.RegisterKeybind(this, "UIToggle", "\\");
+            TriggerBoost = KeybindLoader.RegisterKeybind(this, "TriggerBoost", "S");
+            TriggerNovaBomb = KeybindLoader.RegisterKeybind(this, "TriggerNovaSetBonus", "X");
+            TriggerLizhard = KeybindLoader.RegisterKeybind(this, "TriggerMissleFireLizhard", "Z");
 
             if (!Main.dedServ)
             {
@@ -618,25 +538,25 @@ namespace ExtraExplosives
             if (Main.netMode != NetmodeID.Server)
             {
                 //load in the shaders
-                Ref<Effect> screenRef = new Ref<Effect>(GetEffect("Effects/Shader")); // The path to the compiled shader file.
+                Ref<Effect> screenRef = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/Shader").Value); // The path to the compiled shader file.
                 Filters.Scene["Bang"] = new Filter(new ScreenShaderData(screenRef, "Bang"), EffectPriority.VeryHigh); //float4 name
                 Filters.Scene["Bang"].Load();
 
-                Ref<Effect> screenRef2 = new Ref<Effect>(GetEffect("Effects/NukeShader")); // The path to the compiled shader file.
+                Ref<Effect> screenRef2 = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/NukeShader").Value); // The path to the compiled shader file.
                 Filters.Scene["BigBang"] = new Filter(new ScreenShaderData(screenRef2, "BigBang"), EffectPriority.VeryHigh); //float4 name
                 Filters.Scene["BigBang"].Load();
 
                 // Hot Potato Shader
-                Ref<Effect> burningScreenFilter = new Ref<Effect>(GetEffect("Effects/HPScreenFilter"));
+                Ref<Effect> burningScreenFilter = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/HPScreenFilter").Value);
                 Filters.Scene["BurningScreen"] = new Filter(new ScreenShaderData(burningScreenFilter, "BurningScreen"), EffectPriority.Medium); // Shouldnt override more important shaders
                 Filters.Scene["BurningScreen"].Load();
 
                 //Bomb shader
-                Ref<Effect> bombShader = new Ref<Effect>(GetEffect("Effects/bombshader"));
+                Ref<Effect> bombShader = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/bombshader").Value);
                 GameShaders.Misc["bombshader"] = new MiscShaderData(bombShader, "BombShader");
 
                 //shockwave
-                Ref<Effect> screenRef3 = new Ref<Effect>(GetEffect("Effects/ShockwaveEffect")); // The path to the compiled shader file.
+                Ref<Effect> screenRef3 = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/ShockwaveEffect").Value); // The path to the compiled shader file.
                 Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef3, "Shockwave"), EffectPriority.High);
                 Filters.Scene["Shockwave"].Load();
             }
@@ -664,15 +584,15 @@ namespace ExtraExplosives
                 }
             }
 
-            Mod yabhb = ModLoader.GetMod("FKBossHealthBar");
+            Mod yabhb = null; //ModLoader.GetMod("FKBossHealthBar");
             if (yabhb != null)
             {
                 yabhb.Call("hbStart");
                 yabhb.Call("hbSetTexture",
-                 GetTexture("NPCs/CaptainExplosiveBoss/healtbar_left"),
-                 GetTexture("NPCs/CaptainExplosiveBoss/healtbar_frame"),
-                 GetTexture("NPCs/CaptainExplosiveBoss/healtbar_right"),
-                 GetTexture("NPCs/CaptainExplosiveBoss/healtbar_fill"));
+                 ModContent.Request<Texture2D>("NPCs/CaptainExplosiveBoss/healtbar_left").Value,
+                 ModContent.Request<Texture2D>("NPCs/CaptainExplosiveBoss/healtbar_frame").Value,
+                 ModContent.Request<Texture2D>("NPCs/CaptainExplosiveBoss/healtbar_right").Value,
+                 ModContent.Request<Texture2D>("NPCs/CaptainExplosiveBoss/healtbar_fill").Value);
                 //yabhb.Call("hbSetMidBarOffset", 20, 12);
                 //yabhb.Call("hbSetBossHeadCentre", 22, 34);
                 yabhb.Call("hbFinishSingle", ModContent.NPCType<CaptainExplosiveBoss>());
@@ -693,51 +613,8 @@ namespace ExtraExplosives
                 return false;
             }
         }
-        public override void UpdateMusic(ref int music, ref SceneEffectPriority priority)
-        {
-            if (boomBoxMusic)
-            {
-                if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active)
-                {
-                    return;
-                }
-                music = randomMusicID;
-                priority = SceneEffectPriority.BossHigh;
-            }
-        }
+        
 
-        public override void PostUpdateEverything()
-        {
-            if (boomBoxMusic)
-            {
-                boomBoxTimer++;
-                if (boomBoxTimer > (1200 + Main.rand.Next(600)))
-                {
-                    boomBoxMusic = false;
-                    boomBoxTimer = 0;
-                }
-            }
-
-            //Still needs work and most likely reworked(MP issues)
-            if (Main.LocalPlayer.dead)
-            {
-                if (NovaBooster.EngineSoundInstance != null && NovaBooster.EngineSoundInstance.State == SoundState.Playing)
-                    NovaBooster.EngineSoundInstance.Stop();
-                if (NovaBooster.EndSoundInstance != null && NovaBooster.EndSoundInstance.State == SoundState.Playing)
-                    NovaBooster.EndSoundInstance.Stop();
-            }
-        }
-
-        public override void AddRecipes()
-        {
-            Recipe recipe = Instance.CreateRecipe(ItemID.AvengerEmblem);
-            recipe.AddIngredient(ModContent.ItemType<BombardierEmblem>(), 1);
-            recipe.AddIngredient(ItemID.SoulofMight, 5);
-            recipe.AddIngredient(ItemID.SoulofSight, 5);
-            recipe.AddIngredient(ItemID.SoulofFright, 5);
-            recipe.AddTile(TileID.TinkerersWorkbench);
-            recipe.Register();
-            base.AddRecipes();
-        }
+        
     }
 }

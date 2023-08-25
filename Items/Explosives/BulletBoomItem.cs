@@ -21,7 +21,7 @@ namespace ExtraExplosives.Items.Explosives
         public string bulletType = "";
         private ModProjectile projectile;
 
-        public override bool CloneNewInstances => true;    // DONT CHANGE
+        protected override bool CloneNewInstances => true;    // DONT CHANGE
         public override string Texture => "ExtraExplosives/Items/Explosives/BulletBoomItem";    // texture
 
         /*public TestItem(int itemID)
@@ -105,10 +105,10 @@ namespace ExtraExplosives.Items.Explosives
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor,
             Vector2 origin, float scale)
         {
-            ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, overStack + "", position - new Vector2(5f, -13f), Color.Chartreuse, 0f, Vector2.Zero, new Vector2(0.7f, 0.7f), -1f, 2f);
+            //ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, overStack + "", position - new Vector2(5f, -13f), Color.Chartreuse, 0f, Vector2.Zero, new Vector2(0.7f, 0.7f), -1f, 2f);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
             ref float knockBack)
         {
             if (overStack > 1) overStack--;
@@ -120,7 +120,7 @@ namespace ExtraExplosives.Items.Explosives
             Mod.Logger.Debug(Item.damage);
             return false;
         }
-        public override void SaveData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound */
+        public override void SaveData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound #1#
         {
             return new TagCompound
             {
@@ -130,7 +130,7 @@ namespace ExtraExplosives.Items.Explosives
                 [nameof(Item.damage)] = Item.damage,
                 [nameof(bulletType)] = bulletType,
             };
-        }
+        }*/
 
         public override void LoadData(TagCompound tag)
         {

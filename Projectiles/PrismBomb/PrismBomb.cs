@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles.PrismBomb
             Projectile.height = 26;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
-            Projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = 1;
         }
 
@@ -30,8 +30,9 @@ namespace ExtraExplosives.Projectiles.PrismBomb
 
         public override void Kill(int timeleft)
         {
-            Projectile.NewProjectile(Projectile.Center, Vector2.Zero, Mod.Find<ModProjectile>("PrismBombPrism").Type, Projectile.damage, Projectile.knockBack, Projectile.owner);
-            Projectile.NewProjectile(Projectile.Center, Vector2.Zero, Mod.Find<ModProjectile>("PrismExplosion").Type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+            // TODO no clue
+            //Projectile.NewProjectile(Projectile.Center, Vector2.Zero, Mod.Find<ModProjectile>("PrismBombPrism").Type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+            //Projectile.NewProjectile(Projectile.Center, Vector2.Zero, Mod.Find<ModProjectile>("PrismExplosion").Type, Projectile.damage, Projectile.knockBack, Projectile.owner);
         }
     }
 }

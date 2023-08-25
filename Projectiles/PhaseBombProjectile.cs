@@ -13,11 +13,11 @@ namespace ExtraExplosives.Projectiles
     {
         protected override string explodeSoundsLoc => "Sounds/Custom/Explosives/Phase_Bomb_Explode_";
         protected override string goreFileLoc => "Gores/Explosives/phase_gore";
-        private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+        //private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
+        //private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
         internal static bool CanBreakWalls;
-        private LegacySoundStyle phaseSound;
-        private SoundEffectInstance phaseSoundInstance;
+        private SoundStyle phaseSound;
+        private ReLogic.Utilities.SlotId phaseSoundInstance;
 
         public override void SetStaticDefaults()
         {
@@ -37,15 +37,15 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             Projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
             Projectile.timeLeft = 1000; //The amount of time the projectile is alive for
-            phaseSound = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Explosives/Phase_Bomb");
+            phaseSound = new SoundStyle("Sounds/Custom/Explosives/Phase_Bomb");
             if (!Main.dedServ)
             {
-                phaseSound = phaseSound.WithVolume(0.5f);
+                phaseSound.Volume = 0.5f;
             }
-            explodeSounds = new LegacySoundStyle[3];
+            explodeSounds = new SoundStyle[3];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
             }
         }
 
@@ -59,18 +59,18 @@ namespace ExtraExplosives.Projectiles
             //projectile.tileCollide = false;
 
             if (phaseSoundInstance == null)
-                phaseSoundInstance = SoundEngine.PlaySound(phaseSound, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+                phaseSoundInstance = SoundEngine.PlaySound(phaseSound);
 
-            if (phaseSoundInstance.State != SoundState.Playing)
-                phaseSoundInstance.Play();
+            /* TODO if (phaseSoundInstance.State != SoundState.Playing)
+                phaseSoundInstance.Play();*/
 
             Player player = Main.player[Projectile.owner];
 
-            if (!Main.mouseLeft && Projectile.timeLeft <= 940)
+            /* TODO if (!Main.mouseLeft && Projectile.timeLeft <= 940)
             {
                 phaseSoundInstance.Stop(true);
                 Projectile.Kill();
-            }
+            }*/
 
 
             if (++Projectile.frameCounter >= 5)
@@ -87,7 +87,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             //Create Bomb Explosion
             Explosion();
             //Create Bomb Damage
@@ -101,8 +101,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0.0f, 3.0f);
             Vector2 gVel2 = new Vector2(0.0f, -3.0f);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
         }
 
         //Using to create a custom one 

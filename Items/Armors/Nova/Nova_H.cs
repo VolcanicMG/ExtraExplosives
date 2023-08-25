@@ -39,7 +39,7 @@ namespace ExtraExplosives.Items.Armors.Nova
 
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .08f;
-            player.allDamage += .07f;
+            //player.allDamage += .07f;
             player.EE().ExplosiveCrit += 8;
             player.EE().Nova = true;
         }

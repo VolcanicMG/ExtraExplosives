@@ -47,7 +47,7 @@ namespace ExtraExplosives.Projectiles.PrismBomb
 
 
         }
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             Main.instance.DrawCacheProjsBehindProjectiles.Add(index);
 
@@ -59,12 +59,12 @@ namespace ExtraExplosives.Projectiles.PrismBomb
             Projectile.Center = Main.projectile[(int)Projectile.ai[0]].Center;
 
             SetLaser();
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            /*spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);*/
             GameShaders.Armor.GetShaderFromItemId(ItemID.LivingRainbowDye).Apply(Projectile);
 
-            DrawLaser(spriteBatch, TextureAssets.Projectile[Projectile.type].Value, Projectile.Center,
-                   Projectile.velocity, 10f, Projectile.damage, -1.57f, 1f, laserLength, Color.White, (int)START_DISTANCE);
+            /*DrawLaser(spriteBatch, TextureAssets.Projectile[Projectile.type].Value, Projectile.Center,
+                   Projectile.velocity, 10f, Projectile.damage, -1.57f, 1f, laserLength, Color.White, (int)START_DISTANCE);*/
 
             return false;
 

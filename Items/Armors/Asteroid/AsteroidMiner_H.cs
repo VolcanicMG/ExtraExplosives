@@ -39,7 +39,7 @@ namespace ExtraExplosives.Items.Armors.Asteroid
                 "20% chance to drop ores twice on bomb explosion";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .06f;
-            player.allDamage += .05f;
+            //player.allDamage += .05f;
             player.EE().ExplosiveCrit += 3;
             player.EE().DropOresTwice = true;
             player.EE().dropChanceOre = .2f;

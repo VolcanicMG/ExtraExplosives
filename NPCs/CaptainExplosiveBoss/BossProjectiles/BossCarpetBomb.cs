@@ -28,7 +28,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
             Projectile.hostile = true;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 550;
-            Projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.scale = 1.2f;
         }
 
@@ -92,7 +92,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Damage
             ExplosionDamageEnemy(25, Projectile.Center, Projectile.damage, ModContent.NPCType<CaptainExplosiveBoss>());

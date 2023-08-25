@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -40,7 +42,7 @@ namespace ExtraExplosives.UI
 
         public override void OnInitialize()
         {
-            Box = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/CombineUI"));
+            Box = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/CombineUI"));
             //Image5.Width.Set(ImageWidth, 0f);
             //Image5.Height.Set(ImageHeight, 0f);
 
@@ -50,21 +52,21 @@ namespace ExtraExplosives.UI
             Append(Box);
 
             //indicator
-            Indicator2 = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/Indicator"));
+            Indicator2 = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/Indicator"));
             Indicator2.Left.Set(97, 0);
             Indicator2.Top.Set(37, 0);
             Indicator2.ImageScale = 1.1f;
             Box.Append(Indicator2);
 
             //indicator
-            Indicator = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/Indicator"));
+            Indicator = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/Indicator"));
             Indicator.Left.Set(2, 0);
             Indicator.Top.Set(37, 0);
             Indicator.ImageScale = 1.1f;
             Box.Append(Indicator);
 
             //+1
-            Texture2D reforgeTexture = Main.reforgeTexture[0];
+            Texture2D reforgeTexture = TextureAssets.Reforge[0].Value;
             combineButton = new UIImage(reforgeTexture);
             combineButton.Left.Set(158, 0f);
             combineButton.Top.Set(Box.Height.Pixels / 2 - 7, 0f);
@@ -76,7 +78,7 @@ namespace ExtraExplosives.UI
             combineButtonTen.Top.Set(Box.Height.Pixels / 2 - 7, 0f);
             Box.Append(combineButtonTen);
 
-            PlusIcon = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/PlusIcon"));
+            PlusIcon = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/PlusIcon"));
             PlusIcon.HAlign = .29f;
             PlusIcon.VAlign = .6f;
             Box.Append(PlusIcon);
@@ -108,18 +110,19 @@ namespace ExtraExplosives.UI
         }
 
         public override void OnDeactivate()
+        // TODO again wrong entitysource
         {
             if (!_vanillaItemSlot.Item.IsAir)
             {
                 // QuickSpawnClonedItem will preserve mod data of the item. QuickSpawnItem will just spawn a fresh version of the item, losing the prefix.
-                Main.LocalPlayer.QuickSpawnClonedItem(_vanillaItemSlot.Item, _vanillaItemSlot.Item.stack);
+                Main.LocalPlayer.QuickSpawnClonedItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot.Item, _vanillaItemSlot.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                 _vanillaItemSlot.Item.TurnToAir();
             }
             if (!_vanillaItemSlot2.Item.IsAir)
             {
                 // QuickSpawnClonedItem will preserve mod data of the item. QuickSpawnItem will just spawn a fresh version of the item, losing the prefix.
-                Main.LocalPlayer.QuickSpawnClonedItem(_vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack);
+                Main.LocalPlayer.QuickSpawnClonedItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                 _vanillaItemSlot.Item.TurnToAir();
             }
@@ -139,7 +142,7 @@ namespace ExtraExplosives.UI
             if (Main.LocalPlayer.talkNPC == -1 || Main.npc[Main.LocalPlayer.talkNPC].type != NPCType<CaptainExplosive>())
             {
                 // When that happens, we can set the state of our UserInterface to null, thereby closing this UIState. This will trigger OnDeactivate above.
-                GetInstance<ExtraExplosives>().ExtraExplosivesUserInterface.SetState(null);
+                GetInstance<ExtraExplosivesSystem>().ExtraExplosivesUserInterface.SetState(null);
             }
         }
 
@@ -162,22 +165,22 @@ namespace ExtraExplosives.UI
             }
             else if (combineButton.IsMouseHovering)
             {
-                combineButton.SetImage(Main.reforgeTexture[1]);
+                combineButton.SetImage(TextureAssets.Reforge[1].Value);
                 hoveringOverReforgeButton = true;
                 Main.hoverItemName = "Combine +1";
                 Main.LocalPlayer.mouseInterface = true;
             }
             else if (combineButtonTen.IsMouseHovering)
             {
-                combineButtonTen.SetImage(Main.reforgeTexture[1]);
+                combineButtonTen.SetImage(TextureAssets.Reforge[1].Value);
                 hoveringOverReforgeButtonTen = true;
                 Main.hoverItemName = "Combine +10";
                 Main.LocalPlayer.mouseInterface = true;
             }
-            else { combineButton.SetImage(Main.reforgeTexture[0]); hoveringOverReforgeButton = false; combineButtonTen.SetImage(Main.reforgeTexture[0]); hoveringOverReforgeButtonTen = false; }
+            else { combineButton.SetImage(TextureAssets.Reforge[0].Value); hoveringOverReforgeButton = false; combineButtonTen.SetImage(TextureAssets.Reforge[0].Value); hoveringOverReforgeButtonTen = false; }
 
             // This will hide the crafting menu similar to the reforge menu. For best results this UI is placed before "Vanilla: Inventory" to prevent 1 frame of the craft menu showing.
-            Main.HidePlayerCraftingMenu = true;
+            Main.hidePlayerCraftingMenu = true;
 
             // Here we have a lot of code. This code is mainly adapted from the vanilla code for the reforge option.
             // This code draws "Place an item here" when no item is in the slot and draws the reforge cost and a reforge button when an item is in the slot.
@@ -191,8 +194,8 @@ namespace ExtraExplosives.UI
 
             //ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, "Currently Working Explosives: Bullet Boom", new Vector2(slotX, slotY + 80), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 
-            Indicator.SetImage(ModContent.GetTexture("ExtraExplosives/UI/Indicator"));
-            Indicator2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/Indicator"));
+            Indicator.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/Indicator").Value);
+            Indicator2.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/Indicator").Value);
 
             bool Craftable = false;
             bool CraftTen = false;
@@ -202,12 +205,12 @@ namespace ExtraExplosives.UI
             {
                 if (_vanillaItemSlot2.Item.ammo == AmmoID.Bullet && _vanillaItemSlot2.Item.stack >= 10)
                 {
-                    Indicator2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorGreen"));
-                    Indicator.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorRed"));
+                    Indicator2.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorGreen").Value);
+                    Indicator.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorRed").Value);
                 }
                 else if (_vanillaItemSlot2.Item.ammo == AmmoID.Bullet)
                 {
-                    Indicator2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorYellow"));
+                    Indicator2.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorYellow").Value);
 
                     if (hoveringOverReforgeButton || hoveringOverReforgeButtonTen)
                     {
@@ -215,11 +218,11 @@ namespace ExtraExplosives.UI
                         Main.LocalPlayer.mouseInterface = true;
                     }
 
-                    Indicator.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorRed"));
+                    Indicator.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorRed").Value);
                 }
                 else
                 {
-                    Indicator2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorRed"));
+                    Indicator2.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorRed").Value);
 
                     if (hoveringOverReforgeButton || hoveringOverReforgeButtonTen)
                     {
@@ -227,7 +230,7 @@ namespace ExtraExplosives.UI
                         Main.LocalPlayer.mouseInterface = true;
                     }
 
-                    Indicator.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorRed"));
+                    Indicator.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorRed").Value);
                 }
             }
 
@@ -237,17 +240,17 @@ namespace ExtraExplosives.UI
                 //bomb
                 if (_vanillaItemSlot.Item.type == ModContent.ItemType<BulletBoomEmptyItem>())
                 {
-                    Indicator.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorGreen"));
+                    Indicator.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorGreen").Value);
                 }
                 else
                 {
-                    Indicator.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorRed"));
+                    Indicator.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorRed").Value);
                 }
 
                 //ammo
                 if (_vanillaItemSlot2.Item.ammo == AmmoID.Bullet && _vanillaItemSlot2.Item.stack >= 10)
                 {
-                    Indicator2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorGreen"));
+                    Indicator2.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorGreen").Value);
 
                     if (hoveringOverReforgeButtonTen && _vanillaItemSlot2.Item.stack <= 100)
                     {
@@ -257,7 +260,7 @@ namespace ExtraExplosives.UI
                 }
                 else if (_vanillaItemSlot2.Item.ammo == AmmoID.Bullet)
                 {
-                    Indicator2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorYellow"));
+                    Indicator2.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorYellow").Value);
 
                     if (hoveringOverReforgeButton || hoveringOverReforgeButtonTen)
                     {
@@ -267,7 +270,7 @@ namespace ExtraExplosives.UI
                 }
                 else
                 {
-                    Indicator2.SetImage(ModContent.GetTexture("ExtraExplosives/UI/IndicatorRed"));
+                    Indicator2.SetImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/IndicatorRed").Value);
 
                     if (hoveringOverReforgeButton || hoveringOverReforgeButtonTen)
                     {
@@ -322,7 +325,7 @@ namespace ExtraExplosives.UI
                         Main.hoverItemName = "Combine";
                         if (!tickPlayed)
                         {
-                            SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
+                            SoundEngine.PlaySound(SoundID.MenuTick);
                         }
                         tickPlayed = true;
                         Main.LocalPlayer.mouseInterface = true;
@@ -347,7 +350,8 @@ namespace ExtraExplosives.UI
                                             {
 
                                                 modCheckItem.overStack++;
-                                                ItemText.NewText(modCheckItem.Item, modCheckItem.overStack, true, false);
+                                                // TODO Context is probably wrong
+                                                PopupText.NewText(PopupTextContext.ItemReforge, modCheckItem.Item, modCheckItem.overStack, true, false);
                                                 flag = true;
                                             }
                                         }
@@ -359,8 +363,8 @@ namespace ExtraExplosives.UI
                                         StringBuilder sb = new StringBuilder(_vanillaItemSlot2.Item.Name);
                                         sb.Replace(" bullet", "");
                                         sb.Replace(" Bullet", "");
-                                        int itemInt = Item.NewItem(player.position, ModContent.ItemType<BulletBoomItem>(),
-                                            1);
+                                        // TODO no clue what this should be, giving it a null, this is wrong fix
+                                        int itemInt = Item.NewItem(player.GetSource_ItemUse(null), player.position, ModContent.ItemType<BulletBoomItem>(), 1);
                                         //Main.player[Main.myPlayer].QuickSpawnItem(ModContent.ItemType<TestItem>());
                                         Main.item[itemInt].instanced = true;
                                         Main.item[itemInt].shoot = _vanillaItemSlot2.Item.shoot;
@@ -386,7 +390,7 @@ namespace ExtraExplosives.UI
 
                                 //ItemLoader.PostReforge(_vanillaItemSlot.Item);
                                 //ItemLoader.PostReforge(_vanillaItemSlot2.Item);
-                                SoundEngine.PlaySound(SoundID.Item37, -1, -1);
+                                SoundEngine.PlaySound(SoundID.Item37);
                             }
                         }
                     }
@@ -396,7 +400,7 @@ namespace ExtraExplosives.UI
                         Main.hoverItemName = "Combine Ten";
                         if (!tickPlayed)
                         {
-                            SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
+                            SoundEngine.PlaySound(SoundID.MenuTick);
                         }
                         tickPlayed = true;
                         Main.LocalPlayer.mouseInterface = true;
@@ -421,7 +425,8 @@ namespace ExtraExplosives.UI
                                             {
 
                                                 modCheckItem.overStack += 10;
-                                                ItemText.NewText(modCheckItem.Item, modCheckItem.overStack, true, false);
+                                                // TODO Wrong context
+                                                PopupText.NewText(PopupTextContext.ItemReforge, modCheckItem.Item, modCheckItem.overStack, true, false);
                                                 flag = true;
                                             }
                                         }
@@ -433,7 +438,8 @@ namespace ExtraExplosives.UI
                                         StringBuilder sb = new StringBuilder(_vanillaItemSlot2.Item.Name);
                                         sb.Replace(" bullet", "");
                                         sb.Replace(" Bullet", "");
-                                        int itemInt = Item.NewItem(player.position, ModContent.ItemType<BulletBoomItem>(),
+                                        // TODO null
+                                        int itemInt = Item.NewItem(player.GetSource_ItemUse(null), player.position, ModContent.ItemType<BulletBoomItem>(),
                                             1);
                                         //Main.player[Main.myPlayer].QuickSpawnItem(ModContent.ItemType<TestItem>());
                                         Main.item[itemInt].instanced = true;
@@ -460,7 +466,7 @@ namespace ExtraExplosives.UI
 
                                 //ItemLoader.PostReforge(_vanillaItemSlot.Item);
                                 //ItemLoader.PostReforge(_vanillaItemSlot2.Item);
-                                SoundEngine.PlaySound(SoundID.Item37, -1, -1);
+                                SoundEngine.PlaySound(SoundID.Item37);
                             }
                         }
                     }

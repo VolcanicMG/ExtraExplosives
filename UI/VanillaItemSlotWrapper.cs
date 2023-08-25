@@ -66,7 +66,7 @@ namespace ExtraExplosives.UI
             //draw the texture
             if (!TextureString.Equals("") && Full != true)
             {
-                spriteBatch.Draw(ModContent.GetTexture(TextureString), new Rectangle(rectangle.X + (ModContent.GetTexture(TextureString).Width / 2), rectangle.Y + (ModContent.GetTexture(TextureString).Height / 2), ModContent.GetTexture(TextureString).Width, ModContent.GetTexture(TextureString).Height), new Color(255, 255, 255, 130));
+                spriteBatch.Draw(ModContent.Request<Texture2D>(TextureString).Value, new Rectangle(rectangle.X + (ModContent.Request<Texture2D>(TextureString).Value.Width / 2), rectangle.Y + (ModContent.Request<Texture2D>(TextureString).Value.Height / 2), ModContent.Request<Texture2D>(TextureString).Value.Width, ModContent.Request<Texture2D>(TextureString).Value.Height), new Color(255, 255, 255, 130));
             }
 
             Main.inventoryScale = oldScale;

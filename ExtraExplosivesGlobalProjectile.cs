@@ -14,7 +14,7 @@ namespace ExtraExplosives
     public class ExtraExplosivesGlobalProjectile : GlobalProjectile
     {
         public override bool InstancePerEntity { get; } = true;
-        public override bool CloneNewInstances { get; } = true;
+        protected override bool CloneNewInstances { get; } = true;
 
         private bool _upVelocity = false;
         private bool _setFuze = false;
@@ -62,8 +62,8 @@ namespace ExtraExplosives
             if ((mp.GlowingCompound || mp.GlowingCompoundActive) && projectile.aiStyle == 16)
             {
                 Lighting.AddLight(projectile.position, new Vector3(1f, 1f, 1f));
-                Lighting.maxX = 15;
-                Lighting.maxY = 15;
+                /* TODO Lighting.maxX = 15;
+                Lighting.maxY = 15;*/
             }
 
             return base.PreAI(projectile);
@@ -83,7 +83,7 @@ namespace ExtraExplosives
             ExtraExplosivesPlayer mp = Main.player[projectile.owner].EE();
             if (projectile.aiStyle == 16 &&
                 !projectile.arrow &&
-                !projectile.ranged &&
+                !projectile.CountsAsClass(DamageClass.Ranged) &&
                 projectile.owner != 255)
             {
                 if (!_aiFlag)
@@ -575,7 +575,7 @@ namespace ExtraExplosives
 
                                         else
                                         {
-                                            if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType) && Main.tile[i, j - 1].TileType != 26)
+                                            /* TODO if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType) && Main.tile[i, j - 1].TileType != 26)
                                             {
                                                 tile.ClearTile();
                                                 tile.HasTile = false;
@@ -585,7 +585,7 @@ namespace ExtraExplosives
                                                     WorldGen.SquareTileFrame(i, j, true); //Updates Area
                                                     NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                                 }
-                                            }
+                                            }*/
 
                                             if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
                                             {
@@ -607,7 +607,7 @@ namespace ExtraExplosives
                     Player playerRad = Main.player[projectile.owner];
 
                     //Create Bomb Sound
-                    SoundEngine.PlaySound(SoundID.Item14, (int)projectile.Center.X, (int)projectile.Center.Y);
+                    SoundEngine.PlaySound(SoundID.Item14, projectile.Center);
 
                     //Dust type
                     if (tileDamage) ExplosionDust((int)((radius + playerRad.EE().RadiusBonus) * playerRad.EE().RadiusMulti) + (int)(radius * 1.15), projectile.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
@@ -657,7 +657,7 @@ namespace ExtraExplosives
                                         if (spedX == 0) spedX = 1;
                                         if (spedY == 0) spedY = 1;
                                         //if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 20, projectile.owner, 0.0f, 0);
-                                        if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((playerRad.EE().DamageBonus + CustomDamage) * playerRad.EE().DamageMulti), 2, projectile.owner, 0.0f, 0);
+                                        if (++cntr <= 20) Projectile.NewProjectile(projectile.GetSource_FromThis(), position.X + x, position.Y + y, spedX, spedY, proj, (int)((playerRad.EE().DamageBonus + CustomDamage) * playerRad.EE().DamageMulti), 2, projectile.owner, 0.0f, 0);
                                     }
                                     else
                                     {
@@ -665,7 +665,7 @@ namespace ExtraExplosives
                                         spedY = Main.rand.Next(15) - 7;
                                         if (spedX == 0) spedX = 1;
                                         if (spedY == 0) spedY = 1;
-                                        if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((playerRad.EE().DamageBonus + CustomDamage) * playerRad.EE().DamageMulti), 2, projectile.owner, 0.0f, 0);
+                                        if (++cntr <= 20) Projectile.NewProjectile(projectile.GetSource_FromThis(), position.X + x, position.Y + y, spedX, spedY, proj, (int)((playerRad.EE().DamageBonus + CustomDamage) * playerRad.EE().DamageMulti), 2, projectile.owner, 0.0f, 0);
                                     }
                                 }
                             }
@@ -698,6 +698,7 @@ namespace ExtraExplosives
                     {
                         Projectile proj = Projectile.NewProjectileDirect
                         (
+                            projectile.GetSource_FromThis(),
                             projectile.position,
                             projectile.velocity,
                             projectile.type,
@@ -777,7 +778,7 @@ namespace ExtraExplosives
                                     if (spedX == 0) spedX = 1;
                                     if (spedY == 0) spedY = 1;
                                     //if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 20, projectile.owner, 0.0f, 0);
-                                    if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((mp.DamageBonus + CustomDamage) * mp.DamageMulti), 2, projectile.owner, 0.0f, 0);
+                                    if (++cntr <= 20) Projectile.NewProjectile(projectile.GetSource_FromThis(),position.X + x, position.Y + y, spedX, spedY, proj, (int)((mp.DamageBonus + CustomDamage) * mp.DamageMulti), 2, projectile.owner, 0.0f, 0);
                                 }
                                 else
                                 {
@@ -785,7 +786,7 @@ namespace ExtraExplosives
                                     spedY = Main.rand.Next(15) - 7;
                                     if (spedX == 0) spedX = 1;
                                     if (spedY == 0) spedY = 1;
-                                    if (++cntr <= 20) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, proj, (int)((mp.DamageBonus + CustomDamage) * mp.DamageMulti), 2, projectile.owner, 0.0f, 0);
+                                    if (++cntr <= 20) Projectile.NewProjectile(projectile.GetSource_FromThis(),position.X + x, position.Y + y, spedX, spedY, proj, (int)((mp.DamageBonus + CustomDamage) * mp.DamageMulti), 2, projectile.owner, 0.0f, 0);
                                 }
                             }
                         }
@@ -824,7 +825,7 @@ namespace ExtraExplosives
                     for (int n = 0; n < 3; n++)
                     {
                         // Main.NewText("Spawn" + n);
-                        Projectile.NewProjectileDirect(projectile.Center,
+                        Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), projectile.Center,
                             new Vector2(Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1)),
                             ModContent.ProjectileType<MushroomProjectile>(), 100, 1, projectile.owner);
                     }

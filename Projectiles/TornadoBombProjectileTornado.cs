@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -24,10 +25,7 @@ namespace ExtraExplosives.Projectiles
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.hostile = true;
-            Projectile.melee = false;
-            Projectile.ranged = false;
-            Projectile.magic = false;
-            Projectile.thrown = false;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.minion = false;
             Projectile.penetrate = -1;
             //projectile.penetrate = -1;
@@ -114,7 +112,7 @@ namespace ExtraExplosives.Projectiles
                 float num617 = ((float)(num612 + num613) - Projectile.ai[1] + 1f) * num614 / (float)(num613 + num612);
                 center4.Y -= (float)num616 * num617 / 2f;
                 center4.Y += 2f;
-                Projectile.NewProjectile(center4.X, center4.Y, Projectile.velocity.X, Projectile.velocity.Y, Projectile.type, 20, Projectile.knockBack, Projectile.owner, 10f, Projectile.ai[1] - 1f);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), center4.X, center4.Y, Projectile.velocity.X, Projectile.velocity.Y, Projectile.type, 20, Projectile.knockBack, Projectile.owner, 10f, Projectile.ai[1] - 1f);
                 int num618 = 4;
                 //if (projectile.type == 386)
                 //{

@@ -13,10 +13,10 @@ namespace ExtraExplosives.Items.Accessories
     [AutoloadEquip(EquipType.Wings)]
     public class NovaBooster : ModItem
     {
-        public static LegacySoundStyle EngineSound;
+        //public static LegacySoundStyle EngineSound;
         public static SoundEffectInstance EngineSoundInstance;
 
-        public static LegacySoundStyle EndSound;
+        //public static LegacySoundStyle EndSound;
         public static SoundEffectInstance EndSoundInstance;
 
         private bool justUsed = false;
@@ -47,21 +47,21 @@ namespace ExtraExplosives.Items.Accessories
             Item.rare = ItemRarityID.Cyan;
             Item.accessory = true;
 
-            EndSound = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Novabooster/NovaboosterEnd");
-            EngineSound = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Novabooster/Novabooster");
-            if (!Main.dedServ && EngineSound != null && EndSound != null)
-            {
-                EngineSound = EngineSound.WithVolume(0.3f);
-                EndSound = EndSound.WithVolume(0.4f);
-            }
+            //EndSound = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Novabooster/NovaboosterEnd");
+            //EngineSound = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, "Sounds/Custom/Novabooster/Novabooster");
+            //if (!Main.dedServ && EngineSound != null && EndSound != null)
+            //{
+            //    EngineSound = EngineSound.WithVolume(0.3f);
+            //    EndSound = EndSound.WithVolume(0.4f);
+            //}
         }
 
         public override bool WingUpdate(Player player, bool inUse)
         {
             if (inUse)
             {
-                if (EngineSoundInstance == null)
-                    EngineSoundInstance = SoundEngine.PlaySound(EngineSound, (int)player.Center.X, (int)player.Center.Y);
+                //if (EngineSoundInstance == null)
+                    //EngineSoundInstance = SoundEngine.PlaySound(EngineSound, (int)player.Center.X, (int)player.Center.Y);
 
                 if (EngineSoundInstance.State != SoundState.Playing)
                     EngineSoundInstance.Play();
@@ -76,8 +76,8 @@ namespace ExtraExplosives.Items.Accessories
 
                 if (justUsed)
                 {
-                    if (EndSoundInstance == null)
-                        EndSoundInstance = SoundEngine.PlaySound(EndSound, (int)player.Center.X, (int)player.Center.Y);
+                    //if (EndSoundInstance == null)
+                        //EndSoundInstance = SoundEngine.PlaySound(EndSound, (int)player.Center.X, (int)player.Center.Y);
 
                     if (EndSoundInstance.State != SoundState.Playing)
                         EndSoundInstance.Play();

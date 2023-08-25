@@ -32,10 +32,10 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = true; //Tells the game whether it is friendly to players/friendly npcs or not
             Projectile.penetrate = -1; //Tells the game how many enemies it can hit before being destroyed
             Projectile.timeLeft = 100; //The amount of time the projectile is alive for
-            explodeSounds = new LegacySoundStyle[2];
+            explodeSounds = new SoundStyle[2];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
             }
         }
 
@@ -59,7 +59,7 @@ namespace ExtraExplosives.Projectiles
             }
             //Item.NewItem(position, new Vector2(20, 20), ItemID.GoldAxe, 1, false, -2);
 
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)position.X, (int)position.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], new Vector2(position.X, position.Y));
 
             for (int i = 0; i < 100; i++) //spawn dust
             {

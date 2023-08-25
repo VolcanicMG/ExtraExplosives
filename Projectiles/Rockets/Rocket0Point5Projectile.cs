@@ -20,7 +20,7 @@ namespace ExtraExplosives.Projectiles.Rockets
             Projectile.height = 14;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.ranged = true;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             AIType = ProjectileID.RocketI;
@@ -58,7 +58,7 @@ namespace ExtraExplosives.Projectiles.Rockets
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             Projectile.knockBack = 2;  // Since no calling item exists, knockback must be set internally	(Set in Hellfire Rocket Battery)
 

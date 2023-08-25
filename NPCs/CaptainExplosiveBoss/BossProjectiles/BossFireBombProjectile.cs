@@ -9,8 +9,8 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 {
     public class BossFireBombProjectile : ModProjectile
     {
-        private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+        //private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
+        //private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
         public override void SetStaticDefaults()
         {
@@ -72,7 +72,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Dust
             CreateDust(Projectile.Center, 500);

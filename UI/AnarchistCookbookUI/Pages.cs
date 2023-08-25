@@ -41,7 +41,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             leftPage.BorderColor = color;
             Append(leftPage);
 
-            leftDivider = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Divider"));
+            leftDivider = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Divider"));
             leftDivider.VAlign = 0.5f;
             leftDivider.HAlign = 0.5f;
             //leftDivider.Left.Pixels = -10;
@@ -58,7 +58,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             rightPage.BorderColor = color;
             Append(rightPage);
 
-            rightDivider = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Divider"));
+            rightDivider = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Divider"));
             rightDivider.VAlign = 0.5f;
             rightDivider.HAlign = 0.5f;
             rightPage.Append(rightDivider);

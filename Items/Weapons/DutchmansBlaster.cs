@@ -23,7 +23,7 @@ namespace ExtraExplosives.Items.Weapons
         public override void SafeSetDefaults()
         {
             Item.damage = 40;
-            Item.ranged = true;
+            //Item.ranged = true;
             Item.width = 54;
             Item.height = 28;
             Item.useTime = 40;
@@ -38,14 +38,14 @@ namespace ExtraExplosives.Items.Weapons
             Item.shootSpeed = 24;
             Item.useAmmo = AmmoID.Rocket;
 
-            PrimarySounds = new LegacySoundStyle[4];
-            SecondarySounds = null;
+            //PrimarySounds = new LegacySoundStyle[4];
+            /*SecondarySounds = null;
 
             for (int n = 1; n <= PrimarySounds.Length; n++)
             {
-                PrimarySounds[n - 1] =
-                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
-            }
+                //PrimarySounds[n - 1] =
+                    //Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+            }*/
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -65,7 +65,7 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-6, 4);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
                 (int)player.position.X, (int)player.position.Y);
@@ -79,6 +79,6 @@ namespace ExtraExplosives.Items.Weapons
             Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<DutchmansBlasterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
 
             return false; // return false because we don't want tmodloader to shoot projectile
-        }
+        }*/
     }
 }

@@ -4,6 +4,7 @@ using ExtraExplosives.Items.Pets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -21,11 +22,11 @@ namespace ExtraExplosives.NPCs
 
         private const int PickPower = 50;
 
-        public override bool Autoload(ref string name)
+        /*public override bool IsLoadingEnabled(Mod mod)/* tModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead #1#
         {
             name = "CaptainExplosive";
-            return Mod.Properties.Autoload;
-        }
+            return Mod.Properties/* tModPorter Note: Removed. Instead, assign the properties directly (ContentAutoloadingEnabled, GoreAutoloadingEnabled, MusicAutoloadingEnabled, and BackgroundAutoloadingEnabled) #1#.Autoload;
+        }*/
 
         public override void SetStaticDefaults()
         {
@@ -89,9 +90,10 @@ namespace ExtraExplosives.NPCs
             return base.CheckActive();
         }
 
-        public override string TownNPCName()     //Allows you to give npc town NPC any name when it spawns
+        public override List<string> SetNPCNameList()/* tModPorter Suggestion: Return a list of names */     //Allows you to give npc town NPC any name when it spawns
         {
-            switch (WorldGen.genRand.Next(5))
+            return new List<string>() { "Alfred" };
+            /*switch (WorldGen.genRand.Next(5))
             {
                 case 0:
                     return "Alfred";
@@ -106,7 +108,7 @@ namespace ExtraExplosives.NPCs
 
                 default:
                     return "Unknown";
-            }
+            }*/
         }
 
         public override bool CheckDead()
@@ -114,7 +116,7 @@ namespace ExtraExplosives.NPCs
             CaptianIsDed = true;
 
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)NPC.Center.X, (int)NPC.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, NPC.Center);
 
             //Create Bomb Dust
             CreateDust(NPC.Center, 100);
@@ -220,7 +222,7 @@ namespace ExtraExplosives.NPCs
                 Main.playerInventory = true;
                 Main.npcChatText = "";
 
-                GetInstance<ExtraExplosives>().ExtraExplosivesUserInterface.SetState(new UI.ExtraExplosivesUI());
+                GetInstance<ExtraExplosivesSystem>().ExtraExplosivesUserInterface.SetState(new UI.ExtraExplosivesUI());
             }
         }
 

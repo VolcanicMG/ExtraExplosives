@@ -44,7 +44,7 @@ namespace ExtraExplosives.Items.Explosives
             recipe.AddIngredient(ItemID.Bomb, 1);
             recipe.AddIngredient(ItemID.IronBar, 5);
             recipe.AddIngredient(ItemID.SoulofFlight, 10);
-            recipe.anyIronBar = true;
+            //recipe.anyIronBar = true;
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }

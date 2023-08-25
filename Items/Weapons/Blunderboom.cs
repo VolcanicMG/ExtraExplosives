@@ -36,7 +36,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.shootSpeed = 11;
             Item.useAmmo = AmmoID.Bullet;
 
-            PrimarySounds = new LegacySoundStyle[4];
+            /*PrimarySounds = new LegacySoundStyle[4];
             SecondarySounds = new LegacySoundStyle[4];
 
             for (int n = 1; n <= PrimarySounds.Length; n++)
@@ -48,12 +48,12 @@ namespace ExtraExplosives.Items.Weapons
             {
                 SecondarySounds[n - 1] =
                     Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Secondary" + n);
-            }
+            }*/
         }
 
         public override void DangerousSetDefaults()
         {
-            Item.ranged = true;
+            //Item.ranged = true;
             Explosive = false;
         }
 
@@ -85,7 +85,7 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-12, 0);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
+        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY,
             ref int type, ref int damage, ref float knockBack)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
@@ -115,7 +115,7 @@ namespace ExtraExplosives.Items.Weapons
                     break;
             }
             return false;
-        }
+        }*/
 
         public override bool AltFunctionUse(Player player)
         {
@@ -130,10 +130,10 @@ namespace ExtraExplosives.Items.Weapons
                 Item.shootSpeed = 5;
                 Item.damage = 40;
                 Item.knockBack = 7;
-                Item.ranged = false;
+                //Item.ranged = false;
                 Explosive = true;
                 //Main.NewText("Loaded with gunpowder");
-                SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                //SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
             }
             else
             {
@@ -144,10 +144,10 @@ namespace ExtraExplosives.Items.Weapons
                 Item.shootSpeed = 11;
                 Item.damage = 26;
                 Item.knockBack = 2.5f;
-                Item.ranged = true;
+                //Item.ranged = true;
                 Explosive = false;
                 // Main.NewText("Loaded with shrapnel");
-                SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                //SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
 
             }
             return false;

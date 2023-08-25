@@ -12,8 +12,8 @@ namespace ExtraExplosives.Buffs
             Main.debuff[Type] = false;
             Main.buffNoSave[Type] = false;
             Main.buffNoTimeDisplay[Type] = false;
-            canBeCleared = true;
-            longerExpertDebuff = false;
+            //canBeCleared = true;
+            //longerExpertDebuff = false;
         }
 
         public override void Update(Player player, ref int buffIndex)

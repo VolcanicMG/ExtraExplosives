@@ -149,8 +149,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             KoboldGliderAnimated.Width.Pixels = 156;
             KoboldGliderBox.Append(KoboldGliderAnimated);
 
-            ToggleBombBag = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-            BombBag = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/BombBag"));
+            ToggleBombBag = new UIImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
+            BombBag = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/BombBag"));
             BombBag.VAlign = 0.5f;
             BombBag.HAlign = 0.5f;
             ToggleBombBag.Append(BombBag);    // Image of bomb bag for labeling
@@ -159,8 +159,8 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleBombBag.OnClick += new MouseEvent(BombBagToggle);
             leftPage.Append(ToggleBombBag);
 
-            ToggleMysteryBomb = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
-            MysteryBomb = new UIImage(ModContent.GetTexture("ExtraExplosives/Items/Accessories/AnarchistCookbook/MysteryBomb"));
+            ToggleMysteryBomb = new UIImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
+            MysteryBomb = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/Items/Accessories/AnarchistCookbook/MysteryBomb"));
             MysteryBomb.VAlign = 0.5f;
             MysteryBomb.HAlign = 0.5f;
             MysteryBomb.ImageScale = .8f;
@@ -170,25 +170,25 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ToggleMysteryBomb.OnClick += new MouseEvent(MysteryBombToggle);
             rightPage.Append(ToggleMysteryBomb);
 
-            BombBagImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/BombBag"));
+            BombBagImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/BombBag"));
             BombBagImage.Left.Pixels = 0;
             BombBagImage.Top.Pixels = 0;
             BombBagImage.ImageScale = 0.8f;
             BombBagImage.OnClick += new MouseEvent(BombBagToggle);
             leftPage.Append(BombBagImage);
-            MysteryBombImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/MysteryBomb"));
+            MysteryBombImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/MysteryBomb"));
             MysteryBombImage.Left.Pixels = 20;
             MysteryBombImage.Top.Pixels = -16;
             MysteryBombImage.ImageScale = 0.7f;
             MysteryBombImage.OnClick += new MouseEvent(MysteryBombToggle);
             rightPage.Append(MysteryBombImage);
-            BombBag_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/BombBag_Greyscale"));
+            BombBag_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/BombBag_Greyscale"));
             BombBag_GreyscaleImage.Left.Pixels = 0;
             BombBag_GreyscaleImage.Top.Pixels = 0;
             BombBag_GreyscaleImage.ImageScale = 0.8f;
             BombBag_GreyscaleImage.OnClick += new MouseEvent(BombBagToggle);
             leftPage.Append(BombBag_GreyscaleImage);
-            MysteryBomb_GreyscaleImage = new UIImage(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/MysteryBomb_Greyscale"));
+            MysteryBomb_GreyscaleImage = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Accessories/MysteryBomb_Greyscale"));
             MysteryBomb_GreyscaleImage.Left.Pixels = 20;
             MysteryBomb_GreyscaleImage.Top.Pixels = -16;
             MysteryBomb_GreyscaleImage.ImageScale = 0.7f;

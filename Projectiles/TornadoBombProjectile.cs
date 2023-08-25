@@ -50,15 +50,15 @@ namespace ExtraExplosives.Projectiles
 
             if (Projectile.ai[1] >= 300f && !done)
             {
-                SoundEngine.PlaySound(16, (int)Projectile.Center.X, (int)Projectile.Center.Y, 19, 1f, 0f);
+                SoundEngine.PlaySound(SoundID.DoubleJump, Projectile.Center);
 
                 if (Projectile.ai[1] >= 1f && !done)
                 {
-                    int num328 = Projectile.NewProjectile(Projectile.Center.X - 49, Projectile.Center.Y - 4f, (0f - (float)Projectile.direction) * 0.01f, 0f, ModContent.ProjectileType<TornadoBombProjectileTornado>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 16f, 15f); //384 //376
+                    int num328 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X - 49, Projectile.Center.Y - 4f, (0f - (float)Projectile.direction) * 0.01f, 0f, ModContent.ProjectileType<TornadoBombProjectileTornado>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 16f, 15f); //384 //376
                     NetMessage.SendData(MessageID.SyncProjectile, number: num328);
                     Main.projectile[num328].netUpdate = true;
 
-                    SoundEngine.PlaySound(SoundLoader.customSoundType, -1, -1, Mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Tornado"));
+                    SoundEngine.PlaySound(new SoundStyle("Sounds/Custom/Tornado"));
                 }
 
                 done = true;
@@ -70,7 +70,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(SoundID.Item14, (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             int num324 = 36;
             for (int num325 = 0; num325 < num324; num325++)
             {

@@ -72,7 +72,7 @@ namespace ExtraExplosives
         //public static Vector2 NukePos;
         //public static bool NukeHit;
 
-        public List<Terraria.ModLoader.PlayerLayer> playerLayers = new List<Terraria.ModLoader.PlayerLayer>();
+        public List<Terraria.ModLoader.PlayerDrawLayer> playerLayers = new List<Terraria.ModLoader.PlayerDrawLayer>();
 
         public bool reforge = false;
         public static bool reforgePub;
@@ -453,12 +453,12 @@ namespace ExtraExplosives
 
             if (reforgeUIActive == 1) //check to see if the reforge bomb key was pressed
             {
-                GetInstance<ExtraExplosives>().ExtraExplosivesReforgeBombInterface.SetState(new UI.ExtraExplosivesReforgeBombUI());
+                GetInstance<ExtraExplosivesSystem>().ExtraExplosivesReforgeBombInterface.SetState(new UI.ExtraExplosivesReforgeBombUI());
                 reforgeUIActive++;
             }
             if (reforgeUIActive == 3)
             {
-                GetInstance<ExtraExplosives>().ExtraExplosivesReforgeBombInterface.SetState(null);
+                GetInstance<ExtraExplosivesSystem>().ExtraExplosivesReforgeBombInterface.SetState(null);
                 reforgeUIActive = 4;
             }
 
@@ -486,6 +486,7 @@ namespace ExtraExplosives
                         case 250:
                         case 200:
                             Projectile projectile = Projectile.NewProjectileDirect(
+                                Player.GetSource_FromThis(),
                                 new Vector2(Player.Center.X, Player.Center.Y), Vector2.Zero,
                                 ModContent.ProjectileType<NovaBoosterProjectile>(), 200, 1f, Player.whoAmI);
                             projectile.timeLeft = 0;
@@ -514,7 +515,7 @@ namespace ExtraExplosives
             if (Nova && ExtraExplosives.TriggerNovaBomb.JustPressed && (novaBombRecharge >= 600))
             {
                 //Create Bomb Sound
-                SoundEngine.PlaySound(SoundID.Item14, (int)Player.Center.X, (int)Player.Center.Y);
+                SoundEngine.PlaySound(SoundID.Item14, Player.Center);
 
                 novaBombRecharge = 0;
 
@@ -555,10 +556,10 @@ namespace ExtraExplosives
 
                 if (delayLizhard % 15 == 0)
                 {
-                    SoundEngine.PlaySound(Mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Hellfire"), (int)Player.Center.X, (int)Player.Center.Y);
+                    SoundEngine.PlaySound(new SoundStyle("Sounds/Item/Hellfire"), new Vector2(Player.Center.X, Player.Center.Y));
 
                     Vector2 perturbedSpeed = new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(35)); //set spread
-                    Projectile.NewProjectileDirect(new Vector2(Player.Center.X, Player.Center.Y - Player.height + 10), perturbedSpeed, ModContent.ProjectileType<SunRocket>(), (int)((DamageBonus + 120) * DamageMulti), 1, Player.whoAmI);
+                    Projectile.NewProjectileDirect(Player.GetSource_FromThis(), new Vector2(Player.Center.X, Player.Center.Y - Player.height + 10), perturbedSpeed, ModContent.ProjectileType<SunRocket>(), (int)((DamageBonus + 120) * DamageMulti), 1, Player.whoAmI);
                 }
                 else if (delayLizhard >= 90)
                 {
@@ -570,11 +571,10 @@ namespace ExtraExplosives
             //--------------------------------------------------------
         }
 
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage,
-            ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        /* TODO tmodporter wont fix this so do it manually later public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
             Projectile projectile = new Projectile();
-            projectile.CloneDefaults(damageSource.SourceProjectileType);
+            projectile.CloneDefaults(damageSource.SourceProjectileType.Value);
             if (projectile.type == ModContent.ProjectileType<BombCloakProjectile>()) return false;  // If the bomb cloak caused the explosion, do nothing
 
             if (projectile.aiStyle == 16)
@@ -596,13 +596,13 @@ namespace ExtraExplosives
             }
 
             return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
-        }
+        }*/
 
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
             if (BombCloak)
             {
-                Projectile.NewProjectileDirect(Player.position, Vector2.Zero, ProjectileType<BombCloakProjectile>(), (int)((100 + DamageBonus) * DamageMulti), 10, Player.whoAmI).timeLeft = 1;
+                Projectile.NewProjectileDirect(Player.GetSource_FromThis(), Player.position, Vector2.Zero, ProjectileType<BombCloakProjectile>(), (int)((100 + DamageBonus) * DamageMulti), 10, Player.whoAmI).timeLeft = 1;
             }
 
         }
@@ -642,7 +642,7 @@ namespace ExtraExplosives
                 Player playerCheck = Main.player[Main.myPlayer];
                 if (playerCheck.whoAmI == 0)
                 {
-                    GetInstance<ExtraExplosives>().CEBossInterface.SetState(new UI.CEBossUI()); //get the UI
+                    GetInstance<ExtraExplosivesSystem>().CEBossInterface.SetState(new UI.CEBossUI()); //get the UI
                 }
                 else if (playerCheck.whoAmI == 255)
                 {
@@ -650,7 +650,7 @@ namespace ExtraExplosives
                 }
                 else
                 {
-                    GetInstance<ExtraExplosives>().CEBossInterfaceNonOwner.SetState(new UI.CEBossUINonOwner()); //get the UI
+                    GetInstance<ExtraExplosivesSystem>().CEBossInterfaceNonOwner.SetState(new UI.CEBossUINonOwner()); //get the UI
                 }
 
                 tickCheck = 2;
@@ -700,15 +700,15 @@ namespace ExtraExplosives
             if (novaBooster)
             {
                 Lighting.AddLight(Player.position, new Vector3(1f, 1f, 1f));
-                Lighting.maxX = 1;
-                Lighting.maxY = 1;
+                /* TODO Lighting.maxX = 1;
+                Lighting.maxY = 1;*/
             }
         }
 
         private SpriteEffects effect;
         private int offset;
-        public static readonly PlayerLayer Wings = new PlayerLayer("ExtraExplosives", "Wings", PlayerLayer.Wings,
-            delegate (PlayerDrawInfo info)
+        /* TODO drawing is very different, fix public static readonly PlayerLayer Wings = new PlayerLayer("ExtraExplosives", "Wings", PlayerLayer.Wings,
+            delegate (PlayerDrawSet info)
             {
                 //Main.NewText($"{GetInstance<ExtraExplosivesPlayer>().wingFrameCounter} {GetInstance<ExtraExplosivesPlayer>().wingFrame}");
 
@@ -717,8 +717,8 @@ namespace ExtraExplosives
 
                 Mod mod = ModLoader.GetMod("ExtraExplosives");
                 ExtraExplosivesPlayer mp = drawPlayer.EE();
-                Texture2D Booster = GetTexture("ExtraExplosives/Items/Accessories/NovaBoosterLow_Wings");
-                Texture2D BoosterHigh = GetTexture("ExtraExplosives/Items/Accessories/NovaBoosterHigh_Wings");
+                Texture2D Booster = Request<Texture2D>("ExtraExplosives/Items/Accessories/NovaBoosterLow_Wings").Value;
+                Texture2D BoosterHigh = Request<Texture2D>("ExtraExplosives/Items/Accessories/NovaBoosterHigh_Wings").Value;
 
                 if (drawPlayer.direction < 0 && mp.novaBooster)
                 {
@@ -746,8 +746,8 @@ namespace ExtraExplosives
                     }
                 }
 
-                int drawX = (int)(info.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
-                int drawY = (int)(info.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y);
+                int drawX = (int)(info.Position.X + drawPlayer.width / 2f - Main.screenPosition.X);
+                int drawY = (int)(info.Position.Y + drawPlayer.height / 2f - Main.screenPosition.Y);
 
                 if (mp.boosting)
                 {
@@ -759,16 +759,16 @@ namespace ExtraExplosives
                     }
                 }
                 DrawData data = new DrawData((mp.boosting ? BoosterHigh : Booster), new Vector2(drawX + mp.offset, drawY), new Rectangle(0, (mp.Player.velocity.Y == 0 ? 6 * 44 : 44 * mp.wingFrame), 46, 44), new Microsoft.Xna.Framework.Color(255, 255, 255), 0f, new Vector2(Booster.Width / 2f, Booster.Height / 4f - 60), 1f, mp.effect, 0);
-                Main.playerDrawData.Add(data);
-            });
-        public override void ModifyDrawLayers(List<Terraria.ModLoader.PlayerLayer> layers) //Make the players invisable
+                //Main.playerDrawData.Add(data); // TODO cannot find replacement for 
+            });*/
+        /* TODO i believe this has been depricated public override void ModifyDrawLayers(List<Terraria.ModLoader.PlayerDrawLayer> layers) //Make the players invisable
         {
             if (novaBooster && !Player.dead)
             {
                 //layers.RemoveAt(5);
                 layers.Insert(5, Wings);
             }
-        }
+        }*/
 
         public override void ModifyScreenPosition()
         {
@@ -785,8 +785,8 @@ namespace ExtraExplosives
 
                 //add lighting
                 Lighting.AddLight(ExtraExplosives.NukePos, new Vector3(255f, 255f, 255f));
-                Lighting.maxX = 400;
-                Lighting.maxY = 400;
+                /* TODO Lighting.maxX = 400;
+                Lighting.maxY = 400;*/
                 //NukeHit = false;
             }
 
@@ -884,25 +884,24 @@ namespace ExtraExplosives
 
         public override void SaveData(TagCompound tag)/* tModPorter Suggestion: Edit tag parameter instead of returning new TagCompound */
         {
-            return new TagCompound  // save tag, leave whats here add more as needed
-            {
+            
                 // Main Cookbook Integration DO NOT REMOVE
-                [nameof(BlastShieldingActive)] = BlastShieldingActive,
-                [nameof(BombBagActive)] = BombBagActive,
-                [nameof(CrossedWiresActive)] = CrossedWiresActive,
-                [nameof(GlowingCompoundActive)] = GlowingCompoundActive,
-                [nameof(LightweightBombshellsActive)] = LightweightBombshellsActive,
-                [nameof(MysteryBombActive)] = MysteryBombActive,
-                [nameof(RandomFuelActive)] = RandomFuelActive,
-                [nameof(ReactivePlatingActive)] = ReactivePlatingActive,
-                [nameof(ShortFuseActive)] = ShortFuseActive,
-                [nameof(StickyGunpowderActive)] = StickyGunpowderActive,
+                tag.Add(nameof(BlastShieldingActive), BlastShieldingActive);
+                tag.Add(nameof(BombBagActive), BombBagActive);
+                tag.Add(nameof(CrossedWiresActive), CrossedWiresActive);
+                tag.Add(nameof(GlowingCompoundActive), GlowingCompoundActive);
+                tag.Add(nameof(LightweightBombshellsActive), LightweightBombshellsActive);
+                tag.Add(nameof(MysteryBombActive), MysteryBombActive);
+                tag.Add(nameof(RandomFuelActive), RandomFuelActive);
+                tag.Add(nameof(ReactivePlatingActive), ReactivePlatingActive);
+                tag.Add(nameof(ShortFuseActive), ShortFuseActive);
+                tag.Add(nameof(StickyGunpowderActive), StickyGunpowderActive);
 
                 // Lesser tags
-                [nameof(LightweightBombshellVelocity)] = LightweightBombshellVelocity,
-                [nameof(ShortFuseTime)] = ShortFuseTime,
+                tag.Add(nameof(LightweightBombshellVelocity), LightweightBombshellVelocity);
+                tag.Add(nameof(ShortFuseTime), ShortFuseTime);
 
-            };
+           
         }
 
         public override void LoadData(TagCompound tag)

@@ -43,7 +43,7 @@ namespace ExtraExplosives.Items.Explosives
             recipe.AddIngredient(ModContent.ItemType<TorchBombItem>(), 1);
             recipe.AddIngredient(ItemID.Wood, 100);
             recipe.AddIngredient(ItemID.CrystalBlock, 100);
-            recipe.anyWood = true;
+            //recipe.anyWood = true;
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }

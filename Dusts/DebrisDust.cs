@@ -44,8 +44,8 @@ namespace ExtraExplosives.Dusts
 
             //lighting
             Lighting.AddLight(DebrisDust.position, new Vector3(89f / 255f, 35f / 255f, 13f / 255f));
-            Lighting.maxX = 3;
-            Lighting.maxY = 3;
+            //Lighting.maxX = 3;
+            //Lighting.maxY = 3;
 
             //Once it touches the ground stop moving
             Tile tile = Framing.GetTileSafely((int)(DebrisDust.position.X / 16f), (int)(DebrisDust.position.Y / 16f));
