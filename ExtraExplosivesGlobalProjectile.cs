@@ -488,9 +488,9 @@ namespace ExtraExplosives
                                 int dir = (dist > 0) ? 1 : -1;
                                 if (!DamageReducedNps.Contains(npc.type))
                                 {
-                                    npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+                                    // TODO npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
                                 }
-                                else npc.StrikeNPC(projectile.damage - (int)(projectile.damage * .8f), projectile.knockBack, dir, crit);
+                                //else npc.StrikeNPC(projectile.damage - (int)(projectile.damage * .8f), projectile.knockBack, dir, crit);
                             }
                         }
 
@@ -509,7 +509,7 @@ namespace ExtraExplosives
                             }
                             if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius)
                             {
-                                NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                                // TODO NetMessage.SendPlayerHurt(projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, projectile.whoAmI), (int)(projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                             }
                         }
                     }

@@ -56,16 +56,6 @@ namespace ExtraExplosives.CommentedExampleClasses
         }
 
         /// <summary>
-        /// How the projectile acts when it hits a player in a pvp context
-        /// </summary>
-        /// <param name="target">The player being hit</param>
-        /// <param name="damage">The damage to be dealt</param>
-        /// <param name="crit">If the hit was a crit</param>
-        public override void OnHitPvp(Player target, int damage, bool crit)/* tModPorter Note: Removed. Use OnHitPlayer and check info.PvP */
-        {
-        }
-
-        /// <summary>
         /// How the projectile acts when it hits an npc (either hostile or friendly)
         /// Whether the hit is successful is usually dictated by the projectile.friendly and projectile.hostile attributes
         /// </summary>

@@ -103,7 +103,7 @@ namespace ExtraExplosives.Projectiles //Namespace is set this way as projectiles
 
                             //Demo for Liquid Breaking
                             //This makes the explosion destroy liquids of any kind
-                            Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
+                            // TODO Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                             //Used to update the liquid
                             WorldGen.SquareTileFrame(xPosition, yPosition, true);
                         }
