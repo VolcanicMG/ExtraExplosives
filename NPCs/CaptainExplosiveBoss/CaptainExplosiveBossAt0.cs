@@ -82,7 +82,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.625f * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.625f * bossAdjustment);
             NPC.damage = (int)(NPC.damage * 0.6f);
         }
 
@@ -217,7 +217,13 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 }
                 else if (Main.netMode == NetmodeID.SinglePlayer)
                 {
-                    NPC.StrikeNPCNoInteraction(10000, 1, -NPC.direction, false, false, false);
+                    //NPC.StrikeNPCNoInteraction(10000, 1f, -NPC.direction);
+                    // TODO this is a test for how to solve the StrikeNPC change, might be wrong, might be right, who knows
+                    NPC.HitInfo info = new NPC.HitInfo();
+                    info.Damage = 1000;
+                    info.Knockback = 1f;
+                    info.HitDirection = -NPC.direction;
+                    NPC.StrikeNPC(info);
                 }
 
                 if (!flag)
