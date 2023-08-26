@@ -523,11 +523,18 @@ namespace ExtraExplosives
 
                 foreach (NPC npc in Main.npc)
                 {
+                    //Hit information
+                    NPC.HitInfo hit = new NPC.HitInfo();
+                    hit.Damage = 1000;
+                    hit.DamageType = DamageClass.Generic;
+
                     float dist = Vector2.Distance(npc.Center, Player.Center);
                     if (dist / 16f <= 15)
                     {
                         int dir = (dist > 0) ? 1 : -1;
-                        npc.StrikeNPC(1000, 1, dir);
+                        hit.HitDirection = dir;
+                        npc.StrikeNPC(hit);
+                        NetMessage.SendStrikeNPC(npc, hit);
                     }
                 }
 
@@ -571,20 +578,20 @@ namespace ExtraExplosives
             //--------------------------------------------------------
         }
 
-        /* TODO t-modporter wont fix this so do it manually later public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public override void OnHurt(Player.HurtInfo info)
         {
             Projectile projectile = new Projectile();
-            projectile.CloneDefaults(damageSource.SourceProjectileType.Value);
-            if (projectile.type == ModContent.ProjectileType<BombCloakProjectile>()) return false;  // If the bomb cloak caused the explosion, do nothing
+            projectile.CloneDefaults(info.DamageSource.SourceProjectileType);
+            if (projectile.type == ModContent.ProjectileType<BombCloakProjectile>()) return;  // If the bomb cloak caused the explosion, do nothing
 
             if (projectile.aiStyle == 16)
             {
                 //Main.NewText(damage);
                 if (BlastShielding) // Blast Shielding (working)
                 {
-                    return false;
+                    return;
                 }
-                else if (ReactivePlating) damage = (int)(damage * 0.9);
+                else if (ReactivePlating) info.Damage = (int)(info.Damage * 0.9);
                 //Main.NewText(damage);
             }
 
@@ -592,19 +599,14 @@ namespace ExtraExplosives
             if (Player == Main.player[Player.whoAmI] && DungeonBombard && Main.rand.Next(10) == 0)
             {
                 Player.NinjaDodge();
-                return false;
+                return;
             }
 
-            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
-        }*/
-
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
-        {
             if (BombCloak)
             {
                 Projectile.NewProjectileDirect(Player.GetSource_FromThis(), Player.position, Vector2.Zero, ProjectileType<BombCloakProjectile>(), (int)((100 + DamageBonus) * DamageMulti), 10, Player.whoAmI).timeLeft = 1;
             }
-
+            base.OnHurt(info);
         }
 
         //public void UpdateShaderShockwave(Vector2 center, //----------------------------------------------------------------
@@ -804,7 +806,7 @@ namespace ExtraExplosives
             }
         }
 
-        public override void OnEnterWorld(Player player) //might need to set to new netmode in case it dosnt work in MP
+        public override void OnEnterWorld() //might need to set to new netmode in case it dosnt work in MP
         {
             //StaticMethods.BuildDoNotHomeList();
             InventoryOpen = false;
@@ -812,8 +814,8 @@ namespace ExtraExplosives
             //ExtraExplosives.NukeActivated = false;
             ExtraExplosives.NukeHit = false;
             //player.ResetEffects();
-            player.ResetEffects();
-            Main.screenPosition = player.Center;
+            this.ResetEffects();
+            Main.screenPosition = default;
 
             if (ExtraExplosives.CurrentVersion == null)
             {
@@ -869,10 +871,10 @@ namespace ExtraExplosives
             }
         }
 
-        public override void clientClone(ModPlayer clientClone)
-        {
-            ExtraExplosivesPlayer clone = clientClone as ExtraExplosivesPlayer;
-        }
+        //public override void ClientClone(ModPlayer clientClone)
+        //{
+        //    ExtraExplosivesPlayer clone = clientClone as ExtraExplosivesPlayer;
+        //}
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {

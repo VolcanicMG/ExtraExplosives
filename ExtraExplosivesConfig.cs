@@ -12,8 +12,6 @@ namespace ExtraExplosives
 
         [DefaultValue(typeof(Vector2), "-300, -50")]
         [Range(-1920f, 0f)]
-        [Label("Anarchist Cookbook Position")]
-        [Tooltip("Anarchist Cookbook Position")]
         public Vector2 AnarchistCookbookPos { get; set; }
 
         public override void OnChanged()
@@ -22,29 +20,23 @@ namespace ExtraExplosives
         }
     }
 
-    [Label("ExtraExplosives Server Config")]
     public class ExtraExplosivesServerConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
         [Header("Explosives Wall Settings")]
-        [Label("Toggle Wall Breaking")]
         [DefaultValue(true)]
         public bool CanBreakWalls;
 
         [Header("Explosive Block-Breaking")]
-        [Label("Toggle Block Breaking for Captain Explosive (Town NPC)")]
         [DefaultValue(true)]
         public bool CanBreakTiles;
 
         [Header("Revert Vanilla Bombs Back To Default")]
-        [Label("Toggle")]
         [DefaultValue(false)]
         public bool RevertVanillaBombs;
 
         [Header("Explosives Dust/Particle Settings")]
-        [Label("Set Dust/Particle amount; Current Amount")]
-        [Tooltip("0 = No Dust; 1 = Lots of Dust")]
         [Increment(0.1f)]
         [Range(0f, 1f)]
         [DefaultValue(1f)]
