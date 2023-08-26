@@ -157,7 +157,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                 ToggleOnFire.Append(OnFire);    // Image of Random fuel for labeling
             ToggleOnFire.Left.Pixels = 25;
             ToggleOnFire.Top.Pixels = leftPage.Height.Pixels/2 - 75;
-            ToggleOnFire.OnClick += new MouseEvent(OnFireToggle);
+            ToggleOnFire.OnLeftClick += new MouseEvent(OnFireToggle);
             leftPage.Append(ToggleOnFire);
             
             ToggleFrostburn = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
@@ -167,7 +167,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                     ToggleFrostburn.Append(Frostburn);    // Image of Random fuel for labeling
             ToggleFrostburn.Left.Pixels = 250;
             ToggleFrostburn.Top.Pixels = leftPage.Height.Pixels/2 - 125;
-            ToggleFrostburn.OnClick += new MouseEvent(FrostburnToggle);
+            ToggleFrostburn.OnLeftClick += new MouseEvent(FrostburnToggle);
             leftPage.Append(ToggleFrostburn);
             
             ToggleConfused = new UIImageButton(ModContent.GetTexture("ExtraExplosives/UI/AnarchistCookbookUI/Box"));
@@ -177,7 +177,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
                 ToggleConfused.Append(Confused);    // Image of Random fuel for labeling
             ToggleConfused.Left.Pixels = 250;
             ToggleConfused.Top.Pixels = leftPage.Height.Pixels/2 - 75;
-            ToggleConfused.OnClick += new MouseEvent(ConfusedToggle);
+            ToggleConfused.OnLeftClick += new MouseEvent(ConfusedToggle);
             leftPage.Append(ToggleConfused);*/
 
             ToggleShortFuze = new UIImageButton(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/Box"));

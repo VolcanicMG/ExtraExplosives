@@ -88,11 +88,6 @@ namespace ExtraExplosives
 
         //config
         internal static ExtraExplosivesConfig EEConfig;
-        
-        /*//Boombox
-        public static bool boomBoxMusic = false;
-        public static int randomMusicID = 0;
-        public static int boomBoxTimer = 0;*/
 
         //Arrays and Lists
         internal static HashSet<int> avoidList;
@@ -105,19 +100,6 @@ namespace ExtraExplosives
         {
 
         }
-        
-        /* TODO for now we simply wont have music public override void UpdateMusic(ref int music, ref SceneEffectPriority priority)/* tModPorter Note: Removed. Use ModSceneEffect.Music and .Priority, aswell as ModSceneEffect.IsSceneEffectActive #1#
-        {
-            if (boomBoxMusic)
-            {
-                if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active)
-                {
-                    return;
-                }
-                music = randomMusicID;
-                priority = SceneEffectPriority.BossHigh;
-            }
-        }*/
 
         public override void Unload()
         {
