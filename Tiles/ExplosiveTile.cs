@@ -9,20 +9,11 @@ namespace ExtraExplosives.Tiles
 {
     public class ExplosiveTile : ModTile
     {
-        //public override void SetStaticDefaults()
-        //{
-        //	DisplayName.SetDefault("Basic Bow Turret");
-        //	Tooltip.SetDefault("This is a basic level bow turret.");
-
-        //}
-
         public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = false;
             Main.tileSolidTop[Type] = false;
-            //Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = false;
-            //Main.tileLighted[Type] = true;
             Main.tileWaterDeath[Type] = true;
             Main.tileLavaDeath[Type] = true;
             Main.tileNoAttach[Type] = true;
