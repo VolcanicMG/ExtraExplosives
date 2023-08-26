@@ -18,13 +18,15 @@ namespace ExtraExplosives.NPCs
     public class CaptainExplosive : ModNPC
     {
         //Variables:
+        public const string ShopName = "Shop";
+
         public static bool CaptianIsDed = true;
 
         private const int PickPower = 50;
 
         private bool shopOpen = false;
         private int nextSlot = 0;
-        
+
 
         /* TODO public override bool IsLoadingEnabled(Mod mod)/* t-ModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead #1#
         {
@@ -196,15 +198,15 @@ namespace ExtraExplosives.NPCs
 
         public override void SetChatButtons(ref string button, ref string button2)  //Allows you to set the text for the buttons that appear on npc town NPC's chat window.
         {
-            button = "Buy Explosioves";   //npc defines the buy button name
+            button = "Buy Explosives";   //npc defines the buy button name
             button2 = "Combine";
         }
 
-        public override void OnChatButtonClicked(bool firstButton, ref string shopName) //Allows you to make something happen whenever a button is clicked on npc town NPC's chat window. The firstButton parameter tells whether the first button or second button (button and button2 from SetChatButtons) was clicked. Set the shop parameter to true to open npc NPC's shop.
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
         {
             if (firstButton)
             {
-                shopOpen = true;   //so when you click on buy button opens the shop
+                shopName = ShopName;   //so when you click on buy button opens the shop
             }
             else
             {
@@ -215,98 +217,71 @@ namespace ExtraExplosives.NPCs
             }
         }
 
-        public override void ModifyActiveShop(string shopName, Item[] items)       //Allows you to add items to npc town NPC's shop. Add an item by setting the defaults of shop.item[nextSlot] then incrementing nextSlot.
+        public override void AddShops()
         {
-            // TODO this all should be moved to either AddShops or GlobalNPC.ModifyShop
-            /*if (NPC.downedMechBoss1)
+            NPCShop shop = new NPCShop(Type, ShopName)
+                .Add(ModContent.ItemType<BasicExplosiveItem>())
+                .Add(ModContent.ItemType<SmallExplosiveItem>())
+                .Add(ModContent.ItemType<MediumExplosiveItem>())
+                .Add(ModContent.ItemType<LargeExplosiveItem>())
+                .Add(ModContent.ItemType<TorchBombItem>())
+                .Add(ModContent.ItemType<DynaglowmiteItem>())
+                .Add(ModContent.ItemType<DeliquidifierItem>())
+                .Add(ModContent.ItemType<HydromiteItem>())
+                .Add(ModContent.ItemType<LavamiteItem>())
+                .Add(ModContent.ItemType<HouseBombItem>())
+                .Add(ModContent.ItemType<BunnyiteItem>())
+                .Add(ModContent.ItemType<MeteoriteBusterItem>())
+                .Add(ModContent.ItemType<HellavatorItem>())
+                .Add(ModContent.ItemType<BombBag>())
+                .Add(ModContent.ItemType<ShortFuse>())
+                .Add(ModContent.ItemType<LightweightBombshells>());
+            
+            if (NPC.downedMechBoss1)
             {
-                Main.
-                shopName[nextSlot].SetDefaults(ModContent.ItemType<ArenaBuilderItem>());
-                nextSlot++;
-                shopName.items[nextSlot].SetDefaults(ModContent.ItemType<LandBridgeItem>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<ArenaBuilderItem>());
+                shop.Add(ModContent.ItemType<LandBridgeItem>());
             }
 
             if (NPC.downedPirates)
             {
-                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<CritterBombItem>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<CritterBombItem>());
             }
 
             if (NPC.downedClown)
             {
-                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<DaBombItem>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<DaBombItem>());
             }
 
             if (NPC.downedBoss3)
             {
-                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<HeavyBombItem>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<HeavyBombItem>());
             }
 
             if (NPC.downedPlantBoss)
             {
-                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<C4Item>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<C4Item>());
             }
 
             if (NPC.downedMoonlord)
             {
-                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<AtomBombItem>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<AtomBombItem>());
             }
 
             if (NPC.downedGoblins)
             {
-                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<ReforgeBombItem>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<ReforgeBombItem>());
             }
 
             if (Main.hardMode)
             {
-                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<BombBuddyItem>());
-                nextSlot++;
-                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<MegaExplosiveItem>());
-                nextSlot++;
-                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<GiganticExplosiveItem>());
-                nextSlot++;
-                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<FlashbangItem>());
-                nextSlot++;
+                shop.Add(ModContent.ItemType<BombBuddyItem>());
+                shop.Add(ModContent.ItemType<MegaExplosiveItem>());
+                shop.Add(ModContent.ItemType<GiganticExplosiveItem>());
+                shop.Add(ModContent.ItemType<FlashbangItem>());
             }
 
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<BasicExplosiveItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<SmallExplosiveItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<MediumExplosiveItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<LargeExplosiveItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<TorchBombItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<DynaglowmiteItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<DeliquidifierItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<HydromiteItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<LavamiteItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<HouseBombItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<BunnyiteItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<MeteoriteBusterItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<HellavatorItem>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<BombBag>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<ShortFuse>());
-            nextSlot++;
-            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<LightweightBombshells>());
-            nextSlot++;*/
+            shop.Register();
         }
 
         public override string GetChat()       //Allows you to give npc town NPC a chat message when a player talks to it.
@@ -363,34 +338,11 @@ namespace ExtraExplosives.NPCs
             randExtraCooldown = 10;
         }
 
-        //------------------------------------npc is an example of how to make the npc use a sward attack-------------------------------
-        //public override void DrawTownAttackSwing(ref Texture2D item, ref int itemSize, ref float scale, ref Vector2 offset)//Allows you to customize how npc town NPC's weapon is drawn when npc NPC is swinging it (npc NPC must have an attack type of 3). Item is the Texture2D instance of the item to be drawn (use Main.itemTexture[id of item]), itemSize is the width and height of the item's hitbox
-        //{
-        //	scale = 1f;
-        //	item = Main.itemTexture[mod.ItemType("CustomSword")]; //npc defines the item that npc npc will use
-        //	itemSize = 56;
-        //}
-
-        //public override void TownNPCAttackSwing(ref int itemWidth, ref int itemHeight) //  Allows you to determine the width and height of the item npc town NPC swings when it attacks, which controls the range of npc NPC's swung weapon.
-        //{
-        //	itemWidth = 56;
-        //	itemHeight = 56;
-        //}
-
-        //----------------------------------npc is an example of how to make the npc use a gun and a projectile ----------------------------------
-
         public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
         {
             multiplier = 12f;
             randomOffset = 2f;
         }
-
-        //public override void DrawTownAttackGun(ref float scale, ref int item, ref int closeness) //Allows you to customize how npc town NPC's weapon is drawn when npc NPC is shooting (npc NPC must have an attack type of 1). Scale is a multiplier for the item's drawing size, item is the ID of the item to be drawn, and closeness is how close the item should be drawn to the NPC.
-        //{
-        //	scale = .7f; //1f;
-        //	item = 164; // mod.ItemType("Handgun");
-        //	closeness = 0; //20S
-        //}
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)//Allows you to determine the projectile type of npc town NPC's attack, and how long it takes for the projectile to actually appear
         {

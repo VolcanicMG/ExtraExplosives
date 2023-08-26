@@ -34,14 +34,24 @@ namespace ExtraExplosives.UI
         internal static int ItemAmmo; //projectile
         internal static int ItemProjectile;
 
-        private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
-        private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
+        private Mod CalamityMod;
+        private Mod ThoriumMod;
 
         private VanillaItemSlotWrapper _vanillaItemSlot;
         private VanillaItemSlotWrapper _vanillaItemSlot2;
 
         public override void OnInitialize()
         {
+            try
+            {
+                CalamityMod = ModLoader.GetMod("CalamityMod");
+                ThoriumMod = ModLoader.GetMod("ThoriumMod");
+            }
+            catch
+            {
+                
+            }
+
             Box = new UIImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/CombineUI"));
             //Image5.Width.Set(ImageWidth, 0f);
             //Image5.Height.Set(ImageHeight, 0f);

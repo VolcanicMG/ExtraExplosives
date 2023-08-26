@@ -197,33 +197,10 @@ namespace ExtraExplosives.NPCs
                 shop.Add(ModContent.ItemType<LargeExplosiveItem>());
                 shop.Add(ModContent.ItemType<Rocket0>());
                 shop.Add(ModContent.ItemType<BombardsPouch>());
-                /*shop.item[nextSlot].SetDefaults(ModContent.ItemType<BasicExplosiveItem>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<SmallExplosiveItem>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<MediumExplosiveItem>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<LargeExplosiveItem>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Rocket0>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<BombardsPouch>());*/
-                // TODO wrong conditions on this
+
                 shop.Add(ModContent.ItemType<Unhinged_Letter>(), Condition.DownedKingSlime);
                 shop.Add(ModContent.ItemType<Rocket0Point5>(), Condition.DownedKingSlime);
-                /*if (NPC.downedSlimeKing || NPC.downedBoss1)
-                {
-                    nextSlot++;
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Unhinged_Letter>());
-                    nextSlot++;
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Rocket0Point5>());
-                }*/
                 shop.Add(ModContent.ItemType<CertificateOfDemolition>(), Condition.DownedDukeFishron);
-                /* TODO this one should be good if (NPC.downedFishron)
-                {
-                    nextSlot++;
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<CertificateOfDemolition>());
-                }*/
             }
 
             if (shop.NpcType == NPCID.TravellingMerchant)
@@ -244,58 +221,39 @@ namespace ExtraExplosives.NPCs
             }
         }
 
-        /*public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
-        {
-            if (type == NPCID.Demolitionist)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<BasicExplosiveItem>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<SmallExplosiveItem>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<MediumExplosiveItem>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<LargeExplosiveItem>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Rocket0>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<BombardsPouch>());
+        //public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
+        //{
+        //    if (npc.type == NPCID.Demolitionist)
+        //    {
+        //        items.Add(ModContent.ItemType<BasicExplosiveItem>());
+        //        shop.Add(ModContent.ItemType<SmallExplosiveItem>());
+        //        shop.Add(ModContent.ItemType<MediumExplosiveItem>());
+        //        shop.Add(ModContent.ItemType<LargeExplosiveItem>());
+        //        shop.Add(ModContent.ItemType<Rocket0>());
+        //        shop.Add(ModContent.ItemType<BombardsPouch>());
 
-                if (NPC.downedSlimeKing || NPC.downedBoss1)
-                {
-                    nextSlot++;
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Unhinged_Letter>());
-                    nextSlot++;
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Rocket0Point5>());
-                }
-                if (NPC.downedFishron)
-                {
-                    nextSlot++;
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<CertificateOfDemolition>());
-                }
-            }
-            else if (type == NPCID.TravellingMerchant)
-            {
-                if (Main.hardMode)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<TornadoBombItem>());
-                    nextSlot++;
-                }
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<RainboomItem>());
-                nextSlot++;
-            }
-            else if (type == NPCID.Merchant)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<PotatoItem>());
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpongeItem>());
-                nextSlot++;
-            }
-            else if (type == NPCID.Truffle)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Bombshroom>());
-                nextSlot++;
-            }
-        }*/
+        //        shop.Add(ModContent.ItemType<Unhinged_Letter>(), Condition.DownedKingSlime);
+        //        shop.Add(ModContent.ItemType<Rocket0Point5>(), Condition.DownedKingSlime);
+        //        shop.Add(ModContent.ItemType<CertificateOfDemolition>(), Condition.DownedDukeFishron);
+        //    }
+
+        //    if (npc.type == NPCID.TravellingMerchant)
+        //    {
+        //        shop.Add(ModContent.ItemType<TornadoBombItem>(), Condition.Hardmode);
+        //        shop.Add(ModContent.ItemType<RainboomItem>());
+        //    }
+
+        //    if (npc.type == NPCID.Merchant)
+        //    {
+        //        shop.Add(ModContent.ItemType<PotatoItem>());
+        //        shop.Add(ModContent.ItemType<SpongeItem>());
+        //    }
+
+        //    if (npc.type == NPCID.Truffle)
+        //    {
+        //        shop.Add(ModContent.ItemType<Bombshroom>());
+        //    }
+        //}
 
         public override void GetChat(NPC npc, ref string chat)
         {
