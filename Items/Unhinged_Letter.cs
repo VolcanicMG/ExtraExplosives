@@ -1,6 +1,7 @@
 using ExtraExplosives.NPCs.CaptainExplosiveBoss;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,14 +32,22 @@ namespace ExtraExplosives.Items
 
         public override bool CanUseItem(Player player)
         {
-            /*if (!NPC.AnyNPCs(ModContent.NPCType<CaptainExplosiveBoss>()))
+            if(!NPC.AnyNPCs(ModContent.NPCType<CaptainExplosiveBoss>()))
             {
-                NPC.NewNPC((int)player.position.X, (int)player.position.Y - 600, ModContent.NPCType<CaptainExplosiveBoss>()); //Spawn
-                //SoundEngine.PlaySound(SoundID.ForceRoar, player.position, 0);
+                //Spawn the boss
+                int slot = NPC.NewNPC(null, (int)player.position.X, (int)player.position.Y - 600, ModContent.NPCType<CaptainExplosiveBoss>());
+
+                // Sync of NPCs on the server in MP
+                if (Main.netMode == NetmodeID.Server && slot < Main.maxNPCs)
+                {
+                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, slot);
+                }
+
+                SoundEngine.PlaySound(SoundID.ForceRoar, player.position);
                 Item.stack--;
 
                 return true;
-            }*/
+            }
 
             return false;
         }
