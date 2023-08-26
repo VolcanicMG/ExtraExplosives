@@ -15,8 +15,8 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Trash Cannon");
-            Tooltip.SetDefault("'One man's trash is another's lethal projectile'");
+            // DisplayName.SetDefault("Trash Cannon");
+            // Tooltip.SetDefault("'One man's trash is another's lethal projectile'");
         }
 
         public override void SafeSetDefaults()

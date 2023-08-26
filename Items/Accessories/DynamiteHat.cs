@@ -8,7 +8,7 @@ namespace ExtraExplosives.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dynamite Hat");
+            // DisplayName.SetDefault("Dynamite Hat");
         }
 
         public override void SetDefaults()

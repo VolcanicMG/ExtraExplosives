@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("LandBridge");
+            // DisplayName.SetDefault("LandBridge");
         }
 
         public override void SafeSetDefaults()
@@ -85,7 +85,7 @@ namespace ExtraExplosives.Projectiles
                     if (!OutOfBounds(xPosition, yPosition) && !tile.HasTile)
                     {
                         //Breaks Liquid
-                        Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
+                        // TODO Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
                         //Place Outline

@@ -11,8 +11,8 @@ namespace ExtraExplosives.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Air Strike");
-            Tooltip.SetDefault("Send them down!");
+            // DisplayName.SetDefault("Air Strike");
+            // Tooltip.SetDefault("Send them down!");
         }
 
         public override void SetDefaults()

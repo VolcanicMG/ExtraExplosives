@@ -9,8 +9,8 @@ namespace ExtraExplosives.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Radiated");
-            Description.SetDefault("Your flesh is deteriorating");
+            // DisplayName.SetDefault("Radiated");
+            // Description.SetDefault("Your flesh is deteriorating");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = false;

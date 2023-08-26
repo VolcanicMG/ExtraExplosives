@@ -14,7 +14,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hydromite");
+            // DisplayName.SetDefault("Hydromite");
         }
 
         public override void SafeSetDefaults()

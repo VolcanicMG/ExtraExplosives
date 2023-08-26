@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles.Rockets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rocket 0.5");
+            // DisplayName.SetDefault("Rocket 0.5");
         }
 
         public override void SetDefaults()

@@ -10,9 +10,9 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chaos Bomb");
-            Tooltip.SetDefault("'This is either a grave mistake or the best idea ever.'\n" +
-                               "Bombs inflict Venom and Shadowflame, ignite enemies, and confuse enemies");    //The spirits of light and dark have been compressed and refined
+            // DisplayName.SetDefault("Chaos Bomb");
+            /* Tooltip.SetDefault("'This is either a grave mistake or the best idea ever.'\n" +
+                               "Bombs inflict Venom and Shadowflame, ignite enemies, and confuse enemies"); */    //The spirits of light and dark have been compressed and refined
         }
 
         public override void SetDefaults()

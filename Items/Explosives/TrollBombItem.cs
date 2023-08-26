@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Troll Bomb");
-            Tooltip.SetDefault("'For your best friend!'");
+            // DisplayName.SetDefault("Troll Bomb");
+            // Tooltip.SetDefault("'For your best friend!'");
         }
 
         public override void SafeSetDefaults()

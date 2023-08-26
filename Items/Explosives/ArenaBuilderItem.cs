@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Arena Builder");
-            Tooltip.SetDefault("Explodes into a 240 x 120 arena equipped with only the finest of platforms and lights.");
+            // DisplayName.SetDefault("Arena Builder");
+            // Tooltip.SetDefault("Explodes into a 240 x 120 arena equipped with only the finest of platforms and lights.");
         }
 
         public override void SafeSetDefaults()

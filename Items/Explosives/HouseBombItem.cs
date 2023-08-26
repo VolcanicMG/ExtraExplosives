@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HouseBomb");
-            Tooltip.SetDefault("Creates a small NPC house");
+            // DisplayName.SetDefault("HouseBomb");
+            // Tooltip.SetDefault("Creates a small NPC house");
         }
 
         public override void SafeSetDefaults()

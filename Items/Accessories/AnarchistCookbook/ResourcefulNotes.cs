@@ -8,10 +8,10 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Resourceful Notes");
-            Tooltip.SetDefault("50% chance to throw a second explosives\n" +
+            // DisplayName.SetDefault("Resourceful Notes");
+            /* Tooltip.SetDefault("50% chance to throw a second explosives\n" +
                                "Does not consume a second item\n" +
-                               "20% chance to not consume explosives");
+                               "20% chance to not consume explosives"); */
         }
 
         public override void SetDefaults()

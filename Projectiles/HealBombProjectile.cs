@@ -14,7 +14,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heal Bomb");
+            // DisplayName.SetDefault("Heal Bomb");
         }
 
         public override void SafeSetDefaults()

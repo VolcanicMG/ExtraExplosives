@@ -9,9 +9,9 @@ namespace ExtraExplosives.Items.Armors.HeavyAutomated
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heavy Automated Bombard Body");
-            Tooltip.SetDefault("\n" +
-                "7% Increased Bomb Damage and 8% Blast Radius\n");
+            // DisplayName.SetDefault("Heavy Automated Bombard Body");
+            /* Tooltip.SetDefault("\n" +
+                "7% Increased Bomb Damage and 8% Blast Radius\n"); */
         }
 
         public override void SetDefaults()

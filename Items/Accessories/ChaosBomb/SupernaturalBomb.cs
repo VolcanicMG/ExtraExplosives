@@ -10,9 +10,9 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Supernatural Bomb");
-            Tooltip.SetDefault("'It whispers to me.'\n" +
-                               "Bombs inflict Shadowflame");    //Infused with the essence of the ethereal plane
+            // DisplayName.SetDefault("Supernatural Bomb");
+            /* Tooltip.SetDefault("'It whispers to me.'\n" +
+                               "Bombs inflict Shadowflame"); */    //Infused with the essence of the ethereal plane
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

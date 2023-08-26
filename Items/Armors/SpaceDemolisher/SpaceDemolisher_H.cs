@@ -9,9 +9,9 @@ namespace ExtraExplosives.Items.Armors.SpaceDemolisher
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Palladium Space Demolisher Helm");
-            Tooltip.SetDefault("\n" +
-                "4% Increased Bomb Damage and Blast Radius");
+            // DisplayName.SetDefault("Palladium Space Demolisher Helm");
+            /* Tooltip.SetDefault("\n" +
+                "4% Increased Bomb Damage and Blast Radius"); */
         }
 
         public override void SetDefaults()

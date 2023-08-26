@@ -34,7 +34,7 @@ namespace ExtraExplosives
             base.OnWorldLoad();
         }
 
-        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             //tasks.Add(new PassLegacy("archivingValues", delegate(GenerationProgress progress)
             //{
@@ -76,7 +76,7 @@ namespace ExtraExplosives
             {
                 // Tries the location and if its air and touches pearlstone (type == 117) then it will spawn
                 int x = WorldGen.genRand.Next(10, Main.maxTilesX - 10);
-                int y = WorldGen.genRand.Next((int)WorldGen.worldSurfaceLow, Main.maxTilesY - 10);
+                int y = WorldGen.genRand.Next((int)GenVars.worldSurfaceLow, Main.maxTilesY - 10);
                 if (Main.tile[x, y].TileType == TileID.DemonAltar)
                     return; // Avoid breaking demon alters since this blesses the world with hm ores
                 if ((WorldGen.SolidTile(x - 1, y) && Main.tile[x - 1, y].TileType == 117) ||

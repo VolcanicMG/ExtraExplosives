@@ -9,7 +9,7 @@ namespace ExtraExplosives.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Explodes into a rainbow prism that damages enemies");
+            // Tooltip.SetDefault("Explodes into a rainbow prism that damages enemies");
         }
 
         public override void SafeSetDefaults()

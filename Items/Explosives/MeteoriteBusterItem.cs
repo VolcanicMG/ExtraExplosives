@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteorite Buster");
-            Tooltip.SetDefault("Only targets meteorite");
+            // DisplayName.SetDefault("Meteorite Buster");
+            // Tooltip.SetDefault("Only targets meteorite");
         }
 
         public override void SafeSetDefaults()

@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dynaglowmite");
+            // DisplayName.SetDefault("Dynaglowmite");
         }
 
         public override void SafeSetDefaults()

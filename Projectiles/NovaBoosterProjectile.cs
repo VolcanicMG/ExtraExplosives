@@ -20,7 +20,7 @@ namespace ExtraExplosives.Projectiles
                 if (dist / 16f <= radius)
                 {
                     int dir = (dist > 0) ? 1 : -1;
-                    npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
+                    // TODO npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
                 }
             }
         }

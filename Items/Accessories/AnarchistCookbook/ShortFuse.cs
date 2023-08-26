@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Short Fuse");
-            Tooltip.SetDefault("Halves fuse length of explosives");    //\"But why is it misspelled?\" -An annoying person
+            // DisplayName.SetDefault("Short Fuse");
+            // Tooltip.SetDefault("Halves fuse length of explosives");    //\"But why is it misspelled?\" -An annoying person
         }
 
         public override void SetDefaults()

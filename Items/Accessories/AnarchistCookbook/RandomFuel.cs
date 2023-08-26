@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Random Fuel");
-            Tooltip.SetDefault("Makes explosives detonate twice");
+            // DisplayName.SetDefault("Random Fuel");
+            // Tooltip.SetDefault("Makes explosives detonate twice");
         }
 
         public override void SetDefaults()

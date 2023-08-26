@@ -16,7 +16,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BOOMerang");
+            // DisplayName.SetDefault("BOOMerang");
         }
 
         public override void DangerousSetDefaults()
@@ -38,7 +38,7 @@ namespace ExtraExplosives.Projectiles
         //	return base.OnTileCollide(oldVelocity);
         //}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             HitSomeThing = true;
 

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -18,7 +19,7 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16, 16, 16, 16 };
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
+            LocalizedText name = CreateMapEntryName();
             // name.SetDefault("Example Clock"); // Automatic from .lang files
             AddMapEntry(new Color(200, 200, 200), name);
             DustType = DustID.Smoke;

@@ -9,9 +9,9 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crossed Wires");
-            Tooltip.SetDefault("Increases explosive damage by 15%\n" +
-                               "Increases Explosive Critical chance by 10%");
+            // DisplayName.SetDefault("Crossed Wires");
+            /* Tooltip.SetDefault("Increases explosive damage by 15%\n" +
+                               "Increases Explosive Critical chance by 10%"); */
         }
 
         public override void SetDefaults()

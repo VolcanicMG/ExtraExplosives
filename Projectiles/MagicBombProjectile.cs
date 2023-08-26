@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles
         protected override string goreFileLoc => "Gores/Explosives/magic_gore";
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Magic Bomb");
+            // DisplayName.SetDefault("Magic Bomb");
         }
 
         public override void SafeSetDefaults()

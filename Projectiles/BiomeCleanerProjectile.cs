@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Biome Cleaner Projectile");
+            // DisplayName.SetDefault("Biome Cleaner Projectile");
         }
 
         public override void SafeSetDefaults()

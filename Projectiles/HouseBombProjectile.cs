@@ -14,7 +14,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("HouseBomb");
+            // DisplayName.SetDefault("HouseBomb");
         }
 
         public override void SafeSetDefaults()
@@ -106,7 +106,7 @@ namespace ExtraExplosives.Projectiles
                         }
 
                         //Destroy water
-                        Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
+                        // TODO Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
                         //Particle Effects

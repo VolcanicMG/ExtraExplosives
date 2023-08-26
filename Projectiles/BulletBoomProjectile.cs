@@ -25,7 +25,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bullet Boom");    // internal name only, will not have a space for the projName piece
+            // DisplayName.SetDefault("Bullet Boom");    // internal name only, will not have a space for the projName piece
         }
 
         public override void SafeSetDefaults()

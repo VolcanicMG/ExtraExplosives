@@ -8,9 +8,9 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bombard Emblem");
-            Tooltip.SetDefault("Disabled block damage from friendly explosives\n" +
-                               "15% increase to explosive damage");
+            // DisplayName.SetDefault("Bombard Emblem");
+            /* Tooltip.SetDefault("Disabled block damage from friendly explosives\n" +
+                               "15% increase to explosive damage"); */
         }
 
         public override void SetDefaults()

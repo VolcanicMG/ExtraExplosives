@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 //using On.Terraria.ID;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -17,8 +18,8 @@ namespace ExtraExplosives.Tiles.Furniture
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Bomb Statue");
+            LocalizedText name = CreateMapEntryName();
+            // name.SetDefault("Bomb Statue");
             AddMapEntry(new Color(144, 148, 144), name);
             DustType = 11;
             TileID.Sets.DisableSmartCursor = new[] { true };

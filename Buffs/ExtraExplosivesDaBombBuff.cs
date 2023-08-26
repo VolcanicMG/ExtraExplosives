@@ -7,9 +7,9 @@ namespace ExtraExplosives.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("You DA BOMB!");
-            Description.SetDefault("You feel like you could explode\n" +
-                "Defense Up");
+            // DisplayName.SetDefault("You DA BOMB!");
+            /* Description.SetDefault("You feel like you could explode\n" +
+                "Defense Up"); */
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

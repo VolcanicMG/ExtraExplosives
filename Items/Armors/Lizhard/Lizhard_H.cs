@@ -10,9 +10,9 @@ namespace ExtraExplosives.Items.Armors.Lizhard
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lizhard Bombard Helm");
-            Tooltip.SetDefault("\n" +
-                "10% Increased Bomb Damage and 8% Blast Radius\n");
+            // DisplayName.SetDefault("Lizhard Bombard Helm");
+            /* Tooltip.SetDefault("\n" +
+                "10% Increased Bomb Damage and 8% Blast Radius\n"); */
         }
 
         public override void SetDefaults()

@@ -20,7 +20,7 @@ namespace ExtraExplosives.Projectiles
         //SoundEffectInstance soundPlane;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Plane");
+            // DisplayName.SetDefault("Plane");
             Main.projFrames[Projectile.type] = 4;
         }
 

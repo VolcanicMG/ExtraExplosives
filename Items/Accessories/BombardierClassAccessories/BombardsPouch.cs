@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Accessories.BombardierClassAccessories
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomber's Pouch");
-            Tooltip.SetDefault("30% chance to not consume explosives");
+            // DisplayName.SetDefault("Bomber's Pouch");
+            // Tooltip.SetDefault("30% chance to not consume explosives");
         }
 
         public override void SetDefaults()

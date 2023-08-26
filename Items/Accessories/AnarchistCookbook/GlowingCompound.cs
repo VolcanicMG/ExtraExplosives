@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Glowing Compound");
-            Tooltip.SetDefault("Makes your bombs glow");
+            // DisplayName.SetDefault("Glowing Compound");
+            // Tooltip.SetDefault("Makes your bombs glow");
         }
 
         public override void SetDefaults()

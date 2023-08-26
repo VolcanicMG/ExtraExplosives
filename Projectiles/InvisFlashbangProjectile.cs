@@ -12,7 +12,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("InvisFlashbangProjectile");
+            // DisplayName.SetDefault("InvisFlashbangProjectile");
         }
 
         public override void SafeSetDefaults()
@@ -34,13 +34,13 @@ namespace ExtraExplosives.Projectiles
 
         public override string Texture => "ExtraExplosives/Projectiles/FlashbangProjectile";
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Confused, 300);
             target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             //Main.NewText($"{target.direction} {projectile.Center.X} {target.Center.X} {projectile.Center.X - target.Center.X}");
             if (target.whoAmI == Projectile.owner && target.direction * (Projectile.Center.X - target.Center.X) > 0)
@@ -49,15 +49,12 @@ namespace ExtraExplosives.Projectiles
                 target.AddBuff(BuffID.Dazed, 300);
                 target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
             }
-        }
-
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-            if (target.direction * (Projectile.Center.X - target.Center.X) > 0)
+            
+            if (target.direction * (Projectile.Center.X - target.Center.X) > 0 && info.PvP)
             {
-                target.AddBuff(BuffID.Confused, 300);
-                target.AddBuff(BuffID.Dazed, 300);
-                target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
+	            target.AddBuff(BuffID.Confused, 300);
+	            target.AddBuff(BuffID.Dazed, 300);
+	            target.AddBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>(), 90);
             }
         }
 

@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ExplosionDamage");
+            // DisplayName.SetDefault("ExplosionDamage");
         }
 
         public override void SafeSetDefaults()
@@ -33,15 +33,18 @@ namespace ExtraExplosives.Projectiles
                                              //projectile.scale = 5;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (!crit && Main.player[Projectile.owner].GetModPlayer<ExtraExplosivesPlayer>().CrossedWires &&
                 Main.rand.Next(5) == 0)
             {
                 crit = true;
             }
-            Main.NewText((int)((damage + Main.player[Projectile.owner].EE().DamageBonus) * Main.player[Projectile.owner].EE().DamageMulti));
-            base.OnHitPlayer(target, (int)((damage + Main.player[Projectile.owner].EE().DamageBonus) * Main.player[Projectile.owner].EE().DamageMulti), crit);
+            info.Damage += (int)(Main.player[Projectile.owner].EE().DamageBonus *
+                                 Main.player[Projectile.owner].EE().DamageMulti);
+            base.OnHitPlayer(target, info);
+            Main.NewText(info.Damage);
+            base.OnHitPlayer(target, info);
         }
 
         public override bool? CanHitNPC(NPC target)

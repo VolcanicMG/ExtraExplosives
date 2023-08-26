@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Land Bridge");
-            Tooltip.SetDefault("Explodes into a long bridge across the world");
+            // DisplayName.SetDefault("The Land Bridge");
+            // Tooltip.SetDefault("Explodes into a long bridge across the world");
         }
 
         public override void SafeSetDefaults()

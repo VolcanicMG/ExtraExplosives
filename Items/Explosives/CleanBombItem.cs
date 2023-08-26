@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("CleanBomb");
-            Tooltip.SetDefault("Removes most debuffs (and buffs) upon explosion");
+            // DisplayName.SetDefault("CleanBomb");
+            // Tooltip.SetDefault("Removes most debuffs (and buffs) upon explosion");
         }
 
         public override void SetDefaults()

@@ -8,7 +8,7 @@ namespace ExtraExplosives.Projectiles.Weapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mine Flail");
+            // DisplayName.SetDefault("Mine Flail");
         }
 
         public override void SetDefaults()

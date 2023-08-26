@@ -8,9 +8,9 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Leveler");
-            Tooltip.SetDefault("Levels a 100 x 20 space. Blows up immediately\n" +
-                "[c/AB40FF:Can desert fossils]");
+            // DisplayName.SetDefault("The Leveler");
+            /* Tooltip.SetDefault("Levels a 100 x 20 space. Blows up immediately\n" +
+                "[c/AB40FF:Can desert fossils]"); */
         }
 
         public override void SafeSetDefaults()

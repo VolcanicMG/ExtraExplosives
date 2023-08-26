@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BigBouncyDynamite");
+            // DisplayName.SetDefault("BigBouncyDynamite");
         }
 
         public override void SafeSetDefaults()

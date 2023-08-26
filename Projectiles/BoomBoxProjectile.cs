@@ -14,7 +14,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Boom Box");
+            // DisplayName.SetDefault("Boom Box");
         }
 
         public override void SafeSetDefaults()

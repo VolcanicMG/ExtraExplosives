@@ -8,9 +8,9 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sticky Gunpowder");
-            Tooltip.SetDefault("Thrown explosives stick to walls\n" +
-                               "Functions identically to sticky bombs");
+            // DisplayName.SetDefault("Sticky Gunpowder");
+            /* Tooltip.SetDefault("Thrown explosives stick to walls\n" +
+                               "Functions identically to sticky bombs"); */
         }
 
         public override void SetDefaults()

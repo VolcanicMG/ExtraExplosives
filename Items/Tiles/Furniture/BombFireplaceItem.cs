@@ -8,7 +8,7 @@ namespace ExtraExplosives.Items.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomb Fireplace");
+            // DisplayName.SetDefault("Bomb Fireplace");
         }
 
         public override void SetDefaults()

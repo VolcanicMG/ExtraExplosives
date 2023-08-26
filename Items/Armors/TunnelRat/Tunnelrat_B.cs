@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Armors.TunnelRat
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tunnel-rat Body");
-            Tooltip.SetDefault("1% Increased Bomb Damage");
+            // DisplayName.SetDefault("Tunnel-rat Body");
+            // Tooltip.SetDefault("1% Increased Bomb Damage");
 
         }
 

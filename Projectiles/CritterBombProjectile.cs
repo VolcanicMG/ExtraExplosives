@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("CritterBomb");
+            // DisplayName.SetDefault("CritterBomb");
         }
 
         public override void SafeSetDefaults()

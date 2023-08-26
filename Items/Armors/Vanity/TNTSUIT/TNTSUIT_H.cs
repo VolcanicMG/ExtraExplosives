@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Armors.Vanity.TNTSUIT
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("TNT Suit Head");
-            Tooltip.SetDefault("");
+            // DisplayName.SetDefault("TNT Suit Head");
+            // Tooltip.SetDefault("");
 
         }
 

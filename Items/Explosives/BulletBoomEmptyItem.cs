@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Empty Shell");
-            Tooltip.SetDefault("'Let's try putting bullets in it!'");
+            // DisplayName.SetDefault("Empty Shell");
+            // Tooltip.SetDefault("'Let's try putting bullets in it!'");
         }
 
         public override void SetDefaults()

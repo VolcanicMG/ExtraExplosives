@@ -10,9 +10,9 @@ namespace ExtraExplosives.Items.Accessories.ChaosBomb
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eclectic Bomb");
-            Tooltip.SetDefault("'Antiquity and modernity combined'\n" +
-                               "Bombs light enemies on fire & confuse them");
+            // DisplayName.SetDefault("Eclectic Bomb");
+            /* Tooltip.SetDefault("'Antiquity and modernity combined'\n" +
+                               "Bombs light enemies on fire & confuse them"); */
         }
 
         public override void SetDefaults()

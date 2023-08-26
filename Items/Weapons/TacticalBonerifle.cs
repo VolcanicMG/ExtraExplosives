@@ -16,8 +16,8 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tactical Bonerifle");
-            Tooltip.SetDefault("Doot. Doot. Shoot.");
+            // DisplayName.SetDefault("Tactical Bonerifle");
+            // Tooltip.SetDefault("Doot. Doot. Shoot.");
         }
 
         public override void SafeSetDefaults()

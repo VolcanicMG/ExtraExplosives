@@ -9,10 +9,10 @@ namespace ExtraExplosives.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Twin Detonator");
-            Tooltip.SetDefault("'Double the trouble.'\n" +
+            // DisplayName.SetDefault("Twin Detonator");
+            /* Tooltip.SetDefault("'Double the trouble.'\n" +
                                "Launches a pair of grenades\n" +
-                               "Consumes one rocket per volley");
+                               "Consumes one rocket per volley"); */
         }
 
         protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/TwinDetonator/TwinDetonator";

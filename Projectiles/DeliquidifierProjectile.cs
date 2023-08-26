@@ -16,7 +16,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Deliquidifier");
+            // DisplayName.SetDefault("Deliquidifier");
         }
 
         public override void SafeSetDefaults()
@@ -72,7 +72,7 @@ namespace ExtraExplosives.Projectiles
 
                     if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
                     {
-                        Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water; //Removes Liquid
+                        // TODO Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water; //Removes Liquid
                         WorldGen.SquareTileFrame(xPosition, yPosition, true); //Updates Area
                     }
                 }

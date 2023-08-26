@@ -18,7 +18,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Boss Rocket");
+            // DisplayName.SetDefault("Boss Rocket");
         }
 
 
@@ -38,10 +38,10 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             NPC.noTileCollide = true;
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax += 40;
-            base.ScaleExpertStats(numPlayers, bossLifeScale);
+            base.ApplyDifficultyAndPlayerScaling(numPlayers, bossLifeScale);
         }
 
         //public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -54,13 +54,13 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         //    spriteBatch.Draw(texture, pos, frame, Color.White, npc.rotation, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         //}
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             Explode();
             base.OnHitPlayer(target, damage, crit);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit)
         {
             Explode();
             base.OnHitNPC(target, damage, knockback, crit);

@@ -11,8 +11,8 @@ namespace ExtraExplosives.Items.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cherry Bomb");
-            Tooltip.SetDefault("Summons a pet bomb");
+            // DisplayName.SetDefault("Cherry Bomb");
+            // Tooltip.SetDefault("Summons a pet bomb");
         }
 
         public override void SetDefaults()

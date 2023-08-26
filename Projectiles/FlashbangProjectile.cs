@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flashbang");
+            // DisplayName.SetDefault("Flashbang");
         }
 
         public override void SafeSetDefaults()

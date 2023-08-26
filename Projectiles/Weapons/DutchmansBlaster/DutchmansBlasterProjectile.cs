@@ -7,7 +7,7 @@
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cannon Ball");
+            // DisplayName.SetDefault("Cannon Ball");
         }
 
         public override void SafeSetDefaults()

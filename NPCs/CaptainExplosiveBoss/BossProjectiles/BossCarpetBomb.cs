@@ -14,7 +14,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rocket");
+            // DisplayName.SetDefault("Rocket");
             Main.projFrames[Projectile.type] = 3;
         }
 
@@ -39,12 +39,12 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss.BossProjectiles
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.Kill();
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             Projectile.Kill();
         }

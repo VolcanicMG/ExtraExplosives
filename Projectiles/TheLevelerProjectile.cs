@@ -19,7 +19,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Leveler");
+            // DisplayName.SetDefault("The Leveler");
             //Tooltip.SetDefault("");
         }
 
@@ -136,7 +136,7 @@ namespace ExtraExplosives.Projectiles
                             if (Main.netMode == NetmodeID.MultiplayerClient)
                             {
                                 WorldGen.SquareTileFrame(xPosition, yPosition, true); //Updates Area
-                                NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
+                                NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
                             }
                         }
 

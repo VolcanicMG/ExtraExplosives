@@ -17,6 +17,9 @@ namespace ExtraExplosives.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
+            DustType = 199;
+            AdjTiles = new int[] { TileID.Containers };
+            
             Main.tileSpelunker[Type] = true;
             Main.tileContainer[Type] = true;
             //Main.tileShine2[Type] = true;
@@ -24,30 +27,35 @@ namespace ExtraExplosives.Tiles.Furniture
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileOreFinderPriority[Type] = 500;
+            
             TileID.Sets.HasOutlines[Type] = true;
+            TileID.Sets.BasicChest[Type] = true;
+            TileID.Sets.DisableSmartCursor[Type] = true;
+            TileID.Sets.IsAContainer[Type] = true;
+            
+            AddMapEntry(new Color(200, 200, 200), this.GetLocalization("MapEntry0"), MapChestName);
+            AddMapEntry(new Color(100, 100, 100), this.GetLocalization("MapEntry1"), MapChestName);
+            
+            RegisterItemDrop(ModContent.ItemType<BombChestItem>(), 1);
+            RegisterItemDrop(ItemID.Chest); // Done for fallback in case of removed moditem
+            
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
-            /* TODO TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.FindEmptyChest), -1, 0, true);
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.AfterPlacement_Hook), -1, 0, false);*/
-            TileObjectData.newTile.AnchorInvalidTiles = new[] { 127 };
+            TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(Chest.AfterPlacement_Hook, -1, 0, false);
+            TileObjectData.newTile.AnchorInvalidTiles = new int[] { 
+                TileID.MagicalIceBlock,
+                TileID.Boulder,
+                TileID.BouncyBoulder,
+                TileID.LifeCrystalBoulder,
+                TileID.RollingCactus
+            };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.LavaDeath = true;
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
             TileObjectData.addTile(Type);
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Bomb Chest");
-            AddMapEntry(new Color(200, 200, 200), name, MapChestName);
-            name = CreateMapEntryName(Name + "_Locked");
-            name.SetDefault("Locked Bomb Chest");
-            AddMapEntry(new Color(100, 100, 100), name, MapChestName);
-            DustType = 199;
-            TileID.Sets.DisableSmartCursor[Type] = true;
-            AdjTiles = new int[] { TileID.Containers };
-            // TODO chest/* t-ModPorter Note: Removed. Use ContainerName.SetDefault() and TileID.Sets.BasicChest instead */ = "Bomb Chest";
-            ContainerName.SetDefault("Bomb Chest");
-            TileID.Sets.BasicChest[Type] = true;
-            ChestDrop = ModContent.ItemType<BombChestItem>();
+            
         }
 
         public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
@@ -56,6 +64,7 @@ namespace ExtraExplosives.Tiles.Furniture
 
         public override bool IsLockedChest(int i, int j) => Main.tile[i, j].TileFrameX / 36 == 1;
 
+        // Why does this need to be locked??
         public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual)
         {
             if (Main.dayTime)
@@ -99,7 +108,7 @@ namespace ExtraExplosives.Tiles.Furniture
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 32, 32, ChestDrop);
+            //Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 32, 32, ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */);
             Chest.DestroyChest(i, j);
         }
 
@@ -160,7 +169,7 @@ namespace ExtraExplosives.Tiles.Furniture
                     {
                         if (Main.netMode == NetmodeID.MultiplayerClient)
                         {
-                            NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, (float)left, (float)top);
+                            NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, (float)left, (float)top);
                         }
                     }
                 }

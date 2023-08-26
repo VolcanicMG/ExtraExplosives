@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("CleanBombExplosionProjectile");
+            // DisplayName.SetDefault("CleanBombExplosionProjectile");
         }
 
         public override void SetDefaults()
@@ -39,7 +39,7 @@ namespace ExtraExplosives.Projectiles
 
         public override string Texture => "ExtraExplosives/Projectiles/ExplosionDamageProjectile";
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             int buffIndex = -1;
             for (int num = 1; num <= buffCount; num++)
@@ -52,7 +52,7 @@ namespace ExtraExplosives.Projectiles
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             int buffIndex = -1;
             for (int num = 1; num <= buffCount; num++)

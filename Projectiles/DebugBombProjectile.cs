@@ -10,7 +10,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("DebugBombProjectile");
+            // DisplayName.SetDefault("DebugBombProjectile");
         }
 
         public override void SafeSetDefaults()
@@ -36,17 +36,12 @@ namespace ExtraExplosives.Projectiles
             this.ExplosionDamage();
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             return;
         }
 
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-            return;
-        }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             return;
         }

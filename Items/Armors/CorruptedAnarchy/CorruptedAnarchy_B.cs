@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Armors.CorruptedAnarchy
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Corrupted Anarchy Body");
-            Tooltip.SetDefault("2% Increased Bomb Damage");
+            // DisplayName.SetDefault("Corrupted Anarchy Body");
+            // Tooltip.SetDefault("2% Increased Bomb Damage");
         }
 
         public override void SetDefaults()

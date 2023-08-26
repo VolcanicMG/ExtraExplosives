@@ -17,7 +17,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ArenaBuilder");
+            // DisplayName.SetDefault("ArenaBuilder");
         }
 
         public override void SafeSetDefaults()
@@ -32,11 +32,11 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 100;
-            /*explodeSounds = new LegacySoundStyle[2]; // TODO
+            explodeSounds = new SoundStyle[2]; // TODO
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                explodeSounds[num - 1] = Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Custom, explodeSoundsLoc + num);
-            }*/
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
+            }
         }
 
         public override bool OnTileCollide(Vector2 old)
@@ -121,18 +121,18 @@ namespace ExtraExplosives.Projectiles
                         }
                         else //Breakable
                         {
-                            // TODO no clue but needs fixing probably
-                            /*if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType) && Main.tile[xPosition, yPosition - 1].TileType != 26)
+                            // TODO Might be a fix, dont know
+                            if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && TileID.Sets.BasicDresser[Type])
                             {
                                 tile.ClearTile();
                                 tile.HasTile = false;
 
-                            }*/
+                            }
 
                             if (Main.netMode == NetmodeID.MultiplayerClient)
                             {
                                 WorldGen.SquareTileFrame(xPosition, yPosition, true); //Updates Area
-                                NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
+                                NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
                             }
 
                             if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
@@ -143,7 +143,7 @@ namespace ExtraExplosives.Projectiles
                     if (!OutOfBounds(xPosition, yPosition))
                     {
                         //Breaks Liquid
-                        Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
+                        // TODO no clue what this line does Main.tile[xPosition, yPosition].LiquidAmount = LiquidID.Water;
                         WorldGen.SquareTileFrame(xPosition, yPosition, true);
 
                         //Place Arena Outline

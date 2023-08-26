@@ -9,9 +9,9 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Holy Hand Grenade");
-            Tooltip.SetDefault("'Consult the book of armaments, verses 9-21'\n" +
-                "Does 2x the damage to bosses");
+            // DisplayName.SetDefault("Holy Hand Grenade");
+            /* Tooltip.SetDefault("'Consult the book of armaments, verses 9-21'\n" +
+                "Does 2x the damage to bosses"); */
         }
 
         public override void SafeSetDefaults()

@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Armors.Vanity.Bombforged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomb-forged Body");
-            Tooltip.SetDefault("");
+            // DisplayName.SetDefault("Bomb-forged Body");
+            // Tooltip.SetDefault("");
 
         }
 

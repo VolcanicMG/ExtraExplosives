@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("InstaBoxProjectile");
+            // DisplayName.SetDefault("InstaBoxProjectile");
         }
 
         public override void SetDefaults()

@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heal Bomb");
-            Tooltip.SetDefault("Heals for 25 HP per hit");
+            // DisplayName.SetDefault("Heal Bomb");
+            // Tooltip.SetDefault("Heals for 25 HP per hit");
         }
 
         public override void SafeSetDefaults()

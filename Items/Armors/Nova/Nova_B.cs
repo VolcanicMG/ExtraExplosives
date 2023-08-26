@@ -9,9 +9,9 @@ namespace ExtraExplosives.Items.Armors.Nova
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nova Bombard Body");
-            Tooltip.SetDefault("\n" +
-                "10% Increased Bomb Damage and Blast Radius");
+            // DisplayName.SetDefault("Nova Bombard Body");
+            /* Tooltip.SetDefault("\n" +
+                "10% Increased Bomb Damage and Blast Radius"); */
         }
 
         public override void SetDefaults()

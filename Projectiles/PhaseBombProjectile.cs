@@ -21,7 +21,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("PhaseBomb");
+            // DisplayName.SetDefault("PhaseBomb");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
             Main.projFrames[Projectile.type] = 10;
         }

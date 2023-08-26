@@ -10,8 +10,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Tornado Bomb");
-            Tooltip.SetDefault("Spawns in a tornado that sucks up players, enemies, and items");
+            // DisplayName.SetDefault("Tornado Bomb");
+            // Tooltip.SetDefault("Spawns in a tornado that sucks up players, enemies, and items");
 
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 5));
         }

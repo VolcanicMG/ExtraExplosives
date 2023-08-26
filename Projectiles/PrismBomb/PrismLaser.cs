@@ -110,12 +110,12 @@ namespace ExtraExplosives.Projectiles.PrismBomb
         }
 
         // Set custom immunity time on hitting an NPC
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.immune[Projectile.owner] = 5;
             if(DamageReducedNps.Contains(target.type))
             {
-               damage = damage / 2;
+                damageDone /= 2;
             }
         }
 

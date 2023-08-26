@@ -18,7 +18,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("DaBomb");
+            // DisplayName.SetDefault("DaBomb");
         }
 
         public override void SafeSetDefaults()
@@ -77,7 +77,7 @@ namespace ExtraExplosives.Projectiles
                 if (dist / 16f <= radius)
                 {
                     int dir = (dist > 0) ? 1 : -1;
-                    npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
+                    // TODO npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
                 }
             }
 
@@ -96,7 +96,7 @@ namespace ExtraExplosives.Projectiles
                 }
                 if (Main.netMode != 0)
                 {
-                    NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                    // TODO NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
 

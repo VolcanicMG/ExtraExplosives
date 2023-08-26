@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Armors.CrimsonAnarchy
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crimson Anarchy Helm");
-            Tooltip.SetDefault("2% Increased Bomb Damage");
+            // DisplayName.SetDefault("Crimson Anarchy Helm");
+            // Tooltip.SetDefault("2% Increased Bomb Damage");
         }
 
         public override void SetDefaults()

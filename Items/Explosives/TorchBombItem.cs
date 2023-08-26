@@ -8,9 +8,9 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Torch Bomb");
-            Tooltip.SetDefault("Spawns in a bunch of torches. \n" +
-                "Make sure you have walls to attach too!");
+            // DisplayName.SetDefault("Torch Bomb");
+            /* Tooltip.SetDefault("Spawns in a bunch of torches. \n" +
+                "Make sure you have walls to attach too!"); */
         }
 
         public override void SafeSetDefaults()

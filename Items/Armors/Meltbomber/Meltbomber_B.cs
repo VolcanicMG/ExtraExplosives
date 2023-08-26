@@ -9,9 +9,9 @@ namespace ExtraExplosives.Items.Armors.Meltbomber
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meltbomber Body");
-            Tooltip.SetDefault("\n" +
-                "2.5% Increased Bomb Damage and Blast Radius");
+            // DisplayName.SetDefault("Meltbomber Body");
+            /* Tooltip.SetDefault("\n" +
+                "2.5% Increased Bomb Damage and Blast Radius"); */
         }
 
         public override void SetDefaults()

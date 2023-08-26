@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gigantic Explosive");
-            Tooltip.SetDefault("[c/AB40FF:Can destroy dungeon bricks and desert fossils]");
+            // DisplayName.SetDefault("Gigantic Explosive");
+            // Tooltip.SetDefault("[c/AB40FF:Can destroy dungeon bricks and desert fossils]");
         }
 
         public override void SafeSetDefaults()

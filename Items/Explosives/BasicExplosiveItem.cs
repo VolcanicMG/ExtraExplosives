@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Basic Explosive");
-            Tooltip.SetDefault("The most basic explosive");
+            // DisplayName.SetDefault("Basic Explosive");
+            // Tooltip.SetDefault("The most basic explosive");
         }
 
         public override void SafeSetDefaults()

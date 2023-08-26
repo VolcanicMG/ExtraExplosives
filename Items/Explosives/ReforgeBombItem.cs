@@ -9,10 +9,10 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Reforge Bomb");
-            Tooltip.SetDefault("Reforge up to 3 items! \n" +
+            // DisplayName.SetDefault("Reforge Bomb");
+            /* Tooltip.SetDefault("Reforge up to 3 items! \n" +
                 //"[c/32CD32:Press " + ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard)[0].ToString() + " to toggle reforge UI]\n" +
-                "Change/Set the hotkey within the settings. Default p");
+                "Change/Set the hotkey within the settings. Default p"); */
         }
 
         public override void SafeSetDefaults()

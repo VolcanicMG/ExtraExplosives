@@ -115,14 +115,14 @@ namespace ExtraExplosives.UI
             if (!_vanillaItemSlot.Item.IsAir)
             {
                 // QuickSpawnClonedItem will preserve mod data of the item. QuickSpawnItem will just spawn a fresh version of the item, losing the prefix.
-                Main.LocalPlayer.QuickSpawnClonedItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot.Item, _vanillaItemSlot.Item.stack);
+                Main.LocalPlayer.QuickSpawnItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot.Item, _vanillaItemSlot.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                 _vanillaItemSlot.Item.TurnToAir();
             }
             if (!_vanillaItemSlot2.Item.IsAir)
             {
                 // QuickSpawnClonedItem will preserve mod data of the item. QuickSpawnItem will just spawn a fresh version of the item, losing the prefix.
-                Main.LocalPlayer.QuickSpawnClonedItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack);
+                Main.LocalPlayer.QuickSpawnItem(new EntitySource_Parent(Main.LocalPlayer), _vanillaItemSlot2.Item, _vanillaItemSlot2.Item.stack);
                 // Now that we've spawned the item back onto the player, we reset the item by turning it into air.
                 _vanillaItemSlot.Item.TurnToAir();
             }

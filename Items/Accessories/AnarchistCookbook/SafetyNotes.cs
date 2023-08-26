@@ -8,9 +8,9 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Safety Notes");
-            Tooltip.SetDefault("Prevents self damage from friendly explosives\n" +
-                               "Increased damage output by 10%");
+            // DisplayName.SetDefault("Safety Notes");
+            /* Tooltip.SetDefault("Prevents self damage from friendly explosives\n" +
+                               "Increased damage output by 10%"); */
         }
 
 

@@ -7,7 +7,7 @@ namespace ExtraExplosives.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("MushroomProjectile");
+            // DisplayName.SetDefault("MushroomProjectile");
         }
 
         public override void SetDefaults()

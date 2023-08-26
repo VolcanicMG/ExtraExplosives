@@ -11,8 +11,8 @@ namespace ExtraExplosives.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Minerain-Launcher");
-            Tooltip.SetDefault("'Today's Forcast; Cloudy with a chance of death from above'");
+            // DisplayName.SetDefault("Minerain-Launcher");
+            // Tooltip.SetDefault("'Today's Forcast; Cloudy with a chance of death from above'");
         }
 
         protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";

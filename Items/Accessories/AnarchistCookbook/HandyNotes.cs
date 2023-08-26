@@ -8,10 +8,10 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Handy Notes");
-            Tooltip.SetDefault("Double the initial velocity of thrown explosives\n" +
+            // DisplayName.SetDefault("Handy Notes");
+            /* Tooltip.SetDefault("Double the initial velocity of thrown explosives\n" +
                                "Thrown explosives stick to walls\n" +
-                               "Functions identically to sticky bombs");
+                               "Functions identically to sticky bombs"); */
         }
 
         public override void SetDefaults()

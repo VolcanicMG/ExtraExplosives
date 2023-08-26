@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lavamite");
+            // DisplayName.SetDefault("Lavamite");
         }
 
         public override void SafeSetDefaults()

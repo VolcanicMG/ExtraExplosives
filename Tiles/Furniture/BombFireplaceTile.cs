@@ -24,7 +24,6 @@ namespace ExtraExplosives.Tiles.Furniture
             //Lighting.brightness = 100;
             Lighting.Brightness(100, 100);
 
-            ItemDrop = Mod.Find<ModItem>("BombFireplaceItem").Type;
             AddMapEntry(new Color(255, 55, 55));
         }
 
@@ -50,9 +49,10 @@ namespace ExtraExplosives.Tiles.Furniture
             }
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        // This may be unneeded TODO
+        /*public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
             Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 64, 32, ModContent.ItemType<Items.Tiles.Furniture.BombFireplaceItem>());
-        }
+        }*/
     }
 }

@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Armors.Vanity.Explonin
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explonin Body");
-            Tooltip.SetDefault("");
+            // DisplayName.SetDefault("Explonin Body");
+            // Tooltip.SetDefault("");
 
         }
 

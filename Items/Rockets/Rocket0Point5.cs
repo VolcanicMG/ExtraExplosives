@@ -9,8 +9,8 @@ namespace ExtraExplosives.Items.Rockets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rocket 0.5");
-            Tooltip.SetDefault("'Half a rocket?'");
+            // DisplayName.SetDefault("Rocket 0.5");
+            // Tooltip.SetDefault("'Half a rocket?'");
         }
 
         public override void SafeSetDefaults()

@@ -8,8 +8,8 @@ namespace ExtraExplosives.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bomb Buddy");
-            Description.SetDefault("It's a walking bomb!!");
+            // DisplayName.SetDefault("Bomb Buddy");
+            // Description.SetDefault("It's a walking bomb!!");
             
             Main.buffNoTimeDisplay[Type] = true;
             Main.vanityPet[Type] = true;

@@ -18,7 +18,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("ReforgeBomb");
+            // DisplayName.SetDefault("ReforgeBomb");
             //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
         }
 

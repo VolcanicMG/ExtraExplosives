@@ -74,17 +74,12 @@ namespace ExtraExplosives.Projectiles
             // Only use if you need to since those values are set to ensure the bombs function as intended
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             return;
         }
 
-        public override void OnHitPvp(Player target, int damage, bool crit)
-        {
-            return;
-        }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             return;
         }
@@ -166,7 +161,7 @@ namespace ExtraExplosives.Projectiles
                                 if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
                                 {
                                     WorldGen.SquareTileFrame(i, j, true); //Updates Area
-                                    NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                 }
 
                                 if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
@@ -177,7 +172,7 @@ namespace ExtraExplosives.Projectiles
                                     if (Main.netMode == NetmodeID.MultiplayerClient)
                                     {
                                         WorldGen.SquareTileFrame(i, j, true); //Updates Area
-                                        NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                     }
                                 }
                             }
@@ -223,9 +218,9 @@ namespace ExtraExplosives.Projectiles
                     int dir = (dist > 0) ? 1 : -1;
                     if (!DamageReducedNps.Contains(npc.type))
                     {
-                        npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
+                        //npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
                     }
-                    else npc.StrikeNPC(Projectile.damage - (int)(Projectile.damage * .5f), Projectile.knockBack, dir, crit);
+                    //else npc.StrikeNPC(Projectile.damage - (int)(Projectile.damage * .5f), Projectile.knockBack, dir, crit);
                 }
             }
 
@@ -244,7 +239,7 @@ namespace ExtraExplosives.Projectiles
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == Projectile.owner && InflictDamageSelf)
                 {
-                    NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                    // TODO NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
 

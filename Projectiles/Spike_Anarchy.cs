@@ -7,7 +7,7 @@ namespace ExtraExplosives.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spike_Anarchy");
+            // DisplayName.SetDefault("Spike_Anarchy");
         }
 
         public override void SetDefaults()

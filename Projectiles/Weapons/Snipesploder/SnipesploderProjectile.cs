@@ -16,7 +16,7 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Snipesploder");
+            // DisplayName.SetDefault("Snipesploder");
             Main.projFrames[Projectile.type] = 2;
         }
 

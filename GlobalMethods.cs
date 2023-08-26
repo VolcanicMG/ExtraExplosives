@@ -111,7 +111,7 @@ namespace ExtraExplosives
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= DamageRadius)
                 {
-                    NetMessage.SendPlayerHurt(Main.myPlayer, PlayerDeathReason.ByNPC(npc), Damage, dir, false, pvp: true, 0);
+                    // TODO NetMessage.SendPlayerHurt(Main.myPlayer, PlayerDeathReason.ByNPC(npc), Damage, dir, false, pvp: true, 0);
                 }
             }
         }

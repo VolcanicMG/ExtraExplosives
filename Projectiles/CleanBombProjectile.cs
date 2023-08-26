@@ -17,7 +17,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("CleanBomb");
+            // DisplayName.SetDefault("CleanBomb");
         }
 
         public override void SafeSetDefaults()

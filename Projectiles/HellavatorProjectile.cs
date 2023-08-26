@@ -15,7 +15,7 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hellavator Projectile");
+            // DisplayName.SetDefault("Hellavator Projectile");
         }
 
         public override void SafeSetDefaults()
@@ -109,7 +109,7 @@ namespace ExtraExplosives.Projectiles
                             NetMessage.SendTileSquare(-1, i, j, 1);
                         }
 
-                        Main.tile[i, j].LiquidAmount = LiquidID.Water; //This destroys liquids
+                        // TODO Main.tile[i, j].LiquidAmount = LiquidID.Water; //This destroys liquids
                         WorldGen.SquareTileFrame(i, j, true); //Updates Area
                     }
                 }

@@ -8,8 +8,8 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dynaglowmite");
-            Tooltip.SetDefault("'Spawns in a bunch of glow sticks. Great for spelunking!'");
+            // DisplayName.SetDefault("Dynaglowmite");
+            // Tooltip.SetDefault("'Spawns in a bunch of glow sticks. Great for spelunking!'");
         }
 
         public override void SafeSetDefaults()
