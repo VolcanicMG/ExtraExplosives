@@ -24,7 +24,7 @@ namespace ExtraExplosives.Projectiles
             Projectile.timeLeft = 200;
         }
 
-        public override string Texture => "Terraria/Projectile_" + ProjectileID.GoldCoin;
+        public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.GoldCoin;
 
         public override void Kill(int timeLeft)
         {
