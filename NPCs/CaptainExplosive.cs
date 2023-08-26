@@ -21,6 +21,9 @@ namespace ExtraExplosives.NPCs
         public static bool CaptianIsDed = true;
 
         private const int PickPower = 50;
+
+        private bool shopOpen = false;
+        private int nextSlot = 0;
         
 
         /* TODO public override bool IsLoadingEnabled(Mod mod)/* t-ModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead #1#
@@ -201,7 +204,7 @@ namespace ExtraExplosives.NPCs
         {
             if (firstButton)
             {
-                openShop = true;   //so when you click on buy button opens the shop
+                shopOpen = true;   //so when you click on buy button opens the shop
             }
             else
             {
@@ -214,94 +217,96 @@ namespace ExtraExplosives.NPCs
 
         public override void ModifyActiveShop(string shopName, Item[] items)       //Allows you to add items to npc town NPC's shop. Add an item by setting the defaults of shop.item[nextSlot] then incrementing nextSlot.
         {
-            if (NPC.downedMechBoss1)
+            // TODO this all should be moved to either AddShops or GlobalNPC.ModifyShop
+            /*if (NPC.downedMechBoss1)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<ArenaBuilderItem>());
+                Main.
+                shopName[nextSlot].SetDefaults(ModContent.ItemType<ArenaBuilderItem>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<LandBridgeItem>());
+                shopName.items[nextSlot].SetDefaults(ModContent.ItemType<LandBridgeItem>());
                 nextSlot++;
             }
 
             if (NPC.downedPirates)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<CritterBombItem>());
+                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<CritterBombItem>());
                 nextSlot++;
             }
 
             if (NPC.downedClown)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<DaBombItem>());
+                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<DaBombItem>());
                 nextSlot++;
             }
 
             if (NPC.downedBoss3)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<HeavyBombItem>());
+                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<HeavyBombItem>());
                 nextSlot++;
             }
 
             if (NPC.downedPlantBoss)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<C4Item>());
+                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<C4Item>());
                 nextSlot++;
             }
 
             if (NPC.downedMoonlord)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<AtomBombItem>());
+                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<AtomBombItem>());
                 nextSlot++;
             }
 
             if (NPC.downedGoblins)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<ReforgeBombItem>());
+                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<ReforgeBombItem>());
                 nextSlot++;
             }
 
             if (Main.hardMode)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<BombBuddyItem>());
+                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<BombBuddyItem>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<MegaExplosiveItem>());
+                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<MegaExplosiveItem>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<GiganticExplosiveItem>());
+                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<GiganticExplosiveItem>());
                 nextSlot++;
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<FlashbangItem>());
+                shopName.item[nextSlot].SetDefaults(ModContent.ItemType<FlashbangItem>());
                 nextSlot++;
             }
 
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BasicExplosiveItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<BasicExplosiveItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<SmallExplosiveItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<SmallExplosiveItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<MediumExplosiveItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<MediumExplosiveItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<LargeExplosiveItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<LargeExplosiveItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<TorchBombItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<TorchBombItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<DynaglowmiteItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<DynaglowmiteItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<DeliquidifierItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<DeliquidifierItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<HydromiteItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<HydromiteItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<LavamiteItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<LavamiteItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<HouseBombItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<HouseBombItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BunnyiteItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<BunnyiteItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<MeteoriteBusterItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<MeteoriteBusterItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<HellavatorItem>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<HellavatorItem>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BombBag>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<BombBag>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<ShortFuse>());
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<ShortFuse>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<LightweightBombshells>());
-            nextSlot++;
+            shopName.item[nextSlot].SetDefaults(ModContent.ItemType<LightweightBombshells>());
+            nextSlot++;*/
         }
 
         public override string GetChat()       //Allows you to give npc town NPC a chat message when a player talks to it.
@@ -396,7 +401,7 @@ namespace ExtraExplosives.NPCs
         public override void DrawTownAttackSwing(ref Texture2D item, ref Rectangle itemFrame, ref int itemSize, ref float scale, ref Vector2 offset)
         {
             scale = .7f; //1f;
-            base.DrawTownAttackSwing(ref item, ref itemSize, ref scale, ref offset);
+            base.DrawTownAttackSwing(ref item, ref itemFrame, ref itemSize, ref scale, ref offset);
         }
     }
 }

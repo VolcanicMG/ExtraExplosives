@@ -880,9 +880,9 @@ namespace ExtraExplosives
         {
         }
 
-        public override void SendClientChanges(ModPlayer clientPlayer)
+        /*public override void SendClientChanges(ModPlayer clientPlayer)
         {
-        }
+        }*/
 
         public override void SaveData(TagCompound tag)
         {

@@ -41,7 +41,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax += 40;
-            base.ApplyDifficultyAndPlayerScaling(numPlayers, bossLifeScale);
+            base.ApplyDifficultyAndPlayerScaling(numPlayers, balance, bossAdjustment);
         }
 
         //public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
@@ -57,13 +57,13 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             Explode();
-            base.OnHitPlayer(target, damage, crit);
+            base.OnHitPlayer(target, hurtInfo);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit)
         {
             Explode();
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit);
         }
 
         //public override void DrawBehind(int index)
@@ -119,7 +119,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 if (dist / 16f <= radius && !npcID.boss)
                 {
                     int dir = (dist > 0) ? 1 : -1;
-                    npcID.StrikeNPC(120, 10f, dir, true);
+                    // TODO npcID.StrikeNPC(120, 10f, dir, true);
                 }
             }
 
@@ -139,7 +139,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
                 }
                 if (Main.netMode != 0)
                 {
-                    NetMessage.SendPlayerHurt(player.whoAmI, PlayerDeathReason.ByNPC(NPC.whoAmI), 120, dir, false, pvp: false, 0);
+                    // TODO NetMessage.SendPlayerHurt(player.whoAmI, PlayerDeathReason.ByNPC(NPC.whoAmI), 120, dir, false, pvp: false, 0);
                 }
             }
 

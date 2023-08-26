@@ -101,7 +101,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
 
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.625f * bossLifeScale);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.625f * bossAdjustment);
             NPC.damage = 40;
 
             for (int i = 0; i < numPlayers; i++)
@@ -471,16 +471,17 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
         {
             if (Main.expertMode)
             {
-                player.AddBuff(BuffID.OnFire, 600);
-                player.AddBuff(BuffID.BrokenArmor, 600);
+                target.AddBuff(BuffID.OnFire, 600);
+                target.AddBuff(BuffID.BrokenArmor, 600);
             }
         }
 
         public override void HitEffect(NPC.HitInfo hit)
         {
-            for (int k = 0; k < damage / NPC.lifeMax * 100.0; k++)
+            for (int k = 0; k < hit.Damage / NPC.lifeMax * 100.0; k++)
             {
-                Dust.NewDust(NPC.position, NPC.width, NPC.height, 31, hitDirection, -1f, 0, new Color(255, 255, 255), 2.5f);
+                // TODO the hit.hitdirection is wrong
+                Dust.NewDust(NPC.position, NPC.width, NPC.height, 31, hit.HitDirection, -1f, 0, new Color(255, 255, 255), 2.5f);
             }
 
             //SoundEngine.PlaySound(SoundID.NPCHit4);

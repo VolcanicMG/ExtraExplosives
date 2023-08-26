@@ -24,19 +24,19 @@ namespace ExtraExplosives
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [Header("Explosives Wall Settings")]
+        [Header("ExplosivesWallSettings")]
         [DefaultValue(true)]
         public bool CanBreakWalls;
 
-        [Header("Explosive Block-Breaking")]
+        [Header("ExplosiveBlock-Breaking")]
         [DefaultValue(true)]
         public bool CanBreakTiles;
 
-        [Header("Revert Vanilla Bombs Back To Default")]
+        [Header("RevertVanillaBombsBackToDefault")]
         [DefaultValue(false)]
         public bool RevertVanillaBombs;
 
-        [Header("Explosives Dust/Particle Settings")]
+        [Header("ExplosivesDust/ParticleSettings")]
         [Increment(0.1f)]
         [Range(0f, 1f)]
         [DefaultValue(1f)]
