@@ -105,7 +105,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             HandyNotes.VAlign = 1 / 6f;
             HandyNotes.Width.Set(60 * horizontalScale, 0);
             HandyNotes.Height.Set(100 * verticalScale, 0);
-            HandyNotes.OnClick += new MouseEvent(MoveToHandyNotesPage);
+            HandyNotes.OnLeftClick += new MouseEvent(MoveToHandyNotesPage);
             tabs.Append(HandyNotes);
 
             RandomNotes = new UIHoverImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/RandomNotesTab").Value, "Random Notes");
@@ -114,7 +114,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             RandomNotes.VAlign = 2 / 6f;
             RandomNotes.Width.Set(60 * horizontalScale, 0);
             RandomNotes.Height.Set(100 * verticalScale, 0);
-            RandomNotes.OnClick += new MouseEvent(MoveToRandomNotesPage);
+            RandomNotes.OnLeftClick += new MouseEvent(MoveToRandomNotesPage);
             tabs.Append(RandomNotes);
 
             ResourcefulNotes = new UIHoverImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/ResourcefulNotesTab").Value, "Resourceful Notes");
@@ -123,7 +123,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             ResourcefulNotes.VAlign = 3 / 6f;
             ResourcefulNotes.Width.Set(60 * horizontalScale, 0);
             ResourcefulNotes.Height.Set(100 * verticalScale, 0);
-            ResourcefulNotes.OnClick += new MouseEvent(MoveToResourcefulNotesPage);
+            ResourcefulNotes.OnLeftClick += new MouseEvent(MoveToResourcefulNotesPage);
             tabs.Append(ResourcefulNotes);
 
             SafetyNotes = new UIHoverImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/SafetyNotesTab").Value, "Safety Notes");
@@ -132,7 +132,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             SafetyNotes.VAlign = 4 / 6f;
             SafetyNotes.Width.Set(60 * horizontalScale, 0);
             SafetyNotes.Height.Set(100 * verticalScale, 0);
-            SafetyNotes.OnClick += new MouseEvent(MoveToSafetyNotesPage);
+            SafetyNotes.OnLeftClick += new MouseEvent(MoveToSafetyNotesPage);
             tabs.Append(SafetyNotes);
 
             UtilityNotes = new UIHoverImage(ModContent.Request<Texture2D>("ExtraExplosives/UI/AnarchistCookbookUI/UtilityNotesTab").Value, "Utility Notes");
@@ -141,7 +141,7 @@ namespace ExtraExplosives.UI.AnarchistCookbookUI
             UtilityNotes.VAlign = 5 / 6f;
             UtilityNotes.Width.Set(60 * horizontalScale, 0);
             UtilityNotes.Height.Set(100 * verticalScale, 0);
-            UtilityNotes.OnClick += new MouseEvent(MoveToUtilityNotesPage);
+            UtilityNotes.OnLeftClick += new MouseEvent(MoveToUtilityNotesPage);
             tabs.Append(UtilityNotes);
             Append(cookbookSkin);
             Append(tabs);
