@@ -16,7 +16,7 @@ namespace ExtraExplosives.Projectiles
             // DisplayName.SetDefault("TrollBomb");
         }
 
-        public override string Texture => "Terraria/Projectile_637";
+        public override string Texture => "Terraria/Images/Projectile_637";
 
         public override void SafeSetDefaults()
         {
