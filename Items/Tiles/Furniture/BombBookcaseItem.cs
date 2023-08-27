@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ExtraExplosives.Items.Tiles.Furniture
 {
-    public class BombBookshelfItem : ModItem
+    public class BombBookcaseItem : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -17,7 +17,7 @@ namespace ExtraExplosives.Items.Tiles.Furniture
             Item.CloneDefaults(ItemID.Bookcase);
             Item.width = 12;
             Item.height = 20;
-            Item.createTile = ModContent.TileType<BombBookshelfTile>();
+            Item.createTile = ModContent.TileType<BombBookcaseTile>();
         }
 
         public override void AddRecipes()

@@ -1017,7 +1017,7 @@ Mods: {
 				Tooltip: ""
 			}
 
-			BombBookshelfItem: {
+			BombBookcaseItem: {
 				DisplayName: Bomb Bookcase
 				Tooltip: ""
 			}
@@ -1278,19 +1278,18 @@ Mods: {
 				}
 			}
 
-			BossDynamiteNPC.DisplayName: Boss Dynamite N P C
+			BossDynamiteNPC.DisplayName: Boss Dynamite
 			BossRocket.DisplayName: Boss Rocket
 			CaptainExplosiveBoss.DisplayName: Captain Explosive
 			CaptainExplosiveBossAt0.DisplayName: Captain Explosive
-			CEDroneNPC.DisplayName: C E Drone N P C
+			CEDroneNPC.DisplayName: Captain Explosive Drone
 		}
 
 		Tiles: {
 			BombChestTile: {
 				ContainerName: Bomb Chest
-				MapEntry: Bomb Chest
-				MapEntry0: Mods.ExtraExplosives.Tiles.BombChestTile.MapEntry0
-				MapEntry1: Mods.ExtraExplosives.Tiles.BombChestTile.MapEntry1
+				MapEntry0: Bomb Chest
+				MapEntry1: Locked Bomb Chest
 			}
 
 			BombDresserTile: {
@@ -1298,14 +1297,16 @@ Mods: {
 				MapEntry: Bomb Dresser
 			}
 
-			BombBannerTile.MapEntry: Banner
-			BombBookshelfTile.MapEntry: Bomb Bookcase
+			BombBannerTile.MapEntry: Bomb Banner
+			BombBookcaseTile.MapEntry: Bomb Bookcase
 			BombChairTile.MapEntry: Bomb Chair
 			BombChestTile_Locked.MapEntry: Locked Bomb Chest
-			BombClockTile.MapEntry: Mods.ExtraExplosives.MapObject.BombClockTile
+			BombClockTile.MapEntry: Bomb Clock
 			BombStatueTile.MapEntry: Bomb Statue
-			BombTableTile.MapEntry: Bomb Chair
-			NukePosterTile.MapEntry: Bomb Chair
+			BombTableTile.MapEntry: Bomb Table
+			NukePosterTile.MapEntry: Nuke Poster
+			CptExplosivePortraitTile.MapEntry: Captain Explosive Portrait
+			BombCandleTile.MapEntry: Bomb Candle
 		}
 
 		Configs: {

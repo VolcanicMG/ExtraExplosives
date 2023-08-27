@@ -1,3 +1,4 @@
+using ExtraExplosives.Dusts;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -14,28 +15,25 @@ namespace ExtraExplosives.Tiles.Furniture
         public override void SetStaticDefaults()
         {
             Main.tileTable[Type] = true;
-            Main.tileSolidTop[Type] = true;
+            Main.tileSolidTop[Type] = false;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;
             Main.tileFrameImportant[Type] = true;
             
-            
             TileID.Sets.IgnoredByNpcStepUp[Type] = true;
-            
-            // TODO the line is correct but tml fails to compile when its included
-            // TileID.Sets.DisableSmartCursor[Type] = true;
+            TileID.Sets.DisableSmartCursor[Type] = true;
 
-            DustType = DustID.Asphalt; // TODO Wrong dust
+            DustType = ModContent.DustType<DebrisDust>();
             AdjTiles = new int[] { TileID.Tables };
             
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.CoordinateHeights = new[] { 16, 16 };
+            TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.addTile(Type);
             
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
-            AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.Table"));
+            AddMapEntry(new Color(200, 200, 200), this.GetLocalization("MapEntry"));
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
