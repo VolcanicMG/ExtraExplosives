@@ -17,6 +17,7 @@ namespace ExtraExplosives.Tiles.Furniture
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;
+            
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2Top);
             TileObjectData.newTile.Height = 3;
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16 };
@@ -24,16 +25,12 @@ namespace ExtraExplosives.Tiles.Furniture
             TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.StyleWrapLimit = 111;
             TileObjectData.addTile(Type);
-            DustType = -1;
+            
             TileID.Sets.DisableSmartCursor[Type] = true;
-            LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Banner");
-            AddMapEntry(new Color(13, 88, 130), name);
-        }
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            int style = frameX / 18;
-            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j), i * 16, j * 16, 16, 48, Mod.Find<ModItem>("BombBannerItem").Type);
+            
+            DustType = -1;
+            
+            AddMapEntry(new Color(13, 88, 130), this.GetLocalization("MapEntry"));
         }
 
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)

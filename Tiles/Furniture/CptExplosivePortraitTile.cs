@@ -1,7 +1,9 @@
 using ExtraExplosives.Items.Tiles.Furniture;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -11,25 +13,26 @@ namespace ExtraExplosives.Tiles.Furniture
     {
         public override void SetStaticDefaults()
         {
-            /* TODO Main.tileFrameImportant[Type] = true;
+            Main.tileFrameImportant[Type] = true;
             Main.tileLavaDeath[Type] = true;
-            TileID.Sets.FramesOnKillWall[Type] = true; // Necessary since Style3x3Wall uses AnchorWall
+            
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 18 };
             TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.CoordinateWidth = 16;
+            TileObjectData.newTile.AnchorWall = true;
+            TileObjectData.newTile.Origin = new Point16(1, 1);
             TileObjectData.addTile(Type);
-            DustType = 7;
+            
+            TileID.Sets.FramesOnKillWall[Type] = true; // Necessary since Style3x3Wall uses AnchorWall
             TileID.Sets.DisableSmartCursor[Type] = true;
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Cpt Postrait");
-            AddMapEntry(new Color(120, 85, 60), name);*/
+            
+            AddMapEntry(new Color(120, 85, 60), this.GetLocalization("MapEntry"));
 
         }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        
+        public override void NumDust(int i, int j, bool fail, ref int num)
         {
-            Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j),i * 16, j * 16, 48, 50, ModContent.ItemType<CptExplosivePortraitItem>());
+            num = fail ? 1 : 3;
         }
     }
 }

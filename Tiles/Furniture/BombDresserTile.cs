@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System;
+using ExtraExplosives.Dusts;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -17,10 +18,9 @@ namespace ExtraExplosives.Tiles.Furniture
 
         public override void SetStaticDefaults()
         {
-            DustType = 119;
-            AdjTiles = new int[] { TileID.Dressers };
 
-            Main.tileSolidTop[Type] = true;
+            // TODO redo sprite, or no solid top
+            //Main.tileSolidTop[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileTable[Type] = true;
@@ -31,24 +31,22 @@ namespace ExtraExplosives.Tiles.Furniture
             TileID.Sets.DisableSmartCursor[Type] = true;
             TileID.Sets.BasicDresser[Type] = true;
             TileID.Sets.IsAContainer[Type] = true;
-            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
             
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
-            TileObjectData.newTile.Origin = new Point16(1, 1);
+            TileObjectData.newTile.Origin = new Point16(1, 0);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16 };
             TileObjectData.newTile.CoordinateWidth = 16;
-            TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
             TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(Chest.AfterPlacement_Hook, -1, 0, false);
-            TileObjectData.newTile.AnchorInvalidTiles = new[] { 127 };
-            TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.LavaDeath = false;
+            TileObjectData.newTile.AnchorInvalidTiles = new[] { 127 }; // Yay magic number
             TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
             TileObjectData.addTile(Type);
             
-            LocalizedText name = CreateMapEntryName();
-            // name.SetDefault("Bomb Dresser");
-            AddMapEntry(new Color(200, 200, 200), CreateMapEntryName(), MapChestName);
+            AddMapEntry(new Color(200, 200, 200), this.GetLocalization("MapEntry"), MapChestName);
+            AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
+            
+            DustType = ModContent.DustType<DebrisDust>();
+            AdjTiles = new int[] { TileID.Dressers };
         }
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
         {
@@ -237,11 +235,6 @@ namespace ExtraExplosives.Tiles.Furniture
             num = fail ? 1 : 3;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Chest.DestroyChest(i, j);
-        }
-
         public static string MapChestName(string name, int i, int j)
         {
             int left = i;
@@ -260,7 +253,7 @@ namespace ExtraExplosives.Tiles.Furniture
             int chest = Chest.FindChest(left, top);
             if (chest < 0)
             {
-                return Language.GetTextValue("LegacyDresserType.0");
+                return Language.GetTextValue("MapEntry");
             }
 
             if (Main.chest[chest].name == "")
