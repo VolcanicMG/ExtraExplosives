@@ -3,7 +3,7 @@
     public class DutchmansBlasterProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc { get; } = "n/a";
-        protected override string goreFileLoc { get; } = "n/a";
+        protected override string goreName { get; } = "n/a";
 
         public override void SetStaticDefaults()
         {

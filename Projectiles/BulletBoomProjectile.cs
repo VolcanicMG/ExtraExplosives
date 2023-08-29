@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
         protected override bool CloneNewInstances => true;    // DONT CHANGE
         public override string Texture => "ExtraExplosives/Items/Explosives/BulletBoomItem";    // texture, change if needed
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
 
         // Variables
         private int _projectileID;

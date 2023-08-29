@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class SunRocket : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
 
         private bool firstTick;
 
@@ -167,7 +167,7 @@ namespace ExtraExplosives.Projectiles
             //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             Projectile.knockBack = 20;  // Since no calling item exists, knockback must be set internally	(Set in Hellfire Rocket Battery)
-            ExplosionDamage();
+            ExplosionEntityDamage();
 
             //Create Bomb Dust
             DustEffectsRockets(Projectile.oldVelocity);

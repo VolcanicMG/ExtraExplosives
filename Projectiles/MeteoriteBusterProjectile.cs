@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class MeteoriteBusterProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "Gores/Explosives/meteorite-buster_gore";
+        protected override string goreName => "meteorite-buster_gore";
 
         public override void SetStaticDefaults()
         {
@@ -36,21 +36,21 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Sound
             //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
-            Explosion();
+            ExplosionTileDamage();
 
             //Create Bomb Dust
             DustEffects();
 
-            ExplosionDamage();
+            ExplosionEntityDamage();
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(2.0f, -2.0f);
             Vector2 gVel2 = new Vector2(-2.0f, 2.0f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
             Vector2 position = Projectile.Center;
             for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left

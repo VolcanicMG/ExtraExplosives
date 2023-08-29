@@ -1092,7 +1092,7 @@ Mods: {
 				Tooltip:
 					'''
 					It's coming back!!
-					[c/FF0000:Has a 1/5 chance of damaging you if you don't hit an enemy]
+					[c/FF0000:Has a 1/5 chance of damaging you when it returns if you don't hit an enemy]
 					'''
 			}
 

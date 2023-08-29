@@ -6,7 +6,7 @@ namespace ExtraExplosives.Projectiles
     {
         public override string Texture => "ExtraExplosives/Projectiles/SmallExplosiveProjectile";
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
 
         public override void SetStaticDefaults()
         {
@@ -23,17 +23,17 @@ namespace ExtraExplosives.Projectiles
             radius = 15;
         }
 
-        public override void ExplosionDamage()
+        public override void ExplosionEntityDamage()
         {
             radius++;
-            base.ExplosionDamage();
+            base.ExplosionEntityDamage();
         }
 
         public override void Kill(int timeLeft)
         {
             //GlobalMethods.ExplosionDamage(20,projectile.Center, 100, 10, 255);
-            this.Explosion();
-            this.ExplosionDamage();
+            this.ExplosionTileDamage();
+            this.ExplosionEntityDamage();
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)

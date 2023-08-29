@@ -9,7 +9,7 @@ namespace ExtraExplosives.Projectiles
     public class GiganticExplosiveProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Gigantic_Explosion_";
-        protected override string goreFileLoc => "Gores/Explosives/gigantic-explosive_gore";
+        protected override string goreName => "gigantic-explosive_gore";
         private SoundStyle fuseSound;
         private bool fusePlayed = false;
 
@@ -76,15 +76,15 @@ namespace ExtraExplosives.Projectiles
             //CreateDust(projectile.Center, 300);
 
 
-            Explosion();
-            ExplosionDamage();
+            ExplosionTileDamage();
+            ExplosionEntityDamage();
             DustEffects();
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0f, 3f);
             Vector2 gVel2 = new Vector2(-3f, -3f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -36,7 +37,7 @@ namespace ExtraExplosives.Items.Weapons
             //Item.ranged = true;
         }
 
-        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int numberProjectiles = 15; // shoots 6 projectiles
             for (int index = 0; index < numberProjectiles; ++index)
@@ -54,10 +55,10 @@ namespace ExtraExplosives.Items.Weapons
                 float num17 = num13 * num15;
                 float SpeedX = num16 + (float)Main.rand.Next(-40, 41) * 0.02f; //change the Main.rand.Next here to, for example, (-10, 11) to reduce the spread. Change this to 0 to remove it altogether
                 float SpeedY = num17 + (float)Main.rand.Next(-40, 41) * 0.02f;
-                Projectile.NewProjectile(vector2_1.X, vector2_1.Y, SpeedX, SpeedY, type, damage, knockBack, Main.myPlayer, 0.0f, (float)Main.rand.Next(5));
+                Projectile.NewProjectile(source, vector2_1, new Vector2(SpeedX, SpeedY), type, damage, knockback, Main.myPlayer, 0.0f, (float)Main.rand.Next(5));
             }
             return false;
-        }*/
+        }
 
         public override void HoldItem(Player player)
         {

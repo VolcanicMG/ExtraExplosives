@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class RainboomProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Rainboom_";
-        protected override string goreFileLoc => "Gores/Explosives/rainboom_gore";
+        protected override string goreName => "rainboom_gore";
 
         public override void SetStaticDefaults()
         {
@@ -49,13 +49,13 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Dust
             //CreateDust(projectile.Center, 10);
 
-            Explosion();
+            ExplosionTileDamage();
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(2.0f, -2.0f);
             Vector2 gVel2 = new Vector2(0.0f, 2.0f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
 
             //Buff
             Player player = Main.player[Projectile.owner];
@@ -63,7 +63,7 @@ namespace ExtraExplosives.Projectiles
             player.AddBuff(BuffID.Clairvoyance, 20000);
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
             Vector2 position = Projectile.Center;
             RainbowDusts(radius, position, -1, (int)position.X - 10, (int)position.X + 10);

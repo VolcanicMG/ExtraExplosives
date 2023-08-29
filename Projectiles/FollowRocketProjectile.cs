@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class FollowRocketProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
         private float reference;
         private bool dust2;
 
@@ -220,7 +220,7 @@ namespace ExtraExplosives.Projectiles
             //CreateExplosion(projectile.Center, 2);
 
             //Explosion();
-            ExplosionDamage();
+            ExplosionEntityDamage();
 
             //Create Bomb Dust
             if(dust2) DustEffects();

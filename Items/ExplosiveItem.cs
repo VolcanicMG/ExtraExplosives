@@ -35,13 +35,8 @@ namespace ExtraExplosives.Items
 
         public sealed override void SetDefaults()
         {
-            /*SafeSetDefaults();
-            Item.melee = false;
-            Item.ranged = false;
-            Item.magic = false;
-            Item.summon = false;
-            Item.thrown = false;
-            DangerousSetDefaults();*/
+            SafeSetDefaults();
+            DangerousSetDefaults();
         }
 
         public virtual void DangerousSetDefaults()
@@ -51,8 +46,7 @@ namespace ExtraExplosives.Items
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            /*mult = player.EE().DamageMulti;
-            add += player.EE().DamageBonus;*/
+            damage.Base += player.EE().DamageBonus * player.EE().DamageMulti;
         }
 
         public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)

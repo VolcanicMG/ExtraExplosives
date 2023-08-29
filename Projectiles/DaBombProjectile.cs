@@ -14,7 +14,7 @@ namespace ExtraExplosives.Projectiles
         //Variables:
         public bool buffActive;
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
 
         public override void SetStaticDefaults()
         {
@@ -59,14 +59,14 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Dust
             ExplosionDust(radius, player.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);
 
-            Explosion();
-            ExplosionDamage();
+            ExplosionTileDamage();
+            ExplosionEntityDamage();
 
             //Disables the debuff
             buffActive = false;
         }
 
-        public override void ExplosionDamage()
+        public override void ExplosionEntityDamage()
         {
             Player playerO = Main.player[Projectile.owner];
 
@@ -102,7 +102,7 @@ namespace ExtraExplosives.Projectiles
 
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
 
             // x and y are the tile offset of the current tile relative to the player

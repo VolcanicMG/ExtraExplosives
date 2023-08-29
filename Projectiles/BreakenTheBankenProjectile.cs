@@ -10,7 +10,7 @@ namespace ExtraExplosives.Projectiles
     public class BreakenTheBankenProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Breaken_The_Banken_";
-        protected override string goreFileLoc => "Gores/Explosives/breaken-the-banken_gore";
+        protected override string goreName => "breaken-the-banken_gore";
         private const int PickPower = 0;
 
         public override void SetStaticDefaults()
@@ -45,9 +45,9 @@ namespace ExtraExplosives.Projectiles
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
 
             //Create Bomb Explosion
-            Explosion();
+            ExplosionTileDamage();
 
-            ExplosionDamage();
+            ExplosionEntityDamage();
 
             //Create Bomb Dust
             //CreateDust(projectile.Center, 10);
@@ -55,11 +55,11 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-3f, 3f);
             Vector2 gVel2 = new Vector2(3f, 0f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
             Vector2 position = Projectile.Center;
             int cntr = 0; //Tracks how many coins have spawned in
@@ -93,7 +93,7 @@ namespace ExtraExplosives.Projectiles
             }
         }
 
-        public override void ExplosionDamage()
+        public override void ExplosionEntityDamage()
         {
             return;
         }

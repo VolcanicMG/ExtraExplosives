@@ -7,7 +7,7 @@ namespace ExtraExplosives.Projectiles.PrismBomb
     public class PrismBomb : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
 
         public override void SafeSetDefaults()
         {

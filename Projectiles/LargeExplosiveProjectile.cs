@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     {
 
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Large_Explosive_";
-        protected override string goreFileLoc => "Gores/Explosives/basic-explosive_gore";
+        protected override string goreName => "basic-explosive_gore";
 
         public override void SetStaticDefaults()
         {
@@ -44,8 +44,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Dust
             DustEffects();
 
-            Explosion();
-            ExplosionDamage();
+            ExplosionTileDamage();
+            ExplosionEntityDamage();
 
             //Create Bomb Damage
             //ExplosionDamage(20f * 2f, projectile.Center, 450, 40, projectile.owner);
@@ -58,12 +58,12 @@ namespace ExtraExplosives.Projectiles
             Vector2 gVel2 = new Vector2(0f, -2f);
             gVel1 = gVel1.RotatedBy(Projectile.rotation);
             gVel2 = gVel2.RotatedBy(Projectile.rotation);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1, Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale * 1.5f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2, Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale * 1.5f);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1, Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale * 1.5f);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2, Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale * 1.5f);
             gVel1 = gVel1.RotatedBy(Math.PI / 2);
             gVel2 = gVel2.RotatedBy(Math.PI / 2);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1, Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale * 1.5f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2, Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale * 1.5f);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1, Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale * 1.5f);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2, Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale * 1.5f);
         }
 
         /*private void CreateExplosion(Vector2 position, int radius)

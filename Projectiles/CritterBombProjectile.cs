@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     internal class CritterBombProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "Gores/Explosives/critter_gore";
+        protected override string goreName => "critter_gore";
 
         public override void SetStaticDefaults()
         {
@@ -46,17 +46,17 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Dust
             CreateDust(Projectile.Center, 50);
 
-            Explosion();
-            ExplosionDamage();
+            ExplosionTileDamage();
+            ExplosionEntityDamage();
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(3f, 3f);
             Vector2 gVel2 = new Vector2(-3f, -3f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
             Vector2 position = Projectile.Center;
             int spread = 0;

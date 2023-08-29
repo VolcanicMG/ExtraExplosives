@@ -12,7 +12,7 @@ namespace ExtraExplosives.Projectiles
         //Variables:
         public static float Radius = 400f;      // Used for Dust particles + Damage radius
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Clean_Bomb_";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
         private int[] dustsToSpawn;
 
         public override void SetStaticDefaults()

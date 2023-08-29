@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class AtomBombProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "Gores/Explosives/atom_gore";
+        protected override string goreName => "atom_gore";
 
         public override void SetStaticDefaults()
         {
@@ -45,26 +45,26 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Explosion
             //CreateExplosion(projectile.Bottom, 40);
 
-            Explosion();
+            ExplosionTileDamage();
 
-            ExplosionDamage();
+            ExplosionEntityDamage();
 
             //Create Bomb Dust
             DustEffects();
 
             //Create Bomb Gore
             Vector2 gVel1 = Vector2.One.RotatedBy(Projectile.rotation);
-            int gore1ID = Mod.Find<ModGore>(goreFileLoc + "1").Type;
+            int gore1ID = Mod.Find<ModGore>($"{goreName}1").Type;
             for (int num = 0; num < 4; num++)
             {
                 Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + gVel1, gVel1, gore1ID, Projectile.scale);
                 gVel1 = gVel1.RotatedBy(Math.PI / 2.0);
             }
             Vector2 gVel2 = Vector2.One.RotatedBy(Math.PI / 4.0);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + gVel2, gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + gVel2, gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
 
-        public override void Explosion()    // Special (more efficient) explosion, leaving it
+        public override void ExplosionTileDamage()    // Special (more efficient) explosion, leaving it
         {
             int xPosition = (int)(Projectile.Bottom.X / 16.0f);
             int yPosition = (int)(Projectile.Bottom.Y / 16.0f);

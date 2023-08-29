@@ -12,7 +12,7 @@ namespace ExtraExplosives.Projectiles
     public class PhaseBombProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Phase_Bomb_Explode_";
-        protected override string goreFileLoc => "Gores/Explosives/phase_gore";
+        protected override string goreName => "phase_gore";
         //private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
         //private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
         internal static bool CanBreakWalls;
@@ -89,9 +89,9 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Sound
             //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             //Create Bomb Explosion
-            Explosion();
+            ExplosionTileDamage();
             //Create Bomb Damage
-            ExplosionDamage();
+            ExplosionEntityDamage();
             //Create Bomb Dust
             //Main.NewText("Dust");
             //SpawnDust(49);
@@ -101,8 +101,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0.0f, 3.0f);
             Vector2 gVel2 = new Vector2(0.0f, -3.0f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
 
         //Using to create a custom one 
