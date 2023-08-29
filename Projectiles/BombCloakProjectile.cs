@@ -6,7 +6,7 @@ namespace ExtraExplosives.Projectiles
 
         public override string Texture { get; } = "ExtraExplosives/Projectiles/InvisibleProjectile";
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
         }
     }

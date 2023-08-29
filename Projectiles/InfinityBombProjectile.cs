@@ -10,7 +10,7 @@ namespace ExtraExplosives.Projectiles
     public class InfinityBombProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
         private const int OriginalDamage = 250;
         private int _multiplier = 1;
         public override void SetStaticDefaults()
@@ -42,19 +42,19 @@ namespace ExtraExplosives.Projectiles
             //projectile.damage = (int) Math.Ceiling(100 * projectile.localAI[0]);
             //projectile.knockBack = (int) Math.Ceiling(20 * projectile.localAI[0]);
             //Create Bomb Damage
-            ExplosionDamage();
+            ExplosionEntityDamage();
             radius = (int)(radius * _multiplier);
             //Create Bomb Explosion
 
             //Main.NewText($"Damage {projectile.damage}, Knockback {projectile.knockBack}, Radius {radius}, multiplier {_multiplier}");
-            Explosion();
+            ExplosionTileDamage();
             //Main.NewText(projectile.localAI[0]);
             //Create Bomb Dust
             DustEffects();
 
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
 
             // x and y are the tile offset of the current tile relative to the player

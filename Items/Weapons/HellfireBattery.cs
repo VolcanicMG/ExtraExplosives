@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -64,8 +65,10 @@ namespace ExtraExplosives.Items.Weapons
             tooltips.Add(fireModeUseTip);
         }
 
-        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            float speedX = velocity.X;
+            float speedY = velocity.Y;
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 56f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -79,22 +82,22 @@ namespace ExtraExplosives.Items.Weapons
                 //speedX = perturbedSpeed.X;
                 //speedY = perturbedSpeed.Y;
                 homing = false;
-                Projectile.NewProjectile(new Vector2(position.X, position.Y - 20), new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(25)), type, (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
-                Projectile.NewProjectile(new Vector2(position.X, position.Y - 10), new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(25)), type, (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
-                Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(25)), type, (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 20), velocity.RotatedByRandom(MathHelper.ToRadians(25)), type, (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 10), velocity.RotatedByRandom(MathHelper.ToRadians(25)), type, (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), velocity.RotatedByRandom(MathHelper.ToRadians(25)), type, (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
 
             }
             else if (mode == 1) //precision
             {
-                Projectile.NewProjectile(new Vector2(position.X, position.Y - 10), new Vector2(speedX, speedY), ModContent.ProjectileType<FollowRocketProjectile>(), (int)((damage + 3000 + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y - 10), velocity, ModContent.ProjectileType<FollowRocketProjectile>(), (int)((damage + 3000 + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
             }
             else if (mode == 2) //homing
             {
-                Projectile.NewProjectile(new Vector2(position.X, position.Y + Main.rand.NextFloat(10, -20)), new Vector2(speedX, speedY), ModContent.ProjectileType<HomingRocketProjectile>(), (int)((damage + 100 + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y + Main.rand.NextFloat(10, -20)), velocity, ModContent.ProjectileType<HomingRocketProjectile>(), (int)((damage + 100 + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
             }
 
             return false;
-        }*/
+        }
 
         public override void HoldItem(Player player)
         {

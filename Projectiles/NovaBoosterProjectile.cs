@@ -7,11 +7,11 @@ namespace ExtraExplosives.Projectiles
     {
         public override string Texture { get; } = "ExtraExplosives/Projectiles/InvisibleProjectile";
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
         }
 
-        public override void ExplosionDamage()
+        public override void ExplosionEntityDamage()
         {
             if (Main.player[Projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
             foreach (NPC npc in Main.npc)

@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class BigBouncyDynamiteProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "Gores/Explosives/big-bouncy-dyna_gore";
+        protected override string goreName => "big-bouncy-dyna_gore";
 
         public override void SetStaticDefaults()
         {
@@ -63,18 +63,18 @@ namespace ExtraExplosives.Projectiles
             //ExplosionDamage(3f, projectile.Center, 300, 30, projectile.owner);
 
             //Create Bomb Explosion
-            Explosion();
+            ExplosionTileDamage();
 
-            ExplosionDamage();
+            ExplosionEntityDamage();
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0f, 2f);
             Vector2 gVel2 = new Vector2(2f, -2f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
 
-        public override void Explosion()    // Custom Explosive
+        public override void ExplosionTileDamage()    // Custom Explosive
         {
             Vector2 position = Projectile.Center;
             for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left

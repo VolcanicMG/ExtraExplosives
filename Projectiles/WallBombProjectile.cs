@@ -9,7 +9,7 @@ namespace ExtraExplosives.Projectiles
     public class WallBombProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "";
-        protected override string goreFileLoc => "";
+        protected override string goreName => "";
         //private Mod CalamityMod = ModLoader.GetMod("CalamityMod");
         //private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
@@ -75,18 +75,18 @@ namespace ExtraExplosives.Projectiles
 			 */
 
             //Create Bomb Explosion
-            Explosion();
+            ExplosionTileDamage();
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(4.0f, 4.0f);
             Vector2 gVel2 = new Vector2(0.0f, -4.0f);
             Vector2 gVel3 = new Vector2(-4.0f, 0.0f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel3), gVel3.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel3), gVel3.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
             Player player = Main.player[Projectile.owner];
             Vector2 position = new Vector2(Projectile.Center.X / 16f, Projectile.Center.Y / 16f);    // Converts to tile cords for convenience

@@ -9,7 +9,7 @@ namespace ExtraExplosives.Projectiles
     public class TornadoBombProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
         private Vector2 vector;
         private bool done;
 

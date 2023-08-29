@@ -817,17 +817,18 @@ namespace ExtraExplosives
             this.ResetEffects();
             Main.screenPosition = default;
 
-            if (ExtraExplosives.CurrentVersion == null)
-            {
-                Main.NewText($"[c/FF0000:There is no Internet connection.]");
-            }
-            else if (!ExtraExplosives.ModVersion.Equals(ExtraExplosives.CurrentVersion))
-            {
-                Main.NewText($"[c/00ff00:The Extra Explosives Mod has an update available!]");
-                Main.NewText($"[c/AB40FF:Current Version Installed: ]" + $"[c/FF0000:{ExtraExplosives.ModVersion}]");
-                Main.NewText($"[c/AB40FF:The Mod Browser Version: ]" + $"[c/00ff00:{ExtraExplosives.CurrentVersion}]");
-                Main.NewText($"[c/FF5349:You can find the latest version in the TML mod browser.]");
-            }
+            //Should be good to remove but will leave just in case
+            //if (ExtraExplosives.CurrentVersion == null)
+            //{
+            //    Main.NewText($"[c/FF0000:Unable to get version info. Check Internet connection]");
+            //}
+            //else if (!ExtraExplosives.ModVersion.Equals(ExtraExplosives.CurrentVersion))
+            //{
+            //    Main.NewText($"[c/00ff00:The Extra Explosives Mod has an update available!]");
+            //    Main.NewText($"[c/AB40FF:Current Version Installed: ]" + $"[c/FF0000:{ExtraExplosives.ModVersion}]");
+            //    Main.NewText($"[c/AB40FF:The Mod Browser Version: ]" + $"[c/00ff00:{ExtraExplosives.CurrentVersion}]");
+            //    Main.NewText($"[c/FF5349:You can find the latest version in the TML mod browser.]");
+            //}
 
             //Hotkey checks
             if (ExtraExplosives.TriggerNovaBomb.GetAssignedKeys(InputMode.Keyboard).Count <= 0)

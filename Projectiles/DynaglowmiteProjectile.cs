@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class DynaglowmiteProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Dynaglowmite_";
-        protected override string goreFileLoc => "Gores/Explosives/dynaglowmite_gore";
+        protected override string goreName => "dynaglowmite_gore";
 
         public override void SetStaticDefaults()
         {
@@ -57,7 +57,7 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Explosion
             //CreateExplosion(projectile.Center, 0);
 
-            Explosion();
+            ExplosionTileDamage();
 
             //Create Bomb Dust
             DustEffects(type: 1, shake: false, dustType: 91, color: new Color(0, 67, 255));
@@ -68,15 +68,15 @@ namespace ExtraExplosives.Projectiles
             if (goreType == 0)
                 for (int num = 0; num < 2; num++)
                 {
-                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
+                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
                     gVel = gVel.RotatedByRandom(Math.PI * 2);
                 }
             else
-                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel), gVel.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
 
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
             Vector2 position = Projectile.Center;
             float x = 0;

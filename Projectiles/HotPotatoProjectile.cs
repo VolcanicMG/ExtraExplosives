@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class HotPotatoProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "Gores/Explosives/hot-potato_gore";
+        protected override string goreName => "hot-potato_gore";
         private readonly int _lifeTime = 300 + Main.rand.Next(60);    // How long to keep alive in ticks (currently 5-6 seconds)
         private bool _thrown;    // If the projectile has been thrown yet
         private int _fuze = 30;   // The fuze length 
@@ -133,15 +133,15 @@ namespace ExtraExplosives.Projectiles
             Projectile.knockBack = (int)Projectile.localAI[0] / 4f;
             radius = (int)Projectile.localAI[0] / 12;
             //Main.NewText($"Damage: {projectile.damage}, Knockback: {projectile.knockBack}, radius: {radius}");
-            Explosion();
-            ExplosionDamage();
+            ExplosionTileDamage();
+            ExplosionEntityDamage();
             CreateDust(Projectile.Center, (int)Projectile.localAI[0] * 2);
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(2f, 2f);
             Vector2 gVel2 = new Vector2(-2f, -1f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
 
             Projectile.timeLeft = 0;
             base.Kill(0);

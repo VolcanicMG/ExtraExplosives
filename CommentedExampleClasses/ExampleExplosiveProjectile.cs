@@ -20,7 +20,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// <summary>
         /// Same as above except for gore locations
         /// </summary>
-        protected override string goreFileLoc => "Gores/Explosives/atom_gore";
+        protected override string goreName => "atom_gore";
 
         /// <summary>
         /// Replacement for SetDefaults, functions identically to other SafeSetDefaults
@@ -78,7 +78,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// However the actual effects of the explosion (block breaking, sfx, spawning npcs, etc) should all be done here
         /// Damage should be done from ExplosionDamage and not here
         /// </summary>
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
         }
 
@@ -89,7 +89,7 @@ namespace ExtraExplosives.CommentedExampleClasses
         /// To change how damage is dealt, override and modify this function
         /// This damage function should be called from Kill() unless damage is meant to be dealt several times
         /// </summary>
-        public override void ExplosionDamage()
+        public override void ExplosionEntityDamage()
         {
         }
     }

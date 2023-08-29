@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class ArenaBuilderProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Arena_Bomb_";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
         private const int PickPower = 70;
         // private LegacySoundStyle[] explodeSounds;
 
@@ -80,18 +80,18 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Explosion
             //CreateExplosion(projectile.Center, -1);
 
-            Explosion();
+            ExplosionTileDamage();
 
             //Create Bomb Dust dust = Main.dust[Terraria.Dust.NewDust(updatedPosition, 2000, 2000, 186, 0f, 0f, 0, new Color(159, 0, 255), 5f)];
             CreateDust(Projectile.Center, 500);
         }
 
-        public override void ExplosionDamage()
+        public override void ExplosionEntityDamage()
         {
             return;
         }
 
-        public override void Explosion()    // This is a special explosive, ignored
+        public override void ExplosionTileDamage()    // This is a special explosive, ignored
         {
             //if (Main.player[projectile.owner].EE().BombardEmblem) return;
             Vector2 position = Projectile.position;

@@ -317,6 +317,8 @@ namespace ExtraExplosives
                     return false;
                 }
             }
+
+            //****THIS MIGHT NOT WORK ANYMORE CHECK FOR CHANGES*********
             // If the tile is modded, will need updating when tml is updated
             if (tileId > 469)
             {

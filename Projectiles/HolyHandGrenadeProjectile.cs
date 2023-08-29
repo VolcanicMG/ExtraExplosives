@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles
     {
 
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Holy_Hand_Granade_";
-        protected override string goreFileLoc => "Gores/Explosives/basic-explosive_gore";
+        protected override string goreName => "basic-explosive_gore";
 
         private int rippleCount = 2;
         private int rippleSize = 10;
@@ -70,7 +70,7 @@ namespace ExtraExplosives.Projectiles
                     DustEffects();
 
                     //Explosion();
-                    ExplosionDamage();
+                    ExplosionEntityDamage();
 
                     triggered = true;
                 }
@@ -92,7 +92,7 @@ namespace ExtraExplosives.Projectiles
             }
         }
 
-        public override void ExplosionDamage()
+        public override void ExplosionEntityDamage()
         {
             if (Main.player[Projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
             foreach (NPC npc in Main.npc)

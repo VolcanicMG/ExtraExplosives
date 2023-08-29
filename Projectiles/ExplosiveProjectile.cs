@@ -4,8 +4,6 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent.Shaders;
-using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,7 +25,7 @@ namespace ExtraExplosives.Projectiles
         internal bool crit = false;                         // If it crits (dont edit this it is used internally Left internal so other bombs can edit the crit chances 
         protected SoundStyle[] explodeSounds;         // The sounds that are played as the bomb explodes
         protected abstract string explodeSoundsLoc { get; } // Where the explosion sound files are located (relative to project dir)
-        protected abstract string goreFileLoc { get; }      // Where the explosion gore sprites are located (relative to project dir)
+        protected abstract string goreName { get; }      // Where the explosion gore sprites are located (relative to project dir)
 
         private bool firstTick;
         private bool firstTickPreAI;
@@ -65,6 +63,29 @@ namespace ExtraExplosives.Projectiles
                 firstTickPreAI = true;
             }
             return base.PreAI();
+        }
+
+
+        /// <summary>
+        /// Used to cause the explosion with all the dust effects manually outside of Projectile.Kill()
+        /// </summary>
+        /// <param name="sound">The sound</param>
+        /// <param name="tileDamage">Allow tile damage</param>
+        public virtual void ManualExplode(SoundStyle sound, bool tileDamage = false)
+        {
+            //Create Bomb Sound
+            SoundEngine.PlaySound(sound, Projectile.Center);
+
+            //Create Bomb Dust
+            DustEffects();
+
+            ExplosionEntityDamage();
+
+            //Make sure we can inflict tile damage
+            if (tileDamage) ExplosionTileDamage();
+
+            //Call Kill() in case we have something that needs to run
+            Projectile.Kill();
         }
 
 
@@ -117,7 +138,7 @@ namespace ExtraExplosives.Projectiles
         /// Creates a circular explosion in the radius defined
         /// Efficient but most blocks don't drop due to optimization methods
         /// </summary>
-        public virtual void Explosion()
+        public virtual void ExplosionTileDamage()
         {
 
             // x and y are the tile offset of the current tile relative to the player
@@ -207,7 +228,7 @@ namespace ExtraExplosives.Projectiles
         /// Cycles through every npc and player, checking the distance, and deals damage accordingly
         /// Damage is not dealt if Blast Shielding is equipped
         /// </summary>
-        public virtual void ExplosionDamage()
+        public virtual void ExplosionEntityDamage()
         {
             if (Main.player[Projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
             foreach (NPC npc in Main.npc)
@@ -218,9 +239,9 @@ namespace ExtraExplosives.Projectiles
                     int dir = (dist > 0) ? 1 : -1;
                     if (!DamageReducedNps.Contains(npc.type))
                     {
-                        //npc.StrikeNPC(Projectile.damage, Projectile.knockBack, dir, crit);
+                        npc.SimpleStrikeNPC(Projectile.damage, dir, crit, Projectile.knockBack);
                     }
-                    //else npc.StrikeNPC(Projectile.damage - (int)(Projectile.damage * .5f), Projectile.knockBack, dir, crit);
+                    else npc.SimpleStrikeNPC(Projectile.damage - (int)(Projectile.damage * .5f), dir, crit, Projectile.knockBack);
                 }
             }
 

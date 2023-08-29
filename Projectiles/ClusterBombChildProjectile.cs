@@ -9,7 +9,7 @@ namespace ExtraExplosives.Projectiles
     public class ClusterBombChildProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
 
         public override void SetStaticDefaults()
         {
@@ -37,9 +37,9 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Dust
             DustEffects();
 
-            Explosion();
+            ExplosionTileDamage();
 
-            ExplosionDamage();
+            ExplosionEntityDamage();
 
         }
     }

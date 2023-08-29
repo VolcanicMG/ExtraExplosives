@@ -8,7 +8,7 @@ namespace ExtraExplosives.Projectiles.Weapons.TrashCannon
     public class TrashCannonProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc { get; } = "n/a";    // TBD
-        protected override string goreFileLoc { get; } = "n/a";         // TBD
+        protected override string goreName { get; } = "n/a";         // TBD
 
         public override void SetStaticDefaults()
         {
@@ -38,8 +38,8 @@ namespace ExtraExplosives.Projectiles.Weapons.TrashCannon
 
         public override void Kill(int timeLeft)
         {
-            Explosion();
-            ExplosionDamage();
+            ExplosionTileDamage();
+            ExplosionEntityDamage();
             ExplosionDust(radius, Projectile.Center, shake: false);
             base.Kill(timeLeft);
         } 

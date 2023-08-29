@@ -12,7 +12,7 @@ namespace ExtraExplosives.Projectiles
     public class HeavyBombProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "Gores/Explosives/heavy_gore";
+        protected override string goreName => "heavy_gore";
 
         //Used to track when a tile can be destroyed
         private float counter
@@ -63,7 +63,7 @@ namespace ExtraExplosives.Projectiles
                 //SoundEngine.PlaySound(SoundID.Item37, Projectile.Center);
 
                 //Create Bomb Damage
-                ExplosionDamage();
+                ExplosionEntityDamage();
 
                 //Create Bomb Explosion
                 Vector2 position = Projectile.Center;
@@ -122,14 +122,14 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Dust
             DustEffects();
 
-            Explosion();
-            ExplosionDamage();
+            ExplosionTileDamage();
+            ExplosionEntityDamage();
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0f, 2f);
             Vector2 gVel2 = new Vector2(-2f, 2f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ExtraExplosives.Projectiles
     {
         private bool setToTrue = false;
         protected override string explodeSoundsLoc => "n/a";
-        protected override string goreFileLoc => "Gores/Explosives/basic-explosive_gore"; //TODO - needs gores
+        protected override string goreName => "basic-explosive_gore"; //TODO - needs gores
 
         public override void SetStaticDefaults()
         {

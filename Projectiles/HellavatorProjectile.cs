@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class HellavatorProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Hellavator_1";
-        protected override string goreFileLoc => "Gores/Explosives/hellevator_gore";
+        protected override string goreName => "hellevator_gore";
 
         public override void SetStaticDefaults()
         {
@@ -57,8 +57,8 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Explosion
             //CreateExplosion(projectile.Center, 0);
 
-            Explosion();
-            ExplosionDamage();
+            ExplosionTileDamage();
+            ExplosionEntityDamage();
 
             //Create Bomb Dust
             CreateDust(Projectile.Center, 400);
@@ -66,11 +66,11 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-2f, 2f);
             Vector2 gVel2 = new Vector2(2f, -2f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
             Vector2 position = Projectile.Center;
             int width = 3; //Explosion Width for both sides starting from the center

@@ -13,7 +13,7 @@ namespace ExtraExplosives.Projectiles
         //Mod CalamityMod = ModLoader.GetMod("CalamityMod");
         //Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Reforge_Bomb_";
-        protected override string goreFileLoc => "n/a";
+        protected override string goreName => "n/a";
         internal static bool CanBreakWalls;
 
         public override void SetStaticDefaults()

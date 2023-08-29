@@ -14,7 +14,7 @@ namespace ExtraExplosives.Projectiles
     {
         //Variables
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/C4_";
-        protected override string goreFileLoc => "Gores/Explosives/c4_gore";
+        protected override string goreName => "c4_gore";
         private enum C4State
         {
             Airborne,
@@ -130,18 +130,18 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Dust
             DustEffects();
 
-            Explosion();
+            ExplosionTileDamage();
 
-            ExplosionDamage();
+            ExplosionEntityDamage();
 
             //Creating Bomb Gore
             Vector2 gVel1 = new Vector2(-4f, -4f);
             Vector2 gVel2 = new Vector2(4f, -4f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
             if (Main.player[Projectile.owner].EE().BombardEmblem) return;
             Vector2 position = Projectile.Center;

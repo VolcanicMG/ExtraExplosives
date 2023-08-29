@@ -24,6 +24,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(0, 1, 0, 0);
             Item.crit = 15;
+            Item.autoReuse = true;
         }
 
         public override Vector2? HoldoutOffset()

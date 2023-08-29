@@ -11,7 +11,7 @@ namespace ExtraExplosives.Projectiles
     public class BiomeCleanerProjectile : ExplosiveProjectile
     {
         protected override string explodeSoundsLoc => null;
-        protected override string goreFileLoc => null;
+        protected override string goreName => null;
 
         public override void SetStaticDefaults()
         {
@@ -57,7 +57,7 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Explosion
             //CreateExplosion(projectile.Center, 0);
 
-            Explosion();
+            ExplosionTileDamage();
 
             //Create Bomb Dust
             CreateDust(Projectile.Center, 50);
@@ -65,11 +65,11 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-2f, 2f);
             Vector2 gVel2 = new Vector2(2f, -2f);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "1").Type, Projectile.scale);
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>(goreFileLoc + "2").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2.RotatedBy(Projectile.rotation), Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale);
         }
 
-        public override void Explosion()
+        public override void ExplosionTileDamage()
         {
             Vector2 position = Projectile.Center;
             int width = 250; //Explosion Width

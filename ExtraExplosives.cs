@@ -1,6 +1,3 @@
-
-using ExtraExplosives.Items;
-using ExtraExplosives.Items.Accessories;
 using ExtraExplosives.Items.Accessories.AnarchistCookbook;
 using ExtraExplosives.Items.Accessories.BombardierClassAccessories;
 using ExtraExplosives.Items.Accessories.ChaosBomb;
@@ -24,18 +21,18 @@ using ExtraExplosives.Projectiles.Weapons.NovaBuster;
 using ExtraExplosives.Projectiles.Weapons.TrashCannon;
 using ExtraExplosives.UI.AnarchistCookbookUI;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Net.Sockets;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using Terraria.UI;
 
 namespace ExtraExplosives
@@ -481,9 +478,9 @@ namespace ExtraExplosives
             base.PostSetupContent();
         }
 
-        
 
-        
+
+
 
         public override void Load()
         {
@@ -541,27 +538,39 @@ namespace ExtraExplosives
 
             ModVersion = "v" + Version.ToString().Trim();
 
-            //Goes out and grabs the version that the mod browser has
-            using (WebClient client = new WebClient())
-            {
-                if (CheckForInternetConnection())
-                {
-                    //Parsing the data we need
-                    try
-                    {
-                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                        var json = client.DownloadString("https://raw.githubusercontent.com/VolcanicMG/ExtraExplosives/master/Version.txt");
-                        json.ToString().Trim();
-                        CurrentVersion = "v" + json;
-                        client.Dispose();
-                    }
-                    catch(Exception e)
-                    {
-                        Logger.Warn(e);
-                    }
-                }
-            }
+            ////Goes out and grabs the version that the mod browser has
+            //if (CheckForInternetConnection())
+            //{
+            //    //Parsing the data we need
+            //    try
+            //    {
+            //        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            //        using (HttpClient httpClient = new HttpClient())
+            //        {
+            //            string url = "https://raw.githubusercontent.com/VolcanicMG/ExtraExplosives/master/Version.txt";
+            //            HttpResponseMessage response = httpClient.GetAsync(url).Result;
 
+            //            if (response.IsSuccessStatusCode)
+            //            {
+            //                string content = response.Content.ReadAsStringAsync().Result;
+            //                string trimmedContent = content.Trim();
+            //                string currentVersion = "v" + trimmedContent;
+            //                Logger.Info(currentVersion);
+            //            }
+            //            else
+            //            {
+            //                Logger.Error($"Error: {response.StatusCode}");
+            //            }
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Logger.Warn(e);
+            //    }
+            //}
+
+
+            //Health bar
             Mod yabhb = null; //ModLoader.GetMod("FKBossHealthBar");
             if (yabhb != null)
             {
@@ -577,22 +586,20 @@ namespace ExtraExplosives
             }
         }
 
-        //so if the Internet is out the client won't crash on loading
+        //Added so if the internet is out the client won't crash on loading
         public static bool CheckForInternetConnection()
         {
             try
             {
-                using (var client = new WebClient())
-                using (client.OpenRead("http://google.com/generate_204"))
+                using (var client = new TcpClient("8.8.8.8", 53))
+                {
                     return true;
+                }
             }
             catch
             {
                 return false;
             }
         }
-        
-
-        
     }
 }
