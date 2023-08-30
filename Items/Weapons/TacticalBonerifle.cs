@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ProjectileID = Terraria.ID.ProjectileID;
@@ -86,19 +87,22 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-14, -7);
         }
 
-        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            float speedX = velocity.X;
+            float speedY = velocity.Y;
+
             switch (Item.useAmmo)
             {
                 case 97:    // Bullet
-                    //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                        (int)player.position.X, (int)player.position.Y);
-                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), type, damage, knockBack, player.whoAmI);
+                            //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
+                    //(int)player.position.X, (int)player.position.Y);
+                    Projectile.NewProjectile(source, position, new Vector2(speedX, speedY), type, damage, knockback, player.whoAmI);
                     break;
                 case 771:    // Rocket
-                    //SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
-                        (int)player.position.X, (int)player.position.Y);
-                    Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.Grenade, damage, knockBack, player.whoAmI);
+                             //SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
+                    //(int)player.position.X, (int)player.position.Y);
+                    Projectile.NewProjectile(source, position, new Vector2(speedX, speedY), ProjectileID.Grenade, damage, knockback, player.whoAmI);
                     break;
                 default:
                     Mod.Logger.InfoFormat("Something went wrong {0}", Item.useAmmo);
@@ -111,7 +115,7 @@ namespace ExtraExplosives.Items.Weapons
                 position.Y -= 6;
             }
             return false;
-        }*/
+        }
 
         public override bool CanUseItem(Player player)
         {

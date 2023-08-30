@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -51,17 +52,19 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-2, -2);
         }
 
-        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            float speedX = velocity.X;
+            float speedY = velocity.Y;
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
 
-            Projectile.NewProjectile(position, new Vector2(speedX, speedY), ProjectileID.GrenadeI, damage, knockBack, player.whoAmI);
+            Projectile.NewProjectile(source, position, new Vector2(speedX, speedY), ProjectileID.GrenadeI, damage, knockback, player.whoAmI);
             return false;
-        }*/
+        }
 
         public override void AddRecipes()
         {

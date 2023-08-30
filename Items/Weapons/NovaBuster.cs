@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -57,8 +58,11 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-16, 0);
         }
 
-        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            float speedX = velocity.X;
+            float speedY = velocity.Y;
+
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
@@ -67,15 +71,15 @@ namespace ExtraExplosives.Items.Weapons
 
             if (Main.rand.NextFloat() < .2f)
             {
-                Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti) * 2, knockBack, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti) * 2, knockback, player.whoAmI);
             }
             else
             {
-                Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
             }
 
             return false;
-        }*/
+        }
 
         public override void AddRecipes()
         {
