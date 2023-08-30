@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -40,11 +41,11 @@ namespace ExtraExplosives.Items.Weapons
             //PrimarySounds = new LegacySoundStyle[4];
             //SecondarySounds = null;
 
-            /*for (int n = 1; n <= PrimarySounds.Length; n++)
-            {
-                //PrimarySounds[n - 1] =
-                    //Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
-            }*/
+            //for (int n = 1; n <= PrimarySounds.Length; n++)
+            //{
+            //    //PrimarySounds[n - 1] =
+            //    //Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
+            //}
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -64,10 +65,13 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-16, 0);
         }
 
-        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                (int)player.position.X, (int)player.position.Y);
+            //(int)player.position.X, (int)player.position.Y);
+
+            float speedX = velocity.X;
+            float speedY = velocity.Y;
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -81,9 +85,9 @@ namespace ExtraExplosives.Items.Weapons
                 // If you want to randomize the speed to stagger the projectiles
                 // float scale = 1f - (Main.rand.NextFloat() * .3f);
                 // perturbedSpeed = perturbedSpeed * scale; 
-                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileID.GrenadeII, damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileID.GrenadeII, damage, knockback, player.whoAmI);
             }
             return false;
-        }*/
+        }
     }
 }

@@ -67,11 +67,12 @@ namespace ExtraExplosives.Projectiles
 
 
         /// <summary>
+        /// *DON'T USE IN Projectile.Kill() UNLESS YOU SET autoKill TO FALSE!*
         /// Used to cause the explosion with all the dust effects manually outside of Projectile.Kill()
         /// </summary>
         /// <param name="sound">The sound</param>
         /// <param name="tileDamage">Allow tile damage</param>
-        public virtual void ManualExplode(SoundStyle sound, bool tileDamage = false)
+        public virtual void ManualExplode(SoundStyle sound, bool tileDamage = false, bool autoKill = true)
         {
             //Create Bomb Sound
             SoundEngine.PlaySound(sound, Projectile.Center);
@@ -85,7 +86,7 @@ namespace ExtraExplosives.Projectiles
             if (tileDamage) ExplosionTileDamage();
 
             //Call Kill() in case we have something that needs to run
-            Projectile.Kill();
+            if(autoKill) Projectile.Kill();
         }
 
 
@@ -95,15 +96,6 @@ namespace ExtraExplosives.Projectiles
             // Only use if you need to since those values are set to ensure the bombs function as intended
         }
 
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            return;
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            return;
-        }
 
         //Dusts 
         #region Dusts
