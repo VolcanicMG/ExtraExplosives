@@ -29,7 +29,7 @@ namespace ExtraExplosives.Items.Explosives
             Item.noMelee = true;      //Setting to True allows the weapon sprite to stop doing damage, so only the projectile does the damge
             Item.shoot = Mod.Find<ModProjectile>("HouseBombProjectile").Type; //This defines what type of projectile this item will shoot
             Item.shootSpeed = 5f; //This defines the projectile speed when shot
-                                  //item.createTile = mod.TileType("ExplosiveTile");
+            //item.createTile = mod.TileType("ExplosiveTile");
         }
 
         public override void AddRecipes()

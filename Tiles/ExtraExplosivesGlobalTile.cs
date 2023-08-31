@@ -11,7 +11,8 @@ namespace ExtraExplosives.Tiles
     {
         public override void Drop(int i, int j, int type)
         {
-            if (type == TileID.ShadowOrbs) //Called 5 times once it breaks for some reason (I think its because it breaks all 4-5 of the pieces at once)
+            // Adding item drops
+            if (type == TileID.ShadowOrbs)
             {
                 if (Main.rand.NextFloat() <= .15f)
                 {

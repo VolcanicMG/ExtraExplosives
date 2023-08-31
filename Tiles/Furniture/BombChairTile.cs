@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using ExtraExplosives.Dusts;
+using ExtraExplosives.Items.Tiles.Furniture;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -12,11 +14,11 @@ using Terraria.ObjectData;
 
 namespace ExtraExplosives.Tiles.Furniture
 {
-    
+    // TODO alternate does not drop its item, no clue
     public class BombChairTile : ModTile
     {
         
-        public const int NextStyleHeight = 40;
+        public const int NextStyleHeight = 42;
 
         public override void SetStaticDefaults()
         {
@@ -28,29 +30,29 @@ namespace ExtraExplosives.Tiles.Furniture
             TileID.Sets.HasOutlines[Type] = true;
             TileID.Sets.CanBeSatOnForPlayers[Type] = true;
             TileID.Sets.CanBeSatOnForNPCs[Type] = true;
-            TileID.Sets.DisableSmartCursor[Type] = true;
             
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
 
             DustType = ModContent.DustType<DebrisDust>();
             AdjTiles = new int[] { TileID.Chairs };
 
-            LocalizedText name = CreateMapEntryName();
             AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.Chair"));
             
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 20 };
             TileObjectData.newTile.CoordinatePaddingFix = new Point16(0, 2);
-            //TileObjectData.newTile.CoordinatePadding = 0;
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.Direction = TileObjectDirection.PlaceLeft;
             TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile);
             TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceRight; //allows me to place example chairs facing the same way as the player
             TileObjectData.addAlternate(1); //facing right will use the second texture style
             
-            Mod.Logger.DebugFormat("Type of TileID" + name + " " + Type);
+            // Some weird issue where alternate tile wont drop when broken, this fixes it, no clue why it happens
+            RegisterItemDrop(ModContent.ItemType<BombChairItem>(), TileObjectData.newAlternate.StyleMultiplier);
+            
             TileObjectData.addTile(Type);
         }
+
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;

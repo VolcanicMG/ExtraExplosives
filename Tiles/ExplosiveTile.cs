@@ -7,10 +7,15 @@ using Terraria.ObjectData;
 
 namespace ExtraExplosives.Tiles
 {
+    
+    // TODO is this ever used?? it doesnt look like it is
+    // Turning off loading so that it tml will ignore it, but so its still here if we do actually need it
+    [Autoload(false)]
     public class ExplosiveTile : ModTile
     {
         public override void SetStaticDefaults()
         {
+            Mod.Logger.Warn("Class: " + this.ToString() + " should not be loaded by TModLoader! Please check why this class is being loaded!");
             Main.tileSolid[Type] = false;
             Main.tileSolidTop[Type] = false;
             Main.tileBlockLight[Type] = false;

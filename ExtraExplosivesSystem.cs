@@ -56,7 +56,7 @@ namespace ExtraExplosives
 
         public override void ModifyHardmodeTasks(List<GenPass> list)
         {
-            int goodIndex = list.FindIndex(genpass => genpass.Name.Equals("Hardmode Good"));
+            int goodIndex = list.FindIndex(genPass => genPass.Name.Equals("Hardmode Good"));
             if (goodIndex != -1)
             {
                 list.Add(new PassLegacy("Irradiating the Hallow",
@@ -72,7 +72,7 @@ namespace ExtraExplosives
 
         private void GenCrystals()
         {
-            if (Main.hardMode && Main.rand.Next(400) == 0) // 1 in 400 chance, TODO balance    
+            if (Main.hardMode && Main.rand.NextBool(400)) // 1 in 400 chance, TODO balance    
             {
                 // Tries the location and if its air and touches pearlstone (type == 117) then it will spawn
                 int x = WorldGen.genRand.Next(10, Main.maxTilesX - 10);

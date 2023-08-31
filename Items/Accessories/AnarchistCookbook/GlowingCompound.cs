@@ -6,12 +6,6 @@ namespace ExtraExplosives.Items.Accessories.AnarchistCookbook
 {
     public class GlowingCompound : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Glowing Compound");
-            // Tooltip.SetDefault("Makes your bombs glow");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 32;

@@ -7,24 +7,19 @@ namespace ExtraExplosives.Items.Tiles.Furniture
 {
     public class BombChairItem : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Bomb Chair");
-        }
-
         public override void SetDefaults()
         {
+            Item.DefaultToPlaceableTile(ModContent.TileType<BombChairTile>());
+            Item.value = 100;
             Item.width = 12;
-            Item.height = 20;
-            Item.useTurn = true;
+            Item.height = 38;
+            /*Item.useTurn = true;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useAnimation = 15;
             Item.useTime = 15;
             Item.autoReuse = true;
             Item.maxStack = 99;
-            Item.consumable = true;
-            Item.value = 1000;
-            Item.createTile = ModContent.TileType<BombChairTile>();
+            Item.consumable = true;*/
         }
 
         public override void AddRecipes()
