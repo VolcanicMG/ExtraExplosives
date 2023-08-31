@@ -65,45 +65,12 @@ namespace ExtraExplosives.Projectiles
             return base.PreAI();
         }
 
-
-        /// <summary>
-        /// Used to cause the explosion with all the dust effects manually outside of Projectile.Kill()
-        /// </summary>
-        /// <param name="sound">The sound</param>
-        /// <param name="tileDamage">Allow tile damage</param>
-        public virtual void ManualExplode(SoundStyle sound, bool tileDamage = false)
-        {
-            //Create Bomb Sound
-            SoundEngine.PlaySound(sound, Projectile.Center);
-
-            //Create Bomb Dust
-            DustEffects();
-
-            ExplosionEntityDamage();
-
-            //Make sure we can inflict tile damage
-            if (tileDamage) ExplosionTileDamage();
-
-            //Call Kill() in case we have something that needs to run
-            Projectile.Kill();
-        }
-
-
         public virtual void DangerousSetDefaults()
         {
-            // Does nothing, this should be used to override the values locked by SetDefaults
+            // Does nothing, this should be used to override the values locked by SetDefaults//////
             // Only use if you need to since those values are set to ensure the bombs function as intended
         }
 
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            return;
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            return;
-        }
 
         //Dusts 
         #region Dusts
@@ -263,7 +230,76 @@ namespace ExtraExplosives.Projectiles
                     // TODO NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
+        }
 
+        /// <summary>
+        /// *DON'T USE IN Projectile.Kill() UNLESS YOU SET autoKill TO FALSE!*
+        /// Used to cause the explosion with all the dust effects manually outside of Projectile.Kill()
+        /// </summary>
+        /// <param name="sound">The sound</param>
+        /// <param name="tileDamage">Allow tile damage</param>
+        public void ManualExplode(SoundStyle sound, bool tileDamage = false, bool autoKill = true, NPC contact = null)
+        {
+            //Create Bomb Sound
+            SoundEngine.PlaySound(sound, Projectile.Center);
+
+            //Create Bomb Dust
+            DustEffects();
+
+            //Disable the entity damage since that will be handled on kill if need be
+            if (!autoKill && contact == null) ExplosionEntityDamage();
+            else if (contact != null && !autoKill) ContactExplode(contact);
+
+            //Make sure we can inflict tile damage
+            if (tileDamage) ExplosionTileDamage();
+
+            //Call Kill() in case we have something that needs to run
+            if (autoKill) Projectile.Kill();
+        }
+
+
+        /// <summary>
+        /// Used for projectiles that deal damage as well as explode
+        /// </summary>
+        /// <param name="exception"></param>
+        public void ContactExplode(NPC exception)
+        {
+            if (Main.player[Projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
+            foreach (NPC npc in Main.npc)
+            {
+                //Ignore this npc
+                if (npc == exception) continue;
+
+                float dist = Vector2.Distance(npc.Center, Projectile.Center);
+                if (dist / 16f <= radius)
+                {
+                    int dir = (dist > 0) ? 1 : -1;
+                    if (!DamageReducedNps.Contains(npc.type))
+                    {
+                        npc.SimpleStrikeNPC(Projectile.damage, dir, crit, Projectile.knockBack);
+                    }
+                    else npc.SimpleStrikeNPC(Projectile.damage - (int)(Projectile.damage * .5f), dir, crit, Projectile.knockBack);
+                }
+            }
+
+            foreach (Player player in Main.player)
+            {
+                if (player == null || player.whoAmI == 255 || !player.active) return;
+                if (!CanHitPlayer(player)) continue;
+                if (player.EE().BlastShielding &&
+                    player.EE().BlastShieldingActive) continue;
+                float dist = Vector2.Distance(player.Center, Projectile.Center);
+                int dir = (dist > 0) ? 1 : -1;
+                if (dist / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer && InflictDamageSelf)
+                {
+                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir);
+                    player.hurtCooldowns[0] += 15;
+                }
+                else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == Projectile.owner && InflictDamageSelf)
+                {
+                    // TODO NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                }
+            }
         }
         #endregion
     }

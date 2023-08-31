@@ -23,7 +23,7 @@ namespace ExtraExplosives.Projectiles
         {
             radius = 5;
             Projectile.CloneDefaults(ProjectileID.EnchantedBoomerang);
-            Projectile.damage = 46;
+            Projectile.damage = 50;
             Projectile.DamageType = DamageClass.Generic;
             Projectile.minion = false;
             Projectile.penetrate = -1;
@@ -34,7 +34,9 @@ namespace ExtraExplosives.Projectiles
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            ManualExplode(SoundID.Item14);
+            ManualExplode(SoundID.Item14, autoKill: false);
+
+            Projectile.Kill();
 
             return base.OnTileCollide(oldVelocity);
         }
@@ -43,7 +45,7 @@ namespace ExtraExplosives.Projectiles
         {
             HitSomeThing = true;
 
-            ManualExplode(SoundID.Item14);
+            ManualExplode(SoundID.Item14, autoKill: false, contact: target);
         }
 
         public override void Kill(int timeLeft)

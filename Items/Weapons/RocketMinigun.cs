@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -37,8 +38,11 @@ namespace ExtraExplosives.Items.Weapons
             //Item.ranged = true;
         }
 
-        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            float speedX = velocity.X;
+            float speedY = velocity.Y;
+
             if (fireSpeed > 5) //change the firespeed
             {
                 fireSpeed -= 1;
@@ -55,7 +59,7 @@ namespace ExtraExplosives.Items.Weapons
             speedY = perturbedSpeed.Y;
 
             return true;
-        }*/
+        }
 
         public override void HoldItem(Player player)
         {

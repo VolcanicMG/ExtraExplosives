@@ -523,6 +523,9 @@ namespace ExtraExplosives
 
                 foreach (NPC npc in Main.npc)
                 {
+                    //Check for friendly npcs
+                    if (npc.friendly) continue;
+
                     //Hit information
                     NPC.HitInfo hit = new NPC.HitInfo();
                     hit.Damage = 1000;
@@ -561,14 +564,14 @@ namespace ExtraExplosives
             {
                 delayLizhard++;
 
-                if (delayLizhard % 15 == 0)
+                if (delayLizhard % 5 == 0)
                 {
                     //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Item/Hellfire"), new Vector2(Player.Center.X, Player.Center.Y));
 
                     Vector2 perturbedSpeed = new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(35)); //set spread
                     Projectile.NewProjectileDirect(Player.GetSource_FromThis(), new Vector2(Player.Center.X, Player.Center.Y - Player.height + 10), perturbedSpeed, ModContent.ProjectileType<SunRocket>(), (int)((DamageBonus + 120) * DamageMulti), 1, Player.whoAmI);
                 }
-                else if (delayLizhard >= 90)
+                else if (delayLizhard >= 35)
                 {
                     lizhardLaunch = false;
                     delayLizhard = 0;

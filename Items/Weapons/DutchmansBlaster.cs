@@ -1,9 +1,11 @@
-﻿using ExtraExplosives.Projectiles.Weapons.DutchmansBlaster;
+﻿using ExtraExplosives.Projectiles;
+using ExtraExplosives.Projectiles.Weapons.DutchmansBlaster;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -37,6 +39,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.shoot = 134; //idk why but all the guns in the vanilla source have this
             Item.shootSpeed = 24;
             Item.useAmmo = AmmoID.Rocket;
+            Item.ArmorPenetration = 5;
 
             //PrimarySounds = new LegacySoundStyle[4];
             /*SecondarySounds = null;
@@ -65,10 +68,13 @@ namespace ExtraExplosives.Items.Weapons
             return new Vector2(-6, 4);
         }
 
-        /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                (int)player.position.X, (int)player.position.Y);
+            //(int)player.position.X, (int)player.position.Y);
+
+            float speedX = velocity.X;
+            float speedY = velocity.Y;
 
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -76,9 +82,9 @@ namespace ExtraExplosives.Items.Weapons
                 position += muzzleOffset;
             }
 
-            Projectile.NewProjectile(new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<DutchmansBlasterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockBack, player.whoAmI);
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<DutchmansBlasterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
 
             return false; // return false because we don't want tmodloader to shoot projectile
-        }*/
+        }
     }
 }
