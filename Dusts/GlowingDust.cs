@@ -6,9 +6,6 @@ namespace ExtraExplosives.Dusts
 {
     public class GlowingDust : ModDust
     {
-
-        private int lifeTime = 3600 + Main.rand.Next(600);
-
         public override void OnSpawn(Dust glowingDust)
         {
             glowingDust.noGravity = true;
@@ -19,18 +16,13 @@ namespace ExtraExplosives.Dusts
 
         public override bool Update(Dust glowingDust)
         {
-            Lighting.AddLight(glowingDust.position, new Vector3(57f / 255f, 255f / 255f, 20f / 255f));//new Vector3(57, 255, 20)
+            glowingDust.position += glowingDust.velocity;
+            glowingDust.scale -= 0.01f;
+            Lighting.AddLight(glowingDust.position, new Vector3(57f / 255f, 255f / 255f, 20f / 255f));
 
-            lifeTime--;
-            if (WorldGen.TileEmpty((int)(glowingDust.position.X / 16f), (int)(glowingDust.position.Y / 16f)))
+            if (glowingDust.scale <= 0.5f)
             {
-                glowingDust.position += glowingDust.velocity;
-                if (glowingDust.velocity.Y < 0.01f) glowingDust.velocity.Y *= 1.005f;
-                if (glowingDust.velocity.X > 0.01f) glowingDust.velocity.X = 1.005f;
-            }
-            else
-            {
-                glowingDust.velocity = Vector2.Zero;
+                glowingDust.active = false;
             }
             return false;
         }

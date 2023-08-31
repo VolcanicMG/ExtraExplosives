@@ -8,6 +8,8 @@ namespace ExtraExplosives.Items
     {
         public override void SetDefaults()
         {
+            // Maybe remove this line, it isnt technically possible to obtain and therefore can never be placed
+            // Leave it for people who just want to build things? Idk
             Item.DefaultToPlaceableTile(ModContent.TileType<GlowingCrystal>());
             Item.width = 16;
             Item.height = 16;

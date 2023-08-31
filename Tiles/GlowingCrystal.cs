@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using ExtraExplosives.Dusts;
 using ExtraExplosives.Items;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -11,15 +13,13 @@ namespace ExtraExplosives.Tiles
 {
     public class GlowingCrystal : ModTile        // Tile counterpart to GlowingCompound
     {
-        private string dustString = "GlowingDust";
-
         public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = false;
             Main.tileNoAttach[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoFail[Type] = true;
-            DustType = Mod.Find<ModDust>(dustString).Type;
+            DustType = ModContent.DustType<GlowingDust>();
             AddMapEntry(new Color(148, 134, 48));
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
@@ -63,8 +63,9 @@ namespace ExtraExplosives.Tiles
             TileObjectData.newAlternate.RandomStyleRange = 17;
             TileObjectData.addAlternate(18);
             TileObjectData.addTile(Type);
-
-
+            
+            RegisterItemDrop(ModContent.ItemType<GlowingCompound>());
+            
             //TileObjectData.newTile.FullCopyFrom(TileID.Crystals);
         }
 
