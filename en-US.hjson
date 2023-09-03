@@ -811,7 +811,11 @@ Mods: {
 
 			GiganticExplosiveItem: {
 				DisplayName: Gigantic Explosive
-				Tooltip: "[c/AB40FF:Can destroy dungeon bricks and desert fossils]"
+				Tooltip:
+					'''
+					[c/AB40FF:Can destroy desert fossils]
+					[c/FF0000:Destroys most blown up blocks (Ores are unaffected)]
+					'''
 			}
 
 			HealBomb: {
@@ -892,7 +896,11 @@ Mods: {
 
 			MegaExplosiveItem: {
 				DisplayName: Mega Explosive
-				Tooltip: "[c/AB40FF:Can destroy desert fossils]"
+				Tooltip:
+					'''
+					[c/AB40FF:Can destroy desert fossils]
+					[c/FF0000:Destroys most blown up blocks (Ores are unaffected)]
+					'''
 			}
 
 			MeteoriteBusterItem: {

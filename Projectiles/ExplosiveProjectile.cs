@@ -127,7 +127,6 @@ namespace ExtraExplosives.Projectiles
                     y <= radius;
                     y++)
                 {
-                    //int y = (int)(j + position.Y);
                     int i = (int)(x + position.X);
                     int j = (int)(y + position.Y);
                     if (!WorldGen.InWorld(i, j)) continue;
@@ -135,15 +134,50 @@ namespace ExtraExplosives.Projectiles
                     {
                         Tile tile = Framing.GetTileSafely(i, j);
 
+                        //Checking to make sure the tile is within the world and is valid
                         if (!WorldGen.TileEmpty(i, j) && tile.HasTile)
                         {
+                            //Check pickaxe power
                             if (!CanBreakTile(tile.TileType, pickPower)) continue;
-                            //if (!CanBreakTiles) continue;
-                            // Using KillTile is laggy, use ClearTile when working with larger tile sets    (also stops sound spam)
-                            // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
-                            if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.TileType])
+
+                            //Get the tile type
+                            int type = tile.TileType;
+
+                            //Checking for larger explosives
+                            if (radius >= 35)
                             {
-                                int type = tile.TileType;
+                                // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
+                                if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.TileType])
+                                {
+                                    WorldGen.KillTile((int)(i), (int)(j), false, false, false);
+
+                                    if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
+                                    {
+                                        WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                    }                                
+                                }
+                                else //Clear everything else since we dont want to spam killTile
+                                {
+                                    if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && Main.tile[i, j - 1].TileType != 26 && !TileID.Sets.BasicDresser[Main.tile[i, j - 1].TileType])
+                                    {
+                                        tile.ClearTile();
+
+                                        if (Main.netMode == NetmodeID.MultiplayerClient)
+                                        {
+                                            WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                            NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                        }
+                                    }
+
+                                    if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
+                                    {
+                                        WorldGen.SquareTileFrame(i, j, true);
+                                    }
+                                }
+                            }
+                            else //If the explosive is small enough just run killtile on everything
+                            {
                                 WorldGen.KillTile((int)(i), (int)(j), false, false, false);
 
                                 if (Main.netMode == NetmodeID.MultiplayerClient) //update if in mp
@@ -151,39 +185,19 @@ namespace ExtraExplosives.Projectiles
                                     WorldGen.SquareTileFrame(i, j, true); //Updates Area
                                     NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                 }
-
-                                if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre) //chance to drop 2 ores
-                                {
-                                    WorldGen.PlaceTile(i, j, type);
-                                    WorldGen.KillTile((int)(i), (int)(j), false, false, false);
-
-                                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                                    {
-                                        WorldGen.SquareTileFrame(i, j, true); //Updates Area
-                                        NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
-                                    }
-                                }
                             }
 
-                            else
+                            //Check for double block breaking
+                            if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre)
                             {
-                                /* TODO Fix if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType) && Main.tile[i, j - 1].TileType != 26)
-                                {
-                                    tile.ClearTile();
-                                    tile.HasTile = false;
+                                WorldGen.PlaceTile(i, j, type);
+                                WorldGen.KillTile((int)(i), (int)(j), false, false, false);
 
-                                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                                    {
-                                        WorldGen.SquareTileFrame(i, j, true); //Updates Area
-                                        NetMessage.SendData(MessageID.TileChange, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
-                                    }
-                                }*/
-
-                                if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
+                                if (Main.netMode == NetmodeID.MultiplayerClient)
                                 {
-                                    WorldGen.SquareTileFrame(i, j, true);
+                                    WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
                                 }
-
                             }
                         }
                     }
@@ -227,7 +241,7 @@ namespace ExtraExplosives.Projectiles
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == Projectile.owner && InflictDamageSelf)
                 {
-                    // TODO NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                    //NetMessage.SendPlayerHurt(player.whoAmI, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit);
                 }
             }
         }
