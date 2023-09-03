@@ -318,9 +318,8 @@ namespace ExtraExplosives
                 }
             }
 
-            //****THIS MIGHT NOT WORK ANYMORE CHECK FOR CHANGES*********
-            // If the tile is modded, will need updating when tml is updated
-            if (tileId > 469)
+            // If the tile is modded
+            if (GetModTile(tileId) != null)
             {
                 int tileResistance = GetModTile(tileId).MinPick;
                 if (tileResistance <= pickPower) return true;

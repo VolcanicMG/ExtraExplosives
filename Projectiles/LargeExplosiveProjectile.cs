@@ -39,19 +39,13 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create Bomb Dust
             DustEffects();
 
             ExplosionTileDamage();
             ExplosionEntityDamage();
-
-            //Create Bomb Damage
-            //ExplosionDamage(20f * 2f, projectile.Center, 450, 40, projectile.owner);
-
-            //Create Bomb Explosion
-            //CreateExplosion(projectile.Center, 20);
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(-2f, 0f);
@@ -65,30 +59,5 @@ namespace ExtraExplosives.Projectiles
             Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel1), gVel1, Mod.Find<ModGore>($"{goreName}1").Type, Projectile.scale * 1.5f);
             Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + Vector2.Normalize(gVel2), gVel2, Mod.Find<ModGore>($"{goreName}2").Type, Projectile.scale * 1.5f);
         }
-
-        /*private void CreateExplosion(Vector2 position, int radius)
-		{
-			for (int x = -radius; x <= radius; x++) //Starts on the X Axis on the left
-			{
-				for (int y = -radius; y <= radius; y++) //Starts on the Y Axis on the top
-				{
-					int xPosition = (int)(x + position.X / 16.0f);
-					int yPosition = (int)(y + position.Y / 16.0f);
-
-					if (Math.Sqrt(x * x + y * y) <= radius + 0.5 && (WorldGen.InWorld(xPosition, yPosition))) //Circle
-					{
-						ushort tile = Main.tile[xPosition, yPosition].type;
-						if (!CanBreakTile(tile, PickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
-						{
-						}
-						else //Breakable
-						{
-							WorldGen.KillTile(xPosition, yPosition, false, false, false); //This destroys Tiles
-							if (CanBreakWalls) WorldGen.KillWall(xPosition, yPosition, false); //This destroys Walls
-						}
-					}
-				}
-			}
-		}*/
     }
 }
