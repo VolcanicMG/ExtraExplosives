@@ -114,7 +114,7 @@ namespace ExtraExplosives.Projectiles
                 Projectile.frame = 4;
                 done = true;
 
-                SpawnProjectileSynced(Projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectile>(), 0, 0, Projectile.owner);
+                SpawnProjectileSynced(Player.GetSource_None() ,Projectile.position, new Vector2(0, 0), ModContent.ProjectileType<NukeProjectile>(), 0, 0, Projectile.owner);
 
                 //Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, ModContent.ProjectileType<NukeProjectile>(), 0, 0, projectile.owner);
             }

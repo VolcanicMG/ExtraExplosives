@@ -338,7 +338,7 @@ namespace ExtraExplosives
                 {
                     flag3 = false;
                 }
-                if (flag3) //the  heat seeking part of the code
+                if (flag3) //the heat seeking part of the code
                 {
                     float num145 = num133;
                     Vector2 vector10 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
@@ -427,7 +427,7 @@ namespace ExtraExplosives
 
             if (!RevertVanillaBombs)
             {
-                // Bombard Emblem stuff (I think? IDK, I didn't write this code. -- V8_Ninja)
+                // Bombard Emblem stuff
                 int type = projectile.type; // Dont only so i didnt have to rename the variables below (copied from vanilla dont @ me), inefficient but who cares
                 if (type == ProjectileID.Bomb || type == ProjectileID.Dynamite || type == ProjectileID.StickyBomb ||
                     type == ProjectileID.Explosives || type == ProjectileID.GrenadeII || type == ProjectileID.RocketII || type == ProjectileID.RocketI ||
@@ -486,11 +486,11 @@ namespace ExtraExplosives
                             if (dist / 16f <= radius)
                             {
                                 int dir = (dist > 0) ? 1 : -1;
-                                if (!DamageReducedNps.Contains(npc.type))
+                                if (!DamageReducedNps.Contains(npc.type)) //Checking for NPC damage reduction
                                 {
-                                    // TODO npc.StrikeNPC(projectile.damage, projectile.knockBack, dir, crit);
+                                    npc.SimpleStrikeNPC(projectile.damage, dir, crit, projectile.knockBack);
                                 }
-                                //else npc.StrikeNPC(projectile.damage - (int)(projectile.damage * .8f), projectile.knockBack, dir, crit);
+                                else npc.SimpleStrikeNPC(projectile.damage - (int)(projectile.damage * .5f), dir, crit, projectile.knockBack);
                             }
                         }
 
@@ -727,7 +727,8 @@ namespace ExtraExplosives
                         proj.velocity = projectile.velocity;
                         proj.GetGlobalProjectile<ExtraExplosivesGlobalProjectile>().clone = true;
                     }
-                    /*int buffId = 0;
+
+                    int buffId = 0;
 			        int dustId = 0;
 			        switch (Main.rand.Next(3)) // get the buff id
 			        {
@@ -750,8 +751,7 @@ namespace ExtraExplosives
 					        break;
 			        }
 			        // Random Fuel
-			        if(buffId != 0)GlobalMethods.InflictDubuff(buffId, 15, projectile.Center, projectile.owner, dustId, 300);*/
-
+			        if(buffId != 0) GlobalMethods.InflictDubuff(buffId, 15, projectile.Center, false, projectile.owner, dustId, 300);
                 }
 
                 if (mp.Anarchy || mp.HeavyBombard)
@@ -817,13 +817,13 @@ namespace ExtraExplosives
                     {
                         for (float j = projY - 128; j <= projY + 128; j += 4) // Cycle Y cords
                         {
-                            /*float dist = Vector2.Distance(new Vector2(i, j), projectile.Center);
+                            float dist = Vector2.Distance(new Vector2(i, j), projectile.Center);
 					        if (dist < 127 && dist > 126 && WorldGen.TileEmpty((int)(i/16f), (int)(j/16f))) // Radius check
 					        {
 						        Dust dust = Dust.NewDustDirect(new Vector2(i, j), 1, 1, ModContent.DustType<GlowingDust>());
 						        dust.position.X += i - projX;
 						        dust.position.Y += j - projY;
-					        }*/
+					        }
                             if (Main.rand.Next(400) == 0) // Random Scattering
                             {
                                 Dust dust = Dust.NewDustDirect(new Vector2(i, j), 1, 1, ModContent.DustType<GlowingDust>());

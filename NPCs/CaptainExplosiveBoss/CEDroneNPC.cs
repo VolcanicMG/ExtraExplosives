@@ -324,7 +324,7 @@ namespace ExtraExplosives.NPCs.CaptainExplosiveBoss
             //SoundEngine.PlaySound(SoundID.Item14, NPC.position);
 
             CreateDust(NPC.Center, 50);
-            ExplosionDamageEnemy(4, NPC.Center, NPC.damage, ModContent.NPCType<CaptainExplosiveBoss>());
+            ExplosionDamageByNPC(4, NPC.Center, NPC.damage, ModContent.NPCType<CaptainExplosiveBoss>());
             // kill the drone
             NPC.life = 0;
         }

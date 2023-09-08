@@ -15,7 +15,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void SafeSetDefaults()
         {
             Item.damage = 120;   //The damage stat for the Weapon.
-            Item.knockBack = 25;
+            Item.knockBack = 8;
             Item.width = 20;    //sprite width
             Item.height = 20;   //sprite height
             Item.maxStack = 999;   //This defines the items max stack
