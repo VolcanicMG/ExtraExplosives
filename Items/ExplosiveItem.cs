@@ -36,6 +36,7 @@ namespace ExtraExplosives.Items
         public sealed override void SetDefaults()
         {
             SafeSetDefaults();
+            Item.DamageType = DamageClass.Generic;
             DangerousSetDefaults();
         }
 

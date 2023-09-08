@@ -75,27 +75,13 @@ namespace ExtraExplosives
         //========================| List of Global Functions |========================\\
 
         /// <summary>
-        /// This function spawns in mini-projectiles that are used to "damage" entites when an explosion happens
-        /// </summary>
-        /// <param name="DamageRadius"> Determines the radius of the damage projectiles explosion </param>
-        /// <param name="DamagePosition"> Determines the center point of the damage projectiles explosion </param>
-        /// <param name="Damage"> Stores the damage projectiles damage amount </param>
-        /// <param name="Knockback"> Stores the damage projectiles knockback amount </param>
-        /// <param name="projectileOwner"> Stores the owner who called the damage projectile </param>
-        public static void ExplosionDamage(float DamageRadius, Vector2 DamagePosition, int Damage, float Knockback, int projectileOwner) //Outdated*****
-        {
-            ExplosionDamageProjectile.DamageRadius = DamageRadius; //Sets the radius of the explosion
-            Projectile.NewProjectile(Player.GetSource_NaturalSpawn(), Vector2.Zero, Vector2.Zero, ProjectileType<ExplosionDamageProjectile>(), Damage, Knockback, projectileOwner, 0.0f, 0); //Spawns the damage projectile
-        }
-
-        /// <summary>
         /// This function deals damage within an area to the player when an explosion happens
         /// </summary>
         /// <param name="DamageRadius"> Determines the radius of the damage projectiles explosion </param>
         /// <param name="DamagePosition"> Determines the center point of the damage projectiles explosion </param>
         /// <param name="Damage"> Stores the damage projectiles damage amount </param>
         /// <param name="npc"> Stores the npc who spawned the projectile </param>
-        public static void ExplosionDamageEnemy(int DamageRadius, Vector2 DamagePosition, int Damage, int npc)
+        public static void ExplosionDamageByNPC(int DamageRadius, Vector2 DamagePosition, int Damage, int npc)
         {
             foreach (Player player in Main.player)
             {
@@ -171,7 +157,7 @@ namespace ExtraExplosives
 
         //from CosmivengeonMod:
         //spawns in a Projectile that is synced with the server
-        public static void SpawnProjectileSynced(Vector2 position, Vector2 velocity, int type, int damage, float knockback, float ai0 = 0f, float ai1 = 0f, int owner = 255)
+        public static void SpawnProjectileSynced(IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, float ai0 = 0f, float ai1 = 0f, int owner = 255)
         {
             if (owner == 255)
                 owner = Main.myPlayer;
@@ -179,12 +165,13 @@ namespace ExtraExplosives
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 // TODO wrong owner
-                int proj = Projectile.NewProjectile(Player.GetSource_None(), position, velocity, type, damage, knockback, owner, ai0, ai1);
+                int proj = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, owner, ai0, ai1);
 
                 NetMessage.SendData(MessageID.SyncProjectile, number: proj);
             }
         }
 
+        //Used for AOE debuff effects
         public static void InflictDubuff(int id, int radius, Vector2 position, bool ownerImmune = false, int owner = 255, int? dust = null, int time = 300)
         {
             foreach (NPC npc in Main.npc) // Get each npc

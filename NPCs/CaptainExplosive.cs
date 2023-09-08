@@ -113,7 +113,7 @@ namespace ExtraExplosives.NPCs
             CreateDust(NPC.Center, 100);
 
             //Create Bomb Damage
-            ExplosionDamageEnemy(25, NPC.Center, 1000, NPC.whoAmI);
+            ExplosionDamageByNPC(25, NPC.Center, 1000, NPC.whoAmI);
 
             //Create Bomb Explosion
             if (CanBreakTiles) CreateExplosion(NPC.Center, 12);

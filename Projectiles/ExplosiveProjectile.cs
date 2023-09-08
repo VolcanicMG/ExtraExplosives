@@ -17,7 +17,8 @@ namespace ExtraExplosives.Projectiles
         /// If this is true then the mod will add this projectile to the trinket avoid list. Returns false by default
         /// </summary>
         public bool IgnoreTrinkets = false;
-
+        public int explosionDamage { get; protected set; } // The damage of the explosion
+        public float explosionKnockback { get; protected set; } // The knockback of the explosion
         public bool InflictDamageSelf = true;
         public readonly bool Explosive = true;              // This marks the item as part of the explosive class
         public int radius = 0;                                  // Radius of the explosion
@@ -38,11 +39,18 @@ namespace ExtraExplosives.Projectiles
         {
             //constants throughout all bombs
             SafeSetDefaults();
-            // TODO Projectile.DamageType = DamageClass.Generic;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.minion = false;
             Projectile.netUpdate = true;
             DangerousSetDefaults();
+        }
 
+        //Captures the damage/knockback values before the AI or TML have a chance to change it so we can use that value for the hurt and strike methods
+        public override void OnSpawn(IEntitySource source)
+        {
+            explosionDamage = Projectile.damage;
+            explosionKnockback = Projectile.knockBack;
+            base.OnSpawn(source);
         }
 
         public override void AI()
@@ -58,6 +66,7 @@ namespace ExtraExplosives.Projectiles
         {
             if (IgnoreTrinkets && !firstTickPreAI)
             {
+                Main.NewText("PreAI");
                 ExtraExplosives.avoidList.Add(this.Projectile.type);
                 ExtraExplosives.avoidList.Distinct().ToList(); //Get rid of dupes because this will add one each time. (Need to find a spot after it gets it's id while loading)
                 firstTickPreAI = true;
@@ -67,7 +76,7 @@ namespace ExtraExplosives.Projectiles
 
         public virtual void DangerousSetDefaults()
         {
-            // Does nothing, this should be used to override the values locked by SetDefaults//////
+            // Does nothing, this should be used to override the values locked by SetDefaults
             // Only use if you need to since those values are set to ensure the bombs function as intended
         }
 
@@ -147,7 +156,7 @@ namespace ExtraExplosives.Projectiles
                             if (radius >= 35)
                             {
                                 // But it must be done on outside tiles to ensure propper updates so use it only on outermost tiles
-                                if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1 || Terraria.ID.TileID.Sets.Ore[tile.TileType])
+                                if (Math.Abs(x) >= radius - 1 || Math.Abs(y) >= radius - 1)
                                 {
                                     WorldGen.KillTile((int)(i), (int)(j), false, false, false);
 
@@ -187,8 +196,8 @@ namespace ExtraExplosives.Projectiles
                                 }
                             }
 
-                            //Check for double block breaking
-                            if (player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre)
+                            //Check for double block breaking on ores
+                            if (TileID.Sets.Ore[tile.TileType] && player.EE().DropOresTwice && Main.rand.NextFloat() <= player.EE().dropChanceOre)
                             {
                                 WorldGen.PlaceTile(i, j, type);
                                 WorldGen.KillTile((int)(i), (int)(j), false, false, false);
@@ -211,6 +220,7 @@ namespace ExtraExplosives.Projectiles
         /// </summary>
         public virtual void ExplosionEntityDamage()
         {
+            //Checking for NPCs
             if (Main.player[Projectile.owner].EE().ExplosiveCrit > Main.rand.Next(1, 101)) crit = true;
             foreach (NPC npc in Main.npc)
             {
@@ -218,14 +228,15 @@ namespace ExtraExplosives.Projectiles
                 if (dist / 16f <= radius)
                 {
                     int dir = (dist > 0) ? 1 : -1;
-                    if (!DamageReducedNps.Contains(npc.type))
+                    if (!DamageReducedNps.Contains(npc.type)) //Checking for NPC damage reduction
                     {
-                        npc.SimpleStrikeNPC(Projectile.damage, dir, crit, Projectile.knockBack);
+                        npc.SimpleStrikeNPC(explosionDamage, dir, crit, explosionKnockback);
                     }
-                    else npc.SimpleStrikeNPC(Projectile.damage - (int)(Projectile.damage * .5f), dir, crit, Projectile.knockBack);
+                    else npc.SimpleStrikeNPC(explosionDamage - (int)(explosionDamage * .5f), dir, crit, explosionKnockback);
                 }
             }
 
+            //Check for players
             foreach (Player player in Main.player)
             {
                 if (player == null || player.whoAmI == 255 || !player.active) return;
@@ -236,12 +247,12 @@ namespace ExtraExplosives.Projectiles
                 int dir = (dist > 0) ? 1 : -1;
                 if (dist / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer && InflictDamageSelf)
                 {
-                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir);
-                    player.hurtCooldowns[0] += 15;
+                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(explosionDamage * (crit ? 1.5 : 1)), dir, knockback: explosionKnockback);
+                    player.hurtCooldowns[0] += 15; //Delay hurt cooldown
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == Projectile.owner && InflictDamageSelf)
                 {
-                    //NetMessage.SendPlayerHurt(player.whoAmI, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit);
+                    //NetMessage.SendPlayerHurt(player.whoAmI, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(explosionDamage * (crit ? 1.5 : 1)), dir, crit);
                 }
             }
         }
@@ -250,8 +261,10 @@ namespace ExtraExplosives.Projectiles
         /// *DON'T USE IN Projectile.Kill() UNLESS YOU SET autoKill TO FALSE!*
         /// Used to cause the explosion with all the dust effects manually outside of Projectile.Kill()
         /// </summary>
-        /// <param name="sound">The sound</param>
-        /// <param name="tileDamage">Allow tile damage</param>
+        /// <param name="sound">The sound that will be played</param>
+        /// <param name="tileDamage">Whether or not you want tile damage</param>
+        /// <param name="autoKill">Whether or not the projectile auto kills after</param>
+        /// <param name="contact">*Use in the OnHitNPC method to get the contact target</param>
         public void ManualExplode(SoundStyle sound, bool tileDamage = false, bool autoKill = true, NPC contact = null)
         {
             //Create Bomb Sound
@@ -290,9 +303,9 @@ namespace ExtraExplosives.Projectiles
                     int dir = (dist > 0) ? 1 : -1;
                     if (!DamageReducedNps.Contains(npc.type))
                     {
-                        npc.SimpleStrikeNPC(Projectile.damage, dir, crit, Projectile.knockBack);
+                        npc.SimpleStrikeNPC(explosionDamage, dir, crit, Projectile.knockBack);
                     }
-                    else npc.SimpleStrikeNPC(Projectile.damage - (int)(Projectile.damage * .5f), dir, crit, Projectile.knockBack);
+                    else npc.SimpleStrikeNPC(explosionDamage - (int)(explosionDamage * .5f), dir, crit, Projectile.knockBack);
                 }
             }
 
@@ -306,12 +319,12 @@ namespace ExtraExplosives.Projectiles
                 int dir = (dist > 0) ? 1 : -1;
                 if (dist / 16f <= radius && Main.netMode == NetmodeID.SinglePlayer && InflictDamageSelf)
                 {
-                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir);
+                    player.Hurt(PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(explosionDamage * (crit ? 1.5 : 1)), dir);
                     player.hurtCooldowns[0] += 15;
                 }
                 else if (Main.netMode != NetmodeID.MultiplayerClient && dist / 16f <= radius && player.whoAmI == Projectile.owner && InflictDamageSelf)
                 {
-                    // TODO NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(Projectile.damage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
+                    // TODO NetMessage.SendPlayerHurt(Projectile.owner, PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI), (int)(explosionDamage * (crit ? 1.5 : 1)), dir, crit, pvp: true, 0);
                 }
             }
         }
