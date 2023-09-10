@@ -44,7 +44,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.noMelee = true;
             Item.value = Item.buyPrice(10, 1, 0, 50);
             Item.knockBack = 4f;
-            Item.rare = 11;
+            Item.rare = ItemRarityID.Purple;
             //Item.ranged = true;
         }
 

@@ -7,14 +7,6 @@ namespace ExtraExplosives.Items.Explosives
 {
     public class ReforgeBombItem : ExplosiveItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Reforge Bomb");
-            /* Tooltip.SetDefault("Reforge up to 3 items! \n" +
-                //"[c/32CD32:Press " + ExtraExplosives.TriggerUIReforge.GetAssignedKeys(InputMode.Keyboard)[0].ToString() + " to toggle reforge UI]\n" +
-                "Change/Set the hotkey within the settings. Default p"); */
-        }
-
         public override void SafeSetDefaults()
         {
             Item.damage = 0;     //The damage stat for the Weapon.
@@ -23,7 +15,7 @@ namespace ExtraExplosives.Items.Explosives
             Item.maxStack = 999;   //This defines the items max stack
             Item.consumable = true;  //Tells the game that this should be used up once fired
             Item.useStyle = ItemUseStyleID.Swing;   //The way your item will be used, 1 is the regular sword swing for example
-            Item.rare = 2;   //The color the title of your item when hovering over it ingame
+            Item.rare = ItemRarityID.Green;   //The color the title of your item when hovering over it ingame
             Item.UseSound = SoundID.Item1; //The sound played when using this item
             Item.useAnimation = 20;  //How long the item is used for.
                                      // item.useTime = 20;	 //How fast the item is used.

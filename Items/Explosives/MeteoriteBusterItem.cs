@@ -7,12 +7,6 @@ namespace ExtraExplosives.Items.Explosives
 {
     public class MeteoriteBusterItem : ExplosiveItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Meteorite Buster");
-            // Tooltip.SetDefault("Only targets meteorite");
-        }
-
         public override void SafeSetDefaults()
         {
             Item.damage = 450;   //The damage stat for the Weapon.
@@ -22,7 +16,7 @@ namespace ExtraExplosives.Items.Explosives
             Item.maxStack = 999;   //This defines the items max stack
             Item.consumable = true;  //Tells the game that this should be used up once fired
             Item.useStyle = ItemUseStyleID.Swing;   //The way your item will be used, 1 is the regular sword swing for example
-            Item.rare = 4;   //The color the title of your item when hovering over it ingame
+            Item.rare = ItemRarityID.LightRed;   //The color the title of your item when hovering over it ingame
             Item.UseSound = SoundID.Item1; //The sound played when using this item
             Item.useAnimation = 20;  //How long the item is used for.
                                      // item.useTime = 20;	 //How fast the item is used.

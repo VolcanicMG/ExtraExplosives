@@ -7,12 +7,6 @@ namespace ExtraExplosives.Items.Explosives
 {
     public class LandBridgeItem : ExplosiveItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("The Land Bridge");
-            // Tooltip.SetDefault("Explodes into a long bridge across the world");
-        }
-
         public override void SafeSetDefaults()
         {
             Item.damage = 0;     //The damage stat for the Weapon.
@@ -21,7 +15,7 @@ namespace ExtraExplosives.Items.Explosives
             Item.maxStack = 1;   //This defines the items max stack
             Item.consumable = true;  //Tells the game that this should be used up once fired
             Item.useStyle = ItemUseStyleID.Swing;   //The way your item will be used, 1 is the regular sword swing for example
-            Item.rare = 10;  //The color the title of your item when hovering over it ingame
+            Item.rare = ItemRarityID.Red;  //The color the title of your item when hovering over it ingame
             Item.UseSound = SoundID.Item1; //The sound played when using this item
             Item.useAnimation = 20;  //How long the item is used for.
                                      //item.useTime = 20;	 //How fast the item is used.

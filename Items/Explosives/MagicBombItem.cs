@@ -15,13 +15,6 @@ namespace ExtraExplosives.Items.Explosives
 
         protected override bool CloneNewInstances => true;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Magic Bomb");
-            /* Tooltip.SetDefault("It can be imbued with mana\n" +    // Not all mages cast spells lol
-                               "Right Click to increase its power"); */
-        }
-
         public override void SafeSetDefaults()
         {
             Item.damage = 100;

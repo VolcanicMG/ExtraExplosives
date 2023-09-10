@@ -7,12 +7,6 @@ namespace ExtraExplosives.Items.Explosives
 {
     public class HealBomb : ExplosiveItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Heal Bomb");
-            // Tooltip.SetDefault("Heals for 25 HP per hit");
-        }
-
         public override void SafeSetDefaults()
         {
             //item.damage = 70;	 //The damage stat for the Weapon.
