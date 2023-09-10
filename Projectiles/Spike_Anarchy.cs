@@ -5,11 +5,6 @@ namespace ExtraExplosives.Projectiles
 {
     internal class Spike_Anarchy : ModProjectile    // This is only used by CE as an attack, ignoring
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Spike_Anarchy");
-        }
-
         public override void SetDefaults()
         {
             Projectile.tileCollide = true;

@@ -17,12 +17,9 @@ namespace ExtraExplosives.Projectiles
         //private Mod ThoriumMod = ModLoader.GetMod("ThoriumMod");
         internal static bool CanBreakWalls;
         private SoundStyle phaseSound;
-        private ReLogic.Utilities.SlotId phaseSoundInstance;
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("PhaseBomb");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
             Main.projFrames[Projectile.type] = 10;
         }
 
@@ -58,19 +55,20 @@ namespace ExtraExplosives.Projectiles
         {
             //projectile.tileCollide = false;
 
-            //if (phaseSoundInstance == null)
-                //phaseSoundInstance = //SoundEngine.PlaySound(phaseSound);
+            // Not needed ?
+            /*if (SoundEngine.TryGetActiveSound(phaseSound.))
+                phaseSound = SoundEngine.PlaySound(phaseSound);*/
 
-            /* TODO if (phaseSoundInstance.State != SoundState.Playing)
-                phaseSoundInstance.Play();*/
+            if (!SoundEngine.FindActiveSound(phaseSound).IsPlaying)
+                SoundEngine.PlaySound(phaseSound);
 
             //Player player = Main.player[Projectile.owner];
 
-            /* TODO if (!Main.mouseLeft && Projectile.timeLeft <= 940)
+            if (!Main.mouseLeft && Projectile.timeLeft <= 940)
             {
-                phaseSoundInstance.Stop(true);
+                SoundEngine.FindActiveSound(phaseSound).Stop();
                 Projectile.Kill();
-            }*/
+            }
 
 
             if (++Projectile.frameCounter >= 5)

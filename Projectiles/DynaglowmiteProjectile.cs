@@ -13,11 +13,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Dynaglowmite_";
         protected override string goreName => "dynaglowmite_gore";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Dynaglowmite");
-        }
-
         public override void SafeSetDefaults()
         {
             pickPower = -2;
@@ -42,14 +37,12 @@ namespace ExtraExplosives.Projectiles
         public override void PostAI()
         {
             Lighting.AddLight(Projectile.position, new Vector3(.1f, 1f, 2.2f));
-            /* TODO Lighting.maxX = 10;
-            Lighting.maxY = 10;*/
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

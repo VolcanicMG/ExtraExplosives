@@ -27,15 +27,7 @@ namespace ExtraExplosives.Items.Explosives
             Item.shootSpeed = 5f; //This defines the projectile speed when shot
                                   //item.createTile = mod.TileType("ExplosiveTile");
         }
-
-        //public override bool UseItem(Player player)
-        //{
-        //	NPC.NewNPC((int)player.Center.X, (int)player.Center.Y + 20, mod.NPCType("Bow_Turret_AI"), 0, 0f, 0f, 0f, 0f, 255);
-        //	Main.NewText("Turret placed!", (byte)30, (byte)255, (byte)10, false);
-        //	Main.PlaySound(0, (int)player.position.X, (int)player.position.Y, 0);
-        //	return true;
-
-        //}
+        
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();

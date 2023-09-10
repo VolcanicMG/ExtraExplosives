@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
+using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.Shaders;
@@ -28,12 +29,7 @@ namespace ExtraExplosives.Projectiles
         private Vector2 positionToFreeze;
         private SoundStyle indicatorSound;
         private SoundStyle primedSound;
-        private SoundEffectInstance indicatorSoundInstance;
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("C4");
-        }
+        private SlotId indicatorSoundInstance;
 
         public override void SafeSetDefaults()
         {
@@ -48,23 +44,23 @@ namespace ExtraExplosives.Projectiles
             Projectile.timeLeft = Int32.MaxValue;
             //projectile.extraUpdates = 1;
             //Terraria.ModLoader.SoundType customType = Terraria.ModLoader.SoundType.Custom;
-            /*indicatorSound = new SoundStyle(explodeSoundsLoc + "timer");
-            primedSound = new SoundStyle(explodeSoundsLoc + "time_to_explode");
-            if (!Main.dedServ && indicatorSound != null || primedSound != null) //Checking for nulls might fix the error
+            indicatorSound = new SoundStyle(explodeSoundsLoc + "timer").WithPitchOffset(0f).WithVolumeScale(0.5f);
+            primedSound = new SoundStyle(explodeSoundsLoc + "time_to_explode").WithPitchOffset(0f).WithVolumeScale(0.5f);
+            /*if (!Main.dedServ && indicatorSound != null || primedSound != null) //Checking for nulls might fix the error
             {
-                /* TODO not working indicatorSound = indicatorSound.WithPitchVariance(0f).WithVolume(0.5f);
-                primedSound = primedSound.WithPitchVariance(0f).WithVolume(0.5f);#1#
+                indicatorSound = indicatorSound.WithPitchVariance(0f).WithVolume(0.5f);
+                primedSound = primedSound.WithPitchVariance(0f).WithVolume(0.5f);
             }
             else if (indicatorSound != null || primedSound != null)
             {
                 indicatorSound = new SoundStyle(explodeSoundsLoc + "timer");
                 primedSound = new SoundStyle(explodeSoundsLoc + "time_to_explode");
-            }
+            }*/
             explodeSounds = new SoundStyle[4];
             for (int num = 1; num <= explodeSounds.Length; num++)
             {
                 explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + "Bomb_" + num);
-            }*/
+            }
         }
 
         public override bool OnTileCollide(Vector2 old)
@@ -85,7 +81,7 @@ namespace ExtraExplosives.Projectiles
             return false;
         }
 
-        /*public override void PostAI()
+        public override void PostAI()
         {
             switch (projState)
             {
@@ -98,10 +94,9 @@ namespace ExtraExplosives.Projectiles
                 case C4State.Frozen:
                     Projectile.position = positionToFreeze;
                     Projectile.velocity = Vector2.Zero;
-                    if (indicatorSoundInstance == null)
-                        /*indicatorSoundInstance = #1#//SoundEngine.PlaySound(indicatorSound);
-                    else if (indicatorSoundInstance.State != SoundState.Playing)    // else if needed to avoid a NullReferenceException
-                        indicatorSoundInstance.Play();
+                    if (!indicatorSoundInstance.IsValid)
+                        indicatorSoundInstance = SoundEngine.PlaySound(indicatorSound);
+                    //else indicatorSoundInstance;
                     if (c4Owner != null && c4Owner.detonate)
                     {
                         projState = C4State.Primed;
@@ -120,7 +115,7 @@ namespace ExtraExplosives.Projectiles
                     Projectile.Kill();
                     break;
             }
-        }*/
+        }
 
         public override void Kill(int timeLeft)
         {

@@ -32,12 +32,8 @@ namespace ExtraExplosives.Projectiles
         {
             //add lighting
             Lighting.AddLight(Projectile.position, new Vector3(255f, 255f, 255f));
-            /* TODO Lighting.maxX = 100;
-            Lighting.maxY = 100;*/
 
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center); //Sound Effect
-            //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/Flashbang")); //Custom Sound Effect
-
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center); //Sound Effect
 
             //Projectile.NewProjectile(projectile.Center.X - 450, projectile.Center.Y, 0, 0, ModContent.ProjectileType<InvisFlashbangProjectile>(), 1, 0, projectile.owner, 0.0f, 0); //Left
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<InvisFlashbangProjectile>(), 1, 1, Projectile.owner, 0.0f, 0);

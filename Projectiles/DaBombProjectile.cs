@@ -16,11 +16,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreName => "n/a";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("DaBomb");
-        }
-
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;
@@ -54,7 +49,7 @@ namespace ExtraExplosives.Projectiles
             Player player = Main.player[Projectile.owner];
 
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Dust
             ExplosionDust(radius, player.Center, new Color(255, 255, 255), new Color(189, 24, 22), 1);

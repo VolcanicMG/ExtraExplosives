@@ -20,12 +20,7 @@ namespace ExtraExplosives.Projectiles
             get => Projectile.localAI[0];
             set => Projectile.localAI[0] = value;
         }
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("HeavyBomb");
-        }
-
+        
         public override void SafeSetDefaults()
         {
             pickPower = 50;
@@ -60,7 +55,7 @@ namespace ExtraExplosives.Projectiles
                 Projectile.velocity.Y = -0.8f * old.Y;
                 if (Projectile.velocity.Y > 10) Projectile.velocity.Y = 10;
                 //Create Bomb Sound
-                //SoundEngine.PlaySound(SoundID.Item37, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item37, Projectile.Center);
 
                 //Create Bomb Damage
                 ExplosionEntityDamage();
@@ -113,7 +108,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
 
             radius = 20;

@@ -13,11 +13,6 @@ namespace ExtraExplosives.Projectiles
         protected override string goreName => "breaken-the-banken_gore";
         private const int PickPower = 0;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("BreakenTheBanken");
-        }
-
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;
@@ -39,7 +34,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

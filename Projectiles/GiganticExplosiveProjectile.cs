@@ -13,11 +13,6 @@ namespace ExtraExplosives.Projectiles
         private SoundStyle fuseSound;
         private bool fusePlayed = false;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("GiganticExplosive");
-        }
-
         public override void SafeSetDefaults()
         {
             pickPower = 70;
@@ -47,7 +42,7 @@ namespace ExtraExplosives.Projectiles
         {
             if (!fusePlayed)
             {
-                //SoundEngine.PlaySound(fuseSound);
+                SoundEngine.PlaySound(fuseSound, Projectile.Center);
                 fusePlayed = true;
             }
             Projectile.rotation = 0;
@@ -56,7 +51,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], Projectile.Center);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 

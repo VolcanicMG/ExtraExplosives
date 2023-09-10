@@ -10,12 +10,6 @@ namespace ExtraExplosives.Items.Weapons
     {
         private int fireSpeed = 15;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Rocket Minigun");
-            // Tooltip.SetDefault("Uses up a lot of rockets");
-        }
-
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.Shoot;

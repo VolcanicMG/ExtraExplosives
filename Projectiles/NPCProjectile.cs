@@ -12,11 +12,6 @@ namespace ExtraExplosives.Projectiles
         private const int PickPower = 0;
         private int Radius = 6;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("NPCProjectile");
-        }
-
         public override void SetDefaults()
         {
             Projectile.tileCollide = true;
@@ -54,7 +49,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Damage
             //ExplosionDamage(5f * 2f, projectile.Center, 150, 40, projectile.owner);

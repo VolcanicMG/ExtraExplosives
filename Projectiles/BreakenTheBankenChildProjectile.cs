@@ -7,11 +7,6 @@ namespace ExtraExplosives.Projectiles
 {
     public class BreakenTheBankenChildProjectile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("BreakenTheBankenChild");
-        }
-
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.GoldCoin);

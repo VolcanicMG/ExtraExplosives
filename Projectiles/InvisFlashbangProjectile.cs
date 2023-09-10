@@ -10,11 +10,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreName => "n/a";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("InvisFlashbangProjectile");
-        }
-
         public override void SafeSetDefaults()
         {
             Projectile.width = 10;

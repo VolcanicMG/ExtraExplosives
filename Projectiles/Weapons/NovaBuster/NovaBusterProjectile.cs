@@ -12,10 +12,6 @@ namespace ExtraExplosives.Projectiles.Weapons.NovaBuster
     {
         private int radius = 10;
         private bool crit;
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("NovaBuster");
-        }
 
         public override void SetDefaults()
         {
@@ -35,7 +31,7 @@ namespace ExtraExplosives.Projectiles.Weapons.NovaBuster
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             ExplosionDust(radius, Projectile.Center, shake: false);
             ExplosionDamage();

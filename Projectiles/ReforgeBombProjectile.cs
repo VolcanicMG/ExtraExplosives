@@ -16,12 +16,6 @@ namespace ExtraExplosives.Projectiles
         protected override string goreName => "n/a";
         internal static bool CanBreakWalls;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("ReforgeBomb");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
-        }
-
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;
@@ -59,7 +53,7 @@ namespace ExtraExplosives.Projectiles
             }
             //Item.NewItem(position, new Vector2(20, 20), ItemID.GoldAxe, 1, false, -2);
 
-            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], new Vector2(position.X, position.Y));
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], Projectile.Center);
 
             for (int i = 0; i < 100; i++) //spawn dust
             {

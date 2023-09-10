@@ -14,11 +14,6 @@ namespace ExtraExplosives.Projectiles
         protected override string goreName => "n/a";
         private bool HitSomeThing;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("BOOMerang");
-        }
-
         public override void DangerousSetDefaults()
         {
             radius = 5;

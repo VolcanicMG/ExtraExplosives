@@ -12,11 +12,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/House_Bomb_";
         protected override string goreName => "house_gore";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("HouseBomb");
-        }
-
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;

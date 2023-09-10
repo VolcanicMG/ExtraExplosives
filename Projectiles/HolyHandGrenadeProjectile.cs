@@ -23,11 +23,6 @@ namespace ExtraExplosives.Projectiles
 
         private bool triggered;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Holy Hand Grenade");
-        }
-
         public override void SafeSetDefaults()
         {
             pickPower = 50;
@@ -39,11 +34,11 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 400;
-            //explodeSounds = new SoundStyle[3];
-            /*for (int num = 1; num <= explodeSounds.Length; num++)
+            explodeSounds = new SoundStyle[3];
+            for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                //explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
-            }*/
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
+            }
         }
 
         public override void AI()
@@ -64,7 +59,7 @@ namespace ExtraExplosives.Projectiles
                     Projectile.alpha = 255; // Make the projectile invisible.
 
                     //Create Bomb Sound
-                    ////SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+                    SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], Projectile.Center);
 
                     //Create Bomb Dust
                     DustEffects();

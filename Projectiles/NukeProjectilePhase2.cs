@@ -20,7 +20,6 @@ namespace ExtraExplosives.Projectiles
         //SoundEffectInstance soundPlane;
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Plane");
             Main.projFrames[Projectile.type] = 4;
         }
 
@@ -55,7 +54,7 @@ namespace ExtraExplosives.Projectiles
 
             if (!firstTick)
             {
-                //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/air-raid"));
+                SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/air-raid"));
 
                 FirstPos = Projectile.position;
 

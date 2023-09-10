@@ -15,12 +15,6 @@ namespace ExtraExplosives.Projectiles
 
         internal static bool CanBreakWalls;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("The Leveler");
-            //Tooltip.SetDefault("");
-        }
-
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;
@@ -58,7 +52,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], new Vector2(Projectile.Center.X, Projectile.Center.Y));
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], Projectile.Center);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 

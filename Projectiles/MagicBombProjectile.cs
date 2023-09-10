@@ -11,10 +11,6 @@ namespace ExtraExplosives.Projectiles
     {
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreName => "magic_gore";
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Magic Bomb");
-        }
 
         public override void SafeSetDefaults()
         {
@@ -26,7 +22,7 @@ namespace ExtraExplosives.Projectiles
         {
             Mod.Logger.DebugFormat("Damage {0}", Projectile.damage);
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Damage
             ExplosionEntityDamage();

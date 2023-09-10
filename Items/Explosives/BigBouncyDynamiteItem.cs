@@ -7,12 +7,6 @@ namespace ExtraExplosives.Items.Explosives
 {
     public class BigBouncyDynamiteItem : ExplosiveItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Big Bouncy Dynamite");
-            // Tooltip.SetDefault("Spawns in multiple bouncy dynamite.");
-        }
-
         public override void SafeSetDefaults()
         {
             Item.damage = 300;   //The damage stat for the Weapon.

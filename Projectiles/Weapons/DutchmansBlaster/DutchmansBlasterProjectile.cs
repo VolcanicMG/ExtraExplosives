@@ -10,11 +10,6 @@ namespace ExtraExplosives.Projectiles.Weapons.DutchmansBlaster
         protected override string explodeSoundsLoc { get; } = "n/a";
         protected override string goreName { get; } = "n/a";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Cannon Ball");
-        }
-
         public override void SafeSetDefaults()
         {
             //We want pierce so use the bullet
