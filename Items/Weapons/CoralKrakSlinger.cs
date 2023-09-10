@@ -18,7 +18,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
             Item.useAnimation = 21;
             Item.useTime = 21;

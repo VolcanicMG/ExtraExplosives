@@ -37,7 +37,7 @@ namespace ExtraExplosives.Items.Explosives
             Item.maxStack = 99;
             Item.useAnimation = 40;
             Item.useTime = 40;
-            Item.useStyle = 4;
+            Item.useStyle = ItemUseStyleID.HoldUp;
             //item.mana = 10;
             Item.channel = true;
         }

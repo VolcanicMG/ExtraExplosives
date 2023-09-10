@@ -19,7 +19,7 @@ namespace ExtraExplosives.Items
         {
             Item.useAnimation = 45;
             Item.useTime = 45;
-            Item.useStyle = 4;
+            Item.useStyle = ItemUseStyleID.HoldUp;
             Item.width = 30;    //sprite width
             Item.height = 16;   //sprite height
             Item.maxStack = 20;   //This defines the items max stack

@@ -31,7 +31,7 @@ namespace ExtraExplosives.Items.Explosives
         public override void SafeSetDefaults()
         {
             //item.CloneDefaults(167);
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.shootSpeed = 4f;
             Item.width = 8;
             Item.height = 28;

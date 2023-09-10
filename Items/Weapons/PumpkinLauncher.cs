@@ -22,7 +22,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override void SafeSetDefaults()
         {
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
             Item.useAnimation = 12;
             Item.useTime = 4;

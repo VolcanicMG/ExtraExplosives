@@ -404,3 +404,5 @@ obj/project.nuget.cache
 
 .idea/
 
+
+Properties/launchSettings.json
