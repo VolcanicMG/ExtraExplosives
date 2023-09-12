@@ -34,12 +34,11 @@ namespace ExtraExplosives.Items.Armors.Lizhard
             player.setBonus = "\n" +
                 "8% Increased Bomb Damage\n" +
                 "6% Increased Blast Radius\n" +
-                "7% Increased Damage\n" +
                 "8% Increased Critical Strike Chance\n" +
-                "Press " + ExtraExplosives.TriggerLizhard.GetAssignedKeys(InputMode.Keyboard)[0] + " to fire a spread of 7 sun rockets \n 10s Cooldown";
+                "Press " + ExtraExplosives.TriggerLizhard.GetAssignedKeys(InputMode.Keyboard)[0] + " to fire a spread of 7 sun rockets \n" +
+                "10s Cooldown";
             player.EE().RadiusMulti += .06f;
             player.EE().DamageMulti += .08f;
-            //player.allDamage += .07f;
             player.EE().ExplosiveCrit += 8;
             player.EE().Lizhard = true;
         }
