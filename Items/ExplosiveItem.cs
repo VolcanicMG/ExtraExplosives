@@ -47,7 +47,8 @@ namespace ExtraExplosives.Items
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage.Base += player.EE().DamageBonus * player.EE().DamageMulti;
+            damage *= player.EE().DamageMulti;
+            damage.Flat += player.EE().DamageBonus;
         }
 
         public override void ModifyWeaponKnockback(Player player, ref StatModifier knockback)

@@ -110,8 +110,8 @@ Mods: {
 				DisplayName: Reactive Plating
 				Tooltip:
 					'''
-					Increases explosive damage by 10%
-					Reduces damage taken by 10%
+					Increases explosive damage by your defense
+					Reduces damage taken by 5%
 					'''
 			}
 

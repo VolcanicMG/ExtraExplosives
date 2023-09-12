@@ -671,7 +671,6 @@ namespace ExtraExplosives
                                         spedY = Main.rand.Next(15) - 7;
                                         if (spedX == 0) spedX = 1;
                                         if (spedY == 0) spedY = 1;
-                                        //if (++cntr <= 100) Projectile.NewProjectile(position.X + x, position.Y + y, spedX, spedY, (int)projectile.knockBack, (int)((projectile.damage + Main.player[projectile.owner].EE().DamageBonus) * Main.player[projectile.owner].EE().DamageMulti), 20, projectile.owner, 0.0f, 0);
                                         if (++cntr <= 20) Projectile.NewProjectile(projectile.GetSource_FromThis(), position.X + x, position.Y + y, spedX, spedY, proj, (int)((playerRad.EE().DamageBonus + CustomDamage) * playerRad.EE().DamageMulti), 2, projectile.owner, 0.0f, 0);
                                     }
                                     else
