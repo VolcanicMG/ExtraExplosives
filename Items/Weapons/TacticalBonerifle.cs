@@ -15,12 +15,6 @@ namespace ExtraExplosives.Items.Weapons
 
         protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/TacticalBonerifle/TacticalBonerifle";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Tactical Bonerifle");
-            // Tooltip.SetDefault("Doot. Doot. Shoot.");
-        }
-
         public override void SafeSetDefaults()
         {
             Item.autoReuse = true;
@@ -40,19 +34,17 @@ namespace ExtraExplosives.Items.Weapons
             Item.knockBack = 4f;
             Item.rare = ItemRarityID.Yellow;
 
-            /*PrimarySounds = new LegacySoundStyle[4];
-            SecondarySounds = new LegacySoundStyle[4];
+             PrimarySounds = new SoundStyle[4];
+             SecondarySounds = new SoundStyle[4];
 
-            for (int n = 1; n <= PrimarySounds.Length; n++)
-            {
-                PrimarySounds[n - 1] =
-                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Primary" + n);
-            }
-            for (int n = 1; n <= SecondarySounds.Length; n++)
-            {
-                SecondarySounds[n - 1] =
-                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Secondary" + n);
-            }*/
+             for (int n = 1; n <= PrimarySounds.Length; n++)
+             {
+                 PrimarySounds[n - 1] = new SoundStyle(SoundLocation + "Primary" + n);
+             }
+             for (int n = 1; n <= SecondarySounds.Length; n++)
+             {
+                 SecondarySounds[n - 1] = new SoundStyle(SoundLocation + "Secondary" + n);
+             }
         }
 
         public override void DangerousSetDefaults()
@@ -95,13 +87,11 @@ namespace ExtraExplosives.Items.Weapons
             switch (Item.useAmmo)
             {
                 case 97:    // Bullet
-                            //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                    //(int)player.position.X, (int)player.position.Y);
+                    SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)], position);
                     Projectile.NewProjectile(source, position, new Vector2(speedX, speedY), type, damage, knockback, player.whoAmI);
                     break;
                 case 771:    // Rocket
-                             //SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)],
-                    //(int)player.position.X, (int)player.position.Y);
+                    SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)], position);
                     Projectile.NewProjectile(source, position, new Vector2(speedX, speedY), ProjectileID.Grenade, damage, knockback, player.whoAmI);
                     break;
                 default:
@@ -138,7 +128,7 @@ namespace ExtraExplosives.Items.Weapons
                 Item.damage = 40;
                 Item.knockBack = 7;
                 //Main.NewText("Bone Launcher");
-                ////SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                SoundEngine.PlaySound(SoundID.MenuTick, player.position);
             }
             else
             {
@@ -150,7 +140,7 @@ namespace ExtraExplosives.Items.Weapons
                 Item.damage = 35;
                 Item.knockBack = 3.5f;
                 // Main.NewText("Bone Rifle");
-                ////SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                SoundEngine.PlaySound(SoundID.MenuTick, player.position);
             }
 
             return false;

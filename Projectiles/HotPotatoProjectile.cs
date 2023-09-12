@@ -20,11 +20,6 @@ namespace ExtraExplosives.Projectiles
 
         protected override bool CloneNewInstances => true;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Hot Potato");
-        }
-
         public override void SafeSetDefaults()
         {
             pickPower = 0;
@@ -125,7 +120,7 @@ namespace ExtraExplosives.Projectiles
             }
 
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Since these values change as the timer ticks down, they need to be set immedietly before an explosion
             // To ensure they are accurate

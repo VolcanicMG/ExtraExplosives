@@ -13,11 +13,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreName => "critter_gore";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("CritterBomb");
-        }
-
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;
@@ -35,7 +30,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

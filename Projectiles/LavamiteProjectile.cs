@@ -13,11 +13,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Lavamite_";
         protected override string goreName => "lavamite-hydromite_gore";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Lavamite");
-        }
-
         public override void SafeSetDefaults()
         {
             radius = 10;
@@ -38,14 +33,12 @@ namespace ExtraExplosives.Projectiles
         public override void PostAI()
         {
             Lighting.AddLight(Projectile.position, new Vector3(2.2f, 1f, .1f));
-            /* TODO more lighting Lighting.maxX = 10;
-            Lighting.maxY = 10;*/
         }
 
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], Projectile.Center);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

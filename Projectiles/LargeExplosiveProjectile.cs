@@ -13,11 +13,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Large_Explosive_";
         protected override string goreName => "basic-explosive_gore";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("LargeExplosive");
-        }
-
         public override void SafeSetDefaults()
         {
             pickPower = 50;
@@ -39,7 +34,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], Projectile.Center);
 
             //Create Bomb Dust
             DustEffects();

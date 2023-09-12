@@ -13,12 +13,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Arena_Bomb_";
         protected override string goreName => "n/a";
         private const int PickPower = 70;
-        // private LegacySoundStyle[] explodeSounds;
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("ArenaBuilder");
-        }
 
         public override void SafeSetDefaults()
         {
@@ -57,8 +51,8 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            ////SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
-            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], (int)Projectile.Center.X, (int)Projectile.Center.Y);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], Projectile.Center);
 
             /* ===== ABOUT THE BOMB SOUND =====
 			 * 

@@ -13,11 +13,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreName => "meteorite-buster_gore";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("MeteoriteBuster");
-        }
-
         public override void SafeSetDefaults()
         {
             pickPower = 50;
@@ -34,7 +29,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             ExplosionTileDamage();
 

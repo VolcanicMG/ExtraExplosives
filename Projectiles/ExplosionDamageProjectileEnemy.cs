@@ -13,11 +13,6 @@ namespace ExtraExplosives.Projectiles
 
         public override string Texture { get; } = "ExtraExplosives/Projectiles/InvisibleProjectile";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("ExplosionDamage");
-        }
-
         public override void SafeSetDefaults()
         {
             Projectile.tileCollide = false;

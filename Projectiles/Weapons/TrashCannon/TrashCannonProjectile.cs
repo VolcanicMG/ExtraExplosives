@@ -12,7 +12,6 @@ namespace ExtraExplosives.Projectiles.Weapons.TrashCannon
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Garbage");    // Name used in death messages
             Main.projFrames[Projectile.type] = 12;
         }
 

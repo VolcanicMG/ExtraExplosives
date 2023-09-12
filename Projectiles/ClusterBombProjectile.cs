@@ -17,11 +17,6 @@ namespace ExtraExplosives.Projectiles
 
         internal static bool CanBreakWalls;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("ClusterBomb");
-            //Tooltip.SetDefault("Your one stop shop for all your turretaria needs.");
-        }
 
         public override void SafeSetDefaults()
         {
@@ -39,7 +34,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Dust
             DustEffects();

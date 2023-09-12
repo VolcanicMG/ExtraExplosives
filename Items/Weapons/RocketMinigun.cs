@@ -10,15 +10,9 @@ namespace ExtraExplosives.Items.Weapons
     {
         private int fireSpeed = 15;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Rocket Minigun");
-            // Tooltip.SetDefault("Uses up a lot of rockets");
-        }
-
         public override void SetDefaults()
         {
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
             Item.useAnimation = fireSpeed;
             Item.useTime = fireSpeed;
@@ -34,7 +28,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.noMelee = true;
             Item.value = Item.buyPrice(0, 15, 0, 50);
             Item.knockBack = 4f;
-            Item.rare = 10;
+            Item.rare = ItemRarityID.Red;
             //Item.ranged = true;
         }
 

@@ -25,8 +25,8 @@ namespace ExtraExplosives.Items
             Item.height = 20;   //sprite height
             Item.maxStack = 1;   //This defines the items max stack
             Item.consumable = true;  //Tells the game that this should be used up once fired
-            Item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example
-            Item.rare = 11;  //The color the title of your item when hovering over it ingame
+            Item.useStyle = ItemUseStyleID.Swing;   //The way your item will be used, 1 is the regular sword swing for example
+            Item.rare = ItemRarityID.Purple;  //The color the title of your item when hovering over it ingame
             Item.UseSound = SoundID.Item1; //The sound played when using this item
             Item.useAnimation = 20;  //How long the item is used for.
                                      // item.useTime = 20;	 //How fast the item is used.

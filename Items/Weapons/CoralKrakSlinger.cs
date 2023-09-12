@@ -10,15 +10,9 @@ namespace ExtraExplosives.Items.Weapons
 {
     public class CoralKrakSlinger : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Coral Krak-Slinger");
-            // Tooltip.SetDefault("'Improvised, but deadly'");
-        }
-
         public override void SetDefaults()
         {
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
             Item.useAnimation = 21;
             Item.useTime = 21;

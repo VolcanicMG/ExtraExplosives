@@ -10,19 +10,11 @@ namespace ExtraExplosives.Items.Weapons
 {
     public class PumpkinLauncher : ExplosiveWeapon
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Bombkin 2000");
-            /* Tooltip.SetDefault("These pumpkins are NOT safe around open flames\n" +
-                               "Launches three rockets in quick succession\n" +
-                               "Consumes one rocket per burst"); */
-        }
-
-        protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";
+        protected override string SoundLocation { get; } = "";
 
         public override void SafeSetDefaults()
         {
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
             Item.useAnimation = 12;
             Item.useTime = 4;

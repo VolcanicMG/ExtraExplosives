@@ -9,11 +9,6 @@ namespace ExtraExplosives.Projectiles
 {
     public class InstaBoxProjectile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("InstaBoxProjectile");
-        }
-
         public override void SetDefaults()
         {
             Projectile.tileCollide = true;
@@ -29,7 +24,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

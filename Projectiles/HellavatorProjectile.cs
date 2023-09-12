@@ -13,11 +13,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "ExtraExplosives/Assets/Sounds/Custom/Explosives/Hellavator_1";
         protected override string goreName => "hellevator_gore";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Hellavator Projectile");
-        }
-
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;
@@ -49,7 +44,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(explodeSounds[0]);
+            SoundEngine.PlaySound(explodeSounds[0]);
 
             //Create Bomb Damage
             //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);

@@ -23,11 +23,6 @@ namespace ExtraExplosives.Projectiles
 
         private bool triggered;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Holy Hand Grenade");
-        }
-
         public override void SafeSetDefaults()
         {
             pickPower = 50;
@@ -39,11 +34,11 @@ namespace ExtraExplosives.Projectiles
             Projectile.friendly = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 400;
-            //explodeSounds = new SoundStyle[3];
-            /*for (int num = 1; num <= explodeSounds.Length; num++)
+            explodeSounds = new SoundStyle[3];
+            for (int num = 1; num <= explodeSounds.Length; num++)
             {
-                //explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
-            }*/
+                explodeSounds[num - 1] = new SoundStyle(explodeSoundsLoc + num);
+            }
         }
 
         public override void AI()
@@ -56,7 +51,7 @@ namespace ExtraExplosives.Projectiles
             {
                 if (Main.netMode != NetmodeID.Server && !Filters.Scene["Shockwave"].IsActive())
                 {
-                    Filters.Scene.Activate("Shockwave", Projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(Projectile.Center);
+                    //Filters.Scene.Activate("Shockwave", Projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(Projectile.Center);
                 }
 
                 if (!triggered) //So it only runs once while in AI()
@@ -64,7 +59,7 @@ namespace ExtraExplosives.Projectiles
                     Projectile.alpha = 255; // Make the projectile invisible.
 
                     //Create Bomb Sound
-                    ////SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+                    SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], Projectile.Center);
 
                     //Create Bomb Dust
                     DustEffects();
@@ -79,7 +74,7 @@ namespace ExtraExplosives.Projectiles
                 if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
                 {
                     float progress = (timeLeft - Projectile.timeLeft) / 60f;
-                    Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
+                    //Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
                 }
             }
         }
@@ -88,7 +83,7 @@ namespace ExtraExplosives.Projectiles
         {
             if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
             {
-                Filters.Scene["Shockwave"].Deactivate();
+                //Filters.Scene["Shockwave"].Deactivate();
             }
         }
 

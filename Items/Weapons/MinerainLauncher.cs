@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,13 +11,7 @@ namespace ExtraExplosives.Items.Weapons
 {
     public class MinerainLauncher : ExplosiveWeapon
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Minerain-Launcher");
-            // Tooltip.SetDefault("'Today's Forcast; Cloudy with a chance of death from above'");
-        }
-
-        protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/DeepseaEruption/DeepseaEruption";
+        protected override string SoundLocation { get; } = "";
 
         public override void SafeSetDefaults()
         {
@@ -32,7 +27,8 @@ namespace ExtraExplosives.Items.Weapons
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item11;
             Item.autoReuse = true;
-            Item.shoot = 134; //idk why but all the guns in the vanilla source have this
+            // check
+            Item.shoot = ProjectileID.RocketI;
             Item.shootSpeed = 10;
             Item.useAmmo = AmmoID.Rocket;
         }

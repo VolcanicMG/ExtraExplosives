@@ -12,11 +12,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreName => "basic-explosive_gore"; //TODO - needs gores
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Boom Box");
-        }
-
         public override void SafeSetDefaults()
         {
             Projectile.tileCollide = true;

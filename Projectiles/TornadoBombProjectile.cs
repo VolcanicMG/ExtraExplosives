@@ -15,7 +15,6 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Tornado");
             Main.projFrames[Projectile.type] = 5;
         }
 
@@ -50,7 +49,7 @@ namespace ExtraExplosives.Projectiles
 
             if (Projectile.ai[1] >= 300f && !done)
             {
-                //SoundEngine.PlaySound(SoundID.DoubleJump, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.DoubleJump, Projectile.Center);
 
                 if (Projectile.ai[1] >= 1f && !done)
                 {
@@ -58,7 +57,7 @@ namespace ExtraExplosives.Projectiles
                     NetMessage.SendData(MessageID.SyncProjectile, number: num328);
                     Main.projectile[num328].netUpdate = true;
 
-                    //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/Tornado"));
+                    SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/Tornado"), Projectile.Center);
                 }
 
                 done = true;
@@ -70,7 +69,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             int num324 = 36;
             for (int num325 = 0; num325 < num324; num325++)
             {

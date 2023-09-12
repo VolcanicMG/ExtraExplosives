@@ -15,11 +15,6 @@ namespace ExtraExplosives.Projectiles
         protected override string goreName => "n/a";
         private int[] dustsToSpawn;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("CleanBomb");
-        }
-
         public override void SafeSetDefaults()
         {
             IgnoreTrinkets = true;
@@ -59,7 +54,7 @@ namespace ExtraExplosives.Projectiles
             Vector2 center = Projectile.Center;
 
             //Create bomb sound
-            //SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
+            SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)]);
 
             //Create bomb dust
             CreateDust(center, (int)(Radius / 3f));

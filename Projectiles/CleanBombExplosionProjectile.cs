@@ -11,11 +11,6 @@ namespace ExtraExplosives.Projectiles
         private List<int> buffExceptions = new List<int>();
         private int buffCount = 206;        // NEEDS TO BE UPDATED WHEN TMODLOADER SUPPORTS V1.4
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("CleanBombExplosionProjectile");
-        }
-
         public override void SetDefaults()
         {
             Projectile.tileCollide = false;

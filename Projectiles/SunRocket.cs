@@ -15,11 +15,6 @@ namespace ExtraExplosives.Projectiles
 
         private bool firstTick;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Sun Rocket");
-        }
-
         public override void SafeSetDefaults()
         {
             radius = 4;
@@ -164,7 +159,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             Projectile.knockBack = 20;  // Since no calling item exists, knockback must be set internally	(Set in Hellfire Rocket Battery)
             ExplosionEntityDamage();

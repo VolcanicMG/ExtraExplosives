@@ -12,11 +12,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreName => "basic-explosive_gore";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Heal Bomb");
-        }
-
         public override void SafeSetDefaults()
         {
             pickPower = 0;
@@ -36,7 +31,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, Projectile.Center);
 
             //Create Bomb Dust
             CreateDust(Projectile.Center, radius + 50);

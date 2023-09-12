@@ -11,12 +11,6 @@ namespace ExtraExplosives.Items.Weapons
 {
     public class NovaBuster : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Nova Buster");
-            // Tooltip.SetDefault("20% Chance to double blast Damage");
-        }
-
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -37,6 +31,7 @@ namespace ExtraExplosives.Items.Weapons
             //Item.ranged = true;
         }
 
+        // check, isnt this done in the hjson?
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine ColoredTooltip = new TooltipLine(Mod, "ExtraTooltip", $"'The death of a star compressed into a single weapon'");

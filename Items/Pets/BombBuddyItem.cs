@@ -20,7 +20,7 @@ namespace ExtraExplosives.Items.Pets
             Item.CloneDefaults(ItemID.Carrot);
             Item.shoot = ModContent.ProjectileType<BombBuddy>();
             Item.value = Item.buyPrice(1, 0, 0, 0);
-            Item.rare = 9;
+            Item.rare = ItemRarityID.Cyan;
             Item.buffType = ModContent.BuffType<BombBuddyBuff>();
             Item.maxStack = 1;
         }

@@ -18,12 +18,7 @@ namespace ExtraExplosives.Projectiles
         private bool firstTick;
 
         private const int pickPower = 250;
-        private ReLogic.Utilities.SlotId sound;
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("NukeExplosive");
-        }
+        private SoundStyle sound;
 
         public override void SetDefaults()
         {
@@ -48,7 +43,9 @@ namespace ExtraExplosives.Projectiles
                 if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
                 {
                     // TODO this works but is wrong
-                    //sound = //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/wizz"));
+                    // We want everyone to hear the sound since everyone is going to be hit by the explosion
+                    sound = new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/wizz");
+                    SoundEngine.PlaySound(sound);
                     
                 }
 
@@ -79,9 +76,9 @@ namespace ExtraExplosives.Projectiles
 
             //Stop the sound
             if (Main.netMode != NetmodeID.Server &&  // This all needs to happen client-side!
-                sound != null)                       // If the sound is null (the game is muted) just skip this step to avoid a crash
+                SoundEngine.FindActiveSound(sound).IsPlaying)                       // If the sound is null (the game is muted) just skip this step to avoid a crash
             {
-                ; // TODO make the sound stop here, no idea how tho
+                SoundEngine.FindActiveSound(sound).Stop();
             }
 
             //Deal 10k damage to everything in the game
@@ -120,7 +117,7 @@ namespace ExtraExplosives.Projectiles
 
             }
 
-            //SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/Explosion"));
+            SoundEngine.PlaySound(new SoundStyle("ExtraExplosives/Assets/Sounds/Custom/Explosion"));
 
             //deactivate shaders and stuff
             ExtraExplosives.NukeActive = false;

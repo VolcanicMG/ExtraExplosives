@@ -15,7 +15,6 @@ namespace ExtraExplosives.Projectiles
 
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Follow Rocket");
             Main.projFrames[Projectile.type] = 3;
         }
 
@@ -172,7 +171,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             //Create Bomb Damage
             //ExplosionDamage(10f, projectile.Center, projectile.damage, 20f, projectile.owner);

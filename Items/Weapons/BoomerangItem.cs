@@ -8,13 +8,6 @@ namespace ExtraExplosives.Items.Weapons
 {
     public class BoomerangItem : ExplosiveItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("BOOMerang");
-            /* Tooltip.SetDefault("It's coming back!!\n" +
-                "[c/FF0000:Has a 1/5 chance of damaging you if you don't hit an enemy]"); */
-        }
-
         public override void SafeSetDefaults()
         {
             Item.CloneDefaults(ItemID.EnchantedBoomerang);

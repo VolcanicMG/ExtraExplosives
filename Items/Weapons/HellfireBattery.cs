@@ -19,16 +19,9 @@ namespace ExtraExplosives.Items.Weapons
 
         public static bool homing;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Hellfire Battery");
-            /* Tooltip.SetDefault("'The rocket minigun's older bigger brother'\n" +
-                "Right click to swap between 3 different modes"); */
-        }
-
         public override void SafeSetDefaults()
         {
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
             Item.useAnimation = fireSpeed;
             Item.useTime = fireSpeed;
@@ -36,15 +29,16 @@ namespace ExtraExplosives.Items.Weapons
             Item.width = 78;
             Item.crit = 35;
             Item.height = 42;
-            Item.shoot = 134;
-            //Item.UseSound = Mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Hellfire");
+            // check is this right?
+            Item.shoot = ProjectileID.RocketI;
+            Item.UseSound = new SoundStyle("ExtraExplosives/Assets/Sounds/Item/Hellfire");
             Item.channel = true;
             Item.damage = 250;
             Item.shootSpeed = 13f;
             Item.noMelee = true;
             Item.value = Item.buyPrice(10, 1, 0, 50);
             Item.knockBack = 4f;
-            Item.rare = 11;
+            Item.rare = ItemRarityID.Purple;
             //Item.ranged = true;
         }
 
@@ -103,12 +97,12 @@ namespace ExtraExplosives.Items.Weapons
         {
             if (Main.mouseRight && Main.mouseRightRelease)
             {
-                ////SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                SoundEngine.PlaySound(SoundID.MenuTick, player.position);
                 mode++;
 
                 if (mode == 1)
                 {
-                    //Main.NewText("[c/AC7988:Precision Mode]");
+                    Main.NewText("[c/AC7988:Precision Mode]");
 
                     Item.useAnimation = 50;
                     Item.useTime = 50;
@@ -117,7 +111,7 @@ namespace ExtraExplosives.Items.Weapons
 
                 if (mode == 3)
                 {
-                    //Main.NewText("[c/AC7988:Spread Mode]");
+                    Main.NewText("[c/AC7988:Spread Mode]");
 
                     Item.useAnimation = 6;
                     Item.useTime = 6;
@@ -127,7 +121,7 @@ namespace ExtraExplosives.Items.Weapons
 
                 if (mode == 2)
                 {
-                    //Main.NewText("[c/AC7988:Homing Mode]");
+                    Main.NewText("[c/AC7988:Homing Mode]");
 
                     Item.useAnimation = 12;
                     Item.useTime = 12;
@@ -160,8 +154,8 @@ namespace ExtraExplosives.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<RocketMinigun>(), 1);
-            recipe.AddIngredient(ModContent.ItemType<NovaBuster>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<RocketMinigun>());
+            recipe.AddIngredient(ModContent.ItemType<NovaBuster>());
             recipe.AddIngredient(ItemID.FragmentSolar, 25);
             recipe.AddIngredient(ItemID.FragmentNebula, 25);
             recipe.AddIngredient(ItemID.FragmentStardust, 25);

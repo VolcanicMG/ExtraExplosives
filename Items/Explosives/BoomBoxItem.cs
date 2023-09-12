@@ -31,7 +31,7 @@ namespace ExtraExplosives.Items.Explosives
 
         public override bool? UseItem(Player player)
         {
-            
+            // TODO This probably doesnt work, fix
             return true;
         }
 

@@ -63,7 +63,7 @@ namespace ExtraExplosives.Projectiles
             ExtraExplosivesPlayer mp = Main.player[Projectile.owner].EE();
 
             Vector2 position = Projectile.Center;
-            //SoundEngine.PlaySound(SoundID.Item14, position);
+            SoundEngine.PlaySound(SoundID.Item14, position);
 
             Vector2 vel;
             int spedX;

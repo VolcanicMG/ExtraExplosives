@@ -14,6 +14,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace ExtraExplosives.Items.Explosives
 {
+    // TODO Make this not terrible to look at
     public class BulletBoomItem : ExplosiveItem
     {
         private int _projectileID;
@@ -73,15 +74,6 @@ namespace ExtraExplosives.Items.Explosives
 
         public int GetProjectile() => _projectileID;
 
-
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault(" Bullet Boom");    // Name
-
-            /* Tooltip.SetDefault("'Who said a gun is the only thing that can shoot a bullet?' \n" +
-                               "Blows up upon touching a block."); */
-        }
-
         public override void SafeSetDefaults()
         {
             Item.damage = 30;    //The damage stat for the Weapoon
@@ -89,8 +81,8 @@ namespace ExtraExplosives.Items.Explosives
             Item.height = 20;   //sprite height
             Item.maxStack = 1;   //This defines the items max stack
             Item.consumable = false;  //Tells the game that this should be used up once fired
-            Item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example
-            Item.rare = 8;   //The color the title of your item when hovering over it ingame
+            Item.useStyle = ItemUseStyleID.Swing;   //The way your item will be used, 1 is the regular sword swing for example
+            Item.rare = ItemRarityID.Yellow;   //The color the title of your item when hovering over it ingame
             Item.UseSound = SoundID.Item1; //The sound played when using this item
             Item.useAnimation = 35;  //How long the item is used for.
             Item.useTime = 35;   //How fast the item is used.

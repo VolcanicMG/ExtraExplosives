@@ -5,11 +5,6 @@ namespace ExtraExplosives.Projectiles
 {
     public class MushroomProjectile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("MushroomProjectile");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 12;

@@ -9,11 +9,6 @@ namespace ExtraExplosives.Projectiles.Rockets
 {
     public class Rocket0Point5Projectile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Rocket 0.5");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 20;
@@ -58,7 +53,7 @@ namespace ExtraExplosives.Projectiles.Rockets
         public override void Kill(int timeLeft)
         {
             //Create Bomb Sound
-            //SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
             Projectile.knockBack = 2;  // Since no calling item exists, knockback must be set internally	(Set in Hellfire Rocket Battery)
 

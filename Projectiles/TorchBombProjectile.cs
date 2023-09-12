@@ -11,12 +11,6 @@ namespace ExtraExplosives.Projectiles
         protected override string explodeSoundsLoc => "n/a";
         protected override string goreName => "torch_gore";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Torch Bomb");
-            //Tooltip.SetDefault("");
-        }
-
         public override void SafeSetDefaults()
         {
             Projectile.tileCollide = true; //checks to see if the projectile can go through tiles
@@ -32,7 +26,7 @@ namespace ExtraExplosives.Projectiles
         public override void Kill(int timeLeft)
         {
             Vector2 position = Projectile.Center;
-            //SoundEngine.PlaySound(SoundID.Item14, position);
+            SoundEngine.PlaySound(SoundID.Item14, position);
 
             //Create Bomb Gore
             Vector2 gVel1 = new Vector2(0.0f, -2.0f);
@@ -51,7 +45,7 @@ namespace ExtraExplosives.Projectiles
             {
                 for (y = -height; y < height; y++)
                 {
-                    if (Main.rand.Next(randomChance) == 1)
+                    if (Main.rand.NextBool(randomChance))
                         if (WorldGen.TileEmpty((int)(x + position.X / 16.0f), (int)(y + position.Y / 16.0f)))
                             WorldGen.PlaceTile((int)(x + position.X / 16.0f), (int)(y + position.Y / 16.0f), TileID.Torches, false, false, -1, 0);
                 }

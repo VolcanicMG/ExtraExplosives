@@ -10,9 +10,6 @@ namespace ExtraExplosives.Items.Explosives
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Tornado Bomb");
-            // Tooltip.SetDefault("Spawns in a tornado that sucks up players, enemies, and items");
-
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 5));
         }
 
@@ -24,8 +21,8 @@ namespace ExtraExplosives.Items.Explosives
             Item.height = 20;   //sprite height
             Item.maxStack = 999;   //This defines the items max stack
             Item.consumable = true;  //Tells the game that this should be used up once fired
-            Item.useStyle = 1;   //The way your item will be used, 1 is the regular sword swing for example
-            Item.rare = 1;   //The color the title of your item when hovering over it ingame
+            Item.useStyle = ItemUseStyleID.Swing;   //The way your item will be used, 1 is the regular sword swing for example
+            Item.rare = ItemRarityID.Blue;   //The color the title of your item when hovering over it ingame
             Item.UseSound = SoundID.Item1; //The sound played when using this item
             Item.useAnimation = 70;  //How long the item is used for.
             Item.useTime = 70;
