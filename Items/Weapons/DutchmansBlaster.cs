@@ -13,13 +13,6 @@ namespace ExtraExplosives.Items.Weapons
 {
     public class DutchmansBlaster : ExplosiveWeapon
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Dutchman's Blaster");
-            /* Tooltip.SetDefault("'This belongs on a ship.\n" +
-                               "Sadly, pirates care little for rules.'"); */
-        }
-
         protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/DutchmansBlaster/DutchmansBlaster";
 
         public override void SafeSetDefaults()
@@ -41,14 +34,13 @@ namespace ExtraExplosives.Items.Weapons
             Item.useAmmo = AmmoID.Rocket;
             Item.ArmorPenetration = 5;
 
-            //PrimarySounds = new LegacySoundStyle[4];
-            /*SecondarySounds = null;
+             PrimarySounds = new SoundStyle[4];
+             SecondarySounds = null;
 
-            for (int n = 1; n <= PrimarySounds.Length; n++)
-            {
-                //PrimarySounds[n - 1] =
-                    //Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + n);
-            }*/
+             for (int n = 1; n <= PrimarySounds.Length; n++)
+             {
+                 PrimarySounds[n - 1] = new SoundStyle(SoundLocation + n);
+             }
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -70,8 +62,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-            //(int)player.position.X, (int)player.position.Y);
+            SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)], position);
 
             float speedX = velocity.X;
             float speedY = velocity.Y;

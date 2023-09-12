@@ -12,12 +12,6 @@ namespace ExtraExplosives.Items.Weapons
     {
         private int swapCooldown = 0;
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Blunderboom");
-            // Tooltip.SetDefault("Lead and explosions go well together");
-        }
-
         protected override string SoundLocation { get; } = "ExtraExplosives/Assets/Sounds/Item/Weapons/Blunderboom/Blunderboom";
 
         public override void SafeSetDefaults()
@@ -37,19 +31,17 @@ namespace ExtraExplosives.Items.Weapons
             Item.shootSpeed = 11;
             Item.useAmmo = AmmoID.Bullet;
 
-            /*PrimarySounds = new LegacySoundStyle[4];
-            SecondarySounds = new LegacySoundStyle[4];
+            PrimarySounds = new SoundStyle[4];
+            SecondarySounds = new SoundStyle[4];
 
             for (int n = 1; n <= PrimarySounds.Length; n++)
             {
-                PrimarySounds[n - 1] =
-                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Primary" + n);
+                PrimarySounds[n - 1] = new SoundStyle(SoundLocation + "Primary" + n);
             }
             for (int n = 1; n <= SecondarySounds.Length; n++)
             {
-                SecondarySounds[n - 1] =
-                    Mod.GetLegacySoundSlot(Terraria.ModLoader.SoundType.Item, SoundLocation + "Secondary" + n);
-            }*/
+                SecondarySounds[n - 1] = new SoundStyle(SoundLocation + "Secondary" + n);
+            }
         }
 
         public override void DangerousSetDefaults()
@@ -98,8 +90,7 @@ namespace ExtraExplosives.Items.Weapons
             switch (Item.useAmmo)
             {
                 case 97:    // Bullet
-                            //SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)],
-                    //(int)player.position.X, (int)player.position.Y);
+                    SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)], position);
                     int numberProjectiles = 7;
                     for (int i = 0; i < numberProjectiles; i++)
                     {

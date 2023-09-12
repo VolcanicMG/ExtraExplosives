@@ -7,11 +7,6 @@ namespace ExtraExplosives.Items.Weapons
 {
     public class PrismBomb : ExplosiveItem
     {
-        public override void SetStaticDefaults()
-        {
-            // Tooltip.SetDefault("Explodes into a rainbow prism that damages enemies");
-        }
-
         public override void SafeSetDefaults()
         {
             Item.damage = 250;
@@ -32,7 +27,7 @@ namespace ExtraExplosives.Items.Weapons
             Item.noUseGraphic = true; // Important, it's kind of wired if people see two spears at one time. This prevents the melee animation of this item.
             Item.autoReuse = false; // Most spears don't autoReuse, but it's possible when used in conjunction with CanUseItem()
 
-            Item.shoot = Mod.Find<ModProjectile>("PrismBomb").Type;
+            Item.shoot = ModContent.ProjectileType<Projectiles.PrismBomb.PrismBomb>();
         }
 
         public override void AddRecipes()//whatever the recipe is
