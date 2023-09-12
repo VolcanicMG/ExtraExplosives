@@ -22,9 +22,9 @@ namespace ExtraExplosives
         // Bombard Class stuff	(may need to make setting these on a per client basis)
 
         /// <summary>
-        /// Additional explosive damage
+        /// Additional explosive damage, *Flat Value
         /// </summary>
-        public float DamageBonus { get; set; }
+        public int DamageBonus { get; set; }
 
         /// <summary>
         /// Additional explosive knockback
@@ -594,7 +594,7 @@ namespace ExtraExplosives
                 {
                     return;
                 }
-                else if (ReactivePlating) info.Damage = (int)(info.Damage * 0.9);
+                else if (ReactivePlating) info.Damage = (int)(info.Damage * 0.5);
                 //Main.NewText(damage);
             }
 
@@ -695,7 +695,7 @@ namespace ExtraExplosives
                 DamageMulti += 0.15f;
                 ExplosiveCrit += 10;
             }
-            if (ReactivePlating) DamageBonus += .1f;
+            if (ReactivePlating) DamageBonus += Player.statDefense;
             if (BombardEmblem) DamageMulti += 0.15f;
             if (BombersHat) RadiusMulti += 0.3f;
             if (CertificateOfDemolition) RadiusMulti += 0.5f;
