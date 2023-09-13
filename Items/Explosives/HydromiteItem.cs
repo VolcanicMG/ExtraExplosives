@@ -31,7 +31,7 @@ namespace ExtraExplosives.Items.Explosives
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<BasicExplosiveItem>(), 1);
-            recipe.AddIngredient(ItemID.WaterBucket, 1);
+            recipe.AddIngredient(ItemID.WetBomb, 1);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
