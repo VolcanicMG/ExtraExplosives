@@ -64,8 +64,7 @@ namespace ExtraExplosives.Projectiles
                     {
                         if (WorldGen.TileEmpty((int)(x + position.X / 16.0f), (int)(y + position.Y / 16.0f)))
                         {
-                            //Main.tile[xPosition, yPosition].LiquidType = 0;
-                            Main.tile[xPosition, yPosition].LiquidAmount = 128;
+                            WorldGen.PlaceLiquid(xPosition, yPosition, 0, 122);
                             WorldGen.SquareTileFrame(xPosition, yPosition, true);
                         }
                     }

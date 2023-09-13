@@ -40,9 +40,6 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Sound
             SoundEngine.PlaySound(explodeSounds[Main.rand.Next(explodeSounds.Length)], Projectile.Center);
 
-            //Create Bomb Damage
-            //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
-
             //Create Bomb Explosion
             ExplosionTileDamage();
 
@@ -70,8 +67,7 @@ namespace ExtraExplosives.Projectiles
                     {
                         if (WorldGen.TileEmpty((int)(x + position.X / 16.0f), (int)(y + position.Y / 16.0f)))
                         {
-                            // TODO Main.tile[xPosition, yPosition].LiquidType = 1;
-                            Main.tile[xPosition, yPosition].LiquidAmount = 128;
+                            WorldGen.PlaceLiquid(xPosition, yPosition, 1, 122);
                             WorldGen.SquareTileFrame(xPosition, yPosition, true);
                         }
                     }

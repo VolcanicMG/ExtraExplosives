@@ -36,6 +36,11 @@ namespace ExtraExplosives.Items.Explosives
                                   //item.createTile = mod.TileType("ExplosiveTile");
         }
 
+        public override bool CanUseItem(Player player)
+        {
+            return player.ownedProjectileCounts[Item.shoot] < 1;
+        }
+
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();

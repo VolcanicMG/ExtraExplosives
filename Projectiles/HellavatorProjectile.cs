@@ -46,12 +46,6 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Sound
             SoundEngine.PlaySound(explodeSounds[0]);
 
-            //Create Bomb Damage
-            //ExplosionDamage(5f, projectile.Center, 70, 20, projectile.owner);
-
-            //Create Bomb Explosion
-            //CreateExplosion(projectile.Center, 0);
-
             ExplosionTileDamage();
             ExplosionEntityDamage();
 
@@ -71,6 +65,7 @@ namespace ExtraExplosives.Projectiles
             int width = 3; //Explosion Width for both sides starting from the center
             int height = Main.maxTilesY - 10; //Explosion Height
 
+            //For some reason the multiplayer client needs this
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 return;
@@ -88,24 +83,30 @@ namespace ExtraExplosives.Projectiles
                         Tile tile = Framing.GetTileSafely(i, j);
                         ushort tileP = tile.TileType;
 
-                        if (!CanBreakTile(tileP, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+                        //Checking to make sure we can even mine the tile
+                        if (CanBreakTile(tileP, pickPower))
                         {
-                        }
-                        else //Breakable
-                        {
-                            /*if TODO (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && !TileLoader.IsDresser(Main.tile[i, j - 1].TileType) && Main.tile[i, j - 1].TileType != 26)
+                            //Checking for chest, dresser,etc...
+                            if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && Main.tile[i, j - 1].TileType != 26 && !TileID.Sets.BasicDresser[Main.tile[i, j - 1].TileType])
                             {
                                 tile.ClearTile();
-                                tile.HasTile = false;
 
-                            }*/
+                                if (Main.netMode == NetmodeID.MultiplayerClient)
+                                {
+                                    WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                }
+                            }
+
+                            if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
+                            {
+                                WorldGen.SquareTileFrame(i, j, true);
+                            }
+
                             if (CanBreakWalls) WorldGen.KillWall(i, j, false); //This destroys Walls
                             if (CanBreakWalls && y - 1 != height) WorldGen.KillWall(i + 1, j + 1, false); //Break the last bit of wall
                             NetMessage.SendTileSquare(-1, i, j, 1);
                         }
-
-                        // TODO Main.tile[i, j].LiquidAmount = LiquidID.Water; //This destroys liquids
-                        WorldGen.SquareTileFrame(i, j, true); //Updates Area
                     }
                 }
             }
