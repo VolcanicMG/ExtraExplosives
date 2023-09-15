@@ -29,7 +29,6 @@ namespace ExtraExplosives.Items.Weapons
             Item.width = 78;
             Item.crit = 35;
             Item.height = 42;
-            // check is this right?
             Item.shoot = ProjectileID.RocketI;
             Item.UseSound = new SoundStyle("ExtraExplosives/Assets/Sounds/Item/Hellfire");
             Item.channel = true;
@@ -39,7 +38,6 @@ namespace ExtraExplosives.Items.Weapons
             Item.value = Item.buyPrice(10, 1, 0, 50);
             Item.knockBack = 4f;
             Item.rare = ItemRarityID.Purple;
-            //Item.ranged = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -102,8 +100,6 @@ namespace ExtraExplosives.Items.Weapons
 
                 if (mode == 1)
                 {
-                    Main.NewText("[c/AC7988:Precision Mode]");
-
                     Item.useAnimation = 50;
                     Item.useTime = 50;
                     firemode = "Precision";
@@ -111,8 +107,6 @@ namespace ExtraExplosives.Items.Weapons
 
                 if (mode == 3)
                 {
-                    Main.NewText("[c/AC7988:Spread Mode]");
-
                     Item.useAnimation = 6;
                     Item.useTime = 6;
                     firemode = "Spread";
@@ -121,14 +115,13 @@ namespace ExtraExplosives.Items.Weapons
 
                 if (mode == 2)
                 {
-                    Main.NewText("[c/AC7988:Homing Mode]");
-
                     Item.useAnimation = 12;
                     Item.useTime = 12;
                     firemode = "Homing";
-
                 }
 
+                //Set the combat text to display the fire mode
+                CombatText.NewText(player.getRect(), Microsoft.Xna.Framework.Color.BurlyWood, firemode);
             }
 
         }

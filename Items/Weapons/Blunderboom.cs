@@ -127,6 +127,7 @@ namespace ExtraExplosives.Items.Weapons
                 Explosive = true;
                 //Main.NewText("Loaded with gunpowder");
                 ////SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
+                CombatText.NewText(player.getRect(), Microsoft.Xna.Framework.Color.BurlyWood, "Explosive");
             }
             else
             {
@@ -142,6 +143,7 @@ namespace ExtraExplosives.Items.Weapons
                 // Main.NewText("Loaded with shrapnel");
                 ////SoundEngine.PlaySound(SoundID.MenuTick, (int)player.position.X, (int)player.position.Y);
 
+                CombatText.NewText(player.getRect(), Microsoft.Xna.Framework.Color.BurlyWood, "Shotgun");
             }
             return false;
         }
