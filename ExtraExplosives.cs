@@ -73,10 +73,6 @@ namespace ExtraExplosives
         public static string GithubUserName => "VolcanicMG";
         public static string GithubProjectName => "ExtraExplosives";
 
-        //Mod version checking
-        public static string ModVersion;
-        public static string CurrentVersion;
-
         //Cookbook ui
         internal UserInterface cookbookInterface;
         internal UserInterface buttonInterface;
@@ -102,10 +98,7 @@ namespace ExtraExplosives
         {
             base.Unload();
             //ExtraExplosivesUserInterface = null;
-            ModVersion = null;
             Instance = null;
-            CurrentVersion = null;
-            ModVersion = null;
         }
 
         internal enum EEMessageTypes : byte
@@ -535,8 +528,6 @@ namespace ExtraExplosives
                 Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef3, "Shockwave"), EffectPriority.High);
                 Filters.Scene["Shockwave"].Load();
             }
-
-            ModVersion = "v" + Version.ToString().Trim();
 
             //Health bar
             Mod yabhb = null; //ModLoader.GetMod("FKBossHealthBar");

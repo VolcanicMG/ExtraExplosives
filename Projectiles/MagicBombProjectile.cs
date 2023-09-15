@@ -4,6 +4,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using static ExtraExplosives.GlobalMethods;
 using Terraria.ModLoader;
+using System;
 
 namespace ExtraExplosives.Projectiles
 {
@@ -16,11 +17,14 @@ namespace ExtraExplosives.Projectiles
         {
             Projectile.CloneDefaults(29);
             pickPower = 0;
-            radius = 5;
+            Projectile.timeLeft = 200;
         }
+
         public override void Kill(int timeLeft)
         {
-            Mod.Logger.DebugFormat("Damage {0}", Projectile.damage);
+            //Set the radius
+            radius = (explosionDamage <= 100) ? 5 : (explosionDamage / 50) + 5;
+
             //Create Bomb Sound
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
