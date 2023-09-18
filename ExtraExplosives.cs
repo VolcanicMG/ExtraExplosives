@@ -73,10 +73,6 @@ namespace ExtraExplosives
         public static string GithubUserName => "VolcanicMG";
         public static string GithubProjectName => "ExtraExplosives";
 
-        //Mod version checking
-        public static string ModVersion;
-        public static string CurrentVersion;
-
         //Cookbook ui
         internal UserInterface cookbookInterface;
         internal UserInterface buttonInterface;
@@ -102,10 +98,7 @@ namespace ExtraExplosives
         {
             base.Unload();
             //ExtraExplosivesUserInterface = null;
-            ModVersion = null;
             Instance = null;
-            CurrentVersion = null;
-            ModVersion = null;
         }
 
         internal enum EEMessageTypes : byte
@@ -536,40 +529,6 @@ namespace ExtraExplosives
                 Filters.Scene["Shockwave"].Load();
             }
 
-            ModVersion = "v" + Version.ToString().Trim();
-
-            ////Goes out and grabs the version that the mod browser has
-            //if (CheckForInternetConnection())
-            //{
-            //    //Parsing the data we need
-            //    try
-            //    {
-            //        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            //        using (HttpClient httpClient = new HttpClient())
-            //        {
-            //            string url = "https://raw.githubusercontent.com/VolcanicMG/ExtraExplosives/master/Version.txt";
-            //            HttpResponseMessage response = httpClient.GetAsync(url).Result;
-
-            //            if (response.IsSuccessStatusCode)
-            //            {
-            //                string content = response.Content.ReadAsStringAsync().Result;
-            //                string trimmedContent = content.Trim();
-            //                string currentVersion = "v" + trimmedContent;
-            //                Logger.Info(currentVersion);
-            //            }
-            //            else
-            //            {
-            //                Logger.Error($"Error: {response.StatusCode}");
-            //            }
-            //        }
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Logger.Warn(e);
-            //    }
-            //}
-
-
             //Health bar
             Mod yabhb = null; //ModLoader.GetMod("FKBossHealthBar");
             if (yabhb != null)
@@ -583,22 +542,6 @@ namespace ExtraExplosives
                 //yabhb.Call("hbSetMidBarOffset", 20, 12);
                 //yabhb.Call("hbSetBossHeadCentre", 22, 34);
                 yabhb.Call("hbFinishSingle", ModContent.NPCType<CaptainExplosiveBoss>());
-            }
-        }
-
-        //Added so if the internet is out the client won't crash on loading
-        public static bool CheckForInternetConnection()
-        {
-            try
-            {
-                using (var client = new TcpClient("8.8.8.8", 53))
-                {
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
             }
         }
     }

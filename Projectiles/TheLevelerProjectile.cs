@@ -72,9 +72,6 @@ namespace ExtraExplosives.Projectiles
             //Create Bomb Dust
             CreateDust(Projectile.Center, 700);
 
-            //Create Bomb Damage
-            //ExplosionDamage(20f * 2f, projectile.Center, 450, 40, projectile.owner);
-
             //Create Bomb Explosion
             ExplosionTileDamage();
 
@@ -101,43 +98,38 @@ namespace ExtraExplosives.Projectiles
             {
                 for (x = -width; x < width; x++)
                 {
-                    int xPosition = (int)(x + position.X / 16.0f);
-                    int yPosition = (int)(-y + position.Y / 16.0f);
+                    int i = (int)(x + position.X / 16.0f);
+                    int j = (int)(-y + position.Y / 16.0f);
 
-                    if (!WorldGen.InWorld(xPosition, yPosition)) continue;
+                    if (!WorldGen.InWorld(i, j)) continue;
 
-                    Tile tile = Framing.GetTileSafely(xPosition, yPosition);
+                    Tile tile = Framing.GetTileSafely(i, j);
 
-                    if (WorldGen.InWorld(xPosition, yPosition) && tile.HasTile) //Circle
+                    if (WorldGen.InWorld(i, j) && tile.HasTile) //Circle
                     {
-                        if (!CanBreakTile(tile.TileType, pickPower)) //Unbreakable CheckForUnbreakableTiles(tile) ||
+                        if (CanBreakTile(tile.TileType, pickPower)) //Breakable
                         {
-                        }
-                        else //Breakable
-                        {
-                            /* TODO Dresser fix if (!TileID.Sets.BasicChest[Main.tile[xPosition, yPosition - 1].TileType] && !TileLoader.IsDresser(Main.tile[xPosition, yPosition - 1].TileType) && Main.tile[xPosition, yPosition - 1].TileType != 26)
+                            if (!TileID.Sets.BasicChest[Main.tile[i, j - 1].TileType] && Main.tile[i, j - 1].TileType != 26 && !TileID.Sets.BasicDresser[Main.tile[i, j - 1].TileType])
                             {
-                                tile.ClearTile();
-                                tile.HasTile = false;
+                                WorldGen.KillTile((int)(i), (int)(j), false, false, false);
 
-                            }*/
+                                if (Main.netMode == NetmodeID.MultiplayerClient)
+                                {
+                                    WorldGen.SquareTileFrame(i, j, true); //Updates Area
+                                    NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)i, (float)j, 0f, 0, 0, 0);
+                                }
+                            }
 
                             if (tile.LiquidAmount == LiquidID.Water || tile.LiquidAmount == LiquidID.Lava || tile.LiquidAmount == LiquidID.Honey)
                             {
-                                WorldGen.SquareTileFrame(xPosition, yPosition, true);
-                            }
-
-                            if (Main.netMode == NetmodeID.MultiplayerClient)
-                            {
-                                WorldGen.SquareTileFrame(xPosition, yPosition, true); //Updates Area
-                                NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 2, (float)xPosition, (float)yPosition, 0f, 0, 0, 0);
+                                WorldGen.SquareTileFrame(i, j, true);
                             }
                         }
 
                         if (CanBreakWalls)
                         {
-                            WorldGen.KillWall(xPosition, yPosition, false);
-                            WorldGen.KillWall(xPosition + 1, yPosition + 1, false); //get the last bit
+                            WorldGen.KillWall(i, j, false);
+                            WorldGen.KillWall(i + 1, j + 1, false); //get the last bit
                         }
                     }
                 }

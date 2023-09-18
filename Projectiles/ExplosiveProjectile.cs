@@ -66,7 +66,6 @@ namespace ExtraExplosives.Projectiles
         {
             if (IgnoreTrinkets && !firstTickPreAI)
             {
-                Main.NewText("PreAI");
                 ExtraExplosives.avoidList.Add(this.Projectile.type);
                 ExtraExplosives.avoidList.Distinct().ToList(); //Get rid of dupes because this will add one each time. (Need to find a spot after it gets it's id while loading)
                 firstTickPreAI = true;
@@ -93,7 +92,6 @@ namespace ExtraExplosives.Projectiles
         public virtual void DustEffects(Color color = default, Color color2 = default, int type = 1, bool shake = true, int dustType = 6, ArmorShaderData shader = null)
         {
             ExplosionDust(radius, Projectile.Center, color, color2, type, shake: shake, dustType: dustType, shader: shader);
-
         }
 
         /// <summary>

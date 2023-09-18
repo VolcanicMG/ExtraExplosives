@@ -88,7 +88,7 @@ namespace ExtraExplosives.Items.Weapons
             {
                 case 97:    // Bullet
                     SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)], position);
-                    Projectile.NewProjectile(source, position, new Vector2(speedX, speedY), type, damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, new Vector2(position.X - 2, position.Y - 8), new Vector2(speedX, speedY), type, damage, knockback, player.whoAmI);
                     break;
                 case 771:    // Rocket
                     SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)], position);
@@ -129,6 +129,7 @@ namespace ExtraExplosives.Items.Weapons
                 Item.knockBack = 7;
                 //Main.NewText("Bone Launcher");
                 SoundEngine.PlaySound(SoundID.MenuTick, player.position);
+                CombatText.NewText(player.getRect(), Microsoft.Xna.Framework.Color.BurlyWood, "Grenade");
             }
             else
             {
@@ -141,6 +142,7 @@ namespace ExtraExplosives.Items.Weapons
                 Item.knockBack = 3.5f;
                 // Main.NewText("Bone Rifle");
                 SoundEngine.PlaySound(SoundID.MenuTick, player.position);
+                CombatText.NewText(player.getRect(), Microsoft.Xna.Framework.Color.BurlyWood, "Semi-automatic");
             }
 
             return false;
