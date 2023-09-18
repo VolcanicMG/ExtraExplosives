@@ -6,11 +6,6 @@ namespace ExtraExplosives.Projectiles.Weapons
     {
         private const string ChainTexturePath = "ExtraExplosives/Projectiles/Weapons/MineFlailChain";
 
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Mine Flail");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 22;

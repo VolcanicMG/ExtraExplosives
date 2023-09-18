@@ -51,7 +51,7 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
                     aim = -Vector2.UnitY;
                 }
 
-                //Main.NewText("Spawned from projectile");
+                //wMain.NewText("Spawned from projectile");
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, aim * 10, ProjectileID.Dynamite, 0, 0, 255);
             }
 

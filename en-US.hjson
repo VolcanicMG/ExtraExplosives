@@ -1137,6 +1137,11 @@ Mods: {
 				Tooltip: "'Today's Forcast; Cloudy with a chance of death from above'"
 			}
 
+			MineFlail: {
+				DisplayName: Mine Flail(WIP)
+				Tooltip: Some insane nonsense about how putting a mine on a chain is good business practice...
+			}
+
 			NovaBuster: {
 				DisplayName: Nova Buster
 				Tooltip: 20% Chance to double blast Damage
@@ -1160,6 +1165,16 @@ Mods: {
 			RocketMinigun: {
 				DisplayName: Rocket Minigun
 				Tooltip: Uses up a lot of rockets
+			}
+
+			SilentCricket: {
+				DisplayName: Silent Cricket(WIP)
+				Tooltip: I feel like imma break this damn thing!
+			}
+
+			Snipesploder: {
+				DisplayName: Snipesploder(WIP)
+				Tooltip: Arrows are for chumps
 			}
 
 			TacticalBonerifle: {
@@ -1268,6 +1283,7 @@ Mods: {
 			NovaBusterProjectile.DisplayName: NovaBuster
 			SnipesploderProjectile.DisplayName: Snipesploder
 			TrashCannonProjectile.DisplayName: Garbage
+			SilentCricketProjectile.DisplayName: Silent Cricket Projectile
 		}
 
 		NPCs: {
