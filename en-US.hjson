@@ -885,7 +885,7 @@ Mods: {
 				Tooltip:
 					'''
 					It can be imbued with mana
-					Right Click/Hold to increase its power max +500
+					Right Click/Hold to increase its power. Max: +500
 					'''
 			}
 
