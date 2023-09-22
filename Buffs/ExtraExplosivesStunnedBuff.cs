@@ -11,12 +11,9 @@ namespace ExtraExplosives.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Stunned");
-            // Description.SetDefault("You can't move, attack, or place blocks");
-            Main.debuff[Type] = true;
+            Main.debuff[Type] = false;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = false;
-            //canBeCleared = false;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
@@ -47,13 +44,13 @@ namespace ExtraExplosives.Buffs
 
             if (Main.netMode != NetmodeID.Server) // This all needs to happen client-side!
             {
-                Filters.Scene.Activate("Bang", player.Center).GetShader().UseColor(255, 255, 255).UseOpacity(0.1f);
-                //float progress = 0f;
-                //Filters.Scene["Bang"].GetShader().UseProgress(progress).UseOpacity(0);
+                if(!Filters.Scene["Flashbang"].Active) Filters.Scene.Activate("Flashbang");
+                Filters.Scene["Flashbang"].GetShader().UseIntensity(player.buffTime[buffIndex] / 360f);
+
             }
 
             //add lighting
-            Lighting.AddLight(player.position, new Vector3(255f, 255f, 255f));
+            //Lighting.AddLight(player.position, new Vector3(255f, 255f, 255f));
             //Lighting.maxX = 5;
             //Lighting.maxY = 5;
 

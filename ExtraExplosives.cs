@@ -28,6 +28,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
+using ReLogic.Content;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
@@ -68,10 +69,6 @@ namespace ExtraExplosives
         public static bool firstTick;
         public static float bossDirection;
         public static bool removeUIElements;
-
-        //Github
-        public static string GithubUserName => "VolcanicMG";
-        public static string GithubProjectName => "ExtraExplosives";
 
         //Cookbook ui
         internal UserInterface cookbookInterface;
@@ -506,27 +503,25 @@ namespace ExtraExplosives
             if (Main.netMode != NetmodeID.Server)
             {
                 //load in the shaders
-                Ref<Effect> screenRef = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/Shader").Value); // The path to the compiled shader file.
-                Filters.Scene["Bang"] = new Filter(new ScreenShaderData(screenRef, "Bang"), EffectPriority.VeryHigh); //float4 name
-                Filters.Scene["Bang"].Load();
+                Ref<Effect> screenRef = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/Flashbang", AssetRequestMode.ImmediateLoad).Value); // The path to the compiled shader file.
+                Filters.Scene["Flashbang"] = new Filter(new ScreenShaderData(screenRef, "Flashbang"), EffectPriority.VeryHigh); //float4 name
 
-                Ref<Effect> screenRef2 = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/NukeShader").Value); // The path to the compiled shader file.
+                Ref<Effect> screenRef2 = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/NukeShader", AssetRequestMode.ImmediateLoad).Value); // The path to the compiled shader file.
                 Filters.Scene["BigBang"] = new Filter(new ScreenShaderData(screenRef2, "BigBang"), EffectPriority.VeryHigh); //float4 name
-                Filters.Scene["BigBang"].Load();
 
                 // Hot Potato Shader
-                Ref<Effect> burningScreenFilter = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/HPScreenFilter").Value);
+                Ref<Effect> burningScreenFilter = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/HPScreenFilter", AssetRequestMode.ImmediateLoad).Value);
                 Filters.Scene["BurningScreen"] = new Filter(new ScreenShaderData(burningScreenFilter, "BurningScreen"), EffectPriority.Medium); // Shouldnt override more important shaders
-                Filters.Scene["BurningScreen"].Load();
 
-                //Bomb shader
-                Ref<Effect> bombShader = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/bombshader").Value);
+                // Bomb shader
+                // TODO: -> tModLoader - Shaders registered as MiscShaderData now require float4 uShaderSpecificData; as a parameter
+                //  unsure if this is accurate but something to keep in mind 
+                Ref<Effect> bombShader = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/bombshader", AssetRequestMode.ImmediateLoad).Value);
                 GameShaders.Misc["bombshader"] = new MiscShaderData(bombShader, "BombShader");
 
                 //shockwave
-                Ref<Effect> screenRef3 = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/ShockwaveEffect").Value); // The path to the compiled shader file.
+                Ref<Effect> screenRef3 = new Ref<Effect>(ModContent.Request<Effect>("ExtraExplosives/Effects/ShockwaveEffect", AssetRequestMode.ImmediateLoad).Value); // The path to the compiled shader file.
                 Filters.Scene["Shockwave"] = new Filter(new ScreenShaderData(screenRef3, "Shockwave"), EffectPriority.High);
-                Filters.Scene["Shockwave"].Load();
             }
 
             //Health bar

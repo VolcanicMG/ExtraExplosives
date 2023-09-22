@@ -632,9 +632,9 @@ namespace ExtraExplosives
         public override void PostUpdate()
         {
 
-            if (Main.netMode != NetmodeID.Server && Filters.Scene["Bang"].IsActive() && !Player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
+            if (Main.netMode != NetmodeID.Server && Filters.Scene["Flashbang"].IsActive() && !Player.HasBuff(ModContent.BuffType<ExtraExplosivesStunnedBuff>())) //destroy the filter once the buff has ended
             {
-                Filters.Scene["Bang"].Deactivate();
+                Filters.Scene["Flashbang"].Deactivate();
             }
 
             if (Main.netMode != NetmodeID.Server && Filters.Scene["BigBang"].IsActive() && ExtraExplosives.NukeHit == false)

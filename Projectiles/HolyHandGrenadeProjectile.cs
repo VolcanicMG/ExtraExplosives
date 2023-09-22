@@ -51,7 +51,7 @@ namespace ExtraExplosives.Projectiles
             {
                 if (Main.netMode != NetmodeID.Server && !Filters.Scene["Shockwave"].IsActive())
                 {
-                    //Filters.Scene.Activate("Shockwave", Projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(Projectile.Center);
+                    Filters.Scene.Activate("Shockwave", Projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(Projectile.Center);
                 }
 
                 if (!triggered) //So it only runs once while in AI()
@@ -74,7 +74,7 @@ namespace ExtraExplosives.Projectiles
                 if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
                 {
                     float progress = (timeLeft - Projectile.timeLeft) / 60f;
-                    //Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
+                    Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace ExtraExplosives.Projectiles
         {
             if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
             {
-                //Filters.Scene["Shockwave"].Deactivate();
+                Filters.Scene["Shockwave"].Deactivate();
             }
         }
 

@@ -60,8 +60,6 @@ namespace ExtraExplosives.Projectiles
 
                 Projectile.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
 
-                //soundPlane = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/Custom/Plane"));
-
                 firstTick = true;
             }
 

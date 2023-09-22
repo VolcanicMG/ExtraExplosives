@@ -9,15 +9,6 @@ namespace ExtraExplosives.Items
 {
     public class NukeItem : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("First Strike Controller");
-            /* Tooltip.SetDefault("'OK, buddy, now you've gone too far...'\n" +
-                "First strike capabilites\n" +
-                "Summons a nuke\n" +
-                "[c/AB40FF:Can destroy dungeon bricks, desert fossil, and lihzahrd temple blocks]"); */
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 0;     //The damage stat for the Weapon.
