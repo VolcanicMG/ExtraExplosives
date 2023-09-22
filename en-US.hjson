@@ -1196,6 +1196,15 @@ Mods: {
 					Consumes one rocket per volley
 					'''
 			}
+
+			HotPotatoItem: {
+				DisplayName: Hot Potato (WIP)
+				Tooltip:
+					'''
+					'We don't get it either'
+					Hold the left mouse button to charge
+					'''
+			}
 		}
 
 		Projectiles: {
