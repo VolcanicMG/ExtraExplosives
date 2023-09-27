@@ -57,7 +57,7 @@ namespace ExtraExplosives.Items.Weapons
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-6, 4);
+            return new Vector2(-8, 8);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -67,13 +67,13 @@ namespace ExtraExplosives.Items.Weapons
             float speedX = velocity.X;
             float speedY = velocity.Y;
 
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-            {
-                position += muzzleOffset;
-            }
+            //Spread
+            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
 
-            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<DutchmansBlasterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
+            //Muzzle offset
+            position += Vector2.Normalize(velocity) * 35f; 
+
+            Projectile.NewProjectile(source, new Vector2(position.X, position.Y), perturbedSpeed, ModContent.ProjectileType<DutchmansBlasterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
 
             return false; // return false because we don't want tmodloader to shoot projectile
         }

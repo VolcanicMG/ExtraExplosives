@@ -1,3 +1,4 @@
+using ExtraExplosives.Projectiles.Weapons.TrashCannon;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -42,17 +43,19 @@ namespace ExtraExplosives.Items.Weapons
                 fireSpeed -= 1;
             }
 
+            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
+            speedX = perturbedSpeed.X;
+            speedY = perturbedSpeed.Y;
+
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 56f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
 
-            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
-            speedX = perturbedSpeed.X;
-            speedY = perturbedSpeed.Y;
+            Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
 
-            return true;
+            return false;
         }
 
         public override void HoldItem(Player player)
