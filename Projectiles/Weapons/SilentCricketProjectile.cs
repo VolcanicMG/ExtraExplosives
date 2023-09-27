@@ -23,11 +23,14 @@ public class SilentCricketProjectile : ExplosiveProjectile
         Projectile.friendly = false;
         Projectile.penetrate = -1;
         Projectile.aiStyle = 27;
+        Projectile.extraUpdates = 10;
     }
 
     public override void Kill(int timeLeft)
     {
         SoundEngine.PlaySound(new SoundStyle(explodeSoundsLoc + (Main.rand.Next(2) + 1)), Projectile.Center);
+        
+        DustEffects();
         
         ExplosionEntityDamage();
     }

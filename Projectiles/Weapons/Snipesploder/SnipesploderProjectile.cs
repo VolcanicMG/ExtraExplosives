@@ -21,7 +21,6 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
 
         public override void SetDefaults()
         {
-            Projectile.aiStyle = 1;
             Projectile.timeLeft = 31;
             Projectile.rotation = (float)Math.Atan(Projectile.velocity.Y / Projectile.velocity.X);
         }
@@ -51,8 +50,8 @@ namespace ExtraExplosives.Projectiles.Weapons.Snipesploder
                     aim = -Vector2.UnitY;
                 }
 
-                //wMain.NewText("Spawned from projectile");
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, aim * 10, ProjectileID.Dynamite, 0, 0, 255);
+                int projectile = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, aim * 10, ProjectileID.Dynamite, 0, 0, 255);
+                Main.projectile[projectile].timeLeft = 150;
             }
 
             if ((int)LifeTime > 30)
