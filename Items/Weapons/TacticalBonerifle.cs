@@ -81,29 +81,36 @@ namespace ExtraExplosives.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            //Speed variables (Used because the code hasn't been refractored and should eventually be removed)
             float speedX = velocity.X;
             float speedY = velocity.Y;
+
+            //Muzzle offset
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 10f;
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+                position.Y -= 8;
+            }
+
+            //Spread
+            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5)); // 30 degree spread.
 
             switch (Item.useAmmo)
             {
                 case 97:    // Bullet
                     SoundEngine.PlaySound(PrimarySounds[Main.rand.Next(PrimarySounds.Length)], position);
-                    Projectile.NewProjectile(source, new Vector2(position.X - 2, position.Y - 8), new Vector2(speedX, speedY), type, damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, new Vector2(position.X, position.Y), perturbedSpeed, type, damage, knockback, player.whoAmI);
                     break;
                 case 771:    // Rocket
                     SoundEngine.PlaySound(SecondarySounds[Main.rand.Next(SecondarySounds.Length)], position);
-                    Projectile.NewProjectile(source, position, new Vector2(speedX, speedY), ProjectileID.Grenade, damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, position, perturbedSpeed, ProjectileID.Grenade, damage, knockback, player.whoAmI);
                     break;
                 default:
                     Mod.Logger.InfoFormat("Something went wrong {0}", Item.useAmmo);
                     break;
             }
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 10f;
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-            {
-                position += muzzleOffset;
-                position.Y -= 6;
-            }
+            
             return false;
         }
 

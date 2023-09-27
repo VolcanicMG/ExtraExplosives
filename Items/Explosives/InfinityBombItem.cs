@@ -20,7 +20,7 @@ namespace ExtraExplosives.Items.Explosives
 
         public string growing = "";
         // This will either be based on uses or time alive idk yet
-        
+
         public override void SafeSetDefaults()
         {
             //item.CloneDefaults(167);
@@ -52,6 +52,14 @@ namespace ExtraExplosives.Items.Explosives
             return true;
         }
         */
+
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        {
+            damage *= (float)multiplier;
+
+            //Still do the previous damage calculations
+            base.ModifyWeaponDamage(player, ref damage);
+        }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -85,15 +93,15 @@ namespace ExtraExplosives.Items.Explosives
             {
                 enableGrowth = (enableGrowth) ? false : true;
                 growing = (enableGrowth) ? "" : "not ";
-                Main.NewText($"[c/FF00000:{growing}growing]");
+                CombatText.NewText(player.getRect(), Microsoft.Xna.Framework.Color.Red, $"{growing}growing");
             }
             return false;
         }
 
         public override void SaveData(TagCompound tag)
         {
-                tag.Add(nameof(multiplier), multiplier);
-                tag.Add(nameof(growing), growing);
+            tag.Add(nameof(multiplier), multiplier);
+            tag.Add(nameof(growing), growing);
         }
 
         public override void LoadData(TagCompound tag)

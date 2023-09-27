@@ -50,13 +50,18 @@ namespace ExtraExplosives.Items.Weapons
         {
             float speedX = velocity.X;
             float speedY = velocity.Y;
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
+
+            //Spread
+            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
+
+            //Muzzle offset
+            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 30f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
                 position += muzzleOffset;
             }
 
-            Projectile.NewProjectile(source, position, new Vector2(speedX, speedY), ProjectileID.GrenadeI, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position, perturbedSpeed, ProjectileID.GrenadeI, damage, knockback, player.whoAmI);
             return false;
         }
 

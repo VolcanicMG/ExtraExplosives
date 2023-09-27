@@ -58,6 +58,10 @@ namespace ExtraExplosives.Items.Weapons
             float speedX = velocity.X;
             float speedY = velocity.Y;
 
+            //Spread
+            Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
+
+            //Muzzle offset
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
@@ -66,11 +70,11 @@ namespace ExtraExplosives.Items.Weapons
 
             if (Main.rand.NextFloat() < .2f)
             {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti) * 2, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), perturbedSpeed, ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti) * 2, knockback, player.whoAmI);
             }
             else
             {
-                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), new Vector2(speedX, speedY), ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
+                Projectile.NewProjectile(source, new Vector2(position.X, position.Y), perturbedSpeed, ModContent.ProjectileType<NovaBusterProjectile>(), (int)((damage + player.EE().DamageBonus) * player.EE().DamageMulti), knockback, player.whoAmI);
             }
 
             return false;
